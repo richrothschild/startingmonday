@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T03:01:50.806Z
+Last generated: 2026-06-07T03:59:30.453Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (184)
+## Features (185)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -115,6 +115,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Blog / Why starting monday exists | /blog/why-starting-monday-exists | User-facing page route /blog/why-starting-monday-exists.
 - Feature Career tools | /career-tools | User-facing page route /career-tools.
 - Feature Coaches guide | /coaches-guide | User-facing page route /coaches-guide.
+- Feature Coaches / Mock dashboard | /coaches/mock-dashboard | User-facing page route /coaches/mock-dashboard.
 - Feature Coaches | /coaches | User-facing page route /coaches.
 - Feature Coaches / Personas | /coaches/personas | User-facing page route /coaches/personas.
 - Feature Concierge | /concierge | User-facing page route /concierge.
@@ -453,7 +454,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (196)
+## Codebase Modules (197)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -536,6 +537,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/narrative-health.test.ts | src/lib/narrative-health.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/narrative-health.ts | src/lib/narrative-health.ts | export type NarrativeHealthInput = {
+- Code src/lib/narrative-page-types.ts | src/lib/narrative-page-types.ts | export interface NarrativePainItem {
 - Code src/lib/onboarding-speed.test.ts | src/lib/onboarding-speed.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-speed.ts | src/lib/onboarding-speed.ts | export type OnboardingChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/onboarding-video-provider.test.ts | src/lib/onboarding-video-provider.test.ts | import { describe, expect, it } from 'vitest'

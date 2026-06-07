@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T03:01:50.806Z",
+  "generatedAt": "2026-06-07T03:59:30.453Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T02:59:15.226Z"
+      "lastModifiedAt": "2026-06-07T03:01:50.820Z"
     },
     {
       "id": "feature:/login",
@@ -698,7 +698,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.465Z"
+      "lastModifiedAt": "2026-06-07T03:45:30.176Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -1401,6 +1401,20 @@
       "lastModifiedAt": "2026-06-06T16:52:15.747Z"
     },
     {
+      "id": "feature:/coaches/mock-dashboard",
+      "title": "Feature Coaches / Mock dashboard",
+      "body": "User-facing page route /coaches/mock-dashboard.",
+      "type": "feature",
+      "ref": "/coaches/mock-dashboard",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-07T03:57:09.485Z"
+    },
+    {
       "id": "feature:/coaches",
       "title": "Feature Coaches",
       "body": "User-facing page route /coaches.",
@@ -1412,7 +1426,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T03:01:05.032Z"
+      "lastModifiedAt": "2026-06-07T03:57:09.485Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -2406,7 +2420,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T02:59:15.122Z"
+      "lastModifiedAt": "2026-06-07T03:45:30.175Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -3953,7 +3967,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.592Z"
+      "lastModifiedAt": "2026-06-07T03:45:30.176Z"
     },
     {
       "id": "api:/api/auth/oauth-start",
@@ -6905,6 +6919,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.042Z"
+    },
+    {
+      "id": "code:src/lib/narrative-page-types.ts",
+      "title": "Code src/lib/narrative-page-types.ts",
+      "body": "export interface NarrativePainItem {",
+      "type": "code",
+      "ref": "src/lib/narrative-page-types.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-07T03:58:35.537Z"
     },
     {
       "id": "code:src/lib/onboarding-speed.test.ts",
@@ -15707,7 +15734,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T02:59:15.225Z"
+      "lastModifiedAt": "2026-06-07T03:01:50.820Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -15746,7 +15773,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T02:59:15.226Z"
+      "lastModifiedAt": "2026-06-07T03:01:50.820Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18996,7 +19023,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T03:01:33.670Z"
+      "lastModifiedAt": "2026-06-07T03:59:09.655Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
