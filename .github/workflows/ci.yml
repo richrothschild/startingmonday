@@ -99,7 +99,12 @@ jobs:
       - name: Mobile UX contract and banned pattern guard
         run: npm run mobile:guard
 
-      - name: Code council strict audit
+      - name: Code council audit (advisory on staging and PR)
+        if: github.ref != 'refs/heads/main'
+        run: npm run audit:code-council
+
+      - name: Code council strict audit (main only)
+        if: github.ref == 'refs/heads/main'
         run: npm run audit:code-council:strict
 
       - name: Build

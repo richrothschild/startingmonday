@@ -37,7 +37,32 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Detect Drive configuration
+        id: drive_config
+        env:
+          GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          GDRIVE_SHARED_DRIVE_ID: ${{ secrets.GDRIVE_SHARED_DRIVE_ID }}
+          GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_ROOT_FOLDER_ID }}
+        run: |
+          if [ -n "$GDRIVE_SERVICE_ACCOUNT_JSON" ] && [ -n "$GDRIVE_SHARED_DRIVE_ID" ] && [ -n "$GDRIVE_ROOT_FOLDER_ID" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip mirror on non-main when Drive config is missing
+        if: steps.drive_config.outputs.configured != 'true' && github.ref != 'refs/heads/main'
+        run: |
+          echo "Drive sync skipped: secrets are not configured for this branch/ref."
+
+      - name: Require Drive config on main
+        if: steps.drive_config.outputs.configured != 'true' && github.ref == 'refs/heads/main'
+        run: |
+          echo "Drive sync requires GDRIVE_SERVICE_ACCOUNT_JSON, GDRIVE_SHARED_DRIVE_ID, and GDRIVE_ROOT_FOLDER_ID on main."
+          exit 1
+
       - name: Validate Drive configuration
+        if: steps.drive_config.outputs.configured == 'true'
         env:
           GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
           GDRIVE_SHARED_DRIVE_ID: ${{ secrets.GDRIVE_SHARED_DRIVE_ID }}
@@ -57,6 +82,7 @@ jobs:
           fi
 
       - name: Sync docs to Drive
+        if: steps.drive_config.outputs.configured == 'true'
         env:
           GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
           GDRIVE_SHARED_DRIVE_ID: ${{ secrets.GDRIVE_SHARED_DRIVE_ID }}
