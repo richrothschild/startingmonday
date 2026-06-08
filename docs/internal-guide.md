@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-07T22:56:22.536Z
+Last generated: 2026-06-08T00:53:21.369Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -205,7 +205,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (254)
+## API Surface (255)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -352,6 +352,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/commitment-friday | src/app/api/cron/commitment-friday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/commitment-sunday | src/app/api/cron/commitment-sunday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/drip | src/app/api/cron/drip/route.ts | Activation drip schedule: days since trial start -> content key
+- API /api/cron/edgar-freshness-audit | src/app/api/cron/edgar-freshness-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/executive-research-refresh | src/app/api/cron/executive-research-refresh/route.ts | export const runtime = 'nodejs'
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
@@ -818,7 +819,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (133)
+## Data and Migrations (134)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -926,6 +927,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/105_briefs_section_name.sql | supabase/migrations/105_briefs_section_name.sql | -- Add section_name to briefs so per-section prep brief ratings can be tracked by section
 - Migration supabase/migrations/106_briefs_type_check_prep_section.sql | supabase/migrations/106_briefs_type_check_prep_section.sql | -- Add prep_section to the briefs type check constraint
 - Migration supabase/migrations/107_company_signals_enrichment.sql | supabase/migrations/107_company_signals_enrichment.sql | -- Signal enrichment metadata for prep-context inference and auditability.
+- Migration supabase/migrations/107_sec_ingestion_tracker.sql | supabase/migrations/107_sec_ingestion_tracker.sql | -- SEC ingestion observability and freshness alert state.
 - Migration supabase/migrations/108_google_calendar_sync.sql | supabase/migrations/108_google_calendar_sync.sql | create table if not exists public.google_calendar_integrations (
 - Migration supabase/migrations/109_idea_submissions.sql | supabase/migrations/109_idea_submissions.sql | -- Public idea submissions table for the /ideas page
 - Migration supabase/migrations/109_micro_product_back_office.sql | supabase/migrations/109_micro_product_back_office.sql | -- Sprint 4: micro-product back office foundation
