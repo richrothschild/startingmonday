@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:30:13.782Z",
+  "generatedAt": "2026-06-08T13:58:16.185Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T03:29:53.548Z"
+      "lastModifiedAt": "2026-06-08T13:32:19.376Z"
     },
     {
       "id": "feature:/login",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T03:29:53.429Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.971Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -2434,7 +2434,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.859Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.972Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -4620,7 +4620,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T13:26:13.891Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.971Z"
     },
     {
       "id": "api:/api/cron/executive-research-refresh",
@@ -4841,7 +4841,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T13:25:57.250Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.970Z"
     },
     {
       "id": "api:/api/cron/weekly-digest",
@@ -4932,7 +4932,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T03:29:53.429Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.970Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -10184,7 +10184,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T03:29:53.423Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.970Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10613,7 +10613,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T03:29:53.424Z"
+      "lastModifiedAt": "2026-06-08T13:56:31.971Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -16237,7 +16237,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T03:29:53.547Z"
+      "lastModifiedAt": "2026-06-08T13:32:19.375Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16276,7 +16276,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T03:29:53.548Z"
+      "lastModifiedAt": "2026-06-08T13:32:19.376Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16991,7 +16991,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.105Z"
+      "lastModifiedAt": "2026-06-08T13:56:35.326Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -19630,7 +19630,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T13:30:11.492Z"
+      "lastModifiedAt": "2026-06-08T13:58:13.956Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
