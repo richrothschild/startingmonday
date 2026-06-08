@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T01:47:36.032Z
+Last generated: 2026-06-08T01:59:50.720Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -825,7 +825,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (136)
+## Data and Migrations (137)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -962,8 +962,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql | supabase/migrations/130_executive_brief_grill_me_protocol.sql | -- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.
 - Migration supabase/migrations/131_discovery_recommendation_runs.sql | supabase/migrations/131_discovery_recommendation_runs.sql | -- Persist discovery recommendation runs and item narratives for linked detail views.
 - Migration supabase/migrations/132_monitoring_alert_state.sql | supabase/migrations/132_monitoring_alert_state.sql | create table if not exists public.monitoring_alert_state (
+- Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 
-## Documentation (546)
+## Documentation (547)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1161,6 +1162,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md | docs/development/migration-rollbacks/127_stripe_webhook_events.md | 127_stripe_webhook_events rollback
 - Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | 131_discovery_recommendation_runs rollback
 - Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
+- Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication

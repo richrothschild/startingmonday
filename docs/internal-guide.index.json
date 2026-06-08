@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T01:47:36.032Z",
+  "generatedAt": "2026-06-08T01:59:50.720Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T00:54:53.375Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
     },
     {
       "id": "feature:/login",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.175Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -3736,7 +3736,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:39:33.802Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.176Z"
     },
     {
       "id": "api:/api/admin/executive-research/health",
@@ -4529,7 +4529,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:39:33.722Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.177Z"
     },
     {
       "id": "api:/api/cron/commitment-friday",
@@ -4607,7 +4607,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:39:33.591Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.177Z"
     },
     {
       "id": "api:/api/cron/executive-research-refresh",
@@ -4919,7 +4919,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
+      "lastModifiedAt": "2026-06-08T01:58:28.248Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -6713,7 +6713,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:39:00.569Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
     },
     {
       "id": "code:src/lib/enrichment/index.ts",
@@ -6726,7 +6726,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:39:00.569Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
     },
     {
       "id": "code:src/lib/enrichment/types.ts",
@@ -6739,7 +6739,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
     },
     {
       "id": "code:src/lib/events.test.ts",
@@ -12490,7 +12490,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.180Z"
     },
     {
       "id": "data:supabase/migrations/132_monitoring_alert_state.sql",
@@ -12504,7 +12504,21 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.180Z"
+    },
+    {
+      "id": "data:supabase/migrations/133_recommendation_ranking_metadata.sql",
+      "title": "Migration supabase/migrations/133_recommendation_ranking_metadata.sql",
+      "body": "alter table if exists public.company_recommendations",
+      "type": "data",
+      "ref": "supabase/migrations/133_recommendation_ranking_metadata.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T01:58:33.937Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15052,7 +15066,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:45:38.829Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.174Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/132_monitoring_alert_state.md",
@@ -15065,7 +15079,20 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:45:38.860Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.174Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md",
+      "title": "Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md",
+      "body": "133_recommendation_ranking_metadata rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T01:58:38.984Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -15325,7 +15352,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.174Z"
     },
     {
       "id": "doc:docs/epic-ui-ux-no-disruption-remediation.md",
@@ -16118,7 +16145,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T00:54:53.374Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16157,7 +16184,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T00:54:53.375Z"
+      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19472,7 +19499,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:47:16.236Z"
+      "lastModifiedAt": "2026-06-08T01:59:29.138Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
