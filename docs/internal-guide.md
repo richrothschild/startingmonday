@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T14:17:54.798Z
+Last generated: 2026-06-08T14:19:02.292Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
