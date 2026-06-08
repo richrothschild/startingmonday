@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-08T02:03:30.639Z
+Last generated: 2026-06-08T02:39:32.923Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -187,7 +187,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (258)
+## API and Automation (259)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -339,6 +339,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/cron/edgar-freshness-audit](/api/cron/edgar-freshness-audit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/edgar-signals](/api/cron/edgar-signals) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/edgar-watchdog](/api/cron/edgar-watchdog) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/enrichment-contact-retention](/api/cron/enrichment-contact-retention) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/executive-research-refresh](/api/cron/executive-research-refresh) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.

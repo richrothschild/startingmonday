@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T02:03:33.001Z",
+  "generatedAt": "2026-06-08T02:39:35.109Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
+      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
     },
     {
       "id": "feature:/login",
@@ -180,7 +180,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.393Z"
+      "lastModifiedAt": "2026-06-08T02:32:02.993Z"
     },
     {
       "id": "feature:/dashboard/admin/intelligence/qa",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T02:02:24.486Z"
+      "lastModifiedAt": "2026-06-08T02:11:04.687Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -4451,7 +4451,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T02:02:30.615Z"
+      "lastModifiedAt": "2026-06-08T02:11:04.687Z"
     },
     {
       "id": "api:/api/concierge-waitlist",
@@ -4503,7 +4503,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.629Z"
+      "lastModifiedAt": "2026-06-08T02:31:36.218Z"
     },
     {
       "id": "api:/api/conversation",
@@ -4608,6 +4608,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-08T01:48:54.177Z"
+    },
+    {
+      "id": "api:/api/cron/enrichment-contact-retention",
+      "title": "API /api/cron/enrichment-contact-retention",
+      "body": "export const runtime = 'nodejs'",
+      "type": "api",
+      "ref": "src/app/api/cron/enrichment-contact-retention/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-08T02:11:04.689Z"
     },
     {
       "id": "api:/api/cron/executive-research-refresh",
@@ -4919,7 +4932,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T02:02:15.880Z"
+      "lastModifiedAt": "2026-06-08T02:31:31.101Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -6765,7 +6778,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T02:02:08.716Z"
+      "lastModifiedAt": "2026-06-08T02:31:27.702Z"
     },
     {
       "id": "code:src/lib/executive-brief-knowledge.ts",
@@ -12518,7 +12531,21 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-08T01:58:33.937Z"
+      "lastModifiedAt": "2026-06-08T02:11:04.687Z"
+    },
+    {
+      "id": "data:supabase/migrations/134_contact_enrichment_governance.sql",
+      "title": "Migration supabase/migrations/134_contact_enrichment_governance.sql",
+      "body": "alter table if exists public.contacts",
+      "type": "data",
+      "ref": "supabase/migrations/134_contact_enrichment_governance.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T02:11:04.688Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -12675,6 +12702,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:14.938Z"
+    },
+    {
+      "id": "doc:docs/apollo-enrichment-compliance-runbook.md",
+      "title": "Doc docs/apollo-enrichment-compliance-runbook.md",
+      "body": "Apollo Enrichment Compliance Runbook",
+      "type": "doc",
+      "ref": "docs/apollo-enrichment-compliance-runbook.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T02:11:04.690Z"
     },
     {
       "id": "doc:docs/architecture.md",
@@ -15092,7 +15132,20 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:58:38.984Z"
+      "lastModifiedAt": "2026-06-08T02:11:04.687Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/134_contact_enrichment_governance.md",
+      "title": "Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md",
+      "body": "134_contact_enrichment_governance rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/134_contact_enrichment_governance.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T02:11:04.689Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -15966,6 +16019,19 @@
       "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
+      "id": "doc:docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md",
+      "title": "Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md",
+      "body": "Target Company Intelligence Governance Signoff",
+      "type": "doc",
+      "ref": "docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T02:32:07.831Z"
+    },
+    {
       "id": "doc:docs/growth-metrics-gate.latest.md",
       "title": "Doc docs/growth-metrics-gate.latest.md",
       "body": "Growth Metrics Gate",
@@ -16145,7 +16211,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
+      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16184,7 +16250,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
+      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19499,7 +19565,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:03:30.644Z"
+      "lastModifiedAt": "2026-06-08T02:39:32.926Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
