@@ -14,7 +14,7 @@ export async function sendEmail({
   bcc,
   headers,
 }: {
-  to: string
+  to: string | string[]
   subject: string
   html: string
   channel?: EmailCouncilChannel
@@ -23,6 +23,7 @@ export async function sendEmail({
   bcc?: string
   headers?: Record<string, string>
 }) {
+  const toLog = Array.isArray(to) ? to.join(', ') : to
   const issues = reviewEmail(subject, html)
   if (issues.length) {
     console.warn(JSON.stringify({
@@ -45,7 +46,7 @@ export async function sendEmail({
 
   if (!refined.passesAfterRefine) {
     await logEmailCouncilScore({
-      to,
+      to: toLog,
       channel: channel ?? 'general',
       subject: refined.refinedSubject,
       scores: refined.evaluation.scores,
@@ -58,7 +59,7 @@ export async function sendEmail({
     console.error(JSON.stringify({
       ts: new Date().toISOString(),
       event: 'email_send_blocked_by_council',
-      to,
+      to: toLog,
       channel: channel ?? 'general',
       subject,
       message,
@@ -72,7 +73,7 @@ export async function sendEmail({
   }
 
   await logEmailCouncilScore({
-    to,
+    to: toLog,
     channel: channel ?? 'general',
     subject: refined.refinedSubject,
     scores: refined.evaluation.scores,
