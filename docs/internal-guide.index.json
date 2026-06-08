@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T02:39:35.109Z",
+  "generatedAt": "2026-06-08T03:27:41.266Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.244Z"
     },
     {
       "id": "feature:/login",
@@ -180,7 +180,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T02:32:02.993Z"
+      "lastModifiedAt": "2026-06-08T03:13:46.398Z"
     },
     {
       "id": "feature:/dashboard/admin/intelligence/qa",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T02:11:04.687Z"
+      "lastModifiedAt": "2026-06-08T03:22:58.035Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -4503,7 +4503,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T02:31:36.218Z"
+      "lastModifiedAt": "2026-06-08T03:13:46.398Z"
     },
     {
       "id": "api:/api/conversation",
@@ -4620,7 +4620,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T02:11:04.689Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.069Z"
     },
     {
       "id": "api:/api/cron/executive-research-refresh",
@@ -4932,7 +4932,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T02:31:31.101Z"
+      "lastModifiedAt": "2026-06-08T03:22:52.610Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -6778,7 +6778,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T02:31:27.702Z"
+      "lastModifiedAt": "2026-06-08T03:13:46.397Z"
     },
     {
       "id": "code:src/lib/executive-brief-knowledge.ts",
@@ -8978,6 +8978,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.323Z"
     },
     {
+      "id": "script:scripts/check-mobile-elite-visual-gate.mjs",
+      "title": "Script scripts/check-mobile-elite-visual-gate.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-mobile-elite-visual-gate.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T03:20:22.734Z"
+    },
+    {
       "id": "script:scripts/check-mobile-production-thresholds.mjs",
       "title": "Script scripts/check-mobile-production-thresholds.mjs",
       "body": "eslint-disable-next-line no-await-in-loop",
@@ -9183,7 +9196,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T16:52:32.840Z"
+      "lastModifiedAt": "2026-06-08T03:20:22.734Z"
     },
     {
       "id": "script:scripts/check-variant-null-rate-alerts.mjs",
@@ -9794,7 +9807,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T16:52:32.842Z"
+      "lastModifiedAt": "2026-06-08T03:20:22.735Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -9807,7 +9820,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T16:52:15.359Z"
+      "lastModifiedAt": "2026-06-08T03:20:22.735Z"
     },
     {
       "id": "script:scripts/precommit-outreach-lint.mjs",
@@ -10171,7 +10184,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:11:05.851Z"
+      "lastModifiedAt": "2026-06-08T03:22:20.183Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10600,7 +10613,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:14.835Z"
+      "lastModifiedAt": "2026-06-08T03:22:22.566Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -12545,7 +12558,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-08T02:11:04.688Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.069Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -12714,7 +12727,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:11:04.690Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.065Z"
     },
     {
       "id": "doc:docs/architecture.md",
@@ -15145,7 +15158,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:11:04.689Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.066Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -16019,6 +16032,19 @@
       "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
+      "id": "doc:docs/governance/no-drift-protected-route-matrix-2026-06-07.md",
+      "title": "Doc docs/governance/no-drift-protected-route-matrix-2026-06-07.md",
+      "body": "No-Drift Protected Route Matrix",
+      "type": "doc",
+      "ref": "docs/governance/no-drift-protected-route-matrix-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T03:20:22.735Z"
+    },
+    {
       "id": "doc:docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md",
       "title": "Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md",
       "body": "Target Company Intelligence Governance Signoff",
@@ -16029,7 +16055,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:32:07.831Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.130Z"
     },
     {
       "id": "doc:docs/growth-metrics-gate.latest.md",
@@ -16211,7 +16237,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.207Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16250,7 +16276,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:03:33.015Z"
+      "lastModifiedAt": "2026-06-08T02:41:04.244Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18151,6 +18177,45 @@
       "lastModifiedAt": "2026-06-06T16:52:15.148Z"
     },
     {
+      "id": "doc:docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md",
+      "title": "Doc docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md",
+      "body": "90-Day Jira Epic: Competitive Positioning Strengthening",
+      "type": "doc",
+      "ref": "docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T03:13:46.398Z"
+    },
+    {
+      "id": "doc:docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md",
+      "title": "Doc docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md",
+      "body": "Leadership Brief: Strengthening Starting Monday Position",
+      "type": "doc",
+      "ref": "docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T03:13:46.398Z"
+    },
+    {
+      "id": "doc:docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md",
+      "title": "Doc docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md",
+      "body": "Partner Pilot Playbook: Coaches and Outplacement",
+      "type": "doc",
+      "ref": "docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T03:13:46.399Z"
+    },
+    {
       "id": "doc:docs/strategy/email-council-humanity-feedback-2026-05-26.md",
       "title": "Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md",
       "body": "Email Council Humanity Feedback - 2026-05-26",
@@ -19565,7 +19630,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T02:39:32.926Z"
+      "lastModifiedAt": "2026-06-08T03:26:55.013Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
