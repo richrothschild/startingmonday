@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T13:58:16.185Z
+Last generated: 2026-06-08T14:19:02.292Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -670,7 +670,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (118)
+## Internal Scripts (119)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -738,6 +738,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
 - Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/guide-freshness-needed.mjs | scripts/guide-freshness-needed.mjs | #!/usr/bin/env node
 - Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
 - Script scripts/guide-query-analytics-weekly.mjs | scripts/guide-query-analytics-weekly.mjs | #!/usr/bin/env node
 - Script scripts/hero-dual-track-council-audit.mjs | scripts/hero-dual-track-council-audit.mjs | #!/usr/bin/env node
@@ -967,7 +968,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (554)
+## Documentation (555)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -991,6 +992,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/business-plan-working.md | docs/business-plan-working.md | Starting Monday Working Business Plan (Execution Version)
 - Doc docs/business-plan.md | docs/business-plan.md | Starting Monday — Business Plan
 - Doc docs/campaign-standard.md | docs/campaign-standard.md | The Campaign Standard
+- Doc docs/chris-slack-summary-2026-06-08.md | docs/chris-slack-summary-2026-06-08.md | Starting Monday: 3-Day Summary for Chris
 - Doc docs/chris-vscode-workspace-setup.md | docs/chris-vscode-workspace-setup.md | Chris Setup Guide: Match Rich's VS Code Workspace
 - Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
 - Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign

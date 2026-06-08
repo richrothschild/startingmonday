@@ -4,15 +4,37 @@ set -e
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
 
-echo "guide freshness checks..."
-if ! npm run guide:user:check; then
-	echo "user-guide is stale. run: npm run guide:user:sync && git add docs/user-guide.*"
-	exit 1
-fi
+guide_checks_required=false
+while read local_ref local_sha remote_ref remote_sha
+do
+	case "$remote_sha" in
+		0000000000000000000000000000000000000000)
+			guide_checks_required=true
+			;;
+		*)
+			changed_files=$(git diff --name-only "$remote_sha" "$local_sha" 2>/dev/null || true)
+			if [ -n "$changed_files" ] && printf '%s\n' "$changed_files" | node scripts/guide-freshness-needed.mjs | grep -qx yes; then
+				guide_checks_required=true
+			fi
+			;;
+	esac
+done
 
-if ! npm run guide:internal:check; then
-	echo "internal-guide is stale. run: npm run guide:internal:sync && git add docs/internal-guide.* docs/internal-system-summary.md"
-	exit 1
+if [ "$guide_checks_required" = true ]; then
+	echo "guide freshness checks..."
+	if ! npm run guide:user:check; then
+		echo "user-guide is stale. run: npm run guide:user:sync && git add docs/user-guide.*"
+		exit 1
+	fi
+
+	if ! npm run guide:internal:check; then
+		echo "internal-guide is stale. run: npm run guide:internal:sync && git add docs/internal-guide.* docs/internal-system-summary.md"
+		exit 1
+	fi
+
+	echo "guide freshness checks... ran because pushed commits touched guide inputs"
+else
+	echo "guide freshness checks... skipped (no guide inputs changed)"
 fi
 
 echo "growth council gate..."

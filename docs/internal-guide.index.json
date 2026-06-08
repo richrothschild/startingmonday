@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:58:16.185Z",
+  "generatedAt": "2026-06-08T14:19:02.292Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T13:32:19.376Z"
+      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
     },
     {
       "id": "feature:/login",
@@ -6544,7 +6544,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:32.862Z"
+      "lastModifiedAt": "2026-06-08T14:17:40.540Z"
     },
     {
       "id": "code:src/lib/cron-auth.ts",
@@ -6557,7 +6557,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:32.863Z"
+      "lastModifiedAt": "2026-06-08T14:17:40.534Z"
     },
     {
       "id": "code:src/lib/database.types.test.ts",
@@ -9509,6 +9509,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.346Z"
+    },
+    {
+      "id": "script:scripts/guide-freshness-needed.mjs",
+      "title": "Script scripts/guide-freshness-needed.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/guide-freshness-needed.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T14:11:51.208Z"
     },
     {
       "id": "script:scripts/guide-generate-eval-candidates.mjs",
@@ -12858,6 +12871,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-07T13:53:40.738Z"
+    },
+    {
+      "id": "doc:docs/chris-slack-summary-2026-06-08.md",
+      "title": "Doc docs/chris-slack-summary-2026-06-08.md",
+      "body": "Starting Monday: 3-Day Summary for Chris",
+      "type": "doc",
+      "ref": "docs/chris-slack-summary-2026-06-08.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T14:13:37.443Z"
     },
     {
       "id": "doc:docs/chris-vscode-workspace-setup.md",
@@ -16237,7 +16263,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T13:32:19.375Z"
+      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16276,7 +16302,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T13:32:19.376Z"
+      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
