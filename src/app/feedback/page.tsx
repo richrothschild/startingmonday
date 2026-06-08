@@ -1,6 +1,8 @@
 'use client'
 import { useState, Suspense } from 'react'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { SiteFooter } from '@/components/SiteFooter'
 
 const PROMPT_STARTERS = [
   'The signal timing helped me prioritize where to spend my outreach time.',
@@ -128,10 +130,38 @@ function FeedbackForm() {
 
 export default function FeedbackPage() {
   return (
-    <div className="min-h-screen bg-[radial-gradient(120%_140%_at_100%_0%,#dbeafe_0%,#e2e8f0_45%,#f8fafc_100%)] font-sans flex items-center justify-center px-4 py-10">
-      <Suspense>
-        <FeedbackForm />
-      </Suspense>
+    <div className="min-h-screen bg-slate-950 font-sans text-white">
+      <nav className="sticky top-0 z-10 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </Link>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
+            >
+              Back to dashboard
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
+            >
+              Start now
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      <div className="bg-[radial-gradient(120%_140%_at_100%_0%,#dbeafe_0%,#e2e8f0_45%,#f8fafc_100%)] px-4 py-10">
+        <div className="mx-auto flex min-h-[calc(100vh-200px)] items-center justify-center">
+          <Suspense>
+            <FeedbackForm />
+          </Suspense>
+        </div>
+      </div>
+
+      <SiteFooter />
     </div>
   )
 }

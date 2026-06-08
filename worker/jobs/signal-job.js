@@ -28,6 +28,7 @@ import {
 } from '../signals/signal-meta.js'
 import { getJobCheckpoint, saveJobCheckpoint, clearJobCheckpoint } from '../lib/job-checkpoint.js'
 import { enqueueHeavyJob, processHeavyJobs } from '../lib/heavy-job-queue.js'
+import { startSecIngestionRun, finishSecIngestionRun } from '../lib/sec-ingestion-tracker.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -292,8 +293,21 @@ export async function runSignalJob() {
 
           // SEC EDGAR 8-K filings — exec changes, acquisitions, bankruptcy, material events
           // Passing supabase+companyId also indexes all 8-K filings for trend detection below.
-          const secArticles = await fetchSecFilings(company.name, { supabase, companyId: company.id })
-          for (const article of secArticles) {
+          const secRun = await startSecIngestionRun(supabase, {
+            source: 'signal-job',
+            companyId: company.id,
+            companyName: company.name,
+            companyCik: company.sec_cik_padded ?? null,
+            metadata: {
+              userId: user.id,
+              roleType,
+            },
+          })
+
+          const secResult = await fetchSecFilings(company.name, { supabase, companyId: company.id })
+          let secSignalsEmitted = 0
+
+          for (const article of secResult.articles) {
             const result = await classifySignal(company.name, article, roleType)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
             if (!result.signal_type || !result.signal_summary) continue
@@ -314,9 +328,25 @@ export async function runSignalJob() {
             })
             if (!skipped) {
               signalsFound++
+              secSignalsEmitted++
               logger.info('signal-job: SEC filing signal', { company: company.name, type: result.signal_type })
             }
           }
+
+          await finishSecIngestionRun(supabase, secRun.runId, {
+            status: secResult.fetchError ? 'error' : 'success',
+            filingsConsidered: secResult.indexStats.filingsConsidered,
+            filingsIndexed: secResult.indexStats.filingsIndexed,
+            secArticles: secResult.articles.length,
+            signalsEmitted: secSignalsEmitted,
+            latestFilingDate: secResult.indexStats.latestFilingDate,
+            latestIngestedAt: secResult.indexStats.latestIngestedAt,
+            errorMessage: secResult.fetchError,
+            metadata: {
+              userId: user.id,
+              companyName: company.name,
+            },
+          })
 
           // SEC 8-K trend detection — cross-filing pattern analysis from indexed history
           const secTrend = await detectSecTrends(supabase, company.id, company.name, roleType)
