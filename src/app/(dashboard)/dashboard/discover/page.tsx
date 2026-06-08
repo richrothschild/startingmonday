@@ -4,10 +4,21 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
 type DiscoveryCompany = {
+  id?: string
+  narrativeUrl?: string
   name: string
   sector: string
   why: string
   fit: number
+  keySignals?: string[]
+  keyAttributes?: string[]
+  suggestedPeople?: Array<{
+    name: string
+    title: string
+    reason: string
+    source: 'anthropic' | 'apollo' | 'fallback'
+    confidence: number
+  }>
 }
 
 function fitBadge(fit: number) {
@@ -54,7 +65,7 @@ export default function DiscoverPage() {
       const res = await fetch('/api/companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit }),
+        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit, source: 'discover_card' }),
       })
       if (res.ok || res.status === 409) {
         setAdded(prev => new Set([...prev, co.name]))
@@ -210,6 +221,14 @@ export default function DiscoverPage() {
                       {co.sector}
                     </div>
                     <p className="text-[13px] text-slate-600 leading-relaxed flex-1 mb-4">{co.why}</p>
+                    {co.narrativeUrl && (
+                      <Link
+                        href={co.narrativeUrl}
+                        className="mb-3 inline-block text-[12px] font-semibold text-slate-700 hover:text-slate-900 underline"
+                      >
+                        Why this company and who to contact &rarr;
+                      </Link>
+                    )}
                     <button
                       onClick={() => handleAdd(co)}
                       disabled={isAdded || isAdding}
