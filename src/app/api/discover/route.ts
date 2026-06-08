@@ -5,12 +5,88 @@ import { isRateLimited } from '@/lib/api-usage'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace, recordTraceError } from '@/lib/trace'
+import { getEnrichmentProvider, type SuggestedPerson } from '@/lib/enrichment'
 
 export type DiscoveryCompany = {
+  id?: string
+  narrativeUrl?: string
   name: string
   sector: string
   why: string
   fit: number
+  keySignals?: string[]
+  keyAttributes?: string[]
+  suggestedPeople?: SuggestedPerson[]
+}
+
+type RawDiscoveryCompany = {
+  name?: unknown
+  sector?: unknown
+  why?: unknown
+  fit?: unknown
+  keySignals?: unknown
+  keyAttributes?: unknown
+  suggestedPeople?: unknown
+}
+
+const REQUESTED_COUNT = 20
+const RESPONSE_COUNT = 12
+
+function clampFit(value: number): number {
+  if (!Number.isFinite(value)) return 6
+  return Math.max(1, Math.min(10, Math.round(value)))
+}
+
+function normalizeList(value: unknown, fallback: string[]): string[] {
+  if (!Array.isArray(value)) return fallback
+  const next = value
+    .filter((item): item is string => typeof item === 'string')
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 4)
+  return next.length > 0 ? next : fallback
+}
+
+function normalizePeople(value: unknown): SuggestedPerson[] {
+  if (!Array.isArray(value)) return []
+  return value
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null
+      const candidate = item as { name?: unknown; title?: unknown; reason?: unknown; source?: unknown; confidence?: unknown }
+      if (typeof candidate.name !== 'string' || typeof candidate.title !== 'string') return null
+      const source = candidate.source === 'apollo' || candidate.source === 'fallback' ? candidate.source : 'anthropic'
+      const confidence = typeof candidate.confidence === 'number'
+        ? Math.max(0.2, Math.min(0.99, candidate.confidence))
+        : 0.68
+      return {
+        name: candidate.name.trim(),
+        title: candidate.title.trim(),
+        reason: typeof candidate.reason === 'string' && candidate.reason.trim().length > 0
+          ? candidate.reason.trim()
+          : 'Likely high-leverage stakeholder based on role and company context.',
+        source,
+        confidence,
+      } satisfies SuggestedPerson
+    })
+    .filter((person): person is SuggestedPerson => Boolean(person))
+    .slice(0, 3)
+}
+
+function normalizeCandidate(raw: RawDiscoveryCompany): DiscoveryCompany | null {
+  if (typeof raw.name !== 'string' || typeof raw.sector !== 'string' || typeof raw.why !== 'string') {
+    return null
+  }
+
+  const fit = typeof raw.fit === 'number' ? raw.fit : Number(raw.fit)
+  return {
+    name: raw.name.trim(),
+    sector: raw.sector.trim(),
+    why: raw.why.trim(),
+    fit: clampFit(fit),
+    keySignals: normalizeList(raw.keySignals, ['Recent leadership-relevant growth signal']),
+    keyAttributes: normalizeList(raw.keyAttributes, ['Role scope likely aligned to senior operator profile']),
+    suggestedPeople: normalizePeople(raw.suggestedPeople),
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -90,18 +166,29 @@ export async function POST(request: NextRequest) {
     ? 'They are targeting board seats or advisory roles.'
     : ''
 
-  const prompt = `You are helping a senior executive build their job search target list. Suggest 12 companies they should watch.
+  const prompt = `You are helping a senior executive build their job search target list. Suggest ${REQUESTED_COUNT} companies they should watch.
 
 CANDIDATE
 Titles/targets: ${targetTitles}${personaNote ? `\n${personaNote}` : ''}${sectors}${positioning}${seedNote}${exclusionNote}
 
-Return a JSON array of exactly 12 objects:
+Return a JSON array of exactly ${REQUESTED_COUNT} objects:
 [
   {
     "name": "Company Name",
     "sector": "Short sector label (e.g. Enterprise Software, Healthcare, Financial Services)",
     "why": "One specific sentence: why this company is a strong fit for this candidate at this level right now. Reference something real and current about the company.",
-    "fit": 8
+    "fit": 8,
+    "keySignals": ["2-4 concise signals indicating why now"],
+    "keyAttributes": ["2-4 concise attributes that match this candidate"],
+    "suggestedPeople": [
+      {
+        "name": "Person name",
+        "title": "Most relevant title",
+        "reason": "Why this person is useful for outreach",
+        "source": "anthropic",
+        "confidence": 0.71
+      }
+    ]
   }
 ]
 
@@ -110,6 +197,8 @@ Rules:
 - why: be specific. Name what the company is navigating, what makes it a fit, what the role might be. Not generic ("great culture", "growing company").
 - Mix sizes: well-known companies and under-the-radar organizations
 - Include companies plausibly hiring at this level in the next 12-18 months
+- keySignals and keyAttributes: arrays with 2-4 concise bullets each
+- suggestedPeople: 1-3 people, prefer role placeholders if a specific name is uncertain
 - Sort by fit descending
 - Return only the JSON array, no explanation, no markdown fences`
 
@@ -124,7 +213,124 @@ Rules:
 
     const raw = message.content[0].type === 'text' ? message.content[0].text.trim() : '[]'
     const cleaned = raw.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim()
-    const parsed: DiscoveryCompany[] = JSON.parse(cleaned)
+    const parsed = JSON.parse(cleaned) as unknown
+    const parsedList = Array.isArray(parsed) ? parsed : []
+    const normalized = parsedList
+      .map((item) => normalizeCandidate((item ?? {}) as RawDiscoveryCompany))
+      .filter((item): item is DiscoveryCompany => Boolean(item))
+
+    const seen = new Set(normalized.map((item) => item.name.toLowerCase()))
+    if (normalized.length < RESPONSE_COUNT) {
+      const needed = RESPONSE_COUNT - normalized.length
+      const { data: fallbackRows } = await supabase
+        .from('reference_companies')
+        .select('name, industries')
+        .limit(needed * 4)
+
+      for (const row of ((fallbackRows ?? []) as Array<{ name: string | null; industries: string[] | null }>)) {
+        const fallbackName = (row.name ?? '').trim()
+        if (!fallbackName) continue
+        const lowered = fallbackName.toLowerCase()
+        if (seen.has(lowered) || existingNames.includes(lowered)) continue
+        seen.add(lowered)
+        normalized.push({
+          name: fallbackName,
+          sector: row.industries?.[0] ?? 'General',
+          why: 'Included as a reference-company fallback to maintain a robust recommendation set.',
+          fit: 6,
+          keySignals: ['Reference catalog presence indicates market relevance'],
+          keyAttributes: ['Fallback recommendation pending deeper personalization'],
+          suggestedPeople: [],
+        })
+        if (normalized.length >= RESPONSE_COUNT) break
+      }
+    }
+
+    const provider = getEnrichmentProvider()
+    const withEnrichment = await Promise.all(
+      normalized.slice(0, REQUESTED_COUNT).map(async (candidate) => {
+        if ((candidate.suggestedPeople?.length ?? 0) >= 1) return candidate
+        const enrichedPeople = await provider.enrichPeople({
+          companyName: candidate.name,
+          sector: candidate.sector,
+          persona: persona || undefined,
+        })
+        return {
+          ...candidate,
+          suggestedPeople: enrichedPeople.slice(0, 3),
+        }
+      }),
+    )
+
+    const sorted = withEnrichment
+      .sort((a, b) => b.fit - a.fit)
+      .slice(0, REQUESTED_COUNT)
+
+    const runSource = provider.providerName === 'apollo' ? 'mixed' : 'anthropic'
+    let persistedRows: Array<{
+      id: string
+      rank: number
+      name: string
+      sector: string
+      why: string
+      fit: number
+      key_signals: string[]
+      key_attributes: string[]
+      suggested_people: SuggestedPerson[]
+    }> | null = null
+
+    const { data: runRow } = await (supabase as any)
+      .from('company_recommendation_runs')
+      .insert({
+        user_id: userId,
+        source: runSource,
+        seed_companies: seeds,
+        prompt_version: 'discover-v2',
+        requested_count: REQUESTED_COUNT,
+        returned_count: sorted.length,
+      })
+      .select('id')
+      .single()
+
+    if ((runRow as { id?: string } | null)?.id) {
+      await (supabase as any)
+        .from('company_recommendations')
+        .insert(
+          sorted.map((item, index) => ({
+            run_id: (runRow as { id: string }).id,
+            user_id: userId,
+            rank: index + 1,
+            name: item.name,
+            sector: item.sector,
+            why: item.why,
+            fit: item.fit,
+            key_signals: item.keySignals ?? [],
+            key_attributes: item.keyAttributes ?? [],
+            suggested_people: item.suggestedPeople ?? [],
+            source: (item.suggestedPeople?.some((p) => p.source === 'apollo') ?? false) ? 'mixed' : runSource,
+            confidence: Math.max(0.2, Math.min(0.99, item.fit / 10)),
+          })),
+        )
+
+      const { data: topRows } = await (supabase as any)
+        .from('company_recommendations')
+        .select('id, rank, name, sector, why, fit, key_signals, key_attributes, suggested_people')
+        .eq('run_id', (runRow as { id: string }).id)
+        .order('rank', { ascending: true })
+        .limit(RESPONSE_COUNT)
+
+      persistedRows = topRows as Array<{
+        id: string
+        rank: number
+        name: string
+        sector: string
+        why: string
+        fit: number
+        key_signals: string[]
+        key_attributes: string[]
+        suggested_people: SuggestedPerson[]
+      }> | null
+    }
 
     recordTrace({
       supabase, userId,
@@ -137,7 +343,33 @@ Rules:
       outputSnapshot: raw.slice(0, 500),
     })
 
-    return NextResponse.json(Array.isArray(parsed) ? parsed.slice(0, 12) : [])
+    if (persistedRows) {
+      return NextResponse.json(
+        persistedRows.map((row) => ({
+          id: row.id,
+          name: row.name,
+          sector: row.sector,
+          why: row.why,
+          fit: row.fit,
+          keySignals: row.key_signals,
+          keyAttributes: row.key_attributes,
+          suggestedPeople: row.suggested_people,
+          narrativeUrl: `/dashboard/discover/recommendation/${row.id}`,
+        })),
+      )
+    }
+
+    return NextResponse.json(
+      sorted.slice(0, RESPONSE_COUNT).map((item) => ({
+        name: item.name,
+        sector: item.sector,
+        why: item.why,
+        fit: item.fit,
+        keySignals: item.keySignals ?? [],
+        keyAttributes: item.keyAttributes ?? [],
+        suggestedPeople: item.suggestedPeople ?? [],
+      })),
+    )
   } catch (err) {
     recordTraceError({ feature: 'discovery', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json([], { status: 500 })
