@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T20:51:11.597Z
+Last generated: 2026-06-08T21:00:05.414Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -968,7 +968,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (555)
+## Documentation (554)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1394,7 +1394,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
-- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
