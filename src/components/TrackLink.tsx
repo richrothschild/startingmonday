@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import { usePostHog } from 'posthog-js/react'
 import type { ComponentPropsWithoutRef } from 'react'
 import { withDeterministicVariant } from '@/lib/experiment-variants'
 
@@ -11,16 +10,8 @@ type Props = ComponentPropsWithoutRef<typeof Link> & {
 }
 
 export function TrackLink({ event, properties, onClick, children, logToUserEvents = false, ...props }: Props) {
-  const ph = usePostHog()
-
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    const enrichedProperties = withDeterministicVariant(properties, ph?.get_distinct_id?.())
-
-    try {
-      ph?.capture(event, enrichedProperties)
-    } catch {
-      // never block navigation
-    }
+    const enrichedProperties = withDeterministicVariant(properties, null)
 
     if (logToUserEvents) {
       try {

@@ -14,13 +14,49 @@ export async function GET(request: NextRequest) {
   const admin = createAdminClient() as any
   const nowIso = new Date().toISOString()
 
-  const { data: rows, error } = await admin
+  let rows: Array<{
+    id: string
+    user_id: string
+    name: string | null
+    enrichment_source: string | null
+    enrichment_retention_expires_at: string | null
+    status?: string | null
+  }> | null = null
+
+  let error: { message?: string; code?: string } | null = null
+
+  const primaryQuery = await admin
     .from('contacts')
     .select('id, user_id, name, enrichment_source, enrichment_retention_expires_at, status')
     .in('enrichment_source', ['apollo', 'anthropic'])
     .lte('enrichment_retention_expires_at', nowIso)
     .eq('status', 'active')
     .limit(500)
+
+  rows = primaryQuery.data
+  error = primaryQuery.error
+
+  if (error && /column .*status/i.test(error.message ?? '')) {
+    const retryQuery = await admin
+      .from('contacts')
+      .select('id, user_id, name, enrichment_source, enrichment_retention_expires_at')
+      .in('enrichment_source', ['apollo', 'anthropic'])
+      .lte('enrichment_retention_expires_at', nowIso)
+      .limit(500)
+    rows = retryQuery.data
+    error = retryQuery.error
+  }
+
+  if (error && /column .*enrichment_retention_expires_at/i.test(error.message ?? '')) {
+    return NextResponse.json({
+      ok: true,
+      dryRun,
+      dueCount: 0,
+      archivedCount: 0,
+      skipped: true,
+      warning: 'contacts.enrichment_retention_expires_at missing; cleanup skipped',
+    })
+  }
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
@@ -37,7 +73,9 @@ export async function GET(request: NextRequest) {
   }
 
   const ids = due.map((row: { id: string }) => row.id)
-  const { error: updateError } = await admin
+  let updateError: { message?: string } | null = null
+
+  const primaryUpdate = await admin
     .from('contacts')
     .update({
       status: 'archived',
@@ -45,6 +83,18 @@ export async function GET(request: NextRequest) {
       updated_at: nowIso,
     })
     .in('id', ids)
+  updateError = primaryUpdate.error
+
+  if (updateError && /column .*updated_at/i.test(updateError.message ?? '')) {
+    const retryUpdate = await admin
+      .from('contacts')
+      .update({
+        status: 'archived',
+        enrichment_deleted_at: nowIso,
+      })
+      .in('id', ids)
+    updateError = retryUpdate.error
+  }
 
   if (updateError) {
     return NextResponse.json({ error: updateError.message }, { status: 500 })
