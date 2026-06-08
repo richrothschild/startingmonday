@@ -32,6 +32,16 @@ type RawDiscoveryCompany = {
 const REQUESTED_COUNT = 20
 const RESPONSE_COUNT = 12
 
+type RankedCandidate = DiscoveryCompany & {
+  rankingScore: number
+  rankingBreakdown: {
+    fit: number
+    peopleCoverage: number
+    signalDepth: number
+    attributeDepth: number
+  }
+}
+
 function clampFit(value: number): number {
   if (!Number.isFinite(value)) return 6
   return Math.max(1, Math.min(10, Math.round(value)))
@@ -87,6 +97,62 @@ function normalizeCandidate(raw: RawDiscoveryCompany): DiscoveryCompany | null {
     keyAttributes: normalizeList(raw.keyAttributes, ['Role scope likely aligned to senior operator profile']),
     suggestedPeople: normalizePeople(raw.suggestedPeople),
   }
+}
+
+function scoreCandidate(candidate: DiscoveryCompany): RankedCandidate {
+  const fit = Math.max(0, Math.min(1, candidate.fit / 10))
+  const peopleCoverage = Math.max(0, Math.min(1, (candidate.suggestedPeople?.length ?? 0) / 3))
+  const signalDepth = Math.max(0, Math.min(1, (candidate.keySignals?.length ?? 0) / 4))
+  const attributeDepth = Math.max(0, Math.min(1, (candidate.keyAttributes?.length ?? 0) / 4))
+
+  // Deterministic ranking components: fit remains dominant while depth and outreach
+  // coverage improve ordering among similarly scored companies.
+  const rankingScore = Number((fit * 0.65 + peopleCoverage * 0.15 + signalDepth * 0.1 + attributeDepth * 0.1).toFixed(4))
+
+  return {
+    ...candidate,
+    rankingScore,
+    rankingBreakdown: {
+      fit,
+      peopleCoverage,
+      signalDepth,
+      attributeDepth,
+    },
+  }
+}
+
+function applyDiversityGuardrails(candidates: RankedCandidate[], count: number): RankedCandidate[] {
+  const sectorCap = count <= RESPONSE_COUNT ? 3 : 5
+  const byScore = [...candidates].sort((a, b) => {
+    if (b.rankingScore !== a.rankingScore) return b.rankingScore - a.rankingScore
+    if (b.fit !== a.fit) return b.fit - a.fit
+    return a.name.localeCompare(b.name)
+  })
+
+  const sectorCounts = new Map<string, number>()
+  const selected: RankedCandidate[] = []
+  const overflow: RankedCandidate[] = []
+
+  for (const candidate of byScore) {
+    if (selected.length >= count) break
+    const key = candidate.sector.trim().toLowerCase() || 'general'
+    const current = sectorCounts.get(key) ?? 0
+    if (current < sectorCap) {
+      selected.push(candidate)
+      sectorCounts.set(key, current + 1)
+    } else {
+      overflow.push(candidate)
+    }
+  }
+
+  if (selected.length < count) {
+    for (const candidate of overflow) {
+      if (selected.length >= count) break
+      selected.push(candidate)
+    }
+  }
+
+  return selected
 }
 
 export async function POST(request: NextRequest) {
@@ -262,9 +328,8 @@ Rules:
       }),
     )
 
-    const sorted = withEnrichment
-      .sort((a, b) => b.fit - a.fit)
-      .slice(0, REQUESTED_COUNT)
+    const ranked = withEnrichment.map(scoreCandidate)
+    const sorted = applyDiversityGuardrails(ranked, REQUESTED_COUNT)
 
     const runSource = provider.providerName === 'apollo' ? 'mixed' : 'anthropic'
     let persistedRows: Array<{
@@ -309,6 +374,12 @@ Rules:
             suggested_people: item.suggestedPeople ?? [],
             source: (item.suggestedPeople?.some((p) => p.source === 'apollo') ?? false) ? 'mixed' : runSource,
             confidence: Math.max(0.2, Math.min(0.99, item.fit / 10)),
+            metadata: {
+              ranking: {
+                score: item.rankingScore,
+                breakdown: item.rankingBreakdown,
+              },
+            },
           })),
         )
 
