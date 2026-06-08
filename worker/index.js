@@ -39,6 +39,7 @@ import { runIdeasMonthlyJob } from './jobs/ideas-monthly-job.js'
 import { runEdgarFreshnessAuditJob } from './jobs/edgar-freshness-audit-job.js'
 import { runEdgarWatchdogJob } from './jobs/edgar-watchdog-job.js'
 import { runApolloQualityAuditJob } from './jobs/apollo-quality-audit-job.js'
+import { runEnrichmentContactRetentionJob } from './jobs/enrichment-contact-retention-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -247,6 +248,9 @@ cron.schedule('10 * * * *', () => runJob('edgar-watchdog-job', runEdgarWatchdogJ
 // Apollo recommendation quality audit: every 6 hours - validates error rate and enrichment quality signals.
 cron.schedule('20 */6 * * *', () => runJob('apollo-quality-audit-job', runApolloQualityAuditJob))
 
+// Provider-derived contact retention cleanup: daily at 13:00 UTC.
+cron.schedule('0 13 * * *', () => runJob('enrichment-contact-retention-job', runEnrichmentContactRetentionJob))
+
 // Briefing: every 5 minutes — job checks each user's timezone, time, and days
 cron.schedule('*/5 * * * *', () => runJob('briefing-job', runBriefingJob))
 
@@ -340,7 +344,7 @@ cron.schedule('0 9 1 * *', () => runJob('ideas-monthly-job', runIdeasMonthlyJob)
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'edgar-freshness-audit-job', 'edgar-watchdog-job', 'apollo-quality-audit-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'edgar-freshness-audit-job', 'edgar-watchdog-job', 'apollo-quality-audit-job', 'enrichment-contact-retention-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
 bootPhase = 'ready'
 

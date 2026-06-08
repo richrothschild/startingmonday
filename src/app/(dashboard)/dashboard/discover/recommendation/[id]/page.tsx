@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { SuggestedPerson } from '@/lib/enrichment'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
+import { RecommendationActions } from './recommendation-actions'
 
 function fitBadge(fit: number) {
   if (fit >= 8) return 'bg-green-100 text-green-800'
@@ -111,7 +112,17 @@ export default async function RecommendationDetailPage({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {people.map((person) => (
                   <div key={`${person.name}-${person.title}`} className="border border-slate-200 rounded-lg p-3 bg-slate-50">
-                    <div className="text-[14px] font-semibold text-slate-900">{person.name}</div>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="text-[14px] font-semibold text-slate-900">{person.name}</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded">
+                          {person.source}
+                        </span>
+                        <span className="text-[10px] font-semibold text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded">
+                          {Math.round((person.confidence ?? 0) * 100)}%
+                        </span>
+                      </div>
+                    </div>
                     <div className="text-[12px] text-slate-500 mb-1">{person.title}</div>
                     <div className="text-[13px] text-slate-600">{person.reason}</div>
                   </div>
@@ -120,20 +131,11 @@ export default async function RecommendationDetailPage({
             )}
           </section>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href="/dashboard/discover"
-              className="text-center text-[13px] font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded transition-colors"
-            >
-              Back to recommendations
-            </Link>
-            <Link
-              href={`/dashboard/companies/new?name=${encodeURIComponent(row.name)}&sector=${encodeURIComponent(row.sector ?? '')}&fit=${row.fit ?? 6}&source=discover_recommendation_detail`}
-              className="text-center text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-4 py-2.5 rounded transition-colors"
-            >
-              Add company to watchlist
-            </Link>
-          </div>
+          <RecommendationActions
+            companyName={row.name}
+            sector={row.sector ?? ''}
+            suggestedPeople={people}
+          />
         </div>
       </main>
     </div>
