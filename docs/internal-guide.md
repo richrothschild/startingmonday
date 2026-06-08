@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T02:03:33.001Z
+Last generated: 2026-06-08T02:39:35.109Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -205,7 +205,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (258)
+## API Surface (259)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -357,6 +357,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/cron/edgar-freshness-audit | src/app/api/cron/edgar-freshness-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/edgar-watchdog | src/app/api/cron/edgar-watchdog/route.ts | export const runtime = 'nodejs'
+- API /api/cron/enrichment-contact-retention | src/app/api/cron/enrichment-contact-retention/route.ts | export const runtime = 'nodejs'
 - API /api/cron/executive-research-refresh | src/app/api/cron/executive-research-refresh/route.ts | export const runtime = 'nodejs'
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
@@ -825,7 +826,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (137)
+## Data and Migrations (138)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -963,8 +964,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/131_discovery_recommendation_runs.sql | supabase/migrations/131_discovery_recommendation_runs.sql | -- Persist discovery recommendation runs and item narratives for linked detail views.
 - Migration supabase/migrations/132_monitoring_alert_state.sql | supabase/migrations/132_monitoring_alert_state.sql | create table if not exists public.monitoring_alert_state (
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
+- Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (547)
+## Documentation (550)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -977,6 +979,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/ap-style-compliance-checklist.md | docs/ap-style-compliance-checklist.md | AP Style Compliance Checklist
 - Doc docs/ap-style-policy.md | docs/ap-style-policy.md | AP Style Compliance Policy
 - Doc docs/ap-style-quick-reference.md | docs/ap-style-quick-reference.md | AP Style Quick Reference for Outreach and Guides
+- Doc docs/apollo-enrichment-compliance-runbook.md | docs/apollo-enrichment-compliance-runbook.md | Apollo Enrichment Compliance Runbook
 - Doc docs/architecture.md | docs/architecture.md | Starting Monday — System Architecture
 - Doc docs/article-submission-targets.md | docs/article-submission-targets.md | Article Submission Targets: Executive Coach Audience
 - Doc docs/automation-guide.md | docs/automation-guide.md | Starting Monday Automation Guide
@@ -1163,6 +1166,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | 131_discovery_recommendation_runs rollback
 - Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
 - Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
+- Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
@@ -1230,6 +1234,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
 - Doc docs/governance/docs-governance.md | docs/governance/docs-governance.md | Documentation Governance
+- Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | Target Company Intelligence Governance Signoff
 - Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
 - Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
 - Doc docs/growth/synthetic-growth-council.md | docs/growth/synthetic-growth-council.md | Synthetic Growth Council Charter
