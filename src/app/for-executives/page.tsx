@@ -113,8 +113,8 @@ export default function ForExecutivesPage() {
       <h1 className="sr-only">Starting Monday for executives pursuing C-suite and board-level roles</h1>
       <LandingPage
         hero={{
-          eyebrow: 'C-suite and board-level roles are shaped before they are obvious.',
-          h1Lines: ['Operate at executive altitude', 'before the market catches up.'],
+          eyebrow: 'Become the executive they shape the role for.',
+          h1Lines: ['Lead at executive altitude', 'before the shortlist hardens.'],
           body: 'Starting Monday gives you a repeatable operating system to win stronger executive conversations, protect role-fit quality, and shorten time to the right mandate.',
           steps: [
             'Define a mandate-level narrative that makes your next seat obvious to decision-makers.',

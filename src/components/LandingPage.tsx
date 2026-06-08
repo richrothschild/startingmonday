@@ -97,6 +97,52 @@ const EXECUTIVE_GETS = [
   },
 ]
 
+const EXECUTIVE_FEATURE_MATRIX = [
+  {
+    feature: 'Executive signal intelligence',
+    whatYouGet: 'Track role-shaping movement before a mandate is publicly obvious.',
+    whyItMatters: 'You enter while the role is still being defined, not after the shortlist is crowded.',
+  },
+  {
+    feature: 'Audience-specific narrative system',
+    whatYouGet: 'One core story adapted for board members, search partners, CHROs, and executive peers.',
+    whyItMatters: 'You stay consistent while still sounding precise for each decision-maker.',
+  },
+  {
+    feature: 'Interview and objection preparation',
+    whatYouGet: 'Role-specific prep prompts, risk framing, and likely objection rehearsal.',
+    whyItMatters: 'You reduce unforced errors in high-stakes conversations and increase next-step conversion.',
+  },
+  {
+    feature: 'Weekly operating cadence',
+    whatYouGet: 'A repeatable weekly loop for targets, outreach, follow-up, and decision review.',
+    whyItMatters: 'Momentum compounds instead of resetting every time your calendar gets busy.',
+  },
+]
+
+const EXECUTIVE_DIFFERENTIATORS = [
+  {
+    category: 'Timing advantage',
+    startingMonday: 'Built for pre-posting signal detection and early relationship entry.',
+    otherTools: 'Optimized for posted jobs after demand is already concentrated.',
+  },
+  {
+    category: 'Narrative quality',
+    startingMonday: 'Mandate-level narrative tuned for multiple executive audiences.',
+    otherTools: 'Resume/profile optimization oriented toward broad applicant pools.',
+  },
+  {
+    category: 'Execution model',
+    startingMonday: 'Weekly operating system with accountability to outcomes.',
+    otherTools: 'Task lists and alerts without a strategic executive cadence.',
+  },
+  {
+    category: 'Conversation readiness',
+    startingMonday: 'Preparation workflows for recruiter, board, and C-suite dialogue.',
+    otherTools: 'Generic interview tips that rarely map to executive mandate discussions.',
+  },
+]
+
 const HOME_BLUF_SECTIONS = [
   {
     title: 'Be the person that shapes the role',
@@ -366,6 +412,45 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 See how an interview brief works in 60 seconds →
               </Link>
             </div>
+
+            {isExecutivesPage && (
+              <section className="rounded-lg border border-slate-700 bg-slate-950/50 p-5 sm:p-6 mb-6" aria-labelledby="executive-differentiation-title">
+                <div className="flex flex-col gap-2 mb-5">
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300">Executive platform capabilities</p>
+                  <h2 id="executive-differentiation-title" className="text-[22px] sm:text-[24px] font-bold text-white leading-snug">
+                    Everything important in one operating view.
+                  </h2>
+                  <p className="text-[14px] text-slate-300 leading-relaxed max-w-3xl">
+                    Starting Monday is designed for executive-transition behavior: earlier timing, sharper mandate narrative, and disciplined weekly execution.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
+                  {EXECUTIVE_FEATURE_MATRIX.map((item) => (
+                    <article key={item.feature} className="rounded-md border border-slate-700 bg-slate-900/80 p-4">
+                      <p className="text-[13px] font-semibold text-white mb-2">{item.feature}</p>
+                      <p className="text-[12px] text-slate-300 leading-relaxed mb-2">{item.whatYouGet}</p>
+                      <p className="text-[12px] text-emerald-200 leading-relaxed">{item.whyItMatters}</p>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="rounded-md border border-slate-700 bg-slate-900/70 overflow-hidden">
+                  <div className="grid grid-cols-1 sm:grid-cols-[1.2fr_1fr_1fr] border-b border-slate-700 text-[11px] font-bold tracking-[0.08em] uppercase">
+                    <p className="px-4 py-3 text-slate-300">Decision area</p>
+                    <p className="px-4 py-3 text-emerald-200 border-t sm:border-t-0 sm:border-l border-slate-700">Starting Monday</p>
+                    <p className="px-4 py-3 text-slate-400 border-t sm:border-t-0 sm:border-l border-slate-700">Typical job products</p>
+                  </div>
+                  {EXECUTIVE_DIFFERENTIATORS.map((row) => (
+                    <div key={row.category} className="grid grid-cols-1 sm:grid-cols-[1.2fr_1fr_1fr] border-b last:border-b-0 border-slate-700">
+                      <p className="px-4 py-3 text-[12px] font-semibold text-white">{row.category}</p>
+                      <p className="px-4 py-3 text-[12px] text-slate-200 leading-relaxed border-t sm:border-t-0 sm:border-l border-slate-700">{row.startingMonday}</p>
+                      <p className="px-4 py-3 text-[12px] text-slate-400 leading-relaxed border-t sm:border-t-0 sm:border-l border-slate-700">{row.otherTools}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             <p className="text-xs font-bold tracking-[0.08em] uppercase text-green-400 mb-2 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
