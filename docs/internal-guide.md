@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T13:58:16.185Z
+Last generated: 2026-06-08T14:09:57.076Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -670,7 +670,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (118)
+## Internal Scripts (119)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -738,6 +738,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
 - Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/guide-freshness-needed.mjs | scripts/guide-freshness-needed.mjs | #!/usr/bin/env node
 - Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
 - Script scripts/guide-query-analytics-weekly.mjs | scripts/guide-query-analytics-weekly.mjs | #!/usr/bin/env node
 - Script scripts/hero-dual-track-council-audit.mjs | scripts/hero-dual-track-council-audit.mjs | #!/usr/bin/env node
