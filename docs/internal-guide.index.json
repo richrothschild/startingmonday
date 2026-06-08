@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T01:59:50.720Z",
+  "generatedAt": "2026-06-08T02:03:33.001Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
+      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
     },
     {
       "id": "feature:/login",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T01:48:54.175Z"
+      "lastModifiedAt": "2026-06-08T02:02:24.486Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -4451,7 +4451,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.626Z"
+      "lastModifiedAt": "2026-06-08T02:02:30.615Z"
     },
     {
       "id": "api:/api/concierge-waitlist",
@@ -4919,7 +4919,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T01:58:28.248Z"
+      "lastModifiedAt": "2026-06-08T02:02:15.880Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -6765,7 +6765,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.018Z"
+      "lastModifiedAt": "2026-06-08T02:02:08.716Z"
     },
     {
       "id": "code:src/lib/executive-brief-knowledge.ts",
@@ -16145,7 +16145,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
+      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16184,7 +16184,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:48:54.309Z"
+      "lastModifiedAt": "2026-06-08T01:59:50.735Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19499,7 +19499,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T01:59:29.138Z"
+      "lastModifiedAt": "2026-06-08T02:03:30.644Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
