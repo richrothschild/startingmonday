@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T14:19:02.292Z",
+  "generatedAt": "2026-06-08T20:51:11.597Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
+      "lastModifiedAt": "2026-06-08T14:19:02.306Z"
     },
     {
       "id": "feature:/login",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T01:05:11.047Z"
+      "lastModifiedAt": "2026-06-08T20:46:39.627Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -16263,7 +16263,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
+      "lastModifiedAt": "2026-06-08T14:19:02.306Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16302,7 +16302,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T14:17:54.812Z"
+      "lastModifiedAt": "2026-06-08T14:19:02.306Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19656,7 +19656,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T13:58:13.956Z"
+      "lastModifiedAt": "2026-06-08T20:50:43.081Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
