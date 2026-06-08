@@ -41,6 +41,15 @@ if (process.env.MOBILE_UI_GATE_E2E === '1') {
   execSync('npx playwright test tests/e2e/mobile-ui.spec.ts --project=mobile-iphone --grep @rubric --workers=1', {
     stdio: 'inherit',
   })
+
+  if (process.env.MOBILE_ELITE_VISUAL_GATE === '1') {
+    console.log('mobile-ui gate: running elite mobile visual protected-route gate')
+    execSync('node scripts/check-mobile-elite-visual-gate.mjs', {
+      stdio: 'inherit',
+    })
+  } else {
+    console.log('mobile-ui gate: skipping elite visual gate (set MOBILE_ELITE_VISUAL_GATE=1 to enable)')
+  }
 } else {
   console.log('mobile-ui gate: skipping Playwright quick smoke (set MOBILE_UI_GATE_E2E=1 to enable)')
 }

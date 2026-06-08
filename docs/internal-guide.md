@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T02:39:35.109Z
+Last generated: 2026-06-08T03:27:41.266Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -670,7 +670,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (117)
+## Internal Scripts (118)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -697,6 +697,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'
 - Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
+- Script scripts/check-mobile-elite-visual-gate.mjs | scripts/check-mobile-elite-visual-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | eslint-disable-next-line no-await-in-loop
 - Script scripts/check-mobile-ui-contract.mjs | scripts/check-mobile-ui-contract.mjs | Quick actions layout contract: two-column mobile and six-column desktop utility grid.
 - Script scripts/check-observability-import-guard.mjs | scripts/check-observability-import-guard.mjs | #!/usr/bin/env node
@@ -966,7 +967,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (550)
+## Documentation (554)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1234,6 +1235,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
 - Doc docs/governance/docs-governance.md | docs/governance/docs-governance.md | Documentation Governance
+- Doc docs/governance/no-drift-protected-route-matrix-2026-06-07.md | docs/governance/no-drift-protected-route-matrix-2026-06-07.md | No-Drift Protected Route Matrix
 - Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | Target Company Intelligence Governance Signoff
 - Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
 - Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
@@ -1398,6 +1400,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
 - Doc docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | Chris Brief: What Is Next + Last 24 Hours Summary
 - Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
+- Doc docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md | docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md | 90-Day Jira Epic: Competitive Positioning Strengthening
+- Doc docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md | docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md | Leadership Brief: Strengthening Starting Monday Position
+- Doc docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md | docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md | Partner Pilot Playbook: Coaches and Outplacement
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
 - Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)

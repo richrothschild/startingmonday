@@ -10,6 +10,8 @@ type DiscoveryCompany = {
   sector: string
   why: string
   fit: number
+  signalFreshnessScore?: number
+  provenanceCoverage?: number
   keySignals?: string[]
   keyAttributes?: string[]
   suggestedPeople?: Array<{
@@ -19,6 +21,13 @@ type DiscoveryCompany = {
     source: 'anthropic' | 'apollo' | 'fallback'
     confidence: number
   }>
+}
+
+function scoreBadge(score?: number) {
+  if (typeof score !== 'number') return 'bg-slate-100 text-slate-500'
+  if (score >= 80) return 'bg-emerald-100 text-emerald-800'
+  if (score >= 60) return 'bg-amber-100 text-amber-800'
+  return 'bg-rose-100 text-rose-800'
 }
 
 function fitBadge(fit: number) {
@@ -221,6 +230,14 @@ export default function DiscoverPage() {
                       {co.sector}
                     </div>
                     <p className="text-[13px] text-slate-600 leading-relaxed flex-1 mb-4">{co.why}</p>
+                    <div className="mb-3 flex flex-wrap gap-1.5">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${scoreBadge(co.signalFreshnessScore)}`}>
+                        Signal freshness {co.signalFreshnessScore ?? '--'}
+                      </span>
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${scoreBadge(co.provenanceCoverage)}`}>
+                        Provenance coverage {co.provenanceCoverage ?? '--'}
+                      </span>
+                    </div>
                     {co.narrativeUrl && (
                       <Link
                         href={co.narrativeUrl}

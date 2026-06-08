@@ -16,6 +16,8 @@ export type DiscoveryCompany = {
   sector: string
   why: string
   fit: number
+  signalFreshnessScore?: number
+  provenanceCoverage?: number
   keySignals?: string[]
   keyAttributes?: string[]
   suggestedPeople?: SuggestedPerson[]
@@ -41,6 +43,33 @@ type RankedCandidate = DiscoveryCompany & {
     peopleCoverage: number
     signalDepth: number
     attributeDepth: number
+  }
+}
+
+function computeSignalFreshnessScore(fit: number, signalCount: number): number {
+  const fitComponent = Math.max(0, Math.min(1, fit / 10))
+  const signalComponent = Math.max(0, Math.min(1, signalCount / 4))
+  return Math.round((fitComponent * 0.6 + signalComponent * 0.4) * 100)
+}
+
+function computeProvenanceCoverage(suggestedPeople: SuggestedPerson[]): number {
+  const maxPeople = 3
+  const peopleCoverage = Math.max(0, Math.min(1, suggestedPeople.length / maxPeople))
+  const sourcedCoverage = suggestedPeople.length === 0
+    ? 0
+    : suggestedPeople.filter((person) => person.source !== 'fallback').length / suggestedPeople.length
+  return Math.round((peopleCoverage * 0.5 + sourcedCoverage * 0.5) * 100)
+}
+
+function withMoatIndicators(candidate: DiscoveryCompany): DiscoveryCompany {
+  const keySignals = candidate.keySignals ?? []
+  const suggestedPeople = candidate.suggestedPeople ?? []
+  return {
+    ...candidate,
+    keySignals,
+    suggestedPeople,
+    signalFreshnessScore: computeSignalFreshnessScore(candidate.fit, keySignals.length),
+    provenanceCoverage: computeProvenanceCoverage(suggestedPeople),
   }
 }
 
@@ -434,15 +463,17 @@ Rules:
 
       return NextResponse.json(
         persistedRows.map((row) => ({
-          id: row.id,
-          name: row.name,
-          sector: row.sector,
-          why: row.why,
-          fit: row.fit,
-          keySignals: row.key_signals,
-          keyAttributes: row.key_attributes,
-          suggestedPeople: row.suggested_people,
-          narrativeUrl: `/dashboard/discover/recommendation/${row.id}`,
+          ...withMoatIndicators({
+            id: row.id,
+            name: row.name,
+            sector: row.sector,
+            why: row.why,
+            fit: row.fit,
+            keySignals: row.key_signals,
+            keyAttributes: row.key_attributes,
+            suggestedPeople: row.suggested_people,
+            narrativeUrl: `/dashboard/discover/recommendation/${row.id}`,
+          }),
         })),
       )
     }
@@ -469,15 +500,17 @@ Rules:
     captureServerEvent(userId, 'discover_run_created', fallbackProps)
 
     return NextResponse.json(
-      sorted.slice(0, RESPONSE_COUNT).map((item) => ({
-        name: item.name,
-        sector: item.sector,
-        why: item.why,
-        fit: item.fit,
-        keySignals: item.keySignals ?? [],
-        keyAttributes: item.keyAttributes ?? [],
-        suggestedPeople: item.suggestedPeople ?? [],
-      })),
+      sorted
+        .slice(0, RESPONSE_COUNT)
+        .map((item) => withMoatIndicators({
+          name: item.name,
+          sector: item.sector,
+          why: item.why,
+          fit: item.fit,
+          keySignals: item.keySignals ?? [],
+          keyAttributes: item.keyAttributes ?? [],
+          suggestedPeople: item.suggestedPeople ?? [],
+        })),
     )
   } catch (err) {
     recordTraceError({ feature: 'discovery', userId, error: err instanceof Error ? err.message : String(err) })
