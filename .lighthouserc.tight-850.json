@@ -29,7 +29,7 @@
         "categories:performance": [
           "error",
           {
-            "minScore": 0.75
+            "minScore": 0.76
           }
         ],
         "categories:accessibility": [
@@ -65,7 +65,7 @@
         "total-blocking-time": [
           "error",
           {
-            "maxNumericValue": 950
+            "maxNumericValue": 850
           }
         ]
       }

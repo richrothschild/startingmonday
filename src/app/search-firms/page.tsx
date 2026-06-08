@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TrackLink } from '@/components/TrackLink'
 import { ChannelMicroProductRail } from '@/components/micro-products/ChannelMicroProductRail'
+import { SiteFooter } from '@/components/SiteFooter'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export const metadata: Metadata = {
@@ -259,6 +260,8 @@ export default function SearchFirmsPage() {
           </div>
         </section>
       </main>
+
+      <SiteFooter />
     </div>
   )
 }

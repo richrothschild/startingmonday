@@ -31,13 +31,36 @@ const GUIDANCE_PATTERNS = [
 // Shape: { title, description, link, pubDate, filingForm, filingItems, filingFocus }
 // When { supabase, companyId } provided, also indexes all 8-K filings (12 months) into sec_filings.
 export async function fetchSecFilings(companyName, { supabase, companyId } = {}) {
+  const emptyStats = {
+    filingsConsidered: 0,
+    filingsIndexed: 0,
+    latestFilingDate: null,
+    latestIngestedAt: null,
+  }
+
   try {
     const cikPadded = await findCik(companyName, { supabase, companyId })
-    if (!cikPadded) return []
-    return await getRecentFilings(companyName, cikPadded, { supabase, companyId })
+    if (!cikPadded) {
+      return {
+        articles: [],
+        indexStats: emptyStats,
+        fetchError: null,
+      }
+    }
+
+    const result = await getRecentFilings(companyName, cikPadded, { supabase, companyId })
+    return {
+      articles: result.articles,
+      indexStats: result.indexStats,
+      fetchError: null,
+    }
   } catch (err) {
     logger.warn('fetch-sec-filings: failed', { company: companyName, error: err.message })
-    return []
+    return {
+      articles: [],
+      indexStats: emptyStats,
+      fetchError: err instanceof Error ? err.message : 'fetch failed',
+    }
   }
 }
 
@@ -114,8 +137,15 @@ async function getRecentFilings(companyName, cikPadded, { supabase, companyId } 
   if (!f) return []
 
   // Index all 8-K filings from the past 12 months for trend detection
+  let indexStats = {
+    filingsConsidered: 0,
+    filingsIndexed: 0,
+    latestFilingDate: null,
+    latestIngestedAt: null,
+  }
+
   if (supabase && companyId) {
-    await indexAllFilings(supabase, companyId, cik, f)
+    indexStats = await indexAllFilings(supabase, companyId, cik, f)
   }
 
   const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
@@ -201,7 +231,10 @@ async function getRecentFilings(companyName, cikPadded, { supabase, companyId } 
     if (articles.length >= 8) break
   }
 
-  return articles
+  return {
+    articles,
+    indexStats,
+  }
 }
 
 function extractGuidanceHints(text) {
@@ -226,6 +259,7 @@ function extractGuidanceHints(text) {
 async function indexAllFilings(supabase, companyId, cik, f) {
   const yearAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const toUpsert = []
+  let latestFilingDate = null
 
   for (let i = 0; i < (f.form ?? []).length; i++) {
     if (f.form[i] !== '8-K') continue
@@ -235,12 +269,20 @@ async function indexAllFilings(supabase, companyId, cik, f) {
     if (!accession) continue
     const items = (f.items?.[i] ?? '').split(',').map(s => s.trim()).filter(Boolean)
     toUpsert.push({ company_id: companyId, cik, accession_number: accession, filing_date: filingDate, items })
+    if (!latestFilingDate || filingDate > latestFilingDate) latestFilingDate = filingDate
   }
 
   if (toUpsert.length) {
     await supabase
       .from('sec_filings')
       .upsert(toUpsert, { onConflict: 'company_id,accession_number' })
+  }
+
+  return {
+    filingsConsidered: toUpsert.length,
+    filingsIndexed: toUpsert.length,
+    latestFilingDate,
+    latestIngestedAt: toUpsert.length ? new Date().toISOString() : null,
   }
 }
 

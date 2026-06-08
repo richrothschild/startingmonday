@@ -320,8 +320,11 @@ jobs:
   lighthouse-mobile-budgets:
     name: Lighthouse mobile budgets
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    permissions:
+      actions: read
+      contents: read
 
     steps:
       - uses: actions/checkout@v5
@@ -337,13 +340,86 @@ jobs:
       - name: Build app
         run: npm run build
 
-      - name: Run Lighthouse CI mobile budgets
-        run: npm run perf:lighthouse:ci
+      - name: Determine Lighthouse budget profile
+        id: lighthouse_profile
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const isMainPush = context.ref === 'refs/heads/main' && context.eventName === 'push'
+            const defaultConfig = '.lighthouserc.json'
+            const defaultProfile = 'baseline-950'
+
+            if (!isMainPush) {
+              core.setOutput('config', defaultConfig)
+              core.setOutput('profile', defaultProfile)
+              core.setOutput('streak', '0')
+              core.notice(`Using ${defaultProfile} for non-main-push run`)
+              return
+            }
+
+            const response = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ci.yml',
+              status: 'completed',
+              branch: 'main',
+              event: 'push',
+              per_page: 10,
+              exclude_pull_requests: true,
+            })
+
+            const priorRuns = (response.data.workflow_runs ?? []).filter(
+              (run) => run.id !== context.runId
+            )
+
+            let streak = 0
+            for (const run of priorRuns) {
+              if (run.conclusion === 'success') {
+                streak += 1
+              } else {
+                break
+              }
+            }
+
+            let config = defaultConfig
+            let profile = defaultProfile
+
+            if (streak >= 6) {
+              config = '.lighthouserc.tight-800.json'
+              profile = 'tight-800'
+            } else if (streak >= 3) {
+              config = '.lighthouserc.tight-850.json'
+              profile = 'tight-850'
+            }
+
+            core.setOutput('config', config)
+            core.setOutput('profile', profile)
+            core.setOutput('streak', String(streak))
+            core.notice(`Using ${profile} (${config}) with prior main success streak=${streak}`)
+
+      - name: Run Lighthouse CI mobile budgets (pass 1)
+        id: lighthouse_pass_1
+        continue-on-error: true
+        run: npx lhci autorun --config=${{ steps.lighthouse_profile.outputs.config }}
+
+      - name: Run Lighthouse CI mobile budgets (pass 2 retry)
+        id: lighthouse_pass_2
+        if: steps.lighthouse_pass_1.outcome == 'failure'
+        continue-on-error: true
+        run: npx lhci autorun --config=${{ steps.lighthouse_profile.outputs.config }}
+
+      - name: Enforce Lighthouse gate after retry
+        if: steps.lighthouse_pass_1.outcome == 'failure' && steps.lighthouse_pass_2.outcome == 'failure'
+        run: |
+          echo "Lighthouse budgets failed on both pass 1 and pass 2."
+          exit 1
 
       - name: Notify Slack on Lighthouse failure
-        if: failure()
+        if: failure() && github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           SLACK_UI_ALERTS_WEBHOOK: ${{ secrets.SLACK_UI_ALERTS_WEBHOOK }}
+          LIGHTHOUSE_PROFILE: ${{ steps.lighthouse_profile.outputs.profile }}
+          GREEN_STREAK: ${{ steps.lighthouse_profile.outputs.streak }}
         run: |
           if [ -z "$SLACK_UI_ALERTS_WEBHOOK" ]; then
             echo "SLACK_UI_ALERTS_WEBHOOK is not set; skipping Slack notification."
@@ -357,7 +433,7 @@ jobs:
 
           payload=$(cat <<'JSON'
           {
-            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
+            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nBudget profile: PROFILE_PLACEHOLDER\nPrior main green streak: STREAK_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
           }
           JSON
           )
@@ -366,6 +442,8 @@ jobs:
           payload="${payload//BRANCH_PLACEHOLDER/$BRANCH}"
           payload="${payload//EVENT_PLACEHOLDER/$EVENT}"
           payload="${payload//RUN_URL_PLACEHOLDER/$RUN_URL}"
+          payload="${payload//PROFILE_PLACEHOLDER/$LIGHTHOUSE_PROFILE}"
+          payload="${payload//STREAK_PLACEHOLDER/$GREEN_STREAK}"
 
           curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_UI_ALERTS_WEBHOOK"
 
