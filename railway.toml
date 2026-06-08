@@ -3,7 +3,9 @@ builder = "nixpacks"
 buildCommand = "npm run build"
 
 [deploy]
+numReplicas = 1
 startCommand = "npm run start -- --port $PORT"
 healthcheckPath = "/api/health"
-healthcheckTimeout = 60
+healthcheckTimeout = 300
 restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
