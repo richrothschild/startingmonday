@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T00:53:21.369Z
+Last generated: 2026-06-08T01:47:36.032Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -205,7 +205,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (255)
+## API Surface (258)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -289,6 +289,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/revenue-ops/stripe-supabase-accounting-sync | src/app/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/b2b/material | src/app/api/admin/b2b/material/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/contacts/enrich | src/app/api/admin/contacts/enrich/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/edgar-status | src/app/api/admin/edgar-status/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/executive-research/health | src/app/api/admin/executive-research/health/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/health | src/app/api/admin/health/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/internal-guide/chat | src/app/api/admin/internal-guide/chat/route.ts | export async function POST(request: NextRequest) {
@@ -349,11 +350,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/contacts/[id] | src/app/api/contacts/[id]/route.ts | export const DELETE = withApiTelemetry('/api/contacts/[id]', deleteHandler)
 - API /api/contacts | src/app/api/contacts/route.ts | export const POST = withApiTelemetry('/api/contacts', postHandler)
 - API /api/conversation | src/app/api/conversation/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/apollo-quality-audit | src/app/api/cron/apollo-quality-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/commitment-friday | src/app/api/cron/commitment-friday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/commitment-sunday | src/app/api/cron/commitment-sunday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/drip | src/app/api/cron/drip/route.ts | Activation drip schedule: days since trial start -> content key
 - API /api/cron/edgar-freshness-audit | src/app/api/cron/edgar-freshness-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/edgar-watchdog | src/app/api/cron/edgar-watchdog/route.ts | export const runtime = 'nodejs'
 - API /api/cron/executive-research-refresh | src/app/api/cron/executive-research-refresh/route.ts | export const runtime = 'nodejs'
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
@@ -462,7 +465,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (199)
+## Codebase Modules (202)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -517,6 +520,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/email-quality.ts | src/lib/email-quality.ts | export function reviewEmail(subject: string, html: string): string[] {
 - Code src/lib/email.test.ts | src/lib/email.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
+- Code src/lib/enrichment/apollo-provider.ts | src/lib/enrichment/apollo-provider.ts | export class ApolloEnrichmentProvider implements EnrichmentProvider {
+- Code src/lib/enrichment/index.ts | src/lib/enrichment/index.ts | export function getEnrichmentProvider(): EnrichmentProvider {
+- Code src/lib/enrichment/types.ts | src/lib/enrichment/types.ts | export type SuggestedPerson = {
 - Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
 - Code src/lib/executive-brief-knowledge.ts | src/lib/executive-brief-knowledge.ts | export type MentalModel = {
@@ -819,7 +825,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (134)
+## Data and Migrations (136)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -954,8 +960,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 - Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql | supabase/migrations/130_executive_brief_grill_me_protocol.sql | -- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.
+- Migration supabase/migrations/131_discovery_recommendation_runs.sql | supabase/migrations/131_discovery_recommendation_runs.sql | -- Persist discovery recommendation runs and item narratives for linked detail views.
+- Migration supabase/migrations/132_monitoring_alert_state.sql | supabase/migrations/132_monitoring_alert_state.sql | create table if not exists public.monitoring_alert_state (
 
-## Documentation (543)
+## Documentation (546)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1151,6 +1159,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
 - Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | 126_scan_failures_dead_letter rollback
 - Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md | docs/development/migration-rollbacks/127_stripe_webhook_events.md | 127_stripe_webhook_events rollback
+- Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | 131_discovery_recommendation_runs rollback
+- Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
@@ -1170,6 +1180,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
 - Doc docs/epic-partner-scale-and-flywheel-2026-2027.md | docs/epic-partner-scale-and-flywheel-2026-2027.md | Epic: Partner Scale and Flywheel
 - Doc docs/epic-sre-council-backlog.md | docs/epic-sre-council-backlog.md | Epic: SRE Council Backlog
+- Doc docs/epic-target-company-intelligence-apollo-2026-06-07.md | docs/epic-target-company-intelligence-apollo-2026-06-07.md | Epic: Target Company Intelligence and Outreach Narratives (Apollo-Backed)
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages

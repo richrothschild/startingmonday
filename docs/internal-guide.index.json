@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T00:53:21.369Z",
+  "generatedAt": "2026-06-08T01:47:36.032Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-07T22:56:22.551Z"
+      "lastModifiedAt": "2026-06-08T00:54:53.375Z"
     },
     {
       "id": "feature:/login",
@@ -586,7 +586,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.450Z"
+      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
     },
     {
       "id": "feature:/dashboard/executive-brief",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T00:50:30.713Z"
+      "lastModifiedAt": "2026-06-08T01:11:05.851Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T00:50:38.079Z"
+      "lastModifiedAt": "2026-06-08T01:11:05.851Z"
     },
     {
       "id": "feature:/for-coo",
@@ -2574,7 +2574,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T00:49:51.907Z"
+      "lastModifiedAt": "2026-06-08T01:11:05.852Z"
     },
     {
       "id": "feature:/search-firms/personas",
@@ -3726,6 +3726,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.572Z"
     },
     {
+      "id": "api:/api/admin/edgar-status",
+      "title": "API /api/admin/edgar-status",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/edgar-status/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-08T01:39:33.802Z"
+    },
+    {
       "id": "api:/api/admin/executive-research/health",
       "title": "API /api/admin/executive-research/health",
       "body": "export async function GET(request: NextRequest) {",
@@ -4506,6 +4519,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.630Z"
     },
     {
+      "id": "api:/api/cron/apollo-quality-audit",
+      "title": "API /api/cron/apollo-quality-audit",
+      "body": "export const runtime = 'nodejs'",
+      "type": "api",
+      "ref": "src/app/api/cron/apollo-quality-audit/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-08T01:39:33.722Z"
+    },
+    {
       "id": "api:/api/cron/commitment-friday",
       "title": "API /api/cron/commitment-friday",
       "body": "export async function GET(request: NextRequest) {",
@@ -4555,7 +4581,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T23:31:53.407Z"
+      "lastModifiedAt": "2026-06-08T00:54:53.279Z"
     },
     {
       "id": "api:/api/cron/edgar-signals",
@@ -4569,6 +4595,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:15.634Z"
+    },
+    {
+      "id": "api:/api/cron/edgar-watchdog",
+      "title": "API /api/cron/edgar-watchdog",
+      "body": "export const runtime = 'nodejs'",
+      "type": "api",
+      "ref": "src/app/api/cron/edgar-watchdog/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-08T01:39:33.591Z"
     },
     {
       "id": "api:/api/cron/executive-research-refresh",
@@ -4880,7 +4919,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.653Z"
+      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -6662,6 +6701,45 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.017Z"
+    },
+    {
+      "id": "code:src/lib/enrichment/apollo-provider.ts",
+      "title": "Code src/lib/enrichment/apollo-provider.ts",
+      "body": "export class ApolloEnrichmentProvider implements EnrichmentProvider {",
+      "type": "code",
+      "ref": "src/lib/enrichment/apollo-provider.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-08T01:39:00.569Z"
+    },
+    {
+      "id": "code:src/lib/enrichment/index.ts",
+      "title": "Code src/lib/enrichment/index.ts",
+      "body": "export function getEnrichmentProvider(): EnrichmentProvider {",
+      "type": "code",
+      "ref": "src/lib/enrichment/index.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-08T01:39:00.569Z"
+    },
+    {
+      "id": "code:src/lib/enrichment/types.ts",
+      "title": "Code src/lib/enrichment/types.ts",
+      "body": "export type SuggestedPerson = {",
+      "type": "code",
+      "ref": "src/lib/enrichment/types.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
     },
     {
       "id": "code:src/lib/events.test.ts",
@@ -10080,7 +10158,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T00:43:30.754Z"
+      "lastModifiedAt": "2026-06-08T01:11:05.851Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -12034,7 +12112,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-07T23:31:53.406Z"
+      "lastModifiedAt": "2026-06-08T00:54:53.286Z"
     },
     {
       "id": "data:supabase/migrations/108_google_calendar_sync.sql",
@@ -12399,6 +12477,34 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-07T19:30:42.427Z"
+    },
+    {
+      "id": "data:supabase/migrations/131_discovery_recommendation_runs.sql",
+      "title": "Migration supabase/migrations/131_discovery_recommendation_runs.sql",
+      "body": "-- Persist discovery recommendation runs and item narratives for linked detail views.",
+      "type": "data",
+      "ref": "supabase/migrations/131_discovery_recommendation_runs.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
+    },
+    {
+      "id": "data:supabase/migrations/132_monitoring_alert_state.sql",
+      "title": "Migration supabase/migrations/132_monitoring_alert_state.sql",
+      "body": "create table if not exists public.monitoring_alert_state (",
+      "type": "data",
+      "ref": "supabase/migrations/132_monitoring_alert_state.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-08T01:39:00.571Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -14936,6 +15042,32 @@
       "lastModifiedAt": "2026-06-06T16:52:15.001Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
+      "title": "Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
+      "body": "131_discovery_recommendation_runs rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T01:45:38.829Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/132_monitoring_alert_state.md",
+      "title": "Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md",
+      "body": "132_monitoring_alert_state rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/132_monitoring_alert_state.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T01:45:38.860Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -15181,6 +15313,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.008Z"
+    },
+    {
+      "id": "doc:docs/epic-target-company-intelligence-apollo-2026-06-07.md",
+      "title": "Doc docs/epic-target-company-intelligence-apollo-2026-06-07.md",
+      "body": "Epic: Target Company Intelligence and Outreach Narratives (Apollo-Backed)",
+      "type": "doc",
+      "ref": "docs/epic-target-company-intelligence-apollo-2026-06-07.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-08T01:39:00.568Z"
     },
     {
       "id": "doc:docs/epic-ui-ux-no-disruption-remediation.md",
@@ -15973,7 +16118,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T22:56:22.551Z"
+      "lastModifiedAt": "2026-06-08T00:54:53.374Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16012,7 +16157,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T22:56:22.551Z"
+      "lastModifiedAt": "2026-06-08T00:54:53.375Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19327,7 +19472,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T00:53:13.811Z"
+      "lastModifiedAt": "2026-06-08T01:47:16.236Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
