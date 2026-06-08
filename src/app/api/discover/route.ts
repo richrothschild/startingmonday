@@ -429,6 +429,8 @@ Rules:
       }
       await logEvent(userId, 'discover_recommendations_generated', generatedProps)
       captureServerEvent(userId, 'discover_recommendations_generated', generatedProps)
+      await logEvent(userId, 'discover_run_created', generatedProps)
+      captureServerEvent(userId, 'discover_run_created', generatedProps)
 
       return NextResponse.json(
         persistedRows.map((row) => ({
@@ -463,6 +465,8 @@ Rules:
     }
     await logEvent(userId, 'discover_recommendations_generated', fallbackProps)
     captureServerEvent(userId, 'discover_recommendations_generated', fallbackProps)
+    await logEvent(userId, 'discover_run_created', fallbackProps)
+    captureServerEvent(userId, 'discover_run_created', fallbackProps)
 
     return NextResponse.json(
       sorted.slice(0, RESPONSE_COUNT).map((item) => ({

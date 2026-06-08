@@ -9,12 +9,20 @@ const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 
 type DiscoverSummary = {
   generatedEvents30d: number
+  runCreatedEvents30d: number
   openedEvents30d: number
+  outreachStarts30d: number
+  recommendedContactsAdded30d: number
   addedCompanies30d: number
   recommendationCount30d: number
   avgFit30d: number
   peopleCoverage30d: number
   highConfidencePeopleCoverage30d: number
+  narrativeOpenRate30d: number
+  outreachStartRate30d: number
+  suggestedPeopleAcceptanceRate30d: number
+  watchlistAddRate30d: number
+  watchlistLiftVsBaselinePct: number | null
 }
 
 export default async function AdminIntelligencePage() {
@@ -27,8 +35,10 @@ export default async function AdminIntelligencePage() {
 
   const admin = createAdminClient()
   const thirtyDaysAgo = new Date(Date.now() - 30 * 86400_000).toISOString()
+  const addRateBaseline = Number(process.env.DISCOVER_ADD_TO_WATCHLIST_BASELINE_RATE ?? '')
+  const hasAddRateBaseline = Number.isFinite(addRateBaseline) && addRateBaseline > 0
 
-  const [companiesRes, recommendationRowsRes, generatedEventsRes, openedEventsRes, companyAddedEventsRes] = await Promise.all([
+  const [companiesRes, recommendationRowsRes, generatedEventsRes, runCreatedEventsRes, openedEventsRes, recommendationAddedEventsRes, outreachStartedEventsRes, companyAddedEventsRes] = await Promise.all([
     admin
       .from('intelligence_companies')
       .select('slug, company_name, sector, website, is_featured, created_at')
@@ -47,7 +57,22 @@ export default async function AdminIntelligencePage() {
     (admin as any)
       .from('user_events')
       .select('id', { count: 'exact', head: true })
+      .eq('event_name', 'discover_run_created')
+      .gte('created_at', thirtyDaysAgo),
+    (admin as any)
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
       .eq('event_name', 'discover_recommendation_opened')
+      .gte('created_at', thirtyDaysAgo),
+    (admin as any)
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('event_name', 'discover_recommendation_added')
+      .gte('created_at', thirtyDaysAgo),
+    (admin as any)
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('event_name', 'discover_outreach_started')
       .gte('created_at', thirtyDaysAgo),
     (admin as any)
       .from('user_events')
@@ -88,14 +113,36 @@ export default async function AdminIntelligencePage() {
     return typeof source === 'string' && source.startsWith('discover')
   }).length
 
+  const generatedEvents30d = generatedEventsRes.count ?? 0
+  const runCreatedEvents30d = runCreatedEventsRes.count ?? 0
+  const openedEvents30d = openedEventsRes.count ?? 0
+  const outreachStarts30d = outreachStartedEventsRes.count ?? 0
+  const recommendedContactsAdded30d = recommendationAddedEventsRes.count ?? 0
+
+  const narrativeOpenRate30d = generatedEvents30d > 0 ? openedEvents30d / generatedEvents30d : 0
+  const outreachStartRate30d = openedEvents30d > 0 ? outreachStarts30d / openedEvents30d : 0
+  const suggestedPeopleAcceptanceRate30d = openedEvents30d > 0 ? recommendedContactsAdded30d / openedEvents30d : 0
+  const watchlistAddRate30d = openedEvents30d > 0 ? addedCompaniesFromDiscover / openedEvents30d : 0
+  const watchlistLiftVsBaselinePct = hasAddRateBaseline
+    ? ((watchlistAddRate30d - addRateBaseline) / addRateBaseline) * 100
+    : null
+
   const discoverSummary: DiscoverSummary = {
-    generatedEvents30d: generatedEventsRes.count ?? 0,
-    openedEvents30d: openedEventsRes.count ?? 0,
+    generatedEvents30d,
+    runCreatedEvents30d,
+    openedEvents30d,
+    outreachStarts30d,
+    recommendedContactsAdded30d,
     addedCompanies30d: addedCompaniesFromDiscover,
     recommendationCount30d: recommendationRows.length,
     avgFit30d: fitCount > 0 ? totalFit / fitCount : 0,
     peopleCoverage30d: recommendationRows.length > 0 ? withPeople / recommendationRows.length : 0,
     highConfidencePeopleCoverage30d: recommendationRows.length > 0 ? withHighConfidencePeople / recommendationRows.length : 0,
+    narrativeOpenRate30d,
+    outreachStartRate30d,
+    suggestedPeopleAcceptanceRate30d,
+    watchlistAddRate30d,
+    watchlistLiftVsBaselinePct,
   }
 
   // For each company, fetch signal count and recent tokens
@@ -130,14 +177,26 @@ export default async function AdminIntelligencePage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
         <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6">
           <h2 className="text-[15px] font-bold text-slate-900 mb-4">Discover conversion + quality (last 30 days)</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-3">
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
               <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Generated</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.generatedEvents30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Runs</div>
+              <div className="text-[18px] font-bold text-slate-900">{discoverSummary.runCreatedEvents30d}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
               <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Opened</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.openedEvents30d}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Contact Adds</div>
+              <div className="text-[18px] font-bold text-slate-900">{discoverSummary.recommendedContactsAdded30d}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Outreach Starts</div>
+              <div className="text-[18px] font-bold text-slate-900">{discoverSummary.outreachStarts30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
               <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Added</div>
@@ -156,8 +215,35 @@ export default async function AdminIntelligencePage() {
               <div className="text-[18px] font-bold text-slate-900">{Math.round(discoverSummary.highConfidencePeopleCoverage30d * 100)}%</div>
             </div>
           </div>
+
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.narrativeOpenRate30d >= 0.35 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Narrative Open Rate</div>
+              <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.narrativeOpenRate30d * 100)}%</div>
+              <div className="text-[11px] text-slate-600">Target: 35%+</div>
+            </div>
+            <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.outreachStartRate30d >= 0.2 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Outreach Start Rate</div>
+              <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.outreachStartRate30d * 100)}%</div>
+              <div className="text-[11px] text-slate-600">Target: 20%+</div>
+            </div>
+            <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.suggestedPeopleAcceptanceRate30d >= 0.15 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Suggested People Acceptance</div>
+              <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.suggestedPeopleAcceptanceRate30d * 100)}%</div>
+              <div className="text-[11px] text-slate-600">Target: 15%+</div>
+            </div>
+            <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.watchlistLiftVsBaselinePct !== null && discoverSummary.watchlistLiftVsBaselinePct >= 25 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Add-to-Watchlist Lift</div>
+              <div className="text-[16px] font-bold text-slate-900">
+                {discoverSummary.watchlistLiftVsBaselinePct === null ? 'N/A' : `${Math.round(discoverSummary.watchlistLiftVsBaselinePct)}%`}
+              </div>
+              <div className="text-[11px] text-slate-600">Target: +25% vs baseline</div>
+            </div>
+          </div>
+
           <p className="text-[12px] text-slate-500 mt-3">
             Open-to-add conversion: {discoverSummary.openedEvents30d > 0 ? Math.round((discoverSummary.addedCompanies30d / discoverSummary.openedEvents30d) * 100) : 0}%
+            {discoverSummary.watchlistLiftVsBaselinePct === null ? ' (set DISCOVER_ADD_TO_WATCHLIST_BASELINE_RATE to enable lift calculation)' : ''}
           </p>
         </div>
       </section>

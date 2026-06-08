@@ -94,6 +94,32 @@ async function postHandler(req: NextRequest) {
       has_company_id: !!companyId,
     })
 
+    if (source === 'discover_recommendation_contact' || source === 'discover_recommendation_outreach') {
+      const recommendationAddedProps = {
+        source,
+        contact_id: data.id,
+        enrichment_source: enrichmentSource,
+        mode: 'dashboard_discover',
+        confidence_band: 'medium',
+        action_context: 'discover_recommendation_action',
+      }
+      await logEvent(auth.userId, 'discover_recommendation_added', recommendationAddedProps)
+      captureServerEvent(auth.userId, 'discover_recommendation_added', recommendationAddedProps)
+    }
+
+    if (source === 'discover_recommendation_outreach') {
+      const outreachStartedProps = {
+        source,
+        contact_id: data.id,
+        enrichment_source: enrichmentSource,
+        mode: 'dashboard_discover',
+        confidence_band: 'medium',
+        action_context: 'discover_recommendation_outreach_start',
+      }
+      await logEvent(auth.userId, 'discover_outreach_started', outreachStartedProps)
+      captureServerEvent(auth.userId, 'discover_outreach_started', outreachStartedProps)
+    }
+
     return NextResponse.json({ id: data.id, contact: data }, { status: 201 })
   } catch (error) {
     console.error('[contacts] create exception:', error)
