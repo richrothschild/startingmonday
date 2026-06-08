@@ -343,9 +343,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     <circle cx="302" cy="106" r="6.5" fill="#38bdf8" />
                     <circle cx="356" cy="84" r="6.5" fill="#38bdf8" />
                     <circle cx="410" cy="62" r="6.5" fill="#38bdf8" />
-                    <circle cx="468" cy="40" r="6.5" fill="#38bdf8" />
+                    <circle cx="468" cy="74" r="6.5" fill="#38bdf8" />
 
-                    <polyline points="84,188 138,170 194,150 248,128 302,106 356,84 410,62 468,40" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
+                    <polyline points="84,188 138,170 194,150 248,128 302,106 356,84 410,62 468,74" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
                     <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
 
                     <text x="16" y="274" fill="#cbd5e1" fontSize="14" fontWeight="700">Without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
