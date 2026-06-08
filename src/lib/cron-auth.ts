@@ -2,11 +2,12 @@ import { timingSafeEqual } from 'crypto'
 import { type NextRequest } from 'next/server'
 
 export function validateCronRequest(request: NextRequest): boolean {
+  const querySecret = request.nextUrl.searchParams.get('secret')?.trim() ?? ''
   const explicit = request.headers.get('x-cron-secret')?.trim() ?? ''
   const authorization = request.headers.get('authorization') ?? ''
   const [scheme, bearerToken] = authorization.split(' ')
   const bearer = scheme?.toLowerCase() === 'bearer' ? (bearerToken?.trim() ?? '') : ''
-  const secret = explicit || bearer
+  const secret = explicit || bearer || querySecret
   const expected = process.env.CRON_SECRET
   if (!secret || !expected) return false
   try {
