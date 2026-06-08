@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
-import { HowStartingMondayHelpsModal } from '@/components/HowStartingMondayHelpsModal'
+import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowStartingMondayHelpsModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import type { Channel } from '@/lib/channel-metrics-events'
@@ -508,7 +508,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   ))}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <HowStartingMondayHelpsModal sourcePage={sourcePage} />
+                  <DeferredHowStartingMondayHelpsModal sourcePage={sourcePage} />
                   <TrackLink
                     href="/concierge?program=beta&from=landing"
                     event={EVENT_NAMES.channelEntryClicked}

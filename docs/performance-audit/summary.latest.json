@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-31T12:53:19.672Z",
-  "baseUrl": "https://startingmonday.app",
+  "generatedAt": "2026-06-08T13:56:34.804Z",
+  "baseUrl": "http://127.0.0.1:3000",
   "smoke": {
-    "total": 3,
-    "passed": 3,
+    "total": 4,
+    "passed": 4,
     "failed": 0,
     "criticalFailed": 0,
     "advisoryFailed": 0
@@ -13,7 +13,7 @@
     "passed": 5,
     "failed": 0,
     "passRate": 1,
-    "p95ResponseMs": 291,
+    "p95ResponseMs": 55,
     "ok": true
   }
 }
