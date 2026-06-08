@@ -65,7 +65,7 @@ export default function DiscoverPage() {
       const res = await fetch('/api/companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit }),
+        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit, source: 'discover_card' }),
       })
       if (res.ok || res.status === 409) {
         setAdded(prev => new Set([...prev, co.name]))

@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const { userId } = auth
   const supabase = await createClient()
 
-  let name: string, sector: string | null, fitScore: number | null
+  let name: string, sector: string | null, fitScore: number | null, source: string
   try {
     const body = await request.json()
     name = typeof body.name === 'string' ? body.name.trim().slice(0, 200) : ''
@@ -20,6 +20,9 @@ export async function POST(request: NextRequest) {
     fitScore = typeof body.fit_score === 'number' && body.fit_score >= 1 && body.fit_score <= 10
       ? Math.round(body.fit_score)
       : null
+    source = typeof body.source === 'string' && body.source.trim()
+      ? body.source.trim().slice(0, 64)
+      : 'manual'
   } catch {
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
   }
@@ -39,10 +42,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'db_error' }, { status: 500 })
   }
 
-  await logEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
-  captureServerEvent(userId, 'company_added', { source: 'discover', sector: sector ?? '' })
-  await logEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'discover', company_id: inserted?.id ?? null })
-  captureServerEvent(userId, PMF_EVENTS.activation.first_company_added, { source: 'discover', company_id: inserted?.id ?? null })
+  await logEvent(userId, 'company_added', { source, sector: sector ?? '' })
+  captureServerEvent(userId, 'company_added', { source, sector: sector ?? '' })
+  await logEvent(userId, PMF_EVENTS.activation.first_company_added, { source, company_id: inserted?.id ?? null })
+  captureServerEvent(userId, PMF_EVENTS.activation.first_company_added, { source, company_id: inserted?.id ?? null })
   if (inserted?.id) {
     await logCompanyWatch(userId, inserted.id, { sector, careerPageUrlPresent: false, fitScore, stage: 'watching' })
   }

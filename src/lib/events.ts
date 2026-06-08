@@ -39,6 +39,8 @@ export type UserEventName =
   | 'emi_daily_loop_loaded'
   | 'emi_action_completed'
   | 'emi_daily_reflection_submitted'
+  | 'discover_recommendations_generated'
+  | 'discover_recommendation_opened'
   | PMFEventName
 
 type EventProperties = Record<string, string | number | boolean | null>

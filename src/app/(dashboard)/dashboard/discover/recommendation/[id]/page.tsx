@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { SuggestedPerson } from '@/lib/enrichment'
+import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 function fitBadge(fit: number) {
   if (fit >= 8) return 'bg-green-100 text-green-800'
@@ -43,6 +45,17 @@ export default async function RecommendationDetailPage({
   const people = Array.isArray(row.suggested_people)
     ? (row.suggested_people as SuggestedPerson[]).slice(0, 3)
     : []
+
+  const openProps = {
+    recommendation_id: row.id,
+    fit: row.fit,
+    suggested_people_count: people.length,
+    mode: 'dashboard_discover',
+    confidence_band: 'medium',
+    action_context: 'discover_recommendation_open',
+  }
+  await logEvent(user.id, 'discover_recommendation_opened', openProps)
+  captureServerEvent(user.id, 'discover_recommendation_opened', openProps)
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -115,7 +128,7 @@ export default async function RecommendationDetailPage({
               Back to recommendations
             </Link>
             <Link
-              href={`/dashboard/companies/new?name=${encodeURIComponent(row.name)}&sector=${encodeURIComponent(row.sector ?? '')}&fit=${row.fit ?? 6}`}
+              href={`/dashboard/companies/new?name=${encodeURIComponent(row.name)}&sector=${encodeURIComponent(row.sector ?? '')}&fit=${row.fit ?? 6}&source=discover_recommendation_detail`}
               className="text-center text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-4 py-2.5 rounded transition-colors"
             >
               Add company to watchlist

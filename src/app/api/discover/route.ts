@@ -6,6 +6,8 @@ import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { recordTrace, recordTraceError } from '@/lib/trace'
 import { getEnrichmentProvider, type SuggestedPerson } from '@/lib/enrichment'
+import { logEvent } from '@/lib/events'
+import { captureServerEvent } from '@/lib/posthog-server'
 
 export type DiscoveryCompany = {
   id?: string
@@ -415,6 +417,19 @@ Rules:
     })
 
     if (persistedRows) {
+      const apolloRows = persistedRows.filter((row) => row.suggested_people.some((person) => person.source === 'apollo')).length
+      const generatedProps = {
+        source: runSource,
+        recommendation_count: persistedRows.length,
+        apollo_people_coverage_rate: Number((apolloRows / Math.max(1, persistedRows.length)).toFixed(3)),
+        seed_count: seeds.length,
+        mode: 'dashboard_discover',
+        confidence_band: 'medium',
+        action_context: 'discover_generate',
+      }
+      await logEvent(userId, 'discover_recommendations_generated', generatedProps)
+      captureServerEvent(userId, 'discover_recommendations_generated', generatedProps)
+
       return NextResponse.json(
         persistedRows.map((row) => ({
           id: row.id,
@@ -429,6 +444,25 @@ Rules:
         })),
       )
     }
+
+    const fallbackProps = {
+      source: runSource,
+      recommendation_count: Math.min(RESPONSE_COUNT, sorted.length),
+      apollo_people_coverage_rate: Number(
+        (
+          sorted
+            .slice(0, RESPONSE_COUNT)
+            .filter((item) => item.suggestedPeople?.some((person) => person.source === 'apollo'))
+            .length / Math.max(1, Math.min(RESPONSE_COUNT, sorted.length))
+        ).toFixed(3),
+      ),
+      seed_count: seeds.length,
+      mode: 'dashboard_discover',
+      confidence_band: 'medium',
+      action_context: 'discover_generate',
+    }
+    await logEvent(userId, 'discover_recommendations_generated', fallbackProps)
+    captureServerEvent(userId, 'discover_recommendations_generated', fallbackProps)
 
     return NextResponse.json(
       sorted.slice(0, RESPONSE_COUNT).map((item) => ({
