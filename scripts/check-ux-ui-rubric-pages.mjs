@@ -192,6 +192,72 @@ const SPECS = [
 			},
 		],
 	},
+	{
+		id: 'dashboard-discover',
+		route: '/dashboard/discover',
+		files: ['src/app/(dashboard)/dashboard/discover/page.tsx'],
+		rules: [
+			{
+				id: 'discover-brand-shell',
+				description: 'Discover page preserves branded shell header styling.',
+				matcher: 'bg-slate-900',
+			},
+			{
+				id: 'discover-grid-density',
+				description: 'Discover cards retain responsive grid density.',
+				matcher: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4',
+			},
+			{
+				id: 'discover-no-helper-copy-drift',
+				description: 'Discover page avoids deprecated helper labels.',
+				matcher: /Quick navigation|TL;DR/i,
+			},
+		],
+	},
+	{
+		id: 'dashboard-discover-recommendation-detail',
+		route: '/dashboard/discover/recommendation/[id]',
+		files: ['src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx'],
+		rules: [
+			{
+				id: 'discover-detail-source-transparency',
+				description: 'Recommendation detail keeps source transparency chips.',
+				matcher: 'Suggested Outreach People',
+			},
+			{
+				id: 'discover-detail-actions',
+				description: 'Recommendation detail retains action rail component.',
+				matcher: '<RecommendationActions',
+			},
+			{
+				id: 'discover-detail-signal-sections',
+				description: 'Recommendation detail preserves key narrative sections.',
+				matcher: /Why This Company[\s\S]*Key Signals[\s\S]*Key Attributes Match/,
+			},
+		],
+	},
+	{
+		id: 'dashboard-admin-intelligence',
+		route: '/dashboard/admin/intelligence',
+		files: ['src/app/(dashboard)/dashboard/admin/intelligence/page.tsx'],
+		rules: [
+			{
+				id: 'intelligence-kpi-heading',
+				description: 'Admin intelligence keeps discover KPI heading.',
+				matcher: 'Discover conversion + quality (last 30 days)',
+			},
+			{
+				id: 'intelligence-kpi-target-cards',
+				description: 'Admin intelligence preserves threshold KPI cards.',
+				matcher: /Narrative Open Rate[\s\S]*Outreach Start Rate[\s\S]*Suggested People Acceptance[\s\S]*Add-to-Watchlist Lift/,
+			},
+			{
+				id: 'intelligence-compact-metric-grid',
+				description: 'Admin intelligence keeps compact top metric grid.',
+				matcher: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-3',
+			},
+		],
+	},
 ]
 
 const pageResults = []
@@ -207,7 +273,8 @@ for (const spec of SPECS) {
 
 		const isNegativeRule =
 			rule.id.includes('no-key-takeaway-prefix') ||
-			rule.id.includes('jump-box-removed')
+			rule.id.includes('jump-box-removed') ||
+			rule.id.includes('no-helper-copy-drift')
 
 		const passed = isNegativeRule ? !matchedIn : Boolean(matchedIn)
 		const observed = matchedIn ? toRelative(matchedIn.file) : null

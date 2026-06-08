@@ -55,6 +55,19 @@ if (rubricCheck.status !== 0) {
   process.exitCode = 1
 }
 
+if (process.env.MOBILE_ELITE_GATE_STRICT === '1') {
+  const eliteMobileCheck = spawnSync(
+    process.execPath,
+    [path.join(root, 'scripts/check-mobile-elite-visual-gate.mjs')],
+    { stdio: 'inherit' }
+  )
+
+  if (eliteMobileCheck.status !== 0) {
+    console.error('Error: elite mobile visual gate failed')
+    process.exitCode = 1
+  }
+}
+
 for (const relativePath of guideArtifacts) {
   const fullPath = path.join(root, relativePath)
   if (!fs.existsSync(fullPath)) {

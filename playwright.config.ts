@@ -66,7 +66,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-iphone',
-      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual|elite-visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         browserName: 'chromium',
@@ -79,7 +79,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-android',
-      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual|elite-visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         ...devices['Pixel 7'],
@@ -88,7 +88,7 @@ export default defineConfig({
     },
     {
       name: 'mobile-tablet',
-      testMatch: /mobile-(ui|key-routes|public-routes|visual)\.spec\.ts/,
+      testMatch: /mobile-(ui|key-routes|public-routes|visual|elite-visual)\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         ...devices['Galaxy Tab S4'],
