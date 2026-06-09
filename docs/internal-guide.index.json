@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T02:07:50.145Z",
+  "generatedAt": "2026-06-09T03:15:32.986Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-09T02:02:57.899Z"
+      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
     },
     {
       "id": "feature:/login",
@@ -712,7 +712,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T02:06:53.563Z"
+      "lastModifiedAt": "2026-06-09T02:15:10.429Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -1650,7 +1650,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T01:12:24.811Z"
+      "lastModifiedAt": "2026-06-09T03:03:26.584Z"
     },
     {
       "id": "feature:/executive-brief",
@@ -2490,7 +2490,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
+      "lastModifiedAt": "2026-06-09T03:03:42.106Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -2518,7 +2518,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
+      "lastModifiedAt": "2026-06-09T03:04:23.364Z"
     },
     {
       "id": "feature:/privacy",
@@ -16291,7 +16291,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T02:02:57.899Z"
+      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16330,7 +16330,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T02:02:57.899Z"
+      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19762,7 +19762,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T02:07:47.685Z"
+      "lastModifiedAt": "2026-06-09T03:15:30.515Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

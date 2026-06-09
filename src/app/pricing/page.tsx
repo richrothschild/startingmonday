@@ -67,19 +67,37 @@ export default function PricingPage() {
         <PricingCards />
 
         <section className="mt-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">First-week outcomes by path</p>
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">First-week outcomes by buyer mode</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
+            Pick the mode that matches urgency this week. Each path defines what &quot;good&quot; looks like in seven days.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <article className="rounded border border-slate-200 bg-slate-50 p-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-1">Quiet monitor mode</p>
               <p className="text-[12px] text-slate-600 leading-relaxed">Build signal coverage and a clean watchlist so timing windows stop surprising you.</p>
+              <ul className="mt-3 space-y-1.5 text-[12px] text-slate-600">
+                <li>- 20-30 target companies tracked with fresh signal visibility</li>
+                <li>- At least 10 decision-timeline markers initialized</li>
+                <li>- Weekly check rhythm defined for one operator</li>
+              </ul>
             </article>
             <article className="rounded border border-slate-200 bg-slate-50 p-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-1">Active campaign mode</p>
               <p className="text-[12px] text-slate-600 leading-relaxed">Establish daily execution rhythm with prep briefs, follow-ups, and conversion tracking.</p>
+              <ul className="mt-3 space-y-1.5 text-[12px] text-slate-600">
+                <li>- Daily queue active with owner-assigned next actions</li>
+                <li>- Prep briefs completed before first-contact outreach</li>
+                <li>- Follow-up SLA visible across all live campaigns</li>
+              </ul>
             </article>
             <article className="rounded border border-slate-200 bg-slate-50 p-4">
               <p className="text-[12px] font-semibold text-slate-900 mb-1">High-intensity mandate mode</p>
               <p className="text-[12px] text-slate-600 leading-relaxed">Launch high-depth scanning and decision-grade prep across your highest-priority targets.</p>
+              <ul className="mt-3 space-y-1.5 text-[12px] text-slate-600">
+                <li>- Priority list narrowed to top 5-8 high-value targets</li>
+                <li>- Executive-ready prep packet produced for each active lane</li>
+                <li>- Decision owner and escalation path set per campaign</li>
+              </ul>
             </article>
           </div>
         </section>

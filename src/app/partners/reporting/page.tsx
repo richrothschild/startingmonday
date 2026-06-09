@@ -23,6 +23,24 @@ const RENEWAL_PACKET = [
   'Decision checklist and timeline',
 ]
 
+const REPORT_VARIANTS = [
+  {
+    name: 'Enterprise board review',
+    focus: 'Governance, risk visibility, and board-ready KPI framing.',
+    sections: 'Cohort breakdown, weekly trend, narrative summary',
+  },
+  {
+    name: 'Growth operations',
+    focus: 'Operator-facing trend interpretation and intervention planning.',
+    sections: 'Cohort breakdown, weekly trend, action narrative',
+  },
+  {
+    name: 'Pilot compact',
+    focus: 'Fast executive readout for pilot proof and renewal checkpoints.',
+    sections: 'Cohort breakdown, concise narrative, renewal summary',
+  },
+]
+
 export default function PartnerReportingPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -60,6 +78,29 @@ export default function PartnerReportingPage() {
               <li key={item} className="text-[13px] text-slate-700">- {item}</li>
             ))}
           </ul>
+        </section>
+
+        <section className="mb-8 border border-slate-200 rounded-lg p-5 sm:p-6 bg-slate-50">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Report template variants</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {REPORT_VARIANTS.map((variant) => (
+              <article key={variant.name} className="rounded border border-slate-200 bg-white p-4">
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">{variant.name}</p>
+                <p className="text-[12px] text-slate-600 leading-relaxed mb-2">{variant.focus}</p>
+                <p className="text-[12px] text-slate-500"><span className="font-semibold text-slate-700">Default sections:</span> {variant.sections}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px] text-slate-600">
+            <div className="rounded border border-slate-200 bg-white p-3">
+              <p className="font-semibold text-slate-900 mb-1">Template artifact</p>
+              <p>docs/partners/monthly-partner-report-template.md</p>
+            </div>
+            <div className="rounded border border-slate-200 bg-white p-3">
+              <p className="font-semibold text-slate-900 mb-1">First issued report artifact</p>
+              <p>docs/partners/reports/2026-06-pilot-partner-report.md</p>
+            </div>
+          </div>
         </section>
 
         <section className="border border-emerald-200 rounded-lg p-5 sm:p-6 bg-emerald-50">

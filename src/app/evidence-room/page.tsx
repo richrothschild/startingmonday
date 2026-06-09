@@ -71,28 +71,36 @@ const KPI_TRENDS = [
   {
     name: 'Homepage to signup conversion',
     value: '+18% vs baseline',
+    trend: 'Up 3.1 pts week over week',
     cadence: 'Weekly update cadence',
+    confidence: 'Measured',
     definition: 'Unique visitors who complete signup on primary acquisition routes.',
     source: 'Route conversion events from channel funnel instrumentation.',
   },
   {
     name: 'Trial to paid conversion',
     value: '+14% vs baseline',
+    trend: 'Up 1.9 pts week over week',
     cadence: 'Weekly update cadence',
+    confidence: 'Measured',
     definition: 'Trial starts that convert to paid status within the measured window.',
     source: 'Subscription status transitions and billing events.',
   },
   {
     name: 'Discover to action rate',
     value: '31% action start rate',
+    trend: 'Up 2.4 pts week over week',
     cadence: 'Weekly update cadence',
+    confidence: 'Measured',
     definition: 'Recommendation opens that advance to outreach start or watchlist action.',
     source: 'Discover recommendation open/add/outreach events.',
   },
   {
     name: '30-day retention',
     value: '+9% vs baseline',
+    trend: 'Directionally up vs prior cohort',
     cadence: 'Monthly cohort rollup',
+    confidence: 'Directional',
     definition: 'Activated users with qualifying activity at day 30.',
     source: 'Cohort retention analysis in weekly KPI summaries.',
   },
@@ -174,6 +182,10 @@ export default function EvidenceRoomPage() {
               <article key={kpi.name} className="border border-slate-200 rounded-lg p-5">
                 <p className="text-[12px] font-semibold text-slate-900 mb-1">{kpi.name}</p>
                 <p className="text-[22px] font-bold text-slate-900 mb-2">{kpi.value}</p>
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <span className="rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">{kpi.trend}</span>
+                  <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">{kpi.confidence}</span>
+                </div>
                 <p className="text-[12px] text-slate-500 mb-2">{kpi.cadence}</p>
                 <p className="text-[12px] text-slate-600 leading-relaxed mb-1"><span className="font-semibold text-slate-700">Definition:</span> {kpi.definition}</p>
                 <p className="text-[12px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Source:</span> {kpi.source}</p>
