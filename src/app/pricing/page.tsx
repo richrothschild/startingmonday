@@ -66,6 +66,24 @@ export default function PricingPage() {
 
         <PricingCards />
 
+        <section className="mt-10 border border-slate-200 rounded-lg p-6 sm:p-7 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">First-week outcomes by path</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <article className="rounded border border-slate-200 bg-slate-50 p-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-1">Quiet monitor mode</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">Build signal coverage and a clean watchlist so timing windows stop surprising you.</p>
+            </article>
+            <article className="rounded border border-slate-200 bg-slate-50 p-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-1">Active campaign mode</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">Establish daily execution rhythm with prep briefs, follow-ups, and conversion tracking.</p>
+            </article>
+            <article className="rounded border border-slate-200 bg-slate-50 p-4">
+              <p className="text-[12px] font-semibold text-slate-900 mb-1">High-intensity mandate mode</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">Launch high-depth scanning and decision-grade prep across your highest-priority targets.</p>
+            </article>
+          </div>
+        </section>
+
         <section className="mt-12 border-t border-slate-100 pt-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4 text-center">Pricing FAQ</p>
           <div className="max-w-3xl mx-auto space-y-4">

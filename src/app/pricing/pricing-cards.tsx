@@ -6,6 +6,8 @@ import { PRICING } from '@/lib/pricing'
 const PLANS = [
   {
     ...PRICING.passive,
+    buyerMode: 'Quiet monitor mode',
+    firstWeekOutcome: 'Build a target watchlist and receive your first weekly signal digest.',
     description: 'Stay ahead of the search. Know what is changing at your target companies before the role ever posts.',
     featured: false,
     features: [
@@ -18,6 +20,8 @@ const PLANS = [
   },
   {
     ...PRICING.active,
+    buyerMode: 'Active campaign mode',
+    firstWeekOutcome: 'Run your first prep brief, log outreach, and establish a daily execution loop.',
     description: 'Stop running a reactive search. Prep briefs, pipeline tracking, intelligence, outreach, and a daily briefing. From one place.',
     featured: true,
     features: [
@@ -32,6 +36,8 @@ const PLANS = [
   },
   {
     ...PRICING.executive,
+    buyerMode: 'High-intensity mandate mode',
+    firstWeekOutcome: 'Launch full-depth scanning and complete a board-level readiness brief with outreach priorities.',
     description: 'For executives who want the analysis done, the brief written, and the intelligence running at full depth. Not data to work from.',
     featured: false,
     features: [
@@ -114,6 +120,7 @@ export function PricingCards() {
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">
               {plan.name}
             </p>
+            <p className="text-[11px] text-slate-500 mb-2">{plan.buyerMode}</p>
             <div className="mb-1">
               <span className="text-[40px] font-bold text-slate-900 leading-none">
                 ${annual ? plan.annual.toLocaleString() : plan.monthly}
@@ -128,6 +135,10 @@ export function PricingCards() {
             <p className="text-[13px] text-slate-500 leading-relaxed mb-5 mt-2 min-h-[56px]">
               {plan.description}
             </p>
+            <div className="mb-5 rounded border border-slate-200 bg-slate-50 px-3 py-2">
+              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-1">First-week outcome</p>
+              <p className="text-[12px] text-slate-600 leading-relaxed">{plan.firstWeekOutcome}</p>
+            </div>
             <ul className="flex flex-col gap-2.5 mb-6 flex-1">
               {plan.features.map(f => (
                 <li key={f} className="flex items-start gap-2 text-[13px] text-slate-700">

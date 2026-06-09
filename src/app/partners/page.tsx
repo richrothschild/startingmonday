@@ -217,6 +217,12 @@ export default function PartnersPage() {
           <section className="border-t border-slate-100 pt-10">
             <p className="mb-3 text-[12px] font-semibold text-slate-600">Not an executive coach?</p>
             <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link
+                href="/partners/reporting"
+                className="text-[13px] text-slate-500 transition-colors hover:text-slate-900"
+              >
+                Partner reporting packet &rarr;
+              </Link>
               {OTHER_PARTNERS.map(({ label, href }) => (
                 <Link
                   key={href}

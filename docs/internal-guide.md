@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-08T21:00:05.414Z
+Last generated: 2026-06-09T00:35:42.775Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (188)
+## Features (190)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -115,6 +115,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Blog / Why executive recruiters go quiet | /blog/why-executive-recruiters-go-quiet | User-facing page route /blog/why-executive-recruiters-go-quiet.
 - Feature Blog / Why starting monday exists | /blog/why-starting-monday-exists | User-facing page route /blog/why-starting-monday-exists.
 - Feature Career tools | /career-tools | User-facing page route /career-tools.
+- Feature Case studies | /case-studies | User-facing page route /case-studies.
 - Feature Coaches guide | /coaches-guide | User-facing page route /coaches-guide.
 - Feature Coaches / Mock dashboard | /coaches/mock-dashboard | User-facing page route /coaches/mock-dashboard.
 - Feature Coaches | /coaches | User-facing page route /coaches.
@@ -191,6 +192,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Partners / Mauricio kickoff | /partners/mauricio-kickoff | User-facing page route /partners/mauricio-kickoff.
 - Feature Partners | /partners | User-facing page route /partners.
+- Feature Partners / Reporting | /partners/reporting | User-facing page route /partners/reporting.
 - Feature Pilot findings | /pilot-findings | User-facing page route /pilot-findings.
 - Feature Pricing | /pricing | User-facing page route /pricing.
 - Feature Privacy | /privacy | User-facing page route /privacy.
@@ -968,7 +970,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (554)
+## Documentation (558)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1307,6 +1309,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/outreach/search-firm-personas-by-size-and-specialty.md | docs/outreach/search-firm-personas-by-size-and-specialty.md | Search Firm Personas by Size and Specialty
 - Doc docs/outreach/us-must-target-search-firms.md | docs/outreach/us-must-target-search-firms.md | US Must-Target Search Firms
 - Doc docs/outreach/us-senior-executive-target-slate.md | docs/outreach/us-senior-executive-target-slate.md | US Senior Executive Target Slate
+- Doc docs/partners/monthly-partner-report-template.md | docs/partners/monthly-partner-report-template.md | Monthly Partner Report Template
+- Doc docs/partners/renewal-decision-packet-template.md | docs/partners/renewal-decision-packet-template.md | Renewal Decision Packet Template
+- Doc docs/partners/reports/2026-06-pilot-partner-report.md | docs/partners/reports/2026-06-pilot-partner-report.md | Pilot Partner Report - June 2026
 - Doc docs/pe-transition-pricing.md | docs/pe-transition-pricing.md | Starting Monday — Per-Transition Pricing for VC and PE Firms
 - Doc docs/performance-audit-pack.md | docs/performance-audit-pack.md | Performance Audit Pack
 - Doc docs/performance-budget.md | docs/performance-budget.md | Performance Budget
@@ -1394,6 +1399,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
