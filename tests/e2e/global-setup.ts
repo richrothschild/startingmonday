@@ -1,5 +1,6 @@
 import { test as setup, type Page } from '@playwright/test'
 import path from 'path'
+import { existsSync } from 'node:fs'
 
 const authFile = path.join(__dirname, '.auth/user.json')
 
@@ -80,7 +81,11 @@ setup('authenticate', async ({ page }) => {
   const password = process.env.PLAYWRIGHT_TEST_PASSWORD
 
   if (!email || !password) {
-    await page.context().storageState({ path: authFile })
+    // Preserve previously captured auth state for local smoke runs.
+    // Writing a fresh storage state here can unintentionally clear valid cookies.
+    if (!existsSync(authFile)) {
+      await page.context().storageState({ path: authFile })
+    }
     return
   }
 
