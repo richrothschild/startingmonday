@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-09T03:15:32.986Z
+Last generated: 2026-06-09T03:22:29.388Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -207,7 +207,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (259)
+## API Surface (260)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -383,6 +383,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/demo-brief | src/app/api/demo-brief/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
+- API /api/deploy-marker | src/app/api/deploy-marker/route.ts | export const dynamic = 'force-dynamic'
 - API /api/discover | src/app/api/discover/route.ts | export type DiscoveryCompany = {
 - API /api/drip/unsubscribe | src/app/api/drip/unsubscribe/route.ts | export async function GET(request: NextRequest) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
@@ -672,7 +673,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (119)
+## Internal Scripts (120)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -788,6 +789,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
 - Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
 - Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
+- Script scripts/tmp-staging-timeline-interact.mjs | scripts/tmp-staging-timeline-interact.mjs | import { chromium } from '@playwright/test'
 - Script scripts/ui-ux-council-audit.mjs | scripts/ui-ux-council-audit.mjs | import fs from 'node:fs'
 - Script scripts/user-guide-sync.ts | scripts/user-guide-sync.ts | import { createHash } from 'crypto'
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node

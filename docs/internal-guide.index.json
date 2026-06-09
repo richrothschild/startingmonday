@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T03:15:32.986Z",
+  "generatedAt": "2026-06-09T03:22:29.388Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
+      "lastModifiedAt": "2026-06-09T03:15:33.002Z"
     },
     {
       "id": "feature:/login",
@@ -1650,7 +1650,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T03:03:26.584Z"
+      "lastModifiedAt": "2026-06-09T03:21:13.294Z"
     },
     {
       "id": "feature:/executive-brief",
@@ -2490,7 +2490,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T03:03:42.106Z"
+      "lastModifiedAt": "2026-06-09T03:21:13.294Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -2518,7 +2518,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T03:04:23.364Z"
+      "lastModifiedAt": "2026-06-09T03:21:13.294Z"
     },
     {
       "id": "feature:/privacy",
@@ -4948,6 +4948,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:15.653Z"
+    },
+    {
+      "id": "api:/api/deploy-marker",
+      "title": "API /api/deploy-marker",
+      "body": "export const dynamic = 'force-dynamic'",
+      "type": "api",
+      "ref": "src/app/api/deploy-marker/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-09T03:22:00.879Z"
     },
     {
       "id": "api:/api/discover",
@@ -9887,7 +9900,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-07T23:31:53.405Z"
+      "lastModifiedAt": "2026-06-09T03:22:05.415Z"
     },
     {
       "id": "script:scripts/refine-outreach-templates-by-council.mjs",
@@ -10161,6 +10174,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-04-30T19:06:34.961Z"
+    },
+    {
+      "id": "script:scripts/tmp-staging-timeline-interact.mjs",
+      "title": "Script scripts/tmp-staging-timeline-interact.mjs",
+      "body": "import { chromium } from '@playwright/test'",
+      "type": "script",
+      "ref": "scripts/tmp-staging-timeline-interact.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-09T03:21:13.296Z"
     },
     {
       "id": "script:scripts/ui-ux-council-audit.mjs",
@@ -16291,7 +16317,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
+      "lastModifiedAt": "2026-06-09T03:15:33.002Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16330,7 +16356,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T02:07:50.162Z"
+      "lastModifiedAt": "2026-06-09T03:15:33.002Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

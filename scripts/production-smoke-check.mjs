@@ -2,6 +2,7 @@
 
 const BASE_URL = process.env.MONITOR_BASE_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.MONITOR_CRON_SECRET ?? ''
+const EXPECT_DEPLOY_MARKER = process.env.MONITOR_EXPECT_DEPLOY_MARKER ?? ''
 const OUTPUT_JSON = process.env.MONITOR_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = 15000
 
@@ -126,6 +127,15 @@ async function main() {
       name: 'Pricing page',
       path: '/pricing',
       expectStatus: 200,
+    },
+    {
+      name: 'Deploy marker endpoint',
+      path: '/api/deploy-marker',
+      expectStatus: 200,
+      expectJsonField: EXPECT_DEPLOY_MARKER
+        ? { key: 'release', allowed: [EXPECT_DEPLOY_MARKER] }
+        : { key: 'kind', allowed: ['deploy-marker'] },
+      critical: false,
     },
   ]
 
