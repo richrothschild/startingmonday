@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-09T04:06:06.384Z
+Last generated: 2026-06-09T17:45:28.312Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -673,7 +673,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (120)
+## Internal Scripts (123)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -703,6 +703,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-mobile-elite-visual-gate.mjs | scripts/check-mobile-elite-visual-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | eslint-disable-next-line no-await-in-loop
 - Script scripts/check-mobile-ui-contract.mjs | scripts/check-mobile-ui-contract.mjs | Quick actions layout contract: two-column mobile and six-column desktop utility grid.
+- Script scripts/check-monitoring-coverage.mjs | scripts/check-monitoring-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-observability-import-guard.mjs | scripts/check-observability-import-guard.mjs | #!/usr/bin/env node
 - Script scripts/check-outreach-format.mjs | scripts/check-outreach-format.mjs | Accept common signature variants used across historical outreach exports.
 - Script scripts/check-placeholder-test-regressions.mjs | scripts/check-placeholder-test-regressions.mjs | #!/usr/bin/env node
@@ -739,6 +740,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
+- Script scripts/generate-monitoring-harness.mjs | scripts/generate-monitoring-harness.mjs | #!/usr/bin/env node
+- Script scripts/generate-monitoring-matrix.mjs | scripts/generate-monitoring-matrix.mjs | #!/usr/bin/env node
 - Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/guide-freshness-needed.mjs | scripts/guide-freshness-needed.mjs | #!/usr/bin/env node
@@ -795,7 +798,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (35)
+## Infrastructure and Workflows (36)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -815,6 +818,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
 - Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Guide sync can be run proactively, no strict failed-check name requirement.
+- Workflow .github/workflows/production-generated-monitoring.yml | .github/workflows/production-generated-monitoring.yml | name: Production Generated Monitoring
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
 - Workflow .github/workflows/promote-staging-to-main.yml | .github/workflows/promote-staging-to-main.yml | name: Promote staging to main
@@ -972,7 +976,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (561)
+## Documentation (563)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1391,6 +1395,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/sre/runbooks/postmortem-template.md | docs/sre/runbooks/postmortem-template.md | Blameless Postmortem Template
 - Doc docs/sre/slo-catalog.md | docs/sre/slo-catalog.md | SLO Catalog (Routes and Pages)
 - Doc docs/sre/sprint-ready-tickets-90-day-reliability.md | docs/sre/sprint-ready-tickets-90-day-reliability.md | Sprint-Ready Tickets: 90-Day Reliability Rollout
+- Doc docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md | docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md | Synthetic Coverage Rollout Plan (2026-06-09)
 - Doc docs/sre/synthetic-tests-and-deploy-gates.md | docs/sre/synthetic-tests-and-deploy-gates.md | Production Synthetics and Deploy Gate Specification
 - Doc docs/sre/weekly-reliability-review.md | docs/sre/weekly-reliability-review.md | Weekly Reliability Review
 - Doc docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | Starting Monday Jira Sprint Slices
@@ -1401,6 +1406,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | Epic B Handoff Summary for Chris
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
+- Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
 - Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches

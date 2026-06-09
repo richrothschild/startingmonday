@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T04:06:06.384Z",
+  "generatedAt": "2026-06-09T17:45:28.312Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
+      "lastModifiedAt": "2026-06-09T04:06:06.398Z"
     },
     {
       "id": "feature:/login",
@@ -838,7 +838,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.483Z"
+      "lastModifiedAt": "2026-06-09T17:41:57.806Z"
     },
     {
       "id": "feature:/dashboard/start",
@@ -9058,6 +9058,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.324Z"
     },
     {
+      "id": "script:scripts/check-monitoring-coverage.mjs",
+      "title": "Script scripts/check-monitoring-coverage.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-monitoring-coverage.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-09T17:39:26.820Z"
+    },
+    {
       "id": "script:scripts/check-observability-import-guard.mjs",
       "title": "Script scripts/check-observability-import-guard.mjs",
       "body": "#!/usr/bin/env node",
@@ -9211,7 +9224,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T16:52:15.331Z"
+      "lastModifiedAt": "2026-06-09T17:39:26.822Z"
     },
     {
       "id": "script:scripts/check-untracked-tests.mjs",
@@ -9524,6 +9537,32 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.345Z"
+    },
+    {
+      "id": "script:scripts/generate-monitoring-harness.mjs",
+      "title": "Script scripts/generate-monitoring-harness.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/generate-monitoring-harness.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-09T17:44:02.638Z"
+    },
+    {
+      "id": "script:scripts/generate-monitoring-matrix.mjs",
+      "title": "Script scripts/generate-monitoring-matrix.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/generate-monitoring-matrix.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-09T17:39:26.820Z"
     },
     {
       "id": "script:scripts/generate-performance-release-scorecard.mjs",
@@ -10251,7 +10290,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-09T04:05:24.903Z"
+      "lastModifiedAt": "2026-06-09T17:39:26.822Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10486,6 +10525,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-07T13:27:03.269Z"
+    },
+    {
+      "id": "infra:.github/workflows/production-generated-monitoring.yml",
+      "title": "Workflow .github/workflows/production-generated-monitoring.yml",
+      "body": "name: Production Generated Monitoring",
+      "type": "infra",
+      "ref": ".github/workflows/production-generated-monitoring.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-09T17:39:26.822Z"
     },
     {
       "id": "infra:.github/workflows/production-growth-gate.yml",
@@ -16317,7 +16369,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
+      "lastModifiedAt": "2026-06-09T04:06:06.398Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16356,7 +16408,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
+      "lastModifiedAt": "2026-06-09T04:06:06.398Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18062,6 +18114,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.136Z"
     },
     {
+      "id": "doc:docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md",
+      "title": "Doc docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md",
+      "body": "Synthetic Coverage Rollout Plan (2026-06-09)",
+      "type": "doc",
+      "ref": "docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-09T17:25:51.029Z"
+    },
+    {
       "id": "doc:docs/sre/synthetic-tests-and-deploy-gates.md",
       "title": "Doc docs/sre/synthetic-tests-and-deploy-gates.md",
       "body": "Production Synthetics and Deploy Gate Specification",
@@ -18190,6 +18255,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.144Z"
+    },
+    {
+      "id": "doc:docs/status/monitoring-coverage-matrix.latest.md",
+      "title": "Doc docs/status/monitoring-coverage-matrix.latest.md",
+      "body": "Monitoring Coverage Matrix",
+      "type": "doc",
+      "ref": "docs/status/monitoring-coverage-matrix.latest.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-09T17:37:46.913Z"
     },
     {
       "id": "doc:docs/status/pre-scale-weekly-operator-scorecard.md",
@@ -19788,7 +19866,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T03:25:18.595Z"
+      "lastModifiedAt": "2026-06-09T17:44:58.108Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
