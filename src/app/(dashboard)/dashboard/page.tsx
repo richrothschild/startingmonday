@@ -23,6 +23,7 @@ import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
+import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 
@@ -82,6 +83,41 @@ type CompanyRow = {
   updated_at: string | null
 }
 
+function decisionMarkerForStage(stage: string): { marker: string; decisionWindowLabel: string } {
+  switch (stage) {
+    case 'watching':
+      return {
+        marker: 'Commit to keep or kill this target based on a concrete signal and role thesis fit.',
+        decisionWindowLabel: '48 hours',
+      }
+    case 'researching':
+      return {
+        marker: 'Commit to outreach owner and first external contact path, or narrow out this target.',
+        decisionWindowLabel: '72 hours',
+      }
+    case 'applied':
+      return {
+        marker: 'Commit to first follow-up move and sponsor path before this process goes cold.',
+        decisionWindowLabel: '72 hours',
+      }
+    case 'interviewing':
+      return {
+        marker: 'Commit to explicit go/no-go criteria and top two risk responses before next round.',
+        decisionWindowLabel: '24 hours',
+      }
+    case 'offer':
+      return {
+        marker: 'Commit to accept/decline decision path with non-negotiables and downside limits.',
+        decisionWindowLabel: '24 hours',
+      }
+    default:
+      return {
+        marker: 'Commit to one irreversible next move or archive this campaign.',
+        decisionWindowLabel: '72 hours',
+      }
+  }
+}
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -136,7 +172,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('id, stage, name')
+    .select('id, stage, name, updated_at')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -324,6 +360,33 @@ export default async function DashboardPage({
   const campaignHealthBand = campaignHealthScore >= 75 ? 'Strong' : campaignHealthScore >= 50 ? 'Watch' : 'At risk'
   const topStalledCampaigns = stalledCampaignRows.slice(0, 5)
 
+  const timelineOwnerLabel = profile?.full_name ?? user.email ?? 'Account owner'
+  const decisionTimelineItems = (allList ?? [])
+    .map((company) => {
+      const stageLabel = STAGE[company.stage]?.label ?? company.stage
+      const updatedAtMs = company.updated_at ? new Date(company.updated_at).getTime() : null
+      const daysSinceUpdate = updatedAtMs ? Math.floor((Date.now() - updatedAtMs) / 86400000) : null
+      const stalled = (daysSinceUpdate ?? 0) >= 14
+      const marker = decisionMarkerForStage(company.stage)
+
+      return {
+        id: company.id,
+        name: company.name,
+        stageLabel,
+        nextDecisionMarker: marker.marker,
+        decisionWindowLabel: marker.decisionWindowLabel,
+        daysSinceUpdate,
+        stalled,
+        ownerLabel: timelineOwnerLabel,
+        href: `/dashboard/companies/${company.id}`,
+      }
+    })
+    .sort((a, b) => {
+      if (a.stalled !== b.stalled) return a.stalled ? -1 : 1
+      return (b.daysSinceUpdate ?? 0) - (a.daysSinceUpdate ?? 0)
+    })
+    .slice(0, 8)
+
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
   type WarmPath = { contactId: string; contactName: string; contactTitle: string | null; companyId: string; companyName: string; signal: SignalRow }
@@ -387,6 +450,13 @@ export default async function DashboardPage({
   const staffMember = await getStaffMember(user.email ?? '')
   const isRothschildAdmin = hasAdminHeaderAccess(staffMember)
   const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'
+  const roleLensLabel = isRothschildAdmin
+    ? 'Admin'
+    : isPartner
+      ? 'Partner'
+      : isCoach
+        ? 'Coach'
+        : 'Executive'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -802,6 +872,12 @@ export default async function DashboardPage({
             </div>
           )}
         </section>
+
+        <DashboardDecisionTimelineSection
+          roleLensLabel={roleLensLabel}
+          items={decisionTimelineItems}
+          stalledCount={stalledCampaignRows.length}
+        />
 
         <DashboardDisclosureSection
           id="profile-modules"
