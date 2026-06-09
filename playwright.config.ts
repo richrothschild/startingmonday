@@ -31,6 +31,15 @@ export default defineConfig({
       },
     },
     {
+      name: 'monitor-generated',
+      testMatch: /generated\/.*\.generated\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
       name: 'synthetics',
       testMatch: /synthetics\.spec\.ts/,
       dependencies: ['setup'],

@@ -1,0 +1,3947 @@
+{
+  "generatedAt": "2026-06-09T17:37:46.910Z",
+  "source": {
+    "pagesScanned": 209,
+    "actionsScanned": 260,
+    "testFilesScanned": 20
+  },
+  "summary": {
+    "routes": {
+      "total": 187,
+      "covered": 79,
+      "uncovered": 108,
+      "coveragePct": 42.2
+    },
+    "actions": {
+      "total": 260,
+      "covered": 127,
+      "uncovered": 133,
+      "coveragePct": 48.8
+    },
+    "routesByTier": {
+      "tier0": {
+        "total": 9,
+        "covered": 9,
+        "uncovered": 0,
+        "coveragePct": 100
+      },
+      "tier1": {
+        "total": 67,
+        "covered": 67,
+        "uncovered": 0,
+        "coveragePct": 100
+      },
+      "tier2": {
+        "total": 78,
+        "covered": 3,
+        "uncovered": 75,
+        "coveragePct": 3.8
+      },
+      "tier3": {
+        "total": 33,
+        "covered": 0,
+        "uncovered": 33,
+        "coveragePct": 0
+      }
+    },
+    "actionsByTier": {
+      "tier0": {
+        "total": 10,
+        "covered": 10,
+        "uncovered": 0,
+        "coveragePct": 100
+      },
+      "tier1": {
+        "total": 119,
+        "covered": 117,
+        "uncovered": 2,
+        "coveragePct": 98.3
+      },
+      "tier2": {
+        "total": 131,
+        "covered": 0,
+        "uncovered": 131,
+        "coveragePct": 0
+      },
+      "tier3": {
+        "total": 0,
+        "covered": 0,
+        "uncovered": 0,
+        "coveragePct": 100
+      }
+    }
+  },
+  "routes": [
+    {
+      "route": "/about",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cio-job-search-timeline",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cio-vs-cto-which-role",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/ciso-interview-preparation",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cto-job-search-timeline",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/cto-vs-vp-engineering-career-path",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-coaching-candidate-infrastructure",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-coaching-job-search",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-hiring-patterns-2026",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-job-search-daily-routine",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-resume-gaps",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-search-firms-cio",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/executive-search-operating-system",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/how-cios-find-jobs",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/how-we-estimate-early-role-signals",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/linkedin-executive-search-strategy",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/pe-backed-cio",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/retained-search-candidate-preparation",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/retained-search-firms",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/target-company-list",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/target-company-list-cto",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/technology-executive-transition-chro",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/vp-job-search-different-rules",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/vp-to-cio-transition",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/what-companies-want-chief-data-officer",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/why-executive-recruiters-go-quiet",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/blog/why-starting-monday-exists",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/career-tools",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/case-studies",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches-guide",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches/mock-dashboard",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches/personas",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/coaches/personas/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/concierge",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/contributor",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard",
+      "authClass": "authenticated",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/b2b/[id]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/admin/b2b/example-id"
+    },
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/channel-benchmarks",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/diagrams",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/intelligence",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/intelligence/qa",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/internal-guide",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/onboarding/qa",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/operations",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/outplacement-outreach",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/product",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/product/catalog",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/revenue",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/sales-enablement",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/team",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/traces",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/admin/traces/rubric",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/briefing",
+      "authClass": "authenticated",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/calendar",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/chat",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/coach",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/coach/[clientId]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/coach/example-client-id"
+    },
+    {
+      "route": "/dashboard/companies/[id]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/companies/example-company-id"
+    },
+    {
+      "route": "/dashboard/companies/[id]/prep",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/companies/example-company-id/prep"
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/concierge",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/contacts",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/contacts/[id]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/contacts/example-contact-id"
+    },
+    {
+      "route": "/dashboard/contacts/[id]/edit",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/contacts/example-contact-id/edit"
+    },
+    {
+      "route": "/dashboard/contacts/[id]/outreach",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/contacts/example-contact-id/outreach"
+    },
+    {
+      "route": "/dashboard/discover",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/discover/recommendation/[id]",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true,
+      "concreteExample": "/dashboard/discover/recommendation/example-recommendation-id"
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/feedback",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/help",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/invite",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/kanban",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/offers",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/outplacement",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/outreach",
+      "authClass": "authenticated",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/partner",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/pilot-outreach",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/placed",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/positioning",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/post-search",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/profile",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/profile/tailor",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/salary",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/signals",
+      "authClass": "authenticated",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/start",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/strategy",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/dashboard/wrap-up",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/evaluate",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/evidence-room",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executive-brief",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executives",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executives/active",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executives/passive",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executives/personas",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/executives/personas/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/feedback",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-cdo",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-cio",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-cio-associations",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-ciso",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/coach-prep-worksheet",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/economics",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/faq",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/micro-products",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/micro-products/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coaches/trust-pack",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-coo",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-cpo",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-data-officer",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-executives",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-financial-advisors",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-fractional-executives",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-media-partners",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/economics",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/executive-summary",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/faq",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/metric-dictionary",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/operating-scorecard",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/runbook",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/security-overview",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-outplacement/trust-pack",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-pe-partners",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-pe-teams",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-relocation",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-search-firms",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-vp",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/for-vp-technology",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/founder-note",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/guide",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/ideas",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": "/intelligence/example-slug"
+    },
+    {
+      "route": "/invite/[code]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": "/invite/example-code"
+    },
+    {
+      "route": "/login",
+      "authClass": "public",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/method-and-evidence",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/onboarding",
+      "authClass": "public",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/optimize",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/outplacement",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/outplacement/personas",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/outplacement/personas/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/page.tsx",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/partners",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/partners/reporting",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/pilot-findings",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/pricing",
+      "authClass": "public",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/privacy",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/proof/roi-calculator",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/references",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/research-brief",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/sales-marketing-plan",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/search-firms",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/search-firms/personas",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/search-firms/personas/[slug]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": null
+    },
+    {
+      "route": "/search-firms/sample-cfo-brief",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/security",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/settings/billing",
+      "authClass": "authenticated",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/settings/security",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/settings/team",
+      "authClass": "authenticated",
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/signup",
+      "authClass": "public",
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/team/join/[token]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": "/team/join/example-token"
+    },
+    {
+      "route": "/terms",
+      "authClass": "public",
+      "tier": "tier3",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    },
+    {
+      "route": "/unsubscribe/[code]",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true,
+      "concreteExample": "/unsubscribe/example-code"
+    },
+    {
+      "route": "/unsubscribe/confirmed",
+      "authClass": "public",
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false,
+      "concreteExample": null
+    }
+  ],
+  "actions": [
+    {
+      "path": "/api/admin/automation/billing/failed-payment-retries",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/invoices-receipts",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/payment-reconciliation-checks",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/plan-changes",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/readiness",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/refund-workflow-triggers",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/renewal-reminders",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/revenue-recognition-inputs",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/billing/subscription-status-updates",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/faq-responses",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/health-checks",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/help-center-routing",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/inactivity-nudges",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/issue-triage",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/renewal-reminders",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/status-reporting",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/customer-ops/usage-monitor",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/ci-checks",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/deployment-validation",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/error-monitoring",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/lint-typecheck",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/release-notes",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/runtime-health-checks",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/scheduled-job-observability",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/engineering/test-execution",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/meetings/book-remind",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/monitoring/alerts",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/activation-reminders",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/context-capture",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/first-brief",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/first-milestone-tracking",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/identity-verify",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/intake",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/video-queue",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/onboarding/video-queue/[runId]",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/automation/onboarding/workflow-assignment",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/book-from-replies",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/classify-replies",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/enforce-suppression",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/follow-up-timing",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/initial-sequences",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/post-meeting-follow-up",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/reconcile-live-sends",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/outreach/stalled-nudges",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/arpu-conversion-dashboard",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/benchmark-pipeline-run-logs",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/cohort-roster-model",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/council-review-prep",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/daily-operating-snapshots",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/emi-validation-reruns",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/exception-lists",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/intelligence-qa-scorecard",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/migration-playbook-comms",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/monthly-business-review-packs",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/onboarding-qa-scorecard",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/outplacement-cohort-admin",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/partner-kpi-schema",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/partner-provisioning-import",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/pilot-partner-validation",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/pmf-daily-dashboard",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/pmf-event-monitor",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/prep-provenance-coverage",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/program-template-governance",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/program-template-packs",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/provisioning-sla-qa",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/seat-lifecycle-automation",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/session-closure-monitor",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/sponsor-export-dispatch",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/sponsor-export-pipeline",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/sponsor-snapshot-cadence",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/sprint-5-exit-metrics",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/template-adoption-scorecard",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/trend-reports",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/value-lane-pricing-entitlements",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/reporting/weekly-kpi-summaries",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/bookkeeping-entry-preparation",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/exception-reporting",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/mismatch-flagging",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/payout-matching",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/revenue-classification",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/b2b/material",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/contacts/enrich",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/edgar-status",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/executive-research/health",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/health",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/internal-guide/chat",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/leads/score-route",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/outreach/reliability",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/sales-enablement/workspace",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/signals/monitor",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/[id]",
+      "methods": [
+        "PATCH",
+        "DELETE"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/social/[id]/council-check",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/social/[id]/mark-posted",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/social/[id]/schedule",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/social/digest",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/handoff-approved",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/mock-publish",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/morning",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/schedule-publish",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/sync-engagement",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/social/today",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/speakers",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/admin/speakers/[id]",
+      "methods": [
+        "PATCH"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/admin/speakers/export",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/login-submit",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/oauth-start",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/set-password",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/verify-and-magic-link",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/verify-and-oauth",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/verify-and-signin",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/auth/verify-and-signup",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/checkout",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/checkout/micro-product",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/checkout/micro-product-bundle",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/checkout/seats",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/pause",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/portal",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/billing/resume",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/briefing/send",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/briefs/[id]/rate",
+      "methods": [
+        "PATCH"
+      ],
+      "tier": "tier1",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/briefs/download",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/briefs/save",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/chat",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/client/coach-access/[coachId]",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/client/coach-access/[coachId]/activity",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/client/coaches",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/coach/client/[clientId]/actions",
+      "methods": [
+        "GET",
+        "POST",
+        "PATCH"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/alerts",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/briefs",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/companies",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/scorecards",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/signals",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/client/[clientId]/weekly-review",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/coach/clients",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/coach/command-center",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/companies",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/companies/quick-add",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/companies/reference/search",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/concierge-waitlist",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/concierge/calls",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/contacts",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/contacts/[id]",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/conversation",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/apollo-quality-audit",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/commitment-friday",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/commitment-sunday",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/drip",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/edgar-freshness-audit",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/edgar-signals",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/edgar-watchdog",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/enrichment-contact-retention",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/executive-research-refresh",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/google-calendar-sync",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/ideas-monthly",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/link-integrity-weekly-review",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/managertools-day2-brief",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/managertools-lifecycle",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/managertools-signup-alerts",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/managertools-signup-summary",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/onboarding-video-worker",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/outreach-digest",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/outreach-reconcile",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/outreach-send-worker",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/outreach-tone-guard",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/scan-alert",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/scores",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/stall-check",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/ui-ux-weekly-review",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/cron/weekly-digest",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier2",
+      "covered": false,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/demo-brief",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/demo-brief/executive-brief",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/demo-brief/manager-tools",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/demo-brief/tailored",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/demo-email",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/deploy-marker",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/discover",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/drip/unsubscribe",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/events/channel-funnel",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/events/daily-momentum",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/events/pmf",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/executive-brief/grill-me",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/executive-brief/grill-me/sessions",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/executive-brief/grill-me/sessions/[id]/respond",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/executive-brief/transcription",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/executive-transition/emotion-state/score",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/feedback",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/feedback/items",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/feedback/items/[id]/comments",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/feedback/items/[id]/status",
+      "methods": [
+        "GET",
+        "PATCH"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/feedback/items/[id]/vote",
+      "methods": [
+        "POST",
+        "DELETE"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/google-calendar/callback",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/google-calendar/connect",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/google-calendar/disconnect",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/guide/chat",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/guide/chat/feedback",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/health",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/ideas",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/intelligence/companies",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/intelligence/radar",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/intelligence/token",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/invite",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/linkedin-import",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/linkedin-import/audit",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/linkedin-import/consent",
+      "methods": [
+        "POST",
+        "DELETE"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/linkedin-import/extract",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/linkedin-import/match",
+      "methods": [
+        "GET",
+        "POST",
+        "PATCH"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/narrative/generate-linkedin",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/narrative/generate-positioning",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/notify/new-user",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/offer-synthesis",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/onboarding/events",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/onboarding/intel",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/optimize",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/current-status",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/draft",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/send",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/send/batch-status",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/status",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/suppression",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/outreach/template",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/partners",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/partners/attribute",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/partners/report",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/pilot-outreach",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/positioning/chat",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/positioning/save",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/preferences/briefing",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/prep/[id]",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/background",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/challenges",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/chat",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/competitive",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/leadership",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/outreach",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/outreach/log",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/priorities",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/questions",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/tech-stack",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/why-here",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/prep/[id]/wins",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/profile/export",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/profile/upload-linkedin",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/profile/upload-resume",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/readiness",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/salary-intelligence",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/search",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/signals/classify",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier0",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/strategy",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/strategy/followup",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/suggestions",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/tailor",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/tailor/check",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/tailor/strengthen",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/team/invite",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/team/seat/[id]",
+      "methods": [
+        "DELETE"
+      ],
+      "tier": "tier1",
+      "covered": false,
+      "hasDynamicSegment": true
+    },
+    {
+      "path": "/api/track/open",
+      "methods": [
+        "GET"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/webhooks/onboarding-video",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/webhooks/resend",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    },
+    {
+      "path": "/api/webhooks/stripe",
+      "methods": [
+        "POST"
+      ],
+      "tier": "tier1",
+      "covered": true,
+      "hasDynamicSegment": false
+    }
+  ]
+}

@@ -29,6 +29,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate monitoring coverage matrix and harness
+        run: npm run monitor:coverage:refresh
+
+      - name: Monitoring coverage check (advisory)
+        run: npm run monitor:matrix:check || true
+
+      - name: Upload monitoring coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: monitoring-coverage-matrix
+          path: |
+            docs/status/monitoring-coverage-matrix.latest.json
+            docs/status/monitoring-coverage-matrix.latest.md
+            tests/e2e/generated/
+          retention-days: 14
+
       - name: Run UX/UI rubric page contract
         run: npm run ux:rubric:pages
 

@@ -13,6 +13,7 @@ import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
 import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
 import { runSignalJob } from './jobs/signal-job.js'
+import { runSignalRefreshForUser } from './jobs/signal-job.js'
 import { runOfferEmailJob } from './jobs/offer-email-job.js'
 import { runReactivationJob } from './jobs/reactivation-job.js'
 import { runActivationReminderJob } from './jobs/activation-reminder-job.js'
@@ -107,6 +108,58 @@ const server = http.createServer((req, res) => {
         logger.error('trigger-scan: failed', { companyId, error: err.message })
         Sentry.captureException(err)
       })
+    })
+    return
+  }
+
+  // Immediate signal refresh trigger for a user (optional single-company scope).
+  // Returns 202 immediately; signal refresh runs async.
+  if (req.url === '/trigger-signals' && req.method === 'POST') {
+    const secret = process.env.WORKER_SECRET
+    if (!secret || req.headers['x-worker-secret'] !== secret) {
+      res.writeHead(401)
+      res.end()
+      return
+    }
+
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', () => {
+      let parsed
+      try { parsed = JSON.parse(body || '{}') } catch {
+        res.writeHead(400, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ error: 'invalid_json' }))
+        return
+      }
+
+      const { userId, companyId } = parsed ?? {}
+      if (!userId) {
+        res.writeHead(400, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ error: 'missing_user_id' }))
+        return
+      }
+
+      res.writeHead(202)
+      res.end()
+
+      logger.info('trigger-signals: received', { userId, companyId: companyId ?? null })
+
+      runSignalRefreshForUser({ userId, companyId: companyId ?? null })
+        .then((result) => {
+          logger.info('trigger-signals: complete', {
+            userId,
+            companyId: companyId ?? null,
+            ...result,
+          })
+        })
+        .catch((err) => {
+          logger.error('trigger-signals: failed', {
+            userId,
+            companyId: companyId ?? null,
+            error: err.message,
+          })
+          Sentry.captureException(err)
+        })
     })
     return
   }

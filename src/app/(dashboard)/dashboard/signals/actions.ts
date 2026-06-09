@@ -96,3 +96,26 @@ export async function addSignalFollowUp(formData: FormData) {
   revalidatePath('/dashboard/signals')
   revalidatePath('/dashboard')
 }
+
+export async function requestSignalRefresh() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+  if (!process.env.WORKER_URL || !process.env.WORKER_SECRET) return
+
+  try {
+    await fetch(`${process.env.WORKER_URL}/trigger-signals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-worker-secret': process.env.WORKER_SECRET,
+      },
+      body: JSON.stringify({ userId: user.id }),
+      cache: 'no-store',
+    })
+  } catch {
+    // Keep UX resilient if worker trigger fails; next scheduled run still catches up.
+  }
+
+  revalidatePath('/dashboard/signals')
+}

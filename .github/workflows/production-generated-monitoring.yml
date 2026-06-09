@@ -1,0 +1,120 @@
+name: Production Generated Monitoring
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  generated-monitoring:
+    name: Generated route and action harness
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Generate monitoring matrix and harness
+        run: npm run monitor:coverage:refresh
+
+      - name: Run generated monitoring harness
+        id: generated
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+        run: |
+          npx playwright test --project=monitor-generated \
+            --reporter=json 2>/dev/null > generated-monitoring-results.json || true
+
+          node -e "
+          const fs = require('fs')
+          const results = JSON.parse(fs.readFileSync('generated-monitoring-results.json', 'utf8'))
+          const suites = results.suites ?? []
+          let passed = 0, failed = 0, skipped = 0
+          function walk(suite) {
+            for (const s of suite.suites ?? []) walk(s)
+            for (const spec of suite.specs ?? []) {
+              for (const test of spec.tests ?? []) {
+                if (test.status === 'passed') passed++
+                else if (test.status === 'skipped') skipped++
+                else failed++
+              }
+            }
+          }
+          suites.forEach(walk)
+          const total = passed + failed + skipped
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, [
+            'passed=' + passed,
+            'failed=' + failed,
+            'skipped=' + skipped,
+            'total=' + total,
+          ].join('\n') + '\n')
+          if (failed > 0) process.exit(1)
+          "
+
+      - name: Upload generated monitoring artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: generated-monitoring-artifacts
+          path: |
+            docs/status/monitoring-coverage-matrix.latest.json
+            docs/status/monitoring-coverage-matrix.latest.md
+            generated-monitoring-results.json
+            playwright-report/
+            test-results/
+          retention-days: 14
+
+      - name: Publish generated monitoring summary
+        if: always()
+        run: |
+          PASSED="${{ steps.generated.outputs.passed || '0' }}"
+          FAILED="${{ steps.generated.outputs.failed || '0' }}"
+          SKIPPED="${{ steps.generated.outputs.skipped || '0' }}"
+          TOTAL="${{ steps.generated.outputs.total || '0' }}"
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ## Generated Monitoring Summary
+
+          | Metric | Value |
+          |---|---:|
+          | Passed | ${PASSED} |
+          | Failed | ${FAILED} |
+          | Skipped | ${SKIPPED} |
+          | Total | ${TOTAL} |
+
+          EOF
+
+      - name: Send Slack notification on failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Generated monitoring harness failed in production",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Generated monitoring harness failed*\nWorkflow: Production Generated Monitoring\nBranch: ${{ github.ref_name }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run logs>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
-import { addSignalFollowUp, generateSignalOutreach } from './actions'
+import { addSignalFollowUp, generateSignalOutreach, requestSignalRefresh } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
 import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
@@ -174,7 +174,8 @@ export default async function SignalsPage({
         </div>
 
         {/* Filters */}
-        <form method="GET" className="flex flex-wrap gap-3 mb-6">
+        <div className="flex flex-wrap gap-3 mb-6">
+        <form method="GET" className="flex flex-wrap gap-3">
           <label className="sr-only">Filter by company</label>
           <select
             name="company"
@@ -217,6 +218,16 @@ export default async function SignalsPage({
             </Link>
           )}
         </form>
+
+          <form action={requestSignalRefresh}>
+          <button
+            type="submit"
+            className="text-[13px] font-semibold text-blue-700 border border-blue-200 bg-blue-50 rounded px-3 py-1.5 hover:bg-blue-100 cursor-pointer"
+          >
+            Run signal scan now
+          </button>
+          </form>
+        </div>
 
         {/* Signal list */}
         {signalList.length > 0 && (

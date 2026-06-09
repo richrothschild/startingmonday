@@ -138,6 +138,46 @@ async function retrySignalCompanyById(supabase, payload) {
   }
 }
 
+export async function runSignalRefreshForUser({ userId, companyId = null }) {
+  if (!userId) throw new Error('missing_user_id')
+
+  const supabase = getSupabase()
+
+  if (companyId) {
+    await retrySignalCompanyById(supabase, { companyId, userId })
+    return { companiesProcessed: 1, companiesFailed: 0 }
+  }
+
+  const { data: companies, error } = await supabase
+    .from('companies')
+    .select('id')
+    .eq('user_id', userId)
+    .is('archived_at', null)
+
+  if (error) {
+    throw new Error(`signal_refresh_company_lookup_failed:${error.message}`)
+  }
+
+  let companiesProcessed = 0
+  let companiesFailed = 0
+
+  for (const company of companies ?? []) {
+    try {
+      await retrySignalCompanyById(supabase, { companyId: company.id, userId })
+      companiesProcessed += 1
+    } catch (err) {
+      companiesFailed += 1
+      logger.error('signal-job: user refresh company failed', {
+        userId,
+        companyId: company.id,
+        error: err.message,
+      })
+    }
+  }
+
+  return { companiesProcessed, companiesFailed }
+}
+
 export async function runSignalJob() {
   const supabase = getSupabase()
 

@@ -1,0 +1,47 @@
+{
+  "excludedRoutePatterns": [
+    "^/demo",
+    "^/mark-",
+    "^/mauricio-",
+    "^/partners/mauricio-kickoff",
+    "^/annual-report-2026",
+    "^/managertools"
+  ],
+  "routeExamples": {
+    "/dashboard/companies/[id]": "/dashboard/companies/example-company-id",
+    "/dashboard/companies/[id]/prep": "/dashboard/companies/example-company-id/prep",
+    "/dashboard/contacts/[id]": "/dashboard/contacts/example-contact-id",
+    "/dashboard/contacts/[id]/edit": "/dashboard/contacts/example-contact-id/edit",
+    "/dashboard/contacts/[id]/outreach": "/dashboard/contacts/example-contact-id/outreach",
+    "/dashboard/discover/recommendation/[id]": "/dashboard/discover/recommendation/example-recommendation-id",
+    "/dashboard/coach/[clientId]": "/dashboard/coach/example-client-id",
+    "/dashboard/admin/b2b/[id]": "/dashboard/admin/b2b/example-id",
+    "/intelligence/[slug]": "/intelligence/example-slug",
+    "/invite/[code]": "/invite/example-code",
+    "/team/join/[token]": "/team/join/example-token",
+    "/unsubscribe/[code]": "/unsubscribe/example-code"
+  },
+  "forceCoveredRoutes": [
+    "/",
+    "/login",
+    "/signup",
+    "/pricing",
+    "/onboarding",
+    "/dashboard",
+    "/dashboard/briefing",
+    "/dashboard/outreach",
+    "/dashboard/signals"
+  ],
+  "forceCoveredActions": [
+    "/api/health",
+    "/api/readiness",
+    "/api/auth/verify-and-signin",
+    "/api/auth/verify-and-signup",
+    "/api/auth/verify-and-oauth",
+    "/api/billing/checkout",
+    "/api/billing/portal",
+    "/api/outreach/send",
+    "/api/outreach/status",
+    "/api/signals/classify"
+  ]
+}
