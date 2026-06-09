@@ -16,13 +16,30 @@ type DashboardDecisionTimelineSectionProps = {
   roleLensLabel: string
   items: DecisionTimelineItem[]
   stalledCount: number
+  sort: 'stalled_desc' | 'recent_desc' | 'name_asc'
+  page: number
+  totalPages: number
+  updateDecisionOwner: (formData: FormData) => void | Promise<void>
 }
 
 export function DashboardDecisionTimelineSection({
   roleLensLabel,
   items,
   stalledCount,
+  sort,
+  page,
+  totalPages,
+  updateDecisionOwner,
 }: DashboardDecisionTimelineSectionProps) {
+  const currentSort = sort
+
+  function withParams(nextPage: number, nextSort?: string) {
+    const qp = new URLSearchParams()
+    qp.set('timelinePage', String(nextPage))
+    qp.set('timelineSort', nextSort ?? currentSort)
+    return `/dashboard?${qp.toString()}`
+  }
+
   return (
     <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -37,6 +54,19 @@ export function DashboardDecisionTimelineSection({
             {stalledCount > 0 ? `${stalledCount} stalled 14d+` : 'No stalled campaigns'}
           </span>
         </div>
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <span className="text-[12px] text-slate-500">Sort:</span>
+        <Link href={withParams(0, 'stalled_desc')} className={`rounded border px-2 py-1 text-[11px] font-semibold ${currentSort === 'stalled_desc' ? 'border-slate-300 bg-slate-100 text-slate-900' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900'}`}>
+          Stalled first
+        </Link>
+        <Link href={withParams(0, 'recent_desc')} className={`rounded border px-2 py-1 text-[11px] font-semibold ${currentSort === 'recent_desc' ? 'border-slate-300 bg-slate-100 text-slate-900' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900'}`}>
+          Recently moved
+        </Link>
+        <Link href={withParams(0, 'name_asc')} className={`rounded border px-2 py-1 text-[11px] font-semibold ${currentSort === 'name_asc' ? 'border-slate-300 bg-slate-100 text-slate-900' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900'}`}>
+          Name A-Z
+        </Link>
       </div>
 
       {items.length === 0 ? (
@@ -75,11 +105,46 @@ export function DashboardDecisionTimelineSection({
                 </p>
               </div>
 
+              <form action={updateDecisionOwner} className="mt-2 flex items-center gap-2">
+                <input type="hidden" name="company_id" value={item.id} />
+                <label className="text-[11px] text-slate-500" htmlFor={`owner-${item.id}`}>Decision owner</label>
+                <select
+                  id={`owner-${item.id}`}
+                  name="decision_owner"
+                  defaultValue={item.ownerLabel}
+                  className="border border-slate-200 rounded px-2 py-1 text-[12px] text-slate-700 bg-white"
+                >
+                  <option value="Account owner">Account owner</option>
+                  <option value="Coach">Coach</option>
+                  <option value="Partner">Partner</option>
+                  <option value="Admin">Admin</option>
+                </select>
+                <button type="submit" className="text-[12px] font-semibold text-slate-700 hover:text-slate-900">Save</button>
+              </form>
+
               <Link href={item.href} className="inline-block mt-2 text-[12px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">
                 Open campaign
               </Link>
             </article>
           ))}
+        </div>
+      )}
+
+      {totalPages > 1 && (
+        <div className="mt-3 flex items-center justify-between">
+          <Link
+            href={withParams(Math.max(0, page - 1))}
+            className={`text-[12px] font-semibold ${page === 0 ? 'pointer-events-none text-slate-300' : 'text-slate-700 hover:text-slate-900'}`}
+          >
+            Previous
+          </Link>
+          <p className="text-[12px] text-slate-500">Page {page + 1} of {totalPages}</p>
+          <Link
+            href={withParams(Math.min(totalPages - 1, page + 1))}
+            className={`text-[12px] font-semibold ${page >= totalPages - 1 ? 'pointer-events-none text-slate-300' : 'text-slate-700 hover:text-slate-900'}`}
+          >
+            Next
+          </Link>
         </div>
       )}
     </section>

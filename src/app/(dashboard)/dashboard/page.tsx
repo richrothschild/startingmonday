@@ -24,6 +24,8 @@ import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-se
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
+import { updateDecisionOwner } from './actions'
+import { decisionMarkerForStage, extractDecisionOwnerFromNotes } from './dashboard-decision-timeline-utils'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 
@@ -83,48 +85,17 @@ type CompanyRow = {
   updated_at: string | null
 }
 
-function decisionMarkerForStage(stage: string): { marker: string; decisionWindowLabel: string } {
-  switch (stage) {
-    case 'watching':
-      return {
-        marker: 'Commit to keep or kill this target based on a concrete signal and role thesis fit.',
-        decisionWindowLabel: '48 hours',
-      }
-    case 'researching':
-      return {
-        marker: 'Commit to outreach owner and first external contact path, or narrow out this target.',
-        decisionWindowLabel: '72 hours',
-      }
-    case 'applied':
-      return {
-        marker: 'Commit to first follow-up move and sponsor path before this process goes cold.',
-        decisionWindowLabel: '72 hours',
-      }
-    case 'interviewing':
-      return {
-        marker: 'Commit to explicit go/no-go criteria and top two risk responses before next round.',
-        decisionWindowLabel: '24 hours',
-      }
-    case 'offer':
-      return {
-        marker: 'Commit to accept/decline decision path with non-negotiables and downside limits.',
-        decisionWindowLabel: '24 hours',
-      }
-    default:
-      return {
-        marker: 'Commit to one irreversible next move or archive this campaign.',
-        decisionWindowLabel: '72 hours',
-      }
-  }
-}
-
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string; preview?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string; preview?: string; timelinePage?: string; timelineSort?: string }>
 }) {
-  const { q, stage, page: pageParam, profile_saved, focus, preview } = await searchParams
+  const { q, stage, page: pageParam, profile_saved, focus, preview, timelinePage: timelinePageParam, timelineSort: timelineSortParam } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
+  const timelinePage = Math.max(0, parseInt(timelinePageParam ?? '0', 10) || 0)
+  const timelineSort = timelineSortParam === 'recent_desc' || timelineSortParam === 'name_asc'
+    ? timelineSortParam
+    : 'stalled_desc'
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -172,7 +143,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('id, stage, name, updated_at')
+    .select('id, stage, name, notes, updated_at')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -361,13 +332,14 @@ export default async function DashboardPage({
   const topStalledCampaigns = stalledCampaignRows.slice(0, 5)
 
   const timelineOwnerLabel = profile?.full_name ?? user.email ?? 'Account owner'
-  const decisionTimelineItems = (allList ?? [])
+  const decisionTimelineItemsAll = (allList ?? [])
     .map((company) => {
       const stageLabel = STAGE[company.stage]?.label ?? company.stage
       const updatedAtMs = company.updated_at ? new Date(company.updated_at).getTime() : null
       const daysSinceUpdate = updatedAtMs ? Math.floor((Date.now() - updatedAtMs) / 86400000) : null
       const stalled = (daysSinceUpdate ?? 0) >= 14
       const marker = decisionMarkerForStage(company.stage)
+      const assignedOwner = extractDecisionOwnerFromNotes(company.notes) ?? timelineOwnerLabel
 
       return {
         id: company.id,
@@ -377,15 +349,25 @@ export default async function DashboardPage({
         decisionWindowLabel: marker.decisionWindowLabel,
         daysSinceUpdate,
         stalled,
-        ownerLabel: timelineOwnerLabel,
+        ownerLabel: assignedOwner,
         href: `/dashboard/companies/${company.id}`,
       }
     })
-    .sort((a, b) => {
-      if (a.stalled !== b.stalled) return a.stalled ? -1 : 1
-      return (b.daysSinceUpdate ?? 0) - (a.daysSinceUpdate ?? 0)
-    })
-    .slice(0, 8)
+
+  const decisionTimelineItemsSorted = [...decisionTimelineItemsAll].sort((a, b) => {
+    if (timelineSort === 'name_asc') return a.name.localeCompare(b.name)
+    if (timelineSort === 'recent_desc') return (a.daysSinceUpdate ?? 0) - (b.daysSinceUpdate ?? 0)
+    if (a.stalled !== b.stalled) return a.stalled ? -1 : 1
+    return (b.daysSinceUpdate ?? 0) - (a.daysSinceUpdate ?? 0)
+  })
+
+  const timelinePageSize = 6
+  const timelineTotalPages = Math.max(1, Math.ceil(decisionTimelineItemsSorted.length / timelinePageSize))
+  const safeTimelinePage = Math.min(timelinePage, timelineTotalPages - 1)
+  const decisionTimelineItems = decisionTimelineItemsSorted.slice(
+    safeTimelinePage * timelinePageSize,
+    safeTimelinePage * timelinePageSize + timelinePageSize,
+  )
 
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
@@ -877,6 +859,10 @@ export default async function DashboardPage({
           roleLensLabel={roleLensLabel}
           items={decisionTimelineItems}
           stalledCount={stalledCampaignRows.length}
+          sort={timelineSort}
+          page={safeTimelinePage}
+          totalPages={timelineTotalPages}
+          updateDecisionOwner={updateDecisionOwner}
         />
 
         <DashboardDisclosureSection
