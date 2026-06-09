@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T03:25:20.865Z",
+  "generatedAt": "2026-06-09T04:06:06.384Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-09T03:22:29.403Z"
+      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
     },
     {
       "id": "feature:/login",
@@ -10243,7 +10243,7 @@
     {
       "id": "infra:.github/workflows/ci.yml",
       "title": "Workflow .github/workflows/ci.yml",
-      "body": "Run on all PRs and protected branches — blocks merge on failure.",
+      "body": "Only gate on main/staging pushes that will trigger a deploy.",
       "type": "infra",
       "ref": ".github/workflows/ci.yml",
       "tags": [
@@ -10251,7 +10251,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-08T13:56:31.970Z"
+      "lastModifiedAt": "2026-06-09T04:05:24.903Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -16317,7 +16317,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T03:22:29.403Z"
+      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16356,7 +16356,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T03:22:29.403Z"
+      "lastModifiedAt": "2026-06-09T03:25:20.879Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
