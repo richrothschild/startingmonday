@@ -307,6 +307,23 @@ export default async function DashboardPage({
   const overdueCount   = (followUps ?? []).length
   const signalCount    = signals.length + patternAlerts.length
 
+  const stalledCampaignRows = velocityRows
+    .map((row) => {
+      if (!row.updated_at) return null
+      const daysStalled = Math.floor((Date.now() - new Date(row.updated_at).getTime()) / 86400000)
+      if (daysStalled < 14) return null
+      return { ...row, daysStalled }
+    })
+    .filter((row): row is VelocityRow & { daysStalled: number } => !!row)
+    .sort((a, b) => b.daysStalled - a.daysStalled)
+
+  const cadenceScore = Math.min(100, (outreachThisWeek ?? 0) * 20)
+  const followThroughScore = Math.max(0, 100 - overdueCount * 15)
+  const conversionScore = totalCount > 0 ? Math.min(100, Math.round((activeCount / totalCount) * 100)) : 0
+  const campaignHealthScore = Math.round((cadenceScore * 0.4) + (followThroughScore * 0.35) + (conversionScore * 0.25))
+  const campaignHealthBand = campaignHealthScore >= 75 ? 'Strong' : campaignHealthScore >= 50 ? 'Watch' : 'At risk'
+  const topStalledCampaigns = stalledCampaignRows.slice(0, 5)
+
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
   type WarmPath = { contactId: string; contactName: string; contactTitle: string | null; companyId: string; companyName: string; signal: SignalRow }
@@ -748,6 +765,43 @@ export default async function DashboardPage({
           executivePrimaryRisk={executivePrimaryRisk}
           executiveDecisionBrief={executiveDecisionBrief}
         />
+
+        <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500">Campaign health</p>
+              <h2 className="text-[20px] font-bold text-slate-900 mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-500">{campaignHealthBand}</span></h2>
+              <p className="text-[13px] text-slate-600 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Cadence</p>
+                <p className="text-[16px] font-bold text-slate-900">{cadenceScore}</p>
+              </div>
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Follow-through</p>
+                <p className="text-[16px] font-bold text-slate-900">{followThroughScore}</p>
+              </div>
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Conversion</p>
+                <p className="text-[16px] font-bold text-slate-900">{conversionScore}</p>
+              </div>
+            </div>
+          </div>
+
+          {topStalledCampaigns.length > 0 && (
+            <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-amber-800 mb-2">Stalled alerts</p>
+              <ul className="space-y-1.5">
+                {topStalledCampaigns.map((item) => (
+                  <li key={item.id} className="text-[13px] text-amber-900">
+                    <span className="font-semibold">{item.name}</span> has been idle for {item.daysStalled} days.
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
 
         <DashboardDisclosureSection
           id="profile-modules"

@@ -2,8 +2,18 @@
 
 Date: 2026-06-07
 Owner: Product + Growth + Engineering
-Status: Ready for Jira ingestion
+Status: In execution (tranche in progress)
 Horizon: 90 days
+
+## Execution Update (2026-06-09)
+- Jira import artifact added: `docs/jira/competitive-positioning-90-day-import.csv`
+- Newly completed in this tranche:
+  - Story 1.3: Pricing buyer-mode and first-week outcomes alignment
+  - Story 2.1: Evidence room KPI trend cards + source notes/method section
+  - Story 2.2: Case study pack published (6 stories)
+  - Story 3.3: Campaign health score + stalled alerts in dashboard and admin views
+  - Story 4.3: Partner reporting template, renewal packet template, and first issued report artifact
+- Remaining partials continue in subsequent tranche execution.
 
 ## Epic Summary
 Strengthen Starting Monday market position by converting product differentiation into measurable GTM advantage across three vectors:

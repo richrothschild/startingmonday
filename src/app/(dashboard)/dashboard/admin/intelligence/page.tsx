@@ -38,7 +38,7 @@ export default async function AdminIntelligencePage() {
   const addRateBaseline = Number(process.env.DISCOVER_ADD_TO_WATCHLIST_BASELINE_RATE ?? '')
   const hasAddRateBaseline = Number.isFinite(addRateBaseline) && addRateBaseline > 0
 
-  const [companiesRes, recommendationRowsRes, generatedEventsRes, runCreatedEventsRes, openedEventsRes, recommendationAddedEventsRes, outreachStartedEventsRes, companyAddedEventsRes] = await Promise.all([
+  const [companiesRes, recommendationRowsRes, generatedEventsRes, runCreatedEventsRes, openedEventsRes, recommendationAddedEventsRes, outreachStartedEventsRes, companyAddedEventsRes, activeCampaignsRes, stalledCampaignsRes, dueFollowUpsRes] = await Promise.all([
     admin
       .from('intelligence_companies')
       .select('slug, company_name, sector, website, is_featured, created_at')
@@ -80,6 +80,21 @@ export default async function AdminIntelligencePage() {
       .eq('event_name', 'company_added')
       .gte('created_at', thirtyDaysAgo)
       .limit(500),
+    (admin as any)
+      .from('companies')
+      .select('id', { count: 'exact', head: true })
+      .is('archived_at', null)
+      .in('stage', ['applied', 'interviewing', 'offer']),
+    (admin as any)
+      .from('companies')
+      .select('id', { count: 'exact', head: true })
+      .is('archived_at', null)
+      .lt('updated_at', new Date(Date.now() - 14 * 86400_000).toISOString()),
+    (admin as any)
+      .from('follow_ups')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'pending')
+      .lt('due_date', new Date().toISOString().slice(0, 10)),
   ])
 
   const companies = companiesRes.data ?? []
@@ -127,6 +142,10 @@ export default async function AdminIntelligencePage() {
     ? ((watchlistAddRate30d - addRateBaseline) / addRateBaseline) * 100
     : null
 
+  const activeCampaigns = activeCampaignsRes.count ?? 0
+  const stalledCampaigns = stalledCampaignsRes.count ?? 0
+  const dueFollowUps = dueFollowUpsRes.count ?? 0
+
   const discoverSummary: DiscoverSummary = {
     generatedEvents30d,
     runCreatedEvents30d,
@@ -144,6 +163,11 @@ export default async function AdminIntelligencePage() {
     watchlistAddRate30d,
     watchlistLiftVsBaselinePct,
   }
+
+  const cadenceScore = Math.min(100, Math.round((discoverSummary.outreachStarts30d / 50) * 100))
+  const followThroughScore = Math.max(0, 100 - Math.min(100, dueFollowUps * 2))
+  const conversionScore = Math.max(0, Math.min(100, activeCampaigns * 2))
+  const adminCampaignHealthScore = Math.round((cadenceScore * 0.4) + (followThroughScore * 0.35) + (conversionScore * 0.25))
 
   // For each company, fetch signal count and recent tokens
   const companyData = await Promise.all(
@@ -175,6 +199,29 @@ export default async function AdminIntelligencePage() {
       </nav>
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 mb-5">
+          <h2 className="text-[15px] font-bold text-slate-900 mb-3">Campaign health monitor</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Health Score</div>
+              <div className="text-[18px] font-bold text-slate-900">{adminCampaignHealthScore}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Active Campaigns</div>
+              <div className="text-[18px] font-bold text-slate-900">{activeCampaigns}</div>
+            </div>
+            <div className="rounded-lg border border-amber-200 px-3 py-2.5 bg-amber-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-amber-700 font-bold">Stalled 14+ Days</div>
+              <div className="text-[18px] font-bold text-amber-900">{stalledCampaigns}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Overdue Follow-ups</div>
+              <div className="text-[18px] font-bold text-slate-900">{dueFollowUps}</div>
+            </div>
+          </div>
+          <p className="text-[12px] text-slate-500 mt-3">Monitor stalled campaign count daily and trigger outreach triage when stalled campaigns increase week over week.</p>
+        </div>
+
         <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6">
           <h2 className="text-[15px] font-bold text-slate-900 mb-4">Discover conversion + quality (last 30 days)</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-3">

@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-08T21:00:00.995Z
+Last generated: 2026-06-09T00:34:47.022Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (158)
+## Features (160)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -82,6 +82,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Annual report 2026](/annual-report-2026) - Open /annual-report-2026 to use this feature area and related workflows.
 - [Blog](/blog) - Open /blog to use this feature area and related workflows.
 - [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
+- [Case studies](/case-studies) - Open /case-studies to use this feature area and related workflows.
 - [Coaches guide](/coaches-guide) - Open /coaches-guide to use this feature area and related workflows.
 - [Coaches / Mock dashboard](/coaches/mock-dashboard) - Open /coaches/mock-dashboard to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
@@ -157,6 +158,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Outplacement / Personas](/outplacement/personas) - Open /outplacement/personas to use this feature area and related workflows.
 - [Partners / Mauricio kickoff](/partners/mauricio-kickoff) - Open /partners/mauricio-kickoff to use this feature area and related workflows.
 - [Partners](/partners) - Open /partners to use this feature area and related workflows.
+- [Partners / Reporting](/partners/reporting) - Open /partners/reporting to use this feature area and related workflows.
 - [Pilot findings](/pilot-findings) - Open /pilot-findings to use this feature area and related workflows.
 - [Pricing](/pricing) - Open /pricing to use this feature area and related workflows.
 - [Privacy](/privacy) - Open /privacy to use this feature area and related workflows.
