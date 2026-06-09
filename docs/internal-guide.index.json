@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T00:35:42.775Z",
+  "generatedAt": "2026-06-09T01:55:37.714Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-09T00:34:49.354Z"
+      "lastModifiedAt": "2026-06-09T00:35:42.790Z"
     },
     {
       "id": "feature:/login",
@@ -180,7 +180,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:34:37.929Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.813Z"
     },
     {
       "id": "feature:/dashboard/admin/intelligence/qa",
@@ -712,7 +712,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:31:57.671Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.813Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -1412,7 +1412,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:31:25.206Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.811Z"
     },
     {
       "id": "feature:/coaches-guide",
@@ -1650,7 +1650,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:31:08.372Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.811Z"
     },
     {
       "id": "feature:/executive-brief",
@@ -1930,7 +1930,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T20:46:39.627Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.811Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2476,7 +2476,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:32:33.819Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "feature:/partners/reporting",
@@ -2490,7 +2490,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:32:30.331Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -2518,7 +2518,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T00:32:18.937Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "feature:/privacy",
@@ -16291,7 +16291,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:34:49.354Z"
+      "lastModifiedAt": "2026-06-09T00:35:42.790Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16330,7 +16330,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:34:49.354Z"
+      "lastModifiedAt": "2026-06-09T00:35:42.790Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16357,6 +16357,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-07T13:53:40.768Z"
+    },
+    {
+      "id": "doc:docs/jira/four-channel-customer-journey-import-README.md",
+      "title": "Doc docs/jira/four-channel-customer-journey-import-README.md",
+      "body": "Four-Channel Jira Import (Ready)",
+      "type": "doc",
+      "ref": "docs/jira/four-channel-customer-journey-import-README.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-09T01:55:26.035Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -17006,7 +17019,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:32:50.743Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "doc:docs/partners/renewal-decision-packet-template.md",
@@ -17019,7 +17032,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:32:50.789Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "doc:docs/partners/reports/2026-06-pilot-partner-report.md",
@@ -17032,7 +17045,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:32:50.813Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "doc:docs/pe-transition-pricing.md",
@@ -18280,7 +18293,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T00:33:26.191Z"
+      "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
       "id": "doc:docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md",
@@ -19126,6 +19139,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.180Z"
+    },
+    {
+      "id": "doc:docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
+      "title": "Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
+      "body": "Four-Channel Customer Journey Implementation Backlog",
+      "type": "doc",
+      "ref": "docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-09T01:55:26.036Z"
+    },
+    {
+      "id": "doc:docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md",
+      "title": "Doc docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md",
+      "body": "Four-Channel Now Tranche Kickoff",
+      "type": "doc",
+      "ref": "docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-09T01:55:26.036Z"
     },
     {
       "id": "doc:docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md",

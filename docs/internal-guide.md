@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-09T00:35:42.775Z
+Last generated: 2026-06-09T01:55:37.714Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -970,7 +970,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 
-## Documentation (558)
+## Documentation (561)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1260,6 +1260,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/internal-system-summary.md | docs/internal-system-summary.md | Starting Monday Internal System Summary
 - Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
+- Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
@@ -1473,6 +1474,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
 - Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
+- Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | Four-Channel Customer Journey Implementation Backlog
+- Doc docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | Four-Channel Now Tranche Kickoff
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
