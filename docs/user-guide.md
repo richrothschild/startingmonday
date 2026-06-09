@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-09T03:15:30.511Z
+Last generated: 2026-06-09T03:25:18.591Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -189,7 +189,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (259)
+## API and Automation (260)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -365,6 +365,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/demo-brief](/api/demo-brief) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/demo-brief/tailored](/api/demo-brief/tailored) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/demo-email](/api/demo-email) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/deploy-marker](/api/deploy-marker) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/discover](/api/discover) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/drip/unsubscribe](/api/drip/unsubscribe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
