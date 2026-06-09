@@ -1,0 +1,22 @@
+Summary,Issue Type,Description,Labels,Priority
+Four-channel customer journey expansion (Q3-Q4),Epic,"Execution umbrella for four-channel customer journey backlog in docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md","four-channel,customer-journey,epic",High
+Story 1.1 decision timeline engine,Task,"Create timeline surface with next irreversible decision, blocked dependencies, confidence, and owner.","four-channel,foundation,wbs-1-1,now",High
+Story 1.2 outcome attribution layer,Task,"Implement attribution joins from signal to offer and weekly leakage digest.","four-channel,foundation,wbs-1-2,now",High
+Story 1.3 trust and governance console,Task,"Expose provenance, confidence bands, and AI-use disclosures across recommendation and evidence surfaces.","four-channel,foundation,wbs-1-3,next",High
+Story 1.4 multi-stakeholder workspace,Task,"Shared campaign with role-scoped views for candidate, coach, outplacement operator, and recruiter.","four-channel,foundation,wbs-1-4,later",High
+Story 2.1 executive role-fit simulator,Task,"Simulate fit vs target role archetypes with top gap analysis and action plan.","four-channel,executives,wbs-2-1,now",High
+Story 2.2 executive interview readiness drill loop,Task,"Board/C-suite drill scenarios with rubric scoring and objection heatmap.","four-channel,executives,wbs-2-2,next",High
+Story 2.3 executive offer decision cockpit,Task,"Offer tradeoff scoring with weighted dimensions and decision memo export.","four-channel,executives,wbs-2-3,later",High
+Story 2.4 executive passive search watch mode,Task,"Confidential low-noise mode with threshold-based triggers and digest cadence.","four-channel,executives,wbs-2-4,later",Medium
+Story 3.1 coach command center,Task,"Portfolio-level client momentum, readiness, stall risk, and intervention queue.","four-channel,coaches,wbs-3-1,now",High
+Story 3.2 coach session-to-execution bridge,Task,"Convert session outcomes into dated actions and completion tracking.","four-channel,coaches,wbs-3-2,next",High
+Story 3.3 coach ROI scorecard,Task,"Before/after deltas for prep quality, cadence adherence, and interview progression.","four-channel,coaches,wbs-3-3,later",Medium
+Story 3.4 coach white-label weekly digest,Task,"Co-branded digest with trends, risks, and top commitments.","four-channel,coaches,wbs-3-4,later",Medium
+Story 4.1 outplacement cohort operations hub,Task,"Cohort-level activation, readiness, progression, and benchmark dashboard.","four-channel,outplacement,wbs-4-1,now",High
+Story 4.2 outplacement SLA and compliance layer,Task,"Track counselor SLAs, checkpoint completion, and compliance reporting.","four-channel,outplacement,wbs-4-2,next",High
+Story 4.3 outplacement employer-facing impact packet,Task,"Auto-generate cohort outcomes packet with trend charts and intervention narrative.","four-channel,outplacement,wbs-4-3,later",Medium
+Story 4.4 outplacement risk segmentation engine,Task,"Segment participant risk and recommend intervention playbooks.","four-channel,outplacement,wbs-4-4,later",Medium
+Story 5.1 search firm candidate readiness passport,Task,"Standardized candidate quality packet for recruiter handoff and client presentation.","four-channel,search-firms,wbs-5-1,now",High
+Story 5.2 search firm mandate-match radar,Task,"Rank candidate-mandate matches by fit, urgency, and trajectory with explainability.","four-channel,search-firms,wbs-5-2,next",High
+Story 5.3 search firm shortlist quality predictor,Task,"Predict candidate advancement probability with weekly calibration checks.","four-channel,search-firms,wbs-5-3,later",Medium
+Story 5.4 search firm recruiter collaboration layer,Task,"Shared notes, objections, and SLA handoff checklist workflow.","four-channel,search-firms,wbs-5-4,later",Medium
