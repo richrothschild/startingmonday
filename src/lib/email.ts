@@ -37,7 +37,7 @@ export async function sendEmail({
     }))
   }
 
-  // Internal admin notifications bypass the council gate — they are not
+  // Internal admin notifications bypass the council gate -- they are not
   // user-facing marketing emails and will always score below EJES threshold.
   if (!bypassCouncil) {
     const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '80')
