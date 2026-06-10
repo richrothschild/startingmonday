@@ -2,12 +2,24 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
 
 type RequestBody = {
   email?: unknown
   password?: unknown
+}
+
+function isSignupDisabledError(error: { message?: string } | null | undefined): boolean {
+  const message = error?.message?.toLowerCase() ?? ''
+  return (
+    message.includes('signups not allowed')
+    || message.includes('signup not allowed')
+    || message.includes('signups are not allowed')
+    || message.includes('signup is disabled')
+    || message.includes('sign up is disabled')
+  )
 }
 
 export async function POST(request: NextRequest) {
@@ -58,6 +70,52 @@ export async function POST(request: NextRequest) {
     password,
     options: { emailRedirectTo: redirectTo },
   })
+
+  if (error && isSignupDisabledError(error)) {
+    const admin = createAdminClient()
+    const { data: adminData, error: adminError } = await admin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+    })
+
+    if (adminError || !adminData.user) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'Email signup is temporarily unavailable. Use Google or Apple, or try again later.',
+          code: 'SIGNUPS_DISABLED',
+        },
+        { status: 503 }
+      )
+    }
+
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (signInError || !signInData.session) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: signInError?.message ?? 'Unable to finish account creation',
+          code: 'SIGNUPS_DISABLED',
+        },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json(
+      {
+        ok: true,
+        user: signInData.user ?? adminData.user,
+        session: signInData.session,
+        message: 'Account created successfully.',
+      },
+      { status: 200 }
+    )
+  }
 
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 400 })

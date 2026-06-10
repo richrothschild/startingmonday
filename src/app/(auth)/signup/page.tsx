@@ -279,7 +279,11 @@ export default function SignupPage() {
       const data = await response.json() as { ok?: boolean; error?: string; user?: { id: string; email?: string | null } | null; session?: unknown }
 
       if (!response.ok || !data.ok) {
-        setError(data.error || 'Account creation failed')
+        if ((data as { code?: string }).code === 'SIGNUPS_DISABLED') {
+          setError('Email signup is temporarily unavailable. Use Google or Apple, or try again later.')
+        } else {
+          setError(data.error || 'Account creation failed')
+        }
         setLoading(false)
         return
       }
