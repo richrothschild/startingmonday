@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     `,
   }).catch((err: unknown) => ({ data: null, error: { message: String(err) } }))
 
-  return NextResponse.json({ ok: true, sent: !result?.error, error: result?.error ?? null })
+  return NextResponse.json({ ok: true, sent: !result?.error, id: (result as {data?: {id?: string}})?.data?.id ?? null, error: result?.error ?? null })
 }
 
 
