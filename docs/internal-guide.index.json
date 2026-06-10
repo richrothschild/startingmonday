@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T17:44:55.135Z",
+  "generatedAt": "2026-06-10T17:48:02.486Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-10T17:41:01.570Z"
+      "lastModifiedAt": "2026-06-10T17:44:55.170Z"
     },
     {
       "id": "feature:/login",
@@ -6754,7 +6754,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-10T17:41:17.197Z"
+      "lastModifiedAt": "2026-06-10T17:47:12.922Z"
     },
     {
       "id": "code:src/lib/enrichment/apollo-provider.ts",
@@ -16383,7 +16383,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T17:41:01.562Z"
+      "lastModifiedAt": "2026-06-10T17:44:55.170Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16422,7 +16422,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T17:41:01.570Z"
+      "lastModifiedAt": "2026-06-10T17:44:55.170Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
