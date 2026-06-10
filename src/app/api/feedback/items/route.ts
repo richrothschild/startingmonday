@@ -35,7 +35,7 @@ async function getHandler(req: NextRequest) {
       .from('feedback_items')
       .select(`
         *,
-        user_profiles:user_id(full_name, email)
+        user_profiles:user_id(full_name)
       `, { count: 'exact' })
 
     // Apply filters
