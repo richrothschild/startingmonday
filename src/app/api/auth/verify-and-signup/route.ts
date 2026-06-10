@@ -80,13 +80,17 @@ export async function POST(request: NextRequest) {
     })
 
     if (adminError || !adminData.user) {
+      const msg = adminError?.message?.toLowerCase() ?? ''
+      const alreadyExists = msg.includes('already registered') || msg.includes('already exists') || msg.includes('duplicate')
       return NextResponse.json(
         {
           ok: false,
-          error: 'Email signup is temporarily unavailable. Use Google or Apple, or try again later.',
-          code: 'SIGNUPS_DISABLED',
+          error: alreadyExists
+            ? 'An account with that email already exists. Try signing in instead.'
+            : 'Email signup is temporarily unavailable. Use Google or Apple, or try again later.',
+          code: alreadyExists ? 'EMAIL_EXISTS' : 'SIGNUPS_DISABLED',
         },
-        { status: 503 }
+        { status: alreadyExists ? 409 : 503 }
       )
     }
 
