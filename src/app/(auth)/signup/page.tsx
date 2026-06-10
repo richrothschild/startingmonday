@@ -323,11 +323,6 @@ export default function SignupPage() {
                 body: JSON.stringify({ referral_code: ref }),
               }).catch(() => {})
             : Promise.resolve(),
-          fetch('/api/notify/new-user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: signupSource }),
-          }).catch(() => {}),
         ])
       }
 
