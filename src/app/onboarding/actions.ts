@@ -5,6 +5,8 @@ import { OnboardingFormSchema } from '@/lib/schemas'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
 import { computeElapsedSeconds, isTransitionFirstCohort, normalizeOnboardingChannel } from '@/lib/onboarding-speed'
+import { sendEmail } from '@/lib/email'
+import { getNotifyEmails } from '@/lib/owner-email'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -162,6 +164,30 @@ export async function completeOnboarding(formData: FormData) {
     manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
     manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
   })
+
+  const notifyEmails = getNotifyEmails()
+  if (user.email && notifyEmails.length > 0) {
+    const notifyNow = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+    const nameRow = fullName
+      ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${fullName}</td></tr>`
+      : ''
+    void sendEmail({
+      to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
+      subject: 'New User Registered!',
+      bypassCouncil: true,
+      html: `
+        <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">
+          Heads up &#8212; another new user just registered.
+        </p>
+        <table style="font-family:sans-serif;font-size:13px;color:#334155;border-collapse:collapse;">
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Email</td><td><strong>${user.email}</strong></td></tr>
+          ${nameRow}
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Plan</td><td>Free trial</td></tr>
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Time</td><td>${notifyNow} CT</td></tr>
+        </table>
+      `,
+    }).catch(() => {})
+  }
 
   redirect('/dashboard/start')
 }

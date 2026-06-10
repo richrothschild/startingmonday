@@ -96,7 +96,12 @@ export async function GET(request: NextRequest) {
           ? fetch(`${publicOrigin}/api/notify/new-user`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: userEmail, tier: 'trialing', source }),
+              body: JSON.stringify({
+                email: userEmail,
+                username: (user.user_metadata?.full_name ?? user.user_metadata?.name ?? '').trim() || null,
+                tier: 'trialing',
+                source,
+              }),
             }).catch(() => {})
           : Promise.resolve(),
         isNewUser && refCode
