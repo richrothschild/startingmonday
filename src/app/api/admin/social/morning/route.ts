@@ -119,7 +119,18 @@ export async function GET(request: NextRequest) {
   if (!makeRes.ok) {
     const errText = await makeRes.text().catch(() => '')
     console.error('[social/morning] Make.com webhook error', { status: makeRes.status, body: errText })
-    return NextResponse.json({ error: 'Make.com webhook error', detail: errText }, { status: 502 })
+    return NextResponse.json(
+      {
+        ok: false,
+        sent: false,
+        error: 'Make.com webhook error',
+        detail: errText,
+        upstreamStatus: makeRes.status,
+        dateStr,
+        postId: post.id,
+      },
+      { status: 200 }
+    )
   }
 
   // Try to capture the LinkedIn post URN from Make.com's response body.
