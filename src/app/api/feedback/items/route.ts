@@ -1,8 +1,12 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { requireAuth } from '@/lib/require-auth'
 import { FeedbackSubmitSchema, firstZodError } from '@/lib/schemas'
 import { NextRequest, NextResponse } from 'next/server'
 import { withApiTelemetry } from '@/lib/telemetry'
+import { sendEmail } from '@/lib/email'
+import { getNotifyEmails } from '@/lib/owner-email'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 
 type FeedbackListRow = Record<string, unknown> & { id: string }
 type FeedbackVoteRow = { item_id: string }
@@ -151,8 +155,10 @@ async function postHandler(req: NextRequest) {
       return authJson({ error: 'Failed to submit feedback' }, 500)
     }
 
+    void notifyAdmins(userId, title, feedbackBody, category)
+
     return authJson(
-      { 
+      {
         item: feedbackItem,
         message: 'Thank you for your feedback! We\'ll review it within 24 hours.'
       },
@@ -161,6 +167,88 @@ async function postHandler(req: NextRequest) {
   } catch (err) {
     console.error('[feedback] submit exception:', err)
     return authJson({ error: 'Internal server error' }, 500)
+  }
+}
+
+async function notifyAdmins(userId: string, title: string, feedbackBody: string, category: string) {
+  const notifyEmails = getNotifyEmails()
+  if (notifyEmails.length === 0) return
+
+  try {
+    const admin = createAdminClient()
+    const [{ data: authData }, { data: profile }] = await Promise.all([
+      admin.auth.admin.getUserById(userId),
+      admin.from('user_profiles').select('full_name').eq('user_id', userId).maybeSingle(),
+    ])
+
+    const userEmail = authData.user?.email ?? 'unknown'
+    const userName = (profile as { full_name?: string | null } | null)?.full_name ?? null
+
+    const sentiment = await analyzeSentiment(`${title}\n\n${feedbackBody}`)
+
+    const now = new Date().toLocaleString('en-US', {
+      timeZone: 'America/Chicago', month: 'short', day: 'numeric',
+      hour: 'numeric', minute: '2-digit',
+    })
+
+    const nameRow = userName
+      ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${userName}</td></tr>`
+      : ''
+
+    await sendEmail({
+      to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
+      subject: 'New Feedback!',
+      bypassCouncil: true,
+      html: `
+        <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">
+          Heads up &#8212; you've got new feedback.
+        </p>
+        <table style="font-family:sans-serif;font-size:13px;color:#334155;border-collapse:collapse;margin-bottom:16px;">
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Email</td><td><strong>${userEmail}</strong></td></tr>
+          ${nameRow}
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Category</td><td>${category}</td></tr>
+          <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Time</td><td>${now} CT</td></tr>
+        </table>
+        <p style="font-family:sans-serif;font-size:13px;color:#64748b;margin:0 0 4px 0;font-weight:600;">${title}</p>
+        <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 16px 0;background:#f8fafc;padding:12px;border-left:3px solid #3b82f6;border-radius:2px;">
+          ${feedbackBody.replace(/\n/g, '<br>')}
+        </p>
+        <p style="font-family:sans-serif;font-size:13px;color:#64748b;margin:0 0 4px 0;font-weight:600;">Analysis</p>
+        <p style="font-family:sans-serif;font-size:13px;color:#334155;margin:0;white-space:pre-line;">${sentiment}</p>
+      `,
+    })
+  } catch (err) {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'feedback_notify_error',
+      error: String(err),
+    }))
+  }
+}
+
+async function analyzeSentiment(text: string): Promise<string> {
+  try {
+    const msg = await anthropic.messages.create({
+      model: MODELS.haiku,
+      max_tokens: 300,
+      temperature: TEMP.extract,
+      messages: [{
+        role: 'user',
+        content: `Analyze this user feedback for an executive job search platform.
+
+Feedback: "${text}"
+
+Respond in exactly this format (no extra text):
+Sentiment: [positive | negative | mixed]
+Key takeaways:
+- [takeaway 1]
+- [takeaway 2]
+- [takeaway 3 if warranted]`,
+      }],
+    })
+    return msg.content[0].type === 'text' ? msg.content[0].text.trim() : 'Analysis unavailable'
+  } catch {
+    return 'Analysis unavailable'
   }
 }
 
