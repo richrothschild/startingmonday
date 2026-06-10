@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${username}</td></tr>`
     : ''
 
-  sendEmail({
+  const result = await sendEmail({
     to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
     subject: 'New User Registered!',
     bypassCouncil: true,
@@ -50,9 +50,9 @@ export async function POST(request: NextRequest) {
         ${source ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Source</td><td>${source}</td></tr>` : ''}
       </table>
     `,
-  }).catch(() => {})
+  }).catch((err: unknown) => ({ data: null, error: { message: String(err) } }))
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, sent: !result?.error, error: result?.error ?? null })
 }
 
 
