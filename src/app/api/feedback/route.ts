@@ -60,6 +60,7 @@ async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
     await sendEmail({
       to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
       subject: 'New Feedback!',
+      bypassCouncil: true,
       html: `
         <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">
           Heads up &#8212; you've got new feedback.

@@ -34,9 +34,10 @@ export async function POST(request: NextRequest) {
     ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${username}</td></tr>`
     : ''
 
-  sendEmail({
+  void sendEmail({
     to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
     subject: 'New User Registered!',
+    bypassCouncil: true,
     html: `
       <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">
         Heads up &#8212; another new user just registered.

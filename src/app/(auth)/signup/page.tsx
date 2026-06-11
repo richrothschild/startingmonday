@@ -279,8 +279,11 @@ export default function SignupPage() {
       const data = await response.json() as { ok?: boolean; error?: string; user?: { id: string; email?: string | null } | null; session?: unknown }
 
       if (!response.ok || !data.ok) {
-        if ((data as { code?: string }).code === 'SIGNUPS_DISABLED') {
+        const code = (data as { code?: string }).code
+        if (code === 'SIGNUPS_DISABLED') {
           setError('Email signup is temporarily unavailable. Use Google or Apple, or try again later.')
+        } else if (code === 'EMAIL_EXISTS') {
+          setError('An account with that email already exists. Try signing in instead.')
         } else {
           setError(data.error || 'Account creation failed')
         }
@@ -320,11 +323,6 @@ export default function SignupPage() {
                 body: JSON.stringify({ referral_code: ref }),
               }).catch(() => {})
             : Promise.resolve(),
-          fetch('/api/notify/new-user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: signupSource }),
-          }).catch(() => {}),
         ])
       }
 
