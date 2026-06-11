@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T23:37:58.485Z",
+  "generatedAt": "2026-06-11T15:01:02.708Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-10T23:32:08.377Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.337Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-10T23:30:46.193Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.340Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -4128,7 +4128,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T22:36:19.342Z"
+      "lastModifiedAt": "2026-06-11T15:00:46.538Z"
     },
     {
       "id": "api:/api/billing/checkout/micro-product-bundle",
@@ -5142,7 +5142,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T23:37:28.390Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.342Z"
     },
     {
       "id": "api:/api/feedback",
@@ -5402,7 +5402,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T23:15:21.841Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.343Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -16383,7 +16383,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T23:32:08.377Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.335Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16422,7 +16422,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T23:32:08.377Z"
+      "lastModifiedAt": "2026-06-11T15:00:34.337Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19867,7 +19867,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T23:37:55.664Z"
+      "lastModifiedAt": "2026-06-11T15:01:00.488Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
