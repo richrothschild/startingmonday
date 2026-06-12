@@ -80,8 +80,11 @@ export async function POST(request: NextRequest) {
     })
 
     if (adminError || !adminData.user) {
+      const errAny = adminError as unknown as Record<string, unknown>
+      console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'admin_create_error', message: adminError?.message, code: errAny?.code, status: errAny?.status }))
       const msg = adminError?.message?.toLowerCase() ?? ''
-      const alreadyExists = msg.includes('already registered') || msg.includes('already exists') || msg.includes('duplicate')
+      const code = String(errAny?.code ?? '').toLowerCase()
+      const alreadyExists = msg.includes('already registered') || msg.includes('already exists') || msg.includes('duplicate') || msg.includes('been registered') || code.includes('email_exists')
       return NextResponse.json(
         {
           ok: false,
