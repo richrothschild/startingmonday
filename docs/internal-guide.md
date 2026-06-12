@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-11T15:01:02.708Z
+Last generated: 2026-06-12T15:29:37.651Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -798,7 +798,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (36)
+## Infrastructure and Workflows (35)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -829,7 +829,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/slack-manual-message.yml | .github/workflows/slack-manual-message.yml | name: Slack Manual Message
 - Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
 - Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
-- Workflow .github/workflows/sync-staging.yml | .github/workflows/sync-staging.yml | Auto-merges main into staging whenever main is pushed.
 - Workflow .github/workflows/watermark-audit.yml | .github/workflows/watermark-audit.yml | Watermark Documentation Audit — ${TODAY}
 - Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
 - Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test

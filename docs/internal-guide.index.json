@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-11T15:01:02.708Z",
+  "generatedAt": "2026-06-12T15:29:37.651Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-11T15:00:34.337Z"
+      "lastModifiedAt": "2026-06-12T15:28:28.401Z"
     },
     {
       "id": "feature:/login",
@@ -10576,7 +10576,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T19:09:49.828Z"
+      "lastModifiedAt": "2026-06-12T15:28:38.335Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -10662,19 +10662,6 @@
       "body": "Every Monday at 09:00 UTC",
       "type": "infra",
       "ref": ".github/workflows/slo-weekly-report.yml",
-      "tags": [
-        "infra",
-        "github-actions"
-      ],
-      "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-05T20:01:07.901Z"
-    },
-    {
-      "id": "infra:.github/workflows/sync-staging.yml",
-      "title": "Workflow .github/workflows/sync-staging.yml",
-      "body": "Auto-merges main into staging whenever main is pushed.",
-      "type": "infra",
-      "ref": ".github/workflows/sync-staging.yml",
       "tags": [
         "infra",
         "github-actions"
@@ -16383,7 +16370,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-11T15:00:34.335Z"
+      "lastModifiedAt": "2026-06-12T15:28:28.399Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16422,7 +16409,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-11T15:00:34.337Z"
+      "lastModifiedAt": "2026-06-12T15:28:28.401Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19867,7 +19854,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-11T15:01:00.488Z"
+      "lastModifiedAt": "2026-06-12T15:28:28.406Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
