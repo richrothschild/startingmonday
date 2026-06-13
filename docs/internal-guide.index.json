@@ -10576,7 +10576,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T19:09:49.828Z"
+      "lastModifiedAt": "2026-06-12T15:28:38.335Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -10662,19 +10662,6 @@
       "body": "Every Monday at 09:00 UTC",
       "type": "infra",
       "ref": ".github/workflows/slo-weekly-report.yml",
-      "tags": [
-        "infra",
-        "github-actions"
-      ],
-      "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-05T20:01:07.901Z"
-    },
-    {
-      "id": "infra:.github/workflows/sync-staging.yml",
-      "title": "Workflow .github/workflows/sync-staging.yml",
-      "body": "Auto-merges main into staging whenever main is pushed.",
-      "type": "infra",
-      "ref": ".github/workflows/sync-staging.yml",
       "tags": [
         "infra",
         "github-actions"
