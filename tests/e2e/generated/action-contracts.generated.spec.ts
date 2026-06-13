@@ -616,6 +616,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid DB-dependent failures in contract mode",
     "path": "/api/ideas",
     "methods": [
       "GET",

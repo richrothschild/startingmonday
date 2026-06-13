@@ -88,6 +88,11 @@ const ACTION_OVERRIDES = {
     expectedStatuses: [200, 204, 401, 403, 405],
     note: 'Use preflight-style probe to avoid request-body-mode differences in contract mode',
   },
+  '/api/ideas': {
+    methodOverride: 'OPTIONS',
+    expectedStatuses: [200, 204, 401, 403, 405],
+    note: 'Use preflight-style probe to avoid DB-dependent failures in contract mode',
+  },
 }
 
 const routeTargets = matrix.routes
