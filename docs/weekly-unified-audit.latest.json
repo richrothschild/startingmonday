@@ -1,40 +1,40 @@
 {
-  "generatedAt": "2026-06-01T01:29:49.811Z",
+  "generatedAt": "2026-06-13T13:59:15.117Z",
   "guardRegression": {
-    "status": "pass"
+    "status": "not_run"
   },
   "checks": {
-    "importGuardStatus": "pass",
-    "councilStatus": "pass",
-    "heroCouncilStatus": "fail",
-    "debtStatus": "pass",
-    "securityStatus": "pass"
+    "importGuardStatus": "not_run",
+    "councilStatus": "not_run",
+    "heroCouncilStatus": "not_run",
+    "debtStatus": "not_run",
+    "securityStatus": "not_run"
   },
   "council": {
-    "score": 96,
-    "grade": "A",
-    "findings": 8,
+    "score": 81,
+    "grade": "B-",
+    "findings": 76,
     "parserCorruptionCount": 0,
-    "placeholderBaselineCount": 337
+    "placeholderBaselineCount": 334
   },
   "heroCouncil": {
-    "releaseStatus": "fail",
-    "conversionScore": 93,
-    "clarityScore": 100,
-    "hardStopTriggered": true,
-    "hardStopMetricCount": 1
+    "releaseStatus": "pass",
+    "conversionScore": 95,
+    "clarityScore": 98,
+    "hardStopTriggered": false,
+    "hardStopMetricCount": 0
   },
   "debt": {
     "typecheckStatus": "pass",
     "lintStatus": "pass",
     "parserCorruptionCount": 0,
-    "placeholderCount": 340,
-    "outdatedCount": 16
+    "placeholderCount": 327,
+    "outdatedCount": 14
   },
   "security": {
     "criticalVulns": 0,
-    "highVulns": 0,
-    "trueAuthGaps": 0,
+    "highVulns": 1,
+    "trueAuthGaps": 2,
     "hardcodedSecretHits": 0
   }
 }
