@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-13T18:14:46.111Z
+Last generated: 2026-06-13T19:10:38.626Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -469,7 +469,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (202)
+## Codebase Modules (203)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -535,6 +535,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
 - Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
 - Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
+- Code src/lib/feature-flags.ts | src/lib/feature-flags.ts | export function isEnabledFlag(value: string | null | undefined): boolean {
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'

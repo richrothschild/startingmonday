@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T18:14:46.111Z",
+  "generatedAt": "2026-06-13T19:10:38.626Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
+      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
     },
     {
       "id": "feature:/login",
@@ -6900,6 +6900,19 @@
       "lastModifiedAt": "2026-06-06T16:52:16.021Z"
     },
     {
+      "id": "code:src/lib/feature-flags.ts",
+      "title": "Code src/lib/feature-flags.ts",
+      "body": "export function isEnabledFlag(value: string | null | undefined): boolean {",
+      "type": "code",
+      "ref": "src/lib/feature-flags.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-13T19:09:56.696Z"
+    },
+    {
       "id": "code:src/lib/form-utils.test.ts",
       "title": "Code src/lib/form-utils.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -8639,7 +8652,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.097Z"
+      "lastModifiedAt": "2026-06-13T19:09:56.694Z"
     },
     {
       "id": "code:src/lib/value-lane-pricing.ts",
@@ -9939,7 +9952,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-13T17:58:35.313Z"
+      "lastModifiedAt": "2026-06-13T19:09:56.694Z"
     },
     {
       "id": "script:scripts/refine-outreach-templates-by-council.mjs",
@@ -10290,7 +10303,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-09T17:39:26.822Z"
+      "lastModifiedAt": "2026-06-13T19:09:56.693Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10511,7 +10524,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:14.830Z"
+      "lastModifiedAt": "2026-06-13T19:09:56.696Z"
     },
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
@@ -16370,7 +16383,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
+      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16409,7 +16422,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
+      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16630,7 +16643,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.786Z"
+      "lastModifiedAt": "2026-06-13T19:09:56.705Z"
     },
     {
       "id": "doc:docs/mobile-ui-remediation-spec.md",
