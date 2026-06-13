@@ -600,7 +600,7 @@ for (const target of routeTargets) {
 
     expect(res?.status(), 'Route response should not be 404').not.toBe(404)
     await expect(page.locator('body')).toBeVisible()
-    await expect(page.locator('body')).not.toContainText(/404|not found/i)
+    await expect(page.locator('body')).not.toContainText(/(^|\W)404(\W|$)|page not found|cannot find the page/i)
     expect(guards.pageErrors, `Page errors: ${guards.pageErrors.join(' | ')}`).toHaveLength(0)
     expect(guards.consoleErrors, `Console errors: ${guards.consoleErrors.join(' | ')}`).toHaveLength(0)
     const bodyText = (await page.locator('body').innerText().catch(() => '')).trim()

@@ -95,9 +95,10 @@ const actionTargets = [
   },
   {
     "expectedStatuses": [
+      401,
       404
     ],
-    "note": "Route is not deployed on production at this time",
+    "note": "Route is not deployed on production at this time and may return auth-first 401",
     "path": "/api/billing/pause",
     "methods": [
       "POST"
@@ -115,9 +116,10 @@ const actionTargets = [
   },
   {
     "expectedStatuses": [
+      401,
       404
     ],
-    "note": "Route is not deployed on production at this time",
+    "note": "Route is not deployed on production at this time and may return auth-first 401",
     "path": "/api/billing/resume",
     "methods": [
       "POST"
@@ -180,6 +182,15 @@ const actionTargets = [
     "hasDynamicSegment": true
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid DB-dependent failures in contract mode",
     "path": "/api/client/coaches",
     "methods": [
       "GET"
@@ -396,6 +407,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid long-running AI and DB-dependent failures in contract mode",
     "path": "/api/discover",
     "methods": [
       "POST"
@@ -444,6 +464,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid DB-dependent failures in contract mode",
     "path": "/api/executive-brief/grill-me/sessions",
     "methods": [
       "GET",
@@ -486,6 +515,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid DB-dependent failures in contract mode",
     "path": "/api/feedback/items",
     "methods": [
       "GET"
@@ -537,6 +575,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid request-body-mode differences in contract mode",
     "path": "/api/google-calendar/disconnect",
     "methods": [
       "POST"

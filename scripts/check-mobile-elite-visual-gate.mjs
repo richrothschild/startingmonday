@@ -8,6 +8,11 @@ const cmd = [
   '--workers=1',
 ].join(' ')
 
+if (process.env.CI) {
+  console.log('mobile elite visual gate: ensuring Playwright chromium is installed')
+  execSync('npx playwright install chromium', { stdio: 'inherit' })
+}
+
 console.log('mobile elite visual gate: running protected-route visual baselines')
 execSync(cmd, { stdio: 'inherit' })
 console.log('mobile elite visual gate: passed')

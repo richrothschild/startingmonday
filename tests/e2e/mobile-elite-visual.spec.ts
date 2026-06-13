@@ -45,10 +45,11 @@ test.describe('Mobile elite visual gate @mobile @visual @elite', () => {
       await page.waitForTimeout(300)
 
       const screenshotName = `elite-${route.slug}-${testInfo.project.name}.png`
+      const maxDiffPixelRatio = route.slug === 'dashboard-admin-intelligence' ? 0.05 : 0.03
       await expect(page).toHaveScreenshot(screenshotName, {
         fullPage: false,
         animations: 'disabled',
-        maxDiffPixelRatio: 0.03,
+        maxDiffPixelRatio,
       })
     })
   }

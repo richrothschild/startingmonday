@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { NextRequest } from 'next/server'
 
 const state = vi.hoisted(() => ({
@@ -27,6 +27,8 @@ import { GET } from './route'
 describe('src/app/api/admin/social/morning/route.ts', () => {
   beforeEach(() => {
     vi.resetAllMocks()
+    process.env.SOCIAL_AUTO_PUBLISH_ENABLED = 'true'
+    process.env.MAKE_WEBHOOK_URL = 'https://example.test/make-webhook'
     state.validateCronRequest.mockReturnValue(true)
     state.isSocialPostDay.mockReturnValue(true)
     state.getSocialPlanForDate.mockReturnValue({
@@ -55,6 +57,11 @@ describe('src/app/api/admin/social/morning/route.ts', () => {
         }),
       }),
     })
+  })
+
+  afterEach(() => {
+    delete process.env.SOCIAL_AUTO_PUBLISH_ENABLED
+    delete process.env.MAKE_WEBHOOK_URL
   })
 
   it('returns 200 when the Make webhook fails so cron-job does not mark the run failed', async () => {
