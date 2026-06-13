@@ -42,10 +42,11 @@ const FEATURES = [
 
 export default function ForSearchFirmsPage() {
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="relative min-h-screen overflow-hidden bg-transparent font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
 
       {/* Nav */}
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -67,7 +68,7 @@ export default function ForSearchFirmsPage() {
       <main>
 
         {/* Header */}
-        <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+        <header className="px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
               Partner Guide
@@ -75,7 +76,7 @@ export default function ForSearchFirmsPage() {
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               Starting Monday for <span className="whitespace-nowrap">Retained Search Firms</span>
             </h1>
-            <p className="text-[16px] text-slate-400 leading-relaxed">
+            <p className="text-[16px] text-slate-300 leading-relaxed">
               Your candidates determine how your firm is perceived at the client. Starting Monday gives them the preparation depth that makes the first round count.
             </p>
           </div>
@@ -83,11 +84,11 @@ export default function ForSearchFirmsPage() {
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
-          <div className="max-w-2xl mx-auto space-y-14">
+          <div className="max-w-2xl mx-auto space-y-14 text-slate-100">
 
             {/* What it is */}
-            <section id="firm-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
+            <section id="firm-fit" className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
+              <h2 className="text-[22px] font-bold text-white">What Starting Monday is</h2>
               <p>
                 Starting Monday is an AI-powered search platform built for VP and C-suite executives.
                 It gives them the intelligence infrastructure that senior searches require: monitoring of
@@ -103,8 +104,8 @@ export default function ForSearchFirmsPage() {
             </section>
 
             {/* The gap */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">The gap it fills</h2>
+            <section className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
+              <h2 className="text-[22px] font-bold text-white">The gap it fills</h2>
               <p>
                 You brief your candidate. They nod. They go into the first interview and answer questions
                 about the company based on a ten-minute read of the 10-K the night before. The hiring
@@ -126,18 +127,18 @@ export default function ForSearchFirmsPage() {
 
             {/* How firms use it */}
             <section id="firm-playbook" className="space-y-6">
-              <h2 className="text-[22px] font-bold text-slate-900">How search firms use it</h2>
+              <h2 className="text-[22px] font-bold text-white">How search firms use it</h2>
               <div className="space-y-8">
                 {FEATURES.map(f => (
-                  <details key={f.name} className="border-l-2 border-orange-500 pl-5 group" open>
+                  <details key={f.name} className="border-l-2 border-orange-300 pl-5 group" open>
                     <summary className="list-none cursor-pointer flex items-center justify-between">
-                      <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600">{f.name}</p>
+                      <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-200">{f.name}</p>
                       <span className="text-slate-500 group-open:rotate-180 transition-transform">v</span>
                     </summary>
                     <div className="mt-2">
-                      <p className="text-[15px] text-slate-700 leading-relaxed mb-2">{f.forFirm}</p>
-                      <p className="text-[13px] text-slate-500 leading-relaxed">
-                        <span className="font-semibold text-slate-700">Outcome: </span>{f.outcome}
+                      <p className="text-[15px] text-slate-200 leading-relaxed mb-2">{f.forFirm}</p>
+                      <p className="text-[13px] text-slate-400 leading-relaxed">
+                        <span className="font-semibold text-slate-200">Outcome: </span>{f.outcome}
                       </p>
                     </div>
                   </details>
@@ -146,8 +147,8 @@ export default function ForSearchFirmsPage() {
             </section>
 
             {/* What it does not do */}
-            <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">What it does not do</h2>
+            <section className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
+              <h2 className="text-[22px] font-bold text-white">What it does not do</h2>
               <p>
                 Starting Monday does not replace the search firm relationship. It does not have access
                 to the client's hiring committee, the internal dynamics at the company, or the political
@@ -162,8 +163,8 @@ export default function ForSearchFirmsPage() {
             </section>
 
             {/* For your practice */}
-            <section id="firm-practice" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
-              <h2 className="text-[22px] font-bold text-slate-900">For your practice</h2>
+            <section id="firm-practice" className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
+              <h2 className="text-[22px] font-bold text-white">For your practice</h2>
               <p>
                 The simplest way to start: refer your next active candidate and ask them to share view
                 access to their pipeline. After one week, compare what you know about their search
@@ -178,36 +179,36 @@ export default function ForSearchFirmsPage() {
                   'Partner program: apply at startingmonday.app/partners for your referral link and partner resource kit. Preferred partner pricing available for firms placing multiple candidates.',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <span className="text-orange-500 font-bold shrink-0 mt-0.5">+</span>
-                    <span className="text-slate-700">{item}</span>
+                    <span className="text-orange-300 font-bold shrink-0 mt-0.5">+</span>
+                    <span className="text-slate-200">{item}</span>
                   </li>
                 ))}
               </ul>
-              <p className="text-[12px] text-slate-500 leading-relaxed">
+              <p className="text-[12px] text-slate-400 leading-relaxed">
                 Confidentiality standard: candidate pipeline visibility is opt-in and controlled by each candidate.
               </p>
             </section>
 
             {/* Apply CTA */}
-            <section className="bg-slate-50 border border-slate-200 rounded-lg p-7">
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+            <section className="bg-white/6 border border-white/10 rounded-2xl p-7 backdrop-blur-sm">
+              <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-orange-200 mb-3">
                 Ready to partner?
               </p>
-              <h2 className="text-[20px] font-bold text-slate-900 mb-3 leading-snug">
+              <h2 className="text-[20px] font-bold text-white mb-3 leading-snug">
                 Apply to the partner program
               </h2>
-              <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
+              <p className="text-[14px] text-slate-300 leading-relaxed mb-6">
                 Fill out the application and we will follow up within 2 business days with your referral link, commission tracking, and partner resource kit.
               </p>
               <Link
                 href="/partners#apply"
-                className="inline-block bg-orange-500 text-slate-900 text-[14px] font-bold px-7 py-3 rounded hover:bg-orange-600 transition-colors"
+                className="inline-block rounded-full bg-orange-400 px-7 py-3 text-[14px] font-bold text-slate-950 transition-colors hover:bg-orange-300"
               >
                 Get started now &rarr;
               </Link>
               <p className="text-[13px] text-slate-400 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo?from=search-firms" className="text-slate-600 underline hover:text-slate-900 transition-colors">
+                <Link href="/demo?from=search-firms" className="text-slate-300 underline hover:text-white transition-colors">
                   Walk through a live demo
                 </Link>
                 .
@@ -220,12 +221,12 @@ export default function ForSearchFirmsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+      <footer className="border-t border-white/10 bg-slate-950/80 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-slate-400">
             Questions? contact@startingmonday.app
           </p>
         </div>

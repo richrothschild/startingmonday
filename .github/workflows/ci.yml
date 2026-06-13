@@ -71,6 +71,12 @@ jobs:
       - name: Release UX checklist policy check
         run: npm run release:ux:checklist:check
 
+      - name: Marketing trust/proof placement gate
+        run: npm run marketing:trust-proof:gate
+
+      - name: Lighthouse budget config gate
+        run: npm run perf:lighthouse:budget:config
+
       - name: Install dependencies
         run: npm ci
 
