@@ -4,8 +4,16 @@ import { checkBurstLimit } from '@/lib/burst-limit'
 import { sendEmail } from '@/lib/email'
 import { getNotifyEmails } from '@/lib/owner-email'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export async function POST(request: NextRequest) {
+  const guard = await enforcePublicEndpointGuard({
+    request,
+    rateLimitKey: 'api:feedback',
+    maxPerMinute: 20,
+  })
+  if (guard) return guard
+
   const forwardedFor = request.headers.get('x-forwarded-for') ?? ''
   const ip = forwardedFor.split(',')[0]?.trim() || 'unknown'
   const userAgent = request.headers.get('user-agent') ?? 'unknown'

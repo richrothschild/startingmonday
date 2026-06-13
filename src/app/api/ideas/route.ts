@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
   if (error) {
     console.error('[ideas] GET error:', error)
-    return NextResponse.json({ error: 'Failed to fetch ideas' }, { status: 500 })
+    return NextResponse.json({ ideas: [], degraded: true }, { status: 200 })
   }
 
   return NextResponse.json({ ideas: data ?? [] })

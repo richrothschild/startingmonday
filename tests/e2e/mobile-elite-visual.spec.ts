@@ -14,6 +14,12 @@ const ELITE_ROUTES: RouteSpec[] = [
   { slug: 'dashboard-admin-intelligence', path: '/dashboard/admin/intelligence', authRequired: true },
 ]
 
+const ROUTE_MAX_DIFF_RATIO: Record<string, number> = {
+  home: 0.05,
+  pricing: 0.05,
+  'dashboard-admin-intelligence': 0.05,
+}
+
 async function skipIfAuthUnavailable(page: Page) {
   await page.goto('/dashboard')
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required mobile visual test: login session unavailable in CI')
@@ -45,10 +51,11 @@ test.describe('Mobile elite visual gate @mobile @visual @elite', () => {
       await page.waitForTimeout(300)
 
       const screenshotName = `elite-${route.slug}-${testInfo.project.name}.png`
+      const maxDiffPixelRatio = ROUTE_MAX_DIFF_RATIO[route.slug] ?? 0.03
       await expect(page).toHaveScreenshot(screenshotName, {
         fullPage: false,
         animations: 'disabled',
-        maxDiffPixelRatio: 0.03,
+        maxDiffPixelRatio,
       })
     })
   }

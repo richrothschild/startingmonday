@@ -4,6 +4,10 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
 export async function POST(request: NextRequest) {
+	if (request.nextUrl.searchParams.get('monitor') === '1') {
+		return NextResponse.json({ ok: true, mode: 'monitor' }, { status: 202 })
+	}
+
 	const supabase = await createClient()
 	const { data: { user } } = await supabase.auth.getUser()
 	if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-12T01:07:58.748Z
+Last generated: 2026-06-13T18:14:46.111Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -976,7 +976,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 
-## Documentation (562)
+## Documentation (578)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1298,6 +1298,18 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Claude Setup Prompt — Get localhost:3000 Running
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
+- Doc docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | 01 Synthetic Monitoring
+- Doc docs/operations-tooling-taxonomy/02-observability-alerting/README.md | docs/operations-tooling-taxonomy/02-observability-alerting/README.md | 02 Observability and Alerting
+- Doc docs/operations-tooling-taxonomy/03-ci-cd-release-gates/README.md | docs/operations-tooling-taxonomy/03-ci-cd-release-gates/README.md | 03 CI/CD and Release Gates
+- Doc docs/operations-tooling-taxonomy/04-quality-assurance-and-code-health/README.md | docs/operations-tooling-taxonomy/04-quality-assurance-and-code-health/README.md | 04 Quality Assurance and Code Health
+- Doc docs/operations-tooling-taxonomy/05-data-integrity-and-security/README.md | docs/operations-tooling-taxonomy/05-data-integrity-and-security/README.md | 05 Data Integrity and Security
+- Doc docs/operations-tooling-taxonomy/06-growth-pmf-and-reporting/README.md | docs/operations-tooling-taxonomy/06-growth-pmf-and-reporting/README.md | 06 Growth, PMF, and Reporting
+- Doc docs/operations-tooling-taxonomy/07-outreach-and-gtm-operations/README.md | docs/operations-tooling-taxonomy/07-outreach-and-gtm-operations/README.md | 07 Outreach and GTM Operations
+- Doc docs/operations-tooling-taxonomy/08-guide-and-knowledge-sync/README.md | docs/operations-tooling-taxonomy/08-guide-and-knowledge-sync/README.md | 08 Guide and Knowledge Sync
+- Doc docs/operations-tooling-taxonomy/09-worker-automations/README.md | docs/operations-tooling-taxonomy/09-worker-automations/README.md | 09 Worker Automations
+- Doc docs/operations-tooling-taxonomy/10-infrastructure-runtime-operations/README.md | docs/operations-tooling-taxonomy/10-infrastructure-runtime-operations/README.md | 10 Infrastructure and Runtime Operations
+- Doc docs/operations-tooling-taxonomy/11-governance-council-audits/README.md | docs/operations-tooling-taxonomy/11-governance-council-audits/README.md | 11 Governance and Council Audits
+- Doc docs/operations-tooling-taxonomy/TOC.md | docs/operations-tooling-taxonomy/TOC.md | Starting Monday Tooling Taxonomy
 - Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic
 - Doc docs/outplacement-pitch.md | docs/outplacement-pitch.md | Starting Monday — Outplacement and Transition Firm Pitch
 - Doc docs/outreach-csv-remediation-report.md | docs/outreach-csv-remediation-report.md | Outreach CSV Tone Remediation Report
@@ -1408,6 +1420,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
+- Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
+- Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
+- Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates

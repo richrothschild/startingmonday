@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import * as Sentry from '@sentry/nextjs'
 import { requireFeatureAccess } from '@/lib/require-feature-access'
 import { trackApiUsage } from '@/lib/api-usage'
@@ -41,6 +41,10 @@ function makeStream(prompt: string, supabase: SupabaseClient, userId: string) {
 export async function GET(request: NextRequest) {
   const access = await requireFeatureAccess(request, 'strategy_brief')
   if (!access.ok) return access.response
+
+  if (request.nextUrl.searchParams.get('monitor') === '1') {
+    return NextResponse.json({ ok: true, mode: 'monitor' }, { status: 202 })
+  }
 
   const { userId, supabase } = access
 

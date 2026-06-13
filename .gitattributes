@@ -1,0 +1,7 @@
+docs/internal-guide.index.json merge=ours
+docs/internal-guide.manifest.json merge=ours
+docs/internal-guide.md merge=ours
+docs/internal-system-summary.md merge=ours
+docs/user-guide.index.json merge=ours
+docs/user-guide.manifest.json merge=ours
+docs/user-guide.md merge=ours

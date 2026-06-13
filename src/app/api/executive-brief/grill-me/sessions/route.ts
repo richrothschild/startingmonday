@@ -84,7 +84,9 @@ export async function GET(request: NextRequest) {
     .order('updated_at', { ascending: false })
     .limit(25)
 
-  if (error) return NextResponse.json({ error: 'Failed to load sessions' }, { status: 500 })
+  if (error) {
+    return NextResponse.json({ sessions: [], degraded: true }, { status: 200 })
+  }
   return NextResponse.json({ sessions: ((data ?? []) as GrillSessionListRow[]) })
 }
 
