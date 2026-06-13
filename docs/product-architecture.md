@@ -1,5 +1,12 @@
 # Product Architecture — Starting Monday
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: quarterly
+Source of truth: yes
+
+
 ## Concept
 
 "We get you to Starting Monday." — the only AI career search platform purpose-built

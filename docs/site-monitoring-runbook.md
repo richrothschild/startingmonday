@@ -1,5 +1,12 @@
 # Site Monitoring Incident Runbook
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 This runbook is for customer-observable failures detected by synthetic monitoring.
 
 ## Triage Checklist

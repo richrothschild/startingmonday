@@ -186,14 +186,41 @@ export async function GET(request: NextRequest) {
   const root = process.cwd()
   const csvPath = path.join(root, 'docs', 'ui-ux-page-scores-2026-05-21.csv')
   const to = process.env.UX_WEEKLY_REVIEW_EMAIL_TO ?? getOwnerEmail() ?? 'rothschild@gmail.com'
+  const warnings: string[] = []
 
   try {
-    await execFileAsync('node', ['scripts/ui-ux-council-audit.mjs'], { cwd: root })
-    const csv = await readFile(csvPath, 'utf8')
-    const rows = parseAuditCsv(csv)
+    let rows: AuditRow[] = []
+
+    try {
+      await execFileAsync('node', ['scripts/ui-ux-council-audit.mjs'], { cwd: root })
+      const csv = await readFile(csvPath, 'utf8')
+      rows = parseAuditCsv(csv)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'audit script failed'
+      warnings.push(`audit: ${message}`)
+    }
 
     if (!rows.length) {
-      return NextResponse.json({ error: 'Audit produced no rows' }, { status: 500 })
+      try {
+        const fallbackCsv = await readFile(csvPath, 'utf8')
+        rows = parseAuditCsv(fallbackCsv)
+        if (rows.length) warnings.push('audit: used cached CSV fallback')
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'fallback CSV read failed'
+        warnings.push(`audit_fallback: ${message}`)
+      }
+    }
+
+    if (!rows.length) {
+      return NextResponse.json({
+        ok: true,
+        sent: {
+          email: false,
+          slack: false,
+        },
+        skipped: true,
+        warnings: [...warnings, 'audit: no rows available'],
+      })
     }
 
     const total = rows.length
@@ -209,17 +236,16 @@ export async function GET(request: NextRequest) {
     const slackResult = await sendSlackMessage({ text: slackText })
 
     const emailError = (emailResult as { error?: { message?: string } } | null)?.error?.message
-    if (emailError) {
-      return NextResponse.json({ error: emailError }, { status: 502 })
-    }
+    if (emailError) warnings.push(`email: ${emailError}`)
+    if (!slackResult.ok) warnings.push(`slack: ${slackResult.error}`)
 
     return NextResponse.json({
       ok: true,
       sent: {
-        email: true,
+        email: !emailError,
         slack: slackResult.ok,
       },
-      slackError: slackResult.ok ? null : slackResult.error,
+      warnings,
       summary: {
         total,
         excellent,

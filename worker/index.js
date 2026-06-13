@@ -13,6 +13,7 @@ import { runWeeklyReportJob } from './jobs/weekly-report-job.js'
 import { runUsageMonitorJob } from './jobs/usage-monitor-job.js'
 import { runTrialReminderJob } from './jobs/trial-reminder-job.js'
 import { runSignalJob } from './jobs/signal-job.js'
+import { runSignalRefreshForUser } from './jobs/signal-job.js'
 import { runOfferEmailJob } from './jobs/offer-email-job.js'
 import { runReactivationJob } from './jobs/reactivation-job.js'
 import { runActivationReminderJob } from './jobs/activation-reminder-job.js'
@@ -36,6 +37,10 @@ import { runUiUxWeeklyReviewJob } from './jobs/ui-ux-weekly-review-job.js'
 import { runLinkIntegrityWeeklyReviewJob } from './jobs/link-integrity-weekly-review-job.js'
 import { runOutreachToneGuardJob } from './jobs/outreach-tone-guard-job.js'
 import { runIdeasMonthlyJob } from './jobs/ideas-monthly-job.js'
+import { runEdgarFreshnessAuditJob } from './jobs/edgar-freshness-audit-job.js'
+import { runEdgarWatchdogJob } from './jobs/edgar-watchdog-job.js'
+import { runApolloQualityAuditJob } from './jobs/apollo-quality-audit-job.js'
+import { runEnrichmentContactRetentionJob } from './jobs/enrichment-contact-retention-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -103,6 +108,58 @@ const server = http.createServer((req, res) => {
         logger.error('trigger-scan: failed', { companyId, error: err.message })
         Sentry.captureException(err)
       })
+    })
+    return
+  }
+
+  // Immediate signal refresh trigger for a user (optional single-company scope).
+  // Returns 202 immediately; signal refresh runs async.
+  if (req.url === '/trigger-signals' && req.method === 'POST') {
+    const secret = process.env.WORKER_SECRET
+    if (!secret || req.headers['x-worker-secret'] !== secret) {
+      res.writeHead(401)
+      res.end()
+      return
+    }
+
+    let body = ''
+    req.on('data', chunk => { body += chunk })
+    req.on('end', () => {
+      let parsed
+      try { parsed = JSON.parse(body || '{}') } catch {
+        res.writeHead(400, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ error: 'invalid_json' }))
+        return
+      }
+
+      const { userId, companyId } = parsed ?? {}
+      if (!userId) {
+        res.writeHead(400, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ error: 'missing_user_id' }))
+        return
+      }
+
+      res.writeHead(202)
+      res.end()
+
+      logger.info('trigger-signals: received', { userId, companyId: companyId ?? null })
+
+      runSignalRefreshForUser({ userId, companyId: companyId ?? null })
+        .then((result) => {
+          logger.info('trigger-signals: complete', {
+            userId,
+            companyId: companyId ?? null,
+            ...result,
+          })
+        })
+        .catch((err) => {
+          logger.error('trigger-signals: failed', {
+            userId,
+            companyId: companyId ?? null,
+            error: err.message,
+          })
+          Sentry.captureException(err)
+        })
     })
     return
   }
@@ -235,6 +292,18 @@ cron.schedule('0 20 * * *', () => runJob('executive-evening-scan', runExecutiveS
 // Signals: Mon / Wed / Fri at 08:30 (after scan)
 cron.schedule('30 8 * * 1,3,5', () => runJob('signal-job', runSignalJob))
 
+// EDGAR freshness audit: every 6 hours - checks SEC ingestion recency and sends stale alerts to Slack.
+cron.schedule('5 */6 * * *', () => runJob('edgar-freshness-audit-job', runEdgarFreshnessAuditJob))
+
+// EDGAR heartbeat watchdog: hourly - alerts when freshness audit itself has not run on schedule.
+cron.schedule('10 * * * *', () => runJob('edgar-watchdog-job', runEdgarWatchdogJob))
+
+// Apollo recommendation quality audit: every 6 hours - validates error rate and enrichment quality signals.
+cron.schedule('20 */6 * * *', () => runJob('apollo-quality-audit-job', runApolloQualityAuditJob))
+
+// Provider-derived contact retention cleanup: daily at 13:00 UTC.
+cron.schedule('0 13 * * *', () => runJob('enrichment-contact-retention-job', runEnrichmentContactRetentionJob))
+
 // Briefing: every 5 minutes — job checks each user's timezone, time, and days
 cron.schedule('*/5 * * * *', () => runJob('briefing-job', runBriefingJob))
 
@@ -328,7 +397,7 @@ cron.schedule('0 9 1 * *', () => runJob('ideas-monthly-job', runIdeasMonthlyJob)
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'edgar-freshness-audit-job', 'edgar-watchdog-job', 'apollo-quality-audit-job', 'enrichment-contact-retention-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
 bootPhase = 'ready'
 

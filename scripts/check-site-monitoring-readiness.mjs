@@ -64,6 +64,20 @@ const checks = [
       fs.existsSync(path.join(root, 'docs/site-monitoring-dashboard.md')) &&
       fs.existsSync(path.join(root, 'docs/site-monitoring-runbook.md')),
   },
+  {
+    id: 's6-coverage-matrix',
+    label: 'Monitoring coverage matrix and harness generation scripts exist',
+    pass:
+      fs.existsSync(path.join(root, 'scripts/generate-monitoring-matrix.mjs')) &&
+      fs.existsSync(path.join(root, 'scripts/check-monitoring-coverage.mjs')) &&
+      fs.existsSync(path.join(root, 'scripts/generate-monitoring-harness.mjs')),
+  },
+  {
+    id: 's7-generated-prod-monitoring',
+    label: 'Generated monitoring harness runs on production schedule',
+    pass:
+      fs.existsSync(path.join(root, '.github/workflows/production-generated-monitoring.yml')),
+  },
 ]
 
 const passed = checks.filter((c) => c.pass)

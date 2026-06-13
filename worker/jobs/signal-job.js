@@ -28,6 +28,7 @@ import {
 } from '../signals/signal-meta.js'
 import { getJobCheckpoint, saveJobCheckpoint, clearJobCheckpoint } from '../lib/job-checkpoint.js'
 import { enqueueHeavyJob, processHeavyJobs } from '../lib/heavy-job-queue.js'
+import { startSecIngestionRun, finishSecIngestionRun } from '../lib/sec-ingestion-tracker.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -135,6 +136,46 @@ async function retrySignalCompanyById(supabase, payload) {
       }),
     })
   }
+}
+
+export async function runSignalRefreshForUser({ userId, companyId = null }) {
+  if (!userId) throw new Error('missing_user_id')
+
+  const supabase = getSupabase()
+
+  if (companyId) {
+    await retrySignalCompanyById(supabase, { companyId, userId })
+    return { companiesProcessed: 1, companiesFailed: 0 }
+  }
+
+  const { data: companies, error } = await supabase
+    .from('companies')
+    .select('id')
+    .eq('user_id', userId)
+    .is('archived_at', null)
+
+  if (error) {
+    throw new Error(`signal_refresh_company_lookup_failed:${error.message}`)
+  }
+
+  let companiesProcessed = 0
+  let companiesFailed = 0
+
+  for (const company of companies ?? []) {
+    try {
+      await retrySignalCompanyById(supabase, { companyId: company.id, userId })
+      companiesProcessed += 1
+    } catch (err) {
+      companiesFailed += 1
+      logger.error('signal-job: user refresh company failed', {
+        userId,
+        companyId: company.id,
+        error: err.message,
+      })
+    }
+  }
+
+  return { companiesProcessed, companiesFailed }
 }
 
 export async function runSignalJob() {
@@ -292,8 +333,21 @@ export async function runSignalJob() {
 
           // SEC EDGAR 8-K filings — exec changes, acquisitions, bankruptcy, material events
           // Passing supabase+companyId also indexes all 8-K filings for trend detection below.
-          const secArticles = await fetchSecFilings(company.name, { supabase, companyId: company.id })
-          for (const article of secArticles) {
+          const secRun = await startSecIngestionRun(supabase, {
+            source: 'signal-job',
+            companyId: company.id,
+            companyName: company.name,
+            companyCik: company.sec_cik_padded ?? null,
+            metadata: {
+              userId: user.id,
+              roleType,
+            },
+          })
+
+          const secResult = await fetchSecFilings(company.name, { supabase, companyId: company.id })
+          let secSignalsEmitted = 0
+
+          for (const article of secResult.articles) {
             const result = await classifySignal(company.name, article, roleType)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
             if (!result.signal_type || !result.signal_summary) continue
@@ -314,9 +368,25 @@ export async function runSignalJob() {
             })
             if (!skipped) {
               signalsFound++
+              secSignalsEmitted++
               logger.info('signal-job: SEC filing signal', { company: company.name, type: result.signal_type })
             }
           }
+
+          await finishSecIngestionRun(supabase, secRun.runId, {
+            status: secResult.fetchError ? 'error' : 'success',
+            filingsConsidered: secResult.indexStats.filingsConsidered,
+            filingsIndexed: secResult.indexStats.filingsIndexed,
+            secArticles: secResult.articles.length,
+            signalsEmitted: secSignalsEmitted,
+            latestFilingDate: secResult.indexStats.latestFilingDate,
+            latestIngestedAt: secResult.indexStats.latestIngestedAt,
+            errorMessage: secResult.fetchError,
+            metadata: {
+              userId: user.id,
+              companyName: company.name,
+            },
+          })
 
           // SEC 8-K trend detection — cross-filing pattern analysis from indexed history
           const secTrend = await detectSecTrends(supabase, company.id, company.name, roleType)

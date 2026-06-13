@@ -1,5 +1,6 @@
 import { test as setup, type Page } from '@playwright/test'
 import path from 'path'
+import { existsSync } from 'node:fs'
 
 const authFile = path.join(__dirname, '.auth/user.json')
 
@@ -80,23 +81,36 @@ setup('authenticate', async ({ page }) => {
   const password = process.env.PLAYWRIGHT_TEST_PASSWORD
 
   if (!email || !password) {
-    await page.context().storageState({ path: authFile })
+    // Preserve previously captured auth state for local smoke runs.
+    // Writing a fresh storage state here can unintentionally clear valid cookies.
+    if (!existsSync(authFile)) {
+      await page.context().storageState({ path: authFile })
+    }
     return
   }
 
   const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
 
-  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
-  await page.fill('#email', email)
-  await page.fill('#password', password)
-  await page.click('button[type="submit"]')
-
-  // Try direct API sign-in first — works reliably across all environments.
+  // Try direct API sign-in first because it avoids UI-specific selector drift.
   const apiAuthOk = await apiSignIn(page, baseURL, email, password)
 
   if (apiAuthOk) {
     await ensureMonitoringAnchorCompany(page)
+    await page.context().storageState({ path: authFile })
+    return
   }
+
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+  if ((await page.locator('#email').count()) === 0 || (await page.locator('#password').count()) === 0) {
+    await page.context().storageState({ path: authFile })
+    return
+  }
+
+  await page.fill('#email', email)
+  await page.fill('#password', password)
+  await page.click('button[type="submit"]')
+  await ensureMonitoringAnchorCompany(page)
+
   // If API sign-in failed, saves empty state so downstream tests skip gracefully.
   await page.context().storageState({ path: authFile })
 })

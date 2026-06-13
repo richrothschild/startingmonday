@@ -1,4 +1,11 @@
 # The Campaign Standard
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
 ## A Writing Framework for Starting Monday
 
 Every document produced for Starting Monday is scored against this framework before delivery. Nothing leaves without passing. The standard is simple: would the editor of the New York Times let this through? Would Jamie Dimon, reading it cold, find anything to dismiss?

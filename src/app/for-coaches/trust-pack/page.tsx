@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Coach Trust Pack | Starting Monday',
@@ -26,6 +28,28 @@ const SECURITY_POINTS = [
 export default function CoachTrustPackPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
+      <nav className="sticky top-0 z-10 border-b border-slate-800 bg-slate-900/95 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </Link>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/for-coaches"
+              className="inline-flex items-center justify-center rounded border border-slate-500 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-300 hover:text-white sm:px-4"
+            >
+              Back to coaches guide
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
+            >
+              Start now
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
         <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">
           Coach Trust Pack
@@ -55,6 +79,17 @@ export default function CoachTrustPackPage() {
             expose coach-client workflow data to recruiter-side channels.
           </p>
           <p className="text-[13px] text-slate-700 leading-relaxed mt-2">Trust and confidentiality: coach-client workflow data remains confidential by default.</p>
+        </section>
+
+        <section className="mb-6">
+          <CoachValueNudge
+            eyebrow="Trust and value together"
+            title="The trust pack should make the preview easier to say yes to."
+            body="If the trust model is clear, the next step is simple: see the preview, check the workflow fit, and decide whether the permission model matches your practice."
+            sourcePage="/for-coaches/trust-pack"
+            secondaryHref="/for-coaches"
+            secondaryLabel="Return to coach preview"
+          />
         </section>
 
         <section id="permissions" className="border border-slate-200 rounded-2xl p-6 bg-white mb-6">
@@ -87,6 +122,8 @@ export default function CoachTrustPackPage() {
           <p className="w-full text-[12px] text-slate-500 mt-1">CTA: get started now by sharing this pack in your next client security review.</p>
         </section>
       </main>
+
+      <SiteFooter />
     </div>
   )
 }

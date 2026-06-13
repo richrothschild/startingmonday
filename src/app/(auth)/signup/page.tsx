@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -97,18 +97,45 @@ const ENTRY_HANDOFF: Record<string, EntryHandoff> = {
   },
 }
 
+type HeardAboutOption =
+  | 'managertools'
+  | 'executive_coach_referral'
+  | 'linkedin'
+  | 'google_web_search'
+  | 'colleague_or_peer'
+  | 'other'
+
+const HEARD_ABOUT_OPTIONS: Array<{ value: HeardAboutOption; label: string }> = [
+  { value: 'managertools', label: 'Manager Tools / Mark Horstman' },
+  { value: 'executive_coach_referral', label: 'Executive coach referral' },
+  { value: 'linkedin', label: 'LinkedIn' },
+  { value: 'google_web_search', label: 'Google / web search' },
+  { value: 'colleague_or_peer', label: 'Colleague or peer' },
+  { value: 'other', label: 'Other (please specify)' },
+]
+
 export default function SignupPage() {
   const router = useRouter()
   const ph = usePostHog()
   const [email, setEmail] = useState('')
   const [situation, setSituation] = useState<string | null>(null)
   const [entrySource, setEntrySource] = useState<string | null>(null)
+  const [managerToolsOffer, setManagerToolsOffer] = useState(false)
+  const [heardAbout, setHeardAbout] = useState<HeardAboutOption | ''>('')
+  const [heardAboutOther, setHeardAboutOther] = useState('')
+  const [heardAboutLocked, setHeardAboutLocked] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const from = params.get('from')
     if (from && SITUATION_COPY[from]) setSituation(from)
     if (from && ENTRY_HANDOFF[from]) setEntrySource(from)
+    const utmSource = (params.get('utm_source') || '').trim().toLowerCase()
+    if (utmSource === 'managertools') {
+      setHeardAbout('managertools')
+      setHeardAboutLocked(true)
+      setManagerToolsOffer(true)
+    }
   }, [])
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -119,6 +146,23 @@ export default function SignupPage() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
+
+  function getSelfReportedSource(): string | null {
+    if (!heardAbout) return null
+    if (heardAbout === 'other') {
+      const detail = heardAboutOther.trim()
+      return detail ? `other:${detail.slice(0, 120)}` : 'other'
+    }
+    return heardAbout
+  }
+
+  function isManagerToolsSource(source: string | null | undefined): boolean {
+    return (source ?? '').trim().toLowerCase() === 'managertools'
+  }
+
+  function managerToolsTrialEndsAt(): string {
+    return new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
+  }
 
   function requireCaptchaToken(): string | null {
     if (!TURNSTILE_ENABLED) return ''
@@ -138,8 +182,10 @@ export default function SignupPage() {
     } catch { /* analytics must not block */ }
     const params = new URLSearchParams(window.location.search)
     const utmSource = params.get('utm_source') || params.get('ref') || null
+    const selfReportedSource = getSelfReportedSource()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
+    if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
     try {
@@ -179,8 +225,10 @@ export default function SignupPage() {
     } catch { /* analytics must not block */ }
     const params = new URLSearchParams(window.location.search)
     const utmSource = params.get('utm_source') || params.get('ref') || null
+    const selfReportedSource = getSelfReportedSource()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
+    if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
     try {
@@ -231,7 +279,14 @@ export default function SignupPage() {
       const data = await response.json() as { ok?: boolean; error?: string; user?: { id: string; email?: string | null } | null; session?: unknown }
 
       if (!response.ok || !data.ok) {
-        setError(data.error || 'Account creation failed')
+        const code = (data as { code?: string }).code
+        if (code === 'SIGNUPS_DISABLED') {
+          setError('Email signup is temporarily unavailable. Use Google or Apple, or try again later.')
+        } else if (code === 'EMAIL_EXISTS') {
+          setError('An account with that email already exists. Try signing in instead.')
+        } else {
+          setError(data.error || 'Account creation failed')
+        }
         setLoading(false)
         return
       }
@@ -245,7 +300,9 @@ export default function SignupPage() {
         const utmMedium = params.get('utm_medium') || null
         const utmCampaign = params.get('utm_campaign') || null
         const fromSituation = params.get('from') || null
-        const signupSource = utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
+        const selfReportedSource = getSelfReportedSource()
+        const signupSource = selfReportedSource ?? utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
+        const managerToolsSource = isManagerToolsSource(signupSource)
         await Promise.all([
           supabase.from('user_profiles').upsert(
             { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
@@ -254,8 +311,9 @@ export default function SignupPage() {
           signupSource
             ? supabase.from('users').update({
                 signup_source: signupSource,
-                acquisition_channel: utmMedium ?? (ref ? 'referral' : null),
-                referral_source: utmCampaign ?? utmSource ?? ref ?? null,
+                acquisition_channel: utmMedium ?? (ref ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
+                referral_source: utmCampaign ?? utmSource ?? ref ?? selfReportedSource ?? null,
+                ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt() } : {}),
               }).eq('id', data.user.id)
             : Promise.resolve(),
           ref
@@ -265,11 +323,6 @@ export default function SignupPage() {
                 body: JSON.stringify({ referral_code: ref }),
               }).catch(() => {})
             : Promise.resolve(),
-          fetch('/api/notify/new-user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: data.user.email, tier: 'trialing', source: signupSource }),
-          }).catch(() => {}),
         ])
       }
 
@@ -278,7 +331,7 @@ export default function SignupPage() {
         ph?.capture('signup_completed', {
           method: 'email',
           situation: phParams.get('from') ?? null,
-          source: phParams.get('utm_source') ?? phParams.get('ref') ?? null,
+          source: getSelfReportedSource() ?? phParams.get('utm_source') ?? phParams.get('ref') ?? null,
         })
       } catch { /* analytics must not block */ }
 
@@ -336,7 +389,7 @@ export default function SignupPage() {
                   <>
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                      <p className="text-[12px] text-slate-400 mt-3">Create your account. 30 days free. No credit card.</p>
+                      <p className="text-[12px] text-slate-400 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">
                       <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
                       <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
@@ -349,7 +402,7 @@ export default function SignupPage() {
                 ) : (
                   <>
                     <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Create your account</h1>
-                    <p className="text-[13px] text-slate-500 mt-1.5">30 days free. No credit card.</p>
+                    <p className="text-[13px] text-slate-500 mt-1.5">{managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                   </>
                 )}
                 {entrySource && ENTRY_HANDOFF[entrySource] && (
@@ -433,6 +486,45 @@ export default function SignupPage() {
                     />
                     <p className="mt-1.5 text-[12px] text-slate-400">At least 8 characters.</p>
                   </div>
+
+                  <div>
+                    <label htmlFor="heard-about" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                      How did you hear about Starting Monday?
+                    </label>
+                    <select
+                      id="heard-about"
+                      value={heardAbout}
+                      onChange={(e) => setHeardAbout(e.target.value as HeardAboutOption | '')}
+                      disabled={heardAboutLocked}
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 disabled:bg-slate-100 disabled:text-slate-500"
+                    >
+                      <option value="">Select (optional)</option>
+                      {HEARD_ABOUT_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                    {heardAboutLocked ? (
+                      <p className="mt-1.5 text-[12px] text-slate-400">Auto-selected from the Manager Tools link.</p>
+                    ) : (
+                      <p className="mt-1.5 text-[12px] text-slate-400">Optional. Helps us tailor your onboarding.</p>
+                    )}
+                  </div>
+
+                  {heardAbout === 'other' && !heardAboutLocked ? (
+                    <div>
+                      <label htmlFor="heard-about-other" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                        Other source
+                      </label>
+                      <input
+                        id="heard-about-other"
+                        type="text"
+                        value={heardAboutOther}
+                        onChange={(e) => setHeardAboutOther(e.target.value)}
+                        placeholder="Please specify"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                      />
+                    </div>
+                  ) : null}
 
                   {error && (
                     <p className="text-[13px] text-red-600">{error}</p>

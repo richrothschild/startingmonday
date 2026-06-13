@@ -1,4 +1,11 @@
 # Product Requirements Document
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
 ## Starting Monday — AI Career Search Platform
 ### Version 1.1 — 2026-04-27
 

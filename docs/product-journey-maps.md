@@ -1,4 +1,11 @@
 # Persona Journey Maps
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
 ## AI Recruiter Platform — Full Behavioral Coverage
 
 ---

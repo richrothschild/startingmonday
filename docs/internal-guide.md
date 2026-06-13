@@ -1,13 +1,21 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-06T16:50:51.694Z
+Last generated: 2026-06-13T19:10:38.626Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
 ## Architecture (1)
 - Platform architecture overview | docs/internal-system-summary.md | Next.js App Router frontend and API surface, Supabase data/auth layer, scripts/workflows for reliability and growth operations.
 
-## Features (183)
+## Explore workflow
+- Audience: staff-only users who need operational insight into the codebase.
+- Cadence: weekly scheduled refresh via .github/workflows/guide-sync.yml, plus manual reruns after major dashboard, worker, auth, or schema changes.
+- Playbook: docs/internal-explore-playbook.md
+- Prompt template: use the playbook prompt verbatim when possible.
+- Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
+- Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
+
+## Features (190)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -49,6 +57,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Concierge | /dashboard/concierge | User-facing page route /dashboard/concierge.
 - Feature Dashboard / Contacts | /dashboard/contacts | User-facing page route /dashboard/contacts.
 - Feature Dashboard / Discover | /dashboard/discover | User-facing page route /dashboard/discover.
+- Feature Dashboard / Executive brief | /dashboard/executive-brief | User-facing page route /dashboard/executive-brief.
 - Feature Dashboard / Feedback | /dashboard/feedback | User-facing page route /dashboard/feedback.
 - Feature Dashboard / Help | /dashboard/help | User-facing page route /dashboard/help.
 - Feature Dashboard / Invite | /dashboard/invite | User-facing page route /dashboard/invite.
@@ -106,7 +115,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Blog / Why executive recruiters go quiet | /blog/why-executive-recruiters-go-quiet | User-facing page route /blog/why-executive-recruiters-go-quiet.
 - Feature Blog / Why starting monday exists | /blog/why-starting-monday-exists | User-facing page route /blog/why-starting-monday-exists.
 - Feature Career tools | /career-tools | User-facing page route /career-tools.
+- Feature Case studies | /case-studies | User-facing page route /case-studies.
 - Feature Coaches guide | /coaches-guide | User-facing page route /coaches-guide.
+- Feature Coaches / Mock dashboard | /coaches/mock-dashboard | User-facing page route /coaches/mock-dashboard.
 - Feature Coaches | /coaches | User-facing page route /coaches.
 - Feature Coaches / Personas | /coaches/personas | User-facing page route /coaches/personas.
 - Feature Concierge | /concierge | User-facing page route /concierge.
@@ -114,6 +125,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
 - Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
 - Feature Demo / Executive brief | /demo/executive-brief | User-facing page route /demo/executive-brief.
+- Feature Demo / Executive dashboard | /demo/executive-dashboard | User-facing page route /demo/executive-dashboard.
 - Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
 - Feature Demo / Michael dashboard | /demo/michael-dashboard | User-facing page route /demo/michael-dashboard.
 - Feature Demo / Michael strategy brief | /demo/michael-strategy-brief | User-facing page route /demo/michael-strategy-brief.
@@ -121,6 +133,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Demo / Presenter | /demo/presenter | User-facing page route /demo/presenter.
 - Feature Evaluate | /evaluate | User-facing page route /evaluate.
 - Feature Evidence room | /evidence-room | User-facing page route /evidence-room.
+- Feature Executive brief | /executive-brief | User-facing page route /executive-brief.
 - Feature Executives / Active | /executives/active | User-facing page route /executives/active.
 - Feature Executives | /executives | User-facing page route /executives.
 - Feature Executives / Passive | /executives/passive | User-facing page route /executives/passive.
@@ -161,6 +174,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Founder note | /founder-note | User-facing page route /founder-note.
 - Feature Guide | /guide | User-facing page route /guide.
 - Feature Ideas | /ideas | User-facing page route /ideas.
+- Feature Managertools | /managertools | User-facing page route /managertools.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Mark review / Appendix | /mark-review/appendix | User-facing page route /mark-review/appendix.
 - Feature Mark review / Business plan | /mark-review/business-plan | User-facing page route /mark-review/business-plan.
@@ -178,6 +192,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
 - Feature Partners / Mauricio kickoff | /partners/mauricio-kickoff | User-facing page route /partners/mauricio-kickoff.
 - Feature Partners | /partners | User-facing page route /partners.
+- Feature Partners / Reporting | /partners/reporting | User-facing page route /partners/reporting.
 - Feature Pilot findings | /pilot-findings | User-facing page route /pilot-findings.
 - Feature Pricing | /pricing | User-facing page route /pricing.
 - Feature Privacy | /privacy | User-facing page route /privacy.
@@ -192,7 +207,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (246)
+## API Surface (260)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -276,6 +291,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/revenue-ops/stripe-supabase-accounting-sync | src/app/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/b2b/material | src/app/api/admin/b2b/material/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/contacts/enrich | src/app/api/admin/contacts/enrich/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/edgar-status | src/app/api/admin/edgar-status/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/executive-research/health | src/app/api/admin/executive-research/health/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/health | src/app/api/admin/health/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/internal-guide/chat | src/app/api/admin/internal-guide/chat/route.ts | export async function POST(request: NextRequest) {
@@ -336,14 +352,22 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/contacts/[id] | src/app/api/contacts/[id]/route.ts | export const DELETE = withApiTelemetry('/api/contacts/[id]', deleteHandler)
 - API /api/contacts | src/app/api/contacts/route.ts | export const POST = withApiTelemetry('/api/contacts', postHandler)
 - API /api/conversation | src/app/api/conversation/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/apollo-quality-audit | src/app/api/cron/apollo-quality-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/commitment-friday | src/app/api/cron/commitment-friday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/commitment-sunday | src/app/api/cron/commitment-sunday/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/drip | src/app/api/cron/drip/route.ts | Activation drip schedule: days since trial start -> content key
+- API /api/cron/edgar-freshness-audit | src/app/api/cron/edgar-freshness-audit/route.ts | export const runtime = 'nodejs'
 - API /api/cron/edgar-signals | src/app/api/cron/edgar-signals/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/edgar-watchdog | src/app/api/cron/edgar-watchdog/route.ts | export const runtime = 'nodejs'
+- API /api/cron/enrichment-contact-retention | src/app/api/cron/enrichment-contact-retention/route.ts | export const runtime = 'nodejs'
 - API /api/cron/executive-research-refresh | src/app/api/cron/executive-research-refresh/route.ts | export const runtime = 'nodejs'
 - API /api/cron/google-calendar-sync | src/app/api/cron/google-calendar-sync/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/ideas-monthly | src/app/api/cron/ideas-monthly/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/link-integrity-weekly-review | src/app/api/cron/link-integrity-weekly-review/route.ts | export const runtime = 'nodejs'
+- API /api/cron/managertools-day2-brief | src/app/api/cron/managertools-day2-brief/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-lifecycle | src/app/api/cron/managertools-lifecycle/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-signup-alerts | src/app/api/cron/managertools-signup-alerts/route.ts | export async function GET(request: NextRequest) {
+- API /api/cron/managertools-signup-summary | src/app/api/cron/managertools-signup-summary/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/onboarding-video-worker | src/app/api/cron/onboarding-video-worker/route.ts | export const runtime = 'nodejs'
 - API /api/cron/outreach-digest | src/app/api/cron/outreach-digest/route.ts | export async function GET(request: NextRequest) {
 - API /api/cron/outreach-reconcile | src/app/api/cron/outreach-reconcile/route.ts | export async function GET(request: NextRequest) {
@@ -359,11 +383,16 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/demo-brief | src/app/api/demo-brief/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
+- API /api/deploy-marker | src/app/api/deploy-marker/route.ts | export const dynamic = 'force-dynamic'
 - API /api/discover | src/app/api/discover/route.ts | export type DiscoveryCompany = {
 - API /api/drip/unsubscribe | src/app/api/drip/unsubscribe/route.ts | export async function GET(request: NextRequest) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
 - API /api/events/daily-momentum | src/app/api/events/daily-momentum/route.ts | export async function POST(request: Request) {
 - API /api/events/pmf | src/app/api/events/pmf/route.ts | export async function POST(request: NextRequest) {
+- API /api/executive-brief/grill-me | src/app/api/executive-brief/grill-me/route.ts | export async function POST(request: NextRequest) {
+- API /api/executive-brief/grill-me/sessions/[id]/respond | src/app/api/executive-brief/grill-me/sessions/[id]/respond/route.ts | fallback below
+- API /api/executive-brief/grill-me/sessions | src/app/api/executive-brief/grill-me/sessions/route.ts | export async function GET(request: NextRequest) {
+- API /api/executive-brief/transcription | src/app/api/executive-brief/transcription/route.ts | export async function GET(request: NextRequest) {
 - API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
@@ -440,7 +469,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (196)
+## Codebase Modules (203)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -495,17 +524,23 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/email-quality.ts | src/lib/email-quality.ts | export function reviewEmail(subject: string, html: string): string[] {
 - Code src/lib/email.test.ts | src/lib/email.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/email.ts | src/lib/email.ts | export async function sendEmail({
+- Code src/lib/enrichment/apollo-provider.ts | src/lib/enrichment/apollo-provider.ts | export class ApolloEnrichmentProvider implements EnrichmentProvider {
+- Code src/lib/enrichment/index.ts | src/lib/enrichment/index.ts | export function getEnrichmentProvider(): EnrichmentProvider {
+- Code src/lib/enrichment/types.ts | src/lib/enrichment/types.ts | export type SuggestedPerson = {
 - Code src/lib/events.test.ts | src/lib/events.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/events.ts | src/lib/events.ts | export type UserEventName =
+- Code src/lib/executive-brief-knowledge.ts | src/lib/executive-brief-knowledge.ts | export type MentalModel = {
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
 - Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
 - Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
+- Code src/lib/feature-flags.ts | src/lib/feature-flags.ts | export function isEnabledFlag(value: string | null | undefined): boolean {
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
 - Code src/lib/google-calendar.test.ts | src/lib/google-calendar.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/google-calendar.ts | src/lib/google-calendar.ts | export type GoogleCalendarIntegrationRow = {
+- Code src/lib/grill-me-protocol.ts | src/lib/grill-me-protocol.ts | export const GrillMeSessionModeSchema = z.enum(['focused', 'stress', 'board'])
 - Code src/lib/guide-retrieval.test.ts | src/lib/guide-retrieval.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/guide-retrieval.ts | src/lib/guide-retrieval.ts | export type GuideEntry = {
 - Code src/lib/intelligence-quality.test.ts | src/lib/intelligence-quality.test.ts | import { describe, expect, it } from 'vitest'
@@ -523,6 +558,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/micro-products.ts | src/lib/micro-products.ts | export type MicroProductChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/narrative-health.test.ts | src/lib/narrative-health.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/narrative-health.ts | src/lib/narrative-health.ts | export type NarrativeHealthInput = {
+- Code src/lib/narrative-page-types.ts | src/lib/narrative-page-types.ts | export interface NarrativePainItem {
 - Code src/lib/onboarding-speed.test.ts | src/lib/onboarding-speed.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-speed.ts | src/lib/onboarding-speed.ts | export type OnboardingChannel = 'executives' | 'coaches' | 'outplacement' | 'search_firms'
 - Code src/lib/onboarding-video-provider.test.ts | src/lib/onboarding-video-provider.test.ts | import { describe, expect, it } from 'vitest'
@@ -638,7 +674,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (116)
+## Internal Scripts (123)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -665,8 +701,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'
 - Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
+- Script scripts/check-mobile-elite-visual-gate.mjs | scripts/check-mobile-elite-visual-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | eslint-disable-next-line no-await-in-loop
 - Script scripts/check-mobile-ui-contract.mjs | scripts/check-mobile-ui-contract.mjs | Quick actions layout contract: two-column mobile and six-column desktop utility grid.
+- Script scripts/check-monitoring-coverage.mjs | scripts/check-monitoring-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-observability-import-guard.mjs | scripts/check-observability-import-guard.mjs | #!/usr/bin/env node
 - Script scripts/check-outreach-format.mjs | scripts/check-outreach-format.mjs | Accept common signature variants used across historical outreach exports.
 - Script scripts/check-placeholder-test-regressions.mjs | scripts/check-placeholder-test-regressions.mjs | #!/usr/bin/env node
@@ -703,8 +741,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
+- Script scripts/generate-monitoring-harness.mjs | scripts/generate-monitoring-harness.mjs | #!/usr/bin/env node
+- Script scripts/generate-monitoring-matrix.mjs | scripts/generate-monitoring-matrix.mjs | #!/usr/bin/env node
 - Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
+- Script scripts/guide-freshness-needed.mjs | scripts/guide-freshness-needed.mjs | #!/usr/bin/env node
 - Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
 - Script scripts/guide-query-analytics-weekly.mjs | scripts/guide-query-analytics-weekly.mjs | #!/usr/bin/env node
 - Script scripts/hero-dual-track-council-audit.mjs | scripts/hero-dual-track-council-audit.mjs | #!/usr/bin/env node
@@ -748,31 +789,37 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/send-liz-linkedin-company-launch-email.mjs | scripts/send-liz-linkedin-company-launch-email.mjs | import { config } from 'dotenv'
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
 - Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
+- Script scripts/sync-docs-to-gdrive.mjs | scripts/sync-docs-to-gdrive.mjs | #!/usr/bin/env node
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
 - Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
 - Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
+- Script scripts/tmp-staging-timeline-interact.mjs | scripts/tmp-staging-timeline-interact.mjs | import { chromium } from '@playwright/test'
 - Script scripts/ui-ux-council-audit.mjs | scripts/ui-ux-council-audit.mjs | import fs from 'node:fs'
 - Script scripts/user-guide-sync.ts | scripts/user-guide-sync.ts | import { createHash } from 'crypto'
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (31)
-- Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Run on all PRs and protected branches — blocks merge on failure.
+## Infrastructure and Workflows (35)
+- Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
 - Workflow .github/workflows/deploy-alerts.yml | .github/workflows/deploy-alerts.yml | name: Deployment Alerts
 - Workflow .github/workflows/deployment-watchdog.yml | .github/workflows/deployment-watchdog.yml | name: Deployment Watchdog
+- Workflow .github/workflows/docs-drive-sync.yml | .github/workflows/docs-drive-sync.yml | name: Docs Drive Sync
 - Workflow .github/workflows/emi-weekly-validation.yml | .github/workflows/emi-weekly-validation.yml | name: EMI Weekly Validation
 - Workflow .github/workflows/executive-research-weekly.yml | .github/workflows/executive-research-weekly.yml | name: Executive Research Weekly Refresh
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
 - Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
 - Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
+- Workflow .github/workflows/managertools-launch-monitoring.yml | .github/workflows/managertools-launch-monitoring.yml | name: Manager Tools Launch Monitoring
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
 - Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
 - Workflow .github/workflows/nightly-audit.yml | .github/workflows/nightly-audit.yml | name: Nightly Outreach Audit
 - Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: performance-release-gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
+- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Guide sync can be run proactively, no strict failed-check name requirement.
+- Workflow .github/workflows/production-generated-monitoring.yml | .github/workflows/production-generated-monitoring.yml | name: Production Generated Monitoring
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
 - Workflow .github/workflows/promote-staging-to-main.yml | .github/workflows/promote-staging-to-main.yml | name: Promote staging to main
@@ -780,16 +827,16 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/send-council-csv-to-slack.yml | .github/workflows/send-council-csv-to-slack.yml | name: Send Council CSV To Slack
 - Workflow .github/workflows/send-epic-summary-to-slack.yml | .github/workflows/send-epic-summary-to-slack.yml | name: Send Epic Summary To Slack
 - Workflow .github/workflows/slack-alert-test.yml | .github/workflows/slack-alert-test.yml | name: Slack Alert Test
+- Workflow .github/workflows/slack-manual-message.yml | .github/workflows/slack-manual-message.yml | name: Slack Manual Message
 - Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
 - Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
-- Workflow .github/workflows/sync-staging.yml | .github/workflows/sync-staging.yml | Auto-merges main into staging whenever main is pushed.
 - Workflow .github/workflows/watermark-audit.yml | .github/workflows/watermark-audit.yml | Watermark Documentation Audit — ${TODAY}
 - Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
 - Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (132)
+## Data and Migrations (139)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -897,6 +944,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/105_briefs_section_name.sql | supabase/migrations/105_briefs_section_name.sql | -- Add section_name to briefs so per-section prep brief ratings can be tracked by section
 - Migration supabase/migrations/106_briefs_type_check_prep_section.sql | supabase/migrations/106_briefs_type_check_prep_section.sql | -- Add prep_section to the briefs type check constraint
 - Migration supabase/migrations/107_company_signals_enrichment.sql | supabase/migrations/107_company_signals_enrichment.sql | -- Signal enrichment metadata for prep-context inference and auditability.
+- Migration supabase/migrations/107_sec_ingestion_tracker.sql | supabase/migrations/107_sec_ingestion_tracker.sql | -- SEC ingestion observability and freshness alert state.
 - Migration supabase/migrations/108_google_calendar_sync.sql | supabase/migrations/108_google_calendar_sync.sql | create table if not exists public.google_calendar_integrations (
 - Migration supabase/migrations/109_idea_submissions.sql | supabase/migrations/109_idea_submissions.sql | -- Public idea submissions table for the /ideas page
 - Migration supabase/migrations/109_micro_product_back_office.sql | supabase/migrations/109_micro_product_back_office.sql | -- Sprint 4: micro-product back office foundation
@@ -922,8 +970,14 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | supabase/migrations/128_worker_job_checkpoints_and_heavy_queue.sql | create table if not exists public.job_checkpoints (
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
+- Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql | supabase/migrations/130_executive_brief_grill_me_protocol.sql | -- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.
+- Migration supabase/migrations/131_discovery_recommendation_runs.sql | supabase/migrations/131_discovery_recommendation_runs.sql | -- Persist discovery recommendation runs and item narratives for linked detail views.
+- Migration supabase/migrations/132_monitoring_alert_state.sql | supabase/migrations/132_monitoring_alert_state.sql | create table if not exists public.monitoring_alert_state (
+- Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
+- Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
+- Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 
-## Documentation (532)
+## Documentation (578)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -936,6 +990,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/ap-style-compliance-checklist.md | docs/ap-style-compliance-checklist.md | AP Style Compliance Checklist
 - Doc docs/ap-style-policy.md | docs/ap-style-policy.md | AP Style Compliance Policy
 - Doc docs/ap-style-quick-reference.md | docs/ap-style-quick-reference.md | AP Style Quick Reference for Outreach and Guides
+- Doc docs/apollo-enrichment-compliance-runbook.md | docs/apollo-enrichment-compliance-runbook.md | Apollo Enrichment Compliance Runbook
 - Doc docs/architecture.md | docs/architecture.md | Starting Monday — System Architecture
 - Doc docs/article-submission-targets.md | docs/article-submission-targets.md | Article Submission Targets: Executive Coach Audience
 - Doc docs/automation-guide.md | docs/automation-guide.md | Starting Monday Automation Guide
@@ -946,12 +1001,15 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/business-plan-working.md | docs/business-plan-working.md | Starting Monday Working Business Plan (Execution Version)
 - Doc docs/business-plan.md | docs/business-plan.md | Starting Monday — Business Plan
 - Doc docs/campaign-standard.md | docs/campaign-standard.md | The Campaign Standard
+- Doc docs/chris-slack-summary-2026-06-08.md | docs/chris-slack-summary-2026-06-08.md | Starting Monday: 3-Day Summary for Chris
 - Doc docs/chris-vscode-workspace-setup.md | docs/chris-vscode-workspace-setup.md | Chris Setup Guide: Match Rich's VS Code Workspace
 - Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
 - Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign
 - Doc docs/coach-outreach-pain-led-messaging-system.md | docs/coach-outreach-pain-led-messaging-system.md | Coach Outreach Pain-Led Messaging System
 - Doc docs/coach-peer-forward-note.md | docs/coach-peer-forward-note.md | Coach Peer Forward Note
 - Doc docs/coach-traction-sprint-14-day.md | docs/coach-traction-sprint-14-day.md | Coach Traction Sprint: 14 Days + 20 Outbound Messages
+- Doc docs/coaches-landing-change-list.md | docs/coaches-landing-change-list.md | Coaches Landing Page Change List
+- Doc docs/coaches-landing-features.md | docs/coaches-landing-features.md | Coaches Landing Page Features
 - Doc docs/code-synthetic-council-audit.latest.md | docs/code-synthetic-council-audit.latest.md | Code Synthetic Council Audit
 - Doc docs/code-synthetic-council-playbook.md | docs/code-synthetic-council-playbook.md | Code Synthetic Council Playbook
 - Doc docs/code-synthetic-council-rubric.md | docs/code-synthetic-council-rubric.md | Code Synthetic Council Rubric (Full Spectrum)
@@ -1117,6 +1175,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
 - Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | 126_scan_failures_dead_letter rollback
 - Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md | docs/development/migration-rollbacks/127_stripe_webhook_events.md | 127_stripe_webhook_events rollback
+- Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | 131_discovery_recommendation_runs rollback
+- Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
+- Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
+- Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
@@ -1136,9 +1198,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
 - Doc docs/epic-partner-scale-and-flywheel-2026-2027.md | docs/epic-partner-scale-and-flywheel-2026-2027.md | Epic: Partner Scale and Flywheel
 - Doc docs/epic-sre-council-backlog.md | docs/epic-sre-council-backlog.md | Epic: SRE Council Backlog
+- Doc docs/epic-target-company-intelligence-apollo-2026-06-07.md | docs/epic-target-company-intelligence-apollo-2026-06-07.md | Epic: Target Company Intelligence and Outreach Narratives (Apollo-Backed)
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages
+- Doc docs/executive-dashboard-implementation-spec-2026-06-07.md | docs/executive-dashboard-implementation-spec-2026-06-07.md | Executive Dashboard Implementation Spec
 - Doc docs/executive-job-search/01-source-register.md | docs/executive-job-search/01-source-register.md | Executive Job Search Source Register
 - Doc docs/executive-job-search/02-behavior-ontology-v1.md | docs/executive-job-search/02-behavior-ontology-v1.md | Executive Job Search Behavior Ontology v1
 - Doc docs/executive-job-search/03-role-stage-matrix-v1.md | docs/executive-job-search/03-role-stage-matrix-v1.md | Executive Job Search Role x Stage Matrix v1
@@ -1181,6 +1245,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
+- Doc docs/governance/docs-governance.md | docs/governance/docs-governance.md | Documentation Governance
+- Doc docs/governance/no-drift-protected-route-matrix-2026-06-07.md | docs/governance/no-drift-protected-route-matrix-2026-06-07.md | No-Drift Protected Route Matrix
+- Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | Target Company Intelligence Governance Signoff
 - Doc docs/growth-metrics-gate.latest.md | docs/growth-metrics-gate.latest.md | Growth Metrics Gate
 - Doc docs/growth-synthetic-council.latest.md | docs/growth-synthetic-council.latest.md | Growth Synthetic Council Audit
 - Doc docs/growth/synthetic-growth-council.md | docs/growth/synthetic-growth-council.md | Synthetic Growth Council Charter
@@ -1193,12 +1260,16 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/hero-dual-track-council.latest.md | docs/hero-dual-track-council.latest.md | Hero Dual-Track Council Audit
 - Doc docs/how-to-build-a-great-prep-brief.md | docs/how-to-build-a-great-prep-brief.md | How to Build a Great Prep Brief
 - Doc docs/intelligence-roadmap.md | docs/intelligence-roadmap.md | Starting Monday — Intelligence Scanner Roadmap
+- Doc docs/internal-explore-playbook.md | docs/internal-explore-playbook.md | Internal Explore Playbook
 - Doc docs/internal-guide.md | docs/internal-guide.md | Starting Monday Internal Guide
 - Doc docs/internal-onboarding-readme.md | docs/internal-onboarding-readme.md | Internal Onboarding README (Engineer)
 - Doc docs/internal-pages-ia-redesign.md | docs/internal-pages-ia-redesign.md | Internal Pages IA Redesign (Scale + Cognitive Load)
 - Doc docs/internal-system-summary.md | docs/internal-system-summary.md | Starting Monday Internal System Summary
 - Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
+- Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
+- Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
+- Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
 - Doc docs/link-integrity-report-now.md | docs/link-integrity-report-now.md | Link Integrity Report
 - Doc docs/linkedin-contact-import-for-chris.md | docs/linkedin-contact-import-for-chris.md | LinkedIn Contact Import — Overview for Chris Goodwin
@@ -1206,6 +1277,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/liz-coach-outreach-instructions.md | docs/liz-coach-outreach-instructions.md | Coach Outreach Playbook — Instructions for Liz
 - Doc docs/liz-executive-coach-linkedin-guide.md | docs/liz-executive-coach-linkedin-guide.md | Liz Daily Guide: Executive Coach Outreach on LinkedIn
 - Doc docs/main-landing-page-council-review.md | docs/main-landing-page-council-review.md | Main Landing Page Council Review
+- Doc docs/managertools-launch-execution.md | docs/managertools-launch-execution.md | Manager Tools Newsletter Launch — Execution Plan
 - Doc docs/mark-horstman-site-audit.md | docs/mark-horstman-site-audit.md | Starting Monday - Synthetic Mark Horstman Audit
 - Doc docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md | Market Reassessment: Executives, Coaches, and Outplacement
 - Doc docs/marketing-plan.md | docs/marketing-plan.md | Starting Monday — Marketing Plan
@@ -1227,6 +1299,18 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Claude Setup Prompt — Get localhost:3000 Running
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
+- Doc docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | 01 Synthetic Monitoring
+- Doc docs/operations-tooling-taxonomy/02-observability-alerting/README.md | docs/operations-tooling-taxonomy/02-observability-alerting/README.md | 02 Observability and Alerting
+- Doc docs/operations-tooling-taxonomy/03-ci-cd-release-gates/README.md | docs/operations-tooling-taxonomy/03-ci-cd-release-gates/README.md | 03 CI/CD and Release Gates
+- Doc docs/operations-tooling-taxonomy/04-quality-assurance-and-code-health/README.md | docs/operations-tooling-taxonomy/04-quality-assurance-and-code-health/README.md | 04 Quality Assurance and Code Health
+- Doc docs/operations-tooling-taxonomy/05-data-integrity-and-security/README.md | docs/operations-tooling-taxonomy/05-data-integrity-and-security/README.md | 05 Data Integrity and Security
+- Doc docs/operations-tooling-taxonomy/06-growth-pmf-and-reporting/README.md | docs/operations-tooling-taxonomy/06-growth-pmf-and-reporting/README.md | 06 Growth, PMF, and Reporting
+- Doc docs/operations-tooling-taxonomy/07-outreach-and-gtm-operations/README.md | docs/operations-tooling-taxonomy/07-outreach-and-gtm-operations/README.md | 07 Outreach and GTM Operations
+- Doc docs/operations-tooling-taxonomy/08-guide-and-knowledge-sync/README.md | docs/operations-tooling-taxonomy/08-guide-and-knowledge-sync/README.md | 08 Guide and Knowledge Sync
+- Doc docs/operations-tooling-taxonomy/09-worker-automations/README.md | docs/operations-tooling-taxonomy/09-worker-automations/README.md | 09 Worker Automations
+- Doc docs/operations-tooling-taxonomy/10-infrastructure-runtime-operations/README.md | docs/operations-tooling-taxonomy/10-infrastructure-runtime-operations/README.md | 10 Infrastructure and Runtime Operations
+- Doc docs/operations-tooling-taxonomy/11-governance-council-audits/README.md | docs/operations-tooling-taxonomy/11-governance-council-audits/README.md | 11 Governance and Council Audits
+- Doc docs/operations-tooling-taxonomy/TOC.md | docs/operations-tooling-taxonomy/TOC.md | Starting Monday Tooling Taxonomy
 - Doc docs/outplacement-a-plus-conversion-epic.md | docs/outplacement-a-plus-conversion-epic.md | Outplacement A+ Conversion Epic
 - Doc docs/outplacement-pitch.md | docs/outplacement-pitch.md | Starting Monday — Outplacement and Transition Firm Pitch
 - Doc docs/outreach-csv-remediation-report.md | docs/outreach-csv-remediation-report.md | Outreach CSV Tone Remediation Report
@@ -1245,6 +1329,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/outreach/search-firm-personas-by-size-and-specialty.md | docs/outreach/search-firm-personas-by-size-and-specialty.md | Search Firm Personas by Size and Specialty
 - Doc docs/outreach/us-must-target-search-firms.md | docs/outreach/us-must-target-search-firms.md | US Must-Target Search Firms
 - Doc docs/outreach/us-senior-executive-target-slate.md | docs/outreach/us-senior-executive-target-slate.md | US Senior Executive Target Slate
+- Doc docs/partners/monthly-partner-report-template.md | docs/partners/monthly-partner-report-template.md | Monthly Partner Report Template
+- Doc docs/partners/renewal-decision-packet-template.md | docs/partners/renewal-decision-packet-template.md | Renewal Decision Packet Template
+- Doc docs/partners/reports/2026-06-pilot-partner-report.md | docs/partners/reports/2026-06-pilot-partner-report.md | Pilot Partner Report - June 2026
 - Doc docs/pe-transition-pricing.md | docs/pe-transition-pricing.md | Starting Monday — Per-Transition Pricing for VC and PE Firms
 - Doc docs/performance-audit-pack.md | docs/performance-audit-pack.md | Performance Audit Pack
 - Doc docs/performance-budget.md | docs/performance-budget.md | Performance Budget
@@ -1321,6 +1408,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/sre/runbooks/postmortem-template.md | docs/sre/runbooks/postmortem-template.md | Blameless Postmortem Template
 - Doc docs/sre/slo-catalog.md | docs/sre/slo-catalog.md | SLO Catalog (Routes and Pages)
 - Doc docs/sre/sprint-ready-tickets-90-day-reliability.md | docs/sre/sprint-ready-tickets-90-day-reliability.md | Sprint-Ready Tickets: 90-Day Reliability Rollout
+- Doc docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md | docs/sre/synthetic-coverage-rollout-plan-2026-06-09.md | Synthetic Coverage Rollout Plan (2026-06-09)
 - Doc docs/sre/synthetic-tests-and-deploy-gates.md | docs/sre/synthetic-tests-and-deploy-gates.md | Production Synthetics and Deploy Gate Specification
 - Doc docs/sre/weekly-reliability-review.md | docs/sre/weekly-reliability-review.md | Weekly Reliability Review
 - Doc docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | docs/Starting_Monday_Jira_Sprint_Slices_README_2026-05-21.md | Starting Monday Jira Sprint Slices
@@ -1331,8 +1419,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | Epic B Handoff Summary for Chris
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
+- Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
 - Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
+- Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
+- Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
+- Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
@@ -1340,6 +1432,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
 - Doc docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | Chris Brief: What Is Next + Last 24 Hours Summary
 - Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
+- Doc docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md | docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md | 90-Day Jira Epic: Competitive Positioning Strengthening
+- Doc docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md | docs/strategy/competitive-positioning-leadership-brief-2026-06-07.md | Leadership Brief: Strengthening Starting Monday Position
+- Doc docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md | docs/strategy/competitive-positioning-partner-pilot-playbook-2026-06-07.md | Partner Pilot Playbook: Coaches and Outplacement
 - Doc docs/strategy/email-council-humanity-feedback-2026-05-26.md | docs/strategy/email-council-humanity-feedback-2026-05-26.md | Email Council Humanity Feedback - 2026-05-26
 - Doc docs/strategy/email-second-council-pass-2026-05-26.md | docs/strategy/email-second-council-pass-2026-05-26.md | Email Second Council Pass - 2026-05-26
 - Doc docs/strategy/email-template-a-plus-remediation-2026-05-26.md | docs/strategy/email-template-a-plus-remediation-2026-05-26.md | Email Templates A+ Remediation Plan (Email Council Run)
@@ -1403,6 +1498,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
 - Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
+- Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | Four-Channel Customer Journey Implementation Backlog
+- Doc docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | Four-Channel Now Tranche Kickoff
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
@@ -1438,6 +1535,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/technical-debt-audit.latest.md | docs/technical-debt-audit.latest.md | Technical Debt Deep-Dive Audit
 - Doc docs/technical-debt-execution-backlog-2026-05-19.md | docs/technical-debt-execution-backlog-2026-05-19.md | Technical Debt Execution Backlog (May 19, 2026)
 - Doc docs/technical-reference.md | docs/technical-reference.md | Technical Reference — Starting Monday
+- Doc docs/templates/archive-note-template.md | docs/templates/archive-note-template.md | ## Archive note
+- Doc docs/templates/decision-record-template.md | docs/templates/decision-record-template.md | Decision Record: <short decision title>
+- Doc docs/templates/doc-template.md | docs/templates/doc-template.md | <Document title>
 - Doc docs/terry-coach-forward-email.md | docs/terry-coach-forward-email.md | Coach Forward Email
 - Doc docs/thought-leadership-authority-epic.md | docs/thought-leadership-authority-epic.md | Epic: 12-Week Thought Leadership Authority Build
 - Doc docs/tickets-online-guide-and-chat-2026-05-30.md | docs/tickets-online-guide-and-chat-2026-05-30.md | Tickets: Online User Guide + Guide Chat

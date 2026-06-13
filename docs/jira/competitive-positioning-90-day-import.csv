@@ -1,0 +1,15 @@
+Summary,Issue Type,Description,Labels,Priority
+Competitive positioning 90-day epic execution,Epic,"Execution umbrella for stories 1.1 through 4.3 from docs/strategy/competitive-positioning-90-day-jira-epic-2026-06-07.md","competitive-positioning,90-day,epic",High
+Story 1.1 role pages and active/passive posture framing,Task,"Publish role-specific pages with clear active vs passive posture and conversion CTAs.","competitive-positioning,wbs-1-1,status-done",High
+Story 1.2 funnel and before/after conversion claim package,Task,"Codify conversion funnel definitions and before/after framing for site and evidence assets.","competitive-positioning,wbs-1-2,status-partial",High
+Story 1.3 pricing and offer architecture with first-week outcomes,Task,"Position plan architecture by buyer mode and first-week outcomes for conversion clarity.","competitive-positioning,wbs-1-3,status-now-done",High
+Story 2.1 evidence room with KPI trend cards and source notes,Task,"Add four KPI trend cards, source notes, methodology transparency, and role outcomes.","competitive-positioning,wbs-2-1,status-now-done",High
+Story 2.2 case studies and social proof pack,Task,"Publish six case studies with before/after/outcome structure.","competitive-positioning,wbs-2-2,status-now-done",High
+Story 2.3 references and method hub hardening,Task,"Maintain references and method hub as canonical evidence and claim controls.","competitive-positioning,wbs-2-3,status-partial",Medium
+Story 3.1 discover conversion and quality KPI instrumentation,Task,"Track generated/opened/actioned recommendation flow and quality metrics.","competitive-positioning,wbs-3-1,status-done",High
+Story 3.2 prep quality loop and first-contact readiness scorecard,Task,"Expose prep quality scorecard and write usage events for closed-loop coaching.","competitive-positioning,wbs-3-2,status-partial",High
+Story 3.3 campaign health score and stalled alert system,Task,"Display campaign health score and stalled campaign alerts in user and admin views.","competitive-positioning,wbs-3-3,status-now-done",High
+Story 3.4 closed-loop analytics across recommendation to outreach,Task,"Report recommendation-opened to outreach-start and watchlist conversion rates in admin surfaces.","competitive-positioning,wbs-3-4,status-partial",Medium
+Story 4.1 partner proof packet and operating scorecard,Task,"Define partner KPI schema and reporting automation for pilot proof.","competitive-positioning,wbs-4-1,status-partial",High
+Story 4.2 partner pilot validation workflow,Task,"Automate pilot validation checks and confidence gating for partner rollout.","competitive-positioning,wbs-4-2,status-done",High
+Story 4.3 partner reporting template and first issued packet,Task,"Ship partner report template, renewal packet template, and first issued monthly report artifact.","competitive-positioning,wbs-4-3,status-now-done",High

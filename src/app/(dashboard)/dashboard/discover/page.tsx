@@ -4,10 +4,30 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
 type DiscoveryCompany = {
+  id?: string
+  narrativeUrl?: string
   name: string
   sector: string
   why: string
   fit: number
+  signalFreshnessScore?: number
+  provenanceCoverage?: number
+  keySignals?: string[]
+  keyAttributes?: string[]
+  suggestedPeople?: Array<{
+    name: string
+    title: string
+    reason: string
+    source: 'anthropic' | 'apollo' | 'fallback'
+    confidence: number
+  }>
+}
+
+function scoreBadge(score?: number) {
+  if (typeof score !== 'number') return 'bg-slate-100 text-slate-500'
+  if (score >= 80) return 'bg-emerald-100 text-emerald-800'
+  if (score >= 60) return 'bg-amber-100 text-amber-800'
+  return 'bg-rose-100 text-rose-800'
 }
 
 function fitBadge(fit: number) {
@@ -54,7 +74,7 @@ export default function DiscoverPage() {
       const res = await fetch('/api/companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit }),
+        body: JSON.stringify({ name: co.name, sector: co.sector, fit_score: co.fit, source: 'discover_card' }),
       })
       if (res.ok || res.status === 409) {
         setAdded(prev => new Set([...prev, co.name]))
@@ -210,6 +230,22 @@ export default function DiscoverPage() {
                       {co.sector}
                     </div>
                     <p className="text-[13px] text-slate-600 leading-relaxed flex-1 mb-4">{co.why}</p>
+                    <div className="mb-3 flex flex-wrap gap-1.5">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${scoreBadge(co.signalFreshnessScore)}`}>
+                        Signal freshness {co.signalFreshnessScore ?? '--'}
+                      </span>
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${scoreBadge(co.provenanceCoverage)}`}>
+                        Provenance coverage {co.provenanceCoverage ?? '--'}
+                      </span>
+                    </div>
+                    {co.narrativeUrl && (
+                      <Link
+                        href={co.narrativeUrl}
+                        className="mb-3 inline-block text-[12px] font-semibold text-slate-700 hover:text-slate-900 underline"
+                      >
+                        Why this company and who to contact &rarr;
+                      </Link>
+                    )}
                     <button
                       onClick={() => handleAdd(co)}
                       disabled={isAdded || isAdding}

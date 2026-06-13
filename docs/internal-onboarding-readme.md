@@ -1,5 +1,12 @@
 # Internal Onboarding README (Engineer)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Audience: New engineer with admin or owner access.
 
 Goal: Get productive quickly using the internal guide artifacts and understand how major systems integrate.

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 
 const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
 
@@ -83,9 +84,20 @@ export default function CoachEconomicsPage() {
             The details, one click deeper.
           </h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-2xl">
-            This page is for coaches who already understand the workflow and want to know how trials, client plans, and partner economics work in practice.
+            This page is for coaches who already understand the workflow and want to know how trials, client plans, and partner economics work in practice. If you still want the fastest answer, request the preview first.
           </p>
         </header>
+
+        <section className="mb-10">
+          <CoachValueNudge
+            eyebrow="Economics with value attached"
+            title="The price only matters if the workflow feels useful."
+            body="Use the preview to verify fit, then use this page to compare the pricing and partner lanes. That keeps the decision anchored in value instead of just subscription math."
+            sourcePage="/for-coaches/economics"
+            secondaryHref="/for-coaches"
+            secondaryLabel="Back to coach preview"
+          />
+        </section>
 
         <section className="border border-emerald-200 bg-emerald-50/40 rounded-2xl p-6 sm:p-7 mb-10">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-3">

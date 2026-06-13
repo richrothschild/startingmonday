@@ -1,5 +1,12 @@
 # Site Monitoring Sprint Plan
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 **Goal:** Watch Starting Monday the way a user experiences it, 24x7x365, and alert on any broken journey before a customer reports it.
 
 ## What We Are Building

@@ -13,7 +13,8 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+  pull-requests: write
 
 jobs:
   promote:
@@ -23,10 +24,11 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Checkout
+      - name: Checkout staging
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          ref: staging
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -43,20 +45,23 @@ jobs:
           npm run ux:rubric:pages
           npm run test
 
-      - name: Configure git
+      - name: Open PR from staging to main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BODY="Automated promotion from staging to main. Quality gates passed (typecheck, ux:rubric:pages, test)."
+          if [ -n "${{ inputs.note }}" ]; then
+            BODY="${BODY}\n\nRelease note: ${{ inputs.note }}"
+          fi
+          gh pr create \
+            --title "chore: promote staging to main" \
+            --body "${BODY}" \
+            --base main \
+            --head staging \
+            --reviewer richrothschild \
+          || echo "A PR from staging to main may already be open — check GitHub."
 
-      - name: Fast-forward main to staging
-        run: |
-          git fetch origin main staging
-          git checkout main
-          git reset --hard origin/main
-          git merge --ff-only origin/staging
-          git push origin main
-
-      - name: Summarize release
+      - name: Summarize
         if: always()
         run: |
           echo "## Staging Promotion" >> "$GITHUB_STEP_SUMMARY"

@@ -23,7 +23,11 @@ import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
+import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
+import { updateDecisionOwner } from './actions'
+import { decisionMarkerForStage, extractDecisionOwnerFromNotes } from './dashboard-decision-timeline-utils'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
+import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -84,13 +88,22 @@ type CompanyRow = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string }>
+  searchParams: Promise<{ q?: string; stage?: string; page?: string; profile_saved?: string; focus?: string; preview?: string; timelinePage?: string; timelineSort?: string }>
 }) {
-  const { q, stage, page: pageParam, profile_saved, focus } = await searchParams
+  const { q, stage, page: pageParam, profile_saved, focus, preview, timelinePage: timelinePageParam, timelineSort: timelineSortParam } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
+  const timelinePage = Math.max(0, parseInt(timelinePageParam ?? '0', 10) || 0)
+  const timelineSort = timelineSortParam === 'recent_desc' || timelineSortParam === 'name_asc'
+    ? timelineSortParam
+    : 'stalled_desc'
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+
+  const subscription = await getUserSubscription(user.id, supabase)
+  if (canAccessFeature(subscription, 'coach_dashboard')) {
+    redirect('/dashboard/coach')
+  }
 
   const { data: profileRaw, error: profileError } = await supabase
     .from('user_profiles')
@@ -130,7 +143,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('id, stage, name')
+    .select('id, stage, name, notes, updated_at')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -301,6 +314,61 @@ export default async function DashboardPage({
   const overdueCount   = (followUps ?? []).length
   const signalCount    = signals.length + patternAlerts.length
 
+  const stalledCampaignRows = velocityRows
+    .map((row) => {
+      if (!row.updated_at) return null
+      const daysStalled = Math.floor((Date.now() - new Date(row.updated_at).getTime()) / 86400000)
+      if (daysStalled < 14) return null
+      return { ...row, daysStalled }
+    })
+    .filter((row): row is VelocityRow & { daysStalled: number } => !!row)
+    .sort((a, b) => b.daysStalled - a.daysStalled)
+
+  const cadenceScore = Math.min(100, (outreachThisWeek ?? 0) * 20)
+  const followThroughScore = Math.max(0, 100 - overdueCount * 15)
+  const conversionScore = totalCount > 0 ? Math.min(100, Math.round((activeCount / totalCount) * 100)) : 0
+  const campaignHealthScore = Math.round((cadenceScore * 0.4) + (followThroughScore * 0.35) + (conversionScore * 0.25))
+  const campaignHealthBand = campaignHealthScore >= 75 ? 'Strong' : campaignHealthScore >= 50 ? 'Watch' : 'At risk'
+  const topStalledCampaigns = stalledCampaignRows.slice(0, 5)
+
+  const timelineOwnerLabel = profile?.full_name ?? user.email ?? 'Account owner'
+  const decisionTimelineItemsAll = (allList ?? [])
+    .map((company) => {
+      const stageLabel = STAGE[company.stage]?.label ?? company.stage
+      const updatedAtMs = company.updated_at ? new Date(company.updated_at).getTime() : null
+      const daysSinceUpdate = updatedAtMs ? Math.floor((Date.now() - updatedAtMs) / 86400000) : null
+      const stalled = (daysSinceUpdate ?? 0) >= 14
+      const marker = decisionMarkerForStage(company.stage)
+      const assignedOwner = extractDecisionOwnerFromNotes(company.notes) ?? timelineOwnerLabel
+
+      return {
+        id: company.id,
+        name: company.name,
+        stageLabel,
+        nextDecisionMarker: marker.marker,
+        decisionWindowLabel: marker.decisionWindowLabel,
+        daysSinceUpdate,
+        stalled,
+        ownerLabel: assignedOwner,
+        href: `/dashboard/companies/${company.id}`,
+      }
+    })
+
+  const decisionTimelineItemsSorted = [...decisionTimelineItemsAll].sort((a, b) => {
+    if (timelineSort === 'name_asc') return a.name.localeCompare(b.name)
+    if (timelineSort === 'recent_desc') return (a.daysSinceUpdate ?? 0) - (b.daysSinceUpdate ?? 0)
+    if (a.stalled !== b.stalled) return a.stalled ? -1 : 1
+    return (b.daysSinceUpdate ?? 0) - (a.daysSinceUpdate ?? 0)
+  })
+
+  const timelinePageSize = 6
+  const timelineTotalPages = Math.max(1, Math.ceil(decisionTimelineItemsSorted.length / timelinePageSize))
+  const safeTimelinePage = Math.min(timelinePage, timelineTotalPages - 1)
+  const decisionTimelineItems = decisionTimelineItemsSorted.slice(
+    safeTimelinePage * timelinePageSize,
+    safeTimelinePage * timelinePageSize + timelinePageSize,
+  )
+
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
   type WarmPath = { contactId: string; contactName: string; contactTitle: string | null; companyId: string; companyName: string; signal: SignalRow }
@@ -358,10 +426,19 @@ export default async function DashboardPage({
   const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
+  const isExecutivePreview = preview === 'executive-v2'
+  const isExecutiveMode = isExecutive || isExecutivePreview
   const isCoach = userRow?.subscription_tier === 'coach'
   const staffMember = await getStaffMember(user.email ?? '')
   const isRothschildAdmin = hasAdminHeaderAccess(staffMember)
   const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'
+  const roleLensLabel = isRothschildAdmin
+    ? 'Admin'
+    : isPartner
+      ? 'Partner'
+      : isCoach
+        ? 'Coach'
+        : 'Executive'
   const trialDaysLeft = trialEndsAt
     ? Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : 0
@@ -499,6 +576,139 @@ export default async function DashboardPage({
 
   const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
 
+  const sponsorCoveragePercent = totalCount > 0 ? Math.round((contactCountMap.size / totalCount) * 100) : 0
+  const signalToActionPercent = signalCount > 0 ? Math.min(100, Math.round(((draftReadyCount ?? 0) / signalCount) * 100)) : 0
+  const followUpSlaPercent = overdueCount === 0 ? 100 : Math.max(0, 100 - overdueCount * 15)
+  const decisionLagDays = offerCompanies.length > 0 ? (daysSinceLastAction ?? 0) : null
+
+  const executiveStageLabel = offerCompanies.length > 0
+    ? 'Offer and Decision'
+    : (activeCount > 0 || !!interviewingCompany)
+      ? 'Interviewing and Conversion'
+      : (totalCount > 0 && contactCount > 0)
+        ? 'Market Activation'
+        : totalCount > 0
+          ? 'Target and Narrative Design'
+          : 'Trigger and Identity Reset'
+
+  const threatRiskHigh = (daysSinceLastAction ?? 0) >= 14 || (totalCount === 0 && (daysSinceOnboard ?? 0) > 7)
+  const perfectionRiskHigh = profileScore < 80 && totalCount === 0 && (daysSinceOnboard ?? 0) > 5
+  const isolationRiskHigh = totalCount >= 3 && sponsorCoveragePercent < 50
+  const decisionRiskHigh = offerCompanies.length > 0 && (daysSinceLastAction ?? 0) >= 7
+
+  const riskItems: Array<{
+    id: string
+    label: string
+    level: 'low' | 'medium' | 'high'
+    detail: string
+    href: string
+    cta: string
+  }> = [
+    {
+      id: 'threat-state',
+      label: 'Threat and uncertainty state',
+      level: threatRiskHigh ? 'high' : (signalCount > 0 ? 'low' : 'medium'),
+      detail: threatRiskHigh
+        ? 'Activity decay suggests rising uncertainty. Use one concrete move to restore control today.'
+        : 'Signal and action flow is stable enough to keep confidence anchored in execution.',
+      href: '/dashboard/briefing',
+      cta: 'Open daily briefing',
+    },
+    {
+      id: 'perfection-loop',
+      label: 'Perfection loop risk',
+      level: perfectionRiskHigh ? 'high' : (profileScore < 100 ? 'medium' : 'low'),
+      detail: perfectionRiskHigh
+        ? 'You may be polishing inputs without enough market activation. Ship one outreach action.'
+        : 'Profile quality is improving. Keep edits tied to live outreach outcomes.',
+      href: profileScore < 100 ? '/dashboard/profile' : '/dashboard/strategy',
+      cta: profileScore < 100 ? 'Finish profile inputs' : 'Run strategy brief',
+    },
+    {
+      id: 'isolation-risk',
+      label: 'Sponsor map depth',
+      level: isolationRiskHigh ? 'high' : (sponsorCoveragePercent < 70 ? 'medium' : 'low'),
+      detail: isolationRiskHigh
+        ? 'Coverage is low for an executive search. Relationship depth is likely the bottleneck now.'
+        : 'Sponsor coverage is trending in the right direction. Keep adding depth at top targets.',
+      href: '/dashboard/contacts',
+      cta: 'Expand sponsor map',
+    },
+    {
+      id: 'decision-drag',
+      label: 'Decision drag risk',
+      level: decisionRiskHigh ? 'high' : (offerCompanies.length > 0 ? 'medium' : 'low'),
+      detail: offerCompanies.length > 0
+        ? 'Offer context exists. Decision quality drops when timeline and no-go criteria stay implicit.'
+        : 'No active offer context. Keep criteria explicit before final-round intensity rises.',
+      href: offerCompanies.length > 0 ? '/dashboard/offers' : '/dashboard/strategy',
+      cta: offerCompanies.length > 0 ? 'Open offer compare' : 'Capture criteria',
+    },
+  ]
+
+  const executivePrimaryRisk = (() => {
+    if (decisionRiskHigh) return { label: 'Decision drag', level: 'high' as const, href: '/dashboard/offers', cta: 'Resolve tradeoffs' }
+    if (isolationRiskHigh) return { label: 'Sponsor depth gap', level: 'high' as const, href: '/dashboard/contacts', cta: 'Add sponsors' }
+    if (threatRiskHigh) return { label: 'Momentum decay', level: 'high' as const, href: '/dashboard/briefing', cta: 'Re-anchor today' }
+    if (perfectionRiskHigh) return { label: 'Perfection loop', level: 'medium' as const, href: '/dashboard/profile', cta: 'Ship and move' }
+    return { label: 'Managed', level: 'low' as const, href: '/dashboard/briefing', cta: 'Keep cadence' }
+  })()
+
+  const executiveDecisionBrief = (() => {
+    if (offerCompanies.length > 0) {
+      return {
+        changed: `${offerCompanies.length} offer ${offerCompanies.length === 1 ? 'is' : 'are'} in play and decision pressure is rising.`,
+        whyNow: 'Late-stage ambiguity increases regret risk more than almost any other phase.',
+        recommendedMove: 'Run the offer comparison and lock explicit no-go criteria before new conversations start.',
+        downsideIfDelayed: 'Decision lag weakens negotiation leverage and increases reactive choices.',
+        href: '/dashboard/offers',
+        cta: 'Run offer comparison',
+      }
+    }
+
+    if (signalCount > 0) {
+      return {
+        changed: `${signalCount} fresh market signal${signalCount === 1 ? '' : 's'} landed this week.`,
+        whyNow: 'Signal freshness decays quickly unless converted to relationship action.',
+        recommendedMove: 'Convert one high-relevance signal into a warm outreach draft today.',
+        downsideIfDelayed: 'You lose timing edge and return to generic outreach.',
+        href: '/dashboard/signals',
+        cta: 'Convert strongest signal',
+      }
+    }
+
+    if (overdueCount > 0) {
+      return {
+        changed: `${overdueCount} follow-up ${overdueCount === 1 ? 'is' : 'are'} overdue.`,
+        whyNow: 'At executive level, delay is often interpreted as loss of conviction.',
+        recommendedMove: 'Clear the next due relationship action before adding new scope.',
+        downsideIfDelayed: 'Pipeline credibility drops and conversation velocity slows.',
+        href: '/dashboard/calendar',
+        cta: 'Clear overdue now',
+      }
+    }
+
+    return {
+      changed: 'No urgent blockers, but sponsor depth and cadence still determine outcomes.',
+      whyNow: 'Quiet weeks are where high-quality systems get built.',
+      recommendedMove: 'Add one sponsor at a priority company and schedule one next step.',
+      downsideIfDelayed: 'Momentum looks stable but conversion quality erodes over time.',
+      href: '/dashboard/contacts',
+      cta: 'Strengthen sponsor map',
+    }
+  })()
+
+  const offerCockpit = {
+    show: offerCompanies.length > 0,
+    offerCount: offerCompanies.length,
+    offerCompanyName: offerCompany?.name ?? null,
+    contextSignals: [
+      { label: 'Role thesis clarity', ok: (profile?.positioning_summary?.length ?? 0) >= 80 },
+      { label: 'Context constraints captured', ok: !!profile?.briefing_timezone },
+      { label: 'Sponsor confirmation path', ok: sponsorCoveragePercent >= 50 },
+    ],
+  }
+
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
     { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
@@ -601,6 +811,58 @@ export default async function DashboardPage({
           onMarkPlaced={markPlaced}
           activationComplete={activation.isComplete}
           activationCompletedCount={activation.completedCount}
+          isExecutiveMode={isExecutiveMode}
+          isExecutivePreview={isExecutivePreview}
+          executiveStageLabel={executiveStageLabel}
+          executivePrimaryRisk={executivePrimaryRisk}
+          executiveDecisionBrief={executiveDecisionBrief}
+        />
+
+        <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500">Campaign health</p>
+              <h2 className="text-[20px] font-bold text-slate-900 mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-500">{campaignHealthBand}</span></h2>
+              <p className="text-[13px] text-slate-600 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Cadence</p>
+                <p className="text-[16px] font-bold text-slate-900">{cadenceScore}</p>
+              </div>
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Follow-through</p>
+                <p className="text-[16px] font-bold text-slate-900">{followThroughScore}</p>
+              </div>
+              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Conversion</p>
+                <p className="text-[16px] font-bold text-slate-900">{conversionScore}</p>
+              </div>
+            </div>
+          </div>
+
+          {topStalledCampaigns.length > 0 && (
+            <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-amber-800 mb-2">Stalled alerts</p>
+              <ul className="space-y-1.5">
+                {topStalledCampaigns.map((item) => (
+                  <li key={item.id} className="text-[13px] text-amber-900">
+                    <span className="font-semibold">{item.name}</span> has been idle for {item.daysStalled} days.
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+
+        <DashboardDecisionTimelineSection
+          roleLensLabel={roleLensLabel}
+          items={decisionTimelineItems}
+          stalledCount={stalledCampaignRows.length}
+          sort={timelineSort}
+          page={safeTimelinePage}
+          totalPages={timelineTotalPages}
+          updateDecisionOwner={updateDecisionOwner}
         />
 
         <DashboardDisclosureSection
@@ -626,6 +888,7 @@ export default async function DashboardPage({
           prospectContactCount={prospectContactCount ?? 0}
           companiesWithoutBrief={companiesWithoutBrief.map(c => ({ name: c.name }))}
           opportunityRadar={<OpportunityRadar />}
+          isExecutiveMode={isExecutiveMode}
         />
 
         </DashboardDisclosureSection>
@@ -670,6 +933,14 @@ export default async function DashboardPage({
           draftReadyCount={draftReadyCount ?? 0}
           overdueCount={overdueCount}
           activeCount={activeCount}
+          isExecutiveMode={isExecutiveMode}
+          executiveStageLabel={executiveStageLabel}
+          riskItems={riskItems}
+          offerCockpit={offerCockpit}
+          signalToActionPercent={signalToActionPercent}
+          followUpSlaPercent={followUpSlaPercent}
+          sponsorCoveragePercent={sponsorCoveragePercent}
+          decisionLagDays={decisionLagDays}
         />
 
         </DashboardDisclosureSection>

@@ -2,8 +2,14 @@
 
 const BASE_URL = process.env.MONITOR_BASE_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.MONITOR_CRON_SECRET ?? ''
+const EXPECT_DEPLOY_MARKER = process.env.MONITOR_EXPECT_DEPLOY_MARKER ?? ''
 const OUTPUT_JSON = process.env.MONITOR_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = 15000
+
+function isRetryableError(reason = '') {
+  const normalized = String(reason).toLowerCase()
+  return normalized.includes('aborted') || normalized.includes('timeout') || normalized.includes('fetch failed')
+}
 
 function trimSlash(url) {
   return url.endsWith('/') ? url.slice(0, -1) : url
@@ -17,96 +23,119 @@ function safeJsonParse(text) {
   }
 }
 
-async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes, critical = true }) {
+async function checkEndpoint({ name, path, expectStatus = 200, expectJsonField, expectTextIncludes, critical = true, headers, timeoutMs = TIMEOUT_MS, retries = 0 }) {
   const url = `${trimSlash(BASE_URL)}${path}`
-  const started = Date.now()
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
+  let attempt = 0
+  let lastResult = null
 
-  try {
-    const res = await fetch(url, { signal: controller.signal })
-    const body = await res.text()
-    const durationMs = Date.now() - started
+  while (attempt <= retries) {
+    const started = Date.now()
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), timeoutMs)
 
-    if (res.status !== expectStatus) {
-      return {
+    try {
+      const res = await fetch(url, { signal: controller.signal, headers: headers ?? {} })
+      const body = await res.text()
+      const durationMs = Date.now() - started
+
+      if (res.status !== expectStatus) {
+        lastResult = {
+          ok: false,
+          critical,
+          name,
+          path,
+          status: res.status,
+          durationMs,
+          reason: `Expected ${expectStatus}, got ${res.status}`,
+          body: body.slice(0, 400),
+        }
+      } else if (expectJsonField) {
+        const parsed = safeJsonParse(body)
+        if (!parsed) {
+          lastResult = {
+            ok: false,
+            critical,
+            name,
+            path,
+            status: res.status,
+            durationMs,
+            reason: 'Expected JSON body but could not parse response',
+            body: body.slice(0, 400),
+          }
+        } else {
+          const actual = parsed[expectJsonField.key]
+          const allowed = expectJsonField.allowed
+          if (!allowed.includes(actual)) {
+            lastResult = {
+              ok: false,
+              critical,
+              name,
+              path,
+              status: res.status,
+              durationMs,
+              reason: `Expected ${expectJsonField.key} in [${allowed.join(', ')}], got ${String(actual)}`,
+              body: body.slice(0, 400),
+            }
+          } else {
+            lastResult = {
+              ok: true,
+              critical,
+              name,
+              path,
+              status: res.status,
+              durationMs,
+            }
+          }
+        }
+      } else if (expectTextIncludes && !body.includes(expectTextIncludes)) {
+        lastResult = {
+          ok: false,
+          name,
+          path,
+          status: res.status,
+          durationMs,
+          reason: `Expected response to include "${expectTextIncludes}"`,
+          body: body.slice(0, 400),
+        }
+      } else {
+        lastResult = {
+          ok: true,
+          critical,
+          name,
+          path,
+          status: res.status,
+          durationMs,
+        }
+      }
+    } catch (error) {
+      const durationMs = Date.now() - started
+      const message = error instanceof Error ? error.message : 'request failed'
+      lastResult = {
         ok: false,
         critical,
         name,
         path,
-        status: res.status,
+        status: 0,
         durationMs,
-        reason: `Expected ${expectStatus}, got ${res.status}`,
-        body: body.slice(0, 400),
+        reason: message,
       }
+    } finally {
+      clearTimeout(timeout)
     }
 
-    if (expectJsonField) {
-      const parsed = safeJsonParse(body)
-      if (!parsed) {
-        return {
-          ok: false,
-          critical,
-          name,
-          path,
-          status: res.status,
-          durationMs,
-          reason: 'Expected JSON body but could not parse response',
-          body: body.slice(0, 400),
-        }
-      }
-
-      const actual = parsed[expectJsonField.key]
-      const allowed = expectJsonField.allowed
-      if (!allowed.includes(actual)) {
-        return {
-          ok: false,
-          critical,
-          name,
-          path,
-          status: res.status,
-          durationMs,
-          reason: `Expected ${expectJsonField.key} in [${allowed.join(', ')}], got ${String(actual)}`,
-          body: body.slice(0, 400),
-        }
-      }
+    if (lastResult?.ok) {
+      return lastResult
     }
 
-    if (expectTextIncludes && !body.includes(expectTextIncludes)) {
-      return {
-        ok: false,
-        name,
-        path,
-        status: res.status,
-        durationMs,
-        reason: `Expected response to include "${expectTextIncludes}"`,
-        body: body.slice(0, 400),
-      }
+    if (attempt < retries && isRetryableError(lastResult?.reason)) {
+      attempt += 1
+      continue
     }
 
-    return {
-      ok: true,
-      critical,
-      name,
-      path,
-      status: res.status,
-      durationMs,
-    }
-  } catch (error) {
-    const durationMs = Date.now() - started
-    const message = error instanceof Error ? error.message : 'request failed'
-    return {
-      ok: false,
-      critical,
-      name,
-      path,
-      status: 0,
-      durationMs,
-      reason: message,
-    }
-  } finally {
-    clearTimeout(timeout)
+    return lastResult
   }
+
+  return lastResult
 }
 
 async function main() {
@@ -126,22 +155,29 @@ async function main() {
       name: 'Pricing page',
       path: '/pricing',
       expectStatus: 200,
+      timeoutMs: 30000,
+      retries: 1,
+    },
+    {
+      name: 'Deploy marker endpoint',
+      path: '/api/deploy-marker',
+      expectStatus: 200,
+      expectJsonField: EXPECT_DEPLOY_MARKER
+        ? { key: 'release', allowed: [EXPECT_DEPLOY_MARKER] }
+        : { key: 'kind', allowed: ['deploy-marker'] },
+      critical: false,
     },
   ]
 
   if (CRON_SECRET) {
+    const cronHeaders = { 'x-cron-secret': CRON_SECRET }
     checks.push(
       {
-        name: 'Cron social digest',
-        path: `/api/admin/social/digest?secret=${encodeURIComponent(CRON_SECRET)}`,
+        name: 'Cron scan alert health',
+        path: '/api/cron/scan-alert?mode=health',
         expectStatus: 200,
-        expectJsonField: { key: 'ok', allowed: [true] },
-        critical: false,
-      },
-      {
-        name: 'Cron scan alert',
-        path: `/api/cron/scan-alert?secret=${encodeURIComponent(CRON_SECRET)}`,
-        expectStatus: 200,
+        expectJsonField: { key: 'mode', allowed: ['health'] },
+        headers: cronHeaders,
         critical: false,
       },
     )

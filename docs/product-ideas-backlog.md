@@ -1,4 +1,11 @@
 # Starting Monday — Ideas Backlog
+
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
 ### Reviewed 2026-05-03. Items below are not scheduled. Revisit at each planning cycle.
 
 ---

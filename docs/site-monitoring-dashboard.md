@@ -1,5 +1,12 @@
 # Site Monitoring Dashboard
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 This is the single operating view for user-perspective reliability. It is intentionally simple and links directly to the systems that hold source-of-truth status.
 
 ## Reliability Status Board

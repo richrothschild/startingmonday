@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
+import { CoachValueNudge } from '@/components/CoachValueNudge'
 import { BrandIcon } from '@/components/BrandIcon'
 
 export const metadata: Metadata = {
   title: 'Coach FAQ & Objection Responses | Starting Monday',
-  description: 'Comprehensive FAQ for executive coaches about Starting Monday. Covers data security, pricing, integrations, ROI, and common objections with detailed responses.',
+  description: 'FAQ for executive coaches about Starting Monday. Covers data security, pricing, ROI, objections, and the fastest path to the preview.',
   alternates: { canonical: 'https://startingmonday.app/for-coaches/faq' },
 }
 
@@ -176,12 +177,24 @@ export default function CoachFaqPage() {
           </h1>
           <p className="text-[15px] text-slate-400 leading-relaxed">
             If you cannot find your question here, email us at contact@startingmonday.app.
+            If you want the fastest way to judge fit, request the coach preview first.
           </p>
         </div>
       </header>
 
       <main className="px-4 sm:px-6 py-14 sm:py-20">
 <div className="max-w-3xl mx-auto">
+          <div className="mb-10">
+            <CoachValueNudge
+              eyebrow="Fastest way to judge fit"
+              title="The preview shows whether this saves time and improves prep before you commit."
+              body="Use the preview to see the workflow, the trust boundary, and the client value together. If that passes the smell test, the FAQ can answer the deeper questions."
+              sourcePage="/for-coaches/faq"
+              secondaryHref="/for-coaches/economics"
+              secondaryLabel="View pricing and economics"
+            />
+          </div>
+
           {/* Quick nav links */}
           <div className="mb-12 pb-8 border-b border-slate-200">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-4">Quick jump to section:</p>
@@ -228,6 +241,17 @@ export default function CoachFaqPage() {
               </div>
             </section>
           ))}
+
+          <section className="mt-16">
+            <CoachValueNudge
+              eyebrow="Ready for a live look"
+              title="If the FAQ answered your concerns, the next move is to see the preview in action."
+              body="That keeps the decision grounded in workflow and value instead of more reading. Coaches usually know quickly once they see the preview with real client context."
+              sourcePage="/for-coaches/faq"
+              secondaryHref="/for-coaches"
+              secondaryLabel="Return to coach preview"
+            />
+          </section>
 
           {/* Common objections */}
           <section id="objections" className="mt-16 pt-12 border-t border-slate-300">

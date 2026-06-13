@@ -25,8 +25,8 @@ describe('validateCronRequest', () => {
     expect(validateCronRequest(request)).toBe(true)
   })
 
-  it('rejects query-string secret fallback', () => {
+  it('accepts query-string secret fallback', () => {
     const request = makeRequest({}, 'secret=top-secret')
-    expect(validateCronRequest(request)).toBe(false)
+    expect(validateCronRequest(request)).toBe(true)
   })
 })

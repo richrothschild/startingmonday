@@ -1,0 +1,50 @@
+# Apollo Enrichment Compliance Runbook
+
+Updated: 2026-06-07
+Owner: Growth + Product + Engineering
+
+## Purpose
+Define compliant handling for Apollo-derived contact enrichment in discovery and outreach workflows.
+
+## Scope
+- Recommendation suggestions generated via Apollo provider adapter.
+- Contacts created from recommendation detail actions.
+- Retention/deletion handling for provider-derived contacts.
+
+## Controls
+1. Source transparency in UI
+- Suggested people cards display source and confidence.
+- Recommendation telemetry stores coverage and quality rates.
+
+2. Controlled provider usage
+- Apollo enrichment requires APOLLO_ENRICHMENT_ENABLED=true and APOLLO_API_KEY.
+- Fallback mode continues discovery without provider access.
+
+3. Retention policy
+- Provider-derived contacts use retention expiry timestamp.
+- Daily cron cleanup archives expired provider-derived contacts.
+- Cleanup route: /api/cron/enrichment-contact-retention.
+
+4. Auditable events
+- discover_recommendations_generated
+- discover_recommendation_opened
+- company_added with discover source attribution
+- contact_added with discover recommendation source attribution
+
+## Operational checks (weekly)
+1. Verify Apollo quality audit status is fresh.
+2. Verify enrichment retention cleanup archived count is non-error.
+3. Spot check recommendation detail cards for source/confidence visibility.
+4. Confirm admin EDGAR/intelligence status endpoint returns expected summary.
+
+## Incident response
+1. If enrichment quality degrades, disable APOLLO_ENRICHMENT_ENABLED.
+2. Run /api/cron/apollo-quality-audit?health=1 and inspect stale reasons.
+3. If retention cleanup fails, run /api/cron/enrichment-contact-retention?dry_run=1 and inspect dueCount.
+4. Escalate in Slack with route payloads and timestamps.
+
+## Required environment variables
+- APOLLO_ENRICHMENT_ENABLED
+- APOLLO_API_KEY
+- CRON_SECRET
+- SLACK_WEBHOOK_URL or Slack token/channel envs

@@ -1,13 +1,13 @@
 # Code Synthetic Council Audit
 
-Generated: 2026-06-03T02:31:41.838Z
-Scope: 1466 code files across src, scripts, worker, tests
+Generated: 2026-06-13T14:08:03.922Z
+Scope: 1570 code files across src, scripts, worker, tests
 
 ## Overall
 
-- Score: 93
-- Grade: A
-- Findings: 15
+- Score: 81
+- Grade: B-
+- Findings: 76
 
 ## Category Scores
 
@@ -15,10 +15,10 @@ Scope: 1466 code files across src, scripts, worker, tests
 | --- | ---: |
 | correctness | 100 |
 | security | 100 |
-| maintainability | 92 |
+| maintainability | 82 |
 | performance | 100 |
-| testability | 72 |
-| observability | 88 |
+| testability | 0 |
+| observability | 70 |
 | typeSafety | 86 |
 | complexity | 100 |
 | deliveryRisk | 100 |
@@ -28,17 +28,20 @@ Scope: 1466 code files across src, scripts, worker, tests
 | File | Risk points |
 | --- | ---: |
 | src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx | 8 |
+| src/app/(dashboard)/dashboard/executive-brief/executive-brief-hub.tsx | 8 |
 | src/app/api/admin/sales-enablement/workspace/route.ts | 7 |
 | src/app/api/admin/social/mock-publish/route.ts | 7 |
+| src/app/api/executive-brief/grill-me/route.ts | 7 |
+| src/app/api/executive-brief/grill-me/sessions/route.ts | 7 |
+| src/app/api/executive-brief/grill-me/sessions/[id]/respond/route.ts | 7 |
+| src/app/api/executive-brief/transcription/route.ts | 7 |
 | src/lib/onboarding-video-queue.ts | 7 |
 | src/lib/outreach/send-queue.ts | 7 |
-| src/app/api/admin/executive-research/health/route.ts | 4 |
-| src/app/api/cron/executive-research-refresh/route.ts | 4 |
-| src/app/mark-review/content.ts | 4 |
-| src/lib/executive-research-library.ts | 4 |
-| tests/e2e/synthetics.spec.ts | 4 |
-| src/app/api/auth/verify-and-magic-link/route.ts | 3 |
-| src/app/api/executive-transition/emotion-state/score/route.ts | 3 |
+| src/app/(dashboard)/dashboard/admin/diagrams/diagrams-client.tsx | 4 |
+| src/app/(dashboard)/dashboard/admin/diagrams/diagrams-data.ts | 4 |
+| src/app/(dashboard)/dashboard/companies/[id]/company-competitive-field.tsx | 4 |
+| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-config.ts | 4 |
+| src/app/(dashboard)/dashboard/dashboard-advanced-modules-section.tsx | 4 |
 
 ## Highest-Priority Findings (What To Fix)
 
@@ -46,31 +49,36 @@ Scope: 1466 code files across src, scripts, worker, tests
 | --- | --- | --- | --- |
 | high | type-safety | src/lib/onboarding-video-queue.ts | High any usage (7) |
 | high | type-safety | src/lib/outreach/send-queue.ts | High any usage (12) |
+| medium | testability | src/app/(dashboard)/dashboard/admin/diagrams/diagrams-client.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/admin/diagrams/diagrams-data.ts | No obvious colocated or mirrored test file found |
 | medium | maintainability | src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx | Large file (565 lines) |
 | medium | testability | src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/admin/executive-research/health/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/admin/sales-enablement/workspace/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/admin/social/mock-publish/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/api/cron/executive-research-refresh/route.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/app/mark-review/content.ts | No obvious colocated or mirrored test file found |
-| medium | testability | src/lib/executive-research-library.ts | No obvious colocated or mirrored test file found |
-| medium | maintainability | tests/e2e/synthetics.spec.ts | Large file (815 lines) |
-| medium | observability | src/app/api/admin/sales-enablement/workspace/route.ts | API route lacks explicit logging/exception capture signal |
-| medium | observability | src/app/api/admin/social/mock-publish/route.ts | API route lacks explicit logging/exception capture signal |
-| medium | observability | src/app/api/auth/verify-and-magic-link/route.ts | API route lacks explicit logging/exception capture signal |
-| medium | observability | src/app/api/executive-transition/emotion-state/score/route.ts | API route lacks explicit logging/exception capture signal |
+| medium | testability | src/app/(dashboard)/dashboard/companies/[id]/company-competitive-field.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/companies/[id]/prep/prep-config.ts | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-advanced-modules-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-decision-timeline-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-disclosure-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-path-welcome-card.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-pipeline-pulse.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-post-placement-view.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-primary-nav-sections.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-profile-intelligence-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-status-banners.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-top-shell-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-weekly-performance-section.tsx | No obvious colocated or mirrored test file found |
+| medium | testability | src/app/(dashboard)/dashboard/dashboard-welcome-nudge-section.tsx | No obvious colocated or mirrored test file found |
 
 ## Blind-Spot Companion Checks
 
 - Import/parser corruption files: 0
-- Placeholder baseline files: 338
+- Placeholder baseline files: 334
 
 | Largest Source Files | Lines |
 | --- | ---: |
-| src/app/onboarding/onboarding-form.tsx | 1598 |
-| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1431 |
 | src/lib/supabase/database.types.ts | 1429 |
-| src/app/(dashboard)/dashboard/page.tsx | 1377 |
+| src/app/onboarding/onboarding-form.tsx | 1413 |
+| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1407 |
+| src/app/(dashboard)/dashboard/executive-brief/executive-brief-hub.tsx | 1176 |
 | src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx | 1148 |
 | src/app/(dashboard)/dashboard/admin/page.tsx | 1132 |
 | src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx | 1105 |

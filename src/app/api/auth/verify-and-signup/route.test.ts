@@ -4,11 +4,21 @@ import { NextRequest, NextResponse } from 'next/server'
 const state = vi.hoisted(() => ({
   guard: vi.fn(),
   signUp: vi.fn(),
+  signInWithPassword: vi.fn(),
+  createUser: vi.fn(),
 }))
 
 vi.mock('@/lib/public-endpoint-guard', () => ({ enforcePublicEndpointGuard: state.guard }))
 vi.mock('@supabase/ssr', () => ({
-  createServerClient: () => ({ auth: { signUp: state.signUp } }),
+  createServerClient: () => ({
+    auth: {
+      signUp: state.signUp,
+      signInWithPassword: state.signInWithPassword,
+    },
+  }),
+}))
+vi.mock('@/lib/supabase/admin', () => ({
+  createAdminClient: () => ({ auth: { admin: { createUser: state.createUser } } }),
 }))
 vi.mock('next/headers', () => ({
   cookies: async () => ({
@@ -24,6 +34,8 @@ describe('verify-and-signup route', () => {
     vi.resetAllMocks()
     state.guard.mockResolvedValue(null)
     state.signUp.mockResolvedValue({ data: { user: { id: 'u1' }, session: null }, error: null })
+    state.signInWithPassword.mockResolvedValue({ data: { user: { id: 'u1' }, session: { access_token: 'token' } }, error: null })
+    state.createUser.mockResolvedValue({ data: { user: { id: 'u1' } }, error: null })
   })
 
   it('returns guard response when throttled', async () => {
@@ -56,5 +68,30 @@ describe('verify-and-signup route', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
     expect(state.signUp).toHaveBeenCalled()
+  })
+
+  it('falls back to admin-created user when public signups are disabled', async () => {
+    state.signUp.mockResolvedValue({
+      data: { user: null, session: null },
+      error: { message: 'Signups not allowed for this instance' },
+    })
+
+    const req = new NextRequest('https://startingmonday.app/api/auth/verify-and-signup', {
+      method: 'POST',
+      body: JSON.stringify({ email: 'user@example.com', password: 'StrongPass123!' }),
+    })
+
+    const res = await POST(req)
+
+    expect(res.status).toBe(200)
+    expect(state.createUser).toHaveBeenCalledWith({
+      email: 'user@example.com',
+      password: 'StrongPass123!',
+      email_confirm: true,
+    })
+    expect(state.signInWithPassword).toHaveBeenCalledWith({
+      email: 'user@example.com',
+      password: 'StrongPass123!',
+    })
   })
 })

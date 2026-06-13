@@ -63,7 +63,15 @@ export async function POST(
   if (!makeRes.ok) {
     const errText = await makeRes.text().catch(() => '')
     console.error('[social/schedule] Make.com webhook error', { status: makeRes.status, body: errText })
-    return NextResponse.json({ error: 'Make.com webhook error', detail: errText }, { status: 502 })
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'Make.com webhook error',
+        detail: errText,
+        upstreamStatus: makeRes.status,
+      },
+      { status: 200 }
+    )
   }
 
   if (dryRunMode) {

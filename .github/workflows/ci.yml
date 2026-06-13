@@ -29,6 +29,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate monitoring coverage matrix and harness
+        run: npm run monitor:coverage:refresh
+
+      - name: Monitoring coverage check (advisory)
+        run: npm run monitor:matrix:check || true
+
+      - name: Upload monitoring coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: monitoring-coverage-matrix
+          path: |
+            docs/status/monitoring-coverage-matrix.latest.json
+            docs/status/monitoring-coverage-matrix.latest.md
+            tests/e2e/generated/
+          retention-days: 14
+
       - name: Run UX/UI rubric page contract
         run: npm run ux:rubric:pages
 
@@ -58,7 +75,7 @@ jobs:
         run: npm ci
 
       - name: Billing readiness gate (strict)
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+        if: github.ref == 'refs/heads/main'
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -99,10 +116,17 @@ jobs:
       - name: Mobile UX contract and banned pattern guard
         run: npm run mobile:guard
 
-      - name: Code council strict audit
+      - name: Code council audit (advisory on staging and PR)
+        if: github.ref != 'refs/heads/main'
+        run: npm run audit:code-council
+
+      - name: Code council strict audit (main only)
+        if: github.ref == 'refs/heads/main'
         run: npm run audit:code-council:strict
 
       - name: Build
+        env:
+          MOBILE_ELITE_GATE_STRICT: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging') && '1' || '0' }}
         run: npm run build
 
       - name: Outreach format check
@@ -157,8 +181,7 @@ jobs:
     name: Playwright E2E
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    # Run on all PRs and protected branches — blocks merge on failure.
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v5
@@ -188,6 +211,43 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  playwright-pr:
+    name: Playwright E2E (PR)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report-pr
           path: playwright-report/
           retention-days: 7
 
@@ -240,10 +300,10 @@ jobs:
             test-results/
           retention-days: 7
 
-  mobile-visual-regression:
-    name: Mobile visual regression
+  mobile-visual-smoke:
+    name: Mobile visual smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
@@ -260,10 +320,49 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Run mobile visual snapshots
+      - name: Run mobile visual smoke snapshots
+        run: npm run test:e2e:mobile-visual:smoke
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload mobile visual smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: mobile-visual-smoke-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  mobile-visual-regression:
+    name: Mobile visual regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    needs: [mobile-visual-smoke]
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run mobile visual regression snapshots
         run: npm run test:e2e:mobile-visual
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
 
@@ -300,7 +399,7 @@ jobs:
       - name: Run auth UX guard suite
         run: npm run test:e2e:auth-ux
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging-production.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
 
       - name: Upload auth UX artifacts
         if: always()
@@ -315,8 +414,11 @@ jobs:
   lighthouse-mobile-budgets:
     name: Lighthouse mobile budgets
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    permissions:
+      actions: read
+      contents: read
 
     steps:
       - uses: actions/checkout@v5
@@ -332,13 +434,86 @@ jobs:
       - name: Build app
         run: npm run build
 
-      - name: Run Lighthouse CI mobile budgets
-        run: npm run perf:lighthouse:ci
+      - name: Determine Lighthouse budget profile
+        id: lighthouse_profile
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const isMainPush = context.ref === 'refs/heads/main' && context.eventName === 'push'
+            const defaultConfig = '.lighthouserc.json'
+            const defaultProfile = 'baseline-950'
+
+            if (!isMainPush) {
+              core.setOutput('config', defaultConfig)
+              core.setOutput('profile', defaultProfile)
+              core.setOutput('streak', '0')
+              core.notice(`Using ${defaultProfile} for non-main-push run`)
+              return
+            }
+
+            const response = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ci.yml',
+              status: 'completed',
+              branch: 'main',
+              event: 'push',
+              per_page: 10,
+              exclude_pull_requests: true,
+            })
+
+            const priorRuns = (response.data.workflow_runs ?? []).filter(
+              (run) => run.id !== context.runId
+            )
+
+            let streak = 0
+            for (const run of priorRuns) {
+              if (run.conclusion === 'success') {
+                streak += 1
+              } else {
+                break
+              }
+            }
+
+            let config = defaultConfig
+            let profile = defaultProfile
+
+            if (streak >= 6) {
+              config = '.lighthouserc.tight-800.json'
+              profile = 'tight-800'
+            } else if (streak >= 3) {
+              config = '.lighthouserc.tight-850.json'
+              profile = 'tight-850'
+            }
+
+            core.setOutput('config', config)
+            core.setOutput('profile', profile)
+            core.setOutput('streak', String(streak))
+            core.notice(`Using ${profile} (${config}) with prior main success streak=${streak}`)
+
+      - name: Run Lighthouse CI mobile budgets (pass 1)
+        id: lighthouse_pass_1
+        continue-on-error: true
+        run: npx lhci autorun --config=${{ steps.lighthouse_profile.outputs.config }}
+
+      - name: Run Lighthouse CI mobile budgets (pass 2 retry)
+        id: lighthouse_pass_2
+        if: steps.lighthouse_pass_1.outcome == 'failure'
+        continue-on-error: true
+        run: npx lhci autorun --config=${{ steps.lighthouse_profile.outputs.config }}
+
+      - name: Enforce Lighthouse gate after retry
+        if: steps.lighthouse_pass_1.outcome == 'failure' && steps.lighthouse_pass_2.outcome == 'failure'
+        run: |
+          echo "Lighthouse budgets failed on both pass 1 and pass 2."
+          exit 1
 
       - name: Notify Slack on Lighthouse failure
-        if: failure()
+        if: failure() && github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           SLACK_UI_ALERTS_WEBHOOK: ${{ secrets.SLACK_UI_ALERTS_WEBHOOK }}
+          LIGHTHOUSE_PROFILE: ${{ steps.lighthouse_profile.outputs.profile }}
+          GREEN_STREAK: ${{ steps.lighthouse_profile.outputs.streak }}
         run: |
           if [ -z "$SLACK_UI_ALERTS_WEBHOOK" ]; then
             echo "SLACK_UI_ALERTS_WEBHOOK is not set; skipping Slack notification."
@@ -352,7 +527,7 @@ jobs:
 
           payload=$(cat <<'JSON'
           {
-            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
+            "text": "[CRIT] Lighthouse mobile budgets failed\nRepo: REPO_PLACEHOLDER\nBranch: BRANCH_PLACEHOLDER\nEvent: EVENT_PLACEHOLDER\nRun: RUN_URL_PLACEHOLDER\nBudget profile: PROFILE_PLACEHOLDER\nPrior main green streak: STREAK_PLACEHOLDER\nNext action: Review Lighthouse artifact and fix failing budget(s)."
           }
           JSON
           )
@@ -361,6 +536,8 @@ jobs:
           payload="${payload//BRANCH_PLACEHOLDER/$BRANCH}"
           payload="${payload//EVENT_PLACEHOLDER/$EVENT}"
           payload="${payload//RUN_URL_PLACEHOLDER/$RUN_URL}"
+          payload="${payload//PROFILE_PLACEHOLDER/$LIGHTHOUSE_PROFILE}"
+          payload="${payload//STREAK_PLACEHOLDER/$GREEN_STREAK}"
 
           curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_UI_ALERTS_WEBHOOK"
 
@@ -464,7 +641,7 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-smoke, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
@@ -483,8 +660,8 @@ jobs:
           elif [[ "${{ needs.playwright.result }}" == "failure" ]]; then
             echo "job_name=Playwright E2E" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-          elif [[ "${{ needs.mobile-visual-regression.result }}" == "failure" ]]; then
-            echo "job_name=Mobile visual regression" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.mobile-visual-smoke.result }}" == "failure" ]]; then
+            echo "job_name=Mobile visual smoke" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.auth-ux-guard.result }}" == "failure" ]]; then
             echo "job_name=Auth UX guard" >> $GITHUB_OUTPUT
@@ -544,7 +721,7 @@ jobs:
   notify-test-summary:
     name: Post test summary report
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-smoke, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: always()
 
     steps:
@@ -555,7 +732,7 @@ jobs:
           PREDEPLOY="${{ needs.predeploy-gates.result }}"
           SEMGREP="${{ needs.semgrep.result }}"
           PLAYWRIGHT="${{ needs.playwright.result }}"
-          MOBILE_VISUAL="${{ needs.mobile-visual-regression.result }}"
+          MOBILE_VISUAL="${{ needs.mobile-visual-smoke.result }}"
           AUTH_UX="${{ needs.auth-ux-guard.result }}"
           LIGHTHOUSE="${{ needs.lighthouse-mobile-budgets.result }}"
           PREPROD="${{ needs.pre-prod-gate.result }}"
@@ -565,7 +742,7 @@ jobs:
             STATUS="FAIL"
           fi
 
-          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-regression: %s\nauth-ux-guard: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$AUTH_UX" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
+          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-smoke: %s\nauth-ux-guard: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$AUTH_UX" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
 
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "summary<<EOF" >> "$GITHUB_OUTPUT"

@@ -13,8 +13,9 @@ export async function sendEmail({
   replyTo,
   bcc,
   headers,
+  bypassCouncil,
 }: {
-  to: string
+  to: string | string[]
   subject: string
   html: string
   channel?: EmailCouncilChannel
@@ -22,7 +23,9 @@ export async function sendEmail({
   replyTo?: string
   bcc?: string
   headers?: Record<string, string>
+  bypassCouncil?: boolean
 }) {
+  const toLog = Array.isArray(to) ? to.join(', ') : to
   const issues = reviewEmail(subject, html)
   if (issues.length) {
     console.warn(JSON.stringify({
@@ -34,52 +37,59 @@ export async function sendEmail({
     }))
   }
 
-  const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '80')
-  const refined = autoRefineEmailDraft({
-    channel: channel ?? 'general',
-    subject,
-    html,
-    minEjes: Number.isFinite(minCouncilScore) ? minCouncilScore : 80,
-    maxPasses: 2,
-  })
+  // Internal admin notifications bypass the council gate -- they are not
+  // user-facing marketing emails and will always score below EJES threshold.
+  if (!bypassCouncil) {
+    const minCouncilScore = Number(process.env.EMAIL_COUNCIL_MIN_SCORE ?? '80')
+    const refined = autoRefineEmailDraft({
+      channel: channel ?? 'general',
+      subject,
+      html,
+      minEjes: Number.isFinite(minCouncilScore) ? minCouncilScore : 80,
+      maxPasses: 2,
+    })
 
-  if (!refined.passesAfterRefine) {
+    if (!refined.passesAfterRefine) {
+      await logEmailCouncilScore({
+        to: toLog,
+        channel: channel ?? 'general',
+        subject: refined.refinedSubject,
+        scores: refined.evaluation.scores,
+        blocked: true,
+        blockers: refined.evaluation.blockers,
+        warnings: refined.evaluation.warnings,
+      })
+
+      const message = `Blocked by email council gate: EJES ${refined.evaluation.scores.ejes} < ${minCouncilScore}`
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'email_send_blocked_by_council',
+        to: toLog,
+        channel: channel ?? 'general',
+        subject,
+        message,
+        blockers: refined.evaluation.blockers,
+      }))
+
+      return {
+        data: null,
+        error: { message },
+      }
+    }
+
     await logEmailCouncilScore({
-      to,
+      to: toLog,
       channel: channel ?? 'general',
       subject: refined.refinedSubject,
       scores: refined.evaluation.scores,
-      blocked: true,
-      blockers: refined.evaluation.blockers,
+      blocked: false,
+      blockers: [],
       warnings: refined.evaluation.warnings,
     })
-
-    const message = `Blocked by email council gate: EJES ${refined.evaluation.scores.ejes} < ${minCouncilScore}`
-    console.error(JSON.stringify({
-      ts: new Date().toISOString(),
-      event: 'email_send_blocked_by_council',
-      to,
-      channel: channel ?? 'general',
-      subject,
-      message,
-      blockers: refined.evaluation.blockers,
-    }))
-
-    return {
-      data: null,
-      error: { message },
-    }
   }
 
-  await logEmailCouncilScore({
-    to,
-    channel: channel ?? 'general',
-    subject: refined.refinedSubject,
-    scores: refined.evaluation.scores,
-    blocked: false,
-    blockers: [],
-    warnings: refined.evaluation.warnings,
-  })
+  const finalSubject = subject
+  const finalHtml = html
 
   try {
     const apiKey = process.env.RESEND_API_KEY
@@ -100,7 +110,7 @@ export async function sendEmail({
     }
 
     const resend = new Resend(apiKey)
-    return await resend.emails.send({ from: from ?? FROM, to, bcc, subject: refined.refinedSubject, html: refined.refinedHtml, replyTo, headers })
+    return await resend.emails.send({ from: from ?? FROM, to, bcc, subject: finalSubject, html: finalHtml, replyTo, headers })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'send failed'
     console.error(JSON.stringify({

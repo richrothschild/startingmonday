@@ -1,15 +1,15 @@
 # Starting Monday Internal System Summary
 
-Generated at: 2026-06-06T16:50:51.694Z
+Generated at: 2026-06-13T19:10:38.626Z
 
 ## What exists
-- Feature pages: 183
-- API routes: 246
-- Library modules: 196
-- Operational scripts: 116
-- Infra workflows: 31
-- Migrations/data artifacts: 132
-- Internal docs: 532
+- Feature pages: 190
+- API routes: 260
+- Library modules: 203
+- Operational scripts: 123
+- Infra workflows: 35
+- Migrations/data artifacts: 139
+- Internal docs: 578
 
 ## How it integrates
 - App routes render product/admin surfaces and call route handlers for actions and data flows.
@@ -17,6 +17,7 @@ Generated at: 2026-06-06T16:50:51.694Z
 - Library modules centralize shared retrieval/auth/analytics/domain logic.
 - Scripts and workflows provide CI gates, scheduled audits, and observability exports.
 - Migrations and RLS policies define data contracts and access semantics.
+- Internal guide artifacts are refreshed automatically on a weekly scheduled workflow and on demand.
 
 ## What it is not
 - Not a replacement for source code reviews when modifying critical paths.

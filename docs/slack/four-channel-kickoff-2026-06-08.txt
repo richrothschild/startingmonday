@@ -1,0 +1,20 @@
+Starting Monday update: Four-channel customer journey backlog is ready and queued.
+
+What is now ready:
+- Strategy backlog with stories, acceptance criteria, and KPI targets for Executives, Coaches, Outplacement, and Search Firms.
+- Jira import CSV generated for Epic + 20 stories.
+
+Primary files:
+- docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md
+- docs/jira/four-channel-customer-journey-import.csv
+
+Now tranche (next 30 days):
+- 1.1 Decision Timeline Engine
+- 1.2 Outcome Attribution Layer
+- 2.1 Executive Role-Fit Simulator
+- 3.1 Coach Command Center
+- 4.1 Outplacement Cohort Operations Hub
+- 5.1 Search Firm Candidate Readiness Passport
+
+Target outcome:
+- Move from planning to active build across all four channels with measurable activation, adoption, and progression KPIs.

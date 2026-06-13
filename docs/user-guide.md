@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-06T14:03:03.918Z
+Last generated: 2026-06-13T16:04:33.229Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (153)
+## Features (160)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -53,6 +53,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Concierge](/dashboard/concierge) - Open /dashboard/concierge to use this feature area and related workflows.
 - [Dashboard / Contacts](/dashboard/contacts) - Open /dashboard/contacts to use this feature area and related workflows.
 - [Dashboard / Discover](/dashboard/discover) - Open /dashboard/discover to use this feature area and related workflows.
+- [Dashboard / Executive brief](/dashboard/executive-brief) - Open /dashboard/executive-brief to use this feature area and related workflows.
 - [Dashboard / Feedback](/dashboard/feedback) - Open /dashboard/feedback to use this feature area and related workflows.
 - [Dashboard / Help](/dashboard/help) - Open /dashboard/help to use this feature area and related workflows.
 - [Dashboard / Invite](/dashboard/invite) - Open /dashboard/invite to use this feature area and related workflows.
@@ -81,7 +82,9 @@ This guide is generated from product routes, APIs, and published articles.
 - [Annual report 2026](/annual-report-2026) - Open /annual-report-2026 to use this feature area and related workflows.
 - [Blog](/blog) - Open /blog to use this feature area and related workflows.
 - [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
+- [Case studies](/case-studies) - Open /case-studies to use this feature area and related workflows.
 - [Coaches guide](/coaches-guide) - Open /coaches-guide to use this feature area and related workflows.
+- [Coaches / Mock dashboard](/coaches/mock-dashboard) - Open /coaches/mock-dashboard to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
 - [Coaches / Personas](/coaches/personas) - Open /coaches/personas to use this feature area and related workflows.
 - [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
@@ -89,6 +92,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
 - [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
 - [Demo / Executive brief](/demo/executive-brief) - Open /demo/executive-brief to use this feature area and related workflows.
+- [Demo / Executive dashboard](/demo/executive-dashboard) - Open /demo/executive-dashboard to use this feature area and related workflows.
 - [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
 - [Demo / Michael dashboard](/demo/michael-dashboard) - Open /demo/michael-dashboard to use this feature area and related workflows.
 - [Demo / Michael strategy brief](/demo/michael-strategy-brief) - Open /demo/michael-strategy-brief to use this feature area and related workflows.
@@ -96,6 +100,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Demo / Presenter](/demo/presenter) - Open /demo/presenter to use this feature area and related workflows.
 - [Evaluate](/evaluate) - Open /evaluate to use this feature area and related workflows.
 - [Evidence room](/evidence-room) - Open /evidence-room to use this feature area and related workflows.
+- [Executive brief](/executive-brief) - Open /executive-brief to use this feature area and related workflows.
 - [Executives / Active](/executives/active) - Open /executives/active to use this feature area and related workflows.
 - [Executives](/executives) - Open /executives to use this feature area and related workflows.
 - [Executives / Passive](/executives/passive) - Open /executives/passive to use this feature area and related workflows.
@@ -136,6 +141,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Founder note](/founder-note) - Open /founder-note to use this feature area and related workflows.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
+- [Managertools](/managertools) - Open /managertools to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
 - [Mark review / Appendix](/mark-review/appendix) - Open /mark-review/appendix to use this feature area and related workflows.
 - [Mark review / Business plan](/mark-review/business-plan) - Open /mark-review/business-plan to use this feature area and related workflows.
@@ -152,6 +158,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Outplacement / Personas](/outplacement/personas) - Open /outplacement/personas to use this feature area and related workflows.
 - [Partners / Mauricio kickoff](/partners/mauricio-kickoff) - Open /partners/mauricio-kickoff to use this feature area and related workflows.
 - [Partners](/partners) - Open /partners to use this feature area and related workflows.
+- [Partners / Reporting](/partners/reporting) - Open /partners/reporting to use this feature area and related workflows.
 - [Pilot findings](/pilot-findings) - Open /pilot-findings to use this feature area and related workflows.
 - [Pricing](/pricing) - Open /pricing to use this feature area and related workflows.
 - [Privacy](/privacy) - Open /privacy to use this feature area and related workflows.
@@ -182,7 +189,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (246)
+## API and Automation (260)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -266,6 +273,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync](/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/b2b/material](/api/admin/b2b/material) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/contacts/enrich](/api/admin/contacts/enrich) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/edgar-status](/api/admin/edgar-status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/executive-research/health](/api/admin/executive-research/health) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/health](/api/admin/health) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/internal-guide/chat](/api/admin/internal-guide/chat) - Programmatic endpoint available for platform behavior or integrations.
@@ -326,14 +334,22 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/contacts/[id]](/api/contacts/[id]) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/contacts](/api/contacts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/conversation](/api/conversation) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/apollo-quality-audit](/api/cron/apollo-quality-audit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/commitment-friday](/api/cron/commitment-friday) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/commitment-sunday](/api/cron/commitment-sunday) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/drip](/api/cron/drip) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/edgar-freshness-audit](/api/cron/edgar-freshness-audit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/edgar-signals](/api/cron/edgar-signals) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/edgar-watchdog](/api/cron/edgar-watchdog) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/enrichment-contact-retention](/api/cron/enrichment-contact-retention) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/executive-research-refresh](/api/cron/executive-research-refresh) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/google-calendar-sync](/api/cron/google-calendar-sync) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/ideas-monthly](/api/cron/ideas-monthly) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/link-integrity-weekly-review](/api/cron/link-integrity-weekly-review) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-day2-brief](/api/cron/managertools-day2-brief) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-lifecycle](/api/cron/managertools-lifecycle) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-signup-alerts](/api/cron/managertools-signup-alerts) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/cron/managertools-signup-summary](/api/cron/managertools-signup-summary) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/onboarding-video-worker](/api/cron/onboarding-video-worker) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/outreach-digest](/api/cron/outreach-digest) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/cron/outreach-reconcile](/api/cron/outreach-reconcile) - Programmatic endpoint available for platform behavior or integrations.
@@ -349,11 +365,16 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/demo-brief](/api/demo-brief) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/demo-brief/tailored](/api/demo-brief/tailored) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/demo-email](/api/demo-email) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/deploy-marker](/api/deploy-marker) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/discover](/api/discover) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/drip/unsubscribe](/api/drip/unsubscribe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/daily-momentum](/api/events/daily-momentum) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/pmf](/api/events/pmf) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me](/api/executive-brief/grill-me) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me/sessions/[id]/respond](/api/executive-brief/grill-me/sessions/[id]/respond) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/grill-me/sessions](/api/executive-brief/grill-me/sessions) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/executive-brief/transcription](/api/executive-brief/transcription) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.

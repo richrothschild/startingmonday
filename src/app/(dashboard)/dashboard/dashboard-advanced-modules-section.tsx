@@ -70,6 +70,26 @@ type DashboardAdvancedModulesSectionProps = {
   draftReadyCount: number
   overdueCount: number
   activeCount: number
+  isExecutiveMode: boolean
+  executiveStageLabel: string
+  riskItems: Array<{
+    id: string
+    label: string
+    level: 'low' | 'medium' | 'high'
+    detail: string
+    href: string
+    cta: string
+  }>
+  offerCockpit: {
+    show: boolean
+    offerCount: number
+    offerCompanyName: string | null
+    contextSignals: Array<{ label: string; ok: boolean }>
+  }
+  signalToActionPercent: number
+  followUpSlaPercent: number
+  sponsorCoveragePercent: number
+  decisionLagDays: number | null
 }
 
 export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesSectionProps) {
@@ -85,6 +105,10 @@ export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesS
         weekSlots={props.weekSlots}
         velocityRows={props.velocityRows}
         isCoach={props.isCoach}
+        isExecutiveMode={props.isExecutiveMode}
+        executiveStageLabel={props.executiveStageLabel}
+        riskItems={props.riskItems}
+        offerCockpit={props.offerCockpit}
       />
 
       <SearchControlsPanel
@@ -99,6 +123,7 @@ export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesS
         warmPaths={props.warmPaths}
         patternAlerts={props.patternAlerts}
         signals={props.signals}
+        isExecutiveMode={props.isExecutiveMode}
       />
 
       <DashboardIntelSetupSections
@@ -115,11 +140,15 @@ export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesS
       {props.totalCount < 5 && !props.hasFilters && <SuggestionCards />}
 
       <DashboardPipelinePulse
-        isExecutive={props.isExecutive}
+        isExecutive={props.isExecutiveMode}
         signalCount={props.signalCount}
         draftReadyCount={props.draftReadyCount}
         overdueCount={props.overdueCount}
         activeCount={props.activeCount}
+        signalToActionPercent={props.signalToActionPercent}
+        followUpSlaPercent={props.followUpSlaPercent}
+        sponsorCoveragePercent={props.sponsorCoveragePercent}
+        decisionLagDays={props.decisionLagDays}
       />
     </>
   )

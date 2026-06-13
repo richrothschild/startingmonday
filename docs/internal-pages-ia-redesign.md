@@ -1,5 +1,12 @@
 # Internal Pages IA Redesign (Scale + Cognitive Load)
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 ## Objective
 
 Redesign internal page organization to reduce cognitive load, increase findability, and scale to additional operational surfaces without navigation entropy.

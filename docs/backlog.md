@@ -1,5 +1,12 @@
 # Starting Monday — Product Backlog
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: weekly
+Source of truth: yes
+
+
 Internal document | Updated May 2026
 
 Items here are validated ideas deferred from the active roadmap. Each entry includes the rationale for deferral and the condition that would move it forward.

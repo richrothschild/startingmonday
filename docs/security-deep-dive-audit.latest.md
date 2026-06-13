@@ -1,18 +1,18 @@
 # Security Deep-Dive Audit
 
-Generated: 2026-06-06T03:49:59.410Z
+Generated: 2026-06-13T13:59:14.585Z
 
 ## Dependency Vulnerabilities
 
 - npm audit parse ok: true
 - critical: 0
-- high: 0
+- high: 1
 - moderate: 0
 - low: 0
 
 ## API Guard Coverage
 
-- true gaps: 0
+- true gaps: 2
 - expected public POST routes without shared guard: 0
 
 ## Static Security Signals
@@ -23,7 +23,8 @@ Generated: 2026-06-06T03:49:59.410Z
 
 ### True Auth Gaps
 
-- none
+- src/app/api/deploy-marker/route.ts
+- src/app/api/feedback/route.ts
 
 ### Eval/New Function Usage
 

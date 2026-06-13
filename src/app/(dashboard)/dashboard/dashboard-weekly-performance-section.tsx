@@ -16,6 +16,22 @@ type DashboardWeeklyPerformanceSectionProps = {
   weekSlots: WeekActivity[]
   velocityRows: VelocityRow[]
   isCoach: boolean
+  isExecutiveMode: boolean
+  executiveStageLabel: string
+  riskItems: Array<{
+    id: string
+    label: string
+    level: 'low' | 'medium' | 'high'
+    detail: string
+    href: string
+    cta: string
+  }>
+  offerCockpit: {
+    show: boolean
+    offerCount: number
+    offerCompanyName: string | null
+    contextSignals: Array<{ label: string; ok: boolean }>
+  }
 }
 
 export function DashboardWeeklyPerformanceSection({
@@ -27,7 +43,57 @@ export function DashboardWeeklyPerformanceSection({
   weekSlots,
   velocityRows,
   isCoach,
+  isExecutiveMode,
+  executiveStageLabel,
+  riskItems,
+  offerCockpit,
 }: DashboardWeeklyPerformanceSectionProps) {
+  const riskTone = {
+    low: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+    medium: 'border-amber-200 bg-amber-50 text-amber-700',
+    high: 'border-red-200 bg-red-50 text-red-700',
+  } as const
+
+  const quickActions = isExecutiveMode
+    ? (
+      executiveStageLabel === 'Offer and Decision'
+        ? [
+            { href: '/dashboard/offers', label: 'Offer Tradeoffs' },
+            { href: '/dashboard/strategy', label: 'No-go Criteria' },
+            { href: '/dashboard/contacts', label: 'Reference Push' },
+            { href: '/dashboard/calendar', label: 'Decision Timeline' },
+            { href: '/dashboard/briefing', label: 'Risk Review' },
+            { href: '/dashboard/wrap-up', label: 'Transition Plan' },
+          ]
+        : executiveStageLabel === 'Interviewing and Conversion'
+          ? [
+              { href: '/dashboard/strategy', label: 'Prep Brief' },
+              { href: '/dashboard/signals', label: 'Signal Angle' },
+              { href: '/dashboard/contacts', label: 'Warm Intros' },
+              { href: '/dashboard/calendar', label: 'Follow-up SLA' },
+              { href: '/dashboard/briefing', label: 'Daily Priorities' },
+              { href: '/dashboard/positioning', label: 'Narrative Tighten' },
+            ]
+          : [
+              { href: '/dashboard/briefing', label: 'Daily Briefing' },
+              { href: '/dashboard/companies/new', label: 'Add Target' },
+              { href: '/dashboard/contacts', label: 'Build Sponsor Map' },
+              { href: '/dashboard/signals', label: 'Signals' },
+              { href: '/dashboard/strategy', label: 'Strategy Brief' },
+              { href: '/dashboard/profile', label: 'Profile Inputs' },
+            ]
+    )
+    : [
+        { href: '/dashboard/briefing', label: 'Daily Briefing' },
+        { href: '/dashboard/strategy', label: 'Strategy Brief' },
+        { href: '/dashboard/discover', label: 'Discover' },
+        { href: '/dashboard/calendar', label: 'Calendar' },
+        { href: '/optimize', label: 'LinkedIn' },
+        { href: '/dashboard/positioning', label: 'Positioning' },
+        { href: '/dashboard/profile', label: 'Configure Search' },
+        ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients' }] : []),
+      ]
+
   return (
     <>
       {(() => {
@@ -132,40 +198,127 @@ export function DashboardWeeklyPerformanceSection({
         </div>
       )}
 
-      <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
-        <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
-            <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+      {isExecutiveMode && riskItems.length > 0 && (
+        <section id="risk-engine" className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Emotional risk engine</h2>
+            <span className="text-[11px] text-slate-500">Operational state from behavior patterns</span>
           </div>
-          <div>
-            <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
-            <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {riskItems.map((risk) => (
+              <div key={risk.id} className={`border rounded p-3 ${riskTone[risk.level]}`}>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-[12px] font-semibold">{risk.label}</p>
+                  <span className="text-[10px] uppercase tracking-[0.08em] font-bold">{risk.level}</span>
+                </div>
+                <p className="text-[12px] mt-1.5 leading-relaxed">{risk.detail}</p>
+                <Link href={risk.href} className="inline-flex mt-2 text-[12px] font-semibold underline">
+                  {risk.cta}
+                </Link>
+              </div>
+            ))}
           </div>
-          <div>
-            <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
-            <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <ActivityChart data={weekSlots} />
-      <PipelineVelocity companies={velocityRows} />
+      {offerCockpit.show && (
+        <section id="offer-cockpit" className="mb-6 sm:mb-8 bg-slate-900 border border-slate-700 rounded overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-700 flex items-center justify-between gap-3">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-400">Offer and tradeoff cockpit</h2>
+            <span className="text-[11px] text-slate-300">{offerCockpit.offerCount} offer{offerCockpit.offerCount === 1 ? '' : 's'} in play</span>
+          </div>
+          <div className="p-5 space-y-4">
+            <p className="text-[13px] text-slate-200">
+              {offerCockpit.offerCompanyName
+                ? `Anchor decision quality around the role at ${offerCockpit.offerCompanyName}.`
+                : 'Anchor decision quality around challenge, context, and downside risk.'}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {offerCockpit.contextSignals.map((signal) => (
+                <div key={signal.label} className={`rounded border px-3 py-2 ${signal.ok ? 'border-emerald-700 bg-emerald-950/50 text-emerald-300' : 'border-amber-700 bg-amber-950/40 text-amber-300'}`}>
+                  <p className="text-[11px] font-semibold">{signal.label}</p>
+                  <p className="text-[10px] mt-1">{signal.ok ? 'Ready' : 'Needs clarity'}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/dashboard/offers" className="inline-flex min-h-[44px] items-center justify-center bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100">
+                Compare offers
+              </Link>
+              <Link href="/dashboard/strategy" className="inline-flex min-h-[44px] items-center justify-center border border-slate-500 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-300">
+                Capture no-go criteria
+              </Link>
+              <Link href="/dashboard/wrap-up" className="inline-flex min-h-[44px] items-center justify-center border border-emerald-500 text-emerald-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-emerald-300">
+                Mark accepted
+              </Link>
+              <Link href="/dashboard/wrap-up" className="inline-flex min-h-[44px] items-center justify-center border border-slate-500 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-300">
+                Launch 30/60/90 transition
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {isExecutiveMode ? (
+        <details className="mb-6 sm:mb-8 bg-slate-50 border border-slate-200 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between">
+            <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Review performance</span>
+            <span className="text-[11px] text-slate-500">Expand</span>
+          </summary>
+          <div className="px-5 pb-5">
+            <section id="benchmarks" className="bg-white border border-slate-200 rounded px-5 py-4 mb-6">
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
+                  <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+                </div>
+                <div>
+                  <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
+                  <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+                </div>
+                <div>
+                  <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
+                  <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
+                </div>
+              </div>
+            </section>
+
+            <ActivityChart data={weekSlots} />
+            <PipelineVelocity companies={velocityRows} />
+          </div>
+        </details>
+      ) : (
+        <>
+          <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
+                <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+              </div>
+              <div>
+                <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
+                <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+              </div>
+              <div>
+                <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
+                <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
+              </div>
+            </div>
+          </section>
+
+          <ActivityChart data={weekSlots} />
+          <PipelineVelocity companies={velocityRows} />
+        </>
+      )}
 
       <section id="quick-actions" className="mb-6 sm:mb-2">
-        <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Quick actions</h2>
+        <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">
+          {isExecutiveMode ? 'Stage actions' : 'Quick actions'}
+        </h2>
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
-          {[
-            { href: '/dashboard/briefing', label: 'Daily Briefing' },
-            { href: '/dashboard/strategy', label: 'Strategy Brief' },
-            { href: '/dashboard/discover', label: 'Discover' },
-            { href: '/dashboard/calendar', label: 'Calendar' },
-            { href: '/optimize', label: 'LinkedIn' },
-            { href: '/dashboard/positioning', label: 'Positioning' },
-            { href: '/dashboard/profile', label: 'Configure Search' },
-            ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients' }] : []),
-          ].map((a) => (
+          {quickActions.map((a) => (
             <Link
               key={a.href}
               href={a.href}

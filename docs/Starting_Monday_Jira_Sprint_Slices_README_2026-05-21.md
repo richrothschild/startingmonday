@@ -1,5 +1,14 @@
 # Starting Monday Jira Sprint Slices
 
+Owner: Documentation Operations
+Status: deprecated
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: no
+Canonical doc: docs/sprint-backlog.md
+Lifecycle candidate: archive
+
+
 ## File
 
 - CSV import file: docs/Starting_Monday_Jira_Sprint_Slices_2026-05-21.csv

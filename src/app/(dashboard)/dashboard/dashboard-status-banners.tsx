@@ -10,6 +10,7 @@ type DashboardStatusBannersProps = {
   onMarkPlaced: (formData: FormData) => void | Promise<void>
   activationComplete: boolean
   activationCompletedCount: number
+  isExecutiveMode: boolean
 }
 
 export function DashboardStatusBanners({
@@ -22,6 +23,7 @@ export function DashboardStatusBanners({
   onMarkPlaced,
   activationComplete,
   activationCompletedCount,
+  isExecutiveMode,
 }: DashboardStatusBannersProps) {
   return (
     <>
@@ -48,7 +50,7 @@ export function DashboardStatusBanners({
         </div>
       )}
 
-      {offerCount > 0 && (
+      {offerCount > 0 && !isExecutiveMode && (
         <div className="mb-6 px-5 py-3.5 rounded bg-green-50 border border-green-200 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0" />
@@ -62,7 +64,7 @@ export function DashboardStatusBanners({
         </div>
       )}
 
-      {offerCompanyName && (
+      {offerCompanyName && !isExecutiveMode && (
         <div className="mb-6 bg-green-900 rounded px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-[14px] font-bold text-white">Did you accept the offer?</p>

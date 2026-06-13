@@ -18,6 +18,86 @@ permissions:
   deployments: write
 
 jobs:
+  canary-gate:
+    name: Canary gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Wait for production canary to stabilize (20s)
+        run: |
+          echo "Waiting 20s for production canary to stabilize after deploy..."
+          sleep 20
+
+      - name: Run canary smoke checks
+        id: canary_smoke
+        env:
+          MONITOR_BASE_URL: https://startingmonday.app
+          MONITOR_OUTPUT_JSON: '1'
+        run: npm run monitor:smoke:json
+
+      - name: Run outreach canary test
+        id: canary_outreach
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+        run: npx playwright test tests/e2e/outreach-canary.spec.ts --project=outreach-canary
+
+      - name: Publish canary summary
+        if: always()
+        run: |
+          SMOKE_STATUS="${{ steps.canary_smoke.outcome || 'unknown' }}"
+          OUTREACH_STATUS="${{ steps.canary_outreach.outcome || 'unknown' }}"
+          STATUS="PASS"
+
+          if [ "$SMOKE_STATUS" != "success" ] || [ "$OUTREACH_STATUS" != "success" ]; then
+            STATUS="FAIL"
+          fi
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ## Canary Gate
+
+          | Metric | Value |
+          |---|---|
+          | Smoke check | ${SMOKE_STATUS} |
+          | Outreach canary | ${OUTREACH_STATUS} |
+          | Status | ${STATUS} |
+          EOF
+
+      - name: Alert on canary failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"⚠️ Canary gate failed\",
+            \"blocks\": [
+              {
+                \"type\": \"header\",
+                \"text\": { \"type\": \"plain_text\", \"text\": \"⚠️ Canary Gate Failed\" }
+              },
+              {
+                \"type\": \"section\",
+                \"text\": { \"type\": \"mrkdwn\", \"text\": \"Production canary checks failed before the full post-deploy synthetic suite could run.\\n<${RUN_URL}|View canary gate run>\" }
+              }
+            ]
+          }" "$SLACK_WEBHOOK_URL"
+
   post-deploy-synthetics:
     # Only run when a deployment to production succeeds
     if: >
@@ -27,6 +107,7 @@ jobs:
         github.event.deployment.environment == 'Production'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    needs: [canary-gate]
 
     steps:
       - uses: actions/checkout@v5

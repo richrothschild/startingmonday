@@ -3,73 +3,73 @@ import Link from 'next/link'
 import { PartnersForm } from './partners-form'
 
 export const metadata: Metadata = {
-  title: 'Partner Program - Starting Monday',
-  description: 'Partner with Starting Monday to give C-suite executives in transition an intelligence advantage. Referral programs for executive coaches, retained search firms, PE talent teams, and outplacement providers. Earn 20% commission.',
+  title: 'Coach Partner Program - Starting Monday',
+  description: 'Coach-first partner program for executive coaches. Help clients execute between sessions, keep strategy in the coaching room, and earn recurring partner revenue.',
   alternates: { canonical: 'https://startingmonday.app/partners' },
   openGraph: {
-    title: 'Partner with Starting Monday',
-    description: 'You know when executives are in motion. We help C-suite candidates move faster. Earn 20% commission on every active subscription you refer.',
+    title: 'Coach Partner Program | Starting Monday',
+    description: 'A simple, coach-first partner path: preview the workflow, refer clients with confidence, and earn 20% recurring commission.',
     url: 'https://startingmonday.app/partners',
   },
 }
 
-const PRIMARY_PARTNERS = [
+const COACH_PROOF = [
   {
-    label: 'Executive coaches',
-    href: '/for-coaches',
-    guidehref: '/coaches-guide',
-    value: 'Your clients run better searches between sessions. The intelligence scanner, prep briefs, and daily briefing do the research. You do the strategy.',
-    economics: 'Earn 20% of every active subscription your clients start through your referral link. No minimum volume. No enrollment fee.',
-    specifics: [
-      'View client pipeline between sessions without requiring a status call',
-      'Prep briefs usually ready in about a minute before every coaching call',
-      'Your clients reach out to target companies before searches are posted',
-    ],
+    metric: '81%',
+    detail: 'pilot clients reached a first interview within 30 days',
   },
   {
-    label: 'Retained search firms',
-    href: '/for-search-firms',
-    guidehref: '/for-search-firms',
-    value: 'Give your C-suite candidates the preparation depth that determines whether they advance beyond the first round. Better-prepared candidates reflect better on your firm.',
-    economics: 'Earn 20% per active subscription. Preferred partners get consolidated billing and a candidate activation dashboard.',
-    specifics: [
-      'Candidates arrive at client interviews with a prep brief generated in about a minute, not a printout',
-      'Track which candidates are actively engaged and prepared before you present them',
-      'Co-marketing for your firm in the Starting Monday partner directory',
-    ],
+    metric: '9 days',
+    detail: 'median time from setup to first qualified outreach',
   },
   {
-    label: 'PE talent teams and operating partners',
-    href: '/for-pe-teams',
-    guidehref: '/for-pe-partners',
-    value: 'The search timeline is a risk to the value creation plan. Equip your executive network with early intelligence on portfolio company signals before a mandate is even formalized.',
-    economics: 'Earn 20% per active subscription. Preferred partners get bulk seat pricing starting at 5 seats and an activation dashboard.',
-    specifics: [
-      'Executives monitoring your portfolio companies reach out before the mandate goes to a firm',
-      'Candidates prepared at depth close their first portfolio company conversation faster',
-      'Pipeline view access: see where candidate attention is without requiring a call',
-    ],
+    metric: '20%',
+    detail: 'recurring commission on every active referral',
+  },
+]
+
+const COST_OF_STAYING_THE_SAME = [
+  {
+    title: 'Session drift compounds quickly',
+    body: 'If a client shows up unprepared, strategy time turns into recap and recovery.',
   },
   {
-    label: 'Outplacement providers',
-    href: '/for-outplacement',
-    guidehref: '/for-outplacement',
-    value: 'Turn your outplacement program into an active C-suite search campaign, not a workshop series. Bulk seats, activation tracking, and daily intelligence for every executive in your cohort.',
-    economics: 'Preferred partner pricing on bulk cohort enrollments. Consolidated billing. Usage dashboard to see who is active.',
-    specifics: [
-      'Every participant gets daily briefings and pipeline tracking from day one',
-      'Track cohort activation rates from your partner dashboard',
-      'Differentiate your program with a tool executives actually use between sessions',
-    ],
+    title: 'Great coaching still loses to weak execution',
+    body: 'Without between-session structure, even strong clients miss timing and momentum windows.',
+  },
+  {
+    title: 'Invisible progress creates trust friction',
+    body: 'When neither coach nor client can see movement clearly, confidence drops before results arrive.',
+  },
+]
+
+const OFFER_BULLETS = [
+  'Free partner enrollment with referral tracking',
+  '20% recurring commission on active referrals',
+  'Coach-ready onboarding and talking points',
+  'Preview-first motion so clients decide from workflow, not pitch',
+]
+
+const DOUBT_BLOCKS = [
+  {
+    q: '"I need to think about it."',
+    a: 'Usually this means the result still feels abstract. Run the preview with two clients so the decision is based on visible workflow change, not theory.',
+  },
+  {
+    q: '"My clients already have tools."',
+    a: 'Starting Monday is not another CRM. It is the between-session operating layer that keeps prep, signals, and follow-through visible for coach and client.',
+  },
+  {
+    q: '"I am not sure clients will pay."',
+    a: 'That is exactly why the partner path starts with a short preview. Belief comes after the client feels the difference in session quality.',
   },
 ]
 
 const OTHER_PARTNERS = [
+  { label: 'Search firms', href: '/for-search-firms' },
+  { label: 'Outplacement providers', href: '/for-outplacement' },
+  { label: 'PE talent teams', href: '/for-pe-teams' },
   { label: 'Relocation firms', href: '/for-relocation' },
-  { label: 'C-suite and technology associations', href: '/for-cio-associations' },
-  { label: 'Executive financial advisors', href: '/for-financial-advisors' },
-  { label: 'Fractional C-suite technology networks', href: '/for-fractional-executives' },
-  { label: 'Podcast hosts and newsletter writers', href: '/for-media-partners' },
 ]
 
 export default function PartnersPage() {
@@ -90,155 +90,149 @@ export default function PartnersPage() {
 
       <main>
 
-        {/* Hero */}
-        <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-14">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
-              Partner Program
-            </p>
-            <h1 className="text-[30px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-4">
-              You know when executives<br className="hidden sm:block" /> are in motion.
-            </h1>
-            <p className="text-[16px] text-slate-400 leading-relaxed max-w-2xl mb-6">
-              We help C-suite candidates move faster. Earn 20% commission on every active subscription you refer. No enrollment fee. No minimum volume.
-            </p>
-            <p className="text-[13px] text-slate-500 leading-relaxed max-w-2xl mb-6 border-l-2 border-orange-500 pl-4">
-              Typical referral economics: 15 active referrals on the Active tier ($199/mo) is about $597/mo in recurring commission while your clients get daily search execution infrastructure.
-            </p>
-            <p className="text-[12px] text-slate-300 leading-relaxed max-w-2xl mb-6">
-              Outcome metric: active partner referrals are tracked with transparent attribution so you can verify recurring commission by tier and activation month.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="#apply"
-                className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors"
-              >
-                Get started as a partner &rarr;
-              </a>
-              <Link
-                href="/login"
-                className="inline-block border border-slate-600 hover:border-slate-400 text-slate-300 text-[13px] px-5 py-2.5 rounded transition-colors"
-              >
-                Already a partner? Sign in &rarr;
-              </Link>
+        <header className="border-b border-slate-800 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.16),_transparent_38%),linear-gradient(180deg,_#020617_0%,_#0f172a_100%)] px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16">
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
+            <div>
+              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-400">Coach Partner Program</p>
+              <h1 className="max-w-3xl text-[34px] font-bold leading-[1.03] tracking-tight text-white sm:text-[48px]">
+                Your client should arrive ready
+                <br className="hidden sm:block" />
+                before your call starts.
+              </h1>
+              <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
+                If they do not, you spend expensive coaching time rebuilding context. Starting Monday gives coaches a private operating layer for prep briefs, client signals, and between-session follow-through.
+              </p>
+              <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-400">
+                Join free. Earn 20% recurring commission on active referrals.
+              </p>
+
+              <div className="mt-7">
+                <a
+                  href="#apply"
+                  className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+                >
+                  Apply now
+                </a>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-300">
+                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Preview-first partner motion</span>
+                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Client-controlled coach visibility</span>
+                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Recurring commission tracking</span>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-700 bg-slate-950/70 p-6 shadow-xl shadow-black/20">
+              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200">Cost of staying the same</p>
+              <div className="space-y-3">
+                {COST_OF_STAYING_THE_SAME.map((item) => (
+                  <article key={item.title} className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+                    <p className="text-[12px] font-semibold text-slate-200">{item.title}</p>
+                    <p className="mt-1 text-[13px] text-slate-400">{item.body}</p>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-4 text-[12px] leading-relaxed text-slate-400">
+                Partnering works when clients feel this shift quickly in real sessions.
+              </p>
             </div>
           </div>
         </header>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
+        <div className="mx-auto max-w-5xl space-y-14 px-4 py-12 sm:px-6 sm:py-16">
 
-          {/* Per-category value props */}
-          <section id="partner-types">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-8">
-              Who we work with
+          <section>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Why coaches partner</p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {COACH_PROOF.map((item) => (
+                <article key={item.metric} className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <p className="mb-1 text-[30px] font-bold leading-none text-slate-900">{item.metric}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-600">{item.detail}</p>
+                </article>
+              ))}
+            </div>
+            <p className="mt-4 text-[12px] leading-relaxed text-slate-500">
+              Pilot evidence is from the Jan.-May 2026 cohort snapshot. Use the preview to validate fit with your own client workflow.
+            </p>
+          </section>
+
+          <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-7">
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Clear offer</p>
+            <h2 className="text-[24px] font-bold leading-tight text-slate-900 sm:text-[30px]">
+              One partner offer. One decision.
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {PRIMARY_PARTNERS.map(({ label, href, guidehref, value, economics, specifics }) => (
-                <div key={label} className="border border-slate-200 rounded-lg p-6 flex flex-col">
-                  <h3 className="text-[14px] font-bold text-slate-900 mb-3">{label}</h3>
-                  <p className="text-[13px] text-slate-600 leading-relaxed mb-4">{value}</p>
-                  <ul className="space-y-2 mb-5 flex-1">
-                    {specifics.map((s, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
-                        <span className="text-orange-500 shrink-0 mt-0.5 text-[12px] font-bold">+</span>
-                        <span className="text-[13px] text-slate-600 leading-snug">{s}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-[12px] text-slate-400 leading-relaxed mb-4 border-t border-slate-100 pt-4">{economics}</p>
-                  <div className="flex items-center gap-3">
-                    <a
-                      href="#apply"
-                      className="text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-3 py-1.5 rounded transition-colors"
-                    >
-                      Apply &rarr;
-                    </a>
-                    <Link
-                      href={guidehref}
-                      className="text-[12px] text-orange-600 hover:text-orange-700 transition-colors font-semibold"
-                    >
-                      Read the guide &rarr;
-                    </Link>
-                  </div>
-                </div>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
+              Free enrollment, 20% recurring commission, and a short preview path so clients buy based on real coaching outcomes.
+            </p>
+            <ul className="mt-5 space-y-2 text-[14px] leading-relaxed text-slate-700">
+              {OFFER_BULLETS.map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
+            </ul>
+            <a
+              href="#apply"
+              className="mt-6 inline-flex items-center justify-center rounded bg-slate-900 px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-slate-700"
+            >
+              Apply now
+            </a>
+          </section>
+
+          <section>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Common doubts</p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {DOUBT_BLOCKS.map((item) => (
+                <article key={item.q} className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <p className="mb-2 text-[13px] font-semibold text-slate-900">{item.q}</p>
+                  <p className="text-[14px] leading-relaxed text-slate-600">{item.a}</p>
+                </article>
               ))}
             </div>
           </section>
 
-          {/* Partner tiers */}
-          <section id="partner-tiers" className="border-t border-slate-100 pt-12">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-6">
-              Partner tiers
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
-              <div className="border border-slate-200 rounded-lg p-6">
-                <h3 className="text-[12px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Referral Partner</h3>
-                <p className="text-[18px] font-bold text-slate-900 mb-3">Free to join</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">Share your referral link. Earn 20% commission on every C-suite subscription that activates through your link.</p>
-                <ul className="space-y-2">
-                  {[
-                    'Unique referral link with activation tracking',
-                    '20% commission on every active subscription',
-                    'Partner resource kit and talking points',
-                    'Dedicated guide for your category',
-                    'Direct line to the founder',
-                  ].map((b, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-[13px] text-slate-600">
-                      <span className="text-slate-400 shrink-0 mt-0.5 text-[12px] font-bold">+</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+          <section id="apply" className="border-t border-slate-100 pt-12">
+            <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+              <div>
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">
+                  Apply now
+                </p>
+                <h2 className="text-[24px] font-bold leading-tight text-slate-900 sm:text-[30px]">
+                  Start simple. Prove it with clients. Scale if it works.
+                </h2>
+                <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-slate-600">
+                  We respond within 2 business days with your referral link and coach partner kit. Then you run a short preview and decide from visible results.
+                </p>
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">What happens next</p>
+                  <ul className="mt-3 space-y-2 text-[13px] leading-relaxed text-slate-700">
+                    <li>• Get your referral link and activation tracking</li>
+                    <li>• Receive coach-facing onboarding and talk tracks</li>
+                    <li>• Run a short preview and decide from real outcomes</li>
+                  </ul>
+                </div>
               </div>
-              <div className="border border-orange-400 bg-orange-50 rounded-lg p-6">
-                <h3 className="text-[12px] font-bold tracking-[0.1em] uppercase text-orange-600 mb-1">Preferred Partner</h3>
-                <p className="text-[18px] font-bold text-slate-900 mb-3">Volume pricing</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed mb-4">For firms enrolling multiple C-suite clients. Consolidated billing, usage visibility, and co-marketing for your practice.</p>
-                <ul className="space-y-2">
-                  {[
-                    'Everything in Referral Partner',
-                    'Bulk seat pricing with consolidated billing',
-                    'Activation dashboard: see which clients are enrolled and active',
-                    'Volume discounts starting at 5 seats',
-                    'Co-marketing opportunities',
-                  ].map((b, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-[13px] text-slate-600">
-                      <span className="text-orange-500 shrink-0 mt-0.5 text-[12px] font-bold">+</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <PartnersForm />
             </div>
           </section>
 
-          {/* Other partner types */}
-          <section id="other-partners" className="border-t border-slate-100 pt-12">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
-              Also built for
-            </h2>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
+          <section className="border-t border-slate-100 pt-10">
+            <p className="mb-3 text-[12px] font-semibold text-slate-600">Not an executive coach?</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link
+                href="/partners/reporting"
+                className="text-[13px] text-slate-500 transition-colors hover:text-slate-900"
+              >
+                Partner reporting packet &rarr;
+              </Link>
               {OTHER_PARTNERS.map(({ label, href }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="text-[13px] text-slate-500 hover:text-slate-900 transition-colors"
+                  className="text-[13px] text-slate-500 transition-colors hover:text-slate-900"
                 >
                   {label} &rarr;
                 </Link>
               ))}
             </div>
-          </section>
-
-          {/* Application form */}
-          <section id="apply" className="border-t border-slate-100 pt-12">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">
-              Apply to the partner program
-            </h2>
-            <p className="text-[13px] text-slate-500 mb-6">
-              We follow up within 2 business days with your referral link and partner kit.
-            </p>
-            <PartnersForm />
           </section>
 
         </div>

@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
-import { PHProvider } from '@/components/PosthogProvider'
 import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
@@ -159,9 +157,8 @@ export default async function HomePage() {
   const rolePathPriorityByCtaKey = await getRolePathPriorityByCtaKey()
 
   return (
-    <PHProvider>
+    <>
       <JsonLd data={jsonLd} />
-      <EmiMarketingTelemetry pageSlug="/" personaSegment="executives" />
       <LandingPage
         hero={{
           eyebrow: 'You are not behind on talent.',
@@ -185,6 +182,6 @@ export default async function HomePage() {
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
       />
-    </PHProvider>
+    </>
   )
 }

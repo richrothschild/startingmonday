@@ -4,9 +4,10 @@ import { useSearchParams } from 'next/navigation'
 import { TrackLink } from '@/components/TrackLink'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import { isEnabledFlag } from '@/lib/feature-flags'
 
 export function ChannelEntryStrip() {
-  const experimentEnabled = process.env.NEXT_PUBLIC_CHANNEL_ENTRY_AB_TEST === '1'
+  const experimentEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_CHANNEL_ENTRY_AB_TEST)
   const params = useSearchParams()
   const paramVariant = params.get('ce_variant')
   const variant: 'control' | 'emphasis' = paramVariant === 'emphasis' ? 'emphasis' : 'control'

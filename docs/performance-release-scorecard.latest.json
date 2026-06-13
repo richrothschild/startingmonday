@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-31T12:53:20.358Z",
-  "baseUrl": "https://startingmonday.app",
+  "generatedAt": "2026-06-08T13:56:35.324Z",
+  "baseUrl": "http://127.0.0.1:3000",
   "verdict": "pass",
   "blockingPolicy": {
     "mobileP95": {
       "maxRegressionPercent": 20,
-      "noiseBufferMs": 120
+      "noiseBufferMs": 150
     },
     "mobilePassRate": {
       "maxDropPercentagePoints": 5
@@ -25,8 +25,8 @@
     "smokeCriticalFailed": 0
   },
   "current": {
-    "capturedAt": "2026-05-31T12:53:19.659Z",
-    "mobileP95ResponseMs": 291,
+    "capturedAt": "2026-06-08T13:56:34.792Z",
+    "mobileP95ResponseMs": 55,
     "mobilePassRate": 1,
     "smokeCriticalFailed": 0
   },
@@ -34,35 +34,35 @@
     {
       "routePath": "/",
       "baselineMs": 286,
-      "currentMs": 291,
+      "currentMs": 55,
       "limitMs": 507.5,
       "blocked": false
     },
     {
       "routePath": "/login",
       "baselineMs": 137,
-      "currentMs": 147,
+      "currentMs": 10,
       "limitMs": 321.3,
       "blocked": false
     },
     {
       "routePath": "/pricing",
       "baselineMs": 66,
-      "currentMs": 64,
+      "currentMs": 11,
       "limitMs": 232.5,
       "blocked": false
     },
     {
       "routePath": "/annual-report-2026",
       "baselineMs": 64,
-      "currentMs": 65,
+      "currentMs": 14,
       "limitMs": 230,
       "blocked": false
     },
     {
       "routePath": "/for-coaches",
       "baselineMs": 66,
-      "currentMs": 165,
+      "currentMs": 25,
       "limitMs": 232.5,
       "blocked": false
     }

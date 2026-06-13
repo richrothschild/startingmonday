@@ -40,6 +40,9 @@ jobs:
       - name: Run mobile visual regression
         run: npm run test:e2e:mobile-visual
 
+      - name: Run elite mobile visual regression
+        run: npm run test:e2e:mobile-elite-visual
+
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v6

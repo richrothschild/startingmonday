@@ -1,5 +1,12 @@
 # Starting Monday — Pricing and Packaging Rationale
 
+Owner: Documentation Operations
+Status: active
+Last reviewed: 2026-06-07
+Review cadence: monthly
+Source of truth: yes
+
+
 Internal document | May 2026
 
 ---

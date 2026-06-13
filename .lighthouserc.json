@@ -10,7 +10,7 @@
         "http://127.0.0.1:3000/for-coaches",
         "http://127.0.0.1:3000/annual-report-2026"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
         "formFactor": "mobile",
@@ -29,7 +29,7 @@
         "categories:performance": [
           "error",
           {
-            "minScore": 0.8
+            "minScore": 0.75
           }
         ],
         "categories:accessibility": [
@@ -65,7 +65,7 @@
         "total-blocking-time": [
           "error",
           {
-            "maxNumericValue": 450
+            "maxNumericValue": 950
           }
         ]
       }

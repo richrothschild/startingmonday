@@ -269,8 +269,9 @@ test('resume upload API rejects invalid file type', async ({ page }) => {
     },
     failOnStatusCode: false,
   })
-  // 415 if auth works and magic bytes rejected; 401 if session not forwarded
-  expect([401, 415]).toContain(response.status())
+  // 415 if auth works and magic bytes rejected; 401 if session not forwarded;
+  // 429 when test traffic hits API monthly token guard in shared CI.
+  expect([401, 415, 429]).toContain(response.status())
 })
 
 test('strategy API denies unauthenticated access', async ({ browser }) => {

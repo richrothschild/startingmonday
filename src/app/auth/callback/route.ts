@@ -69,7 +69,11 @@ export async function GET(request: NextRequest) {
       const userId = user.id
       const userEmail = user.email
       const utmSource = searchParams.get('utm_source')
+      const selfReportedSource = searchParams.get('self_reported_source')
       const utmMedium = searchParams.get('utm_medium')
+      const source = utmSource ?? selfReportedSource
+      const managerToolsSource = (source ?? '').trim().toLowerCase() === 'managertools'
+      const managerToolsTrialEndsAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
       const isNewUser = user.created_at
         ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
@@ -80,18 +84,24 @@ export async function GET(request: NextRequest) {
           { user_id: userId, ...(refCode ? { referred_by: refCode } : {}) },
           { onConflict: 'user_id', ignoreDuplicates: true }
         ),
-        utmSource
+        source
           ? supabase.from('users').update({
-              signup_source: utmSource,
-              acquisition_channel: utmMedium ?? (refCode ? 'referral' : null),
-              referral_source: utmSource,
+              signup_source: source,
+              acquisition_channel: utmMedium ?? (refCode ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
+              referral_source: source,
+              ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt } : {}),
             }).eq('id', userId)
           : Promise.resolve(),
         isNewUser
           ? fetch(`${publicOrigin}/api/notify/new-user`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: userEmail, tier: 'trialing', source: utmSource }),
+              body: JSON.stringify({
+                email: userEmail,
+                username: (user.user_metadata?.full_name ?? user.user_metadata?.name ?? '').trim() || null,
+                tier: 'trialing',
+                source,
+              }),
             }).catch(() => {})
           : Promise.resolve(),
         isNewUser && refCode

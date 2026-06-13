@@ -2,12 +2,24 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
 
 type RequestBody = {
   email?: unknown
   password?: unknown
+}
+
+function isSignupDisabledError(error: { message?: string } | null | undefined): boolean {
+  const message = error?.message?.toLowerCase() ?? ''
+  return (
+    message.includes('signups not allowed')
+    || message.includes('signup not allowed')
+    || message.includes('signups are not allowed')
+    || message.includes('signup is disabled')
+    || message.includes('sign up is disabled')
+  )
 }
 
 export async function POST(request: NextRequest) {
@@ -58,6 +70,59 @@ export async function POST(request: NextRequest) {
     password,
     options: { emailRedirectTo: redirectTo },
   })
+
+  if (error && isSignupDisabledError(error)) {
+    const admin = createAdminClient()
+    const { data: adminData, error: adminError } = await admin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+    })
+
+    if (adminError || !adminData.user) {
+      const errAny = adminError as unknown as Record<string, unknown>
+      console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'admin_create_error', message: adminError?.message, code: errAny?.code, status: errAny?.status }))
+      const msg = adminError?.message?.toLowerCase() ?? ''
+      const code = String(errAny?.code ?? '').toLowerCase()
+      const alreadyExists = msg.includes('already registered') || msg.includes('already exists') || msg.includes('duplicate') || msg.includes('been registered') || code.includes('email_exists')
+      return NextResponse.json(
+        {
+          ok: false,
+          error: alreadyExists
+            ? 'An account with that email already exists. Try signing in instead.'
+            : 'Email signup is temporarily unavailable. Use Google or Apple, or try again later.',
+          code: alreadyExists ? 'EMAIL_EXISTS' : 'SIGNUPS_DISABLED',
+        },
+        { status: alreadyExists ? 409 : 503 }
+      )
+    }
+
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (signInError || !signInData.session) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: signInError?.message ?? 'Unable to finish account creation',
+          code: 'SIGNUPS_DISABLED',
+        },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json(
+      {
+        ok: true,
+        user: signInData.user ?? adminData.user,
+        session: signInData.session,
+        message: 'Account created successfully.',
+      },
+      { status: 200 }
+    )
+  }
 
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 400 })
