@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-13T19:10:38.626Z
+Last generated: 2026-06-13T23:11:03.656Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -674,7 +674,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (123)
+## Internal Scripts (126)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -697,8 +697,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-email-council-gate.ts | scripts/check-email-council-gate.ts | import { readFile } from 'node:fs/promises'
 - Script scripts/check-executive-fit-criteria.mjs | scripts/check-executive-fit-criteria.mjs | import { readFile } from 'node:fs/promises'
 - Script scripts/check-growth-metrics-gate.mjs | scripts/check-growth-metrics-gate.mjs | #!/usr/bin/env node
+- Script scripts/check-lighthouse-budget-config.mjs | scripts/check-lighthouse-budget-config.mjs | #!/usr/bin/env node
 - Script scripts/check-linkedin-ads-gate.mjs | scripts/check-linkedin-ads-gate.mjs | Wilson score interval for 95% confidence
 - Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'
+- Script scripts/check-marketing-trust-proof-gate.mjs | scripts/check-marketing-trust-proof-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-elite-visual-gate.mjs | scripts/check-mobile-elite-visual-gate.mjs | #!/usr/bin/env node
@@ -757,6 +759,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/import-coaches-comprehensive.mjs | scripts/import-coaches-comprehensive.mjs | import { readFile, readdir } from 'node:fs/promises'
 - Script scripts/internal-guide-sync.ts | scripts/internal-guide-sync.ts | import { createHash } from 'crypto'
 - Script scripts/jira/create-jira-issue.mjs | scripts/jira/create-jira-issue.mjs | #!/usr/bin/env node
+- Script scripts/jira/import-csv-to-jira.mjs | scripts/jira/import-csv-to-jira.mjs | Keep raw text when Jira does not return JSON.
 - Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
 - Script scripts/link-integrity-audit.mjs | scripts/link-integrity-audit.mjs | import fs from 'node:fs/promises'
 - Script scripts/lint-outreach-first-sentence.mjs | scripts/lint-outreach-first-sentence.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -977,7 +980,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 
-## Documentation (578)
+## Documentation (588)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1197,6 +1200,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
 - Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
 - Doc docs/epic-partner-scale-and-flywheel-2026-2027.md | docs/epic-partner-scale-and-flywheel-2026-2027.md | Epic: Partner Scale and Flywheel
+- Doc docs/epic-sitewide-luxury-modern-elevation-2026-2027.md | docs/epic-sitewide-luxury-modern-elevation-2026-2027.md | Epic: Sitewide Luxury-Modern Elevation (2026-2027)
 - Doc docs/epic-sre-council-backlog.md | docs/epic-sre-council-backlog.md | Epic: SRE Council Backlog
 - Doc docs/epic-target-company-intelligence-apollo-2026-06-07.md | docs/epic-target-company-intelligence-apollo-2026-06-07.md | Epic: Target Company Intelligence and Outreach Narratives (Apollo-Backed)
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
@@ -1268,6 +1272,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
+- Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md | docs/jira/luxury-modern-sitewide-elevation-import-README.md | Luxury-Modern Sitewide Elevation Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
@@ -1503,6 +1508,14 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
+- Doc docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md | docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md | Luxury-Modern Next-Quarter Backlog (2026 Q3)
+- Doc docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md | docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md | Luxury-Modern Redesign Brief: Homepage and Channel Entry Pages
+- Doc docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md | docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md | Luxury-Modern Sitewide Execution Plan
+- Doc docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md | docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md | Luxury-Modern Sprint 1 Closeout
+- Doc docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md | docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md | Luxury-Modern Sprint 2 Acceptance Closeout
+- Doc docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md | docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md | Luxury-Modern Sprint 3 Readout
+- Doc docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md | docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md | Luxury-Modern Sprint 4 Governance Closeout
+- Doc docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md | docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md | Luxury-Modern Tone and Proof Governance Guide
 - Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
 - Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
 - Doc docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | Persona Council Effectiveness Audit - 2026-05-26
