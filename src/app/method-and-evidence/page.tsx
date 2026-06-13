@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { isEnabledFlag } from '@/lib/feature-flags'
 
 export const metadata: Metadata = {
   title: 'Method and Evidence - Starting Monday',
@@ -28,7 +29,7 @@ const TIMING_MODEL = [
   { stage: 'Posting to broad market', value: 84, widthClass: 'w-[84%]', note: 'Recruiting channels and job boards catch up later' },
 ]
 
-function BarChart({ items, labelKey, valueKey, noteKey, widthKey }: { items: Array<Record<string, string | number>>, labelKey: string, valueKey: string, noteKey: string, widthKey: string }) {
+function BarChart({ items, labelKey, valueKey, noteKey, widthKey, premium = false }: { items: Array<Record<string, string | number>>, labelKey: string, valueKey: string, noteKey: string, widthKey: string, premium?: boolean }) {
   return (
     <div className="space-y-4">
       {items.map((item) => {
@@ -40,12 +41,12 @@ function BarChart({ items, labelKey, valueKey, noteKey, widthKey }: { items: Arr
           <div key={label}>
             <div className="flex items-end justify-between gap-4 mb-2">
               <div>
-                <p className="text-[13px] font-semibold text-slate-900">{label}</p>
-                <p className="text-[12px] text-slate-500 leading-relaxed">{note}</p>
+                <p className={`text-[13px] font-semibold ${premium ? 'text-white' : 'text-slate-900'}`}>{label}</p>
+                <p className={`text-[12px] leading-relaxed ${premium ? 'text-slate-300' : 'text-slate-500'}`}>{note}</p>
               </div>
-              <p className="text-[12px] font-semibold text-slate-500">{value}%</p>
+              <p className={`text-[12px] font-semibold ${premium ? 'text-slate-200' : 'text-slate-500'}`}>{value}%</p>
             </div>
-            <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
+            <div className={`h-3 rounded-full overflow-hidden ${premium ? 'bg-white/15' : 'bg-slate-100'}`}>
               <div className={`h-full rounded-full bg-orange-500 ${widthClass}`} />
             </div>
           </div>
@@ -56,9 +57,14 @@ function BarChart({ items, labelKey, valueKey, noteKey, widthKey }: { items: Arr
 }
 
 export default function MethodAndEvidencePage() {
+  const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
+
   return (
-    <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+      {premiumEnabled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+      )}
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -71,38 +77,38 @@ export default function MethodAndEvidencePage() {
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-18">
+      <main className={`max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-18 ${premiumEnabled ? 'text-slate-100' : ''}`}>
 <header className="mb-12 max-w-3xl">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">Method and evidence</p>
-          <h1 className="text-[34px] sm:text-[44px] font-bold text-slate-900 leading-tight mb-4">How Starting Monday turns research into product decisions.</h1>
-          <p className="text-[15px] text-slate-600 leading-relaxed">
+          <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-3 ${premiumEnabled ? 'text-orange-300' : 'text-orange-500'}`}>Method and evidence</p>
+          <h1 className={`text-[34px] sm:text-[44px] font-bold leading-tight mb-4 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>How Starting Monday turns research into product decisions.</h1>
+          <p className={`text-[15px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             We use peer-reviewed coaching, transition, behavior-change, and weak-signal research to decide what to build, what to claim, and what to measure.
           </p>
         </header>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-          <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Evidence stack</p>
-            <BarChart items={EVIDENCE_STACK} labelKey="label" valueKey="value" noteKey="note" widthKey="widthClass" />
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Evidence stack</p>
+            <BarChart items={EVIDENCE_STACK} labelKey="label" valueKey="value" noteKey="note" widthKey="widthClass" premium={premiumEnabled} />
           </div>
-          <div className="border border-slate-200 rounded-lg p-5 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Timing model</p>
-            <BarChart items={TIMING_MODEL} labelKey="stage" valueKey="value" noteKey="note" widthKey="widthClass" />
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Timing model</p>
+            <BarChart items={TIMING_MODEL} labelKey="stage" valueKey="value" noteKey="note" widthKey="widthClass" premium={premiumEnabled} />
           </div>
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-          <div className="border-t-2 border-orange-500 pt-4">
-            <h2 className="text-[16px] font-bold text-slate-900 mb-2">Coaching becomes infrastructure</h2>
-            <p className="text-[13px] text-slate-600 leading-relaxed">The research says outcomes depend on what happens between sessions, so the product should support that layer directly.</p>
+          <div className={premiumEnabled ? 'border-t-2 border-orange-300 pt-4' : 'border-t-2 border-orange-500 pt-4'}>
+            <h2 className={`text-[16px] font-bold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Coaching becomes infrastructure</h2>
+            <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>The research says outcomes depend on what happens between sessions, so the product should support that layer directly.</p>
           </div>
-          <div className="border-t-2 border-slate-200 pt-4">
-            <h2 className="text-[16px] font-bold text-slate-900 mb-2">Plans beat intention</h2>
-            <p className="text-[13px] text-slate-600 leading-relaxed">If-then planning and clear goals are the design basis for prep briefs, prompts, and accountability loops.</p>
+          <div className={premiumEnabled ? 'border-t-2 border-white/20 pt-4' : 'border-t-2 border-slate-200 pt-4'}>
+            <h2 className={`text-[16px] font-bold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Plans beat intention</h2>
+            <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>If-then planning and clear goals are the design basis for prep briefs, prompts, and accountability loops.</p>
           </div>
-          <div className="border-t-2 border-slate-200 pt-4">
-            <h2 className="text-[16px] font-bold text-slate-900 mb-2">Signals beat waiting</h2>
-            <p className="text-[13px] text-slate-600 leading-relaxed">Weak signals and transition cues matter before formal postings, so the platform should make early movement visible.</p>
+          <div className={premiumEnabled ? 'border-t-2 border-white/20 pt-4' : 'border-t-2 border-slate-200 pt-4'}>
+            <h2 className={`text-[16px] font-bold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Signals beat waiting</h2>
+            <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>Weak signals and transition cues matter before formal postings, so the platform should make early movement visible.</p>
           </div>
         </section>
 
@@ -116,6 +122,13 @@ export default function MethodAndEvidencePage() {
             <Link href="/evidence-room" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Evidence room →</Link>
             <Link href="/blog/how-we-estimate-early-role-signals" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Timing model →</Link>
           </div>
+        </section>
+
+        <section className={`rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-2 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Source note</p>
+          <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
+            All percentage bars represent weighted confidence applied to each evidence category, not absolute efficacy. Source citations and denominator notes are maintained in the references and evidence-room assets.
+          </p>
         </section>
       </main>
     </div>

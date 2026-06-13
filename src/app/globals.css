@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f2eb;
+  --foreground: #101828;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: rgba(17, 24, 39, 0.92);
+  --surface-muted: rgba(15, 23, 42, 0.06);
+  --border-muted: rgba(15, 23, 42, 0.12);
+  --accent: #c17f3b;
 }
 
 @theme inline {
@@ -13,11 +18,19 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top left, rgba(193, 127, 59, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(15, 23, 42, 0.08), transparent 32%),
+    linear-gradient(180deg, #f8f5ef 0%, #f4efe7 42%, #ece6db 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   /* Force light mode - app is designed for light theme only */
   color-scheme: light;
+}
+
+::selection {
+  background: rgba(193, 127, 59, 0.24);
+  color: #0f172a;
 }
 
 /* iOS safe area for bottom nav */

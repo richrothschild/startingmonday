@@ -148,6 +148,8 @@
         "mobile:contract": "node scripts/check-mobile-ui-contract.mjs",
         "mobile:banned-patterns": "node scripts/check-mobile-banned-patterns.mjs",
         "mobile:guard": "npm run mobile:contract && npm run mobile:banned-patterns",
+        "marketing:trust-proof:gate": "node scripts/check-marketing-trust-proof-gate.mjs",
+        "perf:lighthouse:budget:config": "node scripts/check-lighthouse-budget-config.mjs",
         "perf:lighthouse:ci": "lhci autorun --config=.lighthouserc.json",
         "audit:performance:pack": "node scripts/run-performance-audit-pack.mjs",
         "audit:performance:scorecard": "node scripts/generate-performance-release-scorecard.mjs",

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { usePostHog } from 'posthog-js/react'
+import { isEnabledFlag } from '@/lib/feature-flags'
 
 const INCLUDES = [
   'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
@@ -34,6 +35,7 @@ export function ConciergeWaitlist() {
   const isBetaProgram = (searchParams.get('program') ?? '').toLowerCase() === 'beta'
   const source = (searchParams.get('from') ?? '').toLowerCase()
   const ph = usePostHog()
+  const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
 
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -113,8 +115,11 @@ export function ConciergeWaitlist() {
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+      {premiumEnabled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+      )}
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -133,9 +138,9 @@ export function ConciergeWaitlist() {
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
+      <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 pb-16' : 'bg-slate-900 px-4 sm:px-6 pt-14 pb-16'}>
         <div className="max-w-2xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
+          <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-4 ${premiumEnabled ? 'text-orange-300' : 'text-orange-500'}`}>
             {isBetaProgram ? 'Confidential Beta Cohort — Founder-Led, 10 Seats' : 'Executive Concierge — $499/mo'}
           </p>
           <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.1] tracking-tight mb-5">
@@ -153,7 +158,7 @@ export function ConciergeWaitlist() {
               </>
             )}
           </h1>
-          <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
+          <p className={`text-[15px] leading-relaxed max-w-lg ${premiumEnabled ? 'text-slate-200' : 'text-slate-400'}`}>
             {isBetaProgram
               ? 'This is a private intake for senior leaders running high-stakes transitions. Share concise context, and we will reply personally with clear next steps.'
               : 'Executive is the full platform at full depth. Concierge adds one thing: a monthly session with the founder, who has run this search from the executive side. The program stays small because it has to.'}
@@ -166,7 +171,7 @@ export function ConciergeWaitlist() {
         </div>
       </header>
 
-      <main className="px-4 sm:px-6 py-14 sm:py-20">
+      <main className={`px-4 sm:px-6 py-14 sm:py-20 ${premiumEnabled ? 'text-slate-100' : ''}`}>
         <div className="max-w-2xl mx-auto">
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-16 mb-16">
@@ -207,9 +212,9 @@ export function ConciergeWaitlist() {
                 {isBetaProgram ? 'Private intake brief' : 'Request access'}
               </p>
               {submitted ? (
-                <div className="border border-slate-200 bg-slate-50 rounded p-6">
-                  <p className="text-[15px] font-semibold text-slate-900 mb-1">Brief received.</p>
-                  <p className="text-[13px] text-slate-600 leading-relaxed">
+                <div className={`rounded p-6 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+                  <p className={`text-[15px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Brief received.</p>
+                  <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
                     We review each submission personally. You will hear from us directly.
                   </p>
                 </div>
@@ -330,10 +335,17 @@ export function ConciergeWaitlist() {
             </div>
           </div>
 
-          <div className="border border-slate-200 rounded-lg p-6 mb-12">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-3">About the founder</p>
-            <p className="text-[14px] text-slate-700 leading-relaxed">
+          <div className={`rounded-2xl p-6 mb-12 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-400'}`}>About the founder</p>
+            <p className={`text-[14px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-700'}`}>
               Starting Monday was built by a founder who ran executive job searches at scale and watched colleagues waste months on reactive tactics that did not work. The sessions are direct, structured, and specific to your pipeline. Not coaching. Not cheerleading. One executive to another.
+            </p>
+          </div>
+
+          <div className={`rounded-2xl p-5 mb-12 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200 bg-slate-50'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-2 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Trust and source note</p>
+            <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
+              Confidential intake details are used only for founder review and fit decisions. Outcome expectations on this page are informed by the pilot evidence room and source-linked methodology pages.
             </p>
           </div>
 
@@ -350,7 +362,7 @@ export function ConciergeWaitlist() {
         </div>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+      <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-8 backdrop-blur-xl' : 'bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8'}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

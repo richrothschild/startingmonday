@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useRef, Suspense } from 'react'
+import { isEnabledFlag } from '@/lib/feature-flags'
 
 const MAX_RUNS = 5
 
@@ -66,6 +67,7 @@ export function DemoContent({
   initialRole: _initialRole = '',
   autoGenerate: _autoGenerate = false,
 }: DemoContentProps = {}) {
+  const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
   const [role, setRole] = useState(DEMO_ROLES[0])
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
@@ -129,9 +131,12 @@ export function DemoContent({
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 font-sans">
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-slate-900'}`}>
+      {premiumEnabled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+      )}
       {/* Nav */}
-      <nav className="bg-slate-900 border-b border-slate-800 sticky top-0 z-10">
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 border-b border-slate-800 sticky top-0 z-10'}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -146,7 +151,7 @@ export function DemoContent({
       </nav>
 
       {/* Hero */}
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14">
+      <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14' : 'bg-slate-900 px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14'}>
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-3">Live demo</p>
           <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-4">
@@ -201,6 +206,15 @@ export function DemoContent({
         </div>
       </header>
 
+      <section className={`px-4 sm:px-6 pb-6 ${premiumEnabled ? '' : 'bg-slate-900'}`}>
+        <div className="max-w-3xl mx-auto rounded-2xl border border-white/10 bg-white/6 p-4">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Source note</p>
+          <p className="text-[12px] text-slate-200 leading-relaxed">
+            Demo claims reflect observed prep-brief behavior in pilot cohorts and are linked to source-backed methodology in the evidence room.
+          </p>
+        </div>
+      </section>
+
       {/* Demo section */}
       <section id="run-demo" className="bg-white px-4 sm:px-6 py-12 sm:py-16" ref={briefRef}>
         <div className="max-w-2xl mx-auto">
@@ -221,6 +235,7 @@ export function DemoContent({
                 value={role}
                 onChange={e => setRole(e.target.value)}
                 disabled={loading}
+                aria-label="Demo role selector"
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-500 bg-white"
               >
                 {DEMO_ROLES.map(r => (
@@ -286,7 +301,7 @@ export function DemoContent({
       </section>
 
       {/* Footer strip */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-6">
+      <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-6 backdrop-blur-xl' : 'bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-6'}>
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

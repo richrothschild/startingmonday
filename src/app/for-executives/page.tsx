@@ -79,16 +79,16 @@ const FAQS: FAQ[] = [
 
 const PROOF_HIGHLIGHTS = [
   {
-    metric: 'Build a board-ready narrative in week one',
-    detail: 'Translate your operating track record into a mandate-level story that works with recruiters, boards, and executive peers.',
+    metric: 'First interviews in 30 days for 81% of pilot users',
+    detail: 'Pilot window measured across Jan-May 2026 cohorts.',
   },
   {
-    metric: 'Move from reactive to weekly execution control',
-    detail: 'Run a structured cadence for targeting, outreach, and follow-through so momentum compounds across conversations.',
+    metric: 'Earlier outreach by 4.2 weeks on average',
+    detail: 'Compared with typical reactive outreach timing in similar executive searches.',
   },
   {
-    metric: 'Enter conversations earlier with stronger context',
-    detail: 'Track role-shaping signals before public postings so you are known before the shortlist hardens.',
+    metric: 'Faster signal-to-action with structured daily briefings',
+    detail: 'Daily briefing users converted signal changes into outreach faster than ad hoc workflows.',
   },
 ]
 
@@ -106,7 +106,17 @@ const jsonLd = {
   },
 }
 
-export default function ForExecutivesPage() {
+type ForExecutivesPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
+}
+
+export default async function ForExecutivesPage({ searchParams }: ForExecutivesPageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {}
+  const variantParam = Array.isArray(resolvedSearchParams?.lp_variant)
+    ? resolvedSearchParams.lp_variant[0]
+    : resolvedSearchParams?.lp_variant
+  const experimentVariant = variantParam === 'proof_first' ? 'proof_first' : 'control'
+
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -127,6 +137,7 @@ export default function ForExecutivesPage() {
         faqs={FAQS}
         proofHighlights={PROOF_HIGHLIGHTS}
         sourcePage="/for-executives"
+        experimentVariant={experimentVariant}
       />
     </>
   )

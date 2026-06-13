@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T19:10:38.626Z",
+  "generatedAt": "2026-06-13T23:11:03.656Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
+      "lastModifiedAt": "2026-06-13T19:10:38.640Z"
     },
     {
       "id": "feature:/login",
@@ -1608,7 +1608,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.855Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
     },
     {
       "id": "feature:/demo/presenter",
@@ -1650,7 +1650,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T03:21:13.294Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.027Z"
     },
     {
       "id": "feature:/executive-brief",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-07T04:48:16.613Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1930,7 +1930,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T01:12:24.811Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2056,7 +2056,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.789Z"
+      "lastModifiedAt": "2026-06-13T22:14:57.219Z"
     },
     {
       "id": "feature:/for-outplacement/runbook",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.794Z"
+      "lastModifiedAt": "2026-06-13T22:14:57.215Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2378,7 +2378,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.858Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.027Z"
     },
     {
       "id": "feature:/onboarding",
@@ -2448,7 +2448,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T13:56:31.972Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -2518,7 +2518,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T03:21:13.294Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.026Z"
     },
     {
       "id": "feature:/privacy",
@@ -8980,6 +8980,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.321Z"
     },
     {
+      "id": "script:scripts/check-lighthouse-budget-config.mjs",
+      "title": "Script scripts/check-lighthouse-budget-config.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-lighthouse-budget-config.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
+    },
+    {
       "id": "script:scripts/check-linkedin-ads-gate.mjs",
       "title": "Script scripts/check-linkedin-ads-gate.mjs",
       "body": "Wilson score interval for 95% confidence",
@@ -9004,6 +9017,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.321Z"
+    },
+    {
+      "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
+      "title": "Script scripts/check-marketing-trust-proof-gate.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-marketing-trust-proof-gate.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
     },
     {
       "id": "script:scripts/check-migration-rollback-readiness.mjs",
@@ -9760,6 +9786,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.352Z"
     },
     {
+      "id": "script:scripts/jira/import-csv-to-jira.mjs",
+      "title": "Script scripts/jira/import-csv-to-jira.mjs",
+      "body": "Keep raw text when Jira does not return JSON.",
+      "type": "script",
+      "ref": "scripts/jira/import-csv-to-jira.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-13T23:10:57.645Z"
+    },
+    {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
       "title": "Script scripts/lib/mobile-route-inventory.mjs",
       "body": "export function discoverPublicMobileRoutes() {",
@@ -10303,7 +10342,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T19:09:56.693Z"
+      "lastModifiedAt": "2026-06-13T23:04:10.021Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -15541,6 +15580,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.007Z"
     },
     {
+      "id": "doc:docs/epic-sitewide-luxury-modern-elevation-2026-2027.md",
+      "title": "Doc docs/epic-sitewide-luxury-modern-elevation-2026-2027.md",
+      "body": "Epic: Sitewide Luxury-Modern Elevation (2026-2027)",
+      "type": "doc",
+      "ref": "docs/epic-sitewide-luxury-modern-elevation-2026-2027.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T20:00:27.774Z"
+    },
+    {
       "id": "doc:docs/epic-sre-council-backlog.md",
       "title": "Doc docs/epic-sre-council-backlog.md",
       "body": "Epic: SRE Council Backlog",
@@ -16214,7 +16266,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.023Z"
+      "lastModifiedAt": "2026-06-13T22:25:18.674Z"
     },
     {
       "id": "doc:docs/growth-synthetic-council.latest.md",
@@ -16383,7 +16435,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
+      "lastModifiedAt": "2026-06-13T19:10:38.640Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16422,7 +16474,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T18:14:46.124Z"
+      "lastModifiedAt": "2026-06-13T19:10:38.640Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16462,6 +16514,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-09T01:55:26.035Z"
+    },
+    {
+      "id": "doc:docs/jira/luxury-modern-sitewide-elevation-import-README.md",
+      "title": "Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md",
+      "body": "Luxury-Modern Sitewide Elevation Jira Import (Ready)",
+      "type": "doc",
+      "ref": "docs/jira/luxury-modern-sitewide-elevation-import-README.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:10:57.644Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -17345,7 +17410,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-08T13:56:35.326Z"
+      "lastModifiedAt": "2026-06-13T23:07:39.157Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -19519,6 +19584,110 @@
       "lastModifiedAt": "2026-05-09T04:45:48.676Z"
     },
     {
+      "id": "doc:docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md",
+      "title": "Doc docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md",
+      "body": "Luxury-Modern Next-Quarter Backlog (2026 Q3)",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md",
+      "body": "Luxury-Modern Redesign Brief: Homepage and Channel Entry Pages",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T20:00:27.769Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md",
+      "body": "Luxury-Modern Sitewide Execution Plan",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.021Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md",
+      "body": "Luxury-Modern Sprint 1 Closeout",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md",
+      "body": "Luxury-Modern Sprint 2 Acceptance Closeout",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.026Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md",
+      "body": "Luxury-Modern Sprint 3 Readout",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md",
+      "body": "Luxury-Modern Sprint 4 Governance Closeout",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
+    },
+    {
+      "id": "doc:docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md",
+      "title": "Doc docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md",
+      "body": "Luxury-Modern Tone and Proof Governance Guide",
+      "type": "doc",
+      "ref": "docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-13T23:04:10.028Z"
+    },
+    {
       "id": "doc:docs/strategy/mark-horstman-review.md",
       "title": "Doc docs/strategy/mark-horstman-review.md",
       "body": "Mark Horstman Product Review",
@@ -20075,7 +20244,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T16:04:33.233Z"
+      "lastModifiedAt": "2026-06-13T23:10:37.446Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

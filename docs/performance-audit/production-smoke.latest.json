@@ -1,6 +1,6 @@
 {
-  "ts": "2026-06-08T13:56:34.602Z",
-  "baseUrl": "http://127.0.0.1:3000",
+  "ts": "2026-06-13T23:07:37.969Z",
+  "baseUrl": "https://startingmonday.app",
   "total": 4,
   "passed": 4,
   "failed": 0,
@@ -13,7 +13,7 @@
       "name": "Health endpoint",
       "path": "/api/health",
       "status": 200,
-      "durationMs": 126
+      "durationMs": 213
     },
     {
       "ok": true,
@@ -21,7 +21,7 @@
       "name": "Login page",
       "path": "/login",
       "status": 200,
-      "durationMs": 47
+      "durationMs": 73
     },
     {
       "ok": true,
@@ -29,15 +29,15 @@
       "name": "Pricing page",
       "path": "/pricing",
       "status": 200,
-      "durationMs": 29
+      "durationMs": 77
     },
     {
       "ok": true,
       "critical": false,
-      "name": "Cron scan alert health",
-      "path": "/api/cron/scan-alert?mode=health",
+      "name": "Deploy marker endpoint",
+      "path": "/api/deploy-marker",
       "status": 200,
-      "durationMs": 2884
+      "durationMs": 266
     }
   ]
 }

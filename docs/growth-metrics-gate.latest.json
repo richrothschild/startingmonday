@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-05-28T20:43:02.422Z",
+  "checkedAt": "2026-06-13T22:25:18.672Z",
   "status": "PASS",
   "checks": [
     {
@@ -59,6 +59,12 @@
       }
     }
   ],
+  "warnings": [],
   "failures": [],
+  "sample": {
+    "min_page_views": 100,
+    "page_views": null,
+    "sufficient": true
+  },
   "metricsPath": "C:\\Users\\roths\\startingmonday\\docs\\growth\\weekly-metrics.latest.json"
 }

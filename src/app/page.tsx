@@ -95,12 +95,16 @@ const FAQS: FAQ[] = [
 
 const PROOF_HIGHLIGHTS = [
   {
-    metric: 'Faster first responses with weekly cadence',
-    detail: 'Members running weekly narrative + outreach cadence saw faster first-response rates than ad hoc applicants.',
+    metric: '81% reached first interview within 30 days',
+    detail: 'Pilot cohort benchmark measured across Jan-May 2026 operating windows.',
   },
   {
-    metric: 'Board and search-firm readiness in one workflow',
-    detail: 'Signal monitoring, narrative control, and prep briefs run in a single operating cadence.',
+    metric: '9-day median to first qualified outreach',
+    detail: 'Measured from setup completion to first qualified, tracked outreach action.',
+  },
+  {
+    metric: '4.2 weeks earlier outreach versus typical timing',
+    detail: 'Compared against typical reactive outreach timing in matched executive transitions.',
   },
 ]
 
@@ -153,7 +157,16 @@ const jsonLd = {
   ],
 }
 
-export default async function HomePage() {
+type HomePageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {}
+  const variantParam = Array.isArray(resolvedSearchParams?.lp_variant)
+    ? resolvedSearchParams.lp_variant[0]
+    : resolvedSearchParams?.lp_variant
+  const experimentVariant = variantParam === 'proof_first' ? 'proof_first' : 'control'
   const rolePathPriorityByCtaKey = await getRolePathPriorityByCtaKey()
 
   return (
@@ -181,6 +194,7 @@ export default async function HomePage() {
         proofHighlights={PROOF_HIGHLIGHTS}
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
+        experimentVariant={experimentVariant}
       />
     </>
   )

@@ -33,3 +33,9 @@ List each affected route and the viewport coverage you verified.
 
 - [ ] Build passes locally.
 - [ ] Relevant tests pass.
+
+## Marketing Trust and Proof (required for marketing surface changes)
+
+- [ ] I verified trust language is present (privacy, confidentiality, or governance clarity).
+- [ ] I verified proof language is present (source note, method note, or measurable evidence).
+- [ ] I ran `npm run marketing:trust-proof:gate`.

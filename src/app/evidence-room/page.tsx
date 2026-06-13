@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { isEnabledFlag } from '@/lib/feature-flags'
 
 export const metadata: Metadata = {
   title: 'Evidence Room - Starting Monday',
@@ -122,9 +123,14 @@ const ROLE_OUTCOMES = [
 ]
 
 export default function EvidenceRoomPage() {
+  const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
+
   return (
-    <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+      {premiumEnabled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+      )}
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -137,39 +143,39 @@ export default function EvidenceRoomPage() {
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-18">
+      <main className={`max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-18 ${premiumEnabled ? 'text-slate-100' : ''}`}>
 <header className="mb-12 max-w-3xl">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">Evidence room</p>
-          <h1 className="text-[34px] sm:text-[44px] font-bold text-slate-900 leading-tight mb-4">All the evidence assets in one place.</h1>
-          <p className="text-[15px] text-slate-600 leading-relaxed">
+          <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-3 ${premiumEnabled ? 'text-orange-300' : 'text-orange-500'}`}>Evidence room</p>
+          <h1 className={`text-[34px] sm:text-[44px] font-bold leading-tight mb-4 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>All the evidence assets in one place.</h1>
+          <p className={`text-[15px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             This page is the public hub for claims, methods, pilot metrics, update history, and the supporting research brief.
           </p>
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
           {CARDS.map((card) => (
-            <Link key={card.title} href={card.href} className="group border border-slate-200 rounded-lg p-5 hover:border-slate-400 transition-colors">
-              <p className="text-[13px] font-semibold text-slate-900 mb-2 group-hover:text-slate-600 transition-colors">{card.title}</p>
-              <p className="text-[13px] text-slate-600 leading-relaxed mb-4">{card.body}</p>
-              <span className="text-[13px] font-semibold text-slate-900 group-hover:text-orange-600 transition-colors">{card.label} →</span>
+            <Link key={card.title} href={card.href} className={`group rounded-2xl p-5 transition-colors ${premiumEnabled ? 'border border-white/10 bg-white/6 hover:border-orange-300/60' : 'border border-slate-200 hover:border-slate-400'}`}>
+              <p className={`text-[13px] font-semibold mb-2 transition-colors ${premiumEnabled ? 'text-white group-hover:text-orange-200' : 'text-slate-900 group-hover:text-slate-600'}`}>{card.title}</p>
+              <p className={`text-[13px] leading-relaxed mb-4 ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>{card.body}</p>
+              <span className={`text-[13px] font-semibold transition-colors ${premiumEnabled ? 'text-orange-200 group-hover:text-orange-100' : 'text-slate-900 group-hover:text-orange-600'}`}>{card.label} →</span>
             </Link>
           ))}
         </section>
 
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Claims</p>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-4">The company makes a limited set of claims: better signal tracking, better preparation, better between-session execution, and better transition support.</p>
-            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open the claim map</Link>
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Claims</p>
+            <p className={`text-[13px] leading-relaxed mb-4 ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>The company makes a limited set of claims: better signal tracking, better preparation, better between-session execution, and better transition support.</p>
+            <Link href="/references" className={`text-[13px] font-semibold underline underline-offset-2 ${premiumEnabled ? 'text-slate-100 hover:text-orange-200' : 'text-slate-900 hover:text-orange-600'}`}>Open the claim map</Link>
           </div>
-          <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pilot metrics</p>
-            <p className="text-[13px] text-slate-600 leading-relaxed mb-4">The public pilot snapshot is intentionally modest and denominator-aware. We show what we can verify and label everything else as directional.</p>
-            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">See metric definitions</Link>
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Pilot metrics</p>
+            <p className={`text-[13px] leading-relaxed mb-4 ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>The public pilot snapshot is intentionally modest and denominator-aware. We show what we can verify and label everything else as directional.</p>
+            <Link href="/references" className={`text-[13px] font-semibold underline underline-offset-2 ${premiumEnabled ? 'text-slate-100 hover:text-orange-200' : 'text-slate-900 hover:text-orange-600'}`}>See metric definitions</Link>
           </div>
-          <div className="border border-slate-200 rounded-lg p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Update history</p>
-            <ul className="space-y-2 text-[13px] text-slate-600 leading-relaxed">
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
+            <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Update history</p>
+            <ul className={`space-y-2 text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>
               {HISTORY.map(item => <li key={item}>- {item}</li>)}
             </ul>
           </div>
@@ -179,36 +185,36 @@ export default function EvidenceRoomPage() {
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Core KPI trend cards</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {KPI_TRENDS.map((kpi) => (
-              <article key={kpi.name} className="border border-slate-200 rounded-lg p-5">
-                <p className="text-[12px] font-semibold text-slate-900 mb-1">{kpi.name}</p>
-                <p className="text-[22px] font-bold text-slate-900 mb-2">{kpi.value}</p>
+              <article key={kpi.name} className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
+                <p className={`text-[12px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{kpi.name}</p>
+                <p className={`text-[22px] font-bold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{kpi.value}</p>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">{kpi.trend}</span>
                   <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">{kpi.confidence}</span>
                 </div>
-                <p className="text-[12px] text-slate-500 mb-2">{kpi.cadence}</p>
-                <p className="text-[12px] text-slate-600 leading-relaxed mb-1"><span className="font-semibold text-slate-700">Definition:</span> {kpi.definition}</p>
-                <p className="text-[12px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Source:</span> {kpi.source}</p>
+                <p className={`text-[12px] mb-2 ${premiumEnabled ? 'text-slate-300' : 'text-slate-500'}`}>{kpi.cadence}</p>
+                <p className={`text-[12px] leading-relaxed mb-1 ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}><span className={premiumEnabled ? 'font-semibold text-slate-100' : 'font-semibold text-slate-700'}>Definition:</span> {kpi.definition}</p>
+                <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}><span className={premiumEnabled ? 'font-semibold text-slate-100' : 'font-semibold text-slate-700'}>Source:</span> {kpi.source}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mb-12 border border-slate-200 rounded-lg p-5 sm:p-6 bg-white">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Role-specific outcomes</p>
+        <section className={`mb-12 rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200 bg-white'}`}>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Role-specific outcomes</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {ROLE_OUTCOMES.map((item) => (
-              <article key={item.role} className="rounded border border-slate-200 bg-slate-50 p-4">
-                <p className="text-[12px] font-semibold text-slate-900 mb-2">{item.role}</p>
-                <p className="text-[12px] text-slate-600 leading-relaxed">{item.outcome}</p>
+              <article key={item.role} className={`rounded-2xl p-4 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+                <p className={`text-[12px] font-semibold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{item.role}</p>
+                <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>{item.outcome}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mb-12 border border-slate-200 rounded-lg p-5 sm:p-6 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Source notes and methodology</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[13px] text-slate-600 leading-relaxed">
+        <section className={`mb-12 rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Source notes and methodology</p>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             <p>
               KPI cards are directional unless explicitly marked audited. Weekly updates use the latest event windows, while monthly updates use cohort-stable windows.
             </p>
@@ -217,14 +223,14 @@ export default function EvidenceRoomPage() {
             </p>
           </div>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link href="/method-and-evidence" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Review methodology</Link>
-            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Review source notes</Link>
+            <Link href="/method-and-evidence" className={`text-[13px] font-semibold underline underline-offset-2 ${premiumEnabled ? 'text-slate-100 hover:text-orange-200' : 'text-slate-900 hover:text-orange-600'}`}>Review methodology</Link>
+            <Link href="/references" className={`text-[13px] font-semibold underline underline-offset-2 ${premiumEnabled ? 'text-slate-100 hover:text-orange-200' : 'text-slate-900 hover:text-orange-600'}`}>Review source notes</Link>
           </div>
         </section>
 
-        <section className="border border-slate-200 rounded-lg bg-slate-50 p-5 sm:p-6">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">How to use this room</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[13px] text-slate-600 leading-relaxed">
+        <section className={`rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200 bg-slate-50'}`}>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>How to use this room</p>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-5 text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             <p>Use the evidence room when you want the whole system at once: claims, methods, pilot findings, and the source stack behind them.</p>
             <p>Use the references page when you need citations. Use the research brief when you want the argument in advisory-firm memo form.</p>
           </div>

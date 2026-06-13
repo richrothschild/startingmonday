@@ -1,7 +1,7 @@
 # Performance Release Scorecard
 
-Generated: 2026-06-08T13:56:35.324Z
-Base URL: http://127.0.0.1:3000
+Generated: 2026-06-13T23:07:39.155Z
+Base URL: https://startingmonday.app
 Verdict: PASS
 
 ## Blocking Policy (Regression-Only)
@@ -15,7 +15,7 @@ Verdict: PASS
 
 | Metric | Baseline | Current |
 | --- | ---: | ---: |
-| Mobile p95 (ms) | 286 | 55 |
+| Mobile p95 (ms) | 286 | 209 |
 | Mobile pass rate | 100.0% | 100.0% |
 | Smoke critical failed | 0 | 0 |
 
@@ -23,11 +23,11 @@ Verdict: PASS
 
 | Route | Baseline ms | Current ms | Regression limit ms | Status |
 | --- | ---: | ---: | ---: | --- |
-| / | 286 | 55 | 507.5 | OK |
-| /login | 137 | 10 | 321.3 | OK |
-| /pricing | 66 | 11 | 232.5 | OK |
-| /annual-report-2026 | 64 | 14 | 230 | OK |
-| /for-coaches | 66 | 25 | 232.5 | OK |
+| / | 286 | 209 | 507.5 | OK |
+| /login | 137 | 80 | 321.3 | OK |
+| /pricing | 66 | 82 | 232.5 | OK |
+| /annual-report-2026 | 64 | 73 | 230 | OK |
+| /for-coaches | 66 | 80 | 232.5 | OK |
 
 ## Blocking Findings
 

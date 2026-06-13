@@ -1,6 +1,6 @@
 {
-  "ts": "2026-06-08T13:56:34.792Z",
-  "baseUrl": "http://127.0.0.1:3000",
+  "ts": "2026-06-13T23:07:38.572Z",
+  "baseUrl": "https://startingmonday.app",
   "thresholds": {
     "version": 1,
     "generatedAt": "2026-05-28",
@@ -51,7 +51,7 @@
   "failed": 0,
   "passed": 5,
   "passRate": 1,
-  "p95ResponseMs": 55,
+  "p95ResponseMs": 209,
   "ok": true,
   "results": [
     {
@@ -59,7 +59,7 @@
       "path": "/",
       "status": 200,
       "expectedStatus": 200,
-      "durationMs": 55,
+      "durationMs": 209,
       "maxResponseMs": 1800,
       "ok": true,
       "reason": ""
@@ -69,7 +69,7 @@
       "path": "/login",
       "status": 200,
       "expectedStatus": 200,
-      "durationMs": 10,
+      "durationMs": 80,
       "maxResponseMs": 1400,
       "ok": true,
       "reason": ""
@@ -79,7 +79,7 @@
       "path": "/pricing",
       "status": 200,
       "expectedStatus": 200,
-      "durationMs": 11,
+      "durationMs": 82,
       "maxResponseMs": 1500,
       "ok": true,
       "reason": ""
@@ -89,7 +89,7 @@
       "path": "/annual-report-2026",
       "status": 200,
       "expectedStatus": 200,
-      "durationMs": 14,
+      "durationMs": 73,
       "maxResponseMs": 1800,
       "ok": true,
       "reason": ""
@@ -99,7 +99,7 @@
       "path": "/for-coaches",
       "status": 200,
       "expectedStatus": 200,
-      "durationMs": 25,
+      "durationMs": 80,
       "maxResponseMs": 1800,
       "ok": true,
       "reason": ""
