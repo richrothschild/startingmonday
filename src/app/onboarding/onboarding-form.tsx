@@ -707,6 +707,12 @@ function StepCompanies({
     }
   }
 
+  function removeName(name: string) {
+    const next = names.filter(n => n.trim().toLowerCase() !== name.toLowerCase())
+    if (!next.some(n => !n.trim())) next.push('')
+    onChange(next)
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -758,10 +764,10 @@ function StepCompanies({
                 <button
                   key={s}
                   type="button"
-                  onClick={() => !added && addName(s)}
+                  onClick={() => added ? removeName(s) : addName(s)}
                   className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
                     added
-                      ? 'border-slate-900 bg-slate-900 text-white cursor-default'
+                      ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-700 hover:border-slate-700'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
@@ -807,10 +813,10 @@ function StepCompanies({
                 <button
                   key={co.name}
                   type="button"
-                  onClick={() => !added && addName(co.name)}
+                  onClick={() => added ? removeName(co.name) : addName(co.name)}
                   className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
                     added
-                      ? 'border-slate-900 bg-slate-900 text-white cursor-default'
+                      ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-700 hover:border-slate-700'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
