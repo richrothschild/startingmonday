@@ -92,6 +92,7 @@
         "test:e2e:mobile-ui": "playwright test tests/e2e/mobile-ui.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet",
         "test:e2e:mobile-public-routes": "playwright test tests/e2e/mobile-public-routes.spec.ts --project=mobile-iphone --project=mobile-android --project=mobile-tablet",
         "test:e2e:mobile-visual": "playwright test tests/e2e/mobile-visual.spec.ts --project=mobile-iphone --project=mobile-android",
+        "test:e2e:mobile-visual:smoke": "playwright test tests/e2e/mobile-visual-smoke.spec.ts --project=mobile-iphone --project=mobile-android",
         "test:e2e:mobile-elite-visual": "playwright test tests/e2e/mobile-elite-visual.spec.ts --project=mobile-iphone --project=mobile-android --workers=1",
         "mobile:elite:gate": "node scripts/check-mobile-elite-visual-gate.mjs",
         "test:e2e:auth-ux": "playwright test tests/e2e/auth-ux.spec.ts --project=auth-ux",

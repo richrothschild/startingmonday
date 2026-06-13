@@ -23,7 +23,7 @@ Updated: 2026-05-28
 1. Predeploy gates (lint, typecheck, build, smoke)
 2. Playwright E2E
 3. Mobile UX contract and banned patterns
-4. Mobile visual regression
+4. Mobile visual smoke
 5. Lighthouse mobile budgets
 
 ## Top-route visual coverage

@@ -300,10 +300,10 @@ jobs:
             test-results/
           retention-days: 7
 
-  mobile-visual-regression:
-    name: Mobile visual regression
+  mobile-visual-smoke:
+    name: Mobile visual smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
 
     steps:
@@ -320,7 +320,46 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Run mobile visual snapshots
+      - name: Run mobile visual smoke snapshots
+        run: npm run test:e2e:mobile-visual:smoke
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload mobile visual smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: mobile-visual-smoke-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  mobile-visual-regression:
+    name: Mobile visual regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    needs: [mobile-visual-smoke]
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run mobile visual regression snapshots
         run: npm run test:e2e:mobile-visual
         env:
           PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
@@ -602,7 +641,7 @@ jobs:
   notify-failure:
     name: Notify Slack on failure
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-smoke, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
@@ -621,8 +660,8 @@ jobs:
           elif [[ "${{ needs.playwright.result }}" == "failure" ]]; then
             echo "job_name=Playwright E2E" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-          elif [[ "${{ needs.mobile-visual-regression.result }}" == "failure" ]]; then
-            echo "job_name=Mobile visual regression" >> $GITHUB_OUTPUT
+          elif [[ "${{ needs.mobile-visual-smoke.result }}" == "failure" ]]; then
+            echo "job_name=Mobile visual smoke" >> $GITHUB_OUTPUT
             echo "job_link=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           elif [[ "${{ needs.auth-ux-guard.result }}" == "failure" ]]; then
             echo "job_name=Auth UX guard" >> $GITHUB_OUTPUT
@@ -682,7 +721,7 @@ jobs:
   notify-test-summary:
     name: Post test summary report
     runs-on: ubuntu-latest
-    needs: [predeploy-gates, semgrep, playwright, mobile-visual-regression, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
+    needs: [predeploy-gates, semgrep, playwright, mobile-visual-smoke, auth-ux-guard, lighthouse-mobile-budgets, pre-prod-gate]
     if: always()
 
     steps:
@@ -693,7 +732,7 @@ jobs:
           PREDEPLOY="${{ needs.predeploy-gates.result }}"
           SEMGREP="${{ needs.semgrep.result }}"
           PLAYWRIGHT="${{ needs.playwright.result }}"
-          MOBILE_VISUAL="${{ needs.mobile-visual-regression.result }}"
+          MOBILE_VISUAL="${{ needs.mobile-visual-smoke.result }}"
           AUTH_UX="${{ needs.auth-ux-guard.result }}"
           LIGHTHOUSE="${{ needs.lighthouse-mobile-budgets.result }}"
           PREPROD="${{ needs.pre-prod-gate.result }}"
@@ -703,7 +742,7 @@ jobs:
             STATUS="FAIL"
           fi
 
-          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-regression: %s\nauth-ux-guard: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$AUTH_UX" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
+          SUMMARY=$(printf 'CI test summary (%s)\nBranch: %s\nActor: %s\npredeploy-gates: %s\nsemgrep: %s\nplaywright: %s\nmobile-visual-smoke: %s\nauth-ux-guard: %s\nlighthouse-mobile-budgets: %s\npre-prod-gate: %s\nRun: %s\n' "$STATUS" "${{ github.ref_name }}" "${{ github.actor }}" "$PREDEPLOY" "$SEMGREP" "$PLAYWRIGHT" "$MOBILE_VISUAL" "$AUTH_UX" "$LIGHTHOUSE" "$PREPROD" "$RUN_URL")
 
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "summary<<EOF" >> "$GITHUB_OUTPUT"

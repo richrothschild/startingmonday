@@ -25,6 +25,11 @@ async function skipIfAuthUnavailable(page: Page) {
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Skipping auth-required mobile visual test: login session unavailable in CI')
 }
 
+async function waitForPricingPageReady(page: Page) {
+  await expect(page.getByText('Loading pricing plans...')).toBeHidden({ timeout: 10_000 })
+  await expect(page.getByRole('button', { name: 'Monthly' })).toBeVisible({ timeout: 10_000 })
+}
+
 test.describe('Mobile elite visual gate @mobile @visual @elite', () => {
   test.beforeEach(async ({ page }, testInfo) => {
     test.skip(!testInfo.project.name.startsWith('mobile-'), 'Mobile elite visual suite only runs on mobile projects')
@@ -48,6 +53,9 @@ test.describe('Mobile elite visual gate @mobile @visual @elite', () => {
       if (route.authRequired) await skipIfAuthUnavailable(page)
 
       await page.goto(route.path, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+      if (route.slug === 'pricing') {
+        await waitForPricingPageReady(page)
+      }
       await page.waitForTimeout(300)
 
       const screenshotName = `elite-${route.slug}-${testInfo.project.name}.png`
