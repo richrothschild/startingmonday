@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T16:04:35.548Z",
+  "generatedAt": "2026-06-13T18:14:46.111Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-13T16:04:17.046Z"
+      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
     },
     {
       "id": "feature:/login",
@@ -4323,7 +4323,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:13:05.013Z"
+      "lastModifiedAt": "2026-06-13T16:24:40.389Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/actions",
@@ -5064,7 +5064,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:13:05.016Z"
+      "lastModifiedAt": "2026-06-13T16:24:40.388Z"
     },
     {
       "id": "api:/api/executive-brief/transcription",
@@ -5246,7 +5246,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:45:50.610Z"
+      "lastModifiedAt": "2026-06-13T16:24:40.390Z"
     },
     {
       "id": "api:/api/intelligence/companies",
@@ -9029,7 +9029,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-13T15:43:09.903Z"
+      "lastModifiedAt": "2026-06-13T16:24:40.389Z"
     },
     {
       "id": "script:scripts/check-mobile-production-thresholds.mjs",
@@ -9549,7 +9549,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-13T16:03:50.445Z"
+      "lastModifiedAt": "2026-06-13T16:24:40.390Z"
     },
     {
       "id": "script:scripts/generate-monitoring-matrix.mjs",
@@ -9939,7 +9939,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-09T03:22:05.415Z"
+      "lastModifiedAt": "2026-06-13T17:58:35.313Z"
     },
     {
       "id": "script:scripts/refine-outreach-templates-by-council.mjs",
@@ -16370,7 +16370,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T16:04:17.046Z"
+      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16409,7 +16409,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T16:04:17.046Z"
+      "lastModifiedAt": "2026-06-13T16:04:35.563Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
