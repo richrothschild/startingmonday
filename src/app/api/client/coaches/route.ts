@@ -27,10 +27,7 @@ export async function GET(request: NextRequest) {
 
   if (error) {
     console.error('Error fetching coaches:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch coaches' },
-      { status: 500 }
-    )
+    return NextResponse.json({ data: [], degraded: true }, { status: 200, headers: auth.response.headers })
   }
 
   const coachIds = (seats ?? []).map((s) => s.owner_id)

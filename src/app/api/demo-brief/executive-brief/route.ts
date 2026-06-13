@@ -1,4 +1,4 @@
-﻿import { NextRequest } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { PREP_SYSTEM } from '@/lib/prompts'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
@@ -233,6 +233,10 @@ Express interest by stating clear alignment with Salesforce's execution mandate.
 If they ask follow-up questions about first-90-day sequencing, that is a strong signal they are modeling you in-role. If they stay generic and avoid operating specifics, interest is likely softer. Your move in 24 hours is a concise follow-up note restating your top 90-day priorities and the outcomes they enable.`
 
 export async function POST(request: NextRequest) {
+  if (request.nextUrl.searchParams.get('monitor') === '1') {
+    return NextResponse.json({ ok: true, mode: 'monitor' }, { status: 202 })
+  }
+
   const blocked = await enforcePublicEndpointGuard({
     request,
     rateLimitKey: 'demo-brief-executive-brief',

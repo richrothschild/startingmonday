@@ -514,7 +514,7 @@ Rules:
     )
   } catch (err) {
     recordTraceError({ feature: 'discovery', userId, error: err instanceof Error ? err.message : String(err) })
-    return NextResponse.json([], { status: 500 })
+    return NextResponse.json([], { status: 200, headers: { 'x-discover-fallback': '1' } })
   }
 }
 

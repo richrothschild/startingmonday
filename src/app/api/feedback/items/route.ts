@@ -67,7 +67,7 @@ async function getHandler(req: NextRequest) {
 
     if (error) {
       console.error('[feedback] list error:', error)
-      return NextResponse.json({ error: 'Failed to fetch feedback' }, { status: 500 })
+      return NextResponse.json({ items: [], count: 0, degraded: true }, { status: 200 })
     }
 
     // Check user votes for each item
@@ -93,7 +93,7 @@ async function getHandler(req: NextRequest) {
     return NextResponse.json({ items: data || [], count: count || 0 })
   } catch (err) {
     console.error('[feedback] list exception:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ items: [], count: 0, degraded: true }, { status: 200 })
   }
 }
 

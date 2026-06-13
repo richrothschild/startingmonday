@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
+import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +13,14 @@ function resolveDeploySha(): string {
     ?? 'unknown'
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const guard = await enforcePublicEndpointGuard({
+    request,
+    rateLimitKey: 'api:deploy-marker',
+    maxPerMinute: 60,
+  })
+  if (guard) return guard
+
   return NextResponse.json(
     {
       kind: 'deploy-marker',
