@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T04:34:37.230Z",
+  "generatedAt": "2026-06-14T13:59:21.511Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
+      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
     },
     {
       "id": "feature:/login",
@@ -13176,6 +13176,19 @@
       "lastModifiedAt": "2026-06-14T03:41:30.258Z"
     },
     {
+      "id": "doc:docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md",
+      "title": "Doc docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md",
+      "body": "Coach Journey Visuals And Competitive Comparison",
+      "type": "doc",
+      "ref": "docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T13:55:39.429Z"
+    },
+    {
       "id": "doc:docs/coach-outreach-messages.md",
       "title": "Doc docs/coach-outreach-messages.md",
       "body": "Coach Outreach Messages — Sales Navigator Campaign",
@@ -15152,6 +15165,19 @@
       "lastModifiedAt": "2026-06-06T16:52:14.993Z"
     },
     {
+      "id": "doc:docs/daily-change-summary-2026-06-13.md",
+      "title": "Doc docs/daily-change-summary-2026-06-13.md",
+      "body": "Daily Change Summary - 2026-06-13",
+      "type": "doc",
+      "ref": "docs/daily-change-summary-2026-06-13.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T13:55:39.430Z"
+    },
+    {
       "id": "doc:docs/decision-log.md",
       "title": "Doc docs/decision-log.md",
       "body": "Starting Monday — Decision Log",
@@ -16553,7 +16579,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
+      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16592,7 +16618,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
+      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
