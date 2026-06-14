@@ -7,6 +7,7 @@ import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import {
   COACH_BUYER_PLANS,
   COACH_PROOF_STRIPS,
+  PILOT_SCORECARD,
   ROLE_BOUNDARY,
 } from './page-content'
 
@@ -47,13 +48,15 @@ export default function ForCoachesPage() {
         <div className="mx-auto max-w-5xl">
           <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Coach Partner Preview</p>
           <h1 className="mb-5 max-w-3xl text-[30px] font-bold leading-[1.08] tracking-tight text-white sm:text-[42px]">
-            Keep coaching sessions strategic.
+            Clients arrive prepared.
+            <br className="hidden sm:block" />
+            Coaching stays strategic.
           </h1>
           <p className="mb-2 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-            Starting Monday gives executive coaches and coaching firms one private operating layer for signals, prep briefs, and weekly follow-through so clients arrive prepared and you stay in strategy.
+            Starting Monday gives executive coaches and coaching firms one private operating layer for signals, prep briefs, and weekly follow-through so sessions start at decision level instead of context rebuild.
           </p>
           <p className="mb-6 max-w-2xl text-[13px] leading-relaxed text-slate-200">
-            Coach-first by design. Clients control access, the platform keeps the rhythm visible, and your judgment stays in charge.
+            Coach-first by design. Clients control access, there is no recruiter-side data sharing, the platform keeps the rhythm visible, and your judgment stays in charge.
           </p>
 
           <div className="mb-7 space-y-3">
@@ -97,8 +100,30 @@ export default function ForCoachesPage() {
         </div>
       </header>
 
+      <section className="px-4 py-8 sm:px-6 sm:py-10">
+        <div className="mx-auto max-w-5xl rounded-[2rem] border border-orange-300/20 bg-orange-400/5 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.18)] backdrop-blur-sm sm:p-7">
+          <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">30-day pilot scorecard</p>
+              <h2 className="text-[24px] font-bold leading-snug text-white">Run the preview with live clients, then decide from evidence.</h2>
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-200">
+                The buying motion is simple: test with two to three live clients, measure readiness and follow-through, and make a pass/fail decision at day 30.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {PILOT_SCORECARD.map((item) => (
+                <article key={item.metric} className="rounded-2xl border border-white/10 bg-white/[0.05] p-4">
+                  <p className="mb-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-orange-200">{item.metric}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-200">{item.success}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <main className="bg-transparent text-slate-100">
-        <section className="px-4 py-14 sm:px-6 sm:py-16">
+        <section className="px-4 py-10 sm:px-6 sm:py-12">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">How this helps</p>
             <h2 className="mb-6 text-[24px] font-bold leading-snug text-white">One workflow for sessions, prep, and between-session follow-through.</h2>
@@ -133,7 +158,7 @@ export default function ForCoachesPage() {
             </div>
             <p className="mt-4 text-[12px] text-slate-200">
               <span className="font-semibold text-white">Which plan fits me?</span>{' '}
-              <span>1-3 active clients: Starter. 4-8 active clients: Studio. Multi-coach or 9+ active clients: Team.</span>
+              <span>1-4 active clients: Starter. Small active roster: Studio. Multi-coach or up to 10 client seats: Team.</span>
             </p>
             <p className="mt-2 text-[12px] text-slate-200">
               Start with a 30-day pass/fail pilot, then choose the plan that matches your active client load. Volume and partner terms are available for larger coaching teams.{' '}
@@ -172,7 +197,7 @@ export default function ForCoachesPage() {
                 </ul>
               </div>
             </div>
-            <p className="mb-4 text-[13px] leading-relaxed text-slate-200">Clients control access, can revoke it anytime, and the trust pack explains the permission model in one minute.</p>
+            <p className="mb-4 text-[13px] leading-relaxed text-slate-200">Clients control access, can revoke it anytime, there is no recruiter-side data sharing, and the trust pack explains the permission model in one minute.</p>
             <div className="flex flex-wrap gap-3">
               <TrackLink
                 href="/for-coaches/trust-pack"

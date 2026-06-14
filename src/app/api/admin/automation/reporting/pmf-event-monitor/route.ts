@@ -12,6 +12,7 @@ const CRITICAL_EVENTS = [
   'onboarding_first_value_ready',
   PMF_EVENTS.prep.prep_brief_generated,
   PMF_EVENTS.prep.prep_brief_refined,
+  PMF_EVENTS.prep.prep_brief_reviewed,
   PMF_EVENTS.prep.prep_low_confidence_seen,
   PMF_EVENTS.prep.prep_export_word,
   PMF_EVENTS.prep.prep_export_pdf,

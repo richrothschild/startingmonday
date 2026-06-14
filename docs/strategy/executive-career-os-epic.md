@@ -97,7 +97,7 @@ Do not rewrite the homepage until there are 25+ paying users. The repositioning 
 - Opportunity radar: flags companies showing hiring indicators for senior roles even when user isn't actively pursuing them
 - Competitor intelligence: tracks companies' technology investments and organizational changes relevant to the executive's expertise
 
-**Why this matters:** This is the Bloomberg Terminal thesis. An executive who stays subscribed between searches because the intelligence is genuinely valuable is the most defensible user. This sprint makes the product worth $129/mo even when not searching.
+**Why this matters:** This is the Bloomberg Terminal thesis. An executive who stays subscribed between searches because the intelligence is genuinely valuable is the most defensible user. This sprint makes the product worth $199/mo in Search or $49/mo in Intelligence even when the user is not running the loudest part of a search.
 
 ---
 
@@ -109,7 +109,7 @@ Do not rewrite the homepage until there are 25+ paying users. The repositioning 
 - Remove feature bullets from above the fold
 - Add before/after contrast: reactive vs. strategic executive
 - Testimonials framed around transformation outcomes, not features used
-- Pricing framed as infrastructure ("$129/mo for the career intelligence layer most executives don't have")
+- Pricing framed as infrastructure ("$199/mo for the search operating layer most executives don't have")
 - Add annual subscription option with "2 months free" to all plans
 
 **Why this last in the sequence:** The homepage should not be rewritten until the product actually delivers on the OS promise. Ship the features first. Then the homepage reflects reality.

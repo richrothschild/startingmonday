@@ -106,7 +106,7 @@ Council members:
 - Patrick Campbell: value reinforcement, tier alignment, retention and expansion
 - Seth Godin: permission marketing, smallest viable audience, category resonance
 
-Starting Monday context: AI-powered job search platform for senior executives. Hero message: "The role was never posted. You found it anyway." Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
+Starting Monday context: AI-powered job search platform for senior executives. Hero message: "The role was never posted. You found it anyway." Three tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo). The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
 
 Content to review:
 

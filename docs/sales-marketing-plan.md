@@ -33,7 +33,7 @@ This document covers acquisition strategy, channel prioritization, messaging arc
 - **Geography:** US, major metro (Bay Area, NYC, Chicago, Austin, Boston, Seattle, Atlanta)
 - **Urgency:** High. Active search. Severance runway is finite.
 - **Pain:** Missing follow-ups. Inconsistent outreach quality. Can't monitor 20 career pages manually. Has paid $5K–$25K for a human coach with inconsistent ROI.
-- **WTP:** $129–$249/month. Easy yes if it saves 5 hours/week.
+- **WTP:** $199–$499/month. Easy yes if it saves 5 hours/week.
 - **Average duration:** 4–6 months
 
 ### Secondary ICP: The VP-Level Candidate
@@ -42,14 +42,14 @@ This document covers acquisition strategy, channel prioritization, messaging arc
 - **Experience:** 12–18 years
 - **Situation:** Employed, wants to make the jump, never run a VP-level search
 - **Pain:** Doesn't know how to work the hidden job market. Has never negotiated at this level. Imposter syndrome about the title jump.
-- **WTP:** $99–$129/month
+- **WTP:** $99–$199/month
 - **Average duration:** 6–12 months
 
 ### Tertiary ICP: The Passive Monitor
 
 - **Situation:** Employed, not actively looking, watching for the right opportunity
 - **WTP:** $49/month ("alert me if anything changes at my target companies")
-- **Value:** Structural MRR stabilizer — low churn, long duration, converts to Active when search begins
+- **Value:** Structural MRR stabilizer — low churn, long duration, converts to Search when search begins
 
 ### Not the ICP (for launch)
 
@@ -72,7 +72,7 @@ The outcome, not the features. The promise is the job — the specific Monday wh
 
 **For active executives:**
 - "The only tool that watches your target companies and tells you when to move — before the search goes public."
-- "Everything a $10,000 career coach gives you, plus the monitoring and intelligence they can't. $129/month."
+- "Everything a $10,000 career coach gives you, plus the monitoring and intelligence they can't. $199/month."
 - "Your search stays yours. No employer network. No matching marketplace. No one sees your profile until you want them to."
 
 **For VP candidates making the level jump:**
@@ -242,7 +242,7 @@ Ranked by priority. Priority = (strategic leverage × timing) / cost and effort.
 
 **What it is:** Targeted LinkedIn ads to "open to work" technology executives in major US metros.
 
-**Why LinkedIn ads are not first:** CAC through LinkedIn ads is $50–$200 per paid trial. At $129/month and 5-month average duration ($645 LTV), the math works — but only if trial-to-paid conversion is above 30%. Running ads before conversion rate is proven is burning money.
+**Why LinkedIn ads are not first:** CAC through LinkedIn ads is $50–$200 per paid trial. At $199/month and 5-month average duration ($995 LTV), the math works — but only if trial-to-paid conversion is above 30%. Running ads before conversion rate is proven is burning money.
 
 **When to activate:** After trial-to-paid conversion is measured at 30%+. Budget: $500–$2,000/month.
 
@@ -440,7 +440,7 @@ Monthly: review which channels are producing trial signups, which are producing 
 
 ### Alpha (current — 5–15 users)
 - Every user has at least one "wow" moment documented
-- At least 3 users would pay $129/month right now if trial ended
+- At least 3 users would pay $199/month right now if trial ended
 - At least 1 user lands an interview from a SM-surfaced opportunity
 
 ### Early traction (10–30 users, Month 2–6)

@@ -35,8 +35,8 @@ Senior professionals running a targeted search: VP, SVP, CIO, CTO, COO, CFO. Exe
 
 | Plan | Price | What it includes |
 | --- | --- | --- |
-| Passive | $49/month | Career page scanning 3x/week, company signals, weekly digest, pipeline, contacts |
-| Active | $199/month | Everything in Passive plus AI prep briefs, strategy brief, AI chat, outreach drafting, resume tailoring, daily briefing |
+| Intelligence | $49/month | Career page scanning 3x/week, company signals, weekly digest, pipeline, contacts |
+| Search | $199/month | Everything in Intelligence plus AI prep briefs, strategy brief, AI chat, outreach drafting, resume tailoring, daily briefing |
 | Executive | $499/month | Waitlist. Adds board and PE intelligence, unlimited pipeline |
 | Campaign | $999/month | Waitlist, limited. 90-day managed campaign with human delivery |
 

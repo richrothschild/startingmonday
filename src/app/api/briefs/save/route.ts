@@ -63,6 +63,8 @@ export async function POST(request: NextRequest) {
       section_name: section_name ?? null,
       provenance_version: isPrepType ? (provenance_version ?? PREP_PROVENANCE_VERSION) : null,
       claim_provenance: isPrepType ? validatedClaimProvenance : null,
+      lifecycle_state: 'generated',
+      lifecycle_updated_at: new Date().toISOString(),
     })
     .select('id')
     .single()

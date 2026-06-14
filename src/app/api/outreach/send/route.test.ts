@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const state = vi.hoisted(() => ({
   requireAuth: vi.fn(),
+  logEvent: vi.fn(async () => undefined),
   getStaffMember: vi.fn(),
   reviewEmail: vi.fn(() => []),
   autoRefineEmailDraft: vi.fn(),
@@ -17,6 +18,7 @@ const state = vi.hoisted(() => ({
 }))
 
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
+vi.mock('@/lib/events', () => ({ logEvent: state.logEvent }))
 vi.mock('@/lib/staff', () => ({ getStaffMember: state.getStaffMember }))
 vi.mock('@/lib/email-quality', () => ({ reviewEmail: state.reviewEmail }))
 vi.mock('@/lib/email-council', () => ({ autoRefineEmailDraft: state.autoRefineEmailDraft }))
@@ -141,6 +143,9 @@ describe('outreach send route (queue mode)', () => {
         subject: 'Quick intro for Acme role context',
         messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
+        reviewedForSend: true,
+        reviewedAt: '2026-06-13T10:00:00.000Z',
+        reviewedBy: 'reviewer@startingmonday.app',
         outreachChannel: 'executives',
         templateStep: 'followup_1',
         campaignStep: 'followup_bulk_v1',
@@ -158,6 +163,40 @@ describe('outreach send route (queue mode)', () => {
     })
     expect(state.enqueueOutreachSendJob).toHaveBeenCalledTimes(1)
     expect(state.kickOutreachSendWorker).toHaveBeenCalledTimes(1)
+    expect(state.logEvent).toHaveBeenCalledWith('u_1', 'outreach_review_confirmed', expect.objectContaining({
+      company: 'Acme',
+      outreach_channel: 'executives',
+      reviewed_by: 'reviewer@startingmonday.app',
+    }))
+  })
+
+  it('blocks live send without explicit review confirmation', async () => {
+    const req = new NextRequest('https://startingmonday.app/api/outreach/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        fullName: 'Alex Morgan',
+        company: 'Acme',
+        emailTo: 'alex@example.com',
+        subject: 'Quick intro for Acme role context',
+        messageText: 'Hi Alex, I noticed recent leadership movement at Acme and wanted to share a concise perspective on likely search timing and what candidates are missing right now. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
+        mode: 'live',
+        outreachChannel: 'executives',
+        templateStep: 'followup_1',
+        campaignStep: 'followup_bulk_v1',
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(409)
+    await expect(res.json()).resolves.toMatchObject({
+      error: 'Live outreach requires explicit human review confirmation before queueing.',
+      checkpoint: 'review_required',
+    })
+    expect(state.enqueueOutreachSendJob).not.toHaveBeenCalled()
+    expect(state.logEvent).toHaveBeenCalledWith('u_1', 'outreach_review_required', expect.objectContaining({
+      company: 'Acme',
+      outreach_channel: 'executives',
+    }))
   })
 
   it('skips duplicate non-dry-run sends when idempotency key exists', async () => {
@@ -176,6 +215,7 @@ describe('outreach send route (queue mode)', () => {
         subject: 'A clearer CFO story for recruiter and board calls',
         messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
+        reviewedForSend: true,
         outreachChannel: 'executives',
         templateStep: 'followup_1',
         campaignStep: 'followup_bulk_v1',
@@ -206,6 +246,7 @@ describe('outreach send route (queue mode)', () => {
         subject: 'A clearer CFO story for recruiter and board calls',
         messageText: 'Hi Alex, Starting Monday helps transition programs keep prep, positioning, and next actions in one place so recruiter and board conversations stay consistent. Reply yes and I will send the one-page CFO call brief. Reply pass and I will close the loop.',
         mode: 'live',
+        reviewedForSend: true,
         outreachChannel: 'executives',
         templateStep: 'first_touch',
       }),

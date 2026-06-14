@@ -256,7 +256,7 @@ Council members and personas:
 - Claudio Fernández-Aráoz: VP-to-CXO Positioning Coach and Executive Search Firm Coach. Readiness, preparation depth, and intelligence advantage.
 - Cindy Solomon: Board Positioning & Governance Coach and VP-to-CXO Positioning Coach. Long-term engagement, sustained intelligence, proactive coaching.
 
-Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). 20% commission for coaches who refer active subscriptions. Core value to coaches: reduce manual research, maintain pipeline visibility, increase session effectiveness, keep clients accountable between sessions.
+Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo). 20% commission for coaches who refer paid Search or Executive subscriptions. Core value to coaches: reduce manual research, maintain pipeline visibility, increase session effectiveness, keep clients accountable between sessions.
 
 Positioning, messaging, or feature to review:
 

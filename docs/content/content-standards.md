@@ -138,8 +138,8 @@ The hero message is: **"The role was never posted. You found it anyway."**
 Everything we publish should connect to the information asymmetry thesis: senior executive roles are filled before they are posted. The executive who knows this and acts on it wins. The executive who waits for job boards is already behind. Starting Monday is the infrastructure that closes that gap.
 
 The three platform tiers:
-- **Monitor ($49/mo):** Company intelligence and pipeline tracking
-- **Active ($199/mo):** Full AI suite — prep briefs, strategy brief, daily briefing, advisor chat
-- **Executive ($499/mo):** All Active features plus concierge strategy session
+- **Intelligence ($49/mo):** Company intelligence and pipeline tracking
+- **Search ($199/mo):** Full AI suite — prep briefs, strategy brief, daily briefing, advisor chat
+- **Executive ($499/mo):** All Search features plus concierge strategy session
 
-Content should pull readers toward Active. Monitor is the entry point. Executive is the aspiration for the right candidates.
+Content should pull readers toward Search. Intelligence is the entry point. Executive is the aspiration for the right candidates.

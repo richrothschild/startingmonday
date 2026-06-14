@@ -100,7 +100,7 @@ Council members:
 - Jay McBain: ecosystem infrastructure, buyer journey influence, partner categories, strategic GTM design
 - Naval Ravikant: leverage, compounding assets, founder focus, high-agency BD choices
 
-Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). The key BD insight: we need partners who know when executives enter career transition BEFORE those executives search for us. The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
+Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo). The key BD insight: we need partners who know when executives enter career transition BEFORE those executives search for us. The platform handles research, tracking, and daily intelligence so the executive can focus on relationships and positioning.
 
 BD opportunity or strategy to review:
 

@@ -113,7 +113,7 @@ Council members:
 - Chris Voss: tactical empathy, objection discovery, calibrated questions, negotiation quality
 - Robert Cialdini: ethical persuasion, authority, social proof, pre-suasion
 
-Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). B2B targets are intermediaries who work with executives in transition: executive coaches, retained search firms, PE talent teams, CIO communities, outplacement firms.
+Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo). B2B targets are intermediaries who work with executives in transition: executive coaches, retained search firms, PE talent teams, CIO communities, outplacement firms.
 
 Outreach to review:
 

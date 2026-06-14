@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { autoRefineEmailDraft } from '@/lib/email-council'
 import { reviewEmail } from '@/lib/email-quality'
+import { logEvent } from '@/lib/events'
 import { getStaffMember } from '@/lib/staff'
 import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
 import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
@@ -214,6 +215,9 @@ export async function POST(request: NextRequest) {
     emailTo: emailToRaw,
     statusAfter,
     mode,
+    reviewedForSend,
+    reviewedAt,
+    reviewedBy,
   } = parsedBody.data
   const emailTo = normalizeEmail(emailToRaw)
   let { subject, messageText } = parsedBody.data
@@ -395,6 +399,21 @@ export async function POST(request: NextRequest) {
     })
   }
 
+  if (mode === 'live' && !reviewedForSend) {
+    await logEvent(userId, 'outreach_review_required', {
+      company: company || null,
+      outreach_channel: outreachChannel,
+      template_step: templateStep || null,
+      campaign_step: campaignStep || null,
+      recipient_email_domain: emailTo.includes('@') ? emailTo.split('@')[1] : null,
+    })
+
+    return NextResponse.json({
+      error: 'Live outreach requires explicit human review confirmation before queueing.',
+      checkpoint: 'review_required',
+    }, { status: 409 })
+  }
+
   if (idempotencyKey) {
     const duplicate = await findDuplicateOutreachSend(admin, {
       userId,
@@ -481,6 +500,17 @@ export async function POST(request: NextRequest) {
     idempotencyKey: idempotencyKey || null,
     payload: jobPayload,
   })
+
+  if (mode === 'live') {
+    await logEvent(userId, 'outreach_review_confirmed', {
+      company: company || null,
+      outreach_channel: outreachChannel,
+      template_step: templateStep || null,
+      campaign_step: campaignStep || null,
+      reviewed_by: reviewedBy || authData.user?.email || null,
+      reviewed_at: reviewedAt || new Date().toISOString(),
+    })
+  }
 
   if (!skipWorkerKickoff) {
     await kickOutreachSendWorker()

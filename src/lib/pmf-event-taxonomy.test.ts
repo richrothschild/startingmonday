@@ -14,6 +14,7 @@ describe('pmf event taxonomy', () => {
 
   it('validates known event names', () => {
     expect(isPMFEventName(PMF_EVENTS.prep.prep_brief_generated)).toBe(true)
+    expect(isPMFEventName(PMF_EVENTS.prep.prep_brief_reviewed)).toBe(true)
     expect(isPMFEventName(PMF_EVENTS.activation.first_prep_generated)).toBe(true)
     expect(isPMFEventName('prep_brief_generated')).toBe(false)
   })

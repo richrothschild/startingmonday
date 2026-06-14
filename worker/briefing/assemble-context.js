@@ -1,5 +1,35 @@
 import { logger } from '../lib/logger.js'
 
+function classifyBriefingStalls(input) {
+  const stalls = []
+
+  if (input.signalsSinceBaseline === 0) {
+    if (input.lastSignalDays >= 14) {
+      stalls.push({ lane: 'signals', state: 'stalled', reason: `No fresh signals for ${input.lastSignalDays} days.` })
+    } else if (input.lastSignalDays >= 7) {
+      stalls.push({ lane: 'signals', state: 'watch', reason: `Signal intake is aging at ${input.lastSignalDays} days.` })
+    }
+  }
+
+  if (input.briefReviewsSinceBaseline === 0) {
+    if (input.lastBriefDays >= 14) {
+      stalls.push({ lane: 'preparation', state: 'stalled', reason: `No brief review progress for ${input.lastBriefDays} days.` })
+    } else if (input.lastBriefDays >= 7) {
+      stalls.push({ lane: 'preparation', state: 'watch', reason: `Prep activity is aging at ${input.lastBriefDays} days.` })
+    }
+  }
+
+  if (input.activePipelineCount > 0 && input.pipelineChangesSinceBaseline === 0) {
+    if (input.overdueActions >= 3) {
+      stalls.push({ lane: 'pipeline', state: 'stalled', reason: `${input.overdueActions} overdue actions with no pipeline movement in the last 7 days.` })
+    } else if (input.overdueActions >= 1) {
+      stalls.push({ lane: 'pipeline', state: 'watch', reason: `Pipeline has ${input.overdueActions} overdue action${input.overdueActions === 1 ? '' : 's'} and no recent movement.` })
+    }
+  }
+
+  return stalls
+}
+
 // Gathers all data needed for one user's daily briefing.
 // Returns null if there is nothing actionable to send.
 export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', searchStatus = 'active') {
@@ -12,7 +42,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   const since7dISO = since7d.toISOString()
   const isPlaced = searchStatus === 'complete'
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult, signalHealthResult, briefsResult, pipelineEventsResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles, role_type, search_persona')
@@ -20,7 +50,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
       .single(),
     supabase
       .from('companies')
-      .select('id, name, last_checked_at')
+      .select('id, name, last_checked_at, stage')
       .eq('user_id', userId)
       .is('archived_at', null),
     supabase
@@ -59,6 +89,27 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
       .gte('sent_at', since7dISO),
+    supabase
+      .from('company_signals')
+      .select('signal_date')
+      .eq('user_id', userId)
+      .gte('signal_date', since14d.toISOString().split('T')[0])
+      .order('signal_date', { ascending: false })
+      .limit(20),
+    supabase
+      .from('briefs')
+      .select('created_at, reviewed_at, used_at, lifecycle_state')
+      .eq('user_id', userId)
+      .in('type', ['prep', 'prep_section'])
+      .gte('created_at', since14d.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(20),
+    supabase
+      .from('user_events')
+      .select('event_name, created_at')
+      .eq('user_id', userId)
+      .gte('created_at', since7d.toISOString())
+      .in('event_name', ['company_added', 'pipeline_stage_changed']),
   ])
 
   if (profileResult.error) {
@@ -72,6 +123,9 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   const rawSignals       = signalsResult.data ?? []
   const rawPatternAlerts = patternAlertsResult.data ?? []
   const outreachThisWeek = outreachResult.count ?? 0
+  const signalHealthRows = signalHealthResult.data ?? []
+  const briefs = briefsResult.data ?? []
+  const pipelineEvents = pipelineEventsResult.data ?? []
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -195,6 +249,29 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     ? pulseRow.bullets
     : null
 
+  const activePipelineCount = companies.filter(c => ['applied', 'interviewing', 'offer'].includes(c.stage)).length
+  const lastSignalDays = signalHealthRows.length > 0
+    ? Math.ceil((Date.now() - new Date(signalHealthRows[0].signal_date).getTime()) / (1000 * 60 * 60 * 24))
+    : 999
+  const latestBriefProgressAt = briefs.reduce((latest, brief) => {
+    const candidate = brief.used_at ?? brief.reviewed_at ?? brief.created_at
+    if (!latest) return candidate
+    return new Date(candidate).getTime() > new Date(latest).getTime() ? candidate : latest
+  }, null)
+  const lastBriefDays = latestBriefProgressAt
+    ? Math.ceil((Date.now() - new Date(latestBriefProgressAt).getTime()) / (1000 * 60 * 60 * 24))
+    : 999
+  const briefReviewsSinceBaseline = briefs.filter(brief => brief.reviewed_at && new Date(brief.reviewed_at).getTime() >= since7d.getTime()).length
+  const stalledLanes = classifyBriefingStalls({
+    activePipelineCount,
+    overdueActions: followUps.length,
+    lastSignalDays,
+    lastBriefDays,
+    signalsSinceBaseline: signalHealthRows.filter(signal => new Date(signal.signal_date).getTime() >= since7d.getTime()).length,
+    pipelineChangesSinceBaseline: pipelineEvents.length,
+    briefReviewsSinceBaseline,
+  })
+
   // Only skip if the user has no companies at all (nothing to brief on).
   // Always send on configured days so the user gets a pipeline-state email.
   if (!companies.length) return null
@@ -216,5 +293,6 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     networkHealth,
     isPlaced,
     industryPulse,
+    stalledLanes,
   }
 }

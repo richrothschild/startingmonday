@@ -41,7 +41,7 @@ It manages by tracking pipeline by stage, logging contacts and conversations, su
 
 ## Traction
 
-The product is in production at startingmonday.app. Two pricing tiers are live: Passive at $49 per month and Active at $199. The first alpha users are onboarded on a 30-day free trial with no credit card required. Executive at $499 and Campaign at $999 are in waitlist with self-identified paying interest. The infrastructure stack is Railway, Supabase, and Anthropic, with monitoring live via UptimeRobot and Sentry and a 44-test automated suite in place. Introductions to Wake Forest and Stanford alumni career offices are pending. A partnership conversation with Mark Horstman at Manager Tools, whose audience is the exact target user, is in development.
+The product is in production at startingmonday.app. Two pricing tiers are live: Intelligence at $49 per month and Search at $199. The first alpha users are onboarded on a 30-day free trial with no credit card required. Executive at $499 and Campaign at $999 are in waitlist with self-identified paying interest. The infrastructure stack is Railway, Supabase, and Anthropic, with monitoring live via UptimeRobot and Sentry and a 44-test automated suite in place. Introductions to Wake Forest and Stanford alumni career offices are pending. A partnership conversation with Mark Horstman at Manager Tools, whose audience is the exact target user, is in development.
 
 ---
 
@@ -60,13 +60,13 @@ Consumer subscriptions are the primary revenue stream, with an institutional cha
 | Plan | Monthly | Quarterly | Status |
 | --- | --- | --- | --- |
 | Passive | $49 | $132 | Live |
-| Active | $199 | $537 | Live |
+| Search | $199 | $537 | Live |
 | Executive | $499 | — | Waitlist |
 | Campaign | $999 | 3-month min. | Waitlist |
 
 The institutional channel adds outplacement firm integrations at $35 to $45 per seat per month at volume, company-funded transition benefits for executives being transitioned, and a recruiter-facing tier currently in design.
 
-Unit economics at scale: COGS per active user runs $8 to $12 per month, almost entirely Anthropic API usage. Gross margin is approximately 85 percent. Target lifetime value for an Active subscriber at eight months is $1,600. Target CAC through referral and institutional channels is $150 to $400, producing a 5:1 or better LTV-to-CAC ratio. The marginal cost of a 30-day trial, including the Anthropic usage for a user who generates two or three briefs, is $5 to $15.
+Unit economics at scale: COGS per active user runs $8 to $12 per month, almost entirely Anthropic API usage. Gross margin is approximately 85 percent. Target lifetime value for a Search subscriber at eight months is $1,600. Target CAC through referral and institutional channels is $150 to $400, producing a 5:1 or better LTV-to-CAC ratio. The marginal cost of a 30-day trial, including the Anthropic usage for a user who generates two or three briefs, is $5 to $15.
 
 ---
 

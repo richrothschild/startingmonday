@@ -31,7 +31,7 @@ Evidence:
 - ROI is discussed in [src/app/for-coaches/faq/page.tsx](src/app/for-coaches/faq/page.tsx)
 - Economics page is referral/commission-heavy in [src/app/for-coaches/economics/page.tsx](src/app/for-coaches/economics/page.tsx)
 Flagged (not A+):
-- Pricing placeholder still present in FAQ ($X per client)
+- FAQ and economics copy need to remain aligned to the live coach buyer ladder as it evolves
 - ROI framing mixes coach economics with referral economics instead of explicit coach practice outcomes
 - No role-specific ROI calculator for solo coach vs boutique firm
 
@@ -258,6 +258,25 @@ P0
 1. Replace all coach pricing placeholders and publish coach plan options.
 2. Add named coach proof block on coach landing page.
 3. Add explicit pilot success scorecard and 30-day decision framework.
+
+## Named-proof placeholder model
+
+When permissions are available, upgrade aggregate proof with three coach-case-study formats:
+
+1. Solo coach case
+- buyer type: independent executive coach
+- baseline pain: too much session time lost to context rebuild
+- visible change: prep brief use, faster first signal action, clearer weekly momentum
+
+2. Boutique firm case
+- buyer type: small multi-client practice
+- baseline pain: inconsistent prep quality across active clients
+- visible change: shared operating rhythm, clearer progress visibility, reduced admin drag
+
+3. Sponsor or outplacement-adjacent case
+- buyer type: program or sponsored transition workflow
+- baseline pain: weak visibility between counselor or coach touchpoints
+- visible change: stronger client accountability and sponsor-readable progress markers
 
 P1
 1. Add pre-session snapshot component in coach workspace.

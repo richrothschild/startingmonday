@@ -450,6 +450,8 @@ export function PrepClient({
   const [outreachLogged, setOutreachLogged] = useState(false)
   const [outreachLogLoading, setOutreachLogLoading] = useState(false)
   const [lowConfidenceAcknowledged, setLowConfidenceAcknowledged] = useState(false)
+  const [reviewedBriefId, setReviewedBriefId] = useState<string | null>(null)
+  const [markingReviewed, setMarkingReviewed] = useState(false)
   const [traceFilter, setTraceFilter] = useState<TraceFilter>('all')
   const ph = usePostHog()
   // Chat state
@@ -523,6 +525,7 @@ export function PrepClient({
     setLoading(true)
     setBrief('')
     setBriefId(null)
+    setReviewedBriefId(null)
     setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
@@ -568,6 +571,7 @@ export function PrepClient({
     setRefining(true)
     setBrief('')
     setBriefId(null)
+    setReviewedBriefId(null)
     setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
@@ -745,6 +749,25 @@ export function PrepClient({
     window.print()
   }
 
+  async function handleMarkReviewed() {
+    if (!brief || markingReviewed) return
+    if (briefId && reviewedBriefId === briefId) return
+
+    setMarkingReviewed(true)
+    try {
+      await emitPmfEvent(PMF_EVENTS.prep.prep_brief_reviewed, {
+        company_id: companyId,
+        mode: roleMode,
+        confidence_band: briefConfidence?.band ?? 'unknown',
+        action_context: 'prep_brief_reviewed',
+        interview_stage: interviewStage,
+      })
+      setReviewedBriefId(briefId ?? '__reviewed__')
+    } finally {
+      setMarkingReviewed(false)
+    }
+  }
+
   const busy = loading || refining
   const briefConfidence = useMemo(() => {
     if (!brief) return null
@@ -812,6 +835,17 @@ export function PrepClient({
                 </button>
                 {brief && !busy && (
                   <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        void handleMarkReviewed()
+                      }}
+                      disabled={markingReviewed || reviewedBriefId === (briefId ?? '__reviewed__')}
+                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors disabled:opacity-40"
+                      title="Mark this prep brief as reviewed"
+                    >
+                      {reviewedBriefId === (briefId ?? '__reviewed__') ? 'Reviewed' : markingReviewed ? 'Saving…' : 'Mark reviewed'}
+                    </button>
                     <button
                       type="button"
                       onClick={handleDownload}

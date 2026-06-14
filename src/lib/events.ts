@@ -44,6 +44,10 @@ export type UserEventName =
   | 'discover_recommendation_opened'
   | 'discover_recommendation_added'
   | 'discover_outreach_started'
+  | 'stall_state_detected'
+  | 'outreach_review_required'
+  | 'outreach_review_confirmed'
+  | 'prep_brief_reviewed'
   | PMFEventName
 
 type EventProperties = Record<string, string | number | boolean | null>

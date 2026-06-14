@@ -34,7 +34,7 @@ At the end of 6 sprints, Starting Monday will have:
 - [ ] Update `billing-client.tsx` toggle: Monthly / Annual (replace Quarterly)
 - [ ] Update billing API route to handle annual interval → correct Stripe price ID
 - [ ] Update pricing page to show annual toggle with "2 months free" badge
-- [ ] Add anchor sentence above pricing cards: "One hour with an executive coach runs $300 to $500. Starting Monday is $129 a month and runs every day."
+- [ ] Add anchor sentence above pricing cards: "One hour with an executive coach runs $300 to $500. Starting Monday is $199 a month and runs every day."
 
 ### Outreach tracking
 
