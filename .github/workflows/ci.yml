@@ -406,7 +406,7 @@ jobs:
       - name: Run auth UX guard suite
         run: npm run test:e2e:auth-ux
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.PLAYWRIGHT_BASE_URL || 'https://starting-monday-staging.up.railway.app' }}
 
       - name: Upload auth UX artifacts
         if: always()
