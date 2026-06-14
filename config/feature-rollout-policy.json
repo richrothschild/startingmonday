@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-14",
+  "owner": "engineering",
+  "riskyPaths": [
+    "src/app/(auth)/**",
+    "src/app/for-coaches/**",
+    "src/app/pricing/**",
+    "src/app/demo/**",
+    "tests/e2e/**",
+    ".github/workflows/ci.yml"
+  ],
+  "requiredPrLabel": "feature-flagged",
+  "rules": {
+    "riskyChangeRequires": [
+      "feature flag label",
+      "rollback path",
+      "kill switch"
+    ],
+    "defaultState": "off",
+    "rolloutPhases": [
+      "internal",
+      "pilot",
+      "percentage rollout",
+      "full rollout"
+    ]
+  }
+}

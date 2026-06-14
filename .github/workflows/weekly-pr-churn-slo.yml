@@ -1,0 +1,41 @@
+name: Weekly PR Churn SLO
+
+on:
+  schedule:
+    - cron: '0 15 * * 1'
+  workflow_dispatch:
+
+jobs:
+  pr-churn-slo:
+    name: Generate PR churn SLO dashboard
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate PR churn SLO report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm run ci:pr-churn:slo
+
+      - name: Upload PR churn SLO artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: pr-churn-slo
+          path: |
+            docs/status/pr-churn-slo.latest.json
+            docs/status/pr-churn-slo.latest.md
+          retention-days: 14

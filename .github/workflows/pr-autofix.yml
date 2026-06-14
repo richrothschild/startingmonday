@@ -104,6 +104,17 @@ jobs:
               return stop('Refusing to push to fork PR head branch')
             }
 
+            const prLabels = (pr.data.labels ?? []).map((label) => label.name)
+            const blockedLabels = new Set(['risk:high', 'autofix:blocked'])
+            if (prLabels.some((label) => blockedLabels.has(label))) {
+              return stop('Autofix blocked by PR risk labels (risk:high or autofix:blocked)')
+            }
+
+            const requiresApprovalLabel = target === 'mobile-visual' || target === 'elite-visual'
+            if (requiresApprovalLabel && !prLabels.includes('autofix:approved') && eventName !== 'workflow_dispatch') {
+              return stop('Visual autofix requires autofix:approved label')
+            }
+
             const checks = await github.rest.checks.listForRef({
               owner,
               repo,
