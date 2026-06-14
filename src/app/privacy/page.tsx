@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 export const metadata = {
   title: 'Privacy Policy - Starting Monday',
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
 
       <main className="max-w-3xl mx-auto px-6 py-12">
 
-        {/* Plain-language employer privacy section � visible before legal text */}
+        {/* Plain-language employer privacy section — visible before legal text */}
         <div className="bg-slate-950 rounded-lg px-8 py-8 mb-12">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What matters most</p>
           <h2 className="text-[22px] font-bold text-white mb-4 leading-snug">Your employer cannot see this.</h2>

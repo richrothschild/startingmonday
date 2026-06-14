@@ -1,4 +1,4 @@
-import Link from 'next/link'
+ï»¿import Link from 'next/link'
 
 export const metadata = {
   title: 'Terms of Service - Starting Monday',
@@ -24,7 +24,7 @@ export default function TermsPage() {
           <h2 className="text-[18px] font-bold text-slate-900 mb-3 leading-snug">How to use Starting Monday outputs</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
             Starting Monday uses AI to generate interview prep briefs, positioning summaries, strategy analyses, outreach drafts, and signal interpretations.
-            These outputs are designed to inform your thinking — they are not professional advice.
+            These outputs are designed to inform your thinking â€” they are not professional advice.
           </p>
           <ul className="flex flex-col gap-2.5 text-[13px] text-slate-600">
             {[
@@ -32,10 +32,10 @@ export default function TermsPage() {
               'AI outputs reflect training data and may contain errors, outdated information, or gaps.',
               'Do not rely on any Starting Monday output as legal, financial, or career advice.',
               'Starting Monday is not responsible for decisions made based on AI-generated content.',
-              'Signal alerts indicate patterns — they do not guarantee that a role exists or will open.',
+              'Signal alerts indicate patterns â€” they do not guarantee that a role exists or will open.',
             ].map(item => (
               <li key={item} className="flex items-start gap-2.5">
-                <span className="text-slate-200 shrink-0 mt-0.5">–</span>
+                <span className="text-slate-200 shrink-0 mt-0.5">â€“</span>
                 {item}
               </li>
             ))}
