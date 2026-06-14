@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T01:01:00.641Z
+Last generated: 2026-06-14T01:15:47.726Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -674,7 +674,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (128)
+## Internal Scripts (129)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -699,6 +699,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-executive-fit-criteria.mjs | scripts/check-executive-fit-criteria.mjs | import { readFile } from 'node:fs/promises'
 - Script scripts/check-growth-metrics-gate.mjs | scripts/check-growth-metrics-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-key-funnel-copy-cta-drift.mjs | scripts/check-key-funnel-copy-cta-drift.mjs | #!/usr/bin/env node
+- Script scripts/check-key-funnel-visual-darkness-gate.mjs | scripts/check-key-funnel-visual-darkness-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-lighthouse-budget-config.mjs | scripts/check-lighthouse-budget-config.mjs | #!/usr/bin/env node
 - Script scripts/check-linkedin-ads-gate.mjs | scripts/check-linkedin-ads-gate.mjs | Wilson score interval for 95% confidence
 - Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'

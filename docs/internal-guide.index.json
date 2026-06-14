@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T01:01:00.641Z",
+  "generatedAt": "2026-06-14T01:15:47.726Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T00:53:52.968Z"
+      "lastModifiedAt": "2026-06-14T01:01:00.658Z"
     },
     {
       "id": "feature:/login",
@@ -9006,6 +9006,19 @@
       "lastModifiedAt": "2026-06-14T00:57:40.214Z"
     },
     {
+      "id": "script:scripts/check-key-funnel-visual-darkness-gate.mjs",
+      "title": "Script scripts/check-key-funnel-visual-darkness-gate.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-key-funnel-visual-darkness-gate.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T01:11:59.873Z"
+    },
+    {
       "id": "script:scripts/check-lighthouse-budget-config.mjs",
       "title": "Script scripts/check-lighthouse-budget-config.mjs",
       "body": "#!/usr/bin/env node",
@@ -9978,7 +9991,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T00:57:40.214Z"
+      "lastModifiedAt": "2026-06-14T01:11:23.338Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -16461,7 +16474,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T00:53:52.968Z"
+      "lastModifiedAt": "2026-06-14T01:01:00.658Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16500,7 +16513,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T00:53:52.968Z"
+      "lastModifiedAt": "2026-06-14T01:01:00.658Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
