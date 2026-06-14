@@ -1,1 +1,16 @@
-{}
+{
+	"files.associations": {
+		".github/workflows/*.yml": "yaml",
+		".github/workflows/*.yaml": "yaml"
+	},
+	"yaml.schemas": {
+		"https://json.schemastore.org/github-workflow.json": ".github/workflows/*"
+	},
+	"markdownlint.run": "onSave",
+	"markdownlint.lintWorkspaceGlobs": [
+		"**/*.{md,markdown}",
+		"!**/node_modules/**",
+		"!docs/internal-guide.md",
+		"!docs/user-guide.md"
+	]
+}

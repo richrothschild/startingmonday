@@ -101,11 +101,11 @@ Implementation tasks:
 - interview logged
 - follow-up scheduled
 - opportunity advanced or dropped
-3. Define transition criteria for each node.
-4. Define required persistent state at each node.
-5. Define human checkpoints where AI suggestions should pause for review.
-6. Define coach-specific graph overlays for shared client workflows.
-7. Define telemetry events for graph completion, stall, and re-entry.
+1. Define transition criteria for each node.
+2. Define required persistent state at each node.
+3. Define human checkpoints where AI suggestions should pause for review.
+4. Define coach-specific graph overlays for shared client workflows.
+5. Define telemetry events for graph completion, stall, and re-entry.
 
 Target artifacts:
 - New strategy doc: docs/strategy/agent-graph-design-spec-2026-06-13.md
@@ -186,10 +186,10 @@ Implementation tasks:
 - one dominant narrative promise above the fold
 - one proof strip within first scan depth
 - one trust/control statement near the primary CTA
-3. Reduce message sprawl on core entry pages.
-4. Introduce stronger typographic and pacing governance.
-5. Tighten denominator-backed proof modules.
-6. Extend premium rules to pricing and coach pages first, because those are monetization-critical.
+1. Reduce message sprawl on core entry pages.
+2. Introduce stronger typographic and pacing governance.
+3. Tighten denominator-backed proof modules.
+4. Extend premium rules to pricing and coach pages first, because those are monetization-critical.
 
 Target files:
 - docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md
@@ -229,17 +229,17 @@ Implementation tasks:
 - posted or scheduled
 - performance reviewed
 - winning pattern fed back into generation
-3. Add a small "authority-post scorecard" so every post passes:
+1. Add a small "authority-post scorecard" so every post passes:
 - one clear idea
 - executive-specific relevance
 - credible proof or observation
 - no generic feature-announcement framing
-4. Create content templates for the strongest pillars:
+1. Create content templates for the strongest pillars:
 - search craft
 - market intelligence
 - behind the build
 - user pattern insight
-5. Connect social topics to live product artifacts when possible.
+1. Connect social topics to live product artifacts when possible.
 
 Target files:
 - docs/strategy/linkedin-content-system.md
@@ -272,9 +272,9 @@ Implementation tasks:
 - motivating future state
 - identity statement
 - mechanism proof
-2. Update homepage, pricing, and coach entry pages to pass that rubric.
-3. Use the same rubric in LinkedIn post review.
-4. Create three repeatable message frames:
+1. Update homepage, pricing, and coach entry pages to pass that rubric.
+1. Use the same rubric in LinkedIn post review.
+1. Create three repeatable message frames:
 - control under uncertainty
 - earlier signal, calmer action
 - prepared at peer level
@@ -344,13 +344,13 @@ Why this matters:
 The expectation resets most relevant to Starting Monday:
 1. Clarity before commitment
 - users should know what the plan does and what the first week looks like before signup
-2. One obvious next action
+1. One obvious next action
 - no ambiguity about what to do next on entry pages and dashboards
-3. Visible momentum
+1. Visible momentum
 - progress, overdue risk, and changed signals should be immediately visible
-4. Real-time confidence
+1. Real-time confidence
 - signal recency and workflow status should be obvious
-5. Low-friction prep
+1. Low-friction prep
 - prep should feel closer to one tap than to assembling a document manually
 
 Implementation tasks:

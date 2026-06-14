@@ -36,7 +36,7 @@ Starting Monday baseline:
 ## Luxury Feel Scorecard
 
 | Site | Luxury Feel (1-10) | Delta vs Starting Monday | Capture quality |
-|---|---:|---:|---|
+| --- | ---: | ---: | --- |
 | Rolex | 9.6 | +0.8 | Full homepage signals |
 | Chanel | 9.4 | +0.6 | Full homepage signals |
 | Prada | 9.2 | +0.4 | Full homepage signals |

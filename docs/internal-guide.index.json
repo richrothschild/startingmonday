@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T13:59:21.511Z",
+  "generatedAt": "2026-06-14T14:08:43.547Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
+      "lastModifiedAt": "2026-06-14T13:59:21.527Z"
     },
     {
       "id": "feature:/login",
@@ -16579,7 +16579,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
+      "lastModifiedAt": "2026-06-14T14:03:38.190Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16618,7 +16618,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:34:37.245Z"
+      "lastModifiedAt": "2026-06-14T13:59:21.527Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19881,7 +19881,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.433Z"
+      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
     },
     {
       "id": "doc:docs/strategy/mark-horstman-review.md",
@@ -19998,7 +19998,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.435Z"
+      "lastModifiedAt": "2026-06-14T14:04:57.529Z"
     },
     {
       "id": "doc:docs/strategy/slack-channel-naming-pack-2026-06-04.md",
@@ -20063,7 +20063,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.434Z"
+      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
     },
     {
       "id": "doc:docs/strategy/tam-financial-model.md",
@@ -20440,7 +20440,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.431Z"
+      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
     },
     {
       "id": "doc:docs/ui-ux-rerun-2026-05-26.md",
