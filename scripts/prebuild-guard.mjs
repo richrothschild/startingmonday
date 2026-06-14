@@ -66,6 +66,17 @@ if (copyCtaDriftCheck.status !== 0) {
   process.exitCode = 1
 }
 
+const visualDarknessCheck = spawnSync(
+  process.execPath,
+  [path.join(root, 'scripts/check-key-funnel-visual-darkness-gate.mjs')],
+  { stdio: 'inherit' }
+)
+
+if (visualDarknessCheck.status !== 0) {
+  console.error('Error: key funnel visual darkness checks failed')
+  process.exitCode = 1
+}
+
 if (process.env.MOBILE_ELITE_GATE_STRICT === '1') {
   const eliteMobileCheck = spawnSync(
     process.execPath,
