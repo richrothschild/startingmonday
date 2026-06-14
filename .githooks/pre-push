@@ -50,7 +50,11 @@ echo "push Playwright guard..."
 npm run guard:push:playwright
 
 echo "push environment-sensitive guard..."
-npm run guard:push:env
+if [ -n "${NEXT_PUBLIC_SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
+	npm run guard:push:env
+else
+	echo "push environment-sensitive guard... skipped (missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY)"
+fi
 
 if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
 	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
