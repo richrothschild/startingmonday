@@ -1,0 +1,2677 @@
+{
+  "generatedAt": "2026-06-14T16:02:15.265Z",
+  "enforceTier": "all-pages",
+  "enforceLevel": 3,
+  "stagedOnly": false,
+  "reportOnly": true,
+  "totalPages": 208,
+  "failedPages": 42,
+  "totalIssues": 46,
+  "blockingPages": 42,
+  "monitorOnlyPages": 0,
+  "tierSummary": {
+    "public-premium": {
+      "pages": 21,
+      "failingPages": 1,
+      "issues": 1
+    },
+    "public-nonpremium": {
+      "pages": 115,
+      "failingPages": 10,
+      "issues": 11
+    },
+    "internal-dashboard": {
+      "pages": 72,
+      "failingPages": 31,
+      "issues": 34
+    }
+  },
+  "topOffenders": [
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 12,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=11",
+        "excess-uppercase-micro-labels: 12"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 12,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=12",
+        "excess-uppercase-micro-labels: 12"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 26,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 13,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=26, body=13",
+        "excess-uppercase-micro-labels: 13"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 19,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [
+        "Get started now (3x)"
+      ],
+      "issues": [
+        "tiny-text-heavy: tiny=19, body=13",
+        "repeated-cta-labels: Get started now (3x)"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(auth)/signup/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 20,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=20, body=15"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 39,
+      "bodyCount": 23,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=39, body=23"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 25,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=25, body=13"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=2"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 23,
+      "bodyCount": 19,
+      "uppercaseMicroCount": 17,
+      "repeatedCtas": [],
+      "issues": [
+        "excess-uppercase-micro-labels: 17"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 13,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=13, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 20,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=20, body=8"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 14,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=14, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 28,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 5,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=28, body=2"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 36,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=36, body=13"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 21,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=21, body=4"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 87,
+      "bodyCount": 16,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=87, body=16"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    }
+  ],
+  "results": [
+    {
+      "relativePath": "src/app/(auth)/login/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 8,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(auth)/signup/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 20,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=20, body=15"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 7,
+      "bodyCount": 10,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 12,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 39,
+      "bodyCount": 23,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=39, body=23"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 27,
+      "bodyCount": 32,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 25,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=25, body=13"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=2"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/diagrams/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 1,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 7,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 10,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 23,
+      "bodyCount": 19,
+      "uppercaseMicroCount": 17,
+      "repeatedCtas": [],
+      "issues": [
+        "excess-uppercase-micro-labels: 17"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 13,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=13, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/internal-guide/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 10,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 20,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=20, body=8"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 14,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=14, body=1"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 28,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 5,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=28, body=2"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 12,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=11",
+        "excess-uppercase-micro-labels: 12"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 3,
+      "bodyCount": 17,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 36,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=36, body=13"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 21,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=21, body=4"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 87,
+      "bodyCount": 16,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=87, body=16"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 22,
+      "bodyCount": 35,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/sales-enablement/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 3,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 40,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=40, body=7"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/speakers/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 5,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/team/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 2,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 18,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=18, body=3"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 3,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/briefing/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 24,
+      "bodyCount": 22,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/calendar/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/chat/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 12,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 50,
+      "bodyCount": 18,
+      "uppercaseMicroCount": 8,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=50, body=18"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 5,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/companies/new/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 15,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 56,
+      "bodyCount": 32,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=56, body=32"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/concierge/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 3,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=12"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=5"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 30,
+      "bodyCount": 24,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=30, body=24"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/discover/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 10,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 2,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 12,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=12",
+        "excess-uppercase-micro-labels: 12"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/executive-brief/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/feedback/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 15,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/help/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 7,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/invite/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 4,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/kanban/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/offers/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 14,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=14, body=8"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 1,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 18,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=18, body=13"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 21,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 3,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=21, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/partner/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 32,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=32, body=8"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/pilot-outreach/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/placed/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 8,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/positioning/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 4,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 26,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 13,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=26, body=13",
+        "excess-uppercase-micro-labels: 13"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/profile/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 17,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=17, body=9"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/profile/tailor/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 4,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/salary/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 2,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/signals/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 20,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=20, body=14"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/start/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 11,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/dashboard/wrap-up/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 3,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/settings/billing/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 3,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/settings/security/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 1,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/(dashboard)/settings/team/page.tsx",
+      "tier": 3,
+      "tierName": "internal-dashboard",
+      "tinyCount": 2,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/about/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 10,
+      "bodyCount": 17,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/annual-report-2026/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 5,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cio-board-presentation/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cio-compensation-negotiation/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cio-job-search-timeline/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cio-vs-cto-which-role/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/ciso-interview-preparation/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cto-job-search-timeline/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/cto-vs-vp-engineering-career-path/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-coaching-candidate-infrastructure/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-coaching-job-search/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-hiring-patterns-2026/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-job-search-daily-routine/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-resume-gaps/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-search-firms-cio/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/executive-search-operating-system/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/how-cios-find-jobs/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/how-we-estimate-early-role-signals/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/linkedin-executive-search-strategy/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 11,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/pe-backed-cio/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/retained-search-candidate-preparation/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/retained-search-firms/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/target-company-list/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/target-company-list-cto/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 2,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/technology-executive-transition-chro/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/vp-job-search-different-rules/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/vp-to-cio-transition/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/what-companies-want-chief-data-officer/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/why-executive-recruiters-go-quiet/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/blog/why-starting-monday-exists/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/career-tools/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 7,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/case-studies/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 3,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/coaches/mock-dashboard/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 13,
+      "bodyCount": 10,
+      "uppercaseMicroCount": 10,
+      "repeatedCtas": [],
+      "issues": [
+        "excess-uppercase-micro-labels: 10"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 17,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 15,
+      "repeatedCtas": [],
+      "issues": [
+        "excess-uppercase-micro-labels: 15"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/coaches/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 17,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 8,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/coaches/personas/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/coaches/personas/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/coaches-guide/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 9,
+      "bodyCount": 20,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/concierge/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/contributor/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 10,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=10, body=3"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/demo/cio/notes/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/cio/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/executive-brief/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 16,
+      "bodyCount": 17,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/executive-dashboard/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 3,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/manager-tools/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/michael-dashboard/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 13,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/michael-strategy-brief/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 14,
+      "bodyCount": 18,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/demo/presenter/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 10,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/evaluate/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 2,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/evidence-room/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 17,
+      "bodyCount": 16,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executive-brief/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executives/active/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 3,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executives/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executives/passive/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 3,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executives/personas/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/executives/personas/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/feedback/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 11,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=6"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/for-cdo/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-cio/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 11,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=11, body=0"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/for-cio-associations/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 6,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-ciso/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/coach-prep-worksheet/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 5,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/economics/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 15,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/faq/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 8,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/micro-products/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 5,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/micro-products/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 18,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 23,
+      "bodyCount": 58,
+      "uppercaseMicroCount": 7,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coaches/trust-pack/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 10,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-coo/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-cpo/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-data-officer/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-executives/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-financial-advisors/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 8,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-fractional-executives/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 8,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-media-partners/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 11,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/economics/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 21,
+      "bodyCount": 17,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/executive-summary/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 9,
+      "bodyCount": 10,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/faq/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 7,
+      "bodyCount": 8,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/metric-dictionary/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/operating-scorecard/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 6,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 18,
+      "bodyCount": 24,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 8,
+      "bodyCount": 12,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/security-overview/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 7,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-outplacement/trust-pack/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 21,
+      "bodyCount": 24,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-pe-partners/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 5,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-pe-teams/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 8,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-relocation/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 8,
+      "bodyCount": 14,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-search-firms/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 6,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-vp/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/for-vp-technology/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/founder-note/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/guide/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/ideas/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 11,
+      "bodyCount": 15,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 19,
+      "bodyCount": 13,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [
+        "Get started now (3x)"
+      ],
+      "issues": [
+        "tiny-text-heavy: tiny=19, body=13",
+        "repeated-cta-labels: Get started now (3x)"
+      ],
+      "issueCount": 2
+    },
+    {
+      "relativePath": "src/app/invite/[code]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 6,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/managertools/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mark-demo/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mark-review/appendix/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 21,
+      "bodyCount": 31,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mark-review/business-plan/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 19,
+      "bodyCount": 24,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mark-review/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 6,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mark-review/summary/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 13,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/mauricio-kickoff/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 35,
+      "bodyCount": 9,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=35, body=9"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 33,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 4,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=33, body=4"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 32,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 4,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=32, body=3"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/mauricio-kickoff-execution/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 29,
+      "bodyCount": 10,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [
+        "tiny-text-heavy: tiny=29, body=10"
+      ],
+      "issueCount": 1
+    },
+    {
+      "relativePath": "src/app/method-and-evidence/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 8,
+      "bodyCount": 16,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/onboarding/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/optimize/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 20,
+      "bodyCount": 16,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/outplacement/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/outplacement/personas/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/outplacement/personas/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/partners/mauricio-kickoff/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/partners/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 14,
+      "bodyCount": 18,
+      "uppercaseMicroCount": 7,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/partners/reporting/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 9,
+      "bodyCount": 7,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/pilot-findings/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 5,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/pricing/page.tsx",
+      "tier": 1,
+      "tierName": "public-premium",
+      "tinyCount": 14,
+      "bodyCount": 10,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/privacy/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 5,
+      "bodyCount": 21,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/proof/roi-calculator/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 4,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 1,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/references/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 14,
+      "bodyCount": 28,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/research-brief/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 10,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/sales-marketing-plan/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 28,
+      "bodyCount": 24,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/search-firms/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 3,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 3,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/search-firms/personas/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/search-firms/personas/[slug]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 4,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/search-firms/sample-cfo-brief/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 2,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/security/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 2,
+      "bodyCount": 33,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/team/join/[token]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 8,
+      "bodyCount": 11,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/terms/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 5,
+      "bodyCount": 3,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/unsubscribe/confirmed/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 1,
+      "bodyCount": 1,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    },
+    {
+      "relativePath": "src/app/unsubscribe/[code]/page.tsx",
+      "tier": 2,
+      "tierName": "public-nonpremium",
+      "tinyCount": 0,
+      "bodyCount": 0,
+      "uppercaseMicroCount": 0,
+      "repeatedCtas": [],
+      "issues": [],
+      "issueCount": 0
+    }
+  ]
+}
