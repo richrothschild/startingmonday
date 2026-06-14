@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-13T23:11:03.656Z
+Last generated: 2026-06-14T00:33:05.559Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -674,13 +674,14 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (126)
+## Internal Scripts (127)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
 - Script scripts/audit-outreach-db.mjs | scripts/audit-outreach-db.mjs | import 'dotenv/config'
 - Script scripts/audit-outreach-momentum.ts | scripts/audit-outreach-momentum.ts | import {
 - Script scripts/audit-outreach-sends.mjs | scripts/audit-outreach-sends.mjs | import { config as loadEnv } from 'dotenv'
+- Script scripts/audit-visual-look-score.mjs | scripts/audit-visual-look-score.mjs | import fs from 'node:fs'
 - Script scripts/backfill-company-size-bands.mjs | scripts/backfill-company-size-bands.mjs | Add all 17 missing mappings here
 - Script scripts/backfill-edgar-exec-history.mjs | scripts/backfill-edgar-exec-history.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
 - Script scripts/backfill-outreach-status-sent-today.mjs | scripts/backfill-outreach-status-sent-today.mjs | import { config as loadEnv } from 'dotenv'
@@ -980,7 +981,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 
-## Documentation (588)
+## Documentation (589)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1508,6 +1509,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
+- Doc docs/strategy/luxury-95-minimal-drift-epic-2026-06-13.md | docs/strategy/luxury-95-minimal-drift-epic-2026-06-13.md | Epic: Luxury 95 With Minimal Drift
 - Doc docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md | docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md | Luxury-Modern Next-Quarter Backlog (2026 Q3)
 - Doc docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md | docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md | Luxury-Modern Redesign Brief: Homepage and Channel Entry Pages
 - Doc docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md | docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md | Luxury-Modern Sitewide Execution Plan
