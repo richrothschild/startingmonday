@@ -1,0 +1,16 @@
+Daily change summary (2026-06-13)
+
+What changed:
+- Isolated CI-only mobile visual regression root cause to environment mismatch (local default was production URL; staging CI renders staging URL).
+- Updated visual gate environment handling in CI for staging parity.
+- Refreshed staging-correct baselines for /for-coaches mobile iPhone and Android.
+- Validated mobile visual and elite visual suites locally against staging URL before push.
+- Pushed commit d80caec4 to staging.
+
+Why it changed:
+- CI snapshots were comparing a different environment than local snapshots, creating false confidence and repeated drift.
+- Fixing parity removes the mismatch class and makes visual gates more deterministic.
+
+Current status:
+- Latest CI run 27488429663 completed with failure in Predeploy gates (Build step).
+- Visual parity fix is in branch and validated locally; next pass is to clear the remaining Build failure.

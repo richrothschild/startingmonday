@@ -1,0 +1,7 @@
+Chris - quick update on today\'s shipping and CI work:
+
+1) We found and fixed the staging-vs-production visual parity issue that was causing CI-only /for-coaches mobile drift.
+2) We refreshed the two affected staging baselines (iPhone + Android), validated both mobile visual suites locally against staging, and pushed d80caec4 to staging.
+3) The newest CI run (27488429663) is failing in Predeploy gates at Build, so the visual mismatch root cause appears addressed and the remaining failure is now narrowed to build-level checks.
+
+If you want, I can package the Build failure root-cause and remediation path in the same format right after the next pass.

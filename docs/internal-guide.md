@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T04:34:37.230Z
+Last generated: 2026-06-14T14:21:07.431Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -828,7 +828,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: performance-release-gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
-- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Guide sync can be run proactively, no strict failed-check name requirement.
+- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Allow privileged manual/label-triggered refreshes because elite baselines must be authored in CI's Ubuntu rendering environment.
 - Workflow .github/workflows/production-generated-monitoring.yml | .github/workflows/production-generated-monitoring.yml | name: Production Generated Monitoring
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.
@@ -988,7 +988,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (597)
+## Documentation (599)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1015,6 +1015,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/chris-slack-summary-2026-06-08.md | docs/chris-slack-summary-2026-06-08.md | Starting Monday: 3-Day Summary for Chris
 - Doc docs/chris-vscode-workspace-setup.md | docs/chris-vscode-workspace-setup.md | Chris Setup Guide: Match Rich's VS Code Workspace
 - Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
+- Doc docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | Coach Journey Visuals And Competitive Comparison
 - Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign
 - Doc docs/coach-outreach-pain-led-messaging-system.md | docs/coach-outreach-pain-led-messaging-system.md | Coach Outreach Pain-Led Messaging System
 - Doc docs/coach-peer-forward-note.md | docs/coach-peer-forward-note.md | Coach Peer Forward Note
@@ -1167,6 +1168,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/council-roadmap-memos/seth-godin-roadmap-memo.md | docs/council-roadmap-memos/seth-godin-roadmap-memo.md | Roadmap Vision Memo - Seth Godin
 - Doc docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | Roadmap Vision Memo - Shreyas Doshi
 - Doc docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | Roadmap Vision Memo - Warren Buffett
+- Doc docs/daily-change-summary-2026-06-13.md | docs/daily-change-summary-2026-06-13.md | Daily Change Summary - 2026-06-13
 - Doc docs/decision-log.md | docs/decision-log.md | Starting Monday — Decision Log
 - Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
 - Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion

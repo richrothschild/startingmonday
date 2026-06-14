@@ -57,7 +57,7 @@ Reference pages sampled in this pass:
 Scale: 1-10 where 10 represents benchmark-level execution in that dimension.
 
 | Dimension | Starting Monday (current) | Notion | Lucid | Atlassian | Slack |
-|---|---:|---:|---:|---:|---:|
+| --- | ---: | ---: | ---: | ---: | ---: |
 | Luxury feel and polish | 8.8 | 9.4 | 9.0 | 8.9 | 9.2 |
 | Utility signaling clarity | 9.1 | 9.3 | 9.2 | 9.4 | 9.2 |
 | Trust and proof packaging | 8.7 | 9.3 | 9.5 | 9.6 | 9.4 |

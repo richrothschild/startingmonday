@@ -209,8 +209,8 @@ test.describe('Daily briefing page', () => {
     test.setTimeout(60_000)
     await page.goto('/dashboard/briefing')
     await expect(page.locator('h1')).toBeVisible({ timeout: 30_000 })
-    // No error banners or 500 content
-    await expect(page.locator('.bg-red-50')).not.toBeVisible()
+    // Recovery flags intentionally use red styling, so assert on actual fatal-error copy instead.
+    await expect(page.getByText(/internal server error|500|something went wrong|application error/i)).not.toBeVisible()
   })
 })
 

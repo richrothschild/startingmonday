@@ -15,7 +15,7 @@ Sitewide grade has been lifted into A-range based on excellence rate, with high-
 ## Stage-by-Stage Delta
 
 | Stage | Excellent | Flagged | High-risk | Excellence rate |
-|---|---:|---:|---:|---:|
+| --- | ---: | ---: | ---: | ---: |
 | Baseline (pre-wave) | 156 | 53 | 40 | 74.6% |
 | Wave 1 | 176 | 33 | 20 | 84.2% |
 | Wave 2 | 192 | 17 | 8 | 91.9% |
