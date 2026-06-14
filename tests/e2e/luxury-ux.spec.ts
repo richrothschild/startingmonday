@@ -1,0 +1,207 @@
+import { test, expect, type Page } from '@playwright/test'
+
+const BASE_URL = process.env.LUXURY_TEST_BASE_URL ?? process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000'
+
+async function gotoForCoaches(page: Page) {
+  const response = await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
+  expect(response?.status() ?? 0).toBeLessThan(500)
+}
+
+test.describe('Luxury UX checks @luxury', () => {
+  test('first-click clarity tasks for for-coaches', async ({ page }) => {
+    await gotoForCoaches(page)
+
+    await page.getByRole('link', { name: 'Journey map' }).first().click()
+    await expect(page).toHaveURL(/#journey-map$/)
+
+    await page.getByRole('link', { name: 'Comparison table' }).first().click()
+    await expect(page).toHaveURL(/#competitive-comparison$/)
+
+    await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
+    await page.getByRole('link', { name: 'Request the coach preview' }).first().click()
+    await expect(page).toHaveURL(/\/partners#apply$/)
+  })
+
+  test('readability and premium density baseline for for-coaches', async ({ page }) => {
+    await gotoForCoaches(page)
+
+    const metrics = await page.evaluate(() => {
+      const mainText = (document.querySelector('main')?.innerText || '').replace(/\s+/g, ' ').trim()
+      const words = mainText ? mainText.split(' ').filter(Boolean) : []
+
+      const syllablesInWord = (input: string) => {
+        const word = input.toLowerCase().replace(/[^a-z]/g, '')
+        if (!word) return 0
+        if (word.length <= 3) return 1
+        const groups = word.match(/[aeiouy]{1,2}/g)
+        let count = groups ? groups.length : 1
+        if (word.endsWith('e')) count -= 1
+        return Math.max(1, count)
+      }
+
+      const sentences = mainText.split(/[.!?]+/).map((s) => s.trim()).filter(Boolean)
+      const syllables = words.reduce((sum, word) => sum + syllablesInWord(word), 0)
+      const wordsPerSentence = words.length / Math.max(1, sentences.length)
+      const syllablesPerWord = syllables / Math.max(1, words.length)
+      const readingEase = 206.835 - 1.015 * wordsPerSentence - 84.6 * syllablesPerWord
+
+      const textEls = Array.from(document.querySelectorAll('h1,h2,h3,p,li,th,td,a,summary'))
+      const tiny = textEls.filter((el) => {
+        const size = parseFloat(getComputedStyle(el).fontSize || '0')
+        return size > 0 && size < 13
+      }).length
+
+      return {
+        readingEase,
+        tinyRatio: tiny / Math.max(1, textEls.length),
+        ctaCount: Array.from(document.querySelectorAll('a[href]'))
+          .map((a) => (a.textContent || '').trim())
+          .filter((text) => /(request|view|watch|read|open|learn|choose|faq|economics|trust|preview)/i.test(text)).length,
+      }
+    })
+
+    expect(metrics.readingEase).toBeGreaterThan(28)
+    expect(metrics.tinyRatio).toBeLessThan(0.4)
+    expect(metrics.ctaCount).toBeLessThanOrEqual(12)
+  })
+
+  test('accessibility polish basics for headings and disclosure', async ({ page }) => {
+    await gotoForCoaches(page)
+
+    const headingAudit = await page.evaluate(() => {
+      const headings = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).map((el) => Number(el.tagName.slice(1)))
+      const h1Count = headings.filter((level) => level === 1).length
+      let skipped = false
+      for (let i = 1; i < headings.length; i += 1) {
+        if (headings[i] - headings[i - 1] > 1) {
+          skipped = true
+          break
+        }
+      }
+      const disclosureCount = document.querySelectorAll('details > summary').length
+      return { h1Count, skipped, disclosureCount }
+    })
+
+    expect(headingAudit.h1Count).toBe(1)
+    expect(headingAudit.skipped).toBeFalsy()
+    expect(headingAudit.disclosureCount).toBeGreaterThanOrEqual(2)
+
+    const firstSummary = page.locator('details summary').first()
+    await firstSummary.focus()
+    await page.keyboard.press('Enter')
+
+    const firstDetailsOpen = await page.locator('details').first().evaluate((el) => (el as HTMLDetailsElement).open)
+    expect(firstDetailsOpen).toBeTruthy()
+  })
+
+  test('high-impact luxury load reduction standards for for-coaches', async ({ page }) => {
+    await gotoForCoaches(page)
+
+    const standards = await page.evaluate(() => {
+      const main = document.querySelector('main')
+      const root = main ?? document
+
+      const textEls = Array.from(root.querySelectorAll('h1,h2,h3,p,li,th,td,a,summary'))
+      const tinyTextCount = textEls.filter((el) => {
+        const size = parseFloat(getComputedStyle(el).fontSize || '0')
+        return size > 0 && size < 13
+      }).length
+
+      const supportEls = Array.from(root.querySelectorAll('p,li,th,td'))
+      const support13to14 = supportEls.filter((el) => {
+        const size = parseFloat(getComputedStyle(el).fontSize || '0')
+        return size >= 13 && size <= 14.2
+      }).length
+
+      const uppercaseTiny = textEls.filter((el) => {
+        const style = getComputedStyle(el)
+        const size = parseFloat(style.fontSize || '0')
+        return size < 13 && style.textTransform === 'uppercase'
+      }).length
+
+      const links = Array.from(document.querySelectorAll('a[href]')).map((a) => (a.textContent || '').trim()).filter(Boolean)
+      const ctaLabels = links.filter((text) => /(request|view|watch|read|open|learn|choose|faq|economics|trust|preview)/i.test(text))
+
+      const repeatedCounts = new Map<string, number>()
+      for (const label of ctaLabels) {
+        repeatedCounts.set(label, (repeatedCounts.get(label) || 0) + 1)
+      }
+      const repeatedCtas = [...repeatedCounts.entries()].filter(([, count]) => count > 2)
+
+      const majorSectionCtas = Array.from(root.querySelectorAll(':scope > section'))
+        .filter((section) => {
+          const heading = section.querySelector('h2')?.textContent || ''
+          return /pilot scorecard|trust and privacy|next step/i.test(heading)
+        })
+        .map((section) => ({
+          heading: (section.querySelector('h2')?.textContent || '').trim(),
+          ctas: Array.from(section.querySelectorAll('a[href]'))
+            .map((a) => (a.textContent || '').trim())
+            .filter((text) => /(request|view|watch|read|open|learn|choose|faq|economics|trust|preview)/i.test(text)).length,
+        }))
+
+      const comparison = document.querySelector('#competitive-comparison')
+      const keyTakeawayPresent = !!Array.from(comparison?.querySelectorAll('p') || []).find((p) =>
+        (p.textContent || '').includes('Key takeaway:'),
+      )
+
+      const summaryTable = comparison
+        ? Array.from(comparison.querySelectorAll('table')).find((table) => !table.closest('details'))
+        : undefined
+      const summaryTableRows = summaryTable ? summaryTable.querySelectorAll('tbody tr').length : 0
+
+      const comparisonDetails = comparison?.querySelector('details') as HTMLDetailsElement | null
+      const detailsClosedByDefault = comparisonDetails ? !comparisonDetails.open : false
+
+      let expandedRows = 0
+      if (comparisonDetails) {
+        comparisonDetails.open = true
+        expandedRows = comparisonDetails.querySelectorAll('table tbody tr').length
+        comparisonDetails.open = false
+      }
+
+      return {
+        tinyTextRatio: tinyTextCount / Math.max(1, textEls.length),
+        support13to14Ratio: support13to14 / Math.max(1, supportEls.length),
+        uppercaseTiny,
+        ctaCount: ctaLabels.length,
+        repeatedCtas,
+        majorSectionCtas,
+        keyTakeawayPresent,
+        summaryTableRows,
+        detailsClosedByDefault,
+        expandedRows,
+      }
+    })
+
+    expect(standards.tinyTextRatio).toBeLessThan(0.3)
+    expect(standards.support13to14Ratio).toBeGreaterThan(0.65)
+    expect(standards.uppercaseTiny).toBeLessThanOrEqual(4)
+
+    expect(standards.ctaCount).toBeLessThanOrEqual(12)
+    expect(standards.repeatedCtas).toEqual([])
+    expect(standards.majorSectionCtas.every((section) => section.ctas <= 2)).toBeTruthy()
+
+    expect(standards.keyTakeawayPresent).toBeTruthy()
+    expect(standards.summaryTableRows).toBe(3)
+    expect(standards.detailsClosedByDefault).toBeTruthy()
+    expect(standards.expandedRows).toBeGreaterThanOrEqual(2)
+  })
+
+  test('mobile premium scan behavior', async ({ page }, testInfo) => {
+    test.skip(!testInfo.project.name.includes('luxury-mobile'), 'Mobile scan runs on luxury-mobile project only')
+    await gotoForCoaches(page)
+
+    const hasOverflow = await page.evaluate(() => {
+      const root = document.documentElement
+      return root.scrollWidth > window.innerWidth + 1
+    })
+    expect(hasOverflow).toBeFalsy()
+
+    const summary = page.locator('details summary').first()
+    await summary.scrollIntoViewIfNeeded()
+    await summary.click()
+    const isOpen = await page.locator('details').first().evaluate((el) => (el as HTMLDetailsElement).open)
+    expect(isOpen).toBeTruthy()
+  })
+})

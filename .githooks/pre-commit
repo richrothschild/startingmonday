@@ -22,4 +22,7 @@ node scripts/precommit-outreach-lint.mjs
 echo "mobile-ui gate..."
 node scripts/precommit-mobile-ui-gate.mjs
 
+echo "luxury ux static gate (staged pages)..."
+npm run ux:luxury:static:staged
+
 echo "ok"
