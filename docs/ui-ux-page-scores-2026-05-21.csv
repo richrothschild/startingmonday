@@ -1,158 +1,210 @@
 route,file,category,score,grade,excellent,lineCount,renderedLineCount,effectiveLineCount,sectionCount,headingCount,paragraphCount,effectiveParagraphCount,linkCount,buttonCount,formFieldCount,listCount,ctaCount,disclosureCount,collapsedDisclosureCount,hasTrust,hasOutcome,hasTOC,findings
-/,src/app/page.tsx,marketing,92,A-,true,188,52,188,1,2,1,1,6,0,0,0,1,0,0,true,true,true,Weak heading hierarchy
-/about,src/app/about/page.tsx,marketing,92,A-,true,270,234,270,4,4,13,13,23,0,0,0,2,0,0,true,false,true,Missing outcome metrics
-/annual-report-2026,src/app/annual-report-2026/page.tsx,marketing,100,A+,true,111,85,111,3,7,8,8,5,0,0,2,1,0,0,true,true,true,No major static UX risks detected
-/blog,src/app/blog/page.tsx,blog,100,A+,true,180,141,180,2,3,9,9,15,0,0,0,1,0,0,true,false,true,No major static UX risks detected
-/blog/cio-board-presentation,src/app/blog/cio-board-presentation/page.tsx,blog,92,A-,true,155,126,155,0,7,16,16,1,0,0,0,1,0,0,true,false,false,Missing H1
-/blog/cio-compensation-negotiation,src/app/blog/cio-compensation-negotiation/page.tsx,blog,92,A-,true,175,146,175,0,6,19,19,1,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/cio-job-market-2026,src/app/blog/cio-job-market-2026/page.tsx,blog,92,A-,true,313,284,313,1,15,36,36,5,0,0,3,0,0,0,false,true,true,Insufficient content chunking
-/blog/cio-job-search-timeline,src/app/blog/cio-job-search-timeline/page.tsx,blog,92,A-,true,167,137,167,0,4,15,15,1,0,0,0,0,0,0,false,true,false,Missing H1
-/blog/cio-vs-cto-which-role,src/app/blog/cio-vs-cto-which-role/page.tsx,blog,92,A-,true,174,152,174,0,6,18,18,0,0,0,0,0,0,0,true,false,false,Missing H1
-/blog/ciso-interview-preparation,src/app/blog/ciso-interview-preparation/page.tsx,blog,92,A-,true,174,145,174,0,6,18,18,1,0,0,0,0,0,0,true,true,false,Missing H1
-/blog/cto-job-search-timeline,src/app/blog/cto-job-search-timeline/page.tsx,blog,92,A-,true,152,130,152,0,4,15,15,0,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/cto-vs-vp-engineering-career-path,src/app/blog/cto-vs-vp-engineering-career-path/page.tsx,blog,92,A-,true,169,147,169,0,5,19,19,0,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/executive-coaching-candidate-infrastructure,src/app/blog/executive-coaching-candidate-infrastructure/page.tsx,blog,92,A-,true,214,192,214,0,6,24,24,1,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/executive-coaching-job-search,src/app/blog/executive-coaching-job-search/page.tsx,blog,92,A-,true,179,157,179,0,6,18,18,0,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/executive-hiring-patterns-2026,src/app/blog/executive-hiring-patterns-2026/page.tsx,blog,92,A-,true,125,96,125,0,8,9,9,0,0,0,2,0,0,0,true,true,false,Missing H1
-/blog/executive-job-search-daily-routine,src/app/blog/executive-job-search-daily-routine/page.tsx,blog,92,A-,true,186,158,186,0,10,20,20,0,0,0,2,0,0,0,false,true,false,Missing H1
-/blog/executive-resume-gaps,src/app/blog/executive-resume-gaps/page.tsx,blog,92,A-,true,190,161,190,0,7,19,19,1,0,0,0,0,0,0,true,true,false,Missing H1
-/blog/executive-search-firms-cio,src/app/blog/executive-search-firms-cio/page.tsx,blog,92,A-,true,175,146,175,0,6,19,19,1,0,0,0,0,0,0,true,false,false,Missing H1
-/blog/executive-search-operating-system,src/app/blog/executive-search-operating-system/page.tsx,blog,92,A-,true,216,188,216,0,4,24,24,0,0,0,0,0,0,0,false,true,false,Missing H1
-/blog/how-cios-find-jobs,src/app/blog/how-cios-find-jobs/page.tsx,blog,92,A-,true,179,157,179,0,5,17,17,0,0,0,0,0,0,0,false,true,false,Missing H1
-/blog/how-we-estimate-early-role-signals,src/app/blog/how-we-estimate-early-role-signals/page.tsx,blog,92,A-,true,162,133,162,0,10,9,9,5,0,0,6,0,0,0,true,true,false,Missing H1
-/blog/linkedin-executive-search-strategy,src/app/blog/linkedin-executive-search-strategy/page.tsx,blog,92,A-,true,187,165,187,0,6,20,20,0,0,0,0,2,0,0,false,false,false,Missing H1
-/blog/pe-backed-cio,src/app/blog/pe-backed-cio/page.tsx,blog,92,A-,true,191,162,191,0,7,20,20,1,0,0,0,0,0,0,false,true,false,Missing H1
-/blog/retained-search-candidate-preparation,src/app/blog/retained-search-candidate-preparation/page.tsx,blog,92,A-,true,195,173,195,0,5,20,20,1,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/retained-search-firms,src/app/blog/retained-search-firms/page.tsx,blog,92,A-,true,175,146,175,0,7,18,18,1,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/target-company-list,src/app/blog/target-company-list/page.tsx,blog,92,A-,true,195,167,195,0,5,21,21,0,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/target-company-list-cto,src/app/blog/target-company-list-cto/page.tsx,blog,100,A+,true,212,184,212,2,9,22,22,5,0,0,2,2,0,0,true,true,true,No major static UX risks detected
-/blog/technology-executive-transition-chro,src/app/blog/technology-executive-transition-chro/page.tsx,blog,92,A-,true,185,163,185,0,4,19,19,1,0,0,0,0,0,0,false,false,false,Missing H1
-/blog/vp-job-search-different-rules,src/app/blog/vp-job-search-different-rules/page.tsx,blog,92,A-,true,190,168,190,0,5,18,18,1,0,0,0,1,0,0,false,false,false,Missing H1
-/blog/vp-to-cio-transition,src/app/blog/vp-to-cio-transition/page.tsx,blog,92,A-,true,163,134,163,0,6,17,17,1,0,0,0,0,0,0,true,false,false,Missing H1
-/blog/what-companies-want-chief-data-officer,src/app/blog/what-companies-want-chief-data-officer/page.tsx,blog,92,A-,true,162,133,162,0,6,17,17,1,0,0,0,0,0,0,true,false,false,Missing H1
-/blog/why-executive-recruiters-go-quiet,src/app/blog/why-executive-recruiters-go-quiet/page.tsx,blog,92,A-,true,133,104,133,0,8,12,12,0,0,0,2,0,0,0,true,true,false,Missing H1
-/blog/why-starting-monday-exists,src/app/blog/why-starting-monday-exists/page.tsx,blog,92,A-,true,127,99,127,0,8,12,12,0,0,0,1,0,0,0,false,false,false,Missing H1
-/career-tools,src/app/career-tools/page.tsx,marketing,94,A,true,225,191,225,5,6,14,14,7,0,0,2,3,0,0,false,true,true,Missing trust/confidentiality cues
-/coaches-guide,src/app/coaches-guide/page.tsx,marketing,92,A-,true,262,224,262,8,9,28,28,10,0,0,1,4,1,0,true,false,true,Missing outcome metrics
-/concierge,src/app/concierge/page.tsx,marketing,92,A-,true,23,13,23,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/contributor,src/app/contributor/page.tsx,marketing,100,A+,true,232,104,232,4,3,8,8,1,0,0,0,3,0,0,true,true,false,No major static UX risks detected
-/dashboard,src/app/(dashboard)/dashboard/page.tsx,dashboard,90,A-,true,1314,897,604,13,15,53,32,66,5,6,1,2,2,2,false,true,true,Moderate scroll burden
-/dashboard/admin,src/app/(dashboard)/dashboard/admin/page.tsx,dashboard,100,A+,true,1133,672,487,8,9,30,23,15,0,0,0,2,8,8,false,true,true,No major static UX risks detected
-/dashboard/admin/b2b,src/app/(dashboard)/dashboard/admin/b2b/page.tsx,dashboard,100,A+,true,191,123,123,0,1,5,5,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/admin/b2b/[id],src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx,dashboard,100,A+,true,314,263,197,3,4,3,3,5,5,19,0,0,3,3,false,false,false,No major static UX risks detected
-/dashboard/admin/b2b/new,src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx,dashboard,100,A+,true,136,119,119,0,1,1,1,2,1,6,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/admin/coach-outreach,src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx,dashboard,100,A+,true,435,280,280,9,10,49,49,5,0,0,4,12,0,0,false,true,true,No major static UX risks detected
-/dashboard/admin/crm,src/app/(dashboard)/dashboard/admin/crm/page.tsx,dashboard,100,A+,true,359,228,228,6,5,26,26,8,1,0,0,2,0,0,false,true,true,No major static UX risks detected
-/dashboard/admin/customers,src/app/(dashboard)/dashboard/admin/customers/page.tsx,dashboard,100,A+,true,317,174,174,0,1,13,13,2,1,0,0,0,0,0,false,true,false,No major static UX risks detected
-/dashboard/admin/feedback,src/app/(dashboard)/dashboard/admin/feedback/page.tsx,dashboard,100,A+,true,249,188,188,3,1,4,4,3,0,0,1,2,0,0,false,true,true,No major static UX risks detected
-/dashboard/admin/feedback/[id],src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx,dashboard,100,A+,true,288,171,171,3,4,13,13,2,1,3,0,0,0,0,false,false,true,No major static UX risks detected
-/dashboard/admin/intelligence,src/app/(dashboard)/dashboard/admin/intelligence/page.tsx,dashboard,100,A+,true,60,16,16,0,1,0,0,3,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/admin/linkedin-company-launch,src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx,dashboard,92,A-,true,92,77,77,0,1,11,11,2,0,0,3,1,0,0,false,true,false,Low action density for workflow page
-/dashboard/admin/metrics,src/app/(dashboard)/dashboard/admin/metrics/page.tsx,dashboard,100,A+,true,293,257,257,6,8,14,14,8,0,0,0,0,0,0,true,true,true,No major static UX risks detected
-/dashboard/admin/operations,src/app/(dashboard)/dashboard/admin/operations/page.tsx,dashboard,100,A+,true,138,77,77,0,1,9,9,5,0,0,0,4,0,0,false,false,false,No major static UX risks detected
-/dashboard/admin/outreach-analytics,src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx,dashboard,100,A+,true,512,285,285,7,13,67,67,9,0,0,0,0,0,0,false,true,true,No major static UX risks detected
-/dashboard/admin/product,src/app/(dashboard)/dashboard/admin/product/page.tsx,dashboard,100,A+,true,141,77,77,0,1,9,9,5,0,0,0,1,0,0,false,true,false,No major static UX risks detected
-/dashboard/admin/revenue,src/app/(dashboard)/dashboard/admin/revenue/page.tsx,dashboard,100,A+,true,139,77,77,0,1,9,9,5,0,0,0,4,0,0,false,true,false,No major static UX risks detected
-/dashboard/admin/social,src/app/(dashboard)/dashboard/admin/social/page.tsx,dashboard,100,A+,true,297,254,254,3,9,21,21,7,0,0,2,1,0,0,false,true,true,No major static UX risks detected
+/,src/app/page.tsx,marketing,92,A-,true,202,31,202,0,0,0,0,0,0,0,0,1,0,0,true,true,false,Weak heading hierarchy
+/about,src/app/about/page.tsx,marketing,100,A+,true,261,225,261,4,4,12,12,18,0,0,0,7,0,0,true,true,true,No major static UX risks detected
+/annual-report-2026,src/app/annual-report-2026/page.tsx,marketing,100,A+,true,114,88,114,3,7,9,9,2,0,0,2,4,0,0,true,true,false,No major static UX risks detected
+/annual-report-2026/executive-search-ai-confidentiality,src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx,marketing,100,A+,true,121,84,121,3,6,5,5,5,0,0,2,1,0,0,true,true,false,No major static UX risks detected
+/blog,src/app/blog/page.tsx,blog,100,A+,true,188,148,188,3,3,9,9,15,0,0,0,3,0,0,true,false,true,No major static UX risks detected
+/blog/cio-board-presentation,src/app/blog/cio-board-presentation/page.tsx,blog,100,A+,true,154,125,154,0,7,16,16,1,0,0,0,2,0,0,true,false,false,No major static UX risks detected
+/blog/cio-compensation-negotiation,src/app/blog/cio-compensation-negotiation/page.tsx,blog,100,A+,true,174,145,174,0,6,19,19,1,0,0,0,0,0,0,false,true,false,No major static UX risks detected
+/blog/cio-job-market-2026,src/app/blog/cio-job-market-2026/page.tsx,blog,84,B,false,303,274,303,0,14,36,36,1,0,0,3,5,0,0,true,true,false,Insufficient content chunking | Long page without quick navigation
+/blog/cio-job-search-timeline,src/app/blog/cio-job-search-timeline/page.tsx,blog,100,A+,true,166,136,166,0,4,15,15,1,0,0,0,5,0,0,false,true,false,No major static UX risks detected
+/blog/cio-vs-cto-which-role,src/app/blog/cio-vs-cto-which-role/page.tsx,blog,100,A+,true,173,151,173,0,6,18,18,0,0,0,0,0,0,0,true,false,false,No major static UX risks detected
+/blog/ciso-interview-preparation,src/app/blog/ciso-interview-preparation/page.tsx,blog,100,A+,true,173,144,173,0,6,18,18,1,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/blog/cto-job-search-timeline,src/app/blog/cto-job-search-timeline/page.tsx,blog,100,A+,true,151,129,151,0,4,15,15,0,0,0,0,1,0,0,false,false,false,No major static UX risks detected
+/blog/cto-vs-vp-engineering-career-path,src/app/blog/cto-vs-vp-engineering-career-path/page.tsx,blog,100,A+,true,168,146,168,0,5,19,19,0,0,0,0,0,0,0,false,true,false,No major static UX risks detected
+/blog/executive-coaching-candidate-infrastructure,src/app/blog/executive-coaching-candidate-infrastructure/page.tsx,blog,100,A+,true,213,191,213,0,6,24,24,1,0,0,0,0,0,0,false,false,false,No major static UX risks detected
+/blog/executive-coaching-job-search,src/app/blog/executive-coaching-job-search/page.tsx,blog,100,A+,true,178,156,178,0,6,18,18,0,0,0,0,1,0,0,false,false,false,No major static UX risks detected
+/blog/executive-hiring-patterns-2026,src/app/blog/executive-hiring-patterns-2026/page.tsx,blog,100,A+,true,125,96,125,0,8,9,9,0,0,0,2,0,0,0,true,true,false,No major static UX risks detected
+/blog/executive-job-search-daily-routine,src/app/blog/executive-job-search-daily-routine/page.tsx,blog,100,A+,true,185,157,185,0,10,20,20,0,0,0,2,2,0,0,false,true,false,No major static UX risks detected
+/blog/executive-resume-gaps,src/app/blog/executive-resume-gaps/page.tsx,blog,100,A+,true,189,160,189,0,7,19,19,1,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/blog/executive-search-firms-cio,src/app/blog/executive-search-firms-cio/page.tsx,blog,100,A+,true,174,145,174,0,6,19,19,1,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/blog/executive-search-operating-system,src/app/blog/executive-search-operating-system/page.tsx,blog,100,A+,true,215,187,215,0,4,24,24,0,0,0,0,1,0,0,false,true,false,No major static UX risks detected
+/blog/how-cios-find-jobs,src/app/blog/how-cios-find-jobs/page.tsx,blog,100,A+,true,178,156,178,0,5,17,17,0,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/blog/how-we-estimate-early-role-signals,src/app/blog/how-we-estimate-early-role-signals/page.tsx,blog,100,A+,true,119,90,119,0,5,9,9,4,0,0,1,1,0,0,true,true,false,No major static UX risks detected
+/blog/linkedin-executive-search-strategy,src/app/blog/linkedin-executive-search-strategy/page.tsx,blog,100,A+,true,186,164,186,0,6,20,20,0,0,0,0,3,0,0,false,false,false,No major static UX risks detected
+/blog/pe-backed-cio,src/app/blog/pe-backed-cio/page.tsx,blog,100,A+,true,190,161,190,0,7,20,20,1,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/blog/retained-search-candidate-preparation,src/app/blog/retained-search-candidate-preparation/page.tsx,blog,100,A+,true,194,172,194,0,5,20,20,1,0,0,0,0,0,0,false,true,false,No major static UX risks detected
+/blog/retained-search-firms,src/app/blog/retained-search-firms/page.tsx,blog,100,A+,true,174,145,174,0,7,18,18,1,0,0,0,0,0,0,false,false,false,No major static UX risks detected
+/blog/target-company-list,src/app/blog/target-company-list/page.tsx,blog,100,A+,true,194,166,194,0,5,21,21,0,0,0,0,5,0,0,true,true,false,No major static UX risks detected
+/blog/target-company-list-cto,src/app/blog/target-company-list-cto/page.tsx,blog,100,A+,true,201,173,201,1,8,22,22,0,0,0,2,4,0,0,true,true,false,No major static UX risks detected
+/blog/technology-executive-transition-chro,src/app/blog/technology-executive-transition-chro/page.tsx,blog,100,A+,true,184,162,184,0,4,19,19,1,0,0,0,0,0,0,false,true,false,No major static UX risks detected
+/blog/vp-job-search-different-rules,src/app/blog/vp-job-search-different-rules/page.tsx,blog,100,A+,true,189,167,189,0,5,18,18,1,0,0,0,2,0,0,false,true,false,No major static UX risks detected
+/blog/vp-to-cio-transition,src/app/blog/vp-to-cio-transition/page.tsx,blog,100,A+,true,162,133,162,0,6,17,17,1,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/blog/what-companies-want-chief-data-officer,src/app/blog/what-companies-want-chief-data-officer/page.tsx,blog,100,A+,true,161,132,161,0,6,17,17,1,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/blog/why-executive-recruiters-go-quiet,src/app/blog/why-executive-recruiters-go-quiet/page.tsx,blog,100,A+,true,133,104,133,0,8,12,12,0,0,0,2,1,0,0,true,true,false,No major static UX risks detected
+/blog/why-starting-monday-exists,src/app/blog/why-starting-monday-exists/page.tsx,blog,100,A+,true,127,99,127,0,8,12,12,0,0,0,1,1,0,0,false,true,false,No major static UX risks detected
+/career-tools,src/app/career-tools/page.tsx,marketing,94,A,true,225,191,225,5,6,14,14,7,0,0,2,8,0,0,false,true,true,Missing trust/confidentiality cues
+/case-studies,src/app/case-studies/page.tsx,marketing,82,B-,false,96,39,96,1,2,6,6,3,0,0,0,0,0,0,true,true,true,No explicit CTA language
+/coaches,src/app/coaches/page.tsx,marketing,92,A-,true,261,195,261,3,3,20,20,14,0,0,1,17,0,0,true,true,false,CTA overload
+/coaches-guide,src/app/coaches-guide/page.tsx,marketing,100,A+,true,252,214,252,7,8,28,28,6,0,0,1,5,1,0,true,true,true,No major static UX risks detected
+/coaches/mock-dashboard,src/app/coaches/mock-dashboard/page.tsx,marketing,94,A,true,113,99,113,3,2,8,8,5,0,0,0,4,0,0,false,true,false,Missing trust/confidentiality cues
+/coaches/mock-dashboard/[clientId],src/app/coaches/mock-dashboard/[clientId]/page.tsx,marketing,92,A-,true,173,133,173,4,1,27,27,4,0,0,3,5,0,0,true,false,false,Missing outcome metrics
+/coaches/personas,src/app/coaches/personas/page.tsx,marketing,100,A+,true,59,44,59,0,1,5,5,0,0,0,0,3,0,0,true,true,false,No major static UX risks detected
+/coaches/personas/[slug],src/app/coaches/personas/[slug]/page.tsx,marketing,100,A+,true,79,50,79,0,1,4,4,0,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/concierge,src/app/concierge/page.tsx,marketing,100,A+,true,27,15,27,1,1,2,2,1,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/contributor,src/app/contributor/page.tsx,marketing,100,A+,true,232,104,232,4,3,8,8,1,0,0,0,7,0,0,true,true,false,No major static UX risks detected
+/dashboard,src/app/(dashboard)/dashboard/page.tsx,dashboard,90,A-,true,971,613,613,10,4,9,9,15,0,0,1,12,0,0,false,true,false,Moderate scroll burden
+/dashboard/admin,src/app/(dashboard)/dashboard/admin/page.tsx,dashboard,90,A-,true,1132,606,583,14,14,42,40,31,0,0,1,4,1,1,false,true,true,Moderate scroll burden
+/dashboard/admin/b2b,src/app/(dashboard)/dashboard/admin/b2b/page.tsx,dashboard,100,A+,true,190,122,122,0,1,5,5,5,0,0,0,1,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/b2b/[id],src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx,dashboard,100,A+,true,313,262,196,3,4,3,3,5,5,19,0,5,3,3,false,false,false,No major static UX risks detected
+/dashboard/admin/b2b/new,src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx,dashboard,100,A+,true,136,119,119,0,1,1,1,2,1,6,0,1,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/channel-benchmarks,src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx,dashboard,92,A-,true,287,127,127,4,6,11,11,1,0,0,0,0,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/coach-outreach,src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx,dashboard,100,A+,true,412,279,279,9,10,49,49,5,0,0,4,10,0,0,false,true,true,No major static UX risks detected
+/dashboard/admin/crm,src/app/(dashboard)/dashboard/admin/crm/page.tsx,dashboard,100,A+,true,359,228,228,6,5,26,26,8,1,0,0,5,0,0,false,true,true,No major static UX risks detected
+/dashboard/admin/customers,src/app/(dashboard)/dashboard/admin/customers/page.tsx,dashboard,100,A+,true,379,236,236,0,1,13,13,2,1,0,0,0,0,0,false,true,false,No major static UX risks detected
+/dashboard/admin/diagrams,src/app/(dashboard)/dashboard/admin/diagrams/page.tsx,dashboard,100,A+,true,31,31,31,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
+/dashboard/admin/feedback,src/app/(dashboard)/dashboard/admin/feedback/page.tsx,dashboard,100,A+,true,260,187,187,3,1,4,4,3,0,0,1,2,0,0,false,true,true,No major static UX risks detected
+/dashboard/admin/feedback/[id],src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx,dashboard,100,A+,true,288,171,171,3,4,13,13,2,1,3,0,2,0,0,false,false,true,No major static UX risks detected
+/dashboard/admin/guide,src/app/(dashboard)/dashboard/admin/guide/page.tsx,dashboard,92,A-,true,185,96,96,4,1,19,19,2,0,0,2,1,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/intelligence,src/app/(dashboard)/dashboard/admin/intelligence/page.tsx,dashboard,100,A+,true,305,114,114,1,3,2,2,3,0,0,0,4,0,0,false,true,false,No major static UX risks detected
+/dashboard/admin/intelligence/qa,src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx,dashboard,92,A-,true,166,115,115,3,4,9,9,2,0,0,0,0,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/internal-guide,src/app/(dashboard)/dashboard/admin/internal-guide/page.tsx,dashboard,88,B+,false,194,10,10,0,0,0,0,0,0,0,0,1,0,0,false,false,false,Missing H1 | Low action density for workflow page
+/dashboard/admin/linkedin-company-launch,src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx,dashboard,92,A-,true,92,77,77,0,1,11,11,2,0,0,3,2,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/metrics,src/app/(dashboard)/dashboard/admin/metrics/page.tsx,dashboard,100,A+,true,300,264,264,6,8,18,18,10,0,0,0,4,0,0,true,true,true,No major static UX risks detected
+/dashboard/admin/onboarding/qa,src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx,dashboard,92,A-,true,177,119,119,3,4,11,11,2,0,0,0,0,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/onboarding/video,src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx,dashboard,100,A+,true,263,141,141,3,5,28,28,5,0,0,2,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/operations,src/app/(dashboard)/dashboard/admin/operations/page.tsx,dashboard,100,A+,true,138,77,77,0,1,9,9,5,0,0,0,6,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/outplacement-cohorts,src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx,dashboard,100,A+,true,248,129,129,3,1,13,13,1,3,3,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/outplacement-outreach,src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx,dashboard,92,A-,true,275,122,122,6,7,13,13,1,0,0,3,2,0,0,true,true,true,Low action density for workflow page
+/dashboard/admin/outreach-analytics,src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx,dashboard,100,A+,true,575,324,324,7,14,20,20,4,0,0,0,3,0,0,true,true,false,No major static UX risks detected
+/dashboard/admin/outreach-reliability,src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx,dashboard,92,A-,true,194,154,154,5,10,13,13,2,0,0,0,0,0,0,false,true,false,Low action density for workflow page
+/dashboard/admin/product,src/app/(dashboard)/dashboard/admin/product/page.tsx,dashboard,100,A+,true,143,77,77,0,1,9,9,5,0,0,0,4,0,0,false,true,false,No major static UX risks detected
+/dashboard/admin/product/catalog,src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx,dashboard,100,A+,true,362,254,254,6,10,23,23,2,6,31,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/revenue,src/app/(dashboard)/dashboard/admin/revenue/page.tsx,dashboard,100,A+,true,139,77,77,0,1,9,9,5,0,0,0,6,0,0,false,true,false,No major static UX risks detected
+/dashboard/admin/sales-enablement,src/app/(dashboard)/dashboard/admin/sales-enablement/page.tsx,dashboard,92,A-,true,52,30,30,0,1,2,2,2,0,0,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/admin/social,src/app/(dashboard)/dashboard/admin/social/page.tsx,dashboard,100,A+,true,402,340,340,4,10,29,29,10,1,1,2,8,0,0,false,true,true,No major static UX risks detected
 /dashboard/admin/speakers,src/app/(dashboard)/dashboard/admin/speakers/page.tsx,dashboard,100,A+,true,84,50,50,0,1,1,1,4,0,0,0,0,0,0,false,false,false,No major static UX risks detected
 /dashboard/admin/team,src/app/(dashboard)/dashboard/admin/team/page.tsx,dashboard,92,A-,true,52,36,36,0,1,2,2,1,0,0,0,0,0,0,false,false,false,Low action density for workflow page
-/dashboard/admin/traces,src/app/(dashboard)/dashboard/admin/traces/page.tsx,dashboard,100,A+,true,210,136,136,0,1,9,9,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/admin/traces,src/app/(dashboard)/dashboard/admin/traces/page.tsx,dashboard,100,A+,true,210,136,136,0,1,9,9,5,0,0,0,2,0,0,false,false,false,No major static UX risks detected
 /dashboard/admin/traces/rubric,src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx,dashboard,92,A-,true,58,38,38,0,1,3,3,2,0,0,0,0,0,0,false,false,false,Low action density for workflow page
-/dashboard/briefing,src/app/(dashboard)/dashboard/briefing/page.tsx,dashboard,100,A+,true,551,339,339,8,7,15,15,15,3,6,0,0,0,0,false,true,true,No major static UX risks detected
-/dashboard/calendar,src/app/(dashboard)/dashboard/calendar/page.tsx,dashboard,100,A+,true,279,178,178,0,1,5,5,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/chat,src/app/(dashboard)/dashboard/chat/page.tsx,dashboard,100,A+,true,382,373,373,3,4,3,3,5,7,1,0,0,0,0,false,false,true,No major static UX risks detected
-/dashboard/coach,src/app/(dashboard)/dashboard/coach/page.tsx,dashboard,100,A+,true,238,155,155,0,1,15,15,2,1,1,0,1,0,0,false,true,false,No major static UX risks detected
-/dashboard/coach/[clientId],src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx,dashboard,92,A-,true,66,45,45,0,1,4,4,2,0,0,0,0,0,0,false,true,false,Low action density for workflow page
-/dashboard/companies/[id],src/app/(dashboard)/dashboard/companies/[id]/page.tsx,dashboard,100,A+,true,778,616,324,3,7,26,8,11,4,22,0,0,7,7,false,true,true,No major static UX risks detected
-/dashboard/companies/[id]/prep,src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx,dashboard,100,A+,true,95,28,28,0,1,0,0,3,0,0,0,0,0,0,false,true,false,No major static UX risks detected
-/dashboard/companies/new,src/app/(dashboard)/dashboard/companies/new/page.tsx,dashboard,100,A+,true,193,163,163,0,1,5,5,2,1,7,0,0,0,0,false,true,false,No major static UX risks detected
-/dashboard/concierge,src/app/(dashboard)/dashboard/concierge/page.tsx,dashboard,100,A+,true,183,141,141,3,2,18,18,4,0,0,1,1,0,0,false,true,false,No major static UX risks detected
-/dashboard/contacts,src/app/(dashboard)/dashboard/contacts/page.tsx,dashboard,100,A+,true,220,181,181,0,1,1,1,1,1,8,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/contacts/[id],src/app/(dashboard)/dashboard/contacts/[id]/page.tsx,dashboard,100,A+,true,547,414,414,7,8,11,11,18,4,4,0,0,0,0,false,true,true,No major static UX risks detected
-/dashboard/contacts/[id]/edit,src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx,dashboard,100,A+,true,199,151,151,0,1,1,1,2,1,10,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/contacts/[id]/outreach,src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx,dashboard,100,A+,true,98,38,38,0,1,0,0,3,0,0,0,0,0,0,false,true,false,No major static UX risks detected
-/dashboard/discover,src/app/(dashboard)/dashboard/discover/page.tsx,dashboard,100,A+,true,251,171,171,0,1,5,5,4,5,1,0,0,0,0,false,true,false,No major static UX risks detected
-/dashboard/feedback,src/app/(dashboard)/dashboard/feedback/page.tsx,dashboard,100,A+,true,363,228,228,3,3,2,2,1,2,7,0,7,0,0,false,false,true,No major static UX risks detected
-/dashboard/help,src/app/(dashboard)/dashboard/help/page.tsx,dashboard,100,A+,true,85,68,68,0,1,5,5,8,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/invite,src/app/(dashboard)/dashboard/invite/page.tsx,dashboard,92,A-,true,79,45,45,0,1,3,3,1,0,0,0,0,0,0,false,false,false,Low action density for workflow page
-/dashboard/kanban,src/app/(dashboard)/dashboard/kanban/page.tsx,dashboard,100,A+,true,30,23,23,0,1,1,1,3,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/offers,src/app/(dashboard)/dashboard/offers/page.tsx,dashboard,100,A+,true,216,150,150,0,2,6,6,8,0,0,0,0,0,0,false,true,false,No major static UX risks detected
+/dashboard/briefing,src/app/(dashboard)/dashboard/briefing/page.tsx,dashboard,100,A+,true,569,343,343,8,7,15,15,15,3,6,0,3,0,0,true,true,true,No major static UX risks detected
+/dashboard/calendar,src/app/(dashboard)/dashboard/calendar/page.tsx,dashboard,100,A+,true,278,177,177,0,1,5,5,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/chat,src/app/(dashboard)/dashboard/chat/page.tsx,dashboard,100,A+,true,382,373,373,3,4,3,3,5,7,1,0,0,0,0,false,true,true,No major static UX risks detected
+/dashboard/coach,src/app/(dashboard)/dashboard/coach/page.tsx,dashboard,100,A+,true,417,273,273,0,1,46,46,2,3,1,0,2,0,0,false,true,false,No major static UX risks detected
+/dashboard/coach/[clientId],src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx,dashboard,92,A-,true,66,45,45,0,1,4,4,2,0,0,0,1,0,0,false,true,false,Low action density for workflow page
+/dashboard/companies/[id],src/app/(dashboard)/dashboard/companies/[id]/page.tsx,dashboard,100,A+,true,733,564,296,2,6,21,8,5,3,19,0,4,6,6,true,true,false,No major static UX risks detected
+/dashboard/companies/[id]/prep,src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx,dashboard,100,A+,true,95,28,28,0,1,0,0,3,0,0,0,2,0,0,false,true,false,No major static UX risks detected
+/dashboard/companies/new,src/app/(dashboard)/dashboard/companies/new/page.tsx,dashboard,100,A+,true,199,169,169,0,1,6,6,3,1,7,0,1,0,0,false,true,false,No major static UX risks detected
+/dashboard/concierge,src/app/(dashboard)/dashboard/concierge/page.tsx,dashboard,100,A+,true,183,141,141,3,2,18,18,4,0,0,1,3,0,0,false,true,false,No major static UX risks detected
+/dashboard/contacts,src/app/(dashboard)/dashboard/contacts/page.tsx,dashboard,100,A+,true,254,213,213,0,1,7,7,1,1,9,0,0,0,0,false,true,false,No major static UX risks detected
+/dashboard/contacts/[id],src/app/(dashboard)/dashboard/contacts/[id]/page.tsx,dashboard,100,A+,true,546,413,413,7,8,11,11,18,4,4,0,3,0,0,false,true,true,No major static UX risks detected
+/dashboard/contacts/[id]/edit,src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx,dashboard,100,A+,true,198,150,150,0,1,1,1,2,1,10,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/contacts/[id]/outreach,src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx,dashboard,100,A+,true,98,38,38,0,1,0,0,3,0,0,0,2,0,0,false,true,false,No major static UX risks detected
+/dashboard/discover,src/app/(dashboard)/dashboard/discover/page.tsx,dashboard,100,A+,true,286,186,186,0,1,5,5,5,5,1,0,2,0,0,false,true,false,No major static UX risks detected
+/dashboard/discover/recommendation/[id],src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx,dashboard,92,A-,true,185,113,113,5,6,14,14,1,0,0,2,1,0,0,true,true,false,Low action density for workflow page
+/dashboard/executive-brief,src/app/(dashboard)/dashboard/executive-brief/page.tsx,dashboard,92,A-,true,153,153,153,0,0,0,0,0,0,0,0,0,0,0,false,false,false,Low action density for workflow page
+/dashboard/feedback,src/app/(dashboard)/dashboard/feedback/page.tsx,dashboard,100,A+,true,363,228,228,3,3,2,2,1,2,7,0,9,0,0,false,false,true,No major static UX risks detected
+/dashboard/help,src/app/(dashboard)/dashboard/help/page.tsx,dashboard,100,A+,true,101,84,84,0,1,7,7,9,0,0,0,2,0,0,false,false,false,No major static UX risks detected
+/dashboard/invite,src/app/(dashboard)/dashboard/invite/page.tsx,dashboard,92,A-,true,79,45,45,0,1,3,3,1,0,0,0,1,0,0,false,false,false,Low action density for workflow page
+/dashboard/kanban,src/app/(dashboard)/dashboard/kanban/page.tsx,dashboard,100,A+,true,30,23,23,0,1,1,1,3,0,0,0,2,0,0,false,false,false,No major static UX risks detected
+/dashboard/offers,src/app/(dashboard)/dashboard/offers/page.tsx,dashboard,100,A+,true,216,150,150,0,2,6,6,8,0,0,0,3,0,0,false,true,false,No major static UX risks detected
 /dashboard/outplacement,src/app/(dashboard)/dashboard/outplacement/page.tsx,dashboard,92,A-,true,32,29,29,0,1,2,2,2,0,0,1,1,0,0,false,false,false,Low action density for workflow page
-/dashboard/outreach,src/app/(dashboard)/dashboard/outreach/page.tsx,dashboard,100,A+,true,296,94,94,5,4,18,18,8,0,0,1,2,0,0,false,false,true,No major static UX risks detected
-/dashboard/partner,src/app/(dashboard)/dashboard/partner/page.tsx,dashboard,100,A+,true,260,157,157,6,7,9,9,8,0,0,0,3,0,0,false,false,true,No major static UX risks detected
-/dashboard/pilot-outreach,src/app/(dashboard)/dashboard/pilot-outreach/page.tsx,dashboard,96,A,true,44,25,25,0,1,3,3,0,1,4,0,2,0,0,false,false,false,Missing H1
-/dashboard/placed,src/app/(dashboard)/dashboard/placed/page.tsx,dashboard,100,A+,true,107,85,85,0,1,8,8,6,0,0,0,0,0,0,false,false,false,No major static UX risks detected
+/dashboard/outreach,src/app/(dashboard)/dashboard/outreach/page.tsx,dashboard,100,A+,true,398,366,366,6,5,21,21,11,0,0,1,3,0,0,false,false,true,No major static UX risks detected
+/dashboard/partner,src/app/(dashboard)/dashboard/partner/page.tsx,dashboard,100,A+,true,558,250,250,7,8,16,16,9,1,4,0,5,0,0,false,true,true,No major static UX risks detected
+/dashboard/pilot-outreach,src/app/(dashboard)/dashboard/pilot-outreach/page.tsx,dashboard,96,A,true,44,25,25,0,1,3,3,0,1,4,0,2,0,0,false,true,false,Missing H1
+/dashboard/placed,src/app/(dashboard)/dashboard/placed/page.tsx,dashboard,100,A+,true,129,105,105,0,1,13,13,7,0,0,1,1,0,0,false,false,false,No major static UX risks detected
 /dashboard/positioning,src/app/(dashboard)/dashboard/positioning/page.tsx,dashboard,100,A+,true,95,61,61,0,2,4,4,3,0,0,0,0,0,0,false,false,false,No major static UX risks detected
-/dashboard/profile,src/app/(dashboard)/dashboard/profile/page.tsx,dashboard,100,A+,true,242,133,133,5,5,2,2,7,1,4,0,0,0,0,true,true,true,No major static UX risks detected
+/dashboard/post-search,src/app/(dashboard)/dashboard/post-search/page.tsx,dashboard,100,A+,true,262,170,170,0,1,37,37,7,0,0,4,4,0,0,false,true,false,No major static UX risks detected
+/dashboard/profile,src/app/(dashboard)/dashboard/profile/page.tsx,dashboard,100,A+,true,247,138,138,5,5,2,2,8,1,4,0,2,0,0,true,true,true,No major static UX risks detected
 /dashboard/profile/tailor,src/app/(dashboard)/dashboard/profile/tailor/page.tsx,dashboard,100,A+,true,142,87,87,0,2,5,5,5,0,0,0,0,0,0,false,false,false,No major static UX risks detected
 /dashboard/salary,src/app/(dashboard)/dashboard/salary/page.tsx,dashboard,92,A-,true,65,43,43,0,1,4,4,2,0,0,0,0,0,0,false,false,false,Low action density for workflow page
-/dashboard/signals,src/app/(dashboard)/dashboard/signals/page.tsx,dashboard,100,A+,true,333,216,212,0,1,5,4,15,2,4,0,0,1,1,false,true,false,No major static UX risks detected
-/dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,100,A+,true,279,147,147,0,2,11,11,3,0,0,0,1,0,0,false,true,false,No major static UX risks detected
+/dashboard/signals,src/app/(dashboard)/dashboard/signals/page.tsx,dashboard,100,A+,true,389,252,248,0,1,6,5,15,3,4,0,3,1,1,false,true,false,No major static UX risks detected
+/dashboard/start,src/app/(dashboard)/dashboard/start/page.tsx,dashboard,100,A+,true,278,146,146,0,2,11,11,3,0,0,0,5,0,0,false,true,false,No major static UX risks detected
 /dashboard/strategy,src/app/(dashboard)/dashboard/strategy/page.tsx,dashboard,100,A+,true,43,13,13,0,1,0,0,3,0,0,0,0,0,0,false,false,false,No major static UX risks detected
 /dashboard/wrap-up,src/app/(dashboard)/dashboard/wrap-up/page.tsx,dashboard,100,A+,true,95,71,71,0,1,4,4,4,1,1,0,0,0,0,false,false,false,No major static UX risks detected
-/demo,src/app/demo/page.tsx,marketing,90,A-,true,445,422,445,4,7,19,19,5,3,3,1,1,0,0,true,true,true,Moderate scroll burden
-/demo/cio,src/app/demo/cio/page.tsx,marketing,92,A-,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,92,A-,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,92,A-,true,346,323,331,2,3,18,15,5,1,2,0,4,1,1,true,true,true,Insufficient content chunking
-/demo/presenter,src/app/demo/presenter/page.tsx,marketing,100,A+,true,149,115,149,4,6,12,12,9,0,0,0,2,0,0,true,true,true,No major static UX risks detected
+/demo,src/app/demo/page.tsx,marketing,92,A-,true,327,298,327,2,3,16,16,10,1,1,0,5,0,0,true,true,true,Insufficient content chunking
+/demo/cio,src/app/demo/cio/page.tsx,marketing,100,A+,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/demo/cio/notes,src/app/demo/cio/notes/page.tsx,marketing,100,A+,true,24,13,24,1,1,2,2,1,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/demo/executive-brief,src/app/demo/executive-brief/page.tsx,dashboard,100,A+,true,340,323,308,2,3,18,15,5,1,2,0,5,1,1,true,true,true,No major static UX risks detected
+/demo/executive-dashboard,src/app/demo/executive-dashboard/page.tsx,dashboard,92,A-,true,318,185,185,7,4,1,1,1,0,0,0,6,0,0,true,true,false,Low action density for workflow page
+/demo/manager-tools,src/app/demo/manager-tools/page.tsx,marketing,100,A+,true,6,6,6,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
+/demo/michael-dashboard,src/app/demo/michael-dashboard/page.tsx,dashboard,100,A+,true,147,126,126,2,1,18,18,5,0,0,1,4,0,0,false,true,true,No major static UX risks detected
+/demo/michael-strategy-brief,src/app/demo/michael-strategy-brief/page.tsx,dashboard,100,A+,true,108,76,76,3,1,6,6,5,0,0,1,3,0,0,true,true,true,No major static UX risks detected
+/demo/presenter,src/app/demo/presenter/page.tsx,marketing,100,A+,true,149,115,149,4,6,12,12,9,0,0,0,5,0,0,true,true,true,No major static UX risks detected
 /evaluate,src/app/evaluate/page.tsx,marketing,100,A+,true,109,60,109,3,4,6,6,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/evidence-room,src/app/evidence-room/page.tsx,marketing,100,A+,true,128,65,128,3,1,12,12,7,0,0,1,1,0,0,true,true,true,No major static UX risks detected
-/feedback,src/app/feedback/page.tsx,marketing,100,A+,true,100,75,100,2,4,7,7,0,1,1,0,2,0,0,true,true,false,No major static UX risks detected
-/for-cdo,src/app/for-cdo/page.tsx,marketing,92,A-,true,147,39,147,1,2,0,0,5,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/for-cio,src/app/for-cio/page.tsx,marketing,100,A+,true,148,39,148,1,2,0,0,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,100,A+,true,217,179,217,5,6,17,17,6,0,0,1,2,0,0,true,true,true,No major static UX risks detected
-/for-ciso,src/app/for-ciso/page.tsx,marketing,92,A-,true,147,38,147,1,2,0,0,5,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/for-coaches,src/app/for-coaches/page.tsx,marketing,90,A-,true,555,521,457,14,10,101,67,27,0,0,8,1,1,1,true,true,true,Moderate scroll burden
-/for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,100,A+,true,201,138,201,7,9,20,20,4,0,0,1,2,0,0,true,true,true,No major static UX risks detected
-/for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,100,A+,true,343,190,343,4,6,17,17,10,0,0,0,2,0,0,true,true,true,No major static UX risks detected
-/for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,100,A+,true,93,67,93,5,7,5,5,6,0,0,2,1,0,0,true,true,true,No major static UX risks detected
-/for-coo,src/app/for-coo/page.tsx,marketing,100,A+,true,147,39,147,1,2,0,0,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/for-cpo,src/app/for-cpo/page.tsx,marketing,92,A-,true,145,38,145,1,2,0,0,5,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/for-data-officer,src/app/for-data-officer/page.tsx,marketing,100,A+,true,146,38,146,1,2,0,0,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,100,A+,true,268,225,268,9,8,22,22,9,0,0,1,3,1,0,true,true,true,No major static UX risks detected
-/for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,100,A+,true,264,221,264,9,8,22,22,9,0,0,1,4,1,0,true,true,true,No major static UX risks detected
-/for-media-partners,src/app/for-media-partners/page.tsx,marketing,92,A-,true,266,218,266,8,7,25,25,6,0,0,1,1,0,0,true,false,true,Missing outcome metrics
-/for-outplacement,src/app/for-outplacement/page.tsx,marketing,90,A-,true,598,344,463,12,13,49,20,15,0,0,3,1,1,1,true,true,true,Moderate scroll burden
-/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,90,A-,true,528,243,435,10,10,26,13,15,0,0,1,5,1,1,true,true,true,Moderate scroll burden
+/evidence-room,src/app/evidence-room/page.tsx,marketing,92,A-,true,242,115,242,6,1,24,24,9,0,0,1,7,0,0,true,true,true,Weak heading hierarchy
+/executive-brief,src/app/executive-brief/page.tsx,marketing,100,A+,true,18,18,18,0,0,0,0,0,0,0,0,0,0,0,true,true,false,No major static UX risks detected
+/executives,src/app/executives/page.tsx,marketing,100,A+,true,109,88,109,2,1,12,12,0,0,0,0,4,0,0,true,true,false,No major static UX risks detected
+/executives/active,src/app/executives/active/page.tsx,marketing,94,A,true,58,45,58,0,1,6,6,0,0,0,0,3,0,0,false,true,false,Missing trust/confidentiality cues
+/executives/passive,src/app/executives/passive/page.tsx,marketing,94,A,true,58,45,58,0,1,6,6,0,0,0,0,3,0,0,false,true,false,Missing trust/confidentiality cues
+/executives/personas,src/app/executives/personas/page.tsx,marketing,94,A,true,46,32,46,0,1,4,4,0,0,0,0,2,0,0,false,true,false,Missing trust/confidentiality cues
+/executives/personas/[slug],src/app/executives/personas/[slug]/page.tsx,marketing,94,A,true,63,32,63,0,1,2,2,0,0,0,0,1,0,0,false,true,false,Missing trust/confidentiality cues
+/feedback,src/app/feedback/page.tsx,marketing,100,A+,true,168,120,168,3,5,7,7,3,2,1,0,1,0,0,true,true,true,No major static UX risks detected
+/for-cdo,src/app/for-cdo/page.tsx,marketing,100,A+,true,133,26,133,0,1,0,0,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/for-cio,src/app/for-cio/page.tsx,marketing,92,A-,true,200,88,195,1,1,9,9,0,0,0,1,1,1,1,true,true,false,Weak heading hierarchy
+/for-cio-associations,src/app/for-cio-associations/page.tsx,marketing,100,A+,true,216,178,216,5,6,17,17,6,0,0,1,5,0,0,true,true,true,No major static UX risks detected
+/for-ciso,src/app/for-ciso/page.tsx,marketing,100,A+,true,133,25,133,0,1,0,0,0,0,0,0,4,0,0,true,true,false,No major static UX risks detected
+/for-coaches,src/app/for-coaches/page.tsx,marketing,100,A+,true,233,209,233,4,4,26,26,10,0,0,2,4,0,0,true,true,true,No major static UX risks detected
+/for-coaches/coach-prep-worksheet,src/app/for-coaches/coach-prep-worksheet/page.tsx,marketing,100,A+,true,214,129,214,5,4,15,15,5,0,0,1,2,0,0,true,true,true,No major static UX risks detected
+/for-coaches/economics,src/app/for-coaches/economics/page.tsx,marketing,100,A+,true,213,149,213,8,9,20,20,4,0,0,1,6,0,0,true,true,true,No major static UX risks detected
+/for-coaches/faq,src/app/for-coaches/faq/page.tsx,marketing,90,A-,true,367,213,367,5,6,17,17,10,0,0,0,4,0,0,true,true,true,Moderate scroll burden
+/for-coaches/micro-products,src/app/for-coaches/micro-products/page.tsx,marketing,100,A+,true,140,93,140,4,4,10,10,3,0,0,0,4,0,0,true,true,true,No major static UX risks detected
+/for-coaches/micro-products/[slug],src/app/for-coaches/micro-products/[slug]/page.tsx,marketing,100,A+,true,139,100,139,8,7,12,12,4,0,0,1,2,0,0,true,true,true,No major static UX risks detected
+/for-coaches/trust-pack,src/app/for-coaches/trust-pack/page.tsx,marketing,100,A+,true,130,102,130,6,7,5,5,9,0,0,2,2,0,0,true,true,true,No major static UX risks detected
+/for-coo,src/app/for-coo/page.tsx,marketing,100,A+,true,133,25,133,0,1,0,0,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/for-cpo,src/app/for-cpo/page.tsx,marketing,100,A+,true,131,25,131,0,1,0,0,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/for-data-officer,src/app/for-data-officer/page.tsx,marketing,100,A+,true,132,24,132,0,1,0,0,0,0,0,0,1,0,0,true,true,true,No major static UX risks detected
+/for-executives,src/app/for-executives/page.tsx,marketing,100,A+,true,145,26,145,0,1,0,0,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/for-financial-advisors,src/app/for-financial-advisors/page.tsx,marketing,100,A+,true,259,216,259,8,7,22,22,6,0,0,1,8,1,0,true,true,true,No major static UX risks detected
+/for-fractional-executives,src/app/for-fractional-executives/page.tsx,marketing,100,A+,true,255,212,255,8,7,22,22,6,0,0,1,6,1,0,true,true,true,No major static UX risks detected
+/for-media-partners,src/app/for-media-partners/page.tsx,marketing,100,A+,true,265,217,265,8,7,25,25,6,0,0,1,4,0,0,true,true,true,No major static UX risks detected
+/for-outplacement,src/app/for-outplacement/page.tsx,marketing,90,A-,true,458,252,381,8,8,36,17,10,0,0,2,4,1,1,true,true,true,Moderate scroll burden
+/for-outplacement/economics,src/app/for-outplacement/economics/page.tsx,marketing,90,A-,true,498,235,405,9,9,26,13,11,0,0,1,10,1,1,true,true,true,Moderate scroll burden
 /for-outplacement/executive-summary,src/app/for-outplacement/executive-summary/page.tsx,marketing,100,A+,true,138,95,138,6,1,13,13,5,0,0,3,3,0,0,true,true,true,No major static UX risks detected
-/for-outplacement/faq,src/app/for-outplacement/faq/page.tsx,marketing,100,A+,true,238,114,238,3,4,9,9,9,0,0,0,6,0,0,true,true,true,No major static UX risks detected
-/for-outplacement/metric-dictionary,src/app/for-outplacement/metric-dictionary/page.tsx,marketing,100,A+,true,132,77,132,3,1,5,5,5,0,0,0,2,0,0,true,true,true,No major static UX risks detected
-/for-outplacement/operating-scorecard,src/app/for-outplacement/operating-scorecard/page.tsx,marketing,100,A+,true,104,68,104,4,1,14,14,4,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/for-outplacement/runbook,src/app/for-outplacement/runbook/page.tsx,marketing,100,A+,true,166,89,166,5,1,16,16,6,0,0,0,10,0,0,true,true,true,No major static UX risks detected
-/for-outplacement/security-overview,src/app/for-outplacement/security-overview/page.tsx,marketing,92,A-,true,132,76,132,4,1,13,13,5,0,0,0,2,0,0,true,false,true,Missing outcome metrics
-/for-outplacement/trust-pack,src/app/for-outplacement/trust-pack/page.tsx,marketing,90,A-,true,476,263,476,13,14,24,24,8,0,0,3,8,0,0,true,true,true,Moderate scroll burden
-/for-pe-partners,src/app/for-pe-partners/page.tsx,marketing,92,A-,true,224,186,224,6,7,17,17,10,0,0,1,2,0,0,true,false,true,Missing outcome metrics
-/for-pe-teams,src/app/for-pe-teams/page.tsx,marketing,92,A-,true,154,120,154,4,2,13,13,10,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/for-relocation,src/app/for-relocation/page.tsx,marketing,100,A+,true,265,222,265,9,8,22,22,9,0,0,1,4,1,0,true,true,true,No major static UX risks detected
-/for-search-firms,src/app/for-search-firms/page.tsx,marketing,92,A-,true,246,203,246,7,8,18,18,9,0,0,1,4,1,0,true,false,true,Missing outcome metrics
-/for-vp,src/app/for-vp/page.tsx,marketing,100,A+,true,147,39,147,1,2,0,0,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/for-vp-technology,src/app/for-vp-technology/page.tsx,marketing,94,A,true,145,38,145,1,2,0,0,5,0,0,0,1,0,0,false,true,true,Missing trust/confidentiality cues
-/founder-note,src/app/founder-note/page.tsx,marketing,100,A+,true,88,69,88,2,6,8,8,5,0,0,1,1,0,0,true,true,true,No major static UX risks detected
-/guide,src/app/guide/page.tsx,marketing,92,A-,true,72,13,72,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/intelligence/[slug],src/app/intelligence/[slug]/page.tsx,marketing,100,A+,true,272,221,272,5,4,10,10,14,0,0,0,5,0,0,true,true,true,No major static UX risks detected
+/for-outplacement/faq,src/app/for-outplacement/faq/page.tsx,marketing,100,A+,true,238,114,238,3,4,9,9,9,0,0,0,10,0,0,true,true,true,No major static UX risks detected
+/for-outplacement/metric-dictionary,src/app/for-outplacement/metric-dictionary/page.tsx,marketing,100,A+,true,132,77,132,3,1,5,5,5,0,0,0,3,0,0,true,true,true,No major static UX risks detected
+/for-outplacement/operating-scorecard,src/app/for-outplacement/operating-scorecard/page.tsx,marketing,100,A+,true,104,68,104,4,1,14,14,4,0,0,0,2,0,0,true,true,true,No major static UX risks detected
+/for-outplacement/runbook,src/app/for-outplacement/runbook/page.tsx,marketing,100,A+,true,170,89,170,5,1,16,16,6,0,0,0,10,0,0,true,true,true,No major static UX risks detected
+/for-outplacement/security-overview,src/app/for-outplacement/security-overview/page.tsx,marketing,92,A-,true,132,76,132,4,1,13,13,5,0,0,0,3,0,0,true,false,true,Missing outcome metrics
+/for-outplacement/trust-pack,src/app/for-outplacement/trust-pack/page.tsx,marketing,90,A-,true,437,263,437,13,14,24,24,8,0,0,3,8,0,0,true,true,true,Moderate scroll burden
+/for-pe-partners,src/app/for-pe-partners/page.tsx,marketing,100,A+,true,214,176,214,5,6,17,17,6,0,0,1,4,0,0,true,true,true,No major static UX risks detected
+/for-pe-teams,src/app/for-pe-teams/page.tsx,marketing,100,A+,true,145,111,145,3,1,13,13,7,0,0,0,2,0,0,true,true,true,No major static UX risks detected
+/for-relocation,src/app/for-relocation/page.tsx,marketing,100,A+,true,256,213,256,8,7,22,22,6,0,0,1,5,1,0,true,true,true,No major static UX risks detected
+/for-search-firms,src/app/for-search-firms/page.tsx,marketing,100,A+,true,238,195,238,6,7,18,18,6,0,0,1,7,1,0,true,true,true,No major static UX risks detected
+/for-vp,src/app/for-vp/page.tsx,marketing,100,A+,true,6,6,6,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
+/for-vp-technology,src/app/for-vp-technology/page.tsx,marketing,100,A+,true,131,24,131,0,1,0,0,0,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/founder-note,src/app/founder-note/page.tsx,marketing,100,A+,true,75,56,75,1,5,7,7,1,0,0,1,4,0,0,true,true,false,No major static UX risks detected
+/guide,src/app/guide/page.tsx,marketing,86,B,false,194,13,194,1,1,2,2,1,0,0,0,6,0,0,false,true,false,Weak heading hierarchy | Missing trust/confidentiality cues
+/ideas,src/app/ideas/page.tsx,marketing,84,B,false,343,307,343,0,3,8,8,4,3,5,0,4,0,0,true,true,false,Insufficient content chunking | Long page without quick navigation
+/intelligence/[slug],src/app/intelligence/[slug]/page.tsx,marketing,100,A+,true,271,220,271,5,4,10,10,14,0,0,0,7,0,0,true,true,true,No major static UX risks detected
 /invite/[code],src/app/invite/[code]/page.tsx,marketing,100,A+,true,85,63,85,0,1,7,7,3,0,0,0,2,0,0,true,true,false,No major static UX risks detected
-/login,src/app/(auth)/login/page.tsx,auth,92,A-,true,310,158,310,2,4,6,6,6,4,2,0,1,0,0,true,false,true,Insufficient content chunking
-/mark-demo,src/app/mark-demo/page.tsx,marketing,92,A-,true,27,15,27,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/mark-review,src/app/mark-review/page.tsx,marketing,92,A-,true,285,156,285,9,1,18,18,9,0,0,3,2,0,0,true,true,true,Weak heading hierarchy
-/mark-review/summary,src/app/mark-review/summary/page.tsx,marketing,100,A+,true,151,104,151,4,1,12,12,5,0,0,0,1,0,0,true,true,true,No major static UX risks detected
-/method-and-evidence,src/app/method-and-evidence/page.tsx,marketing,92,A-,true,125,94,125,3,4,13,13,7,0,0,0,1,0,0,true,false,true,Missing outcome metrics
-/onboarding,src/app/onboarding/page.tsx,marketing,92,A-,true,31,13,31,1,1,2,2,1,0,0,0,1,0,0,true,false,false,Missing outcome metrics
-/optimize,src/app/optimize/page.tsx,marketing,90,A-,true,395,371,395,6,8,15,15,11,3,3,2,2,0,0,true,true,true,Moderate scroll burden
-/partners,src/app/partners/page.tsx,marketing,100,A+,true,279,204,279,5,9,14,14,14,0,0,3,1,0,0,true,true,true,No major static UX risks detected
-/pilot-findings,src/app/pilot-findings/page.tsx,marketing,100,A+,true,126,93,126,3,6,8,8,5,0,0,2,2,0,0,true,true,true,No major static UX risks detected
-/pricing,src/app/pricing/page.tsx,marketing,92,A-,true,238,222,238,6,1,27,27,9,0,0,0,1,0,0,true,true,true,Weak heading hierarchy
-/privacy,src/app/privacy/page.tsx,legal,100,A+,true,142,133,142,1,8,12,12,3,0,0,3,3,0,0,true,false,false,No major static UX risks detected
+/login,src/app/(auth)/login/page.tsx,auth,92,A-,true,357,153,153,1,3,6,6,4,1,3,0,4,0,0,true,false,false,Insufficient content chunking
+/managertools,src/app/managertools/page.tsx,marketing,100,A+,true,55,18,55,0,0,0,0,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/mark-demo,src/app/mark-demo/page.tsx,marketing,100,A+,true,27,15,27,1,1,2,2,1,0,0,0,1,0,0,true,true,false,No major static UX risks detected
+/mark-review,src/app/mark-review/page.tsx,marketing,86,B,false,153,109,153,3,1,8,8,3,0,0,1,7,0,0,false,false,true,Missing trust/confidentiality cues | Missing outcome metrics
+/mark-review/appendix,src/app/mark-review/appendix/page.tsx,marketing,100,A+,true,349,302,339,15,4,33,33,3,0,0,6,7,1,1,true,true,true,No major static UX risks detected
+/mark-review/business-plan,src/app/mark-review/business-plan/page.tsx,marketing,92,A-,true,280,148,280,6,1,18,18,3,0,0,2,2,0,0,true,true,true,Weak heading hierarchy
+/mark-review/summary,src/app/mark-review/summary/page.tsx,marketing,100,A+,true,179,121,179,5,1,11,11,2,0,0,0,4,0,0,true,true,true,No major static UX risks detected
+/mauricio-kickoff,src/app/mauricio-kickoff/page.tsx,marketing,90,A-,true,488,282,488,10,5,23,23,9,0,0,7,9,0,0,true,true,true,Moderate scroll burden
+/mauricio-kickoff-execution,src/app/mauricio-kickoff-execution/page.tsx,marketing,82,B-,false,434,175,434,5,4,13,13,9,0,0,4,19,0,0,true,true,true,Moderate scroll burden | CTA overload
+/mauricio-kickoff-execution/apollo-read-access,src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx,marketing,100,A+,true,223,156,223,3,4,13,13,4,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/mauricio-kickoff-execution/customer-email-by-channel,src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx,marketing,100,A+,true,218,125,218,3,3,11,11,4,0,0,0,2,0,0,true,true,false,No major static UX risks detected
+/method-and-evidence,src/app/method-and-evidence/page.tsx,marketing,100,A+,true,137,105,137,4,4,14,14,7,0,0,0,1,0,0,true,true,true,No major static UX risks detected
+/onboarding,src/app/onboarding/page.tsx,marketing,100,A+,true,31,31,31,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
+/optimize,src/app/optimize/page.tsx,marketing,90,A-,true,394,370,394,6,8,15,15,11,3,3,2,6,0,0,true,true,true,Moderate scroll burden
+/outplacement,src/app/outplacement/page.tsx,marketing,100,A+,true,87,66,87,1,1,8,8,0,0,0,0,5,0,0,true,true,false,No major static UX risks detected
+/outplacement/personas,src/app/outplacement/personas/page.tsx,marketing,94,A,true,41,27,41,0,1,4,4,0,0,0,0,1,0,0,false,true,false,Missing trust/confidentiality cues
+/outplacement/personas/[slug],src/app/outplacement/personas/[slug]/page.tsx,marketing,94,A,true,60,32,60,0,1,2,2,0,0,0,0,1,0,0,false,true,false,Missing trust/confidentiality cues
+/partners,src/app/partners/page.tsx,marketing,100,A+,true,257,182,257,5,3,21,21,9,0,0,2,2,0,0,true,true,true,No major static UX risks detected
+/partners/mauricio-kickoff,src/app/partners/mauricio-kickoff/page.tsx,marketing,100,A+,true,6,6,6,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
+/partners/reporting,src/app/partners/reporting/page.tsx,marketing,82,B-,false,117,73,117,4,2,14,14,2,0,0,2,0,0,0,true,true,true,No explicit CTA language
+/pilot-findings,src/app/pilot-findings/page.tsx,marketing,100,A+,true,113,80,113,2,5,7,7,1,0,0,2,2,0,0,true,true,false,No major static UX risks detected
+/pricing,src/app/pricing/page.tsx,marketing,100,A+,true,151,123,151,5,1,17,17,4,0,0,3,3,0,0,true,true,true,No major static UX risks detected
+/privacy,src/app/privacy/page.tsx,legal,100,A+,true,143,134,143,1,8,12,12,3,0,0,3,4,0,0,true,false,false,No major static UX risks detected
+/proof/roi-calculator,src/app/proof/roi-calculator/page.tsx,marketing,82,B-,false,46,37,46,1,1,3,3,2,0,0,0,0,0,0,true,true,false,No explicit CTA language
 /references,src/app/references/page.tsx,marketing,92,A-,true,251,159,251,6,2,17,17,7,0,0,1,1,0,0,true,true,true,Weak heading hierarchy
-/research-brief,src/app/research-brief/page.tsx,marketing,100,A+,true,94,69,94,4,6,10,10,7,0,0,1,1,0,0,true,true,true,No major static UX risks detected
-/sales-marketing-plan,src/app/sales-marketing-plan/page.tsx,marketing,90,A-,true,581,290,446,7,6,35,3,7,0,0,4,10,3,3,true,true,true,Moderate scroll burden
-/search-firms,src/app/search-firms/page.tsx,marketing,94,A,true,234,160,234,6,10,8,8,7,0,0,3,1,0,0,false,true,true,Missing trust/confidentiality cues
+/research-brief,src/app/research-brief/page.tsx,marketing,100,A+,true,94,69,94,4,6,10,10,7,0,0,1,2,0,0,true,true,true,No major static UX risks detected
+/sales-marketing-plan,src/app/sales-marketing-plan/page.tsx,marketing,90,A-,true,486,289,351,7,6,35,3,7,0,0,4,7,3,3,true,true,true,Moderate scroll burden
+/search-firms,src/app/search-firms/page.tsx,marketing,100,A+,true,268,190,268,6,10,8,8,3,0,0,3,3,0,0,true,true,true,No major static UX risks detected
+/search-firms/personas,src/app/search-firms/personas/page.tsx,marketing,94,A,true,41,27,41,0,1,4,4,0,0,0,0,1,0,0,false,true,false,Missing trust/confidentiality cues
+/search-firms/personas/[slug],src/app/search-firms/personas/[slug]/page.tsx,marketing,100,A+,true,63,35,63,0,1,3,3,0,0,0,0,1,0,0,true,true,false,No major static UX risks detected
 /search-firms/sample-cfo-brief,src/app/search-firms/sample-cfo-brief/page.tsx,marketing,100,A+,true,143,105,143,2,6,8,8,7,0,0,3,1,0,0,true,true,true,No major static UX risks detected
-/security,src/app/security/page.tsx,legal,100,A+,true,205,197,205,10,11,17,17,8,0,0,4,4,0,0,true,true,true,No major static UX risks detected
-/settings/billing,src/app/(dashboard)/settings/billing/page.tsx,dashboard,100,A+,true,36,13,13,0,1,0,0,3,0,0,0,0,0,0,true,false,false,No major static UX risks detected
-/settings/security,src/app/(dashboard)/settings/security/page.tsx,dashboard,92,A-,true,40,28,28,0,1,1,1,1,0,0,0,0,0,0,true,false,false,Low action density for workflow page
+/security,src/app/security/page.tsx,legal,100,A+,true,202,194,202,10,11,17,17,7,0,0,4,17,0,0,true,true,true,No major static UX risks detected
+/settings/billing,src/app/(dashboard)/settings/billing/page.tsx,dashboard,100,A+,true,47,24,24,1,1,2,2,4,0,0,0,3,0,0,true,false,false,No major static UX risks detected
+/settings/security,src/app/(dashboard)/settings/security/page.tsx,dashboard,100,A+,true,40,40,40,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
 /settings/team,src/app/(dashboard)/settings/team/page.tsx,dashboard,92,A-,true,99,48,48,0,1,1,1,2,0,0,0,0,0,0,false,false,false,Low action density for workflow page
-/signup,src/app/(auth)/signup/page.tsx,auth,90,A-,true,430,185,430,4,6,13,13,9,3,2,1,1,0,0,true,true,true,Moderate scroll burden
+/signup,src/app/(auth)/signup/page.tsx,auth,90,A-,true,576,417,417,3,5,19,19,5,3,4,1,13,0,0,true,true,false,Moderate scroll burden
 /team/join/[token],src/app/team/join/[token]/page.tsx,marketing,100,A+,true,176,154,176,4,7,8,8,8,1,0,1,2,0,0,true,true,true,No major static UX risks detected
-/terms,src/app/terms/page.tsx,legal,92,A-,true,70,61,70,0,1,3,3,2,0,0,1,0,0,0,false,false,false,Missing H1
-/unsubscribe/[code],src/app/unsubscribe/[code]/page.tsx,legal,92,A-,true,31,31,31,0,0,0,0,0,0,0,0,0,0,0,false,false,false,Missing H1
+/terms,src/app/terms/page.tsx,legal,92,A-,true,70,61,70,0,1,3,3,2,0,0,1,1,0,0,false,false,false,Missing H1
+/unsubscribe/[code],src/app/unsubscribe/[code]/page.tsx,legal,100,A+,true,31,31,31,0,1,0,0,0,0,0,0,1,0,0,true,true,false,Redirect shell route
 /unsubscribe/confirmed,src/app/unsubscribe/confirmed/page.tsx,legal,100,A+,true,16,15,16,0,1,2,2,0,0,0,0,0,0,0,false,false,false,No major static UX risks detected

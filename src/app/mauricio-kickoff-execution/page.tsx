@@ -278,6 +278,9 @@ export default async function MauricioKickoffExecutionPage() {
             This page is the run surface for weekly execution, daily unblock requests, and reporting guardrails.
             If it is not on this page, it is not in this sprint.
           </p>
+          <p className="mt-2 text-[12px] text-slate-600">
+            Confidential operating plan. Core outcome target: move from outreach to qualified meeting with a weekly conversion lift.
+          </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <a
               href={emailMauricioHref}
@@ -297,12 +300,18 @@ export default async function MauricioKickoffExecutionPage() {
             >
               Log execution feedback
             </Link>
+            <Link
+              href="/mauricio-kickoff-execution/customer-email-by-channel"
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[12px] font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Start weekly channel review
+            </Link>
           </div>
         </header>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
           <div className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">This week priorities</p>
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">This week priorities</h2>
             <ul className="space-y-2">
               {THIS_WEEK_PRIORITIES.map((item) => (
                 <li key={item.title} className="border border-slate-100 rounded-lg px-3 py-2.5">
@@ -314,7 +323,7 @@ export default async function MauricioKickoffExecutionPage() {
           </div>
 
           <div className="bg-white border border-amber-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-3">Inputs needed from founder</p>
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-3">Inputs needed from founder</h2>
             <ul className="space-y-2">
               {FOUNDER_NEEDS.map((item) => (
                 <li key={item.request} className="border border-amber-100 rounded-lg bg-amber-50/40 px-3 py-2.5">

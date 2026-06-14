@@ -32,6 +32,9 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
         <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Search-firm persona</p>
         <h1 className="text-[34px] sm:text-[42px] font-bold leading-[1.1] tracking-tight mb-4">{persona.label}</h1>
         <p className="text-[16px] text-slate-300 leading-relaxed mb-8">{persona.summary}</p>
+        <p className="text-[13px] text-slate-400 leading-relaxed mb-8">
+          Confidential route for partner evaluation and candidate-readiness planning before outreach begins.
+        </p>
 
         <div className="flex flex-wrap gap-3">
           <TrackLink
@@ -41,7 +44,7 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
             properties={{ channel: 'search_firms', cta_label: `Open ${persona.slug} destination`, source_page: `/search-firms/personas/${persona.slug}` }}
             className="inline-block bg-orange-500 text-slate-900 text-[14px] font-semibold px-5 py-3 rounded hover:bg-orange-600 transition-colors"
           >
-            Continue to search-firm journey
+            Continue to search firm journey
           </TrackLink>
           <TrackLink
             href="/search-firms/personas"

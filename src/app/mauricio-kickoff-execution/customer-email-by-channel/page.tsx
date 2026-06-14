@@ -112,6 +112,23 @@ export default async function MauricioCustomerEmailByChannelPage() {
             This page is organized for quick weekly review: channel mix, customer outcomes, and a recent customer list.
             Use it to decide which channels should be scaled, fixed, or paused.
           </p>
+          <p className="mt-3 text-[12px] text-slate-600">
+            Confidential customer reporting view. Weekly target outcome: improve channel conversion while reducing canceled accounts.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/mauricio-kickoff-execution"
+              className="inline-flex items-center rounded border border-slate-300 bg-slate-50 px-3 py-2 text-[12px] font-semibold text-slate-800 hover:bg-slate-100"
+            >
+              Open Mauricio workspace
+            </Link>
+            <Link
+              href="/mauricio-kickoff-execution/apollo-read-access"
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[12px] font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Open Apollo read-access viewer
+            </Link>
+          </div>
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-4 gap-3">

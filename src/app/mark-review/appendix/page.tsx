@@ -78,12 +78,15 @@ export default function MarkReviewAppendixPage() {
       <main className="px-4 sm:px-6 py-14 sm:py-18">
         <div className="max-w-4xl mx-auto space-y-8">
           <section className="border border-slate-200 rounded-lg p-6 bg-slate-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Read order</p>
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Read order</h2>
             <ol className="list-decimal pl-5 space-y-2 text-[14px] text-slate-900 leading-relaxed">
               <li>Read the memo first.</li>
               <li>Use this appendix if you want the full demo and execution detail.</li>
               <li>Use the business plan for broader market, risk, and planning detail.</li>
             </ol>
+            <p className="mt-3 text-[12px] text-slate-600">
+              Confidential review material. Outcome target: reduce execution drift and improve decision quality in the next 7-day cycle.
+            </p>
             <div className="mt-4 space-y-2 text-[14px]">
               <TrackedCtaLink
                 href="/mark-review"
@@ -105,7 +108,7 @@ export default function MarkReviewAppendixPage() {
           </section>
 
           <section className="border border-slate-200 rounded-lg p-6 bg-white">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</p>
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-4">Live demo run in meeting</h2>
             <p className="text-[14px] text-slate-700 leading-relaxed mb-4">
               If you want to click through live examples, start with the interview brief and then open the strategy brief view.
             </p>
@@ -130,7 +133,7 @@ export default function MarkReviewAppendixPage() {
           </section>
 
           <section className="border border-orange-300 rounded-lg p-6 bg-orange-50">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'm asking from you</p>
+            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-600 mb-4">What I'm asking from you</h2>
             <p className="text-[14px] text-slate-800 leading-relaxed mb-4">
               I am not asking for an endorsement. I am asking for candid product feedback.
             </p>

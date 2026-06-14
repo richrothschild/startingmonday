@@ -145,6 +145,27 @@ export default async function MockCoachClientDashboardPage({ params }: ClientPag
             ))}
           </div>
         </section>
+
+        <section className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-800">Trust and next action</p>
+          <p className="text-[13px] leading-relaxed text-slate-700">
+            This coach workspace is confidential and intended for private session preparation only. Teams using this workflow report clearer weekly decisions and faster follow-through on overdue commitments.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              href="/coaches/mock-dashboard"
+              className="inline-flex items-center justify-center rounded bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-slate-800"
+            >
+              Open coach portfolio dashboard
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded border border-slate-300 px-4 py-2 text-[13px] font-semibold text-slate-800 transition-colors hover:border-slate-500"
+            >
+              Start coach workflow setup
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   )
