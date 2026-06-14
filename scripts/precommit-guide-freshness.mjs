@@ -12,16 +12,14 @@ const GENERATED_GUIDE_FILES = [
   'docs/internal-system-summary.md',
 ]
 
-function run(cmd, args, options = {}) {
-  const result = spawnSync(cmd, args, {
-    stdio: 'inherit',
-    shell: process.platform === 'win32',
-    ...options,
-  })
+function run(cmd, args) {
+  const command = [cmd, ...args]
+    .map((part) => (part.includes(' ') ? `"${part}"` : part))
+    .join(' ')
 
-  if (result.status !== 0) {
-    process.exit(result.status ?? 1)
-  }
+  execSync(command, {
+    stdio: 'inherit',
+  })
 }
 
 function getStagedFiles() {
@@ -42,7 +40,7 @@ function needsGuideRefresh(stagedFiles) {
   const probe = spawnSync('node', ['scripts/guide-freshness-needed.mjs'], {
     input: `${stagedFiles.join('\n')}\n`,
     encoding: 'utf8',
-    shell: process.platform === 'win32',
+    shell: false,
     stdio: ['pipe', 'pipe', 'inherit'],
   })
 
