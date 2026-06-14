@@ -40,8 +40,8 @@ export default function PresenterDemoPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-4">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">Live demo</Link>
-            <Link href="/demo/executive-brief" className="text-[13px] text-slate-400 hover:text-white transition-colors">Live example</Link>
+            <Link href="/demo" className="text-[13px] text-slate-200 hover:text-white transition-colors">Live demo</Link>
+            <Link href="/demo/executive-brief" className="text-[13px] text-slate-200 hover:text-white transition-colors">Live example</Link>
             <Link href="/mark-demo" className="text-[13px] font-semibold text-white bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">No-gate demo</Link>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function PresenterDemoPage() {
                 {STEPS.map((step) => (
                   <div key={step.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
                     <p className="text-[13px] font-semibold text-white mb-1.5">{step.title}</p>
-                    <p className="text-[13px] text-slate-300 leading-relaxed">{step.body}</p>
+                    <p className="text-[13px] text-slate-200 leading-relaxed">{step.body}</p>
                   </div>
                 ))}
               </div>
@@ -104,7 +104,7 @@ export default function PresenterDemoPage() {
 
         <section id="demo-sequence" className="mb-8">
           <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Demo sequence</h2>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Demo sequence</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[13px] font-semibold text-slate-900 mb-1">1. Open with CIO context</p>
