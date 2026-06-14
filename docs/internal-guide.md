@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T01:20:40.155Z
+Last generated: 2026-06-14T02:06:23.245Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -983,7 +983,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 
-## Documentation (589)
+## Documentation (590)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1559,6 +1559,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/thought-leadership-authority-epic.md | docs/thought-leadership-authority-epic.md | Epic: 12-Week Thought Leadership Authority Build
 - Doc docs/tickets-online-guide-and-chat-2026-05-30.md | docs/tickets-online-guide-and-chat-2026-05-30.md | Tickets: Online User Guide + Guide Chat
 - Doc docs/ui-guide.md | docs/ui-guide.md | Starting Monday — UI Guide
+- Doc docs/ui-ux-remediation-wave-closeout-2026-06-14.md | docs/ui-ux-remediation-wave-closeout-2026-06-14.md | UI/UX Remediation Wave Closeout (Staged)
 - Doc docs/ui-ux-rerun-2026-05-26.md | docs/ui-ux-rerun-2026-05-26.md | UI/UX Rerun - 2026-05-26
 - Doc docs/ui-ux-synthetic-council-audit-2026-05-21.md | docs/ui-ux-synthetic-council-audit-2026-05-21.md | UI/UX Synthetic Council Full-Site Audit
 - Doc docs/ui-ux-weekly-review-checklist.md | docs/ui-ux-weekly-review-checklist.md | Weekly UI/UX Review Checklist

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T01:20:40.155Z",
+  "generatedAt": "2026-06-14T02:06:23.245Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T01:15:47.742Z"
+      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
     },
     {
       "id": "feature:/login",
@@ -936,7 +936,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:58:41.144Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.079Z"
     },
     {
       "id": "feature:/annual-report-2026/executive-search-ai-confidentiality",
@@ -950,7 +950,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:00:06.793Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.081Z"
     },
     {
       "id": "feature:/annual-report-2026",
@@ -1622,7 +1622,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:19:55.642Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.083Z"
     },
     {
       "id": "feature:/evaluate",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:00:03.995Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.081Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1874,7 +1874,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:00:12.118Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.082Z"
     },
     {
       "id": "feature:/for-coo",
@@ -2266,7 +2266,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.805Z"
+      "lastModifiedAt": "2026-06-14T02:04:56.911Z"
     },
     {
       "id": "feature:/mark-review/business-plan",
@@ -2322,7 +2322,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.856Z"
+      "lastModifiedAt": "2026-06-14T02:04:36.171Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution/customer-email-by-channel",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.857Z"
+      "lastModifiedAt": "2026-06-14T02:04:46.952Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution",
@@ -2350,7 +2350,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:32.858Z"
+      "lastModifiedAt": "2026-06-14T02:05:31.678Z"
     },
     {
       "id": "feature:/mauricio-kickoff",
@@ -2420,7 +2420,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:58:16.161Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.081Z"
     },
     {
       "id": "feature:/outplacement/personas",
@@ -2630,7 +2630,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:00:16.208Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.083Z"
     },
     {
       "id": "feature:/security",
@@ -9016,7 +9016,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T01:11:59.873Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.083Z"
     },
     {
       "id": "script:scripts/check-lighthouse-budget-config.mjs",
@@ -9991,7 +9991,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T01:11:23.338Z"
+      "lastModifiedAt": "2026-06-14T01:31:58.081Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -10329,7 +10329,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-06T16:52:15.368Z"
+      "lastModifiedAt": "2026-06-14T02:05:18.629Z"
     },
     {
       "id": "script:scripts/user-guide-sync.ts",
@@ -16474,7 +16474,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T01:15:47.742Z"
+      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16513,7 +16513,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T01:15:47.742Z"
+      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20247,6 +20247,19 @@
       "lastModifiedAt": "2026-06-07T13:53:40.933Z"
     },
     {
+      "id": "doc:docs/ui-ux-remediation-wave-closeout-2026-06-14.md",
+      "title": "Doc docs/ui-ux-remediation-wave-closeout-2026-06-14.md",
+      "body": "UI/UX Remediation Wave Closeout (Staged)",
+      "type": "doc",
+      "ref": "docs/ui-ux-remediation-wave-closeout-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T02:05:45.562Z"
+    },
+    {
       "id": "doc:docs/ui-ux-rerun-2026-05-26.md",
       "title": "Doc docs/ui-ux-rerun-2026-05-26.md",
       "body": "UI/UX Rerun - 2026-05-26",
@@ -20270,7 +20283,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.202Z"
+      "lastModifiedAt": "2026-06-14T02:05:33.741Z"
     },
     {
       "id": "doc:docs/ui-ux-weekly-review-checklist.md",
@@ -20296,7 +20309,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T01:20:37.619Z"
+      "lastModifiedAt": "2026-06-14T02:06:20.809Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
