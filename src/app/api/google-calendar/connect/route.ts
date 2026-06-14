@@ -21,7 +21,16 @@ export async function GET(request: NextRequest) {
   const url = new URL(request.url)
   const returnTo = safeReturnTo(url.searchParams.get('returnTo'))
   const state = randomUUID()
-  const authUrl = buildGoogleCalendarAuthUrl({ state })
+  let authUrl = ''
+  try {
+    authUrl = buildGoogleCalendarAuthUrl({ state })
+  } catch (error) {
+    console.warn('google-calendar-connect: oauth is not configured', error)
+    const fallback = new URL(returnTo, APP_URL)
+    fallback.searchParams.set('google_calendar', 'error')
+    fallback.searchParams.set('message', 'Google Calendar is not configured for this environment.')
+    return NextResponse.redirect(fallback)
+  }
 
   const response = NextResponse.redirect(authUrl)
   response.cookies.set(STATE_COOKIE, state, {

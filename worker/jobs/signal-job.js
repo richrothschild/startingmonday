@@ -97,7 +97,15 @@ async function retrySignalCompanyById(supabase, payload) {
   if (userErr) throw new Error(`signal_retry_user_lookup_failed:${userErr.message}`)
   if (profileErr) throw new Error(`signal_retry_profile_lookup_failed:${profileErr.message}`)
   if (companyErr) throw new Error(`signal_retry_company_lookup_failed:${companyErr.message}`)
-  if (!user || !company) throw new Error('signal_retry_target_missing')
+  if (!user || !company) {
+    logger.warn('signal-job: retry target missing; skipping retry payload', {
+      userId,
+      companyId,
+      hasUser: Boolean(user),
+      hasCompany: Boolean(company),
+    })
+    return
+  }
 
   const roleType = profile?.role_type ?? null
   const articles = await fetchCompanyNews(company.name)
