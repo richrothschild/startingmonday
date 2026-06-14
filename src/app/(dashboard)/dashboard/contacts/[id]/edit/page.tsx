@@ -51,7 +51,7 @@ export default async function EditContactPage({
 
       <header className="bg-slate-900">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href={`/dashboard/contacts/${id}`} className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -70,7 +70,7 @@ export default async function EditContactPage({
           <form action={updateContact.bind(null, id)} className="flex flex-col gap-4">
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
+              <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                 Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -84,18 +84,18 @@ export default async function EditContactPage({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Title</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Title</label>
                 <input name="title" defaultValue={contact.title ?? ''} placeholder="VP of Engineering" className={inputCls} />
               </div>
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Firm</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Firm</label>
                 <input name="firm" defaultValue={contact.firm ?? ''} placeholder="Korn Ferry" className={inputCls} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Email</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Email</label>
                 <input
                   name="email"
                   type="text"
@@ -105,7 +105,7 @@ export default async function EditContactPage({
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">LinkedIn URL</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">LinkedIn URL</label>
                 <input
                   name="linkedin_url"
                   type="text"
@@ -118,7 +118,7 @@ export default async function EditContactPage({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Channel</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Channel</label>
                 <select name="channel" defaultValue={contact.channel ?? ''} className={inputCls}>
                   <option value="">-</option>
                   {CHANNELS.map(c => (
@@ -128,7 +128,7 @@ export default async function EditContactPage({
               </div>
               {companyList.length > 0 && (
                 <div>
-                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Company</label>
+                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Company</label>
                   <select name="company_id" defaultValue={contact.company_id ?? ''} className={inputCls}>
                     <option value="">- No company -</option>
                     {companyList.map(co => (
@@ -141,7 +141,7 @@ export default async function EditContactPage({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Relationship type</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Relationship type</label>
                 <select name="contact_type" defaultValue={contact.contact_type ?? ''} className={inputCls}>
                   <option value="">-</option>
                   <option value="recruiter">Recruiter</option>
@@ -152,7 +152,7 @@ export default async function EditContactPage({
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Last role discussed</label>
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Last role discussed</label>
                 <input
                   name="last_role_discussed"
                   defaultValue={contact.last_role_discussed ?? ''}
@@ -163,7 +163,7 @@ export default async function EditContactPage({
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Notes</label>
+              <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">Notes</label>
               <textarea
                 name="notes"
                 defaultValue={contact.notes ?? ''}

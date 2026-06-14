@@ -44,12 +44,12 @@ export default async function ContactsPage({
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"
-            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
+            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
           >
             ? Dashboard
           </Link>
@@ -66,15 +66,15 @@ export default async function ContactsPage({
 
         <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="rounded border border-slate-200 bg-white px-4 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Network health</p>
+            <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Network health</p>
             <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coverageScore}</p>
           </div>
           <div className="rounded border border-slate-200 bg-white px-4 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Covered types</p>
+            <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Covered types</p>
             <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coveredTypes}/{Object.keys(CONTACT_TYPE_LABELS).length}</p>
           </div>
           <div className="rounded border border-slate-200 bg-white px-4 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400 mb-1">Gap</p>
+            <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Gap</p>
             <p className="text-[14px] font-semibold text-slate-900 leading-snug">{relationshipSummary.coverageGapLabel}</p>
           </div>
         </div>
@@ -85,17 +85,17 @@ export default async function ContactsPage({
 
           {/* Add contact form */}
           <div className="bg-white border border-slate-200 rounded p-5">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+            <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
               Add contact
             </div>
 
             {saved && (
-              <div className="mb-4 px-3 py-2 bg-green-50 border border-green-200 rounded text-[12px] text-green-700">
+              <div className="mb-4 px-3 py-2 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
                 Contact saved.
               </div>
             )}
             {saveError && (
-              <div className="mb-4 px-3 py-2 bg-red-50 border border-red-200 rounded text-[12px] text-red-700">
+              <div className="mb-4 px-3 py-2 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
                 Could not save contact. Please try again.
               </div>
             )}
@@ -103,7 +103,7 @@ export default async function ContactsPage({
             <form action={addContact} className="flex flex-col gap-3">
 
               <div>
-                <label htmlFor="contact-name" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-name" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -117,7 +117,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-title" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-title" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Title
                 </label>
                 <input
@@ -130,7 +130,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-firm" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-firm" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Firm
                 </label>
                 <input
@@ -143,7 +143,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-channel" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-channel" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Channel
                 </label>
                 <select
@@ -162,7 +162,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-type" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-type" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Relationship type
                 </label>
                 <select
@@ -181,7 +181,7 @@ export default async function ContactsPage({
 
               {companyList.length > 0 && (
                 <div>
-                  <label htmlFor="contact-company" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                  <label htmlFor="contact-company" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                     Company <span className="text-slate-300 font-normal">(optional)</span>
                   </label>
                   <select
@@ -198,7 +198,7 @@ export default async function ContactsPage({
               )}
 
               <div>
-                <label htmlFor="contact-email" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-email" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Email
                 </label>
                 <input
@@ -211,7 +211,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-linkedin" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-linkedin" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   LinkedIn URL
                 </label>
                 <input
@@ -224,7 +224,7 @@ export default async function ContactsPage({
               </div>
 
               <div>
-                <label htmlFor="contact-notes" className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+                <label htmlFor="contact-notes" className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
                   Notes
                 </label>
                 <input

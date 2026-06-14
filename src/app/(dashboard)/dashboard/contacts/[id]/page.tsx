@@ -136,7 +136,7 @@ export default async function ContactDetailPage({
 
       <header className="bg-slate-900">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard/contacts" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -147,8 +147,8 @@ export default async function ContactDetailPage({
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 <section className="mb-5 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#contact-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Overview</a>
             <a href="#linked-company" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Linked company</a>
             <a href="#timing-signal" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Timing signal</a>
@@ -176,13 +176,13 @@ export default async function ContactDetailPage({
             </div>
             <div className="flex flex-col items-end gap-2 shrink-0">
               {ch && (
-                <span className={`text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full ${ch.cls}`}>
+                <span className={`text-[13px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full ${ch.cls}`}>
                   {ch.label}
                 </span>
               )}
               <Link
                 href={`/dashboard/contacts/${id}/edit`}
-                className="text-[12px] font-semibold text-slate-500 hover:text-slate-800 border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors min-h-[32px] flex items-center"
+                className="text-[13px] font-semibold text-slate-500 hover:text-slate-800 border border-slate-200 hover:border-slate-400 rounded px-3 py-1.5 transition-colors min-h-[32px] flex items-center"
               >
                 Edit
               </Link>
@@ -213,7 +213,7 @@ export default async function ContactDetailPage({
               <span className="text-slate-400">Never contacted</span>
             )}
             {isRecruiterContact && (
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${warmth === 'warm' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
+              <span className={`text-[13px] font-bold px-2 py-0.5 rounded-full ${warmth === 'warm' ? 'bg-green-50 text-green-700' : 'bg-slate-100 text-slate-400'}`}>
                 {warmth === 'warm' ? 'Warm' : 'Cold'}
               </span>
             )}
@@ -235,7 +235,7 @@ export default async function ContactDetailPage({
 
           {/* Outreach status stepper */}
           <div className="mb-4">
-            <h2 className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Status</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Status</h2>
             <ContactStatusStepper
               contactId={id}
               currentStatus={contact.outreach_status ?? 'prospect'}
@@ -281,31 +281,31 @@ export default async function ContactDetailPage({
 
         {linkedCompany && (
           <section id="linked-company" className="bg-white border border-slate-200 rounded-lg p-5 mb-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Linked company</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Linked company</h2>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <Link href={`/dashboard/companies/${linkedCompany.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-700 transition-colors">
                   {linkedCompany.name}
                 </Link>
                 {linkedCompany.stage && (
-                  <p className="text-[12px] text-slate-500 mt-0.5">
+                  <p className="text-[13px] text-slate-500 mt-0.5">
                     Stage: {stageLabel[linkedCompany.stage] ?? linkedCompany.stage}
                   </p>
                 )}
-                <p className="text-[12px] text-slate-500 mt-1.5">
+                <p className="text-[13px] text-slate-500 mt-1.5">
                   Next action: <span className="font-semibold text-slate-700">{nextCompanyAction}</span>
                 </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <Link
                   href={`/dashboard/companies/${linkedCompany.id}`}
-                  className="text-[12px] font-semibold text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+                  className="text-[13px] font-semibold text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
                 >
                   Open company
                 </Link>
                 <Link
                   href={`/dashboard/companies/${linkedCompany.id}/prep`}
-                  className="text-[12px] font-semibold bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded transition-colors"
+                  className="text-[13px] font-semibold bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded transition-colors"
                 >
                   Prep
                 </Link>
@@ -337,26 +337,26 @@ export default async function ContactDetailPage({
         {/* Warm path alert */}
         {mostRecentSignal && (
           <section id="timing-signal" className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 mb-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700 mb-2">
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-amber-700 mb-2">
               Timing signal at {companyName}
             </h2>
             <div className="flex items-start gap-3">
               <span className={[
-                'shrink-0 text-[10px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full mt-0.5',
+                'shrink-0 text-[13px] font-bold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full mt-0.5',
                 SIGNAL_COLORS[mostRecentSignal.signal_type] ?? 'bg-slate-100 text-slate-600',
               ].join(' ')}>
                 {signalLabel(mostRecentSignal.signal_type)}
               </span>
               <div>
                 <p className="text-[14px] text-slate-700 leading-relaxed">{mostRecentSignal.signal_summary}</p>
-                <p className="text-[12px] text-amber-600 mt-1 font-medium">
+                <p className="text-[13px] text-amber-600 mt-1 font-medium">
                   {fmtDate(mostRecentSignal.signal_date)} &mdash; strong moment to reach out
                 </p>
               </div>
             </div>
             <Link
               href={`/dashboard/contacts/${id}/outreach`}
-              className="mt-3 inline-block text-[12px] font-semibold text-amber-800 hover:text-amber-900 underline transition-colors"
+              className="mt-3 inline-block text-[13px] font-semibold text-amber-800 hover:text-amber-900 underline transition-colors"
             >
               Draft a message using this signal
             </Link>
@@ -368,9 +368,9 @@ export default async function ContactDetailPage({
           {/* Follow-ups */}
           <section id="follow-ups" className="bg-white border border-slate-200 rounded-lg overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Follow-ups</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Follow-ups</h2>
               {pendingFollowUps.length > 0 && (
-                <span className="text-[11px] font-semibold text-red-600">{pendingFollowUps.length} pending</span>
+                <span className="text-[13px] font-semibold text-red-600">{pendingFollowUps.length} pending</span>
               )}
             </div>
 
@@ -399,7 +399,7 @@ export default async function ContactDetailPage({
               <div className="divide-y divide-slate-50 border-t border-slate-50">
                 {doneFollowUps.slice(0, 3).map(fu => (
                   <div key={fu.id} className="px-5 py-3 flex items-center gap-3 opacity-60">
-                    <span className="text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full bg-green-50 text-green-600 shrink-0">
+                    <span className="text-[13px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full bg-green-50 text-green-600 shrink-0">
                       Done
                     </span>
                     <p className="text-[13px] text-slate-500 truncate">{fu.action}</p>
@@ -416,7 +416,7 @@ export default async function ContactDetailPage({
 
             {/* Add follow-up form */}
             <div className="border-t border-slate-100 px-5 py-4">
-              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Add follow-up</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Add follow-up</p>
               <form action={addContactFollowUp.bind(null, id)} className="flex flex-col gap-2">
                 <input
                   name="action"
@@ -435,7 +435,7 @@ export default async function ContactDetailPage({
                   />
                   <button
                     type="submit"
-                    className="ml-auto text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
+                    className="ml-auto text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
                   >
                     Add
                   </button>
@@ -445,7 +445,7 @@ export default async function ContactDetailPage({
 
             {/* Log outreach sent */}
             <div className="border-t border-slate-100 px-5 py-4">
-              <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Log outreach sent</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2.5">Log outreach sent</p>
               <form action={logOutreach.bind(null, id)} className="flex flex-col gap-2">
                 <select
                   name="channel"
@@ -468,7 +468,7 @@ export default async function ContactDetailPage({
                 />
                 <button
                   type="submit"
-                  className="self-end text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
+                  className="self-end text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 rounded px-3 py-1.5 cursor-pointer border-0 transition-colors"
                 >
                   Log sent
                 </button>
@@ -480,13 +480,13 @@ export default async function ContactDetailPage({
           {contact.company_id && (
             <section id="company-signals" className="bg-white border border-slate-200 rounded-lg overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                   {companyName} signals
                 </h2>
                 {contact.company_id && (
                   <Link
                     href={`/dashboard/companies/${contact.company_id}`}
-                    className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors"
+                    className="text-[13px] font-semibold text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     View company
                   </Link>
@@ -498,12 +498,12 @@ export default async function ContactDetailPage({
                     <div key={sig.id} className="px-5 py-3">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={[
-                          'text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
+                          'text-[13px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
                           SIGNAL_COLORS[sig.signal_type] ?? 'bg-slate-100 text-slate-600',
                         ].join(' ')}>
                           {signalLabel(sig.signal_type)}
                         </span>
-                        <span className="text-[11px] text-slate-400">{fmtDate(sig.signal_date)}</span>
+                        <span className="text-[13px] text-slate-400">{fmtDate(sig.signal_date)}</span>
                       </div>
                       <p className="text-[13px] text-slate-700 leading-relaxed">{sig.signal_summary}</p>
                     </div>
@@ -523,15 +523,15 @@ export default async function ContactDetailPage({
         {recentBriefs && recentBriefs.length > 0 && (
           <section id="recent-drafts" className="bg-white border border-slate-200 rounded-lg overflow-hidden mt-5">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Recent drafts</h2>
-              <Link href={`/dashboard/contacts/${id}/outreach`} className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors">
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Recent drafts</h2>
+              <Link href={`/dashboard/contacts/${id}/outreach`} className="text-[13px] font-semibold text-slate-400 hover:text-slate-700 transition-colors">
                 Draft new
               </Link>
             </div>
             <div className="divide-y divide-slate-50">
               {recentBriefs.map(b => (
                 <div key={b.id} className="px-5 py-4">
-                  <div className="text-[11px] text-slate-400 mb-1.5">{fmtDate(b.created_at)}</div>
+                  <div className="text-[13px] text-slate-400 mb-1.5">{fmtDate(b.created_at)}</div>
                   <p className="text-[13px] text-slate-700 leading-relaxed line-clamp-3">{b.output_text.slice(0, 280)}{b.output_text.length > 280 ? '...' : ''}</p>
                 </div>
               ))}

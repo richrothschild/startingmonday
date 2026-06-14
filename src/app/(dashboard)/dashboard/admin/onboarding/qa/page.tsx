@@ -60,12 +60,12 @@ export default async function OnboardingQaScorecardPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/metrics" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Metrics</Link>
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
+            <Link href="/dashboard/admin/metrics" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Metrics</Link>
+            <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
           </div>
         </div>
       </header>
@@ -77,7 +77,7 @@ export default async function OnboardingQaScorecardPage() {
             <p className="text-[13px] text-slate-500 mt-1.5">Weekly Sprint 6 quality loop for implementation speed, setup defaults, low-energy usage, and completion nudges.</p>
           </div>
           {latest && (
-            <span className={`text-[11px] font-semibold px-2 py-1 rounded ${statusClass(latestPass)}`}>
+            <span className={`text-[13px] font-semibold px-2 py-1 rounded ${statusClass(latestPass)}`}>
               {latestPass ? 'PASS' : 'ATTENTION'}
             </span>
           )}
@@ -86,19 +86,19 @@ export default async function OnboardingQaScorecardPage() {
         {latest && (
           <section className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">TTFV median</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">TTFV median</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1">{formatMinutes(latest.median_seconds_to_first_value)}</p>
             </div>
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Under 10 min</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Under 10 min</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1">{latest.under_ten_min_rate.toFixed(1)}%</p>
             </div>
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Manual field reduction</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Manual field reduction</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1">{latest.avg_manual_fields_reduction_rate.toFixed(1)}%</p>
             </div>
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Low-energy adoption</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Low-energy adoption</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1">{latest.low_energy_mode_rate.toFixed(1)}%</p>
             </div>
           </section>
@@ -107,8 +107,8 @@ export default async function OnboardingQaScorecardPage() {
         {latest && (
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="bg-white border border-slate-200 rounded p-5">
-              <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Channel mix</h2>
-              <div className="space-y-2 text-[12px]">
+              <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Channel mix</h2>
+              <div className="space-y-2 text-[13px]">
                 {Object.keys(latest.channel_mix ?? {}).length === 0 && <p className="text-slate-500">No channel mix data in latest run.</p>}
                 {Object.entries(latest.channel_mix ?? {}).map(([channel, count]) => (
                   <div key={channel} className="flex items-center justify-between border-b border-slate-100 pb-1">
@@ -120,8 +120,8 @@ export default async function OnboardingQaScorecardPage() {
             </div>
 
             <div className="bg-white border border-slate-200 rounded p-5">
-              <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Persona mix</h2>
-              <div className="space-y-2 text-[12px]">
+              <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Persona mix</h2>
+              <div className="space-y-2 text-[13px]">
                 {Object.keys(latest.persona_mix ?? {}).length === 0 && <p className="text-slate-500">No persona data in latest run.</p>}
                 {Object.entries(latest.persona_mix ?? {}).map(([persona, count]) => (
                   <div key={persona} className="flex items-center justify-between border-b border-slate-100 pb-1">
@@ -136,9 +136,9 @@ export default async function OnboardingQaScorecardPage() {
 
         <section className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-3 border-b border-slate-100">
-            <h2 className="text-[12px] font-semibold text-slate-900">Weekly history</h2>
+            <h2 className="text-[13px] font-semibold text-slate-900">Weekly history</h2>
           </div>
-          <table className="w-full text-[12px]">
+          <table className="w-full text-[13px]">
             <thead className="bg-slate-50 border-b border-slate-100 text-slate-500">
               <tr>
                 <th className="px-5 py-2 text-left">Week</th>

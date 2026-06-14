@@ -133,10 +133,10 @@ export default async function AdminCrmPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
             ← Admin
           </Link>
         </div>
@@ -159,8 +159,8 @@ export default async function AdminCrmPage({
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#crm-run-log" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Run log</a>
             <a href="#crm-kpis" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">KPIs</a>
             <a href="#crm-channel-mix" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Channel mix</a>
@@ -172,15 +172,15 @@ export default async function AdminCrmPage({
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open contacts</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review active contacts and outreach status.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review active contacts and outreach status.</p>
           </Link>
           <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open outreach</p>
-            <p className="text-[12px] text-slate-500 mt-1">Run sends and clear follow-up queue.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Run sends and clear follow-up queue.</p>
           </Link>
           <Link href="/dashboard/admin/outreach-analytics" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open analytics</p>
-            <p className="text-[12px] text-slate-500 mt-1">Compare delivery and response trends.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Compare delivery and response trends.</p>
           </Link>
         </section>
 
@@ -200,13 +200,13 @@ export default async function AdminCrmPage({
 
         <section id="crm-run-log" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[14px] border-b border-slate-200">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Scoring execution log</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Scoring execution log</h2>
           </div>
           {runs.length === 0 ? (
             <p className="px-6 py-6 text-[13px] text-slate-400">No scoring runs logged yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-left">
                     <th className="px-6 py-2.5 font-semibold text-slate-400">Time</th>
@@ -228,9 +228,9 @@ export default async function AdminCrmPage({
                           minute: '2-digit',
                         })}
                       </td>
-                      <td className="px-4 py-3 text-slate-600 uppercase tracking-wide text-[11px]">{run.trigger}</td>
+                      <td className="px-4 py-3 text-slate-600 uppercase tracking-wide text-[13px]">{run.trigger}</td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[11px] font-semibold ${run.status === 'success' ? 'text-green-700 bg-green-50 border-green-200' : 'text-red-700 bg-red-50 border-red-200'}`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[13px] font-semibold ${run.status === 'success' ? 'text-green-700 bg-green-50 border-green-200' : 'text-red-700 bg-red-50 border-red-200'}`}>
                           {run.status}
                         </span>
                       </td>
@@ -247,26 +247,26 @@ export default async function AdminCrmPage({
 
         <section id="crm-kpis" className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Total leads</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Total leads</p>
             <p className="text-[30px] font-bold text-slate-900 mt-2 leading-none">{totalLeads}</p>
           </div>
           <div className="bg-white border border-red-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-red-700">Hot queue</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-red-700">Hot queue</p>
             <p className="text-[30px] font-bold text-red-700 mt-2 leading-none">{queueCounts.hot}</p>
           </div>
           <div className="bg-white border border-amber-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-700">Warm queue</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-amber-700">Warm queue</p>
             <p className="text-[30px] font-bold text-amber-700 mt-2 leading-none">{queueCounts.warm}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500">Nurture queue</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500">Nurture queue</p>
             <p className="text-[30px] font-bold text-slate-700 mt-2 leading-none">{queueCounts.nurture}</p>
           </div>
         </section>
 
         <section id="crm-channel-mix" className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Customers by channel</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Customers by channel</p>
             <div className="space-y-2">
               {sortedChannelTotals.map(([channel, stats]) => (
                 <div key={channel} className="flex items-center justify-between text-[13px]">
@@ -281,12 +281,12 @@ export default async function AdminCrmPage({
           </div>
 
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Top score by channel</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Top score by channel</p>
             <div className="space-y-2">
               {topChannels.map(([channel, stats]) => (
                 <div key={channel} className="flex items-center justify-between text-[13px]">
                   <span className="text-slate-700 font-medium">{channel}</span>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[11px] font-semibold ${scoreClass(stats.topScore)}`}>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[13px] font-semibold ${scoreClass(stats.topScore)}`}>
                     {stats.topScore}
                   </span>
                 </div>
@@ -299,14 +299,14 @@ export default async function AdminCrmPage({
         </section>
 
         <div className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Lead age cohorts</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Lead age cohorts</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {(Object.keys(byAge) as Array<keyof typeof byAge>).map((bucket) => (
               <div key={bucket} className="border border-slate-200 rounded p-4">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">{bucket}</p>
+                <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">{bucket}</p>
                 <p className="text-[24px] font-bold text-slate-900 mt-1 leading-none">{byAge[bucket].count}</p>
-                <p className="text-[11px] text-slate-500 mt-1">Avg score: {byAge[bucket].avgScore}</p>
-                <p className="text-[11px] text-slate-500">Top score: {byAge[bucket].topScore}</p>
+                <p className="text-[13px] text-slate-500 mt-1">Avg score: {byAge[bucket].avgScore}</p>
+                <p className="text-[13px] text-slate-500">Top score: {byAge[bucket].topScore}</p>
               </div>
             ))}
           </div>
@@ -314,13 +314,13 @@ export default async function AdminCrmPage({
 
         <section id="crm-top-leads" className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[14px] border-b border-slate-200">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Top lead scores</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Top lead scores</h2>
           </div>
           {topLeads.length === 0 ? (
             <p className="px-6 py-8 text-[13px] text-slate-400">No scored leads yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-left">
                     <th className="px-6 py-2.5 font-semibold text-slate-400">Name</th>
@@ -340,7 +340,7 @@ export default async function AdminCrmPage({
                         <td className="px-4 py-3 text-slate-600">{channelLabel(lead.channel)}</td>
                         <td className="px-4 py-3 text-slate-600 capitalize">{lead.lead_queue ?? 'nurture'}</td>
                         <td className="px-4 py-3 text-right">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[11px] font-semibold ${scoreClass(score)}`}>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded border text-[13px] font-semibold ${scoreClass(score)}`}>
                             {score}
                           </span>
                         </td>

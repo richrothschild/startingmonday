@@ -746,33 +746,33 @@ export default async function DashboardPage({
       {/* Nav */}
       <header className="bg-slate-900">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-4 flex-1">
             <CmdKButton />
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/feedback" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
-            <Link href="/dashboard/briefing" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
-            <Link href="/dashboard/calendar" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
+            <Link href="/dashboard/chat" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
+            <Link href="/dashboard/feedback" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
+            <Link href="/dashboard/briefing" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
+            <Link href="/dashboard/calendar" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
             {canUseOutreachHub && (
-              <Link href="/dashboard/outreach" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
+              <Link href="/dashboard/outreach" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
             )}
-            <Link href="/optimize" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
-            <Link href="/dashboard/invite" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
-            <Link href="/guide" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Guide</Link>
-            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
+            <Link href="/optimize" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
+            <Link href="/dashboard/invite" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
+            <Link href="/guide" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Guide</Link>
+            <Link href="/dashboard/help" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
             {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
+              <Link href="/dashboard/admin" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
             )}
             {isPartner && (
-              <Link href="/dashboard/partner" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
+              <Link href="/dashboard/partner" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
             )}
             <div className="ml-auto flex items-center gap-4 shrink-0">
-              <Link href="/dashboard/profile" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
-              <Link href="/settings/billing" className="text-[12px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Billing</Link>
+              <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
+              <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Billing</Link>
               <LogoutButton label="Sign out" />
             </div>
           </div>
@@ -780,7 +780,7 @@ export default async function DashboardPage({
           <div className="flex sm:hidden items-center gap-2 ml-auto">
             <Link
               href="/dashboard/briefing"
-              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
             >
               Briefing
             </Link>
@@ -821,21 +821,21 @@ export default async function DashboardPage({
         <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500">Campaign health</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500">Campaign health</p>
               <h2 className="text-[20px] font-bold text-slate-900 mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-500">{campaignHealthBand}</span></h2>
               <p className="text-[13px] text-slate-600 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
               <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Cadence</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Cadence</p>
                 <p className="text-[16px] font-bold text-slate-900">{cadenceScore}</p>
               </div>
               <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Follow-through</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Follow-through</p>
                 <p className="text-[16px] font-bold text-slate-900">{followThroughScore}</p>
               </div>
               <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Conversion</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Conversion</p>
                 <p className="text-[16px] font-bold text-slate-900">{conversionScore}</p>
               </div>
             </div>
@@ -843,7 +843,7 @@ export default async function DashboardPage({
 
           {topStalledCampaigns.length > 0 && (
             <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-amber-800 mb-2">Stalled alerts</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-800 mb-2">Stalled alerts</p>
               <ul className="space-y-1.5">
                 {topStalledCampaigns.map((item) => (
                   <li key={item.id} className="text-[13px] text-amber-900">

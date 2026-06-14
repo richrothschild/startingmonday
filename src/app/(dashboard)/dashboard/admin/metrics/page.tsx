@@ -139,11 +139,11 @@ export default async function MetricsPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
+            <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
               ← Admin
             </Link>
           </div>
@@ -160,8 +160,8 @@ export default async function MetricsPage() {
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#metrics-definitions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Definitions</a>
             <a href="#metrics-high-low" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">High and low</a>
             <a href="#metrics-groups" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Group detail</a>
@@ -173,29 +173,29 @@ export default async function MetricsPage() {
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/dashboard/admin/crm" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open CRM</p>
-            <p className="text-[12px] text-slate-500 mt-1">Compare lead routing against score movement.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Compare lead routing against score movement.</p>
           </Link>
           <Link href="/dashboard/admin/onboarding/qa" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open onboarding QA scorecard</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review Sprint 6 implementation speed and low-energy mode adoption.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review Sprint 6 implementation speed and low-energy mode adoption.</p>
           </Link>
           <Link href="/dashboard/admin/channel-benchmarks" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open channel benchmarks</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review channel entry and persona routing by segment.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review channel entry and persona routing by segment.</p>
           </Link>
           <Link href="/dashboard/admin/outreach-analytics" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open outreach analytics</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review channel outcomes and delivery quality.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review channel outcomes and delivery quality.</p>
           </Link>
           <Link href="/dashboard/admin" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors sm:col-span-3">
             <p className="text-[13px] font-semibold text-slate-900">Back to admin</p>
-            <p className="text-[12px] text-slate-500 mt-1">Return to operational dashboard controls.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Return to operational dashboard controls.</p>
           </Link>
         </section>
 
         {/* Score methodology */}
         <section id="metrics-definitions" className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Score definitions</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Score definitions</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { label: 'Emotion',       desc: 'Does this action make the user feel something? 1 = administrative, 10 = peak emotional moment (offer accepted, first prep brief).' },
@@ -203,8 +203,8 @@ export default async function MetricsPage() {
               { label: 'Retention',     desc: 'Impact on subscription renewal probability. 1 = no influence, 10 = strong predictor of continued payment.' },
             ].map(({ label, desc }) => (
               <div key={label}>
-                <p className="text-[12px] font-bold text-slate-900 mb-1">{label}</p>
-                <p className="text-[11px] text-slate-500 leading-relaxed">{desc}</p>
+                <p className="text-[13px] font-bold text-slate-900 mb-1">{label}</p>
+                <p className="text-[13px] text-slate-500 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -213,24 +213,24 @@ export default async function MetricsPage() {
         {/* Top and bottom */}
         <section id="metrics-high-low" className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="bg-white border border-green-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-600 mb-3">Highest composite</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-green-600 mb-3">Highest composite</h2>
             {top3.map(row => (
               <div key={row.event_name} className="flex items-center justify-between py-2.5 border-b border-slate-50 last:border-0">
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">{row.label}</p>
-                  <p className="text-[11px] text-slate-400">{GROUP_LABELS[row.group as ScoreGroup]} &middot; {row.count30d} last 30d</p>
+                  <p className="text-[13px] text-slate-400">{GROUP_LABELS[row.group as ScoreGroup]} &middot; {row.count30d} last 30d</p>
                 </div>
                 <span className="text-[22px] font-bold text-green-600 ml-4 shrink-0">{row.composite}</span>
               </div>
             ))}
           </div>
           <div className="bg-white border border-red-100 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-red-500 mb-3">Lowest composite - review for friction or low impact</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-red-500 mb-3">Lowest composite - review for friction or low impact</h2>
             {bottom3.map(row => (
               <div key={row.event_name} className="flex items-center justify-between py-2.5 border-b border-slate-50 last:border-0">
                 <div>
                   <p className="text-[13px] font-semibold text-slate-900">{row.label}</p>
-                  <p className="text-[11px] text-slate-400">{GROUP_LABELS[row.group as ScoreGroup]} &middot; {row.count30d} last 30d</p>
+                  <p className="text-[13px] text-slate-400">{GROUP_LABELS[row.group as ScoreGroup]} &middot; {row.count30d} last 30d</p>
                 </div>
                 <span className="text-[22px] font-bold text-red-500 ml-4 shrink-0">{row.composite}</span>
               </div>
@@ -247,11 +247,11 @@ export default async function MetricsPage() {
           return (
             <div key={group} className="bg-white border border-slate-200 rounded overflow-hidden mb-4">
               <div className="px-6 py-[14px] border-b border-slate-200">
-                <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                   {GROUP_LABELS[group]}
                 </h2>
               </div>
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="text-left bg-slate-50 border-b border-slate-100">
                     <th className="px-6 py-2 font-semibold text-slate-400">Action</th>
@@ -284,10 +284,10 @@ export default async function MetricsPage() {
 
         {/* Trend dashboard */}
         <section id="metrics-trends" className="bg-white border border-slate-200 rounded p-6 mt-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">
             Weekly Event Volume by Group (12 weeks)
           </h2>
-          <p className="text-[12px] text-slate-400 mb-6">
+          <p className="text-[13px] text-slate-400 mb-6">
             Click a group button below the chart to drill into event-level detail.
           </p>
           <MetricsCharts weeklyData={weeklyData} groupDetails={groupDetails} />

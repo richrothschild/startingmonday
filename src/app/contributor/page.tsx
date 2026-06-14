@@ -130,7 +130,7 @@ export default async function ContributorPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-950">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-200">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
             <span className="text-slate-600 ml-3">&middot; Contributor Hub</span>
@@ -155,17 +155,17 @@ export default async function ContributorPage() {
           ].map(([value, label]) => (
             <div key={value} className="rounded-xl border border-slate-200 bg-white p-4">
               <p className="text-[24px] font-bold text-slate-900 mb-1">{value}</p>
-              <p className="text-[12px] text-slate-500 leading-relaxed">{label}</p>
+              <p className="text-[13px] text-slate-500 leading-relaxed">{label}</p>
             </div>
           ))}
         </section>
 
         <section className="mb-8 rounded-xl border border-emerald-200 bg-emerald-50/50 p-5">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Operating note</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Operating note</p>
           <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
             This hub includes internal architecture, security, workflow, and contributor materials. Keep it inside the contributor circle and use the linked documentation as the verified source before making changes.
           </p>
-          <p className="text-[12px] text-slate-600 leading-relaxed">
+          <p className="text-[13px] text-slate-600 leading-relaxed">
             Outcome target: reach first local run, first authenticated walkthrough, and first safe production-ready commit without reconstructing setup from Slack or memory.
           </p>
         </section>
@@ -173,7 +173,7 @@ export default async function ContributorPage() {
         <div className="space-y-8">
           {SECTIONS.map(section => (
             <section key={section.label} className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
                 {section.label}
               </h2>
               <div className="rounded overflow-hidden divide-y divide-slate-100 border border-slate-100">
@@ -190,11 +190,11 @@ export default async function ContributorPage() {
                         <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700 mb-0.5">
                           {doc.title}
                         </p>
-                        <p className="text-[12px] text-slate-500 leading-relaxed">
+                        <p className="text-[13px] text-slate-500 leading-relaxed">
                           {doc.description}
                         </p>
                       </div>
-                      <span className="text-[12px] text-slate-200 group-hover:text-slate-500 shrink-0 mt-0.5">
+                      <span className="text-[13px] text-slate-200 group-hover:text-slate-500 shrink-0 mt-0.5">
                         &rarr;
                       </span>
                     </div>
@@ -206,7 +206,7 @@ export default async function ContributorPage() {
         </div>
 
         <section className="mt-10 bg-slate-950 rounded p-5">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">
             Quick reference
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5">
@@ -219,8 +219,8 @@ export default async function ContributorPage() {
               ['Pre-commit', 'tsc + em-dash check (auto-runs)'],
             ].map(([label, value]) => (
               <div key={label} className="flex items-baseline gap-2">
-                <span className="text-[11px] text-slate-500 shrink-0">{label}</span>
-                <span className="text-[11px] font-mono text-slate-200">{value}</span>
+                <span className="text-[13px] text-slate-500 shrink-0">{label}</span>
+                <span className="text-[13px] font-mono text-slate-200">{value}</span>
               </div>
             ))}
           </div>

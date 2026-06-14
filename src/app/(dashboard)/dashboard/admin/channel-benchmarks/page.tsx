@@ -162,10 +162,10 @@ export default async function ChannelBenchmarksPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
             ← Admin
           </Link>
         </div>
@@ -179,24 +179,24 @@ export default async function ChannelBenchmarksPage() {
 
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-6">
           <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Entry clicks</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Entry clicks</p>
             <p className="text-[22px] font-bold text-slate-900 mt-1">{totalEntry}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona selections</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona selections</p>
             <p className="text-[22px] font-bold text-slate-900 mt-1">{totalPersona}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona per entry</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona per entry</p>
             <p className="text-[22px] font-bold text-slate-900 mt-1">{pct(totalPersona, totalEntry)}</p>
           </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-5 py-3 border-b border-slate-100">
-            <h2 className="text-[12px] font-semibold text-slate-900">Channel funnel benchmark</h2>
+            <h2 className="text-[13px] font-semibold text-slate-900">Channel funnel benchmark</h2>
           </div>
-          <table className="w-full text-[12px]">
+          <table className="w-full text-[13px]">
             <thead className="bg-slate-50 border-b border-slate-100 text-slate-500">
               <tr>
                 <th className="px-5 py-2 text-left">Channel</th>
@@ -220,8 +220,8 @@ export default async function ChannelBenchmarksPage() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Source page segments</h2>
-            <div className="space-y-2 text-[12px]">
+            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Source page segments</h2>
+            <div className="space-y-2 text-[13px]">
               {sourceRows.length === 0 && <p className="text-slate-500">No events yet.</p>}
               {sourceRows.map(([source, count]) => (
                 <div key={source} className="flex items-center justify-between border-b border-slate-100 pb-1">
@@ -233,8 +233,8 @@ export default async function ChannelBenchmarksPage() {
           </div>
 
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[12px] font-semibold text-slate-900 mb-3">A/B variant segments</h2>
-            <div className="space-y-2 text-[12px]">
+            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">A/B variant segments</h2>
+            <div className="space-y-2 text-[13px]">
               {variantRows.length === 0 && <p className="text-slate-500">No events yet.</p>}
               {variantRows.map(([variant, count]) => (
                 <div key={variant} className="flex items-center justify-between border-b border-slate-100 pb-1">
@@ -248,8 +248,8 @@ export default async function ChannelBenchmarksPage() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Persona segment distribution</h2>
-            <div className="space-y-2 text-[12px]">
+            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Persona segment distribution</h2>
+            <div className="space-y-2 text-[13px]">
               {personaRows.length === 0 && <p className="text-slate-500">No persona events yet.</p>}
               {personaRows.map(([persona, count]) => (
                 <div key={persona} className="flex items-center justify-between border-b border-slate-100 pb-1">
@@ -262,13 +262,13 @@ export default async function ChannelBenchmarksPage() {
 
           <div className="bg-white border border-slate-200 rounded p-5">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[12px] font-semibold text-slate-900">Telemetry QA</h2>
-              <span className={`text-[11px] font-semibold px-2 py-1 rounded ${qaPass ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              <h2 className="text-[13px] font-semibold text-slate-900">Telemetry QA</h2>
+              <span className={`text-[13px] font-semibold px-2 py-1 rounded ${qaPass ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                 {qaPass ? 'PASS' : 'FAIL'}
               </span>
             </div>
-            <p className="text-[12px] text-slate-500 mb-3">Target: less than 2% missing required telemetry fields.</p>
-            <div className="space-y-2 text-[12px]">
+            <p className="text-[13px] text-slate-500 mb-3">Target: less than 2% missing required telemetry fields.</p>
+            <div className="space-y-2 text-[13px]">
               {qaRows.map((row) => (
                 <div key={row.label} className="flex items-center justify-between border-b border-slate-100 pb-1">
                   <span className="text-slate-700">{row.label}</span>

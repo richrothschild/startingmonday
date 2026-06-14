@@ -93,7 +93,7 @@ export default async function PostSearchDashboardPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">
       <div className="max-w-4xl mx-auto">
-        <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-2">Executive Career OS - Sprint 1</p>
+        <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-2">Executive Career OS - Sprint 1</p>
         <h1 className="text-[30px] font-bold mb-3">Career Intelligence Mode</h1>
         <p className="text-[15px] text-slate-300 mb-8">
           {profile?.placement_company
@@ -103,32 +103,32 @@ export default async function PostSearchDashboardPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Tracked companies</p>
+            <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Tracked companies</p>
             <p className="text-[26px] font-semibold">{trackedCompanyCount ?? 0}</p>
           </div>
           <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Active contacts</p>
+            <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Active contacts</p>
             <p className="text-[26px] font-semibold">{activeContactCount ?? 0}</p>
           </div>
           <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Digest cadence</p>
+            <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Digest cadence</p>
             <p className="text-[26px] font-semibold capitalize">{digestFrequency}</p>
           </div>
         </div>
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
-          <p className="text-[12px] font-semibold text-slate-200 mb-3">Relationship network health</p>
+          <p className="text-[13px] font-semibold text-slate-200 mb-3">Relationship network health</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Coverage score</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Coverage score</p>
               <p className="text-[24px] font-semibold text-slate-100">{relationshipSummary.coverageScore}</p>
             </div>
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Covered types</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Covered types</p>
               <p className="text-[24px] font-semibold text-slate-100">{relationshipSummary.coveredTypes}/5</p>
             </div>
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Gap</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Gap</p>
               <p className="text-[14px] font-semibold text-slate-100 leading-snug">{relationshipSummary.coverageGapLabel}</p>
             </div>
           </div>
@@ -136,27 +136,27 @@ export default async function PostSearchDashboardPage() {
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
           <div className="flex items-start justify-between gap-3 mb-3">
-            <p className="text-[12px] font-semibold text-slate-200">Narrative health</p>
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">OS Sprint 3</p>
+            <p className="text-[13px] font-semibold text-slate-200">Narrative health</p>
+            <p className="text-[13px] tracking-[0.12em] text-slate-400">OS Sprint 3</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Narrative score</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Narrative score</p>
               <p className="text-[24px] font-semibold text-slate-100">{narrativeHealth.score}</p>
             </div>
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Health band</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Health band</p>
               <p className="text-[18px] font-semibold capitalize text-slate-100">{narrativeHealth.band}</p>
             </div>
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Versions captured</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Versions captured</p>
               <p className="text-[24px] font-semibold text-slate-100">{narrativeVersionCount ?? 0}</p>
             </div>
           </div>
           {narrativeHealth.gaps.length > 0 && (
             <ul className="space-y-2 mb-4">
               {narrativeHealth.gaps.slice(0, 3).map((gap) => (
-                <li key={gap} className="text-[12px] text-amber-300">- {gap}</li>
+                <li key={gap} className="text-[13px] text-amber-300">- {gap}</li>
               ))}
             </ul>
           )}
@@ -172,22 +172,22 @@ export default async function PostSearchDashboardPage() {
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
           <div className="flex items-start justify-between gap-3 mb-3">
-            <p className="text-[12px] font-semibold text-slate-200">Always-on intelligence pulse</p>
-            <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">OS Sprint 4</p>
+            <p className="text-[13px] font-semibold text-slate-200">Always-on intelligence pulse</p>
+            <p className="text-[13px] tracking-[0.12em] text-slate-400">OS Sprint 4</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Signals (30d)</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Signals (30d)</p>
               <p className="text-[24px] font-semibold text-slate-100">{intelligencePulse.signalsLast30Days}</p>
             </div>
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3 sm:col-span-2">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-slate-500 mb-1">Top signal clusters</p>
+              <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Top signal clusters</p>
               {intelligencePulse.topSignalTypes.length === 0 ? (
-                <p className="text-[12px] text-slate-400">No meaningful signal clusters in the last 30 days yet.</p>
+                <p className="text-[13px] text-slate-400">No meaningful signal clusters in the last 30 days yet.</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
                   {intelligencePulse.topSignalTypes.map((item) => (
-                    <span key={item.type} className="px-2 py-1 rounded bg-cyan-950/50 border border-cyan-900 text-[11px] text-cyan-200">
+                    <span key={item.type} className="px-2 py-1 rounded bg-cyan-950/50 border border-cyan-900 text-[13px] text-cyan-200">
                       {item.label}: {item.count}
                     </span>
                   ))}
@@ -198,7 +198,7 @@ export default async function PostSearchDashboardPage() {
           {intelligencePulse.topCompanies.length > 0 && (
             <ul className="space-y-2 mb-4">
               {intelligencePulse.topCompanies.map((company) => (
-                <li key={company.companyName} className="text-[12px] text-slate-300">
+                <li key={company.companyName} className="text-[13px] text-slate-300">
                   {company.companyName}: {company.signalCount} signals in 30 days
                 </li>
               ))}
@@ -215,7 +215,7 @@ export default async function PostSearchDashboardPage() {
         </div>
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
-          <p className="text-[12px] font-semibold text-slate-200 mb-3">Recent intelligence signals</p>
+          <p className="text-[13px] font-semibold text-slate-200 mb-3">Recent intelligence signals</p>
           {recentSignals.length === 0 ? (
             <p className="text-[13px] text-slate-400">No recent signals yet. Keep your target list active and we will keep monitoring.</p>
           ) : (
@@ -223,7 +223,7 @@ export default async function PostSearchDashboardPage() {
               {recentSignals.map((signal) => (
                 <li key={signal.id} className="border border-slate-800 rounded p-3">
                   <p className="text-[13px] text-slate-200">{signal.signal_summary}</p>
-                  <p className="text-[12px] text-slate-500 mt-1">{signal.companies?.name ?? 'Target company'} - {signal.signal_date}</p>
+                  <p className="text-[13px] text-slate-500 mt-1">{signal.companies?.name ?? 'Target company'} - {signal.signal_date}</p>
                 </li>
               ))}
             </ul>
@@ -231,15 +231,15 @@ export default async function PostSearchDashboardPage() {
         </div>
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
-          <p className="text-[12px] font-semibold text-slate-200 mb-3">Relationship maintenance cadence</p>
+          <p className="text-[13px] font-semibold text-slate-200 mb-3">Relationship maintenance cadence</p>
           <ul className="space-y-3">
             {relationshipPlan.map((item) => (
               <li key={item.id} className="border border-slate-800 rounded p-3 flex items-center justify-between gap-3">
                 <div>
                   <p className="text-[13px] text-slate-200">{item.title}</p>
-                  <p className="text-[12px] text-slate-500 capitalize">{item.cadence}</p>
+                  <p className="text-[13px] text-slate-500 capitalize">{item.cadence}</p>
                 </div>
-                <p className="text-[12px] font-semibold text-orange-300">Target: {item.targetCount}</p>
+                <p className="text-[13px] font-semibold text-orange-300">Target: {item.targetCount}</p>
               </li>
             ))}
           </ul>
