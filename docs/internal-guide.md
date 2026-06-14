@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T14:08:43.547Z
+Last generated: 2026-06-14T14:21:07.431Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -828,7 +828,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/performance-release-gate.yml | .github/workflows/performance-release-gate.yml | name: performance-release-gate
 - Workflow .github/workflows/pmf-daily-monitor.yml | .github/workflows/pmf-daily-monitor.yml | name: PMF Daily Monitor
 - Workflow .github/workflows/post-deploy.yml | .github/workflows/post-deploy.yml | Triggered by Railway deployment events via GitHub deployment_status webhook.
-- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Guide sync can be run proactively, no strict failed-check name requirement.
+- Workflow .github/workflows/pr-autofix.yml | .github/workflows/pr-autofix.yml | Allow privileged manual/label-triggered refreshes because elite baselines must be authored in CI's Ubuntu rendering environment.
 - Workflow .github/workflows/production-generated-monitoring.yml | .github/workflows/production-generated-monitoring.yml | name: Production Generated Monitoring
 - Workflow .github/workflows/production-growth-gate.yml | .github/workflows/production-growth-gate.yml | name: Production Growth Gate
 - Workflow .github/workflows/production-synthetics.yml | .github/workflows/production-synthetics.yml | Runs all 8 synthetic checks against production every 5 minutes.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T14:08:43.547Z",
+  "generatedAt": "2026-06-14T14:21:07.431Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T13:59:21.527Z"
+      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
     },
     {
       "id": "feature:/login",
@@ -10659,7 +10659,7 @@
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
       "title": "Workflow .github/workflows/pr-autofix.yml",
-      "body": "Guide sync can be run proactively, no strict failed-check name requirement.",
+      "body": "Allow privileged manual/label-triggered refreshes because elite baselines must be authored in CI's Ubuntu rendering environment.",
       "type": "infra",
       "ref": ".github/workflows/pr-autofix.yml",
       "tags": [
@@ -10667,7 +10667,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-07T13:27:03.269Z"
+      "lastModifiedAt": "2026-06-14T14:20:31.033Z"
     },
     {
       "id": "infra:.github/workflows/production-generated-monitoring.yml",
@@ -16579,7 +16579,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:03:38.190Z"
+      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16618,7 +16618,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T13:59:21.527Z"
+      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
