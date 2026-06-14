@@ -55,6 +55,17 @@ if (rubricCheck.status !== 0) {
   process.exitCode = 1
 }
 
+const copyCtaDriftCheck = spawnSync(
+  process.execPath,
+  [path.join(root, 'scripts/check-key-funnel-copy-cta-drift.mjs')],
+  { stdio: 'inherit' }
+)
+
+if (copyCtaDriftCheck.status !== 0) {
+  console.error('Error: key funnel copy/CTA drift checks failed')
+  process.exitCode = 1
+}
+
 if (process.env.MOBILE_ELITE_GATE_STRICT === '1') {
   const eliteMobileCheck = spawnSync(
     process.execPath,
