@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T00:33:05.559Z",
+  "generatedAt": "2026-06-14T00:43:33.938Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-13T23:11:03.669Z"
+      "lastModifiedAt": "2026-06-14T00:33:05.571Z"
     },
     {
       "id": "feature:/login",
@@ -8993,6 +8993,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.321Z"
     },
     {
+      "id": "script:scripts/check-key-funnel-copy-cta-drift.mjs",
+      "title": "Script scripts/check-key-funnel-copy-cta-drift.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/check-key-funnel-copy-cta-drift.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T00:42:50.760Z"
+    },
+    {
       "id": "script:scripts/check-lighthouse-budget-config.mjs",
       "title": "Script scripts/check-lighthouse-budget-config.mjs",
       "body": "#!/usr/bin/env node",
@@ -9965,7 +9978,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-08T03:29:53.427Z"
+      "lastModifiedAt": "2026-06-14T00:42:58.040Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -16448,7 +16461,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T23:11:03.669Z"
+      "lastModifiedAt": "2026-06-14T00:33:05.571Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16487,7 +16500,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T23:11:03.669Z"
+      "lastModifiedAt": "2026-06-14T00:33:05.571Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
