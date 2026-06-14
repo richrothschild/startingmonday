@@ -82,8 +82,8 @@ test('add company appears in pipeline then can be archived', async ({ page }) =>
     await search.fill(name)
   }
 
-  // Verify company appears in pipeline table
-  const companyLink = page.getByRole('link', { name })
+  // Verify company appears in pipeline table and target detail links explicitly.
+  const companyLink = page.locator('a[href*="/dashboard/companies/"]').filter({ hasText: name }).first()
   try {
     await expect(companyLink).toBeVisible({ timeout: 20_000 })
   } catch {

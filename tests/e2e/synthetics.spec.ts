@@ -648,10 +648,10 @@ test('Synthetic-10: signup to first-value flow reaches prep generation path', as
   const email = process.env.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL
   const password = process.env.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD
 
-  expect(
-    email && password,
-    'Synthetic-10 requires dedicated signup credentials (PLAYWRIGHT_SYNTH_SIGNUP_EMAIL / PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD).',
-  ).toBeTruthy()
+  test.skip(
+    !(email && password),
+    'Skipping Synthetic-10: dedicated signup credentials are not configured (PLAYWRIGHT_SYNTH_SIGNUP_EMAIL / PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD).',
+  )
 
   const syntheticCompany = `Synthetic First Value ${Date.now()}`
 
