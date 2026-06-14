@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+echo "guide freshness pre-commit..."
+node scripts/precommit-guide-freshness.mjs
+
 echo "tsc..."
 ./node_modules/.bin/tsc --noEmit
 

@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T02:06:23.245Z
+Last generated: 2026-06-14T02:11:47.763Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -674,7 +674,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (129)
+## Internal Scripts (130)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -775,6 +775,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/outreach-template-contract.test.ts | scripts/outreach-template-contract.test.ts | import { describe, it, expect } from 'vitest'
 - Script scripts/pagespeed-check.mjs | scripts/pagespeed-check.mjs | Parse .env.local into process.env if keys are missing
 - Script scripts/prebuild-guard.mjs | scripts/prebuild-guard.mjs | #!/usr/bin/env node
+- Script scripts/precommit-guide-freshness.mjs | scripts/precommit-guide-freshness.mjs | #!/usr/bin/env node
 - Script scripts/precommit-mobile-ui-gate.mjs | scripts/precommit-mobile-ui-gate.mjs | #!/usr/bin/env node
 - Script scripts/precommit-outreach-lint.mjs | scripts/precommit-outreach-lint.mjs | Only run outreach lint if any docs/outreach/*.csv file is staged
 - Script scripts/production-smoke-check.mjs | scripts/production-smoke-check.mjs | eslint-disable-next-line no-await-in-loop

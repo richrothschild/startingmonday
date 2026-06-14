@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T02:06:23.245Z",
+  "generatedAt": "2026-06-14T02:11:47.763Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
+      "lastModifiedAt": "2026-06-14T02:06:23.258Z"
     },
     {
       "id": "feature:/login",
@@ -9994,6 +9994,19 @@
       "lastModifiedAt": "2026-06-14T01:31:58.081Z"
     },
     {
+      "id": "script:scripts/precommit-guide-freshness.mjs",
+      "title": "Script scripts/precommit-guide-freshness.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/precommit-guide-freshness.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T02:11:24.426Z"
+    },
+    {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
       "title": "Script scripts/precommit-mobile-ui-gate.mjs",
       "body": "#!/usr/bin/env node",
@@ -16474,7 +16487,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
+      "lastModifiedAt": "2026-06-14T02:06:23.258Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16513,7 +16526,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T01:20:40.168Z"
+      "lastModifiedAt": "2026-06-14T02:06:23.258Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
