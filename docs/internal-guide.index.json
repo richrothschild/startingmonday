@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T04:20:18.226Z",
+  "generatedAt": "2026-06-14T04:34:37.230Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T04:08:35.623Z"
+      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
     },
     {
       "id": "feature:/login",
@@ -6572,7 +6572,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-14T04:08:27.314Z"
+      "lastModifiedAt": "2026-06-14T04:29:51.762Z"
     },
     {
       "id": "code:src/lib/config.test.ts",
@@ -8821,7 +8821,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T04:01:03.564Z"
+      "lastModifiedAt": "2026-06-14T04:29:51.762Z"
     },
     {
       "id": "script:scripts/backfill-company-size-bands.mjs",
@@ -10433,7 +10433,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T23:04:10.021Z"
+      "lastModifiedAt": "2026-06-14T04:33:03.717Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -15461,7 +15461,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:19:34.508Z"
+      "lastModifiedAt": "2026-06-14T04:29:51.801Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -16553,7 +16553,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:08:35.623Z"
+      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16592,7 +16592,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:08:35.623Z"
+      "lastModifiedAt": "2026-06-14T04:20:18.242Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
