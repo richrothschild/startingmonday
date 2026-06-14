@@ -8,7 +8,7 @@ export const metadata = {
 export default function SecurityPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -46,11 +46,11 @@ export default function SecurityPage() {
             <h2 className="text-[16px] font-bold text-slate-900 mb-4">Encryption</h2>
             <ul className="space-y-3 text-[14px] text-slate-600">
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">At rest:</strong> AES-256 encryption, provided at the infrastructure level by Supabase and AWS. Every field in your profile, your company notes, and your career history is encrypted on disk.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">In transit:</strong> TLS 1.2 or higher on all connections between your browser, our servers, and the database. There is no unencrypted channel.</span>
               </li>
             </ul>
@@ -105,19 +105,19 @@ export default function SecurityPage() {
             <h2 className="text-[16px] font-bold text-slate-900 mb-4">What we do not do</h2>
             <ul className="space-y-3 text-[14px] text-slate-600">
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We do not use your data to train or fine-tune AI models.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We do not sell or rent your data to any third party.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We do not share your identity, targets, or activity with employers, search firms, or recruiters.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We do not run advertising or analytics that track you across other sites.</span>
               </li>
             </ul>
@@ -130,19 +130,19 @@ export default function SecurityPage() {
             </p>
             <ul className="space-y-4 text-[14px] text-slate-600 mb-4">
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">CCPA:</strong> California residents can request access to, correction of, or deletion of all personal data at any time. Use the account deletion option in Settings. We do not sell personal information and have never sold personal information.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">EU AI Act:</strong> Starting Monday uses AI to generate career documents &mdash; prep briefs, outreach drafts, and strategy summaries. This is an assistive tool that produces draft output for human review. No automated decisions are made about users. All outputs are reviewed and acted on by the user, not by automated systems acting on their behalf.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">Enterprise procurement:</strong> If your organization requires AI vendor documentation, a data processing agreement (DPA), or AI usage disclosure for procurement review, contact us at{' '}<a href="mailto:hello@startingmonday.app" className="text-slate-800 underline">hello@startingmonday.app</a>. We provide these on request.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span><strong className="text-slate-800">AI model choice:</strong> We use Anthropic Claude. Anthropic does not use API data to train models under our agreement. We chose Anthropic specifically because of how they handle data and because the model calibrates better to executive-level language than the alternatives.</span>
               </li>
             </ul>
@@ -155,15 +155,15 @@ export default function SecurityPage() {
             </p>
             <ul className="space-y-3 text-[14px] text-slate-600 mb-4">
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We contain and investigate the incident within 24 hours of detection.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We notify affected users by email within 72 hours of confirming a breach. The notification includes: what data was accessed, when the incident occurred, what we have done to contain it, and what steps you can take.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-slate-300 shrink-0 mt-0.5 font-bold">+</span>
+                <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
                 <span>We cooperate with law enforcement and provide required regulatory notifications under applicable law.</span>
               </li>
             </ul>
@@ -186,11 +186,11 @@ export default function SecurityPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-100">
-          <Link href="/privacy" className="text-[13px] text-slate-400 hover:text-slate-700 underline transition-colors">
+          <Link href="/privacy" className="text-[13px] text-slate-200 hover:text-slate-700 underline transition-colors">
             Privacy Policy
           </Link>
           <span className="text-slate-200 mx-3">|</span>
-          <Link href="/" className="text-[13px] text-slate-400 hover:text-slate-700 transition-colors">
+          <Link href="/" className="text-[13px] text-slate-200 hover:text-slate-700 transition-colors">
             Back to Starting Monday
           </Link>
         </div>

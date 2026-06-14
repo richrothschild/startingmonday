@@ -263,12 +263,12 @@ const RACI_ROWS = [
 export default function OutplacementEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/for-outplacement" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+          <Link href="/for-outplacement" className="text-[13px] text-slate-200 hover:text-white transition-colors">
             Back to outplacement page
           </Link>
         </div>
@@ -304,11 +304,11 @@ export default function OutplacementEconomicsPage() {
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
               <p className="text-[16px] font-semibold text-slate-900">Expand partner models, scorecards, and commercial examples</p>
             </div>
-            <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+            <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
           </summary>
           <div className="px-6 py-6 border-t border-slate-100 space-y-10">
         <section id="partner-models" className="mb-10">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-5">
             Partner models
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -323,7 +323,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             What is included
           </h2>
           <ul className="space-y-3">
@@ -337,7 +337,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section id="decision-scorecard" className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             30-day decision scorecard
           </h2>
           <div className="space-y-3">
@@ -351,7 +351,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
             Commercial notes
           </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
@@ -362,7 +362,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Cohort sizing scenarios for procurement
           </h2>
           <div className="space-y-3">
@@ -379,7 +379,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Quantified current-model vs operating-layer outcomes
           </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -408,7 +408,7 @@ export default function OutplacementEconomicsPage() {
         </section>
 
         <section id="commercial-examples" className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Commercial examples by term and seat mix (illustrative)
           </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">

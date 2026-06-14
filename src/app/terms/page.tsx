@@ -1,4 +1,4 @@
-ï»¿import Link from 'next/link'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Terms of Service - Starting Monday',
@@ -9,7 +9,7 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -24,7 +24,7 @@ export default function TermsPage() {
           <h2 className="text-[18px] font-bold text-slate-900 mb-3 leading-snug">How to use Starting Monday outputs</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
             Starting Monday uses AI to generate interview prep briefs, positioning summaries, strategy analyses, outreach drafts, and signal interpretations.
-            These outputs are designed to inform your thinking â€” they are not professional advice.
+            These outputs are designed to inform your thinking — they are not professional advice.
           </p>
           <ul className="flex flex-col gap-2.5 text-[13px] text-slate-600">
             {[
@@ -32,10 +32,10 @@ export default function TermsPage() {
               'AI outputs reflect training data and may contain errors, outdated information, or gaps.',
               'Do not rely on any Starting Monday output as legal, financial, or career advice.',
               'Starting Monday is not responsible for decisions made based on AI-generated content.',
-              'Signal alerts indicate patterns â€” they do not guarantee that a role exists or will open.',
+              'Signal alerts indicate patterns — they do not guarantee that a role exists or will open.',
             ].map(item => (
               <li key={item} className="flex items-start gap-2.5">
-                <span className="text-slate-400 shrink-0 mt-0.5">â€“</span>
+                <span className="text-slate-200 shrink-0 mt-0.5">–</span>
                 {item}
               </li>
             ))}
@@ -53,14 +53,14 @@ export default function TermsPage() {
 
       <footer className="border-t border-slate-100 px-6 py-6 mt-12">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+          <Link href="/" className="text-[12px] text-slate-200 hover:text-slate-600 transition-colors">
             Back to home
           </Link>
         </div>
-        <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-400">
+        <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-200">
           &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
         </p>
       </footer>

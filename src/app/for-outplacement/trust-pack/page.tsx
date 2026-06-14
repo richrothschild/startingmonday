@@ -174,13 +174,13 @@ const SLA_ATTESTATION_MAP = [
 export default function OutplacementTrustPackPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/for-outplacement" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/for-outplacement" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back to outplacement page
             </Link>
           </div>
@@ -201,7 +201,7 @@ export default function OutplacementTrustPackPage() {
         </header>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Trust pillars
           </h2>
           <div className="space-y-3">
@@ -215,7 +215,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Procurement and legal checklist
           </h2>
           <ul className="space-y-2">
@@ -226,7 +226,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Consolidated trust artifact index (owner + refresh cadence)
           </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -259,7 +259,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Legal boundary summary
           </h2>
           <div className="space-y-3">
@@ -273,7 +273,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             SLA and attestation clause mapping
           </h2>
           <div className="space-y-3">
@@ -289,7 +289,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Lightweight authority badges and attestation index
           </h2>
           <div className="space-y-3">
@@ -303,7 +303,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Confidentiality by design
           </h2>
           <p className="text-[14px] text-slate-700 leading-relaxed">
@@ -317,7 +317,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Board-safe claims policy
           </h2>
           <ul className="space-y-2">
@@ -328,7 +328,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Staged KPI model (30/60/90)
           </h2>
           <div className="space-y-3">
@@ -342,7 +342,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Trust artifact index and request flow
           </h2>
           <ul className="space-y-2">
@@ -356,7 +356,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Artifact maintenance ownership
           </h2>
           <div className="overflow-x-auto border border-slate-200 rounded-lg">
@@ -382,7 +382,7 @@ export default function OutplacementTrustPackPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Pilot review timeline
           </h2>
           <div className="space-y-3">

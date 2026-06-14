@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
 import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowStartingMondayHelpsModal'
+import { ChartZoomModal } from '@/components/home/ChartZoomModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import type { Channel } from '@/lib/channel-metrics-events'
@@ -171,6 +172,108 @@ const HOME_BLUF_SECTIONS = [
   },
 ] as const
 
+function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 520 252" className={className} role="img" aria-label="Opportunity timing gap chart preview">
+      <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
+      <circle cx="44" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="116" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="188" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="260" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="332" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="404" cy="138" r="4.5" fill="#64748b" />
+      <circle cx="476" cy="138" r="4.5" fill="#64748b" />
+
+      <text x="24" y="168" fill="#cbd5e1" fontSize="13">Signal</text>
+      <text x="94" y="182" fill="#cbd5e1" fontSize="13">Shape</text>
+      <text x="160" y="168" fill="#cbd5e1" fontSize="13">Outreach</text>
+      <text x="242" y="182" fill="#cbd5e1" fontSize="13">Open</text>
+      <text x="302" y="168" fill="#cbd5e1" fontSize="13">Interviews</text>
+      <text x="384" y="182" fill="#cbd5e1" fontSize="13">Selection</text>
+      <text x="450" y="168" fill="#cbd5e1" fontSize="13">Start</text>
+
+      <text x="70" y="30" fill="#86efac" fontSize="14" fontWeight="700">Starting Monday enters here</text>
+      <line x1="116" y1="42" x2="116" y2="122" stroke="#22c55e" strokeWidth="4" />
+      <polygon points="116,133.5 109,121.5 123,121.5" fill="#22c55e" />
+
+      <text x="206" y="50" fill="#fdba74" fontSize="14" fontWeight="700">Typical candidates enter here</text>
+      <line x1="260" y1="60" x2="260" y2="122" stroke="#f97316" strokeWidth="4" />
+      <polygon points="260,133.5 253,121.5 267,121.5" fill="#f97316" />
+
+      <text x="16" y="228" fill="#cbd5e1" fontSize="14" fontWeight="700">Entering before the role opens materially improves shortlist odds.</text>
+    </svg>
+  )
+}
+
+function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 600 292" className={className} role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
+      <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
+      <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
+
+      <rect x="56" y="138" width="436" height="76" fill="#2b1c2a" opacity="0.32" />
+      <rect x="248" y="32" width="244" height="106" fill="#0f3a2f" opacity="0.26" />
+      <line x1="56" y1="178" x2="492" y2="178" stroke="#1f2f4a" strokeWidth="1" />
+      <line x1="56" y1="142" x2="492" y2="142" stroke="#1f2f4a" strokeWidth="1" />
+      <line x1="56" y1="106" x2="492" y2="106" stroke="#1f2f4a" strokeWidth="1" />
+      <line x1="56" y1="70" x2="492" y2="70" stroke="#1f2f4a" strokeWidth="1" />
+
+      <text x="18" y="218" fill="#94a3b8" fontSize="12">0%</text>
+      <text x="14" y="182" fill="#94a3b8" fontSize="12">25%</text>
+      <text x="14" y="146" fill="#94a3b8" fontSize="12">50%</text>
+      <text x="14" y="110" fill="#94a3b8" fontSize="12">75%</text>
+      <text x="10" y="74" fill="#94a3b8" fontSize="12">100%</text>
+
+      <text x="20" y="24" fill="#cbd5e1" fontSize="12" fontWeight="700">Probability of landing role</text>
+
+      <line x1="84" y1="214" x2="84" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="138" y1="214" x2="138" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="194" y1="214" x2="194" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="248" y1="214" x2="248" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="302" y1="214" x2="302" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="356" y1="214" x2="356" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="410" y1="214" x2="410" y2="220" stroke="#475569" strokeWidth="1.5" />
+      <line x1="468" y1="214" x2="468" y2="220" stroke="#475569" strokeWidth="1.5" />
+
+      <text x="84" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Signal</text>
+      <text x="138" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Shape</text>
+      <text x="194" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Outreach</text>
+      <text x="248" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Open</text>
+      <text x="302" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Prep</text>
+      <text x="356" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Interviews</text>
+      <text x="410" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Selection</text>
+      <text x="468" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Start</text>
+
+      <circle cx="84" cy="198" r="5.6" fill="#64748b" />
+      <circle cx="138" cy="190" r="5.6" fill="#64748b" />
+      <circle cx="194" cy="178" r="5.6" fill="#64748b" />
+      <circle cx="248" cy="164" r="5.6" fill="#64748b" />
+      <circle cx="302" cy="154" r="5.6" fill="#64748b" />
+      <circle cx="356" cy="144" r="5.6" fill="#64748b" />
+
+      <circle cx="84" cy="188" r="6.5" fill="#38bdf8" />
+      <circle cx="138" cy="171" r="6.5" fill="#38bdf8" />
+      <circle cx="194" cy="154" r="6.5" fill="#38bdf8" />
+      <circle cx="248" cy="137" r="6.5" fill="#38bdf8" />
+      <circle cx="302" cy="120" r="6.5" fill="#38bdf8" />
+      <circle cx="356" cy="103" r="6.5" fill="#38bdf8" />
+      <circle cx="410" cy="86" r="6.5" fill="#38bdf8" />
+      <circle cx="468" cy="70" r="6.5" fill="#38bdf8" />
+
+      <polyline points="84,188 138,171 194,154 248,137 302,120 356,103 410,86 468,70" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
+      <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
+
+      <text x="16" y="274" fill="#cbd5e1" fontSize="14" fontWeight="700">Without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
+
+      <rect x="504" y="36" width="86" height="52" rx="6" fill="#0f1a2e" stroke="#1e3a5f" strokeWidth="1" />
+      <circle cx="516" cy="52" r="5" fill="#38bdf8" />
+      <text x="526" y="56" fill="#cbd5e1" fontSize="11">With SM</text>
+      <circle cx="516" cy="74" r="5" fill="#64748b" />
+      <text x="526" y="78" fill="#94a3b8" fontSize="11">Typical</text>
+    </svg>
+  )
+}
+
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
   const isExecutivesPage = sourcePage === '/for-executives'
@@ -189,8 +292,8 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
   void rolePathPriorityByCtaKey
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent font-sans text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.24),_transparent_28%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(11,17,30,0.92)_56%,_rgba(15,23,42,0)_100%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.14),_transparent_32%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(11,17,30,0.94)_56%,_rgba(10,15,28,0.96)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80" aria-label="Go to homepage">
@@ -268,7 +371,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
                   <article key={item.metric} className="rounded-2xl border border-white/10 bg-white/6 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.16)] backdrop-blur">
-                    <p className="mb-2 text-[12px] font-semibold leading-snug text-emerald-100">{item.metric}</p>
+                    <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
                     <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
                   </article>
                 ))}
@@ -294,8 +397,8 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             </div>
 
             {proofHighlights && proofHighlights.length > 0 && (
-              <p className="mb-6 text-[14px] leading-relaxed text-emerald-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
-                <span className="font-semibold text-emerald-100">Proof:</span> Executives using Starting Monday stay organized, sharpen narrative-to-role fit, and walk into interviews with role-specific evidence.
+              <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
+                <span className="font-semibold text-orange-200">Proof:</span> Executives using Starting Monday stay organized, sharpen narrative-to-role fit, and walk into interviews with role-specific evidence.
               </p>
             )}
 
@@ -303,7 +406,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
                   <article key={item.metric} className="rounded-2xl border border-white/10 bg-white/6 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.16)] backdrop-blur">
-                    <p className="mb-2 text-[12px] font-semibold leading-snug text-emerald-100">{item.metric}</p>
+                    <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
                     <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
                   </article>
                 ))}
@@ -311,7 +414,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             )}
 
             {proofHighlights && proofHighlights.length > 0 && (
-              <p className="mb-6 text-[12px] leading-relaxed text-slate-300/90">
+              <p className="mb-6 text-[12px] leading-relaxed text-slate-200">
                 Source: Jan-May 2026 pilot cohorts with published method notes and attribution controls.
               </p>
             )}
@@ -324,105 +427,25 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="grid grid-cols-1 gap-3">
                 <article className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
                   <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Opportunity Timing Gap</p>
-                  <div className="overflow-x-auto pb-1">
-                    <svg viewBox="0 0 520 252" className="w-[680px] max-w-none h-[236px] sm:w-full sm:max-w-full sm:h-[246px]" role="img" aria-label="Opportunity timing gap chart preview">
-                    <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
-                    <circle cx="44" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="116" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="188" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="260" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="332" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="404" cy="138" r="4.5" fill="#64748b" />
-                    <circle cx="476" cy="138" r="4.5" fill="#64748b" />
-
-                    <text x="24" y="168" fill="#cbd5e1" fontSize="13">Signal</text>
-                    <text x="94" y="182" fill="#cbd5e1" fontSize="13">Shape</text>
-                    <text x="160" y="168" fill="#cbd5e1" fontSize="13">Outreach</text>
-                    <text x="242" y="182" fill="#cbd5e1" fontSize="13">Open</text>
-                    <text x="302" y="168" fill="#cbd5e1" fontSize="13">Interviews</text>
-                    <text x="384" y="182" fill="#cbd5e1" fontSize="13">Selection</text>
-                    <text x="450" y="168" fill="#cbd5e1" fontSize="13">Start</text>
-
-                    <text x="70" y="30" fill="#86efac" fontSize="14" fontWeight="700">Starting Monday enters here</text>
-                    <line x1="116" y1="42" x2="116" y2="122" stroke="#22c55e" strokeWidth="4" />
-                    <polygon points="116,133.5 109,121.5 123,121.5" fill="#22c55e" />
-
-                    <text x="206" y="50" fill="#fdba74" fontSize="14" fontWeight="700">Typical candidates enter here</text>
-                    <line x1="260" y1="60" x2="260" y2="122" stroke="#f97316" strokeWidth="4" />
-                    <polygon points="260,133.5 253,121.5 267,121.5" fill="#f97316" />
-
-                    <text x="16" y="228" fill="#cbd5e1" fontSize="14" fontWeight="700">Entering before the role opens materially improves shortlist odds.</text>
-                  </svg>
+                  <div className="pb-1">
+                    <OpportunityTimingGapChart />
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <ChartZoomModal buttonLabel="Open full chart" title="Opportunity Timing Gap">
+                      <OpportunityTimingGapChart className="h-auto w-full max-w-[900px]" />
+                    </ChartZoomModal>
                   </div>
                 </article>
 
                 <article className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
                   <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Role Landing Probability</p>
-                  <div className="overflow-x-auto pb-1">
-                    <svg viewBox="0 0 600 292" className="w-[700px] max-w-none h-[260px] sm:w-full sm:max-w-full sm:h-[278px]" role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
-                    <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
-                    <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
-
-                    <rect x="56" y="138" width="436" height="76" fill="#2b1c2a" opacity="0.32" />
-                    <rect x="248" y="32" width="244" height="106" fill="#0f3a2f" opacity="0.26" />
-                    <line x1="56" y1="178" x2="492" y2="178" stroke="#1f2f4a" strokeWidth="1" />
-                    <line x1="56" y1="142" x2="492" y2="142" stroke="#1f2f4a" strokeWidth="1" />
-                    <line x1="56" y1="106" x2="492" y2="106" stroke="#1f2f4a" strokeWidth="1" />
-                    <line x1="56" y1="70" x2="492" y2="70" stroke="#1f2f4a" strokeWidth="1" />
-
-                    <text x="18" y="218" fill="#94a3b8" fontSize="12">0%</text>
-                    <text x="14" y="182" fill="#94a3b8" fontSize="12">25%</text>
-                    <text x="14" y="146" fill="#94a3b8" fontSize="12">50%</text>
-                    <text x="14" y="110" fill="#94a3b8" fontSize="12">75%</text>
-                    <text x="10" y="74" fill="#94a3b8" fontSize="12">100%</text>
-
-                    <text x="20" y="24" fill="#cbd5e1" fontSize="12" fontWeight="700">Probability of landing role</text>
-
-                    <line x1="84" y1="214" x2="84" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="138" y1="214" x2="138" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="194" y1="214" x2="194" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="248" y1="214" x2="248" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="302" y1="214" x2="302" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="356" y1="214" x2="356" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="410" y1="214" x2="410" y2="220" stroke="#475569" strokeWidth="1.5" />
-                    <line x1="468" y1="214" x2="468" y2="220" stroke="#475569" strokeWidth="1.5" />
-
-                    <text x="84" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Signal</text>
-                    <text x="138" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Shape</text>
-                    <text x="194" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Outreach</text>
-                    <text x="248" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Open</text>
-                    <text x="302" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Prep</text>
-                    <text x="356" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Interviews</text>
-                    <text x="410" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Selection</text>
-                    <text x="468" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Start</text>
-
-                    <circle cx="84" cy="198" r="5.6" fill="#64748b" />
-                    <circle cx="138" cy="190" r="5.6" fill="#64748b" />
-                    <circle cx="194" cy="178" r="5.6" fill="#64748b" />
-                    <circle cx="248" cy="164" r="5.6" fill="#64748b" />
-                    <circle cx="302" cy="154" r="5.6" fill="#64748b" />
-                    <circle cx="356" cy="144" r="5.6" fill="#64748b" />
-
-                    <circle cx="84" cy="188" r="6.5" fill="#38bdf8" />
-                    <circle cx="138" cy="171" r="6.5" fill="#38bdf8" />
-                    <circle cx="194" cy="154" r="6.5" fill="#38bdf8" />
-                    <circle cx="248" cy="137" r="6.5" fill="#38bdf8" />
-                    <circle cx="302" cy="120" r="6.5" fill="#38bdf8" />
-                    <circle cx="356" cy="103" r="6.5" fill="#38bdf8" />
-                    <circle cx="410" cy="86" r="6.5" fill="#38bdf8" />
-                    <circle cx="468" cy="70" r="6.5" fill="#38bdf8" />
-
-                    <polyline points="84,188 138,171 194,154 248,137 302,120 356,103 410,86 468,70" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
-                    <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
-
-                    <text x="16" y="274" fill="#cbd5e1" fontSize="14" fontWeight="700">Without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
-
-                    <rect x="504" y="36" width="86" height="52" rx="6" fill="#0f1a2e" stroke="#1e3a5f" strokeWidth="1" />
-                    <circle cx="516" cy="52" r="5" fill="#38bdf8" />
-                    <text x="526" y="56" fill="#cbd5e1" fontSize="11">With SM</text>
-                    <circle cx="516" cy="74" r="5" fill="#64748b" />
-                    <text x="526" y="78" fill="#94a3b8" fontSize="11">Typical</text>
-                  </svg>
+                  <div className="pb-1">
+                    <RoleLandingProbabilityChart />
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <ChartZoomModal buttonLabel="Open full chart" title="Role Landing Probability">
+                      <RoleLandingProbabilityChart className="h-auto w-full max-w-[980px]" />
+                    </ChartZoomModal>
                   </div>
                 </article>
               </div>

@@ -57,14 +57,14 @@ const CASE_STUDIES = [
 export default function CaseStudiesPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/evidence-room" className="text-[13px] text-slate-400 hover:text-white transition-colors">Evidence room</Link>
-            <Link href="/references" className="text-[13px] text-slate-400 hover:text-white transition-colors">References</Link>
+            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence room</Link>
+            <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
           </div>
         </div>
       </nav>

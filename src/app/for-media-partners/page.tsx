@@ -50,13 +50,13 @@ export default function ForMediaPartnersPage() {
     <div className="min-h-screen bg-white font-sans">
 
       {/* Nav */}
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
@@ -71,7 +71,7 @@ export default function ForMediaPartnersPage() {
 
       <main>
 {/* Header */}
-        <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+        <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
               Media Partner Guide
@@ -79,7 +79,7 @@ export default function ForMediaPartnersPage() {
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               Starting Monday for Podcast Hosts <span className="whitespace-nowrap">and Newsletter Writers</span>
             </h1>
-            <p className="text-[16px] text-slate-400 leading-relaxed">
+            <p className="text-[16px] text-slate-200 leading-relaxed">
               Original data, practitioner expertise, and an audience your listeners and readers are already becoming.
             </p>
           </div>
@@ -172,7 +172,7 @@ export default function ForMediaPartnersPage() {
                       </ul>
                     </div>
                   )}
-                  <p className="text-[12px] text-slate-400">
+                  <p className="text-[12px] text-slate-200">
                     <span className="font-semibold text-slate-500">Audience: </span>{f.audience}
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export default function ForMediaPartnersPage() {
               >
                 Apply now &rarr;
               </Link>
-              <p className="text-[13px] text-slate-400 mt-4">
+              <p className="text-[13px] text-slate-200 mt-4">
                 Want to see the platform first?{' '}
                 <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
@@ -248,7 +248,7 @@ export default function ForMediaPartnersPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

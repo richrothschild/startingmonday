@@ -1,0 +1,51 @@
+{
+  "generatedAt": "<fill-after-epic>",
+  "scope": "Post-epic measurement for Luxury 95 with minimal drift",
+  "weights": {
+    "uxRubricPassRate": 0.35,
+    "mobileVisualSmokePassRate": 0.2,
+    "productionMobileThresholdPassRate": 0.2,
+    "trustProofGate": 0.15,
+    "lighthouseBudgetConfigGate": 0.1
+  },
+  "rawSignals": {
+    "uxRubric": {
+      "command": "npm run ux:rubric:pages -- --json",
+      "totalPages": 0,
+      "passedPages": 0,
+      "passRate": 0
+    },
+    "mobileVisualSmoke": {
+      "command": "npm run test:e2e:mobile-visual:smoke",
+      "totalTests": 0,
+      "passedTests": 0,
+      "failedTests": 0,
+      "passRate": 0,
+      "failedCases": []
+    },
+    "productionMobileThresholds": {
+      "command": "MONITOR_BASE_URL=https://startingmonday.app node scripts/check-mobile-production-thresholds.mjs --json",
+      "totalChecks": 0,
+      "passedChecks": 0,
+      "failedChecks": 0,
+      "passRate": 0,
+      "p95ResponseMs": 0
+    },
+    "trustProofGate": {
+      "command": "npm run marketing:trust-proof:gate",
+      "passed": false,
+      "value": 0
+    },
+    "lighthouseBudgetConfigGate": {
+      "command": "npm run perf:lighthouse:budget:config",
+      "passed": false,
+      "value": 0
+    }
+  },
+  "computed": {
+    "driftScore": 0,
+    "formula": "100 * (0.35*ux + 0.20*visual + 0.20*runtime + 0.15*trust + 0.10*lighthouseConfig)",
+    "deltaVsBaseline": "<fill-after-epic>",
+    "notes": []
+  }
+}

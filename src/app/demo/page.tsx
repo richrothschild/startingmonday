@@ -28,7 +28,7 @@ function renderBrief(text: string, isStreaming: boolean) {
     if (line.trim() === '---' || line.trim() === '***') return null
     if (line.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-8 mb-3 first:mt-0 pb-2 border-b border-slate-100">
+        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-200 mt-8 mb-3 first:mt-0 pb-2 border-b border-slate-100">
           {line.slice(3)}
         </h2>
       )
@@ -36,7 +36,7 @@ function renderBrief(text: string, isStreaming: boolean) {
     if (line.startsWith('- ') || line.startsWith('* ')) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
-          <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
+          <span className="text-slate-200 shrink-0 select-none mt-0.5">-</span>
           <span>{renderInline(line.slice(2))}</span>
         </div>
       )
@@ -131,18 +131,18 @@ export function DemoContent({
   }
 
   return (
-    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-slate-900'}`}>
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-slate-950'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
       )}
       {/* Nav */}
-      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 border-b border-slate-800 sticky top-0 z-10'}>
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 border-b border-slate-800 sticky top-0 z-10'}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">Log in</Link>
+            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">Log in</Link>
             <Link href="/signup?from=demo" className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
               Start free trial
             </Link>
@@ -151,13 +151,13 @@ export function DemoContent({
       </nav>
 
       {/* Hero */}
-      <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14' : 'bg-slate-900 px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14'}>
+      <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14' : 'bg-slate-950 px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14'}>
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-3">Live demo</p>
           <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-4">
             See the brief that changes the conversation.
           </h1>
-          <p className="text-[15px] text-slate-400 leading-relaxed max-w-xl mb-6">
+          <p className="text-[15px] text-slate-200 leading-relaxed max-w-xl mb-6">
             Before a high-stakes executive conversation, most candidates walk in under-prepared. Starting Monday generates a role-specific prep brief in under 60 seconds.
           </p>
 
@@ -170,7 +170,7 @@ export function DemoContent({
             ].map(item => (
               <div key={item.label} className="border border-slate-700 rounded-lg p-4">
                 <p className="text-[12px] font-bold text-orange-400 mb-1.5">{item.label}</p>
-                <p className="text-[13px] text-slate-400 leading-relaxed">{item.body}</p>
+                <p className="text-[13px] text-slate-200 leading-relaxed">{item.body}</p>
               </div>
             ))}
           </div>
@@ -206,7 +206,7 @@ export function DemoContent({
         </div>
       </header>
 
-      <section className={`px-4 sm:px-6 pb-6 ${premiumEnabled ? '' : 'bg-slate-900'}`}>
+      <section className={`px-4 sm:px-6 pb-6 ${premiumEnabled ? '' : 'bg-slate-950'}`}>
         <div className="max-w-3xl mx-auto rounded-2xl border border-white/10 bg-white/6 p-4">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Source note</p>
           <p className="text-[12px] text-slate-200 leading-relaxed">
@@ -222,13 +222,13 @@ export function DemoContent({
           <p className="text-[13px] text-slate-500 mb-6">
             Showing a brief for <span className="font-semibold text-slate-700">{DEMO_COMPANY}</span>. Select a role below.
             {runCount > 0 && runsLeft > 0 && (
-              <span className="ml-2 text-slate-400">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this demo.</span>
+              <span className="ml-2 text-slate-200">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this demo.</span>
             )}
           </p>
 
           <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col gap-4 mb-8">
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">
+              <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-200 mb-1.5">
                 Role
               </label>
               <select
@@ -292,7 +292,7 @@ export function DemoContent({
                   <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[14px] font-semibold px-7 py-3 rounded hover:bg-orange-600 transition-colors">
                     Start free trial
                   </Link>
-                  <p className="text-[12px] text-slate-400 mt-3">30 days free. No credit card.</p>
+                  <p className="text-[12px] text-slate-200 mt-3">30 days free. No credit card.</p>
                 </div>
               )}
             </div>
@@ -301,14 +301,14 @@ export function DemoContent({
       </section>
 
       {/* Footer strip */}
-      <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-6 backdrop-blur-xl' : 'bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-6'}>
+      <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-6 backdrop-blur-xl' : 'bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-6'}>
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-5 flex-wrap justify-center">
-            <Link href="/pricing" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">Pricing</Link>
-            <Link href="/privacy" className="text-[12px] text-slate-500 hover:text-slate-300 transition-colors">Privacy</Link>
+            <Link href="/pricing" className="text-[12px] text-slate-500 hover:text-slate-200 transition-colors">Pricing</Link>
+            <Link href="/privacy" className="text-[12px] text-slate-500 hover:text-slate-200 transition-colors">Privacy</Link>
             <Link href="/signup?from=demo" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Start free trial →</Link>
           </div>
         </div>

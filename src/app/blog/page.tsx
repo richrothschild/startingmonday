@@ -42,19 +42,19 @@ export default function BlogIndexPage() {
     <div className="min-h-screen bg-white font-sans">
 
               {/* Nav */}
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-200 hover:text-white transition-colors">
               Partners
             </Link>
-            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-200 hover:text-white transition-colors">
               Free Profile Grade
             </Link>
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Log in
             </Link>
             <Link
@@ -68,7 +68,7 @@ export default function BlogIndexPage() {
       </nav>
 
       {/* Header */}
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-12">
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-500 mb-4">
             Starting Monday
@@ -76,7 +76,7 @@ export default function BlogIndexPage() {
           <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-tight mb-4">
             The executive search brief.
           </h1>
-          <p className="text-[16px] text-slate-400 leading-relaxed max-w-xl">
+          <p className="text-[16px] text-slate-200 leading-relaxed max-w-xl">
             Practical guidance for C-suite technology executives in active search, and the coaches, search firms, and advisors who work with them.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
@@ -100,7 +100,7 @@ export default function BlogIndexPage() {
             {executivePosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">
                 <Link href={`/blog/${post.slug}`} className="group block">
-                  <p className="text-[12px] text-slate-400 mb-3">
+                  <p className="text-[12px] text-slate-200 mb-3">
                     {formatDate(post.date)} &middot; {post.readTime}
                   </p>
                   <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 group-hover:text-slate-600 transition-colors">
@@ -122,11 +122,11 @@ export default function BlogIndexPage() {
       {/* Intermediary section */}
       <section className="px-4 sm:px-6 pb-14 sm:pb-16 border-t border-slate-100">
         <div className="max-w-3xl mx-auto pt-12">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-8">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-8">
             For coaches, search firms, and advisors
           </p>
           <div className="mb-6 flex flex-wrap gap-3">
-            <Link href="/for-coaches" className="inline-block bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors">
+            <Link href="/for-coaches" className="inline-block bg-slate-950 hover:bg-slate-700 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors">
               Coach guide &rarr;
             </Link>
             <Link href="/partners" className="inline-block border border-slate-300 hover:border-slate-500 text-slate-700 text-[13px] px-5 py-2.5 rounded transition-colors">
@@ -137,7 +137,7 @@ export default function BlogIndexPage() {
             {intermediaryPosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">
                 <Link href={`/blog/${post.slug}`} className="group block">
-                  <p className="text-[12px] text-slate-400 mb-3">
+                  <p className="text-[12px] text-slate-200 mb-3">
                     {formatDate(post.date)} &middot; {post.readTime}
                   </p>
                   <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 group-hover:text-slate-600 transition-colors">
@@ -164,16 +164,16 @@ export default function BlogIndexPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-5 border-b border-slate-800">
-            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
+            <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-slate-200 transition-colors">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </Link>
             <div className="flex items-center gap-5 flex-wrap">
-              <Link href="/optimize" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Free Profile Grade</Link>
-              <Link href="/privacy" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-[12px] text-slate-400 hover:text-slate-300 transition-colors">Terms</Link>
+              <Link href="/optimize" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Free Profile Grade</Link>
+              <Link href="/privacy" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Terms</Link>
             </div>
           </div>
           <p className="text-[11px] text-slate-500">

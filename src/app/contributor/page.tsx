@@ -128,9 +128,9 @@ export default async function ContributorPage() {
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
             <span className="text-slate-600 ml-3">&middot; Contributor Hub</span>
@@ -173,7 +173,7 @@ export default async function ContributorPage() {
         <div className="space-y-8">
           {SECTIONS.map(section => (
             <section key={section.label} className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
                 {section.label}
               </h2>
               <div className="rounded overflow-hidden divide-y divide-slate-100 border border-slate-100">
@@ -194,7 +194,7 @@ export default async function ContributorPage() {
                           {doc.description}
                         </p>
                       </div>
-                      <span className="text-[12px] text-slate-300 group-hover:text-slate-500 shrink-0 mt-0.5">
+                      <span className="text-[12px] text-slate-200 group-hover:text-slate-500 shrink-0 mt-0.5">
                         &rarr;
                       </span>
                     </div>
@@ -205,7 +205,7 @@ export default async function ContributorPage() {
           ))}
         </div>
 
-        <section className="mt-10 bg-slate-900 rounded p-5">
+        <section className="mt-10 bg-slate-950 rounded p-5">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">
             Quick reference
           </h2>
@@ -220,7 +220,7 @@ export default async function ContributorPage() {
             ].map(([label, value]) => (
               <div key={label} className="flex items-baseline gap-2">
                 <span className="text-[11px] text-slate-500 shrink-0">{label}</span>
-                <span className="text-[11px] font-mono text-slate-300">{value}</span>
+                <span className="text-[11px] font-mono text-slate-200">{value}</span>
               </div>
             ))}
           </div>

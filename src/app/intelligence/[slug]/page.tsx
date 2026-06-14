@@ -52,14 +52,14 @@ export default async function IntelligencePage({
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
       {/* Header */}
-      <header className="bg-slate-900 border-b border-slate-800">
+      <header className="bg-slate-950 border-b border-slate-800">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 hover:text-white transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-white transition-colors">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">
+            <Link href="/login" className="text-[12px] font-semibold text-slate-200 hover:text-white transition-colors">
               Sign in
             </Link>
             <Link
@@ -86,7 +86,7 @@ export default async function IntelligencePage({
         {/* Company hero */}
         <section id="company-overview" className="mb-10">
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-12 h-12 rounded-lg bg-slate-900 flex items-center justify-center text-white text-[16px] font-bold shrink-0">
+            <div className="w-12 h-12 rounded-lg bg-slate-950 flex items-center justify-center text-white text-[16px] font-bold shrink-0">
               {company.company_name[0].toUpperCase()}
             </div>
             <div>
@@ -94,7 +94,7 @@ export default async function IntelligencePage({
                 {company.company_name}
               </h1>
               {company.sector && (
-                <span className="text-[12px] font-semibold text-slate-400 tracking-wide uppercase">
+                <span className="text-[12px] font-semibold text-slate-200 tracking-wide uppercase">
                   {company.sector}
                 </span>
               )}
@@ -120,7 +120,7 @@ export default async function IntelligencePage({
                 href={company.website.startsWith('http') ? company.website : `https://${company.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[13px] text-slate-400 hover:text-slate-700 transition-colors"
+                className="text-[13px] text-slate-200 hover:text-slate-700 transition-colors"
               >
                 {company.website.replace(/^https?:\/\//, '')} &nearr;
               </a>
@@ -135,7 +135,7 @@ export default async function IntelligencePage({
 
         {/* Intelligence feed */}
         <section id="recent-intelligence" className="mb-4">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Recent intelligence
           </h2>
 
@@ -169,7 +169,7 @@ export default async function IntelligencePage({
                     ].join(' ')}>
                       {signalLabel(signal.signal_type)}
                     </span>
-                    <span className="text-[12px] text-slate-400">
+                    <span className="text-[12px] text-slate-200">
                       {new Date(signal.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', {
                         month: 'short', day: 'numeric', year: 'numeric',
                       })}
@@ -183,7 +183,7 @@ export default async function IntelligencePage({
                       href={signal.source_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-[12px] text-slate-400 hover:text-slate-700 transition-colors"
+                      className="mt-2 inline-block text-[12px] text-slate-200 hover:text-slate-700 transition-colors"
                     >
                       Source &nearr;
                     </a>
@@ -204,7 +204,7 @@ export default async function IntelligencePage({
                   <span className="text-[10px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">
                     Exec Move
                   </span>
-                  <span className="text-[12px] text-slate-400">Recent</span>
+                  <span className="text-[12px] text-slate-200">Recent</span>
                 </div>
                 <p className="text-[14px] text-slate-700 leading-relaxed">
                   Senior leadership change detected at {company.company_name}. New appointment signals a strategic shift in technology direction.
@@ -227,7 +227,7 @@ export default async function IntelligencePage({
               >
                 Get started now
               </Link>
-              <Link href="/login" className="mt-3 text-[12px] text-slate-400 hover:text-slate-700 transition-colors">
+              <Link href="/login" className="mt-3 text-[12px] text-slate-200 hover:text-slate-700 transition-colors">
                 Already have an account? Sign in
               </Link>
             </div>
@@ -236,17 +236,17 @@ export default async function IntelligencePage({
 
         {/* Bottom CTA for unlocked pages */}
         {isUnlocked && allSignals.length > 0 && (
-          <section id="next-step" className="mt-10 bg-slate-900 rounded-xl px-6 sm:px-8 py-8 text-center">
+          <section id="next-step" className="mt-10 bg-slate-950 rounded-xl px-6 sm:px-8 py-8 text-center">
             <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
               Starting Monday Intelligence
             </div>
             <h2 className="text-[22px] font-bold text-white mb-3">
               Track every company on your target list.
             </h2>
-            <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-md mx-auto">
+            <p className="text-[14px] text-slate-200 leading-relaxed mb-6 max-w-md mx-auto">
               Exec moves, funding rounds, acquisitions, and filing trends. Signals delivered daily before you start your day.
             </p>
-            <p className="text-[12px] text-slate-400 leading-relaxed mb-4">Outcome metric: better signal timing improves outreach response windows and interview readiness.</p>
+            <p className="text-[12px] text-slate-200 leading-relaxed mb-4">Outcome metric: better signal timing improves outreach response windows and interview readiness.</p>
             <Link
               href="/signup"
               className="inline-block bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-8 py-3 rounded transition-colors"
@@ -260,7 +260,7 @@ export default async function IntelligencePage({
 
       {/* Footer */}
       <footer className="max-w-3xl mx-auto px-4 sm:px-6 py-8 border-t border-slate-200 mt-10">
-        <p className="text-[12px] text-slate-400 text-center">
+        <p className="text-[12px] text-slate-200 text-center">
           <Link href="/" className="hover:text-slate-700 transition-colors">Starting Monday</Link>
           {' '}&middot;{' '}Executive intelligence for active job seekers
         </p>

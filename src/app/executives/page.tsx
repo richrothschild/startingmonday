@@ -26,7 +26,7 @@ export default function ExecutivesChannelPage() {
         <h1 className="text-[34px] sm:text-[44px] font-bold leading-[1.1] tracking-tight mb-4">
           Run a private, signal-first campaign.
         </h1>
-        <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl mb-6">
+        <p className="text-[16px] text-slate-200 leading-relaxed max-w-3xl mb-6">
           Starting Monday gives senior executives early market signals, relationship operating cadence, and role-level prep rigor so you can move before the role is posted and show up at peer depth.
         </p>
 
@@ -43,20 +43,20 @@ export default function ExecutivesChannelPage() {
             event={EVENT_NAMES.personaRouteSelected}
             logToUserEvents
             properties={{ channel: 'executives', persona: 'active_mode', source_route: '/executives', target_route: '/executives/active' }}
-            className="block rounded border border-slate-800 bg-slate-900 p-4 hover:border-orange-500 transition-colors"
+            className="block rounded border border-slate-800 bg-slate-950 p-4 hover:border-orange-500 transition-colors"
           >
             <p className="text-[13px] font-semibold text-white mb-2">Active search mode</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">For executives in immediate transition who need daily execution cadence.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">For executives in immediate transition who need daily execution cadence.</p>
           </TrackLink>
           <TrackLink
             href="/executives/passive"
             event={EVENT_NAMES.personaRouteSelected}
             logToUserEvents
             properties={{ channel: 'executives', persona: 'passive_mode', source_route: '/executives', target_route: '/executives/passive' }}
-            className="block rounded border border-slate-800 bg-slate-900 p-4 hover:border-orange-500 transition-colors"
+            className="block rounded border border-slate-800 bg-slate-950 p-4 hover:border-orange-500 transition-colors"
           >
             <p className="text-[13px] font-semibold text-white mb-2">Optionality mode</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">For executives not actively searching yet who want strategic readiness.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">For executives not actively searching yet who want strategic readiness.</p>
           </TrackLink>
         </section>
 
@@ -93,13 +93,13 @@ export default function ExecutivesChannelPage() {
         <ChannelMicroProductRail channel="executives" sourceRoute="/executives" />
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded border border-slate-800 bg-slate-900 p-4">
+          <div className="rounded border border-slate-800 bg-slate-950 p-4">
             <p className="text-[12px] font-semibold text-white mb-2">Built for active transitions</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">CIO, CTO, CISO, CDO, CPO, COO, and VP-to-C-suite paths with role-level preparation.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">CIO, CTO, CISO, CDO, CPO, COO, and VP-to-C-suite paths with role-level preparation.</p>
           </div>
-          <div className="rounded border border-slate-800 bg-slate-900 p-4">
+          <div className="rounded border border-slate-800 bg-slate-950 p-4">
             <p className="text-[12px] font-semibold text-white mb-2">Built for optionality mode</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">Monitor transition windows and relationship momentum even before you formally announce a move.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">Monitor transition windows and relationship momentum even before you formally announce a move.</p>
           </div>
         </section>
       </div>

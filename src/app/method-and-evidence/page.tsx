@@ -42,7 +42,7 @@ function BarChart({ items, labelKey, valueKey, noteKey, widthKey, premium = fals
             <div className="flex items-end justify-between gap-4 mb-2">
               <div>
                 <p className={`text-[13px] font-semibold ${premium ? 'text-white' : 'text-slate-900'}`}>{label}</p>
-                <p className={`text-[12px] leading-relaxed ${premium ? 'text-slate-300' : 'text-slate-500'}`}>{note}</p>
+                <p className={`text-[12px] leading-relaxed ${premium ? 'text-slate-200' : 'text-slate-500'}`}>{note}</p>
               </div>
               <p className={`text-[12px] font-semibold ${premium ? 'text-slate-200' : 'text-slate-500'}`}>{value}%</p>
             </div>
@@ -60,18 +60,18 @@ export default function MethodAndEvidencePage() {
   const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
 
   return (
-    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-white'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
       )}
-      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/references" className="text-[13px] text-slate-400 hover:text-white transition-colors">References</Link>
-            <Link href="/evidence-room" className="text-[13px] text-slate-400 hover:text-white transition-colors">Evidence room</Link>
+            <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
+            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence room</Link>
             <Link href="/signup" className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors">Try free</Link>
           </div>
         </div>
@@ -112,15 +112,15 @@ export default function MethodAndEvidencePage() {
           </div>
         </section>
 
-        <section className="mb-12 border border-slate-200 rounded-lg p-5 sm:p-6 bg-slate-900 text-white">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-300 mb-3">Dig deeper</p>
-          <p className="text-[14px] text-slate-300 leading-relaxed mb-5">
+        <section className={`mb-12 rounded-lg p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm text-white' : 'border border-slate-200 bg-slate-950 text-white'}`}>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-orange-300'}`}>Dig deeper</p>
+          <p className={`text-[14px] leading-relaxed mb-5 ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>
             Explore the citations, pilot data, and timing-model methodology behind every product decision.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/references" className="inline-block bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100 transition-colors">References →</Link>
-            <Link href="/evidence-room" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Evidence room →</Link>
-            <Link href="/blog/how-we-estimate-early-role-signals" className="inline-block border border-slate-600 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-400 transition-colors">Timing model →</Link>
+            <Link href="/references" className={`inline-block text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-white text-slate-900 hover:bg-slate-100'}`}>References →</Link>
+            <Link href="/evidence-room" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Evidence room →</Link>
+            <Link href="/blog/how-we-estimate-early-role-signals" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Timing model →</Link>
           </div>
         </section>
 

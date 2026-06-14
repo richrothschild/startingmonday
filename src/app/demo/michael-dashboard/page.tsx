@@ -21,16 +21,16 @@ const KEY_CONTACTS = [
 export default function MichaelDashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
+      <nav className="bg-slate-950 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/mark-review" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/mark-review" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back to Mark flow
             </Link>
-            <Link href="/demo/michael-strategy-brief" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+            <Link href="/demo/michael-strategy-brief" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Strategy brief
             </Link>
           </div>
@@ -127,7 +127,7 @@ export default function MichaelDashboardPage() {
             <div className="flex flex-col gap-3">
               <Link
                 href="/demo/michael-strategy-brief"
-                className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center justify-center rounded bg-slate-950 text-white text-[13px] font-semibold px-5 py-2.5 hover:bg-slate-800 transition-colors"
               >
                 Open strategy brief
               </Link>

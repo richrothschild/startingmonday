@@ -126,18 +126,18 @@ export default function EvidenceRoomPage() {
   const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
 
   return (
-    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-white'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
       )}
-      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/references" className="text-[13px] text-slate-400 hover:text-white transition-colors">References</Link>
-            <Link href="/method-and-evidence" className="text-[13px] text-slate-400 hover:text-white transition-colors">Method</Link>
+            <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
+            <Link href="/method-and-evidence" className="text-[13px] text-slate-200 hover:text-white transition-colors">Method</Link>
             <Link href="/signup" className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors">Try free</Link>
           </div>
         </div>
@@ -175,24 +175,24 @@ export default function EvidenceRoomPage() {
           </div>
           <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
             <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Update history</p>
-            <ul className={`space-y-2 text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>
+            <ul className={`space-y-2 text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
               {HISTORY.map(item => <li key={item}>- {item}</li>)}
             </ul>
           </div>
         </section>
 
         <section className="mb-12">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Core KPI trend cards</p>
+          <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Core KPI trend cards</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {KPI_TRENDS.map((kpi) => (
               <article key={kpi.name} className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
                 <p className={`text-[12px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{kpi.name}</p>
                 <p className={`text-[22px] font-bold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{kpi.value}</p>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">{kpi.trend}</span>
-                  <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">{kpi.confidence}</span>
+                  <span className={`rounded px-2 py-0.5 text-[11px] font-semibold ${premiumEnabled ? 'bg-emerald-500/20 text-emerald-200' : 'bg-emerald-50 text-emerald-700'}`}>{kpi.trend}</span>
+                  <span className={`rounded px-2 py-0.5 text-[11px] font-semibold ${premiumEnabled ? 'bg-slate-700/60 text-slate-100' : 'bg-slate-100 text-slate-600'}`}>{kpi.confidence}</span>
                 </div>
-                <p className={`text-[12px] mb-2 ${premiumEnabled ? 'text-slate-300' : 'text-slate-500'}`}>{kpi.cadence}</p>
+                <p className={`text-[12px] mb-2 ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>{kpi.cadence}</p>
                 <p className={`text-[12px] leading-relaxed mb-1 ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}><span className={premiumEnabled ? 'font-semibold text-slate-100' : 'font-semibold text-slate-700'}>Definition:</span> {kpi.definition}</p>
                 <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}><span className={premiumEnabled ? 'font-semibold text-slate-100' : 'font-semibold text-slate-700'}>Source:</span> {kpi.source}</p>
               </article>

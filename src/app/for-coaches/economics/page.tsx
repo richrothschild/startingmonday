@@ -64,12 +64,12 @@ const PARTNER_MECHANICS = [
 export default function CoachEconomicsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/for-coaches" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+          <Link href="/for-coaches" className="text-[13px] text-slate-200 hover:text-white transition-colors">
             Back to coach preview
           </Link>
         </div>
@@ -111,7 +111,7 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-5">
             Coach buyer pricing (primary path)
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -129,7 +129,7 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-5">
             Referral lane: client pricing
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -147,7 +147,7 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-5">
             Referral partner economics (secondary path)
           </h2>
           <div className="border border-slate-200 rounded-2xl p-6 bg-white">
@@ -168,7 +168,7 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-slate-50">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
             Keep the trust boundary clear
           </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">
@@ -179,7 +179,7 @@ export default function CoachEconomicsPage() {
         </section>
 
         <section className="mb-10 border border-slate-200 rounded-2xl p-6 bg-white">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-3">
             Mechanics, not mystery
           </h2>
           <div className="space-y-3 text-[14px] text-slate-600 leading-relaxed">

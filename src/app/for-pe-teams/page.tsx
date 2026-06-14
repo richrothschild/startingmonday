@@ -34,18 +34,18 @@ const VALUE_PROPS = [
 export default function ForPeTeamsPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+          <Link href="/partners" className="text-[13px] text-slate-200 hover:text-white transition-colors">
             Become a partner
           </Link>
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             For PE and Transformation Teams
@@ -53,7 +53,7 @@ export default function ForPeTeamsPage() {
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-5">
             The search timeline<br />is a risk to the<br />value creation plan.
           </h1>
-          <p className="text-[15px] text-slate-400 leading-relaxed max-w-lg">
+          <p className="text-[15px] text-slate-200 leading-relaxed max-w-lg">
             Starting Monday equips your executive network with early intelligence on portfolio company signals and preparation that compresses the time from first conversation to close.
           </p>
         </div>
@@ -105,11 +105,11 @@ export default function ForPeTeamsPage() {
             </div>
           </section>
 
-          <section id="exec-benefit" className="bg-slate-900 rounded-lg p-8">
+          <section id="exec-benefit" className="bg-slate-950 rounded-lg p-8">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
               What your executives get
             </p>
-            <p className="text-[14px] text-slate-400 leading-relaxed mb-5">
+            <p className="text-[14px] text-slate-200 leading-relaxed mb-5">
               Every executive you enroll gets full platform access: early company signals, daily morning briefings, AI prep briefs before conversations, and a pipeline they can run like a campaign rather than a hope.
             </p>
             <p className="text-[12px] text-slate-500 leading-relaxed mb-5">
@@ -117,7 +117,7 @@ export default function ForPeTeamsPage() {
             </p>
             <Link
               href="/demo"
-              className="inline-block text-[13px] text-slate-300 border border-slate-600 px-5 py-2.5 rounded hover:border-slate-400 hover:text-white transition-colors"
+              className="inline-block text-[13px] text-slate-200 border border-slate-600 px-5 py-2.5 rounded hover:border-slate-400 hover:text-white transition-colors"
             >
               See a live demo &rarr;
             </Link>
@@ -126,14 +126,14 @@ export default function ForPeTeamsPage() {
         </div>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
             Questions?{' '}
-            <a href="mailto:contact@startingmonday.app" className="hover:text-slate-300 transition-colors">
+            <a href="mailto:contact@startingmonday.app" className="hover:text-slate-200 transition-colors">
               contact@startingmonday.app
             </a>
           </p>

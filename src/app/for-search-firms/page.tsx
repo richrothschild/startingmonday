@@ -42,8 +42,8 @@ const FEATURES = [
 
 export default function ForSearchFirmsPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent font-sans text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
 
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
@@ -52,7 +52,7 @@ export default function ForSearchFirmsPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo?from=search-firms" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo?from=search-firms" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
@@ -76,7 +76,7 @@ export default function ForSearchFirmsPage() {
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               Starting Monday for <span className="whitespace-nowrap">Retained Search Firms</span>
             </h1>
-            <p className="text-[16px] text-slate-300 leading-relaxed">
+            <p className="text-[16px] text-slate-200 leading-relaxed">
               Your candidates determine how your firm is perceived at the client. Starting Monday gives them the preparation depth that makes the first round count.
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function ForSearchFirmsPage() {
                     </summary>
                     <div className="mt-2">
                       <p className="text-[15px] text-slate-200 leading-relaxed mb-2">{f.forFirm}</p>
-                      <p className="text-[13px] text-slate-400 leading-relaxed">
+                      <p className="text-[13px] text-slate-200 leading-relaxed">
                         <span className="font-semibold text-slate-200">Outcome: </span>{f.outcome}
                       </p>
                     </div>
@@ -184,7 +184,7 @@ export default function ForSearchFirmsPage() {
                   </li>
                 ))}
               </ul>
-              <p className="text-[12px] text-slate-400 leading-relaxed">
+              <p className="text-[12px] text-slate-200 leading-relaxed">
                 Confidentiality standard: candidate pipeline visibility is opt-in and controlled by each candidate.
               </p>
             </section>
@@ -197,7 +197,7 @@ export default function ForSearchFirmsPage() {
               <h2 className="text-[20px] font-bold text-white mb-3 leading-snug">
                 Apply to the partner program
               </h2>
-              <p className="text-[14px] text-slate-300 leading-relaxed mb-6">
+              <p className="text-[14px] text-slate-200 leading-relaxed mb-6">
                 Fill out the application and we will follow up within 2 business days with your referral link, commission tracking, and partner resource kit.
               </p>
               <Link
@@ -206,9 +206,9 @@ export default function ForSearchFirmsPage() {
               >
                 Get started now &rarr;
               </Link>
-              <p className="text-[13px] text-slate-400 mt-4">
+              <p className="text-[13px] text-slate-200 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo?from=search-firms" className="text-slate-300 underline hover:text-white transition-colors">
+                <Link href="/demo?from=search-firms" className="text-slate-200 underline hover:text-white transition-colors">
                   Walk through a live demo
                 </Link>
                 .
@@ -226,7 +226,7 @@ export default function ForSearchFirmsPage() {
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-200">
             Questions? contact@startingmonday.app
           </p>
         </div>

@@ -40,13 +40,13 @@ export default function CoachesGuidePage() {
     <div className="min-h-screen bg-white font-sans">
 
       {/* Nav */}
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               See a demo
             </Link>
             <Link
@@ -62,7 +62,7 @@ export default function CoachesGuidePage() {
       <main>
 
       {/* Header */}
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-12">
         <div className="max-w-2xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
             Partner Guide
@@ -70,7 +70,7 @@ export default function CoachesGuidePage() {
           <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
             Starting Monday for <span className="whitespace-nowrap">Executive Coaches</span>
           </h1>
-          <p className="text-[16px] text-slate-400 leading-relaxed">
+          <p className="text-[16px] text-slate-200 leading-relaxed">
             The infrastructure that handles research and accountability so you can focus on the work only you can do.
           </p>
         </div>
@@ -143,17 +143,17 @@ export default function CoachesGuidePage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div className="border-t-2 border-orange-500 pt-4">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Monday morning</p>
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-1.5">Monday morning</p>
                 <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Review your pipeline</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">Update stages, remove stale paths, and select this week&rsquo;s outreach priorities.</p>
               </div>
               <div className="border-t-2 border-slate-200 pt-4">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Every morning</p>
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-1.5">Every morning</p>
                 <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Act on overnight signals</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">Make one decision first: who to contact now based on fresh signal clusters.</p>
               </div>
               <div className="border-t-2 border-slate-200 pt-4">
-                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Before each interview</p>
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-1.5">Before each interview</p>
                 <p className="text-[13px] font-semibold text-slate-900 mb-1.5">Run the prep brief</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed">Usually one minute to get win thesis, likely objections, and peer-level questions.</p>
               </div>
@@ -220,7 +220,7 @@ export default function CoachesGuidePage() {
             >
               Get started now &rarr;
             </Link>
-            <p className="text-[13px] text-slate-400 mt-4">
+            <p className="text-[13px] text-slate-200 mt-4">
               Want to see the platform first?{' '}
               <Link href="/demo" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                 Walk through a live demo
@@ -235,7 +235,7 @@ export default function CoachesGuidePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

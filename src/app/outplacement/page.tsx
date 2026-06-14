@@ -26,7 +26,7 @@ export default function OutplacementChannelPage() {
         <h1 className="text-[34px] sm:text-[44px] font-bold leading-[1.1] tracking-tight mb-4">
           Improve cohort momentum with measurable execution.
         </h1>
-        <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl mb-6">
+        <p className="text-[16px] text-slate-200 leading-relaxed max-w-3xl mb-6">
           Starting Monday gives outplacement programs a practical operating layer for signals, prep, accountability, and day-30 decision quality without custom rollout complexity.
         </p>
 
@@ -70,13 +70,13 @@ export default function OutplacementChannelPage() {
         <ChannelMicroProductRail channel="outplacement" sourceRoute="/outplacement" />
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded border border-slate-800 bg-slate-900 p-4">
+          <div className="rounded border border-slate-800 bg-slate-950 p-4">
             <p className="text-[12px] font-semibold text-white mb-2">Program outcome focus</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">Placement momentum, prep readiness, and intervention visibility at cohort scale.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">Placement momentum, prep readiness, and intervention visibility at cohort scale.</p>
           </div>
-          <div className="rounded border border-slate-800 bg-slate-900 p-4">
+          <div className="rounded border border-slate-800 bg-slate-950 p-4">
             <p className="text-[12px] font-semibold text-white mb-2">Low-friction pilot</p>
-            <p className="text-[13px] text-slate-300 leading-relaxed">No-custom launch defaults with a 30-day pass/fail operator scorecard.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed">No-custom launch defaults with a 30-day pass/fail operator scorecard.</p>
           </div>
         </section>
       </div>

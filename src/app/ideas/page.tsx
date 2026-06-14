@@ -111,8 +111,8 @@ export default function IdeasPage() {
     }
   }
 
-  const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
-  const labelCls = 'block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5'
+  const inputCls = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-200 focus:outline-none focus:border-slate-400 bg-white'
+  const labelCls = 'block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-200 mb-1.5'
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -173,7 +173,7 @@ export default function IdeasPage() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelCls}>Name <span className="text-slate-300 font-normal normal-case tracking-normal">optional</span></label>
+                  <label className={labelCls}>Name <span className="text-slate-200 font-normal normal-case tracking-normal">optional</span></label>
                   <input
                     type="text"
                     value={name}
@@ -222,7 +222,7 @@ export default function IdeasPage() {
                   maxLength={2000}
                   className={`${inputCls} resize-none`}
                 />
-                <p className="text-[11px] text-slate-300 mt-1 text-right">{body.length} / 2000</p>
+                <p className="text-[11px] text-slate-200 mt-1 text-right">{body.length} / 2000</p>
               </div>
 
               {submitState === 'error' && (
@@ -230,7 +230,7 @@ export default function IdeasPage() {
               )}
 
               <div className="flex items-center justify-between">
-                <p className="text-[11px] text-slate-400 leading-relaxed max-w-xs">
+                <p className="text-[11px] text-slate-200 leading-relaxed max-w-xs">
                   Your email is private and only used to contact you if you win the monthly gift card.
                 </p>
                 <button
@@ -269,7 +269,7 @@ export default function IdeasPage() {
                 onClick={() => setCategory(cat.value)}
                 className={`px-3 py-1.5 rounded text-[12px] font-semibold transition-colors ${
                   category === cat.value
-                    ? 'bg-slate-900 text-white'
+                    ? 'bg-slate-950 text-white'
                     : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-400'
                 }`}
               >
@@ -295,7 +295,7 @@ export default function IdeasPage() {
             </div>
           ) : ideas.length === 0 ? (
             <div className="text-center py-12 bg-white border border-slate-200 rounded-lg">
-              <p className="text-[14px] text-slate-400">No ideas yet in this category. Be the first!</p>
+              <p className="text-[14px] text-slate-200">No ideas yet in this category. Be the first!</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -314,7 +314,7 @@ export default function IdeasPage() {
                         <span className="text-[12px] font-semibold text-slate-700">
                           {idea.name?.trim() ? idea.name.trim().split(' ')[0] : 'Anonymous'}
                         </span>
-                        <span className="text-[11px] text-slate-300">&middot;</span>
+                        <span className="text-[11px] text-slate-200">&middot;</span>
                         <span className="bg-slate-100 text-slate-600 text-[11px] font-medium px-2 py-0.5 rounded">
                           {CATEGORY_LABELS[idea.category]}
                         </span>
@@ -323,7 +323,7 @@ export default function IdeasPage() {
                             {idea.ai_rating.score}/10
                           </span>
                         )}
-                        <span className="text-[11px] text-slate-300 ml-auto">
+                        <span className="text-[11px] text-slate-200 ml-auto">
                           {new Date(idea.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </span>
                       </div>

@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Privacy Policy - Starting Monday',
@@ -9,7 +9,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -19,11 +19,11 @@ export default function PrivacyPage() {
 
       <main className="max-w-3xl mx-auto px-6 py-12">
 
-        {/* Plain-language employer privacy section — visible before legal text */}
-        <div className="bg-slate-900 rounded-lg px-8 py-8 mb-12">
+        {/* Plain-language employer privacy section � visible before legal text */}
+        <div className="bg-slate-950 rounded-lg px-8 py-8 mb-12">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">What matters most</p>
           <h2 className="text-[22px] font-bold text-white mb-4 leading-snug">Your employer cannot see this.</h2>
-          <div className="space-y-3 text-[14px] text-slate-300 leading-relaxed">
+          <div className="space-y-3 text-[14px] text-slate-200 leading-relaxed">
             <p>Starting Monday is a private tool for your career. Here is what your employer, colleagues, and recruiters cannot see:</p>
             <ul className="space-y-2.5 mt-4">
               {[
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-slate-400 text-[13px]">If you use a work email to sign up, that does not give your employer any access. Your account is yours.</p>
+            <p className="mt-4 text-slate-200 text-[13px]">If you use a work email to sign up, that does not give your employer any access. Your account is yours.</p>
           </div>
         </div>
 
@@ -126,14 +126,14 @@ export default function PrivacyPage() {
 
       <footer className="border-t border-slate-100 px-6 py-6 mt-12">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/" className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">
+          <Link href="/" className="text-[12px] text-slate-200 hover:text-slate-600 transition-colors">
             Back to home
           </Link>
         </div>
-        <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-400">
+        <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-200">
           &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
         </p>
       </footer>

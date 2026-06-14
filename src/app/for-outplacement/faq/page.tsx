@@ -124,20 +124,20 @@ const OBJECTIONS = [
 export default function OutplacementFaqPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/for-outplacement" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/for-outplacement" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back to outplacement page
             </Link>
           </div>
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-12 pb-16">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-12 pb-16">
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
             Outplacement FAQ
@@ -145,7 +145,7 @@ export default function OutplacementFaqPage() {
           <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-[1.15] tracking-tight mb-4">
             Questions, objections, and rollout clarity for partner firms.
           </h1>
-          <p className="text-[15px] text-slate-400 leading-relaxed">
+          <p className="text-[15px] text-slate-200 leading-relaxed">
             If you cannot find your question here, contact us at contact@startingmonday.app.
           </p>
         </div>

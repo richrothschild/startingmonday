@@ -98,7 +98,7 @@ export default function SearchFirmsPage() {
       </nav>
 
       <main>
-<section className="bg-slate-900 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
+<section className="bg-slate-950 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
           <div className="mx-auto max-w-4xl">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-400">
               For retained search firms
@@ -106,10 +106,10 @@ export default function SearchFirmsPage() {
             <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl">
               One brief.<br />No rework.
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-200">
               Starting Monday gives your team role-specific pre-search briefs that improve kickoff quality, sharpen candidate positioning, and help you move from mandate to shortlist faster.
             </p>
-            <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-300">
+            <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-200">
               If your firm already researches every mandate, this is not a replacement. It is the briefing layer that keeps partners from starting from zero.
             </div>
             <div className="mt-4 rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-4 text-sm leading-relaxed text-emerald-100">
@@ -243,7 +243,7 @@ export default function SearchFirmsPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Review sample brief', source_page: '/search-firms' }}
-                className="rounded bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+                className="rounded bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
               >
                 Review sample brief
               </TrackLink>

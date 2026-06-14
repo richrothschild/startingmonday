@@ -36,13 +36,13 @@ export default function CareerToolsPage() {
     <div className="min-h-screen bg-white font-sans">
 
       {/* Nav */}
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Log in
             </Link>
             <Link
@@ -58,7 +58,7 @@ export default function CareerToolsPage() {
       <main>
 
         {/* Header */}
-        <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-12">
+        <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-12">
           <div className="max-w-2xl mx-auto">
             <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
               For Career Tools listeners
@@ -66,7 +66,7 @@ export default function CareerToolsPage() {
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               The job search changes when you reach the C-suite.
             </h1>
-            <p className="text-[16px] text-slate-400 leading-relaxed">
+            <p className="text-[16px] text-slate-200 leading-relaxed">
               Most of what you know about running a job search stops working at the senior executive level.
               Starting Monday is built for the search that actually exists at VP and above.
             </p>
@@ -84,7 +84,7 @@ export default function CareerToolsPage() {
                 {WHAT_CHANGES.map((item, i) => (
                   <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-lg overflow-hidden">
                     <div className="bg-slate-50 px-5 py-4">
-                      <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">What you were taught</p>
+                      <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-200 mb-1">What you were taught</p>
                       <p className="text-[14px] text-slate-500 leading-relaxed">{item.before}</p>
                     </div>
                     <div className="bg-white px-5 py-4 border-t sm:border-t-0 sm:border-l border-slate-200">
@@ -193,7 +193,7 @@ export default function CareerToolsPage() {
               >
                 Start free trial &rarr;
               </Link>
-              <p className="text-[13px] text-slate-400 mt-4">
+              <p className="text-[13px] text-slate-200 mt-4">
                 Want to see it first?{' '}
                 <Link href="/demo?full=1" className="text-slate-600 underline hover:text-slate-900 transition-colors">
                   Walk through a live demo
@@ -208,7 +208,7 @@ export default function CareerToolsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

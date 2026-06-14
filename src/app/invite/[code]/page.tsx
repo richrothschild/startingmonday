@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const metadata = { title: 'Join Starting Monday' }
@@ -21,10 +21,10 @@ export default async function InvitePage({
   const referrerName = profile?.full_name?.split(' ')[0] ?? null
 
   return (
-    <div className="min-h-screen bg-slate-900 font-sans flex flex-col">
+    <div className="min-h-screen bg-slate-950 font-sans flex flex-col">
 
       <header className="px-6 h-14 flex items-center">
-        <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-400 transition-colors">
+        <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-200 transition-colors">
           <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
       </header>
@@ -47,7 +47,7 @@ export default async function InvitePage({
             Your next role<br />isn&rsquo;t on a<br />job board.
           </h1>
 
-          <p className="text-[15px] text-slate-400 leading-relaxed mb-8 max-w-sm">
+          <p className="text-[15px] text-slate-200 leading-relaxed mb-8 max-w-sm">
             Starting Monday watches your target companies, surfaces openings before
             they go public, and has your prep brief ready before the first call.
           </p>
@@ -71,7 +71,7 @@ export default async function InvitePage({
             <p className="text-[13px] text-slate-500 mb-4">Want to see it first?</p>
             <Link
               href="/demo"
-              className="text-[13px] font-semibold text-slate-400 hover:text-white transition-colors"
+              className="text-[13px] font-semibold text-slate-200 hover:text-white transition-colors"
             >
               Explore a live demo &rarr;
             </Link>

@@ -19,7 +19,7 @@ export default function MockCoachDashboardPage() {
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/coaches" className="text-[13px] text-slate-300 transition-colors hover:text-white">
+          <Link href="/coaches" className="text-[13px] text-slate-200 transition-colors hover:text-white">
             Back to coaches
           </Link>
         </div>
@@ -86,9 +86,9 @@ export default function MockCoachDashboardPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-slate-900 p-6 text-white">
+        <section className="rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white">
           <h2 className="text-[23px] font-bold leading-tight">When this is live, coaching quality compounds.</h2>
-          <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-slate-300">
+          <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-slate-200">
             You spend less time chasing status and more time making high-leverage calls with clients.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -100,7 +100,7 @@ export default function MockCoachDashboardPage() {
             </Link>
             <Link
               href="/dashboard/coach"
-              className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-300 transition-colors hover:border-slate-400 hover:text-white"
+              className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
             >
               Open live coach dashboard
             </Link>

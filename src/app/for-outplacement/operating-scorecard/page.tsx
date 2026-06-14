@@ -36,12 +36,12 @@ const STAGE_CHECKPOINTS = [
 export default function OutplacementOperatingScorecardPage() {
   return (
     <div className="min-h-screen bg-white font-sans print:bg-white">
-      <nav className="bg-slate-900 sticky top-0 z-10 print:hidden">
+      <nav className="bg-slate-950 sticky top-0 z-10 print:hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/for-outplacement" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+          <Link href="/for-outplacement" className="text-[13px] text-slate-200 hover:text-white transition-colors">
             Back to outplacement page
           </Link>
         </div>

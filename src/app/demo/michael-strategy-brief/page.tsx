@@ -32,29 +32,29 @@ const STRATEGY_MOVES = [
 export default function MichaelStrategyBriefPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
+      <nav className="bg-slate-950 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/mark-review" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/mark-review" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back to Mark flow
             </Link>
-            <Link href="/demo/michael-dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+            <Link href="/demo/michael-dashboard" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Michael dashboard
             </Link>
           </div>
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-16">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-16">
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Strategy brief demo</p>
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
             Michael Torres strategy brief
           </h1>
-          <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
+          <p className="text-[16px] text-slate-200 leading-relaxed max-w-3xl">
             Candidate: Michael Torres. Target: VP of IT at Salesforce. This is the high-level strategy framing for the room before detailed interview prep.
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function MichaelStrategyBriefPage() {
           <section className="flex flex-col sm:flex-row gap-3">
             <Link
               href="/demo/executive-brief"
-              className="inline-flex items-center justify-center rounded bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 hover:bg-slate-800 transition-colors"
+              className="inline-flex items-center justify-center rounded bg-slate-950 text-white text-[13px] font-semibold px-5 py-2.5 hover:bg-slate-800 transition-colors"
             >
               Open live interview brief
             </Link>

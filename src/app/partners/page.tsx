@@ -76,14 +76,14 @@ export default function PartnersPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      <nav className="bg-slate-900 sticky top-0 z-10">
+      <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/pricing" className="text-[13px] text-slate-400 hover:text-white transition-colors">Pricing</Link>
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">Log in</Link>
+            <Link href="/pricing" className="text-[13px] text-slate-200 hover:text-white transition-colors">Pricing</Link>
+            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">Log in</Link>
           </div>
         </div>
       </nav>
@@ -99,10 +99,10 @@ export default function PartnersPage() {
                 <br className="hidden sm:block" />
                 before your call starts.
               </h1>
-              <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
+              <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-slate-200 sm:text-[17px]">
                 If they do not, you spend expensive coaching time rebuilding context. Starting Monday gives coaches a private operating layer for prep briefs, client signals, and between-session follow-through.
               </p>
-              <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-400">
+              <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-200">
                 Join free. Earn 20% recurring commission on active referrals.
               </p>
 
@@ -115,10 +115,10 @@ export default function PartnersPage() {
                 </a>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-300">
-                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Preview-first partner motion</span>
-                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Client-controlled coach visibility</span>
-                <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5">Recurring commission tracking</span>
+              <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-200">
+                <span className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1.5">Preview-first partner motion</span>
+                <span className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1.5">Client-controlled coach visibility</span>
+                <span className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1.5">Recurring commission tracking</span>
               </div>
             </div>
 
@@ -126,13 +126,13 @@ export default function PartnersPage() {
               <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200">Cost of staying the same</p>
               <div className="space-y-3">
                 {COST_OF_STAYING_THE_SAME.map((item) => (
-                  <article key={item.title} className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+                  <article key={item.title} className="rounded-xl border border-slate-700 bg-slate-950/70 p-4">
                     <p className="text-[12px] font-semibold text-slate-200">{item.title}</p>
-                    <p className="mt-1 text-[13px] text-slate-400">{item.body}</p>
+                    <p className="mt-1 text-[13px] text-slate-200">{item.body}</p>
                   </article>
                 ))}
               </div>
-              <p className="mt-4 text-[12px] leading-relaxed text-slate-400">
+              <p className="mt-4 text-[12px] leading-relaxed text-slate-200">
                 Partnering works when clients feel this shift quickly in real sessions.
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function PartnersPage() {
             </ul>
             <a
               href="#apply"
-              className="mt-6 inline-flex items-center justify-center rounded bg-slate-900 px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-slate-700"
+              className="mt-6 inline-flex items-center justify-center rounded bg-slate-950 px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-slate-700"
             >
               Apply now
             </a>
@@ -238,14 +238,14 @@ export default function PartnersPage() {
         </div>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
             Questions?{' '}
-            <a href="mailto:contact@startingmonday.app" className="hover:text-slate-300 transition-colors">
+            <a href="mailto:contact@startingmonday.app" className="hover:text-slate-200 transition-colors">
               contact@startingmonday.app
             </a>
           </p>

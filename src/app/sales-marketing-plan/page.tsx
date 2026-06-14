@@ -220,7 +220,7 @@ function WorkflowPanel({ card }: { card: WorkflowCard }) {
           <p className="text-[16px] font-semibold text-slate-900">{card.title}</p>
           <p className="text-[12px] text-slate-500 mt-1.5">Owner: {card.owner}</p>
         </div>
-        <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+        <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
       </summary>
       <div className="px-5 pb-5 pt-0 border-t border-slate-100 space-y-4">
         <div className="pt-4">
@@ -266,10 +266,10 @@ export default async function SalesMarketingPlanPage() {
             <span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/social" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">
+            <Link href="/dashboard/admin/social" className="text-[12px] font-semibold text-slate-200 hover:text-white transition-colors">
               Social
             </Link>
-            <Link href="/dashboard/admin/speakers" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">
+            <Link href="/dashboard/admin/speakers" className="text-[12px] font-semibold text-slate-200 hover:text-white transition-colors">
               Speakers
             </Link>
           </div>
@@ -288,12 +288,12 @@ export default async function SalesMarketingPlanPage() {
                 <br />
                 Editorial credibility.
               </h1>
-              <p className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed max-w-3xl mb-6">
+              <p className="text-[16px] sm:text-[18px] text-slate-200 leading-relaxed max-w-3xl mb-6">
                 Operating playbook for Liz&apos;s LinkedIn workflow, speaker outreach, and two editorial pushes: CIO and InformationWeek.
               </p>
               <div className="flex flex-wrap gap-2">
                 {['Use /social', 'Work speakers DB', 'Submit two articles', 'Keep notes current'].map(chip => (
-                  <span key={chip} className="text-[11px] font-semibold text-slate-300 border border-slate-700 rounded-full px-3 py-1.5 bg-slate-900/60">
+                  <span key={chip} className="text-[11px] font-semibold text-slate-200 border border-slate-700 rounded-full px-3 py-1.5 bg-slate-950/60">
                     {chip}
                   </span>
                 ))}
@@ -309,7 +309,7 @@ export default async function SalesMarketingPlanPage() {
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Deep dive</p>
                 <p className="text-[16px] font-semibold text-slate-900">Expand priorities, workflows, message bank, and editorial kits</p>
               </div>
-              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+              <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
             </div>
           </summary>
 
@@ -328,7 +328,7 @@ export default async function SalesMarketingPlanPage() {
         <section className="px-4 sm:px-6 py-14 border-b border-slate-100">
           <div className="max-w-6xl mx-auto">
             <div className="mb-6">
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-2">Operating surfaces</p>
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-2">Operating surfaces</p>
               <h2 className="text-[24px] font-bold text-slate-900 leading-tight">Use the live tools, not side spreadsheets</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -342,7 +342,7 @@ export default async function SalesMarketingPlanPage() {
         <section className="px-4 sm:px-6 py-14 border-b border-slate-100 bg-white">
           <div className="max-w-6xl mx-auto">
             <div className="mb-6">
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-2">Execution board</p>
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-2">Execution board</p>
               <h2 className="text-[24px] font-bold text-slate-900 leading-tight">Exact workflows for LinkedIn, speakers, and submissions</h2>
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -357,7 +357,7 @@ export default async function SalesMarketingPlanPage() {
           <div className="max-w-6xl mx-auto">
             <div className="flex items-end justify-between gap-4 mb-6">
               <div>
-                <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-2">Message bank</p>
+                <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-2">Message bank</p>
                 <h2 className="text-[24px] font-bold text-slate-900 leading-tight">Copy to use in LinkedIn and editorial outreach</h2>
               </div>
               <p className="hidden md:block text-[13px] text-slate-500 max-w-md leading-relaxed">
@@ -372,7 +372,7 @@ export default async function SalesMarketingPlanPage() {
                       <p className="text-[15px] font-semibold text-slate-900">{item.title}</p>
                       <p className="text-[12px] text-slate-500 mt-1">Click for exact phrasing</p>
                     </div>
-                    <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+                    <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
                   </summary>
                   <div className="px-5 pb-5 pt-0 border-t border-slate-100">
                     <div className="pt-4 space-y-2 text-[13px] text-slate-700 leading-relaxed">
@@ -390,7 +390,7 @@ export default async function SalesMarketingPlanPage() {
         <section className="px-4 sm:px-6 py-16 bg-white">
           <div className="max-w-6xl mx-auto">
             <div className="mb-8">
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-2">Editorial kits</p>
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-2">Editorial kits</p>
               <h2 className="text-[28px] sm:text-[32px] font-bold text-slate-900 leading-tight">Submission packages for CIO and InformationWeek</h2>
               <p className="text-[14px] text-slate-500 mt-3 max-w-3xl leading-relaxed">
                 These are the two best editorial routes right now. CIO wants a contributor-network style commentary. InformationWeek wants a finished draft with exact metadata.
@@ -403,14 +403,14 @@ export default async function SalesMarketingPlanPage() {
                 <section key={kit.target} className="border border-slate-200 rounded-2xl bg-slate-50 p-6 sm:p-7">
                   <div className="flex flex-wrap items-center gap-2 mb-4">
                     <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500">{kit.target}</span>
-                    <span className="text-[11px] text-slate-400">Submission kit</span>
+                    <span className="text-[11px] text-slate-200">Submission kit</span>
                   </div>
 
                   <h3 className="text-[22px] font-bold text-slate-900 leading-tight mb-2">{kit.title}</h3>
                   <p className="text-[13px] text-slate-600 leading-relaxed mb-4">{kit.summary}</p>
 
                   <div className="flex flex-wrap gap-3 mb-5">
-                    <a href={kit.routeHref} target="_blank" rel="noreferrer" className="text-[12px] font-semibold text-white bg-slate-900 rounded px-4 py-2 hover:bg-slate-800 transition-colors">
+                    <a href={kit.routeHref} target="_blank" rel="noreferrer" className="text-[12px] font-semibold text-white bg-slate-950 rounded px-4 py-2 hover:bg-slate-800 transition-colors">
                       {kit.routeLabel}
                     </a>
                     {kit.secondaryHref && kit.secondaryLabel && (

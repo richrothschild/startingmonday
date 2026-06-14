@@ -97,10 +97,10 @@ export default function CoachesChannelPage() {
               <br className="hidden sm:block" />
               not updates.
             </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-300 sm:text-[17px]">
+            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-200 sm:text-[17px]">
               Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
             </p>
-            <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-400">
+            <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-200">
               Coach-first by design. You keep judgment and relationship ownership.
             </p>
 
@@ -119,7 +119,7 @@ export default function CoachesChannelPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="text-[13px] font-semibold text-slate-300 underline underline-offset-2 transition-colors hover:text-white"
+                className="text-[13px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
               >
                 See mock coach dashboard
               </TrackLink>
@@ -195,12 +195,12 @@ export default function CoachesChannelPage() {
           </div>
         </section>
 
-        <section className="border-t border-slate-200 bg-slate-900 px-4 py-16 text-white sm:px-6">
+        <section className="border-t border-slate-200 bg-slate-950 px-4 py-16 text-white sm:px-6">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-[26px] font-bold leading-snug text-white sm:text-[32px]">The next 30 days can feel different.</h2>
             <ul className="mt-6 space-y-3">
               {BRIGHTER_FUTURE.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-300">
+                <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-200">
                   <span className="mt-0.5 text-orange-400">→</span>
                   {item}
                 </li>
@@ -221,7 +221,7 @@ export default function CoachesChannelPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-300 transition-colors hover:border-slate-400 hover:text-white"
+                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
               >
                 See mock coach dashboard
               </TrackLink>
@@ -230,24 +230,24 @@ export default function CoachesChannelPage() {
         </section>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-10">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
-            <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400">
-              <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
-              <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
-              <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
-              <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
-              <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
-              <Link href="/for-coaches/trust-pack" className="hover:text-slate-300 transition-colors">Trust pack</Link>
-              <Link href="/optimize" className="hover:text-slate-300 transition-colors">Free Profile Grade</Link>
-              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">LinkedIn</a>
-              <Link href="/security" className="hover:text-slate-300 transition-colors">Security</Link>
-              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
+            <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
+              <Link href="/method-and-evidence" className="hover:text-slate-200 transition-colors">Method and evidence</Link>
+              <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence room</Link>
+              <Link href="/pricing" className="hover:text-slate-200 transition-colors">Pricing</Link>
+              <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
+              <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
+              <Link href="/for-coaches/trust-pack" className="hover:text-slate-200 transition-colors">Trust pack</Link>
+              <Link href="/optimize" className="hover:text-slate-200 transition-colors">Free Profile Grade</Link>
+              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-200 transition-colors">LinkedIn</a>
+              <Link href="/security" className="hover:text-slate-200 transition-colors">Security</Link>
+              <Link href="/privacy" className="hover:text-slate-200 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-slate-200 transition-colors">Terms</Link>
             </div>
           </div>
 

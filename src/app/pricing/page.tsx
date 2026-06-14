@@ -27,18 +27,18 @@ export default function PricingPage() {
   const premiumEnabled = isEnabledFlag(process.env.NEXT_PUBLIC_LUXURY_PHASE3_ENABLED)
 
   return (
-    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-transparent' : 'bg-white'}`}>
+    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-white'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
       )}
       <EmiMarketingTelemetry pageSlug="/pricing" personaSegment="executives" />
-      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
+      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Log in
             </Link>
             <Link
@@ -80,8 +80,8 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <article className={`rounded-2xl p-4 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
               <p className={`text-[12px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Quiet monitor mode</p>
-              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>Build signal coverage and a clean watchlist so timing windows stop surprising you.</p>
-              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>Build signal coverage and a clean watchlist so timing windows stop surprising you.</p>
+              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
                 <li>- 20-30 target companies tracked with fresh signal visibility</li>
                 <li>- At least 10 decision-timeline markers initialized</li>
                 <li>- Weekly check rhythm defined for one operator</li>
@@ -89,8 +89,8 @@ export default function PricingPage() {
             </article>
             <article className={`rounded-2xl p-4 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
               <p className={`text-[12px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Active campaign mode</p>
-              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>Establish daily execution rhythm with prep briefs, follow-ups, and conversion tracking.</p>
-              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>Establish daily execution rhythm with prep briefs, follow-ups, and conversion tracking.</p>
+              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
                 <li>- Daily queue active with owner-assigned next actions</li>
                 <li>- Prep briefs completed before first-contact outreach</li>
                 <li>- Follow-up SLA visible across all live campaigns</li>
@@ -98,8 +98,8 @@ export default function PricingPage() {
             </article>
             <article className={`rounded-2xl p-4 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
               <p className={`text-[12px] font-semibold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>High-intensity mandate mode</p>
-              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>Launch high-depth scanning and decision-grade prep across your highest-priority targets.</p>
-              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className={`text-[12px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>Launch high-depth scanning and decision-grade prep across your highest-priority targets.</p>
+              <ul className={`mt-3 space-y-1.5 text-[12px] ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
                 <li>- Priority list narrowed to top 5-8 high-value targets</li>
                 <li>- Executive-ready prep packet produced for each active lane</li>
                 <li>- Decision owner and escalation path set per campaign</li>
@@ -116,7 +116,7 @@ export default function PricingPage() {
         </section>
 
         <section className={`mt-12 pt-10 ${premiumEnabled ? 'border-t border-white/10' : 'border-t border-slate-100'}`}>
-          <p className={`text-[11px] font-bold tracking-[0.14em] uppercase mb-4 text-center ${premiumEnabled ? 'text-slate-300' : 'text-slate-400'}`}>Pricing FAQ</p>
+          <p className={`text-[11px] font-bold tracking-[0.14em] uppercase mb-4 text-center ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>Pricing FAQ</p>
           <div className="max-w-3xl mx-auto space-y-4">
             {[
               {
@@ -134,13 +134,13 @@ export default function PricingPage() {
             ].map(item => (
               <div key={item.q} className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200'}`}>
                 <p className={`text-[13px] font-semibold mb-1.5 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>{item.q}</p>
-                <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-300' : 'text-slate-600'}`}>{item.a}</p>
+                <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>{item.a}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <p className={`mt-10 text-center text-[13px] ${premiumEnabled ? 'text-slate-300' : 'text-slate-400'}`}>
+        <p className={`mt-10 text-center text-[13px] ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>
           All plans include a 30-day free trial. Cancel any time.{' '}
           Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className={premiumEnabled ? 'text-slate-100 underline underline-offset-2' : 'text-slate-600 underline underline-offset-2'}>support@startingmonday.app</a>
         </p>

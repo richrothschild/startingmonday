@@ -85,24 +85,24 @@ const SCORE_DIMENSIONS = [
 export default function CoachPrepWorksheetPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="bg-slate-900 sticky top-0 z-10 print:hidden">
+      <nav className="bg-slate-950 sticky top-0 z-10 print:hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/for-coaches" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/for-coaches" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back to for-coaches
             </Link>
-            <Link href="/" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Back home
             </Link>
           </div>
         </div>
       </nav>
 
-      <header className="bg-slate-900 px-4 sm:px-6 pt-10 pb-12 print:bg-white print:pt-0 print:pb-6">
+      <header className="bg-slate-950 px-4 sm:px-6 pt-10 pb-12 print:bg-white print:pt-0 print:pb-6">
         <div className="max-w-4xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3 print:text-slate-600">
             Executive Coaching Operating Worksheet
@@ -115,7 +115,7 @@ export default function CoachPrepWorksheetPage() {
               Execute with measurable follow-through.
             </span>
           </h1>
-          <p className="max-w-3xl text-[15px] leading-relaxed text-slate-300 print:text-slate-700">
+          <p className="max-w-3xl text-[15px] leading-relaxed text-slate-200 print:text-slate-700">
             Built for executive-transition coaching, where clear mandate, sharper narrative, and seven-day follow-through matter most.
           </p>
           <div className="mt-5 rounded-lg border border-slate-700 bg-slate-950/60 p-4 print:border-slate-200 print:bg-white">
@@ -160,7 +160,7 @@ export default function CoachPrepWorksheetPage() {
                 {section.prompts.map((prompt) => (
                   <li key={prompt}>
                     <p className="font-medium text-slate-800">{prompt}</p>
-                    <p className="mt-1 text-slate-400">______________________________________________________________________________</p>
+                    <p className="mt-1 text-slate-200">______________________________________________________________________________</p>
                   </li>
                 ))}
               </ul>
@@ -197,14 +197,14 @@ export default function CoachPrepWorksheetPage() {
         </section>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 print:hidden">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 print:hidden">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400">
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <div className="flex items-center gap-4 text-[12px] text-slate-400">
-            <Link href="/for-coaches" className="hover:text-slate-300 transition-colors">for-coaches</Link>
-            <Link href="/" className="hover:text-slate-300 transition-colors">Back home</Link>
+          <div className="flex items-center gap-4 text-[12px] text-slate-200">
+            <Link href="/for-coaches" className="hover:text-slate-200 transition-colors">for-coaches</Link>
+            <Link href="/" className="hover:text-slate-200 transition-colors">Back home</Link>
           </div>
         </div>
       </footer>

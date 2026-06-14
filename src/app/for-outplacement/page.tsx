@@ -205,8 +205,8 @@ const OBJECTIONS = [
 
 export default function ForOutplacementPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent font-sans text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(15,23,42,0)_100%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
 
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
@@ -215,13 +215,13 @@ export default function ForOutplacementPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/demo" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               See a demo
             </Link>
-            <Link href="/for-outplacement/faq" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/for-outplacement/faq" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               FAQ
             </Link>
-            <Link href="/for-outplacement/trust-pack" className="text-[13px] text-slate-400 hover:text-white transition-colors">
+            <Link href="/for-outplacement/trust-pack" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Trust pack
             </Link>
             <Link
@@ -245,18 +245,18 @@ export default function ForOutplacementPage() {
             <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight mb-4">
               Starting Monday for <span className="whitespace-nowrap">Outplacement Firms</span>
             </h1>
-            <p className="text-[16px] text-slate-300 leading-relaxed">
+            <p className="text-[16px] text-slate-200 leading-relaxed">
               Give displaced executives an active search platform, not just workshop content.
             </p>
             <p className="text-[13px] text-orange-200 leading-relaxed mt-4 max-w-xl">
               The goal is simple: stronger placement momentum with less counselor admin overhead.
             </p>
-            <p className="text-[13px] text-slate-300 leading-relaxed mt-3 max-w-xl">
+            <p className="text-[13px] text-slate-200 leading-relaxed mt-3 max-w-xl">
               Pilot is for evidence and decision, not long-term lock-in.
             </p>
             <div className="border border-white/10 rounded-2xl p-4 bg-slate-950/60 mt-6 backdrop-blur-sm">
               <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-orange-200 mb-2">You might be thinking</p>
-              <div className="space-y-1.5 text-[13px] text-slate-300 leading-relaxed">
+              <div className="space-y-1.5 text-[13px] text-slate-200 leading-relaxed">
                 <p><span className="text-white font-semibold">This sounds like one more platform to manage.</span> The goal is the opposite: reduce counselor overhead and keep strategy time high.</p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function ForOutplacementPage() {
                   <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-orange-200 mb-1">Deep dive</p>
                   <p className="text-[16px] font-semibold text-white">Expand full partner rationale, evidence, objections, and program model</p>
                 </div>
-                <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+                <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
               </summary>
               <div className="px-6 pb-6 border-t border-white/10 space-y-8">
             <section className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
@@ -335,7 +335,7 @@ export default function ForOutplacementPage() {
                   <div key={f.name} className="border-l-2 border-orange-300 pl-5">
                     <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-200 mb-2">{f.name}</p>
                     <p className="text-[15px] text-slate-200 leading-relaxed mb-2">{f.forFirm}</p>
-                    <p className="text-[13px] text-slate-400 leading-relaxed">
+                    <p className="text-[13px] text-slate-200 leading-relaxed">
                       <span className="font-semibold text-slate-200">Outcome: </span>{f.outcome}
                     </p>
                   </div>
@@ -349,11 +349,11 @@ export default function ForOutplacementPage() {
                 {PROOF_METRICS.slice(0, 3).map((m) => (
                   <div key={m.label} className="border border-white/10 rounded-2xl p-4 bg-white/6 backdrop-blur-sm">
                     <p className="text-[26px] font-bold text-orange-200 leading-none mb-2">{m.value}</p>
-                    <p className="text-[13px] text-slate-300 leading-relaxed">{m.label}</p>
+                    <p className="text-[13px] text-slate-200 leading-relaxed">{m.label}</p>
                   </div>
                 ))}
               </div>
-              <p className="text-[12px] text-slate-400 leading-relaxed">
+              <p className="text-[12px] text-slate-200 leading-relaxed">
                 Source window: Jan-May 2026 pilot evidence set. Use this as directional signal, then validate with your own cohort baseline.
               </p>
             </section>
@@ -364,14 +364,14 @@ export default function ForOutplacementPage() {
                 {PILOT_SCORECARD.slice(0, 2).map((row) => (
                   <div key={row.metric} className="border border-white/10 rounded-2xl p-4 bg-white/6 backdrop-blur-sm">
                     <p className="text-[13px] font-semibold text-white mb-1">{row.metric}</p>
-                    <p className="text-[13px] text-slate-300 leading-relaxed">{row.success}</p>
+                    <p className="text-[13px] text-slate-200 leading-relaxed">{row.success}</p>
                   </div>
                 ))}
               </div>
             </section>
 
             <section className="border border-emerald-200/20 bg-emerald-950/20 rounded-2xl p-6 backdrop-blur-sm">
-              <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-emerald-200 mb-3">Trust and governance</p>
+              <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-emerald-300 mb-3">Trust and governance</p>
               <p className="text-[14px] text-slate-200 leading-relaxed mb-3">
                 You get trust-pack documentation, permission boundaries, and procurement-ready pilot governance.
               </p>
@@ -395,12 +395,12 @@ export default function ForOutplacementPage() {
               <h2 className="text-[20px] font-bold text-white mb-3 leading-snug">
                 Apply to the partner program
               </h2>
-              <p className="text-[14px] text-slate-300 leading-relaxed mb-6">
+              <p className="text-[14px] text-slate-200 leading-relaxed mb-6">
                 Submit the application. We follow up within 2 business days with pilot structure, seat options, and rollout details.
               </p>
               <div className="border border-white/10 rounded-2xl p-4 bg-white/6 mb-6">
                 <p className="text-[12px] font-semibold text-white mb-2">What happens next</p>
-                <ul className="space-y-1 text-[12px] text-slate-300 leading-relaxed">
+                <ul className="space-y-1 text-[12px] text-slate-200 leading-relaxed">
                   <li>1. Within 2 business days: fit and cohort-scope call</li>
                   <li>2. Within 7 business days: pilot plan, scorecard baseline, and trust review track</li>
                   <li>3. Day 10 onward: activation sprint begins with counselor enablement</li>
@@ -408,8 +408,8 @@ export default function ForOutplacementPage() {
               </div>
               <div className="border border-white/10 rounded-2xl p-4 bg-white/6 mb-6">
                 <p className="text-[12px] font-semibold text-white mb-2">Calibrated decision questions</p>
-                <p className="text-[12px] text-slate-300 leading-relaxed">How would you feel if your next cohort had a shared scorecard your counselors and client HR both trusted?</p>
-                <p className="text-[12px] text-slate-300 leading-relaxed mt-1">What would need to be true in 30 days for you to consider expansion rational?</p>
+                <p className="text-[12px] text-slate-200 leading-relaxed">How would you feel if your next cohort had a shared scorecard your counselors and client HR both trusted?</p>
+                <p className="text-[12px] text-slate-200 leading-relaxed mt-1">What would need to be true in 30 days for you to consider expansion rational?</p>
               </div>
               <Link
                 href="/partners#apply"
@@ -417,18 +417,18 @@ export default function ForOutplacementPage() {
               >
                 Apply now &rarr;
               </Link>
-              <p className="text-[12px] text-slate-400 mt-4 leading-relaxed">
+              <p className="text-[12px] text-slate-200 mt-4 leading-relaxed">
                 Run one 30-day pilot before deciding on broader rollout.
               </p>
-              <p className="text-[12px] text-slate-400 mt-2 leading-relaxed">
+              <p className="text-[12px] text-slate-200 mt-2 leading-relaxed">
                 If the pilot does not meet agreed success criteria, you close it cleanly with no expansion commitment.
               </p>
-              <p className="text-[12px] text-slate-400 mt-2 leading-relaxed">
+              <p className="text-[12px] text-slate-200 mt-2 leading-relaxed">
                 If the answer after 30 days is no, you keep your governance artifacts and close without pressure.
               </p>
-              <p className="text-[13px] text-slate-400 mt-4">
+              <p className="text-[13px] text-slate-200 mt-4">
                 Want to see the platform first?{' '}
-                <Link href="/demo" className="text-slate-300 underline hover:text-white transition-colors">
+                <Link href="/demo" className="text-slate-200 underline hover:text-white transition-colors">
                   Walk through a live demo
                 </Link>
                 .
@@ -441,12 +441,12 @@ export default function ForOutplacementPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
+      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-slate-200">
             Questions? contact@startingmonday.app
           </p>
         </div>

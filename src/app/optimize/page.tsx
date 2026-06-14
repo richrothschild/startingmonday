@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePostHog } from 'posthog-js/react'
@@ -23,7 +23,7 @@ function renderOutput(text: string) {
     // Section headers
     if (line.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-8 mb-3 first:mt-0 pb-2 border-b border-slate-100">
+        <h2 key={i} className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-200 mt-8 mb-3 first:mt-0 pb-2 border-b border-slate-100">
           {line.slice(3)}
         </h2>
       )
@@ -83,7 +83,7 @@ function HelpPopover() {
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="w-5 h-5 rounded-full border border-slate-300 text-[11px] font-bold text-slate-400 hover:border-slate-500 hover:text-slate-600 transition-colors flex items-center justify-center leading-none"
+        className="w-5 h-5 rounded-full border border-slate-300 text-[11px] font-bold text-slate-200 hover:border-slate-500 hover:text-slate-600 transition-colors flex items-center justify-center leading-none"
         aria-label="How to get your LinkedIn profile"
       >
         ?
@@ -188,13 +188,13 @@ export default function OptimizePage() {
     <div className="min-h-screen bg-slate-100 font-sans">
 
       {/* Nav */}
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200 hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[12px] text-slate-300 hover:text-white transition-colors">Sign in</Link>
+            <Link href="/login" className="text-[12px] text-slate-200 hover:text-white transition-colors">Sign in</Link>
             <Link
               href="/signup"
               className="text-[12px] font-semibold text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition-colors"
@@ -214,7 +214,7 @@ export default function OptimizePage() {
           <p className="text-[15px] text-slate-500 mt-3 leading-relaxed max-w-lg mx-auto">
             Paste your LinkedIn profile for section grades, targeted rewrites, and a clear fix plan.
           </p>
-          <p className="text-[12px] text-slate-400 mt-2">Free. No account required. 3 analyses per day.</p>
+          <p className="text-[12px] text-slate-200 mt-2">Free. No account required. 3 analyses per day.</p>
         </div>
 
         <section className="bg-white border border-slate-200 rounded p-4 mb-6">
@@ -237,12 +237,12 @@ export default function OptimizePage() {
         {/* Input card */}
         <section id="profile-input" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Your LinkedIn Profile</h2>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200">Your LinkedIn Profile</h2>
             <div className="flex items-center gap-2">
               <HelpPopover />
               <label className="cursor-pointer">
                 <span className="text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 transition-colors">
-                  {status === 'uploading' ? 'Reading PDFâ€¦' : 'Upload PDF'}
+                  {status === 'uploading' ? 'Reading PDF…' : 'Upload PDF'}
                 </span>
                 <input
                   ref={inputRef}
@@ -263,7 +263,7 @@ export default function OptimizePage() {
               placeholder={'Paste your LinkedIn profile text here - About section, Experience, Skills, Headline...\n\nQuickest: open your LinkedIn profile, press Ctrl+A (Cmd+A on Mac), then Ctrl+C, and paste here.\n\nOr export a PDF: on your profile look for Resources, More, or the ... menu ? Save to PDF ? open the PDF ? select all text ? paste here.'}
               rows={12}
               disabled={status === 'streaming'}
-              className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-300 resize-none focus:outline-none leading-relaxed disabled:opacity-60"
+              className="w-full px-6 py-4 text-[14px] text-slate-800 placeholder:text-slate-200 resize-none focus:outline-none leading-relaxed disabled:opacity-60"
             />
             <div className="px-6 py-4 border-t border-slate-100">
               <div className="flex items-center gap-3 mb-3">
@@ -274,19 +274,19 @@ export default function OptimizePage() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Your work email to receive the analysis"
                   disabled={status === 'streaming'}
-                  className="flex-1 border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 disabled:opacity-60"
+                  className="flex-1 border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-200 focus:outline-none focus:border-slate-400 disabled:opacity-60"
                 />
               </div>
               <div className="flex items-center justify-between gap-4">
-                <span className="text-[12px] text-slate-400">
+                <span className="text-[12px] text-slate-200">
                   {text.length > 0 ? `${text.length.toLocaleString()} characters` : 'Min. 100 characters'}
                 </span>
                 <button
                   type="submit"
                   disabled={!canSubmit}
-                  className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="text-[13px] font-semibold text-white bg-slate-950 hover:bg-slate-700 px-5 py-2.5 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {status === 'streaming' ? 'Analyzingâ€¦' : 'Analyze my profile'}
+                  {status === 'streaming' ? 'Analyzing…' : 'Analyze my profile'}
                 </button>
               </div>
             </div>
@@ -304,9 +304,9 @@ export default function OptimizePage() {
         {(output || status === 'streaming') && (
           <section id="profile-analysis" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
             <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Analysis</h2>
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200">Analysis</h2>
               {status === 'streaming' && (
-                <span className="text-[11px] text-slate-400 animate-pulse">Thinkingâ€¦</span>
+                <span className="text-[11px] text-slate-200 animate-pulse">Thinking…</span>
               )}
             </div>
             <div className="px-6 py-6">
@@ -352,14 +352,14 @@ export default function OptimizePage() {
 
         {/* CTA - shown after analysis completes */}
         {status === 'done' && (
-          <section id="next-step-cta" className="bg-slate-900 rounded p-6 sm:p-8 text-center">
+          <section id="next-step-cta" className="bg-slate-950 rounded p-6 sm:p-8 text-center">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">
               Now fix how you find the roles.
             </p>
             <h2 className="text-[22px] font-bold text-white leading-tight mb-3">
               Strong profile. Better timing.
             </h2>
-            <p className="text-[14px] text-slate-400 leading-relaxed mb-6 max-w-sm mx-auto">
+            <p className="text-[14px] text-slate-200 leading-relaxed mb-6 max-w-sm mx-auto">
               Profile quality is step one. Starting Monday tracks departures, board changes, and funding signals so you can move before formal search cycles start.
             </p>
             <Link
@@ -371,7 +371,7 @@ export default function OptimizePage() {
             <p className="text-[11px] text-slate-600 mt-3">No credit card required to start.</p>
             <p className="text-[12px] text-slate-500 mt-4">
               Want to see the platform first?{' '}
-              <Link href="/demo" className="text-slate-400 hover:text-white underline transition-colors">
+              <Link href="/demo" className="text-slate-200 hover:text-white underline transition-colors">
                 Explore a live demo &rarr;
               </Link>
             </p>
@@ -379,7 +379,7 @@ export default function OptimizePage() {
         )}
 
       <footer className="mt-12 pb-8 text-center">
-        <p className="text-[11px] text-slate-400">
+        <p className="text-[11px] text-slate-200">
           &copy; {new Date().getFullYear()} Starting Monday. All rights reserved. &mdash;{' '}
           <Link href="/privacy" className="hover:text-slate-600 transition-colors">Privacy</Link>
           {' '}&middot;{' '}

@@ -133,12 +133,12 @@ async function noopAction(_formData: FormData) {
 export default function ExecutiveDashboardDemoPage() {
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+      <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between gap-4">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <span className="text-[11px] text-slate-300">Executive dashboard preview</span>
+          <span className="text-[11px] text-slate-200">Executive dashboard preview</span>
         </div>
       </header>
 
@@ -207,7 +207,7 @@ export default function ExecutiveDashboardDemoPage() {
           companiesWithoutBrief={[{ name: 'HashiCorp' }]}
           opportunityRadar={
             <section className="mb-8 rounded border border-slate-200 bg-white p-5">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Opportunity radar</h2>
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-2">Opportunity radar</h2>
               <p className="text-[13px] text-slate-600 leading-relaxed">
                 Infrastructure cost pressure and board visibility remain the strongest market angles for this search. Keep the target list tight and sponsor-led.
               </p>
