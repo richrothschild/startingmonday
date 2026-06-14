@@ -1,4 +1,6 @@
 import { classifyGraphStalls, type StallSnapshot } from '@/lib/action-scores'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/lib/supabase/database.types'
 
 type Company = { id: string; stage: string; fit_score: number | null }
 type Signal = { signal_date: string; signal_type: string }
@@ -58,11 +60,7 @@ export type CoachSessionSnapshotResult = {
 }
 
 export async function buildCoachSessionSnapshot(
-  supabase: {
-    from: (table: string) => {
-      select: (...args: unknown[]) => any
-    }
-  },
+  supabase: SupabaseClient<Database>,
   params: {
     clientId: string
     coachId: string
