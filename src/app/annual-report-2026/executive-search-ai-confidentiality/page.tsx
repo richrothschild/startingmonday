@@ -56,7 +56,7 @@ export default function ExecutiveSearchAiConfidentialityReportPage() {
           <div className="flex flex-wrap gap-3">
             <a
               href="/reports/executive-search-ai-confidentiality-annual-report-2026.pdf"
-              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              className="inline-block bg-slate-800 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
             >
               Download branded PDF
             </a>

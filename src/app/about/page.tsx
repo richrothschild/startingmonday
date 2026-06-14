@@ -35,7 +35,8 @@ const personJsonLd = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
       <JsonLd data={personJsonLd} />
 
       {/* Nav */}
@@ -74,7 +75,7 @@ export default function AboutPage() {
               className="w-16 h-16 rounded-full object-cover ring-2 ring-slate-700 shrink-0"
             />
             <div>
-              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-500 mb-1">
+              <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-200 mb-1">
                 About
               </p>
               <h1 className="text-[30px] sm:text-[38px] font-bold text-white leading-[1.15] tracking-tight">
@@ -234,9 +235,9 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8">
+      <footer className="bg-slate-950 border-t border-white/10 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-slate-800">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 pb-5 border-b border-white/10">
             <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-white transition-colors">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </Link>

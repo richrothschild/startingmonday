@@ -120,7 +120,7 @@ export default function SampleCfoBriefPage() {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/search-firms"
-                  className="rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+                  className="rounded bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
                 >
                   Back to landing page
                 </Link>

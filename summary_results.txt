@@ -1,51 +1,7 @@
 {
-  "generatedAt": "2026-06-14T00:27:33.931Z",
+  "generatedAt": "2026-06-14T01:00:20.366Z",
   "totalPublicPages": 126,
   "worst10": [
-    {
-      "route": "/annual-report-2026/executive-search-ai-confidentiality",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-cio",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cio/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 5,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/trust-pack",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/trust-pack/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/search-firms/sample-cfo-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/sample-cfo-brief/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": false
-    },
     {
       "route": "/demo/presenter",
       "file": "C:/Users/roths/startingmonday/src/app/demo/presenter/page.tsx",
@@ -82,6 +38,17 @@
     {
       "route": "/annual-report-2026",
       "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": false
+    },
+    {
+      "route": "/annual-report-2026/executive-search-ai-confidentiality",
+      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
       "score": 98,
       "contrastRiskCount": 0,
       "pastelRiskCount": 0,
@@ -111,53 +78,42 @@
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": false
-    }
-  ],
-  "all": [
-    {
-      "route": "/annual-report-2026/executive-search-ai-confidentiality",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": false
     },
     {
-      "route": "/for-cio",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cio/page.tsx",
-      "score": 96,
-      "contrastRiskCount": 5,
+      "route": "/blog/cio-compensation-negotiation",
+      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-compensation-negotiation/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
+      "hasStrongPremiumBase": false
     },
     {
-      "route": "/for-coaches/trust-pack",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/trust-pack/page.tsx",
-      "score": 96,
+      "route": "/blog/cio-job-market-2026",
+      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-market-2026/page.tsx",
+      "score": 98,
       "contrastRiskCount": 0,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
+      "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": false
     },
     {
-      "route": "/search-firms/sample-cfo-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/sample-cfo-brief/page.tsx",
-      "score": 96,
+      "route": "/blog/cio-job-search-timeline",
+      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-search-timeline/page.tsx",
+      "score": 98,
       "contrastRiskCount": 0,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
+      "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": false
-    },
+    }
+  ],
+  "all": [
     {
       "route": "/demo/presenter",
       "file": "C:/Users/roths/startingmonday/src/app/demo/presenter/page.tsx",
@@ -194,6 +150,17 @@
     {
       "route": "/annual-report-2026",
       "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": false
+    },
+    {
+      "route": "/annual-report-2026/executive-search-ai-confidentiality",
+      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
       "score": 98,
       "contrastRiskCount": 0,
       "pastelRiskCount": 0,
@@ -841,6 +808,17 @@
       "hasStrongPremiumBase": false
     },
     {
+      "route": "/for-cio",
+      "file": "C:/Users/roths/startingmonday/src/app/for-cio/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
       "route": "/for-cio-associations",
       "file": "C:/Users/roths/startingmonday/src/app/for-cio-associations/page.tsx",
       "score": 98,
@@ -927,6 +905,17 @@
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": true
+    },
+    {
+      "route": "/for-coaches/trust-pack",
+      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/trust-pack/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": false
     },
     {
       "route": "/for-coo",
@@ -1444,6 +1433,17 @@
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": true
+    },
+    {
+      "route": "/search-firms/sample-cfo-brief",
+      "file": "C:/Users/roths/startingmonday/src/app/search-firms/sample-cfo-brief/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": false
     },
     {
       "route": "/security",

@@ -28,7 +28,7 @@ const SECURITY_POINTS = [
 export default function CoachTrustPackPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
-      <nav className="sticky top-0 z-10 border-b border-slate-800 bg-slate-900/95 backdrop-blur">
+      <nav className="sticky top-0 z-10 border-b border-slate-800 bg-slate-800/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

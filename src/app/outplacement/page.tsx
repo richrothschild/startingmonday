@@ -20,17 +20,18 @@ export const metadata: Metadata = {
 
 export default function OutplacementChannelPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-4 sm:px-6 py-14 sm:py-20">
+    <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white px-4 sm:px-6 py-14 sm:py-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_35%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
       <div className="max-w-4xl mx-auto">
         <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Outplacement channel</p>
-        <h1 className="text-[34px] sm:text-[44px] font-bold leading-[1.1] tracking-tight mb-4">
+        <h1 className="text-[34px] sm:text-[44px] font-bold leading-[1.05] tracking-tight mb-4">
           Improve cohort momentum with measurable execution.
         </h1>
-        <p className="text-[16px] text-slate-200 leading-relaxed max-w-3xl mb-6">
+        <p className="text-[16px] text-slate-100 leading-relaxed max-w-3xl mb-7">
           Starting Monday gives outplacement programs a practical operating layer for signals, prep, accountability, and day-30 decision quality without custom rollout complexity.
         </p>
 
-        <div className="rounded-lg border border-emerald-500/50 bg-emerald-950/20 p-4 mb-8">
+        <div className="rounded-lg border border-emerald-400/55 bg-emerald-950/28 p-4 mb-8 shadow-[0_16px_52px_rgba(15,23,42,0.18)]">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-1">Trust and procurement readiness</p>
           <p className="text-[13px] text-emerald-100 leading-relaxed">
             Board-safe claims, KPI definitions for day 30, 60, and 90, and explicit role boundaries for counselors and program operators.
@@ -61,7 +62,7 @@ export default function OutplacementChannelPage() {
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
             properties={{ channel: 'outplacement', cta_label: 'Review trust pack', source_page: '/outplacement' }}
-            className="inline-block border border-slate-600 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-300 transition-colors"
+            className="inline-block border border-slate-500 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-200 transition-colors"
           >
             Review trust pack
           </TrackLink>
@@ -70,11 +71,11 @@ export default function OutplacementChannelPage() {
         <ChannelMicroProductRail channel="outplacement" sourceRoute="/outplacement" />
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded border border-slate-800 bg-slate-950 p-4">
+          <div className="rounded border border-white/12 bg-white/[0.06] p-4 shadow-[0_16px_52px_rgba(15,23,42,0.16)]">
             <p className="text-[12px] font-semibold text-white mb-2">Program outcome focus</p>
             <p className="text-[13px] text-slate-200 leading-relaxed">Placement momentum, prep readiness, and intervention visibility at cohort scale.</p>
           </div>
-          <div className="rounded border border-slate-800 bg-slate-950 p-4">
+          <div className="rounded border border-white/12 bg-white/[0.06] p-4 shadow-[0_16px_52px_rgba(15,23,42,0.16)]">
             <p className="text-[12px] font-semibold text-white mb-2">Low-friction pilot</p>
             <p className="text-[13px] text-slate-200 leading-relaxed">No-custom launch defaults with a 30-day pass/fail operator scorecard.</p>
           </div>

@@ -122,18 +122,18 @@ export default function ForCioPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">81%</p>
-                <p className="text-[12px] text-slate-300">Reached first interview inside 30 days</p>
+                <p className="text-[12px] text-slate-200">Reached first interview inside 30 days</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">27</p>
-                <p className="text-[12px] text-slate-300">Pilot executives in Jan-May 2026 cohort</p>
+                <p className="text-[12px] text-slate-200">Pilot executives in Jan-May 2026 cohort</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">9 days</p>
-                <p className="text-[12px] text-slate-300">Median time to first qualified outreach</p>
+                <p className="text-[12px] text-slate-200">Median time to first qualified outreach</p>
               </div>
             </div>
-            <p className="text-[12px] text-slate-400">Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Denominator: 27. Window: Jan-May 2026. Results vary by market and campaign consistency.</p>
+            <p className="text-[12px] text-slate-200">Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Denominator: 27. Window: Jan-May 2026. Results vary by market and campaign consistency.</p>
           </div>
           <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40">
             <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Decision CTAs</p>
@@ -168,7 +168,7 @@ export default function ForCioPage() {
             </div>
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="mt-3 border border-slate-700 rounded-lg p-3">
               <summary className="list-none cursor-pointer text-[12px] font-semibold text-slate-200">Common CIO objections</summary>
-              <ul className="mt-2 space-y-1 text-[12px] text-slate-400">
+              <ul className="mt-2 space-y-1 text-[12px] text-slate-200">
                 <li>• "I need this to stay confidential."</li>
                 <li>• "I already have recruiter coverage."</li>
                 <li>• "I am not ready to go active yet."</li>
