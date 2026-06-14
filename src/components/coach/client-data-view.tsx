@@ -32,11 +32,19 @@ interface Scorecard {
     last_brief_days: number
   }
   session_prep_snapshot: {
-    signals_last_7_days: number
-    briefs_last_7_days: number
-    interviews_last_7_days: number
+    baseline_started_at: string | null
+    baseline_label: string
+    signals_since_last_session: number
+    pipeline_changes_since_last_session: number
+    brief_reviews_since_last_session: number
+    interviews_since_last_session: number
     active_pipeline_count: number
     overdue_actions: number
+    stalled_lanes: Array<{
+      lane: 'signals' | 'pipeline' | 'preparation'
+      state: 'healthy' | 'watch' | 'stalled'
+      reason: string
+    }>
   }
   weekly_trends: Array<{
     week_start: string
@@ -103,6 +111,9 @@ interface Brief {
   type: string
   output_text: string
   user_rating?: number | null
+  lifecycle_state?: string | null
+  reviewed_at?: string | null
+  used_at?: string | null
   created_at: string
 }
 
@@ -126,6 +137,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [actionMessage, setActionMessage] = useState<string | null>(null)
   const [reviewMessage, setReviewMessage] = useState<string | null>(null)
   const [extractingActions, setExtractingActions] = useState(false)
+  const [updatingBriefId, setUpdatingBriefId] = useState<string | null>(null)
 
   const todayIso = new Date().toISOString().split('T')[0]
 
@@ -330,6 +342,29 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
     }
   }
 
+  async function updateBriefLifecycle(briefId: string, lifecycleState: 'reviewed' | 'used') {
+    if (updatingBriefId) return
+    setUpdatingBriefId(briefId)
+    try {
+      const response = await fetch(`/api/briefs/${briefId}/lifecycle`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lifecycle_state: lifecycleState }),
+      })
+
+      const json = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(json.error ?? 'Failed to update brief lifecycle')
+
+      const updatedBrief = json.data as Brief
+      setBriefs((current) => current.map((brief) => (brief.id === briefId ? { ...brief, ...updatedBrief } : brief)))
+      setActionMessage(`Brief marked as ${lifecycleState}.`)
+    } catch (error) {
+      setActionMessage(error instanceof Error ? error.message : 'Failed to update brief lifecycle')
+    } finally {
+      setUpdatingBriefId(null)
+    }
+  }
+
   if (loading) {
     return <div className="p-6 text-center">Loading client data...</div>
   }
@@ -354,20 +389,20 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
       {/* Workflow Snapshot */}
       <div className="border border-slate-200 rounded-lg p-4 bg-white">
         <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">
-          Session Prep Snapshot (last 7 days)
+          Session Prep Snapshot ({scorecard.session_prep_snapshot.baseline_label})
         </p>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
           <div className="rounded border border-slate-200 p-3 bg-slate-50">
             <p className="text-[11px] text-slate-500">Signals</p>
-            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.signals_last_7_days}</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.signals_since_last_session}</p>
           </div>
           <div className="rounded border border-slate-200 p-3 bg-slate-50">
-            <p className="text-[11px] text-slate-500">Briefs</p>
-            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.briefs_last_7_days}</p>
+            <p className="text-[11px] text-slate-500">Pipeline changes</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.pipeline_changes_since_last_session}</p>
           </div>
           <div className="rounded border border-slate-200 p-3 bg-slate-50">
-            <p className="text-[11px] text-slate-500">Interviews</p>
-            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.interviews_last_7_days}</p>
+            <p className="text-[11px] text-slate-500">Brief reviews</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.brief_reviews_since_last_session}</p>
           </div>
           <div className="rounded border border-slate-200 p-3 bg-slate-50">
             <p className="text-[11px] text-slate-500">Active pipeline</p>
@@ -379,6 +414,25 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
               {scorecard.session_prep_snapshot.overdue_actions}
             </p>
           </div>
+          <div className="rounded border border-slate-200 p-3 bg-slate-50">
+            <p className="text-[11px] text-slate-500">Interviews</p>
+            <p className="text-[18px] font-bold text-slate-900">{scorecard.session_prep_snapshot.interviews_since_last_session}</p>
+          </div>
+        </div>
+        {scorecard.session_prep_snapshot.stalled_lanes.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {scorecard.session_prep_snapshot.stalled_lanes.map((lane) => (
+              <div
+                key={`${lane.lane}-${lane.state}`}
+                className={`rounded-full border px-3 py-1.5 text-[11px] ${lane.state === 'stalled' ? 'border-red-200 bg-red-50 text-red-700' : 'border-amber-200 bg-amber-50 text-amber-700'}`}
+                title={lane.reason}
+              >
+                {lane.lane} {lane.state}: {lane.reason}
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="mt-3 grid grid-cols-1 md:grid-cols-1 gap-3">
           <div className={`rounded border p-3 ${actionIsOverdue ? 'border-red-200 bg-red-50' : 'border-slate-200 bg-slate-50'}`}>
             <p className="text-[11px] text-slate-500">Next action</p>
             <p className="text-[13px] font-semibold text-slate-900 line-clamp-2">{nextAction?.action ?? actionDraft.action ?? 'Unassigned'}</p>
@@ -644,8 +698,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Session agenda template</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Template</label>
+                <label htmlFor="agenda-template" className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Template</label>
                 <select
+                  id="agenda-template"
                   value={agendaTemplateId}
                   onChange={(event) => setAgendaTemplateId(event.target.value)}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
@@ -961,10 +1016,37 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   </h4>
                   <p className="text-sm text-slate-600 mt-1 line-clamp-3">{brief.output_text}</p>
                 </div>
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                  <span className={`text-[10px] font-semibold uppercase tracking-[0.08em] px-2 py-1 rounded-full ${brief.lifecycle_state === 'used' ? 'bg-green-50 text-green-700' : brief.lifecycle_state === 'reviewed' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                    {brief.lifecycle_state ?? 'generated'}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => { void updateBriefLifecycle(brief.id, 'reviewed') }}
+                      disabled={updatingBriefId === brief.id || brief.lifecycle_state === 'reviewed' || brief.lifecycle_state === 'used'}
+                      className="text-[11px] font-semibold text-slate-700 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 disabled:opacity-40"
+                    >
+                      Review
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { void updateBriefLifecycle(brief.id, 'used') }}
+                      disabled={updatingBriefId === brief.id || brief.lifecycle_state === 'used'}
+                      className="text-[11px] font-semibold text-white bg-slate-900 border border-slate-900 rounded px-2.5 py-1 hover:bg-slate-700 disabled:opacity-40"
+                    >
+                      Use
+                    </button>
+                  </div>
+                </div>
               </div>
               {brief.user_rating !== null && brief.user_rating !== undefined && (
                 <p className="text-xs text-slate-500 mt-2">Rating: {brief.user_rating > 0 ? 'positive' : 'negative'}</p>
               )}
+              <p className="text-xs text-slate-500 mt-1">
+                {brief.reviewed_at ? `Reviewed ${new Date(brief.reviewed_at).toLocaleDateString()}` : 'Not reviewed yet'}
+                {brief.used_at ? ` · Used ${new Date(brief.used_at).toLocaleDateString()}` : ''}
+              </p>
               <p className="text-xs text-slate-500 mt-3">
                 {new Date(brief.created_at).toLocaleDateString()}
               </p>

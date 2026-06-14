@@ -63,7 +63,7 @@ const FAQS = [
     id: 'pricing',
     category: 'Investment & ROI',
     question: 'What does this cost and what is the ROI?',
-    answer: 'Coach previews are free for 30 days-no payment, no commitment. After preview, coaches can choose a buyer plan ($99/mo + $39 per active client seat, or $249/mo for a small client book) or a referral lane where clients subscribe directly and the coach earns recurring partner revenue. Most coaches see ROI within 60 days because they spend less time rebuilding context and more time on strategy. Detailed economics and ROI calculator are on the economics page.',
+    answer: 'Coach previews are free for 30 days-no payment, no commitment. After preview, coaches can choose a buyer plan: Starter Coach ($99/mo + $39 per active client seat), Studio Coach ($249/mo for a small active roster), or Team Coach ($599/mo for up to 10 client seats). They can also use a referral lane where clients subscribe directly and the coach earns recurring partner revenue. Most coaches see ROI within 60 days because they spend less time rebuilding context and more time on strategy. Detailed economics and ROI examples are on the economics page.',
   },
   {
     id: 'support',
@@ -122,7 +122,7 @@ const OBJECTIONS = [
   {
     id: 'cost',
     objection: '"I cannot afford another monthly software subscription."',
-    response: 'The preview is free. If it does not work, you pay nothing. If it does work, you have two pricing paths: a direct coach plan ($99 + $39 per active seat or $249 for a small book) or a referral path where clients subscribe and you earn recurring partner revenue. ROI calculator on the economics page shows breakeven at a very low lift in placement outcomes or retained clients.',
+    response: 'The preview is free. If it does not work, you pay nothing. If it does work, you have two pricing paths: a direct coach plan (Starter Coach at $99 + $39 per active seat, Studio Coach at $249 for a small active roster, or Team Coach at $599 for up to 10 client seats) or a referral path where clients subscribe and you earn recurring partner revenue. The economics page shows breakeven examples tied to recovered prep time and better client readiness.',
   },
   {
     id: 'data-risk',

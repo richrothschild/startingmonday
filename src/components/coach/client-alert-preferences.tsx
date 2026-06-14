@@ -18,6 +18,8 @@ const DEFAULT_PREFS: AlertPrefs = {
 
 export function ClientAlertPreferences({ clientId }: { clientId: string }) {
   const [prefs, setPrefs] = useState<AlertPrefs>(DEFAULT_PREFS)
+  const [activeAlerts, setActiveAlerts] = useState<Array<{ id: string; lane: string; severity: string; title: string; message: string }>>([])
+  const [snapshotLabel, setSnapshotLabel] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
@@ -29,6 +31,8 @@ export function ClientAlertPreferences({ clientId }: { clientId: string }) {
         if (!res.ok) throw new Error('Could not load alert preferences')
         const json = await res.json()
         setPrefs(json.data ?? DEFAULT_PREFS)
+        setActiveAlerts(Array.isArray(json.active_alerts) ? json.active_alerts : [])
+        setSnapshotLabel(typeof json.snapshot?.baseline_label === 'string' ? json.snapshot.baseline_label : null)
       } catch (error) {
         setMessage(error instanceof Error ? error.message : 'Could not load alert preferences')
       } finally {
@@ -67,6 +71,22 @@ export function ClientAlertPreferences({ clientId }: { clientId: string }) {
         Alert Preferences
       </p>
 
+      {activeAlerts.length > 0 && (
+        <div className="mb-4 rounded border border-amber-200 bg-amber-50 p-3">
+          <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-amber-700 mb-2">
+            Active alerts{snapshotLabel ? ` · ${snapshotLabel}` : ''}
+          </p>
+          <div className="space-y-2">
+            {activeAlerts.map((alert) => (
+              <div key={alert.id} className={`rounded border px-3 py-2 text-[12px] ${alert.severity === 'high' ? 'border-red-200 bg-red-50 text-red-800' : 'border-amber-200 bg-white text-amber-900'}`}>
+                <div className="font-semibold capitalize">{alert.title}</div>
+                <div className="mt-1 text-slate-600">{alert.message}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-3">
         <label className="flex items-center justify-between gap-3 text-[13px] text-slate-700">
           <span>Company signal alerts</span>
@@ -96,8 +116,9 @@ export function ClientAlertPreferences({ clientId }: { clientId: string }) {
         </label>
 
         <div className="pt-1">
-          <label className="text-[12px] text-slate-500">Delivery frequency</label>
+          <label htmlFor="alert-frequency" className="text-[12px] text-slate-500">Delivery frequency</label>
           <select
+            id="alert-frequency"
             value={prefs.alert_frequency}
             onChange={(e) => setPrefs((p) => ({ ...p, alert_frequency: e.target.value as AlertPrefs['alert_frequency'] }))}
             className="mt-1 w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-700"

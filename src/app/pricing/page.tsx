@@ -14,7 +14,7 @@ const PricingCards = dynamic(() => import('./pricing-cards').then((mod) => mod.P
 
 export const metadata: Metadata = {
   title: 'Pricing - Starting Monday for C-suite searches',
-  description: 'Simple pricing for C-suite executive searches. Improve campaign behavior, relationship quality, and right-role decisions with Intelligence ($49), Active ($199), or Executive ($499).',
+  description: 'Simple pricing for C-suite executive searches. Improve campaign behavior, relationship quality, and right-role decisions with Intelligence ($49), Search ($199), or Executive ($499).',
   alternates: { canonical: 'https://startingmonday.app/pricing' },
   openGraph: {
     title: 'Pricing - Starting Monday for C-suite searches',

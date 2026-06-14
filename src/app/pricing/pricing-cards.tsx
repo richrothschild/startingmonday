@@ -41,7 +41,7 @@ const PLANS = [
     description: 'For executives who want the analysis done, the brief written, and the intelligence running at full depth. Not data to work from.',
     featured: false,
     features: [
-      'Everything in Active',
+      'Everything in Search',
       'Unlimited company pipeline',
       'Career page scanning 2x daily',
       'Immediate pattern and exec departure alerts',

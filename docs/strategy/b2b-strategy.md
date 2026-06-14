@@ -67,11 +67,11 @@ Pilots that work convert to a referral deal: coach gets 20% of subscriber revenu
 
 ## Referral revenue model
 
-At 20% commission on Active ($129/mo): $25.80 per subscriber per month.
+At 20% commission on Search ($199/mo): $39.80 per subscriber per month.
 
-A coach with 10 active clients: $258/month in passive referral income.
+A coach with 10 active clients: $398/month in recurring referral income.
 
-At 10 coaches each with 10 clients: 100 subscribers from the partner channel. At $129/month blended, that is $12,900 MRR. Your cost: $2,580 in referral commissions. Net: $10,320 MRR with ~80% gross margin on the partner channel.
+At 10 coaches each with 10 clients: 100 subscribers from the partner channel. At $199/month blended, that is $19,900 MRR. Your cost: $3,980 in referral commissions. Net: $15,920 MRR with ~80% gross margin on the partner channel.
 
 This is the highest-margin acquisition channel in the model.
 

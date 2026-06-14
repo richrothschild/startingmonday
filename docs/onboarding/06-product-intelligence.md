@@ -124,15 +124,15 @@ If you ship a feature without knowing which arc it serves, you are guessing. The
 
 | Arc | Situation | Emotional Register | Product Fit |
 |-----|-----------|-------------------|-------------|
-| 1 — Satisfaction to Early Doubt | Still employed; something has shifted | Curious, low-urgency | Monitor ($49) |
-| 2 — Early Doubt to Active Consideration | Employed; a recruiter called; thinking seriously | Deliberate, cautious | Monitor → Active |
-| 3 — Active Consideration to Campaign Launch | Employed; decision made; quiet search underway | Focused, purposeful | Active ($199) |
-| 4 — Post-Separation Emergency | Role eliminated; urgency high; clarity low | Anxious, reactive | Active + nurture onboarding |
-| 5 — Early Active Search | 30-60 days in; conversations happening; getting disorganized | Energized | Active, full feature set |
+| 1 — Satisfaction to Early Doubt | Still employed; something has shifted | Curious, low-urgency | Intelligence ($49) |
+| 2 — Early Doubt to Active Consideration | Employed; a recruiter called; thinking seriously | Deliberate, cautious | Intelligence → Search |
+| 3 — Active Consideration to Campaign Launch | Employed; decision made; quiet search underway | Focused, purposeful | Search ($199) |
+| 4 — Post-Separation Emergency | Role eliminated; urgency high; clarity low | Anxious, reactive | Search + nurture onboarding |
+| 5 — Early Active Search | 30-60 days in; conversations happening; getting disorganized | Energized | Search, full feature set |
 | 6 — Mid-Search Plateau | 60-120 days; nothing has converted; optimism eroding | Quiet concern | Strategy brief, AI advisor |
 | 7 — Late Search / Pressure Zone | 120+ days; financial pressure; risk of wrong role | Stressed | AI advisor for reality check |
 | 8 — Offer and Negotiation | Offer in hand; evaluation and negotiation | High stakes | AI advisor offer evaluation |
-| 9 — Post-Placement | Landed; new role started; will be back in 3-4 years | Re-established | Monitor ($49) |
+| 9 — Post-Placement | Landed; new role started; will be back in 3-4 years | Re-established | Intelligence ($49) |
 
 ### The Three UX Paths
 

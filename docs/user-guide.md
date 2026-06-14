@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-14T02:06:20.805Z
+Last generated: 2026-06-14T04:07:52.402Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -189,7 +189,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (260)
+## API and Automation (261)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -310,6 +310,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/billing/portal](/api/billing/portal) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/billing/resume](/api/billing/resume) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/briefing/send](/api/briefing/send) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/briefs/[id]/lifecycle](/api/briefs/[id]/lifecycle) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/briefs/[id]/rate](/api/briefs/[id]/rate) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/briefs/download](/api/briefs/download) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/briefs/save](/api/briefs/save) - Programmatic endpoint available for platform behavior or integrations.

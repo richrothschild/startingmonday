@@ -21,8 +21,14 @@ export async function PATCH(
 
   const { id } = await params
   const supabase = await createClient()
+  const now = new Date().toISOString()
 
-  const updatePayload: Record<string, unknown> = { user_rating: body.rating }
+  const updatePayload: Record<string, unknown> = {
+    user_rating: body.rating,
+    lifecycle_state: 'reviewed',
+    reviewed_at: now,
+    lifecycle_updated_at: now,
+  }
   if (feedback) updatePayload.rating_feedback = feedback
 
   const { data: updated, error } = await supabase

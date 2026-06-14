@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T01:19:58.835Z",
+  "generatedAt": "2026-06-14T02:22:07.251Z",
   "totalPublicPages": 126,
   "worst10": [
     {
@@ -551,7 +551,7 @@
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
+      "mixedExtremeSurfaces": true,
       "hasStrongPremiumBase": true
     },
     {
@@ -1427,7 +1427,7 @@
       "route": "/search-firms/personas/[slug]",
       "file": "C:/Users/roths/startingmonday/src/app/search-firms/personas/[slug]/page.tsx",
       "score": 98,
-      "contrastRiskCount": 1,
+      "contrastRiskCount": 2,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,

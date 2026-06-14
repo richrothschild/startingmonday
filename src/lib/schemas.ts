@@ -69,6 +69,10 @@ export const BriefSaveBodySchema = z.object({
   claim_provenance: z.array(PrepClaimProvenanceSchema).max(120).optional(),
 })
 
+export const BriefLifecycleUpdateBodySchema = z.object({
+  lifecycle_state: z.enum(['reviewed', 'used']),
+})
+
 export const PrepGenerateQuerySchema = z.object({
   posting_url: z.union([z.literal(''), z.string().url('Invalid posting URL')]).optional(),
   interview_stage: z
@@ -125,6 +129,9 @@ export const OutreachSendBodySchema = z.object({
   messageText: z.string().trim().optional().default(''),
   statusAfter: z.string().trim().optional().default('reached_out'),
   mode: z.string().trim().optional().default('live'),
+  reviewedForSend: z.boolean().optional().default(false),
+  reviewedAt: z.string().trim().optional().default(''),
+  reviewedBy: z.string().trim().optional().default(''),
 })
 
 export const TailorBodySchema = z.object({

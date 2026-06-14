@@ -78,3 +78,86 @@ export const GROUP_COLORS: Record<ScoreGroup, string> = {
   communication: '#10b981',
   profile:       '#8b5cf6',
 }
+
+export type StallLane = 'signals' | 'pipeline' | 'preparation'
+
+export type StallState = 'healthy' | 'watch' | 'stalled'
+
+export type StallSnapshotInput = {
+  activePipelineCount: number
+  overdueActions: number
+  lastSignalDays: number
+  lastBriefDays: number
+  signalsSinceBaseline: number
+  pipelineChangesSinceBaseline: number
+  briefReviewsSinceBaseline: number
+}
+
+export type StallSnapshot = {
+  lane: StallLane
+  state: StallState
+  reason: string
+}
+
+export const STALL_THRESHOLDS = {
+  signalsWatchDays: 7,
+  signalsStalledDays: 14,
+  briefWatchDays: 7,
+  briefStalledDays: 14,
+  overdueActionsWatch: 1,
+  overdueActionsStalled: 3,
+} as const
+
+export function classifyGraphStalls(input: StallSnapshotInput): StallSnapshot[] {
+  const stalls: StallSnapshot[] = []
+
+  if (input.signalsSinceBaseline === 0) {
+    if (input.lastSignalDays >= STALL_THRESHOLDS.signalsStalledDays) {
+      stalls.push({
+        lane: 'signals',
+        state: 'stalled',
+        reason: `No fresh signals for ${input.lastSignalDays} days.`,
+      })
+    } else if (input.lastSignalDays >= STALL_THRESHOLDS.signalsWatchDays) {
+      stalls.push({
+        lane: 'signals',
+        state: 'watch',
+        reason: `Signal intake is aging at ${input.lastSignalDays} days.`,
+      })
+    }
+  }
+
+  if (input.briefReviewsSinceBaseline === 0) {
+    if (input.lastBriefDays >= STALL_THRESHOLDS.briefStalledDays) {
+      stalls.push({
+        lane: 'preparation',
+        state: 'stalled',
+        reason: `No brief review progress for ${input.lastBriefDays} days.`,
+      })
+    } else if (input.lastBriefDays >= STALL_THRESHOLDS.briefWatchDays) {
+      stalls.push({
+        lane: 'preparation',
+        state: 'watch',
+        reason: `Prep activity is aging at ${input.lastBriefDays} days.`,
+      })
+    }
+  }
+
+  if (input.activePipelineCount > 0 && input.pipelineChangesSinceBaseline === 0) {
+    if (input.overdueActions >= STALL_THRESHOLDS.overdueActionsStalled) {
+      stalls.push({
+        lane: 'pipeline',
+        state: 'stalled',
+        reason: `${input.overdueActions} overdue actions with no pipeline movement since the last session.`,
+      })
+    } else if (input.overdueActions >= STALL_THRESHOLDS.overdueActionsWatch) {
+      stalls.push({
+        lane: 'pipeline',
+        state: 'watch',
+        reason: `Pipeline has ${input.overdueActions} overdue action${input.overdueActions === 1 ? '' : 's'} and no recent movement.`,
+      })
+    }
+  }
+
+  return stalls
+}

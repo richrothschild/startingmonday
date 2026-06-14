@@ -273,8 +273,8 @@ open the negotiation."
 | Tier | Price | Target Personas | Key Features |
 |---|---|---|---|
 | **Monitor** | $49/month | Passive Looker, early Mid-Career | Company watchlist, scan alerts, weekly digest |
-| **Active** | $129/month | Mid-Career Climber, Career Pivoter, Returning | All Monitor + chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer |
-| **Executive** | $249/month | Transformation Executive, VP Candidate, Laid-Off | All Active + interview prep, positioning coach, salary intelligence, recruiter tracker, priority scan frequency |
+| **Search** | $199/month | Mid-Career Climber, Career Pivoter, Returning | All Intelligence + chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer |
+| **Executive** | $499/month | Transformation Executive, VP Candidate, Laid-Off | All Search + interview prep, positioning coach, salary intelligence, recruiter tracker, priority scan frequency |
 | **Coach** | $599/month | Career coaches (up to 10 clients) | Multi-client dashboard, white-label briefings, aggregate pipeline view |
 
 Annual pricing at 20% discount on all tiers.

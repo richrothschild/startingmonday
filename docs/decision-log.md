@@ -27,11 +27,11 @@ Add a row when making any decision that costs more than a week of effort or that
 
 ## Current Bets
 
-### 1. Three-tier pricing (Monitor / Active / Executive)
+### 1. Three-tier pricing (Intelligence / Search / Executive)
 **Bet:** Executives in different arcs are willing to pay different amounts based on their urgency and feature depth.
-**Assumption:** Monitor ($49) converts watcher-path users; Active ($199) is the primary revenue tier; Executive ($499) is an aspirational anchor that makes Active feel reasonable.
-**Success metric:** Monitor → Active upgrade rate >= 15% within 60 days. Executive tier converts at least 5% of Active subscribers.
-**Kill criterion:** Monitor → Active upgrade rate < 8% at 90 days OR Executive tier generates < 3% of MRR at 6 months.
+**Assumption:** Intelligence ($49) converts watcher-path users; Search ($199) is the primary revenue tier; Executive ($499) is an aspirational anchor that makes Search feel reasonable.
+**Success metric:** Intelligence → Search upgrade rate >= 15% within 60 days. Executive tier converts at least 5% of Search subscribers.
+**Kill criterion:** Intelligence → Search upgrade rate < 8% at 90 days OR Executive tier generates < 3% of MRR at 6 months.
 **Review date:** 2026-08-01
 
 ---

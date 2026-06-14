@@ -24,7 +24,7 @@ The pricing decision is therefore not "what is fair?" but "what is the right sig
 | Plan | Monthly | Quarterly | Notes |
 | --- | --- | --- | --- |
 | Passive | $49 | $132 | 10% quarterly discount |
-| Active | $199 | $537 | 10% quarterly discount |
+| Search | $199 | $537 | 10% quarterly discount |
 | Executive | $499 | Waitlist | No quarterly pricing yet |
 | Campaign | $999 | 3-month minimum | Effectively a $2,997 commitment |
 
@@ -40,13 +40,13 @@ The plan must prove its monitoring value quickly. If a scan result surfaces a re
 
 Why not lower: below $49, the product starts to feel like a commodity. The positioning is "infrastructure for a serious search" and that framing cannot coexist with a $9.99 price. Why the quarterly discount at $132: the $15 savings is a small number but the commitment is the point. A user who has committed to a quarter has decided they are going to use this. Quarterly billing also reduces payment processing overhead and improves cohort revenue predictability.
 
-### Active at $199 per Month
+### Search at $199 per Month
 
-The Active plan is for executives in active search who need the full suite: briefs, strategy, chat, outreach, resume tailoring, daily briefing. The price reflects what a high-quality outplacement firm charges for comparable outputs. A single two-hour session with an executive career coach runs $250 to $500. Starting Monday at $199 per month produces a strategy brief, daily monitoring, and prep briefs for every conversation — effectively replacing dozens of hours of preparation work per month.
+The Search plan is for executives in active search who need the full suite: briefs, strategy, chat, outreach, resume tailoring, daily briefing. The price reflects what a high-quality outplacement firm charges for comparable outputs. A single two-hour session with an executive career coach runs $250 to $500. Starting Monday at $199 per month produces a strategy brief, daily monitoring, and prep briefs for every conversation — effectively replacing dozens of hours of preparation work per month.
 
 At $200,000 to $1 million annual compensation, $199 per month is 0.12 to 0.02 percent of comp. The financial math does not require justification. The only question is whether the product delivers. The trial answers that.
 
-$99 per month was considered. The argument against it: it would require twice the subscribers to reach the same ARR, increasing CAC pressure; it may signal less product confidence; and the target user's financial sensitivity to $99 versus $199 is functionally zero. A CIO who has decided this is valuable is not making the decision on a $100-per-month delta. $299 per month was also considered. At $300, the product crosses into a category that may require a real budget conversation. $199 stays below that threshold. The Passive-to-Active upgrade is already a four-times price jump; stretching it to six times may introduce friction. The quarterly discount at $537 is $39 in savings and, again, the commitment is the value.
+$99 per month was considered. The argument against it: it would require twice the subscribers to reach the same ARR, increasing CAC pressure; it may signal less product confidence; and the target user's financial sensitivity to $99 versus $199 is functionally zero. A CIO who has decided this is valuable is not making the decision on a $100-per-month delta. $299 per month was also considered. At $300, the product crosses into a category that may require a real budget conversation. $199 stays below that threshold. The Intelligence-to-Search upgrade is already a four-times price jump; stretching it to six times may introduce friction. The quarterly discount at $537 is $39 in savings and, again, the commitment is the value.
 
 ### Executive at $499 per Month (Waitlist)
 
@@ -64,7 +64,7 @@ $999 per month is at the low end of executive coaching and career transition ser
 
 ## Free Trial Design
 
-Thirty days at full Active access with no credit card is a significant commitment — $199 of product value given freely. Three reasons justify it.
+Thirty days at full Search access with no credit card is a significant commitment — $199 of product value given freely. Three reasons justify it.
 
 First, trial conversion happens when the user experiences the prep brief. The first time they read a brief that knows both the company and their background, they convert. This typically happens in the first week. The trial gives enough time for that moment to occur, but the conversion decision is usually made well before day thirty.
 
@@ -80,7 +80,7 @@ Target trial-to-paid conversion is 30 percent. At thirty days of Active access, 
 
 Outplacement and bulk access is priced at $35 to $40 per seat per month at ten or more seats, against the $49 retail Passive rate. That gives the institution a meaningful margin to bundle Starting Monday into their program while still making economic sense for Starting Monday. The institution buys; the executive uses — which removes the friction of individual purchase decisions at a moment when the candidate in transition may be financially cautious. At volume, the CAC advantage of the institutional channel — zero marketing spend, large cohorts of the right users at the right moment — justifies the lower per-seat margin.
 
-The referral program is one free month for the referrer and one month added to the referee's trial. The cost of one free Active month is $199 against a lifetime value of $1,600 or more — a 12 percent acquisition cost on a referral that is already self-qualified by a satisfied peer.
+The referral program is one free month for the referrer and one month added to the referee's trial. The cost of one free Search month is $199 against a lifetime value of $1,600 or more — a 12 percent acquisition cost on a referral that is already self-qualified by a satisfied peer.
 
 ---
 

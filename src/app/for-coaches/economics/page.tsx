@@ -2,26 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 import { CoachValueNudge } from '@/components/CoachValueNudge'
-
-const PREVIEW_SENTENCE = 'In 15 minutes, you see one coach seat, two to three client seats, and enough live workflow to decide whether this fits your practice.'
-
-const COACH_BUYER_PLANS = [
-  {
-    name: 'Starter Coach',
-    price: '$99/mo + $39 per active client seat',
-    fit: 'Best for solo coaches running 1-4 active transitions and wanting a low-friction start.',
-  },
-  {
-    name: 'Studio Coach',
-    price: '$249/mo (small client book)',
-    fit: 'Best for boutique coaches who want predictable spend for a small active client roster.',
-  },
-  {
-    name: 'Team Coach',
-    price: '$599/mo (up to 10 client seats)',
-    fit: 'Best for firms with multiple active transitions that need shared visibility and workload control.',
-  },
-]
+import { COACH_BUYER_PLANS, PILOT_SCORECARD, PREVIEW_SENTENCE } from '../page-content'
 
 export const metadata: Metadata = {
   title: 'Coach Pricing and Economics | Starting Monday',
@@ -36,7 +17,7 @@ const CLIENT_PLANS = [
     fit: 'Executives who want structured signal monitoring and pipeline discipline before the search turns urgent.',
   },
   {
-    name: 'Active',
+    name: 'Search',
     price: '$199/mo',
     fit: 'Executives in active search who need daily signal action, prep briefs, and stronger relationship follow-through.',
   },
@@ -110,6 +91,20 @@ export default function CoachEconomicsPage() {
           </div>
         </section>
 
+        <section className="mb-10 border border-orange-200 bg-orange-50/40 rounded-2xl p-6 sm:p-7">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-3">
+            Pilot success criteria
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {PILOT_SCORECARD.map((item) => (
+              <div key={item.metric} className="rounded-2xl border border-orange-100 bg-white p-5">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-900 mb-2">{item.metric}</p>
+                <p className="text-[13px] text-slate-700 leading-relaxed">{item.success}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="mb-10">
           <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-5">
             Coach buyer pricing (primary path)
@@ -161,7 +156,7 @@ export default function CoachEconomicsPage() {
             </ul>
             <div className="border border-orange-200 bg-orange-50/50 rounded-xl p-4">
               <h3 className="text-[12px] font-semibold text-slate-900 mb-1">Illustrative example</h3>
-              <p className="text-[14px] text-slate-700 leading-relaxed">10 active client referrals on Active at $199/mo is about $398/mo in recurring partner revenue while those clients keep a structured execution layer between sessions.</p>
+              <p className="text-[14px] text-slate-700 leading-relaxed">10 active client referrals on Search at $199/mo is about $398/mo in recurring partner revenue while those clients keep a structured execution layer between sessions.</p>
               <p className="text-[12px] text-slate-600 leading-relaxed mt-2">Outcome metric: track 30-day readiness lift, first interview pace, and prep-brief usage before scaling your lane.</p>
             </div>
           </div>

@@ -113,16 +113,16 @@ export const COACH_BUYER_PLANS = [
   {
     name: 'Starter Coach',
     price: '$99/mo + $39 per active client seat',
-    fit: 'Best for solo coaches running a small number of active transitions.',
+    fit: 'Best for solo coaches running 1-4 active transitions and wanting a low-friction start.',
   },
   {
     name: 'Studio Coach',
-    price: '$249/mo',
-    fit: 'Best for boutique coaches who want predictable spend for a small active client book.',
+    price: '$249/mo (small client book)',
+    fit: 'Best for boutique coaches who want predictable spend for a small active client roster.',
   },
   {
     name: 'Team Coach',
-    price: '$599/mo',
+    price: '$599/mo (up to 10 client seats)',
     fit: 'Best for firms with multiple active transitions that need shared visibility and workload control.',
   },
 ]

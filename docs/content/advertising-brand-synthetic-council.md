@@ -100,7 +100,7 @@ Council members:
 - David Ogilvy: brand positioning, consumer psychology, tested insight, consistency, premiumization
 - Rory Sutherland: behavioral economics, lateral thinking, perceived value, narrative framing, status positioning
 
-Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo). Core positioning: "Be ready. Be early. Run the search before it becomes reactive." Target audience: senior technology executives 6-24 months before active search, executives in active search, and partners (coaches, search firms, PE talent teams) who serve this audience.
+Starting Monday context: AI-powered job search platform for senior executives (CIO/VP/C-suite). Three tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo). Core positioning: "Be ready. Be early. Run the search before it becomes reactive." Target audience: senior technology executives 6-24 months before active search, executives in active search, and partners (coaches, search firms, PE talent teams) who serve this audience.
 
 Campaign, positioning, or messaging to review:
 

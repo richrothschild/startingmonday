@@ -55,7 +55,7 @@ Council members and their principles:
 Starting Monday context:
 - AI-powered career search platform for senior executives (VP, CIO, CTO, COO)
 - Hero message: "The role was never posted. You found it anyway."
-- Tiers: Monitor ($49/mo), Active ($199/mo), Executive ($499/mo)
+- Tiers: Intelligence ($49/mo), Search ($199/mo), Executive ($499/mo)
 - Core features: career page scanning 3x/week, company signals, daily briefing, AI prep briefs, AI chat, outreach drafting, salary intelligence
 
 After individual reviews, provide:

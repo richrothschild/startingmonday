@@ -13,7 +13,7 @@ export const PRICING = {
   },
   active: {
     key: 'active' as const,
-    name: 'Active',
+    name: 'Search',
     monthly: 199,
     quarterly: 469,
     annual: 1990,

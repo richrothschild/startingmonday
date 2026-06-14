@@ -88,7 +88,7 @@ A free 30-day trial is available for any partner firm to evaluate the product wi
 
 Starting Monday was built by a Transformation CIO who was in executive search and needed exactly this system. The product is not built for an assumed user. It is built by the target user. That specificity is why it works for VP and C-suite candidates in a way that general-purpose tools do not.
 
-The platform serves Passive ($49/month) and Active ($199/month) plans today, with Executive ($499) and Campaign ($999) tiers in waitlist. It is deployed on enterprise-grade infrastructure, handles confidential career data with appropriate security controls, and has been tested by active executive candidates.
+The platform serves Intelligence ($49/month) and Search ($199/month) plans today, with Executive ($499) and Campaign ($999) tiers in waitlist. It is deployed on enterprise-grade infrastructure, handles confidential career data with appropriate security controls, and has been tested by active executive candidates.
 
 ---
 

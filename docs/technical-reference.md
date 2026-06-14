@@ -198,7 +198,7 @@ Sending domain: verified via DKIM/SPF DNS records. Sender identity: `briefing@st
 
 ### Stripe
 
-Subscription billing. Two active products: Monitor ($49/month) and Active ($129/month). Executive and Coach tiers are defined but not yet published as products.
+Subscription billing. Public pricing ladder: Intelligence ($49/month), Search ($199/month), and Executive ($499/month). Internal subscription keys still use `passive`, `active`, and `executive` in code. Concierge and coach offers are separately packaged.
 
 Stripe webhook endpoint: `POST /api/webhooks/stripe`. Handles:
 - `checkout.session.completed` — activates subscription

@@ -21,7 +21,7 @@ const SIGNAL_LABELS = {
 }
 
 export function renderBriefingEmail(context, briefing) {
-  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false, coachBrand = null } = context
+  const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false, coachBrand = null, stalledLanes = [] } = context
   const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [], sectorPulse = [] } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
@@ -83,6 +83,16 @@ export function renderBriefingEmail(context, briefing) {
           <div style="font-weight: 600; font-size: 14px; color: #0f172a; margin-bottom: 4px;">${esc(n.name)} <span style="font-size: 12px; font-weight: 400; color: #64748b;">${esc(n.context ?? '')}</span></div>
           <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px;">Last contact: ${esc(n.lastContact ?? 'unknown')}</div>
           <div style="font-size: 13px; color: #475569; line-height: 1.6;">${esc(n.suggestion)}</div>
+        </div>`).join('')}
+      </td></tr>` : ''
+
+  const stallSection = stalledLanes.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94a3b8; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 18px;">Recovery Flags</div>
+        ${stalledLanes.map((lane) => `
+        <div style="margin-bottom: 10px; padding: 16px 20px; background: ${lane.state === 'stalled' ? '#fef2f2' : '#fffbeb'}; border: 1px solid ${lane.state === 'stalled' ? '#fecaca' : '#fde68a'}; border-left: 3px solid ${lane.state === 'stalled' ? '#dc2626' : '#d97706'}; border-radius: 0 4px 4px 0;">
+          <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 5px; text-transform: capitalize;">${esc(lane.lane)} <span style="font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: ${lane.state === 'stalled' ? '#b91c1c' : '#92400e'};">${esc(lane.state)}</span></div>
+          <div style="font-size: 13px; color: #475569; line-height: 1.6;">${esc(lane.reason)}</div>
         </div>`).join('')}
       </td></tr>` : ''
 
@@ -156,6 +166,7 @@ export function renderBriefingEmail(context, briefing) {
           <tr><td style="padding:0 0 32px 0;font-size:15px;color:#334155;line-height:1.7;">${esc(intro)}</td></tr>
 
           ${sectorPulseSection}
+          ${stallSection}
           ${patternAlertSection}
           ${signalSection}
           ${matchSection}

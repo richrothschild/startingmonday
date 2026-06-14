@@ -24,14 +24,14 @@ Annual flow: 9,000 – 20,000 US executives enter search each year. Average dura
 
 ## Individual subscriber scenarios
 
-**Blended ARPU assumption:** 65% Search ($129), 25% Intelligence ($49), 10% Executive ($249)
+**Blended ARPU assumption:** 65% Search ($199), 25% Intelligence ($49), 10% Executive ($499)
 
-0.65 × $129 + 0.25 × $49 + 0.10 × $249 = $83.85 + $12.25 + $24.90 = **$121/mo blended**
+0.65 × $199 + 0.25 × $49 + 0.10 × $499 = $129.35 + $12.25 + $49.90 = **$191.50/mo blended**
 
 | Scenario | Subscribers | Blended ARPU | MRR | ARR |
 |----------|-------------|-------------|-----|-----|
-| Breakeven (no salary) | 25 | $121 | $3,025 | $36,300 |
-| Ramen profitable | 100 | $121 | $12,100 | $145,200 |
+| Breakeven (no salary) | 25 | $191.50 | $4,787.50 | $57,450 |
+| Ramen profitable | 100 | $191.50 | $19,150 | $229,800 |
 | Solo founder comfortable | 250 | $125 | $31,250 | $375,000 |
 | First hire viable | 750 | $125 | $93,750 | $1,125,000 |
 | Series A territory | 2,500 | $140 | $350,000 | $4,200,000 |
@@ -123,8 +123,8 @@ Average search duration: 6 months. 20% of users retain at Intelligence tier post
 | Tier | Monthly | 6-month LTV | With 20% retention (10 mo avg) |
 |------|---------|------------|-------------------------------|
 | Intelligence | $49 | $294 | $392 |
-| Search | $129 | $774 | $1,032 |
-| Executive | $249 | $1,494 | $1,992 |
+| Search | $199 | $1,194 | $1,592 |
+| Executive | $499 | $2,994 | $3,992 |
 
 At Search tier, a $200 CAC payback period is 1.5 months. Strong unit economics across all acquisition channels.
 
@@ -152,8 +152,8 @@ Adding annual plans (2 months free = 17% discount) improves LTV and reduces chur
 | Tier | Monthly | Annual | ARR per subscriber |
 |------|---------|--------|-------------------|
 | Intelligence | $49/mo | $490/yr | +$98 vs monthly |
-| Search | $129/mo | $1,290/yr | +$258 vs monthly |
-| Executive | $249/mo | $2,490/yr | +$498 vs monthly |
+| Search | $199/mo | $1,990/yr | +$398 vs monthly |
+| Executive | $499/mo | $5,000/yr | +$1,008 vs monthly |
 
 If 30% of subscribers convert to annual at sign-up: meaningful ARR pull-forward and ~30% lower expected churn in that cohort.
 

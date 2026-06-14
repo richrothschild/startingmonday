@@ -9,6 +9,7 @@ export const PMF_EVENTS = {
   prep: {
     prep_brief_generated: 'pmf_prep_brief_generated',
     prep_brief_refined: 'pmf_prep_brief_refined',
+    prep_brief_reviewed: 'pmf_prep_brief_reviewed',
     prep_low_confidence_seen: 'pmf_prep_low_confidence_seen',
     prep_export_word: 'pmf_prep_export_word',
     prep_export_pdf: 'pmf_prep_export_pdf',
@@ -115,6 +116,16 @@ export const PMF_EVENT_DEFINITIONS: Record<PMFEventName, PMFEventDefinition> = {
       optional: [...SHARED_CONTEXT_FIELDS],
     },
     description: 'User requested refinement of generated prep brief.',
+  },
+  [PMF_EVENTS.prep.prep_brief_reviewed]: {
+    category: 'prep',
+    owner: PMF_EVENT_OWNERS.product,
+    kpi: PMF_KPIS.prep_brief_usage_rate,
+    schema: {
+      required: ['company_id'],
+      optional: [...SHARED_CONTEXT_FIELDS],
+    },
+    description: 'User explicitly marked the prep brief as reviewed before a live conversation.',
   },
   [PMF_EVENTS.prep.prep_low_confidence_seen]: {
     category: 'prep',

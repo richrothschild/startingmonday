@@ -99,7 +99,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Highly targeted — knows the 20–30 companies, has recruiter relationships
 - **Pain points:** Too many balls in the air. Misses follow-ups. Inconsistent outreach quality. Pays $5–25K for a human coach but doesn't love the ROI.
 - **Required features:** Company monitoring, outreach drafting, follow-up manager, recruiter tracker, daily briefing, salary intelligence
-- **Tier target:** Executive ($249/month)
+- **Tier target:** Executive ($499/month)
 
 #### Persona 2 — VP/Director Candidate
 - **Title examples:** Senior Manager, Director targeting VP
@@ -107,7 +107,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Exploratory — unclear which companies to target, nervous about cold outreach
 - **Pain points:** Doesn't know the hidden job market. No VP-level network. Imposter syndrome. Applying to postings and hearing nothing.
 - **Required features:** Company discovery engine, positioning coach, outreach drafting, interview prep, progress analytics
-- **Tier target:** Active or Executive ($129–249/month)
+- **Tier target:** Search or Executive ($199–499/month)
 
 #### Persona 3 — Mid-Career Climber
 - **Title examples:** IC or first-time manager, 3–8 years
@@ -115,7 +115,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Broad — no target list, applying to anything interesting
 - **Pain points:** No recruiter relationships. Resume disappears into ATS. Doesn't know how to write a compelling LinkedIn message.
 - **Required features:** Company discovery, resume tailoring, outreach templates, interview prep, LinkedIn optimizer, application tracker
-- **Tier target:** Active ($129/month)
+- **Tier target:** Search ($199/month)
 
 #### Persona 4 — Passive Looker
 - **Title examples:** Any employed professional, 5–20 years
@@ -123,7 +123,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Zero-effort — wants to be alerted, not to search
 - **Pain points:** Job boards require active effort. LinkedIn alerts are low quality. Missing opportunities because not watching.
 - **Required features:** Company watchlist monitoring, match alerts, minimal weekly input, market intelligence digest
-- **Tier target:** Monitor ($49/month)
+- **Tier target:** Intelligence ($49/month)
 - **LTV note:** Highest LTV customer — stays 12–24 months with minimal churn risk
 
 #### Persona 5 — Laid-Off Professional
@@ -132,7 +132,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Scattershot initially, needs structure and accountability
 - **Pain points:** Overwhelmed. Applying to everything. Human coaches expensive and slow. Needs a daily plan.
 - **Required features:** Onboarding wizard (20-min profile build), daily briefing, pipeline manager, outreach drafting, progress analytics
-- **Tier target:** Active or Executive ($129–249/month)
+- **Tier target:** Search or Executive ($199–499/month)
 
 #### Persona 6 — Career Pivoter
 - **Title examples:** Finance / consulting / operations professional targeting tech, product, RevOps
@@ -140,7 +140,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Narrow — knows what they want but can't get through the filter
 - **Pain points:** ATS keyword mismatch. Can't get warm intros in target field. Resume tells the wrong story.
 - **Required features:** Positioning coach, resume tailoring (translates cross-field), company discovery, outreach templates, interview prep
-- **Tier target:** Active ($129/month)
+- **Tier target:** Search ($199/month)
 
 #### Persona 7 — Returning Professional
 - **Title examples:** 8–20 years of prior experience, 2–5 year break
@@ -148,7 +148,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Search style:** Cautious — network is cold, market has changed, gap anxiety is high
 - **Pain points:** Network has gone cold. Hiring market changed. Gap dominates resume. Outdated sense of what roles exist and what they pay.
 - **Required features:** Gap positioning coach, network re-activation outreach templates, company discovery, market intelligence, LinkedIn optimizer
-- **Tier target:** Active ($129/month)
+- **Tier target:** Search ($199/month)
 
 ---
 
@@ -1466,18 +1466,18 @@ Success criteria: 2+ outplacement firm agreements signed, 5+ Coach tier subscrib
 
 | Tier | Price | Target Personas | Key Features |
 |---|---|---|---|
-| **Monitor** | $49/month | Passive Looker, early Mid-Career | Company watchlist (10 co.), twice-weekly scans, match alerts, weekly digest |
-| **Active** | $129/month | Mid-Career Climber, Career Pivoter, Returning Professional | All Monitor + AI chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer, company discovery (30 co., 3x/week scans) |
-| **Executive** | $249/month | Transformation Executive, VP Candidate, Laid-Off | All Active + interview prep, positioning coach, salary intelligence, recruiter tracker, daily scans, 50 companies |
+| **Intelligence** | $49/month | Passive Looker, early Mid-Career | Company watchlist (10 co.), twice-weekly scans, match alerts, weekly digest |
+| **Search** | $199/month | Mid-Career Climber, Career Pivoter, Returning Professional | All Intelligence + AI chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer, company discovery (30 co., 3x/week scans) |
+| **Executive** | $499/month | Transformation Executive, VP Candidate, Laid-Off | All Search + interview prep, positioning coach, salary intelligence, recruiter tracker, daily scans, 50 companies |
 | **Coach** | $599/month | Career coaches (up to 10 clients) | Multi-client dashboard, white-label briefings, aggregate pipeline view |
 
 Annual pricing: 20% discount on all tiers.
 
-**Executive tier pricing anchor:** The Executive tier replaces a $5,000–$15,000 human career coach engagement and delivers more: daily active monitoring, relationship intelligence, and AI coaching available around the clock for the full duration of the search. All Executive tier marketing copy must reference this comparison explicitly — never anchor against free tools or competing SaaS. Anchor against what executives actually spend: human coaches, outplacement firms, and retained search preparation services. Copyline: "Everything a $10,000 career coach gives you, plus the monitoring and intelligence they can't. $249/month."
+**Executive tier pricing anchor:** The Executive tier replaces a $5,000–$15,000 human career coach engagement and delivers more: daily active monitoring, relationship intelligence, and AI coaching available around the clock for the full duration of the search. All Executive tier marketing copy must reference this comparison explicitly — never anchor against free tools or competing SaaS. Anchor against what executives actually spend: human coaches, outplacement firms, and retained search preparation services. Copyline: "Everything a $10,000 career coach gives you, plus the monitoring and intelligence they can't. $499/month."
 
 ### 12.2 Feature Gate Matrix
 
-| Feature | Monitor | Active | Executive | Coach |
+| Feature | Intelligence | Search | Executive | Coach |
 |---|---|---|---|---|
 | Company Watchlist | 10 | 30 | 50 | 50/client |
 | Scan Frequency | 2x/week | 3x/week | Daily | Daily |
@@ -1504,9 +1504,9 @@ Annual pricing: 20% discount on all tiers.
 
 ### 12.3 Trial and Conversion
 
-- 7-day free trial — all Active tier features — no credit card required
+- 7-day free trial — all Search tier features — no credit card required
 - Trial ends: forced plan selection or cancellation
-- Upgrade CTAs surface within feature gates: "This feature requires Active tier — $129/month. Start free trial."
+- Upgrade CTAs surface within feature gates: "This feature requires Search tier — $199/month. Start free trial."
 - Annual plan discount communicated at trial end (highest conversion moment)
 
 ### 12.4 Free Tier Option (Open Decision — See Section 15.1)

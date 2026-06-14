@@ -1,7 +1,7 @@
 # Product Fit Gaps by Persona
 
 > Analysis of where Starting Monday's current feature set fits well and where it leaves gaps, by executive persona.
-> Tiers: Intelligence ($49), Search ($129), Executive ($249).
+> Tiers: Intelligence ($49), Search ($199), Executive ($499).
 
 ---
 

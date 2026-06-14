@@ -1,17 +1,34 @@
 # Pricing Strategy
 
-> Buyer psychology analysis of Starting Monday's tier structure and pricing page.
-> Applies Katelyn Bourgoin's trigger, JTBD, and anchoring frameworks.
+> Canonical buyer psychology and pricing-packaging reference for Starting Monday.
+> Live prices must match `src/lib/pricing.ts`. Public naming may differ from internal keys.
 
 ---
 
-## Tier summary (current)
+## Canonical rule
 
-| Tier | Price | Internal key | Description |
-|------|-------|-------------|-------------|
-| Intelligence | $49/mo | `passive` | Signal monitoring, weekly digest, contact tracker |
-| Search | $129/mo | `active` | Full search OS: briefings, prep briefs, chat, outreach |
-| Executive | $249/mo | `executive` | Unlimited pipeline, 2x daily scans, Opus AI, salary intel |
+`src/lib/pricing.ts` is the live source of truth for price values.
+
+Public plan naming:
+- `passive` -> Intelligence
+- `active` -> Search
+- `executive` -> Executive
+- `concierge` -> Concierge
+
+Public pricing ladder:
+
+| Tier | Monthly | Annual | Internal key | Public status |
+|------|---------|--------|--------------|---------------|
+| Intelligence | $49 | $490 | `passive` | Public |
+| Search | $199 | $1,990 | `active` | Public |
+| Executive | $499 | $5,000 | `executive` | Public |
+| Concierge | $499 | $4,990 | `concierge` | Non-primary / invite-led |
+
+Why this naming:
+- Intelligence describes the low-urgency monitoring buyer clearly.
+- Search is the clearest external name for the core active campaign tier.
+- Executive signals deeper coverage and higher-stakes readiness.
+- Concierge remains a controlled offer and should not confuse the public three-plan ladder.
 
 ---
 
@@ -39,7 +56,11 @@ Marketing language should be written for triggers 1 and 4. Those convert at the 
 
 **Social job:** Be the kind of executive who handles career transitions with composure and method, not anxiety and chaos.
 
-The emotional and social jobs carry the most pricing weight. People pay premium prices to resolve emotional pain, not to access functional features. "$129/month" is not for monitoring software. It is for feeling like a professional running a professional process.
+The emotional and social jobs carry the most pricing weight. People pay premium prices to resolve emotional pain, not to access functional features. "$199/month" is not for monitoring software. It is for feeling like a professional running a professional process.
+
+The same logic applies now at the current ladder.
+The Search tier is not priced as a software utility.
+It is priced as the daily operating layer for a high-stakes search.
 
 ---
 
@@ -49,15 +70,15 @@ The buyer's brain compares this to other options:
 
 | Comparison | Price | Implication |
 |------------|-------|-------------|
-| Executive coach | $300 – $500/hour | $129/mo = less than one hour |
+| Executive coach | $300 – $500/hour | $199/mo = still below one hour |
 | Career consultant (resume review) | $400 – $800 | Less than a single session |
-| LinkedIn Premium Career | $59.99/mo | 2x the price, 10x the value proposition |
+| LinkedIn Premium Career | $59.99/mo | ~3x the price, materially stronger outcome promise |
 | Retained search firm | 30% of year-1 comp | Frames the stakes; hired by employer |
 | Executive peer coaching program | $500 – $2,000/mo | In-category premium anchor |
 
 **The anchor sentence that belongs on the pricing page:**
 
-> "$129 a month is less than a single hour with an executive coach. Starting Monday runs every day."
+> "$199 a month is still less than a single hour with an executive coach. Starting Monday runs every day."
 
 This sentence should appear above or adjacent to the plan cards. It makes the Search tier feel inexpensive rather than premium.
 
@@ -70,38 +91,43 @@ The name is correct. It signals "I want market awareness" without implying activ
 
 The risk: Intelligence tier attracts passive buyers who will not engage deeply and will churn at the search-end cohort without generating a testimonial. Consider building a retention path that keeps landed executives on Intelligence at a symbolic price point ($29/mo or $290/yr) after they mark their search complete.
 
-### Search ($129)
-The strongest tier in the product. The name is behavioral, clear, and memorable. The copy should reinforce the commitment this requires: "This tier is for executives running an active search. If you are not sending outreach this week, you will not get full value."
+### Search ($199)
+The strongest tier in the product. Search is the clearest external name for the core active campaign tier. The copy should reinforce the commitment this requires: "This tier is for executives running an active search. If you are not sending outreach this week, you will not get full value."
 
 This is the tier to feature as "Most popular" on the billing page. The Search tier is the core product.
 
-### Executive ($249)
+### Executive ($499)
 The name creates an identity anchor — "I am on the Executive plan" — which works for this audience. The incremental features need to be framed as outcomes, not features:
 - Not "advanced scanning" — "Know about the opening before it is posted"
 - Not "Opus AI for prep briefs" — "Interview prep written at the standard a retained search partner would expect"
 - Not "salary intelligence" — "Walk into the compensation conversation knowing what they paid the last person in this role"
 
+### Concierge ($499)
+Concierge should not sit as an equal public-plan alternative unless the offer is clearly differentiated from Executive. Right now the role of Concierge is operationally different, not psychologically clearer. Treat it as an invite-led or context-led offer until the value proposition is cleaner on the public page.
+
 ---
 
 ## Changes to make
 
-### 1. Add annual billing (Sprint 1)
+### 1. Keep annual billing live and governed
 
-Annual plans create better LTV and signal serious buyers. Display them as the default with monthly as the alternate.
+Annual plans are already live. Keep them aligned to the canonical ladder and treat annual display order as an experiment, not a guess.
 
 | Tier | Monthly | Annual | Savings |
 |------|---------|--------|---------|
 | Intelligence | $49/mo | $490/yr | 2 months free |
-| Search | $129/mo | $1,290/yr | 2 months free |
-| Executive | $249/mo | $2,490/yr | 2 months free |
+| Search | $199/mo | $1,990/yr | 2 months free |
+| Executive | $499/mo | $5,000/yr | ~2 months free |
 
-The billing UI should default to showing annual pricing, not monthly.
+Decision to make via experiment:
+- default annual view
+- or default monthly view with annual savings adjacent
 
-### 2. Add the anchor sentence to the pricing page (Sprint 1)
+### 2. Keep the anchor sentence aligned to current pricing
 
 Place this above the plan cards:
 
-> "One hour with an executive coach runs $300 to $500. Starting Monday is $129 a month and runs every day."
+> "One hour with an executive coach runs $300 to $500. Starting Monday is $199 a month and runs every day."
 
 ### 3. Post-placement retention path (Sprint 6)
 
@@ -109,7 +135,16 @@ When a user marks their search as complete, offer a transition to Intelligence a
 
 ### 4. Featured plan in billing UI
 
-The billing client now correctly features the Search tier as "Most popular" rather than Executive. Executive is the upgrade, not the anchor.
+The billing client should continue featuring Search as "Most popular" rather than Executive. Executive is the upgrade, not the anchor.
+
+### 5. Pricing governance rule
+
+No strategy or marketing document should state public prices without matching `src/lib/pricing.ts`.
+When prices change:
+1. update `src/lib/pricing.ts`
+2. update pricing UI copy
+3. update this document
+4. update any coach or business-plan references that state the ladder explicitly
 
 ---
 
@@ -125,4 +160,4 @@ That sentence is repeatable. Executives will say it verbatim to peers. That is t
 
 ---
 
-*Last updated: 2026-05-08*
+*Last updated: 2026-06-13*

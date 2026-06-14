@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T02:13:53.379Z
+Last generated: 2026-06-14T04:34:37.230Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -207,7 +207,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (260)
+## API Surface (261)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -328,6 +328,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/billing/portal | src/app/api/billing/portal/route.ts | export async function POST(request: NextRequest) {
 - API /api/billing/resume | src/app/api/billing/resume/route.ts | export async function POST(request: NextRequest) {
 - API /api/briefing/send | src/app/api/briefing/send/route.ts | Retired: the worker (worker/jobs/briefing-job.js) is the active briefing sender.
+- API /api/briefs/[id]/lifecycle | src/app/api/briefs/[id]/lifecycle/route.ts | export async function PATCH(
 - API /api/briefs/[id]/rate | src/app/api/briefs/[id]/rate/route.ts | export async function PATCH(
 - API /api/briefs/download | src/app/api/briefs/download/route.ts | Regular paragraph with possible **bold** spans
 - API /api/briefs/save | src/app/api/briefs/save/route.ts | export async function POST(request: NextRequest) {
@@ -469,7 +470,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (203)
+## Codebase Modules (204)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -508,6 +509,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/check-api-guards-regression.test.ts | src/lib/check-api-guards-regression.test.ts | import fs from 'node:fs'
 - Code src/lib/coach-access.test.ts | src/lib/coach-access.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/coach-access.ts | src/lib/coach-access.ts | export type CoachAccessLevel = 'read_only' | 'read_write'
+- Code src/lib/coach-session-snapshot.ts | src/lib/coach-session-snapshot.ts | export type CoachSessionPrepSnapshot = {
 - Code src/lib/config.test.ts | src/lib/config.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/config.ts | src/lib/config.ts | App-wide configuration derived from environment variables.
 - Code src/lib/cron-auth.test.ts | src/lib/cron-auth.test.ts | import { beforeEach, describe, expect, it } from 'vitest'
@@ -674,7 +676,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (130)
+## Internal Scripts (131)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -682,6 +684,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/audit-outreach-momentum.ts | scripts/audit-outreach-momentum.ts | import {
 - Script scripts/audit-outreach-sends.mjs | scripts/audit-outreach-sends.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/audit-visual-look-score.mjs | scripts/audit-visual-look-score.mjs | import fs from 'node:fs'
+- Script scripts/backfill-brief-lifecycle.mjs | scripts/backfill-brief-lifecycle.mjs | #!/usr/bin/env node
 - Script scripts/backfill-company-size-bands.mjs | scripts/backfill-company-size-bands.mjs | Add all 17 missing mappings here
 - Script scripts/backfill-edgar-exec-history.mjs | scripts/backfill-edgar-exec-history.mjs | ── arg parsing ───────────────────────────────────────────────────────────────
 - Script scripts/backfill-outreach-status-sent-today.mjs | scripts/backfill-outreach-status-sent-today.mjs | import { config as loadEnv } from 'dotenv'
@@ -843,7 +846,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (139)
+## Data and Migrations (140)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -983,8 +986,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
+- Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (590)
+## Documentation (597)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1186,6 +1190,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
 - Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
 - Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
+- Doc docs/development/migration-rollbacks/136_brief_lifecycle_state.md | docs/development/migration-rollbacks/136_brief_lifecycle_state.md | 136_brief_lifecycle_state rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
@@ -1436,6 +1441,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
 - Doc docs/staying-sharp-between-searches.md | docs/staying-sharp-between-searches.md | Staying Sharp Between Searches
 - Doc docs/strategy/30-day-execution-plan.md | docs/strategy/30-day-execution-plan.md | 30-Day Execution Plan (Monitor-First)
+- Doc docs/strategy/agent-graph-design-spec-2026-06-13.md | docs/strategy/agent-graph-design-spec-2026-06-13.md | Agent Graph Design Spec
+- Doc docs/strategy/agent-graph-implementation-tickets-2026-06-13.md | docs/strategy/agent-graph-implementation-tickets-2026-06-13.md | Agent Graph Implementation Tickets
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
@@ -1521,17 +1528,21 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md | docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md | Luxury-Modern Sprint 3 Readout
 - Doc docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md | docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md | Luxury-Modern Sprint 4 Governance Closeout
 - Doc docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md | docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md | Luxury-Modern Tone and Proof Governance Guide
+- Doc docs/strategy/luxury-reference-benchmark-snapshot-2026-06-13.md | docs/strategy/luxury-reference-benchmark-snapshot-2026-06-13.md | Luxury Reference Benchmark Snapshot (Notion, Lucid, Atlassian, Slack)
 - Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
 - Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
 - Doc docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | Persona Council Effectiveness Audit - 2026-05-26
 - Doc docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | Persona Council EJES Micro-Pass - 2026-05-26
 - Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
+- Doc docs/strategy/pricing-coaches-sprint-backlog-2026-06-13.md | docs/strategy/pricing-coaches-sprint-backlog-2026-06-13.md | Pricing + Coaches Sprint Backlog
 - Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
 - Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
+- Doc docs/strategy/selected-ideas-implementation-plan-2026-06-13.md | docs/strategy/selected-ideas-implementation-plan-2026-06-13.md | Selected Ideas Implementation Plan
 - Doc docs/strategy/slack-channel-naming-pack-2026-06-04.md | docs/strategy/slack-channel-naming-pack-2026-06-04.md | Slack Channel Naming and Description Pack
 - Doc docs/strategy/slack-notification-policy-ui-2026-06-04.md | docs/strategy/slack-notification-policy-ui-2026-06-04.md | Slack Notification Policy for UI Delivery
 - Doc docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | Sprint 7 Carry-Forward Shortlist (2026-05-31)
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
+- Doc docs/strategy/starting-monday-vs-top-10-luxury-sites-2026-06-13.md | docs/strategy/starting-monday-vs-top-10-luxury-sites-2026-06-13.md | Starting Monday vs Top 10 Luxury Brand Sites (Luxury Feel)
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
 - Doc docs/strategy/ui-review-plan-from-notes-2026-06-04.md | docs/strategy/ui-review-plan-from-notes-2026-06-04.md | UI Review Plan from Notes (Plan-Mode Draft)
 - Doc docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | Week 2 Telemetry Schema and Route Coverage

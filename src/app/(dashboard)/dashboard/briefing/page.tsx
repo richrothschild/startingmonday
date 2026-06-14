@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as Sentry from '@sentry/nextjs'
+import { classifyGraphStalls } from '@/lib/action-scores'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
@@ -34,6 +35,12 @@ type BriefingJson = {
   closing?: string
 }
 
+type StallLaneSnapshot = {
+  lane: 'signals' | 'pipeline' | 'preparation'
+  state: 'healthy' | 'watch' | 'stalled'
+  reason: string
+}
+
 type GeneratedBriefing = {
   briefing: BriefingJson
   usedFallback: boolean
@@ -55,9 +62,10 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   const now = new Date()
   const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
   const since7d   = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const since30d  = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
   const todayStr  = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, signalHealthResult, briefsResult, pipelineEventsResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles')
@@ -65,7 +73,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .single(),
     supabase
       .from('companies')
-      .select('id, name')
+      .select('id, name, stage')
       .eq('user_id', userId)
       .is('archived_at', null),
     supabase
@@ -91,6 +99,27 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .gte('signal_date', since7d.toISOString().split('T')[0])
       .order('signal_date', { ascending: false })
       .limit(BRIEFING_SIGNAL_LIMIT),
+    supabase
+      .from('company_signals')
+      .select('signal_date')
+      .eq('user_id', userId)
+      .gte('signal_date', since30d.toISOString().split('T')[0])
+      .order('signal_date', { ascending: false })
+      .limit(30),
+    supabase
+      .from('briefs')
+      .select('created_at, reviewed_at, used_at, lifecycle_state')
+      .eq('user_id', userId)
+      .in('type', ['prep', 'prep_section'])
+      .gte('created_at', since30d.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(30),
+    supabase
+      .from('user_events')
+      .select('event_name, created_at')
+      .eq('user_id', userId)
+      .gte('created_at', since7d.toISOString())
+      .in('event_name', ['company_added', 'pipeline_stage_changed']),
   ])
 
   const profile     = profileResult.data
@@ -98,6 +127,9 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   const recentScans = recentScansResult.data ?? []
   const rawFollowUps = followUpsResult.data ?? []
   const rawSignals  = signalsResult.data ?? []
+  const signalHealthRows = (signalHealthResult.data ?? []) as Array<{ signal_date: string }>
+  const briefs = (briefsResult.data ?? []) as Array<{ created_at: string; reviewed_at: string | null; used_at: string | null; lifecycle_state: string | null }>
+  const pipelineEvents = (pipelineEventsResult.data ?? []) as Array<{ event_name: string; created_at: string }>
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -130,6 +162,31 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
     signalDate: s.signal_date,
   }))
 
+  const activePipelineCount = companies.filter(
+    (company) => company.stage === 'applied' || company.stage === 'interviewing' || company.stage === 'offer',
+  ).length
+  const lastSignalDays = signalHealthRows.length > 0
+    ? Math.ceil((Date.now() - new Date(signalHealthRows[0].signal_date).getTime()) / (1000 * 60 * 60 * 24))
+    : 999
+  const lastBriefProgressAt = briefs.reduce<string | null>((latest, brief) => {
+    const candidate = brief.used_at ?? brief.reviewed_at ?? brief.created_at
+    if (!latest) return candidate
+    return new Date(candidate).getTime() > new Date(latest).getTime() ? candidate : latest
+  }, null)
+  const lastBriefDays = lastBriefProgressAt
+    ? Math.ceil((Date.now() - new Date(lastBriefProgressAt).getTime()) / (1000 * 60 * 60 * 24))
+    : 999
+  const briefReviewsSinceLastWeek = briefs.filter((brief) => brief.reviewed_at && new Date(brief.reviewed_at).getTime() >= since7d.getTime()).length
+  const stalledLanes = classifyGraphStalls({
+    activePipelineCount,
+    overdueActions: followUps.length,
+    lastSignalDays,
+    lastBriefDays,
+    signalsSinceBaseline: signalHealthRows.filter((signal) => new Date(signal.signal_date).getTime() >= since7d.getTime()).length,
+    pipelineChangesSinceBaseline: pipelineEvents.length,
+    briefReviewsSinceBaseline: briefReviewsSinceLastWeek,
+  }) as StallLaneSnapshot[]
+
   return {
     userName: profile?.full_name ?? 'there',
     targetTitles: (profile?.target_titles as string[] | null) ?? [],
@@ -138,7 +195,8 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
     followUps,
     signals,
     todayStr,
-    hasContent: newMatches.length > 0 || followUps.length > 0 || signals.length > 0,
+    stalledLanes,
+    hasContent: newMatches.length > 0 || followUps.length > 0 || signals.length > 0 || stalledLanes.length > 0,
   }
 }
 
@@ -272,6 +330,7 @@ async function BriefingBody({
   const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
   const matchInsights = (briefing?.matchInsights ?? []).slice(0, maxItems)
   const followUpItems = (briefing?.followUpSuggestions ?? []).slice(0, maxItems)
+  const stalledLanes = context.stalledLanes ?? []
 
   return (
     <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
@@ -310,6 +369,30 @@ async function BriefingBody({
 
           {briefing?.intro && (
             <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
+          )}
+
+          {stalledLanes.length > 0 && (
+            <section id="recovery-flags" className="mb-8">
+              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
+                Recovery Flags
+              </h2>
+              <div className="flex flex-col gap-3">
+                {stalledLanes.map((lane, index) => (
+                  <div
+                    key={`${lane.lane}-${index}`}
+                    className={`p-4 border rounded-r border-l-[3px] ${lane.state === 'stalled' ? 'bg-red-50 border-red-200 border-l-red-500' : 'bg-amber-50 border-amber-200 border-l-amber-500'}`}
+                  >
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <span className="font-bold text-[15px] text-slate-900 capitalize">{lane.lane}</span>
+                      <span className={`text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${lane.state === 'stalled' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'}`}>
+                        {lane.state}
+                      </span>
+                    </div>
+                    <p className="text-[14px] text-slate-700 leading-relaxed">{lane.reason}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
 
           {signalAlerts.length > 0 && (
@@ -501,6 +584,7 @@ export default async function BriefingPage({
             <a href="#briefing-metrics" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Metrics</a>
             <a href="#briefing-mode" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">View mode</a>
             <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Accountability</a>
+            <a href="#recovery-flags" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Recovery flags</a>
             <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Today actions</a>
           </div>
         </section>

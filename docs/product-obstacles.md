@@ -260,8 +260,8 @@ and doesn't need follow-up with someone who already landed. Timing is the entire
 ### 🔴 Customer Acquisition Cost vs. Lifetime Value Math
 
 **The problem:** In B2C, the typical CAC for a productivity/career tool via paid channels
-(LinkedIn ads, Google ads) is $50-150 per paying customer. At $129/month with 4-month average
-retention, LTV is roughly $516 gross. After infra costs and CAC, margin is thin.
+(LinkedIn ads, Google ads) is $50-150 per paying customer. At $199/month with 4-month average
+retention, LTV is roughly $796 gross. After infra costs and CAC, margin is still sensitive if conversion is weak.
 
 **Why it matters:** If CAC exceeds LTV, the business is structurally unprofitable and
 paid acquisition is not viable. You would need organic acquisition (SEO, word of mouth,
@@ -513,7 +513,7 @@ They share SM's "quality over volume" philosophy — but from the employer's sid
 candidate's side.
 
 **Why it matters:** The free-for-candidates model creates direct top-of-funnel pricing
-pressure. A mid-career professional comparing SM ($129/month) against JaJ (free, warm intros,
+pressure. A mid-career professional comparing SM ($199/month) against JaJ (free, warm intros,
 conversational onboarding) will make that comparison before they have experienced SM's
 differentiated value. The comparison happens at acquisition, not at retention. JaJ also has
 a CVSS 9.8 security vulnerability that was publicly disclosed in January 2026 and patched —

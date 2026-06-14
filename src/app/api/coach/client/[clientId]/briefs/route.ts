@@ -35,6 +35,9 @@ export async function GET(
       type,
       output_text,
       user_rating,
+      lifecycle_state,
+      reviewed_at,
+      used_at,
       created_at
     `
     )

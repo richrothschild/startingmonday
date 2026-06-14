@@ -1,4 +1,6 @@
 import { requireAuth } from '@/lib/require-auth'
+import { buildCoachSessionSnapshot } from '@/lib/coach-session-snapshot'
+import { logEvent } from '@/lib/events'
 import { createClient } from '@/lib/supabase/server'
 import { verifyCoachAccess } from '@/lib/coach-access'
 import { NextRequest, NextResponse } from 'next/server'
@@ -45,73 +47,53 @@ export async function GET(
   type Brief = { created_at: string }
   type Interview = { created_at: string; interview_stage: string | null }
   type ScanResult = { ai_score: number | null; scanned_at: string }
-  type FollowUp = { due_date: string }
 
   const now = new Date()
   const last30dIso = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString()
   const last30dDate = toISODate(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000))
-  const last7dIso = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
   const todayIso = toISODate(now)
+  const todayStartIso = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString()
+  const snapshotResult = await buildCoachSessionSnapshot(supabase, { clientId, coachId, now })
+  const {
+    companies,
+    signals,
+    briefs,
+    interviews,
+    followUps,
+    snapshot,
+  } = snapshotResult
 
   // Fetch scorecards
   const [
-    { data: companiesData },
-    { data: signalsData },
-    { data: briefsData },
-    { data: interviewsData },
     { data: scansData },
-    { data: followUpsData },
+    { count: stallEventCount },
   ] = await Promise.all([
-    supabase
-      .from('companies')
-      .select('id, stage, fit_score')
-      .eq('user_id', clientId)
-      .is('archived_at', null),
-    supabase
-      .from('company_signals')
-      .select('id, signal_date, signal_type')
-      .eq('user_id', clientId)
-      .gte('signal_date', last30dDate)
-      .order('signal_date', { ascending: false }),
-    supabase
-      .from('briefs')
-      .select('id, created_at')
-      .eq('user_id', clientId)
-      .gte('created_at', last30dIso)
-      .order('created_at', { ascending: false }),
-    supabase
-      .from('company_interview_logs')
-      .select('id, created_at, interview_stage')
-      .eq('user_id', clientId)
-      .gte('created_at', last30dIso)
-      .order('created_at', { ascending: false }),
     supabase
       .from('scan_results')
       .select('ai_score, scanned_at')
       .eq('user_id', clientId)
       .gte('scanned_at', last30dIso),
     supabase
-      .from('follow_ups')
-      .select('due_date')
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
       .eq('user_id', clientId)
-      .eq('status', 'pending')
-      .lte('due_date', todayIso),
+      .eq('event_name', 'stall_state_detected')
+      .gte('created_at', todayStartIso),
   ])
 
-  const companies = (companiesData || []) as Company[]
-  const signals = (signalsData || []) as Signal[]
-  const briefs = (briefsData || []) as Brief[]
-  const interviews = (interviewsData || []) as Interview[]
   const scans = (scansData || []) as ScanResult[]
-  const followUps = (followUpsData || []) as FollowUp[]
-
-  const recentSignals = signals.filter((s) => new Date(s.signal_date).getTime() >= new Date(last7dIso).getTime())
-  const recentBriefs = briefs.filter((b) => new Date(b.created_at).getTime() >= new Date(last7dIso).getTime())
-  const recentInterviews = interviews.filter((i) => new Date(i.created_at).getTime() >= new Date(last7dIso).getTime())
-
-  const activePipelineCount = companies.filter(
-    (c) => c.stage === 'applied' || c.stage === 'interviewing' || c.stage === 'offer'
-  ).length
+  if (snapshot.stalledLanes.some((lane) => lane.state === 'stalled') && !stallEventCount) {
+    await logEvent(clientId, 'stall_state_detected', {
+      source: 'coach_scorecard',
+      coach_id: coachId,
+      stalled_lanes: snapshot.stalledLanes
+        .filter((lane) => lane.state === 'stalled')
+        .map((lane) => lane.lane)
+        .join(','),
+      snapshot_started_at: snapshot.baselineStartedAt,
+      stalled_lane_count: snapshot.stalledLanes.filter((lane) => lane.state === 'stalled').length,
+    })
+  }
 
   const thisWeekStart = startOfWeekUTC(now)
   const weeklyTrends = [0, 1, 2, 3].map((offset) => {
@@ -165,19 +147,20 @@ export async function GET(
     },
     activity_health: {
       is_active: signals.length > 0 || briefs.length > 0 || interviews.length > 0,
-      last_signal_days: signals.length > 0
-        ? Math.ceil((Date.now() - new Date(signals[0].signal_date).getTime()) / (1000 * 60 * 60 * 24))
-        : 999,
-      last_brief_days: briefs.length > 0
-        ? Math.ceil((Date.now() - new Date(briefs[0].created_at).getTime()) / (1000 * 60 * 60 * 24))
-        : 999,
+      last_signal_days: snapshot.lastSignalDays,
+      last_brief_days: snapshot.lastBriefDays,
     },
     session_prep_snapshot: {
-      signals_last_7_days: recentSignals.length,
-      briefs_last_7_days: recentBriefs.length,
-      interviews_last_7_days: recentInterviews.length,
-      active_pipeline_count: activePipelineCount,
-      overdue_actions: followUps.length,
+      baseline_started_at: snapshot.baselineStartedAt,
+      baseline_label: snapshot.baselineLabel,
+      signals_since_last_session: snapshot.signalsSinceLastSession,
+      pipeline_changes_since_last_session: snapshot.pipelineChangesSinceLastSession,
+      brief_reviews_since_last_session: snapshot.briefReviewsSinceLastSession,
+      brief_uses_since_last_session: snapshot.briefUsesSinceLastSession,
+      interviews_since_last_session: snapshot.interviewsSinceLastSession,
+      active_pipeline_count: snapshot.activePipelineCount,
+      overdue_actions: snapshot.overdueActions,
+      stalled_lanes: snapshot.stalledLanes,
     },
     weekly_trends: weeklyTrends,
   }

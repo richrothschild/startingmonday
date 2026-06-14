@@ -614,9 +614,14 @@ export type Database = {
           type: string
           output_text: string
           user_rating: number | null
+          rating_feedback: string | null
           section_name: string | null
           provenance_version: number | null
           claim_provenance: unknown | null
+          lifecycle_state: string
+          reviewed_at: string | null
+          used_at: string | null
+          lifecycle_updated_at: string
           created_at: string
         }
         Insert: {
@@ -624,6 +629,10 @@ export type Database = {
           user_id: string
           type: string
           output_text: string
+          lifecycle_state?: string
+          reviewed_at?: string | null
+          used_at?: string | null
+          lifecycle_updated_at?: string
           section_name?: string | null
           provenance_version?: number | null
           claim_provenance?: unknown | null

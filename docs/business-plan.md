@@ -43,7 +43,7 @@ It watches by scanning career pages at up to twenty-five target companies three 
 
 It prepares by generating a sixty-second brief built from the company's recent scans, intelligence signals, attached documents, and the candidate's own resume and positioning. The brief is specific to their background, not a generic company summary.
 
-It manages by tracking pipeline by stage, logging contacts and conversations, surfacing overdue follow-ups, delivering a daily morning briefing, and providing an AI advisor with full context that can take operational actions directly in conversation. The Active plan adds a full Search Strategy Brief, persistent AI chat, outreach email drafting, and resume tailoring with DOCX export.
+It manages by tracking pipeline by stage, logging contacts and conversations, surfacing overdue follow-ups, delivering a daily morning briefing, and providing an AI advisor with full context that can take operational actions directly in conversation. The Search plan adds a full Search Strategy Brief, persistent AI chat, outreach email drafting, and resume tailoring with DOCX export.
 
 ---
 
@@ -53,7 +53,7 @@ Approximately 500,000 to 800,000 VP and above professionals transition roles ann
 
 The serviceable addressable market is the 15 percent of those candidates who are actively searching or monitoring and willing to invest in their own search infrastructure: 75,000 to 120,000 candidates representing $120 to $260 million annually.
 
-The three-year target is 5,000 paying subscribers at $150 average monthly revenue, producing $9 million in ARR. That is a 4 to 7 percent SAM penetration rate, achievable through focused persona targeting and word-of-mouth from a high-satisfaction user base. At 1,000 subscribers the business generates approximately $1.5 million in ARR; at 10,000 subscribers, approximately $18 million. The Executive ($499 per month) and Campaign ($999 per month) tiers, once launched from waitlist, increase the average meaningfully: a 20 percent mix of Active and Executive at the 5,000-subscriber mark shifts ARR toward $12 to $14 million.
+The three-year target is 5,000 paying subscribers at $150 average monthly revenue, producing $9 million in ARR. That is a 4 to 7 percent SAM penetration rate, achievable through focused persona targeting and word-of-mouth from a high-satisfaction user base. At 1,000 subscribers the business generates approximately $1.5 million in ARR; at 10,000 subscribers, approximately $18 million. The Executive ($499 per month) and Campaign ($999 per month) tiers, once launched from waitlist, increase the average meaningfully: a 20 percent mix of Search and Executive at the 5,000-subscriber mark shifts ARR toward $12 to $14 million.
 
 ---
 
@@ -64,11 +64,11 @@ Subscription SaaS, billed monthly or quarterly.
 | Plan | Monthly | Quarterly | Target persona |
 | --- | --- | --- | --- |
 | Passive | $49 | $132 | Passive monitors, early-stage candidates |
-| Active | $199 | $537 | Actively searching VP/C-suite |
+| Search | $199 | $537 | Actively searching VP/C-suite |
 | Executive | $499 | Waitlist | C-suite, board-track, high-stakes search |
 | Campaign | $999 | 3-month minimum | Concierge, managed search |
 
-The trial is thirty days with no credit card, designed to convert on demonstrated value rather than time pressure. Target unit economics at scale: lifetime value of $1,592 to $2,388 for an Active subscriber at eight to twelve months; estimated customer acquisition cost of $150 to $400 depending on channel; LTV-to-CAC ratio target of 5:1 or better; gross margin above 85 percent, with primary COGS being Anthropic API usage at approximately $3 to $8 per active user per month.
+The trial is thirty days with no credit card, designed to convert on demonstrated value rather than time pressure. Target unit economics at scale: lifetime value of $1,592 to $2,388 for a Search subscriber at eight to twelve months; estimated customer acquisition cost of $150 to $400 depending on channel; LTV-to-CAC ratio target of 5:1 or better; gross margin above 85 percent, with primary COGS being Anthropic API usage at approximately $3 to $8 per active user per month.
 
 The natural lifecycle is search duration, three to nine months for VP and above. Managed churn will likely run 6 to 10 percent monthly, which is acceptable when trial-to-paid conversion is strong and the search-to-offer story is well-documented.
 

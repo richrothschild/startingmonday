@@ -1,5 +1,6 @@
 ﻿import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
+import { buildCoachSessionSnapshot } from '@/lib/coach-session-snapshot'
 import { createClient } from '@/lib/supabase/server'
 import { verifyCoachAccess } from '@/lib/coach-access'
 
@@ -22,16 +23,29 @@ export async function GET(
   }
 
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const [{ data, error }, snapshotResult] = await Promise.all([
+    supabase
     .from('coach_alert_preferences')
     .select('alert_on_company_signal, alert_on_new_interview, alert_on_client_edit, alert_frequency')
     .eq('coach_id', coachId)
     .eq('client_id', clientId)
-    .maybeSingle()
+    .maybeSingle(),
+    buildCoachSessionSnapshot(supabase, { clientId, coachId }),
+  ])
 
   if (error) {
     return NextResponse.json({ error: 'Failed to load alert preferences' }, { status: 500 })
   }
+
+  const activeAlerts = snapshotResult.snapshot.stalledLanes.map((lane) => ({
+    id: `${lane.lane}-${lane.state}`,
+    lane: lane.lane,
+    severity: lane.state === 'stalled' ? 'high' : 'medium',
+    title: lane.state === 'stalled'
+      ? `${lane.lane} lane is stalled`
+      : `${lane.lane} lane needs attention`,
+    message: lane.reason,
+  }))
 
   return NextResponse.json({
     data: data ?? {
@@ -39,6 +53,13 @@ export async function GET(
       alert_on_new_interview: true,
       alert_on_client_edit: false,
       alert_frequency: 'daily',
+    },
+    active_alerts: activeAlerts,
+    snapshot: {
+      baseline_label: snapshotResult.snapshot.baselineLabel,
+      baseline_started_at: snapshotResult.snapshot.baselineStartedAt,
+      overdue_actions: snapshotResult.snapshot.overdueActions,
+      brief_reviews_since_last_session: snapshotResult.snapshot.briefReviewsSinceLastSession,
     },
   }, { status: 200, headers: auth.response.headers })
 }
