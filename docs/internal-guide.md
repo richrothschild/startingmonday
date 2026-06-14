@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-14T14:21:07.431Z
+Last generated: 2026-06-14T20:02:50.959Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -676,10 +676,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (131)
+## Internal Scripts (136)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
+- Script scripts/apply-luxury-ux-backlog-fixes.mjs | scripts/apply-luxury-ux-backlog-fixes.mjs | Keep first CTA label, diversify following duplicates to avoid repeated-label overload.
 - Script scripts/audit-outreach-db.mjs | scripts/audit-outreach-db.mjs | import 'dotenv/config'
 - Script scripts/audit-outreach-momentum.ts | scripts/audit-outreach-momentum.ts | import {
 - Script scripts/audit-outreach-sends.mjs | scripts/audit-outreach-sends.mjs | import { config as loadEnv } from 'dotenv'
@@ -706,6 +707,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-lighthouse-budget-config.mjs | scripts/check-lighthouse-budget-config.mjs | #!/usr/bin/env node
 - Script scripts/check-linkedin-ads-gate.mjs | scripts/check-linkedin-ads-gate.mjs | Wilson score interval for 95% confidence
 - Script scripts/check-lint-baseline.mjs | scripts/check-lint-baseline.mjs | import fs from 'node:fs'
+- Script scripts/check-luxury-ux-static-gate.mjs | scripts/check-luxury-ux-static-gate.mjs | Gate 1: avoid pages drifting into tiny-text heavy support copy.
 - Script scripts/check-marketing-trust-proof-gate.mjs | scripts/check-marketing-trust-proof-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
@@ -748,10 +750,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/fix-outreach-signature-csv.mjs | scripts/fix-outreach-signature-csv.mjs | import { readdir, readFile, writeFile } from 'node:fs/promises'
 - Script scripts/fix-outreach-signature-db.mjs | scripts/fix-outreach-signature-db.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/generate-coach-emails.mjs | scripts/generate-coach-emails.mjs | ── CSV parser (no external deps) ─────────────────────────────────────────
+- Script scripts/generate-luxury-ux-remediation-backlog.mjs | scripts/generate-luxury-ux-remediation-backlog.mjs | #!/usr/bin/env node
+- Script scripts/generate-luxury-ux-wave1-tickets.mjs | scripts/generate-luxury-ux-wave1-tickets.mjs | #!/usr/bin/env node
 - Script scripts/generate-mobile-route-coverage-report.mjs | scripts/generate-mobile-route-coverage-report.mjs | #!/usr/bin/env node
 - Script scripts/generate-monitoring-harness.mjs | scripts/generate-monitoring-harness.mjs | #!/usr/bin/env node
 - Script scripts/generate-monitoring-matrix.mjs | scripts/generate-monitoring-matrix.mjs | #!/usr/bin/env node
 - Script scripts/generate-performance-release-scorecard.mjs | scripts/generate-performance-release-scorecard.mjs | #!/usr/bin/env node
+- Script scripts/generate-pr-churn-slo.mjs | scripts/generate-pr-churn-slo.mjs | #!/usr/bin/env node
 - Script scripts/growth-synthetic-council-audit.mjs | scripts/growth-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/guide-freshness-needed.mjs | scripts/guide-freshness-needed.mjs | #!/usr/bin/env node
 - Script scripts/guide-generate-eval-candidates.mjs | scripts/guide-generate-eval-candidates.mjs | #!/usr/bin/env node
@@ -809,7 +814,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (35)
+## Infrastructure and Workflows (37)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -821,6 +826,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
 - Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
 - Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
+- Workflow .github/workflows/luxury-ux-tiered.yml | .github/workflows/luxury-ux-tiered.yml | name: Luxury UX Tiered Gate
 - Workflow .github/workflows/managertools-launch-monitoring.yml | .github/workflows/managertools-launch-monitoring.yml | name: Manager Tools Launch Monitoring
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
 - Workflow .github/workflows/monitoring.yml | .github/workflows/monitoring.yml | name: Production Monitoring
@@ -844,6 +850,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
 - Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test
 - Workflow .github/workflows/weekly-mobile-ux.yml | .github/workflows/weekly-mobile-ux.yml | name: Weekly Mobile UX Audit
+- Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
 ## Data and Migrations (140)
@@ -988,7 +995,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (599)
+## Documentation (603)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1206,6 +1213,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/diagrams/signals-intelligence.md | docs/diagrams/signals-intelligence.md | Signals and Intelligence
 - Doc docs/diagrams/site-overview.md | docs/diagrams/site-overview.md | Site Overview
 - Doc docs/diagrams/user-flows.md | docs/diagrams/user-flows.md | User Flows
+- Doc docs/engineering/pr-churn-reduction-policy.md | docs/engineering/pr-churn-reduction-policy.md | PR Churn Reduction Policy
 - Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation
 - Doc docs/epic-90-day-reliability-rollout.md | docs/epic-90-day-reliability-rollout.md | Epic: 90-Day Reliability Rollout (SRE + UX Quality)
 - Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
@@ -1292,6 +1300,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/linkedin-contact-import-spec.md | docs/linkedin-contact-import-spec.md | LinkedIn Contact Import — UX Copy & Backend API Contract
 - Doc docs/liz-coach-outreach-instructions.md | docs/liz-coach-outreach-instructions.md | Coach Outreach Playbook — Instructions for Liz
 - Doc docs/liz-executive-coach-linkedin-guide.md | docs/liz-executive-coach-linkedin-guide.md | Liz Daily Guide: Executive Coach Outreach on LinkedIn
+- Doc docs/luxury-ux-remediation-handoff-2026-06-14.md | docs/luxury-ux-remediation-handoff-2026-06-14.md | Luxury UX Remediation Handoff
+- Doc docs/luxury-ux-testing-playbook.md | docs/luxury-ux-testing-playbook.md | Luxury UX Testing Playbook
 - Doc docs/main-landing-page-council-review.md | docs/main-landing-page-council-review.md | Main Landing Page Council Review
 - Doc docs/managertools-launch-execution.md | docs/managertools-launch-execution.md | Manager Tools Newsletter Launch — Execution Plan
 - Doc docs/mark-horstman-site-audit.md | docs/mark-horstman-site-audit.md | Starting Monday - Synthetic Mark Horstman Audit
@@ -1385,6 +1395,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/site-monitoring-runbook.md | docs/site-monitoring-runbook.md | Site Monitoring Incident Runbook
 - Doc docs/site-monitoring-sprint-plan.md | docs/site-monitoring-sprint-plan.md | Site Monitoring Sprint Plan
 - Doc docs/site-review-from-new-council-members-may-2026.md | docs/site-review-from-new-council-members-may-2026.md | Starting Monday Site Review — All New Council Members
+- Doc docs/slack-chris-luxury-ux-handoff-2026-06-14.md | docs/slack-chris-luxury-ux-handoff-2026-06-14.md | Slack Copy: Luxury UX Remediation Handoff
 - Doc docs/sm-acquisition-sprints.md | docs/sm-acquisition-sprints.md | Starting Monday — User Acquisition Sprint Plan
 - Doc docs/sm-gtm-b2b.md | docs/sm-gtm-b2b.md | Starting Monday — B2B Market Attack Plan
 - Doc docs/sm-gtm-b2c.md | docs/sm-gtm-b2c.md | Starting Monday — B2C Market Attack Plan

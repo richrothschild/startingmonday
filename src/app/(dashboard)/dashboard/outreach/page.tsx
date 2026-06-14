@@ -280,10 +280,10 @@ export default async function OutreachHubPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard" className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors">
+          <Link href="/dashboard" className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors">
             ← Dashboard
           </Link>
         </div>
@@ -298,7 +298,7 @@ export default async function OutreachHubPage() {
           <div className="mt-3">
             <Link
               href="/dashboard/admin/social#content-checker"
-              className="inline-flex items-center text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+              className="inline-flex items-center text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
             >
               Content Checker
             </Link>
@@ -306,8 +306,8 @@ export default async function OutreachHubPage() {
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-2 text-[13px]">
             <a href="#outreach-snapshot" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Snapshot</a>
             <a href="#outreach-workbench" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Outreach workbench</a>
             <a href="#outreach-cadence" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Cadence</a>
@@ -317,38 +317,38 @@ export default async function OutreachHubPage() {
 
         <section id="outreach-snapshot" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Total Prospects</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Total Prospects</p>
             <p className="text-[24px] font-bold text-slate-900">{clientRows.length}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Deduped across all channels</p>
+            <p className="text-[13px] text-slate-500 mt-1">Deduped across all channels</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">By Channel</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">By Channel</p>
             <p className="text-[13px] font-semibold text-slate-900 mt-1">Executives: {executiveCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Search Firms: {searchFirmCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Coaches: {coachCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Outplacement Firms: {outplacementCount}</p>
-            <p className="text-[12px] text-orange-600 font-semibold mt-2">Day 1 Coach Sprint List: {day1CoachCount}</p>
+            <p className="text-[13px] text-orange-600 font-semibold mt-2">Day 1 Coach Sprint List: {day1CoachCount}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Fit Priority</p>
             <p className="text-[13px] font-semibold text-slate-900 mt-1">Strong fit: {strongCount}</p>
             <p className="text-[13px] font-semibold text-slate-900">Medium fit: {mediumCount}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Strong-fit rows should be worked first</p>
+            <p className="text-[13px] text-slate-500 mt-1">Strong-fit rows should be worked first</p>
           </div>
         </section>
 
         <section className="bg-white border border-orange-200 rounded p-5">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-600 mb-2">New Section: Day 1 Coach Sprint</p>
+          <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-orange-600 mb-2">New Section: Day 1 Coach Sprint</p>
           <h2 className="text-[18px] font-bold text-slate-900 leading-tight">Run the 60-target coach list with prefilled outreach drafts</h2>
           <p className="text-[13px] text-slate-600 mt-2 max-w-3xl">
             Use the <span className="font-semibold text-slate-900">Day 1 Coach List (60)</span> button in the outreach workbench channel bar.
             It filters to the Day 1 targets and preloads each contact with the Day 1 sprint email copy from the coach traction plan.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <a href="#outreach-workbench" className="inline-flex items-center bg-slate-900 text-white text-[12px] font-semibold px-3 py-2 rounded hover:bg-slate-700 transition-colors">
+            <a href="#outreach-workbench" className="inline-flex items-center bg-slate-900 text-white text-[13px] font-semibold px-3 py-2 rounded hover:bg-slate-700 transition-colors">
               Open Outreach Workbench
             </a>
-            <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[12px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
+            <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
               View Cadence Checklist
             </a>
           </div>
@@ -363,12 +363,12 @@ export default async function OutreachHubPage() {
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
             <div>
               <h2 className="text-[16px] font-bold text-slate-900">Operating Cadence</h2>
-              <p className="text-[12px] text-slate-500">Run this every week to keep outbound moving.</p>
+              <p className="text-[13px] text-slate-500">Run this every week to keep outbound moving.</p>
             </div>
             <a
               href="/calendar/starting-monday-outreach-reminders.ics"
               download
-              className="text-[12px] font-semibold text-white bg-slate-900 rounded px-3 py-2 hover:bg-slate-700 transition-colors"
+              className="text-[13px] font-semibold text-white bg-slate-900 rounded px-3 py-2 hover:bg-slate-700 transition-colors"
             >
               Download Reminder Calendar
             </a>
@@ -384,11 +384,11 @@ export default async function OutreachHubPage() {
         <section id="outreach-links" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link href="/dashboard/calendar" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900 mb-1">In-App Calendar</p>
-            <p className="text-[12px] text-slate-500">Manage date-based follow-ups alongside the outreach routine.</p>
+            <p className="text-[13px] text-slate-500">Manage date-based follow-ups alongside the outreach routine.</p>
           </Link>
           <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-5 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900 mb-1">Contacts</p>
-            <p className="text-[12px] text-slate-500">Update statuses: first sent, follow-up sent, replied, meeting booked.</p>
+            <p className="text-[13px] text-slate-500">Update statuses: first sent, follow-up sent, replied, meeting booked.</p>
           </Link>
         </section>
       </main>

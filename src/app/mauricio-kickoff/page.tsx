@@ -212,9 +212,9 @@ function MetricTable({ title, rows }: { title: string; rows: MetricRow[] }) {
       <div className="divide-y divide-slate-100">
         {rows.map((row) => (
           <div key={row.metric} className="px-4 py-3 grid grid-cols-1 md:grid-cols-[180px_1fr_1fr] gap-2 md:gap-4">
-            <p className="text-[12px] font-semibold text-slate-900">{row.metric}</p>
-            <p className="text-[12px] text-slate-700">{row.target}</p>
-            <p className="text-[12px] text-slate-500">{row.why}</p>
+            <p className="text-[13px] font-semibold text-slate-900">{row.metric}</p>
+            <p className="text-[13px] text-slate-700">{row.target}</p>
+            <p className="text-[13px] text-slate-500">{row.why}</p>
           </div>
         ))}
       </div>
@@ -230,10 +230,10 @@ export default function MauricioKickoffPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/partners" className="text-[12px] text-slate-400 hover:text-white transition-colors">
+          <Link href="/partners" className="text-[13px] text-slate-400 hover:text-white transition-colors">
             Partner hub
           </Link>
         </div>
@@ -242,7 +242,7 @@ export default function MauricioKickoffPage() {
       <main>
         <header className="bg-slate-900 px-4 sm:px-6 pt-14 pb-14">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
+            <p className="text-[13px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-4">
               Public kickoff page
             </p>
             <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.08] tracking-tight mb-4">
@@ -256,7 +256,7 @@ export default function MauricioKickoffPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               {['Business development first', 'Sales-enablement assist', 'Day 14 checkpoint', 'Day 30 decision'].map((chip) => (
-                <span key={chip} className="text-[11px] font-semibold text-slate-300 border border-slate-700 rounded-full px-3 py-1.5 bg-slate-950/40">
+                <span key={chip} className="text-[13px] font-semibold text-slate-300 border border-slate-700 rounded-full px-3 py-1.5 bg-slate-950/40">
                   {chip}
                 </span>
               ))}
@@ -264,7 +264,7 @@ export default function MauricioKickoffPage() {
             <div className="mt-5">
               <Link
                 href="/mauricio-kickoff-execution"
-                className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-200 hover:bg-orange-500/20"
+                className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[13px] font-semibold text-orange-200 hover:bg-orange-500/20"
               >
                 Open Mauricio execution tasks and why they matter
               </Link>
@@ -274,7 +274,7 @@ export default function MauricioKickoffPage() {
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10">
           <section className="border border-slate-200 rounded-2xl bg-white p-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Start here</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Start here</p>
             <h2 className="text-[20px] font-bold text-slate-900 mb-4">Guides, current-state assets, needs intake, and feedback</h2>
 
             <div className="flex flex-wrap gap-3 mb-5">
@@ -282,25 +282,25 @@ export default function MauricioKickoffPage() {
                 href="https://startingmonday.app/coaches-guide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center border border-slate-300 bg-slate-900 text-white text-[12px] font-semibold rounded px-3 py-2 hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center border border-slate-300 bg-slate-900 text-white text-[13px] font-semibold rounded px-3 py-2 hover:bg-slate-800 transition-colors"
               >
                 Open external guide
               </a>
               <a
                 href={askMauricioHref}
-                className="inline-flex items-center border border-slate-300 bg-white text-slate-700 text-[12px] font-semibold rounded px-3 py-2 hover:bg-slate-50 transition-colors"
+                className="inline-flex items-center border border-slate-300 bg-white text-slate-700 text-[13px] font-semibold rounded px-3 py-2 hover:bg-slate-50 transition-colors"
               >
                 Email Mauricio with questions
               </a>
               <a
                 href={requestMauricioHref}
-                className="inline-flex items-center border border-emerald-300 bg-emerald-50 text-emerald-800 text-[12px] font-semibold rounded px-3 py-2 hover:bg-emerald-100 transition-colors"
+                className="inline-flex items-center border border-emerald-300 bg-emerald-50 text-emerald-800 text-[13px] font-semibold rounded px-3 py-2 hover:bg-emerald-100 transition-colors"
               >
                 Email Mauricio with a request
               </a>
               <Link
                 href="/feedback"
-                className="inline-flex items-center border border-orange-300 bg-orange-50 text-orange-800 text-[12px] font-semibold rounded px-3 py-2 hover:bg-orange-100 transition-colors"
+                className="inline-flex items-center border border-orange-300 bg-orange-50 text-orange-800 text-[13px] font-semibold rounded px-3 py-2 hover:bg-orange-100 transition-colors"
               >
                 Provide feedback
               </Link>
@@ -318,17 +318,17 @@ export default function MauricioKickoffPage() {
                       {item.label}
                     </Link>
                   )}
-                  <p className="text-[12px] text-slate-500 mt-1.5">{item.helper}</p>
+                  <p className="text-[13px] text-slate-500 mt-1.5">{item.helper}</p>
                 </div>
               ))}
             </div>
           </section>
 
           <section className="border border-indigo-200 rounded-xl bg-indigo-50/50 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-indigo-700 mb-2">Current assumptions (can be edited)</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-indigo-700 mb-2">Current assumptions (can be edited)</p>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {CURRENT_ASSUMPTIONS.map((item) => (
-                <li key={item} className="text-[12px] text-slate-700 leading-relaxed bg-white border border-indigo-100 rounded-lg px-3 py-2">
+                <li key={item} className="text-[13px] text-slate-700 leading-relaxed bg-white border border-indigo-100 rounded-lg px-3 py-2">
                   {item}
                 </li>
               ))}
@@ -337,14 +337,14 @@ export default function MauricioKickoffPage() {
 
           <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Primary objective</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Primary objective</p>
               <p className="text-[15px] font-semibold text-slate-900 mb-2">Generate more qualified meetings without wasting founder time.</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
                 Build a repeatable outbound motion that produces qualified conversations now and compounds into pipeline over the next 90 days.
               </p>
             </div>
             <div className="border border-amber-200 rounded-xl bg-amber-50/50 p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-2">Qualified meeting definition</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-2">Qualified meeting definition</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
                 Decision-maker or strong influencer, clear pain, timing within 90 days, and explicit next step scheduled.
               </p>
@@ -356,7 +356,7 @@ export default function MauricioKickoffPage() {
               <h2 className="text-[15px] font-semibold text-slate-900">First 10-day execution plan</h2>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px] min-w-[760px]">
+              <table className="w-full text-[13px] min-w-[760px]">
                 <thead>
                   <tr className="border-b border-slate-100 bg-white text-left">
                     <th className="px-4 py-2.5 font-semibold text-slate-500">Day</th>
@@ -384,10 +384,10 @@ export default function MauricioKickoffPage() {
 
           <section className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Sales-enablement proof pack</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Sales-enablement proof pack</p>
               <ul className="space-y-2">
                 {PROOF_PACK.map((item) => (
-                  <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                     <span className="text-orange-500 font-bold">+</span>
                     <span>{item}</span>
                   </li>
@@ -396,10 +396,10 @@ export default function MauricioKickoffPage() {
             </div>
 
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Qualification standard (4/5 minimum)</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Qualification standard (4/5 minimum)</p>
               <ul className="space-y-2">
                 {QUALIFIED_MEETING_STANDARD.map((item) => (
-                  <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                     <span className="text-emerald-600 font-bold">+</span>
                     <span>{item}</span>
                   </li>
@@ -408,10 +408,10 @@ export default function MauricioKickoffPage() {
             </div>
 
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Access and tooling checklist</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Access and tooling checklist</p>
               <ul className="space-y-2">
                 {ACCESS_CHECKLIST.map((item) => (
-                  <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                     <span className="text-slate-500 font-bold">+</span>
                     <span>{item}</span>
                   </li>
@@ -422,10 +422,10 @@ export default function MauricioKickoffPage() {
 
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Commercial terms (trial)</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Commercial terms (trial)</p>
               <ul className="space-y-2">
                 {COMMERCIAL_TERMS.map((item) => (
-                  <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                     <span className="text-orange-500 font-bold">+</span>
                     <span>{item}</span>
                   </li>
@@ -434,10 +434,10 @@ export default function MauricioKickoffPage() {
             </div>
 
             <div className="border border-slate-200 rounded-xl bg-white p-5">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Recommended CRM operating model</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Recommended CRM operating model</p>
               <ul className="space-y-2">
                 {CRM_RECOMMENDATION.map((item) => (
-                  <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                  <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                     <span className="text-emerald-600 font-bold">+</span>
                     <span>{item}</span>
                   </li>
@@ -447,11 +447,11 @@ export default function MauricioKickoffPage() {
           </section>
 
           <section className="border border-orange-300 rounded-2xl bg-orange-50/50 p-6">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Finalize in today kickoff call</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Finalize in today kickoff call</p>
             <h2 className="text-[19px] font-bold text-slate-900 mb-4">Five decisions we lock before launch</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {FINALIZE_TODAY.map((item) => (
-                <div key={item} className="border border-orange-200 bg-white rounded-lg px-4 py-3 text-[12px] text-slate-700 leading-relaxed">
+                <div key={item} className="border border-orange-200 bg-white rounded-lg px-4 py-3 text-[13px] text-slate-700 leading-relaxed">
                   {item}
                 </div>
               ))}
@@ -459,21 +459,21 @@ export default function MauricioKickoffPage() {
           </section>
 
           <section className="border border-slate-200 rounded-xl bg-slate-50 p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Reporting rhythm</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Reporting rhythm</p>
             <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
               Weekly report every Friday by 5pm: activity summary, performance metrics, pipeline updates, what is working,
               what is being cut, and next-week plan.
             </p>
-            <p className="text-[12px] text-slate-500">
+            <p className="text-[13px] text-slate-500">
               Daily update format: five bullets max (volume, replies, blockers, next actions, founder asks).
             </p>
           </section>
 
           <section className="border border-slate-200 rounded-xl bg-white p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">What is still missing for faster ramp-up</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">What is still missing for faster ramp-up</p>
             <ul className="space-y-2">
               {RAMP_UP_GAPS.map((item) => (
-                <li key={item} className="text-[12px] text-slate-700 leading-relaxed flex gap-2.5">
+                <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
                   <span className="text-slate-500 font-bold">+</span>
                   <span>{item}</span>
                 </li>

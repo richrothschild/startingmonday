@@ -196,10 +196,10 @@ export default async function CustomersPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
             Admin
           </Link>
         </div>
@@ -213,33 +213,33 @@ export default async function CustomersPage({
 
         {/* Conversion stats */}
         <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
             <div>
               <p className="text-[28px] font-bold text-slate-900 leading-none">{trialing}</p>
-              <p className="text-[12px] text-slate-400 mt-1">Active trials</p>
+              <p className="text-[13px] text-slate-400 mt-1">Active trials</p>
             </div>
             <div>
               <p className="text-[28px] font-bold text-orange-500 leading-none">{converted}</p>
-              <p className="text-[12px] text-slate-400 mt-1">Converted</p>
+              <p className="text-[13px] text-slate-400 mt-1">Converted</p>
             </div>
             <div>
               <p className="text-[28px] font-bold text-slate-900 leading-none">{lapsed}</p>
-              <p className="text-[12px] text-slate-400 mt-1">Lapsed</p>
+              <p className="text-[13px] text-slate-400 mt-1">Lapsed</p>
             </div>
             <div>
               <p className="text-[28px] font-bold text-slate-900 leading-none">{convRate}%</p>
-              <p className="text-[12px] text-slate-400 mt-1">Conv. rate</p>
-              <p className="text-[10px] text-slate-300 mt-0.5">of closed trials</p>
+              <p className="text-[13px] text-slate-400 mt-1">Conv. rate</p>
+              <p className="text-[13px] text-slate-300 mt-0.5">of closed trials</p>
             </div>
           </div>
 
           {/* Channel attribution */}
           <div className="border-t border-slate-100 pt-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Signups by source</p>
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Signups by source</p>
             <div className="flex flex-wrap gap-2">
               {topSources.map(([src, count]) => (
-                <span key={src} className="inline-flex items-center gap-1.5 text-[12px] bg-slate-50 border border-slate-200 rounded px-3 py-1.5">
+                <span key={src} className="inline-flex items-center gap-1.5 text-[13px] bg-slate-50 border border-slate-200 rounded px-3 py-1.5">
                   <span className="font-semibold text-slate-700">{src}</span>
                   <span className="text-slate-400">{count}</span>
                 </span>
@@ -265,7 +265,7 @@ export default async function CustomersPage({
               }`}>
                 {card.label}
               </div>
-              <div className="text-[11px] mt-2 font-semibold tracking-wide text-slate-400">
+              <div className="text-[13px] mt-2 font-semibold tracking-wide text-slate-400">
                 {card.sublabel}
               </div>
             </Link>
@@ -275,7 +275,7 @@ export default async function CustomersPage({
         {/* Table */}
         <div className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200">
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               {FILTER_LABELS[filter]} ({filteredUsers.length})
             </span>
           </div>
@@ -284,7 +284,7 @@ export default async function CustomersPage({
             <p className="px-6 py-8 text-[13px] text-slate-400">No customers in this segment yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-left">
                     <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
@@ -313,7 +313,7 @@ export default async function CustomersPage({
                           {TIER_NAMES[u.subscription_tier ?? 'free'] ?? 'Free'}
                         </td>
                         <td className="px-4 py-3">
-                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${statusBadge[u.subscription_status] ?? 'bg-slate-100 text-slate-400'}`}>
+                          <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${statusBadge[u.subscription_status] ?? 'bg-slate-100 text-slate-400'}`}>
                             {u.subscription_status.charAt(0).toUpperCase() + u.subscription_status.slice(1)}
                           </span>
                         </td>
@@ -330,7 +330,7 @@ export default async function CustomersPage({
                         <td className="px-4 py-3 text-slate-500 hidden md:table-cell whitespace-nowrap">
                           {daysAgo(lastActiveMap[u.id])}
                         </td>
-                        <td className="px-4 py-3 text-slate-400 font-mono text-[11px] hidden lg:table-cell">
+                        <td className="px-4 py-3 text-slate-400 font-mono text-[13px] hidden lg:table-cell">
                           {u.signup_source ?? '--'}
                         </td>
                         <td className="px-4 py-3 text-center">
@@ -351,12 +351,12 @@ export default async function CustomersPage({
                         </td>
                         <td className="px-4 py-3 text-right">
                           {wasSent ? (
-                            <span className="text-[11px] font-bold text-green-700">Sent</span>
+                            <span className="text-[13px] font-bold text-green-700">Sent</span>
                           ) : (
                             <form action={sendEmailAction.bind(null, u.id, filter)}>
                               <button
                                 type="submit"
-                                className="text-[11px] font-semibold text-slate-500 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
+                                className="text-[13px] font-semibold text-slate-500 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
                               >
                                 Send welcome
                               </button>

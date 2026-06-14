@@ -253,11 +253,11 @@ export default async function OutreachAnalyticsPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
+            <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
           </div>
         </div>
       </header>
@@ -270,31 +270,31 @@ export default async function OutreachAnalyticsPage() {
 
         <section id="kpis" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Live Sends (7d)</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Live Sends (7d)</h2>
             <p className="text-[24px] font-bold text-slate-900">{sent7d}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Delivery rate: {deliveryRate7d}%</p>
+            <p className="text-[13px] text-slate-500 mt-1">Delivery rate: {deliveryRate7d}%</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Delivery Issues (7d)</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Delivery Issues (7d)</h2>
             <p className="text-[24px] font-bold text-slate-900">{bounced7d + unconfirmed7d}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Bounced: {bounced7d} · Unconfirmed: {unconfirmed7d}</p>
+            <p className="text-[13px] text-slate-500 mt-1">Bounced: {bounced7d} · Unconfirmed: {unconfirmed7d}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Response Rate</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Response Rate</h2>
             <p className="text-[24px] font-bold text-slate-900">{responseRate}%</p>
-            <p className="text-[12px] text-slate-500 mt-1">Conversations + meetings / contacted</p>
+            <p className="text-[13px] text-slate-500 mt-1">Conversations + meetings / contacted</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Meetings Set Rate</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Meetings Set Rate</h2>
             <p className="text-[24px] font-bold text-slate-900">{meetingRate}%</p>
-            <p className="text-[12px] text-slate-500 mt-1">Meetings / contacted prospects</p>
+            <p className="text-[13px] text-slate-500 mt-1">Meetings / contacted prospects</p>
           </div>
         </section>
 
         <section id="outreach-funnel" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Outreach Funnel</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Outreach Funnel</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <div>Prospects</div><div className="font-semibold text-right">{byStatus.prospect}</div>
@@ -307,13 +307,13 @@ export default async function OutreachAnalyticsPage() {
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Sends by Channel (7d)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Sends by Channel (7d)</h2>
             </div>
             <div className="px-5 py-4">
               {channelRows.length === 0 ? (
                 <p className="text-[13px] text-slate-500">No live sends in the last 7 days.</p>
               ) : (
-                <table className="w-full text-[12px]">
+                <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left text-slate-400">
                       <th className="pb-2 font-semibold">Channel</th>
@@ -341,7 +341,7 @@ export default async function OutreachAnalyticsPage() {
         <section id="customer-growth" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">New Customers (30d)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">New Customers (30d)</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <div>New trial users</div><div className="font-semibold text-right">{newTrialUsers30d}</div>
@@ -351,12 +351,12 @@ export default async function OutreachAnalyticsPage() {
               <div>New paid · Executive</div><div className="font-semibold text-right">{newPaidByTier.executive}</div>
               <div>Potential outreach-attributed signups</div><div className="font-semibold text-right">{outreachAttributed30d}</div>
             </div>
-            <div className="px-5 pb-4 text-[11px] text-slate-400">Outreach attribution is email-match based and directional.</div>
+            <div className="px-5 pb-4 text-[13px] text-slate-400">Outreach attribution is email-match based and directional.</div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Current Customer Base</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Current Customer Base</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <div>Trialing now</div><div className="font-semibold text-right">{trialingCount ?? 0}</div>
@@ -367,12 +367,12 @@ export default async function OutreachAnalyticsPage() {
             </div>
 
             <div className="px-5 pb-4">
-              <p className="text-[11px] text-slate-400 mb-2">Top signup sources (30d)</p>
+              <p className="text-[13px] text-slate-400 mb-2">Top signup sources (30d)</p>
               <div className="flex flex-wrap gap-2">
                 {topSignupSources.length === 0 ? (
-                  <span className="text-[12px] text-slate-500">No recent signups.</span>
+                  <span className="text-[13px] text-slate-500">No recent signups.</span>
                 ) : topSignupSources.map(([source, count]) => (
-                  <span key={source} className="text-[11px] bg-slate-100 text-slate-700 px-2 py-1 rounded">{source}: {count}</span>
+                  <span key={source} className="text-[13px] bg-slate-100 text-slate-700 px-2 py-1 rounded">{source}: {count}</span>
                 ))}
               </div>
             </div>
@@ -382,9 +382,9 @@ export default async function OutreachAnalyticsPage() {
         <section id="linkedin-engagement" className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Engagement (30d)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">LinkedIn Engagement (30d)</h2>
               {postsSynced.length > 0 && (
-                <span className="text-[10px] text-emerald-600 font-semibold">API synced</span>
+                <span className="text-[13px] text-emerald-600 font-semibold">API synced</span>
               )}
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
@@ -407,14 +407,14 @@ export default async function OutreachAnalyticsPage() {
               )}
             </div>
             {postsWithUrn.length === 0 && (
-              <div className="px-5 pb-4 text-[11px] text-amber-600">
+              <div className="px-5 pb-4 text-[13px] text-amber-600">
                 No LinkedIn URNs stored yet. Update your Make.com scenario to return{' '}
                 <code className="font-mono">&#123;&quot;linkedin_post_urn&quot;: &quot;urn:li:ugcPost:...&quot;&#125;</code>{' '}
                 in the HTTP response module, then add <code className="font-mono">LINKEDIN_ACCESS_TOKEN</code> to env.
               </div>
             )}
             {postsWithUrn.length > 0 && postsSynced.length === 0 && (
-              <div className="px-5 pb-4 text-[11px] text-amber-600">
+              <div className="px-5 pb-4 text-[13px] text-amber-600">
                 URNs stored but no sync yet. Add <code className="font-mono">LINKEDIN_ACCESS_TOKEN</code> env var
                 (requires <code className="font-mono">r_member_social</code> or <code className="font-mono">r_organization_social</code> scope).
               </div>
@@ -424,7 +424,7 @@ export default async function OutreachAnalyticsPage() {
           {/* Engagement trend bar chart — inline SVG, no client bundle needed */}
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</h2>
             </div>
             <div className="px-5 py-5">
               {chartPosts.length === 0 ? (
@@ -457,14 +457,14 @@ export default async function OutreachAnalyticsPage() {
                 </svg>
               )}
               <div className="flex items-center gap-4 mt-2">
-                <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                <span className="flex items-center gap-1 text-[13px] text-slate-500">
                   <span className="inline-block w-3 h-3 rounded-sm bg-indigo-500" />Likes
                 </span>
-                <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                <span className="flex items-center gap-1 text-[13px] text-slate-500">
                   <span className="inline-block w-3 h-3 rounded-sm bg-orange-500" />Comments
                 </span>
                 {postsSynced.length === 0 && (
-                  <span className="text-[11px] text-slate-400 ml-auto">Awaiting API sync</span>
+                  <span className="text-[13px] text-slate-400 ml-auto">Awaiting API sync</span>
                 )}
               </div>
             </div>
@@ -474,13 +474,13 @@ export default async function OutreachAnalyticsPage() {
         <section id="delivery-failures" className="grid grid-cols-1 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Delivery Failures (7d)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Delivery Failures (7d)</h2>
             </div>
             <div className="px-5 py-4">
               {recentFailures.length === 0 ? (
                 <p className="text-[13px] text-slate-500">No bounced or complaint events in the last 7 days.</p>
               ) : (
-                <table className="w-full text-[12px]">
+                <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left text-slate-400">
                       <th className="pb-2 font-semibold">Recipient</th>
@@ -506,7 +506,7 @@ export default async function OutreachAnalyticsPage() {
         <section id="followup-template-source" className="grid grid-cols-1 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Follow-up Template Source Verification (30d)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Follow-up Template Source Verification (30d)</h2>
             </div>
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 lg:grid-cols-4 gap-y-2">
               <div>Total bulk follow-up sends</div><div className="font-semibold text-right">{bulkFollowups30d.length}</div>
@@ -515,20 +515,20 @@ export default async function OutreachAnalyticsPage() {
               <div>Unknown source</div><div className="font-semibold text-right">{unknownTemplateCount}</div>
               <div>Latest-template rate</div><div className="font-semibold text-right">{latestTemplateRate}%</div>
             </div>
-            <div className="px-5 pb-4 text-[11px] text-slate-400">
+            <div className="px-5 pb-4 text-[13px] text-slate-400">
               Bulk follow-up sends are expected to use template_source latest_template_engine.
             </div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Bulk Follow-up Template Source Rows</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Recent Bulk Follow-up Template Source Rows</h2>
             </div>
             <div className="px-5 py-4">
               {followupTemplateRows.length === 0 ? (
                 <p className="text-[13px] text-slate-500">No bulk follow-up live sends found in the last 30 days.</p>
               ) : (
-                <table className="w-full text-[12px]">
+                <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left text-slate-400">
                       <th className="pb-2 font-semibold">Recipient</th>
@@ -556,15 +556,15 @@ export default async function OutreachAnalyticsPage() {
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link href="/dashboard/outreach" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open Outreach Hub</p>
-            <p className="text-[12px] text-slate-500 mt-1">Manage queue, send messages, and update statuses.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Manage queue, send messages, and update statuses.</p>
           </Link>
           <Link href="/dashboard/admin/social" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open LinkedIn Social</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review drafts, posting history, and engagement notes.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review drafts, posting history, and engagement notes.</p>
           </Link>
           <Link href="/dashboard/admin/customers" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-300 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open Customers</p>
-            <p className="text-[12px] text-slate-500 mt-1">Inspect trial and paid customer details.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Inspect trial and paid customer details.</p>
           </Link>
         </section>
       </main>

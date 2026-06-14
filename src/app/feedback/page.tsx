@@ -49,7 +49,7 @@ function FeedbackForm() {
   return (
     <div className="w-full max-w-2xl">
       <section className="mb-6">
-        <h2 className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-500 mb-4">
+        <h2 className="text-[13px] font-bold tracking-[0.18em] uppercase text-slate-500 mb-4">
           Starting Monday Feedback
         </h2>
         {state === 'done' ? (
@@ -68,14 +68,14 @@ function FeedbackForm() {
             <p className="text-[14px] text-slate-500 mt-3">Specific and honest beats polished.</p>
 
             <section className="mt-6 rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick starter (optional)</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Quick starter (optional)</h2>
               <div className="flex flex-wrap gap-2">
                 {PROMPT_STARTERS.map((starter) => (
                   <button
                     key={starter}
                     type="button"
                     onClick={() => applyStarter(starter)}
-                    className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-left text-[12px] text-slate-700 hover:border-slate-400 hover:bg-slate-100 transition-colors"
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-left text-[13px] text-slate-700 hover:border-slate-400 hover:bg-slate-100 transition-colors"
                   >
                     {starter}
                   </button>
@@ -84,14 +84,14 @@ function FeedbackForm() {
             </section>
 
             <section className="mt-5 rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">How this is used</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1">How this is used</h2>
               <p className="text-[13px] text-slate-600 leading-relaxed">
                 We use this feedback to shape roadmap priorities and improve product messaging. We do not publish private details from your account unless you explicitly approve public use.
               </p>
             </section>
 
             <form onSubmit={handleSubmit} className="mt-5">
-              <label htmlFor="feedback-text" className="block text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">
+              <label htmlFor="feedback-text" className="block text-[13px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-2">
                 Your one sentence
               </label>
               <textarea
@@ -105,12 +105,12 @@ function FeedbackForm() {
               />
 
               <div className="flex items-center justify-between mt-2 mb-4">
-                <p className="text-[11px] text-slate-500">Stays confidential unless you approve otherwise.</p>
-                <p className="text-[11px] text-slate-500">{remaining} chars left</p>
+                <p className="text-[13px] text-slate-500">Stays confidential unless you approve otherwise.</p>
+                <p className="text-[13px] text-slate-500">{remaining} chars left</p>
               </div>
 
               {state === 'error' && (
-                <p className="text-[12px] text-red-600 mb-3">{errorMessage}</p>
+                <p className="text-[13px] text-red-600 mb-3">{errorMessage}</p>
               )}
 
               <button
@@ -133,19 +133,19 @@ export default function FeedbackPage() {
     <div className="min-h-screen bg-slate-950 font-sans text-white">
       <nav className="sticky top-0 z-10 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/dashboard"
-              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
+              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[13px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
             >
               Back to dashboard
             </Link>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
             >
               Start now
             </Link>

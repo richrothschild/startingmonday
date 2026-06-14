@@ -5,6 +5,8 @@ on:
     branches: [main, staging]
   pull_request:
     branches: [main]
+  merge_group:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -184,6 +186,45 @@ jobs:
             exit 1
           fi
 
+  risky-change-rollout-policy:
+    name: Risky change rollout policy
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Detect risky file changes
+        id: changed
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            risky:
+              - 'src/app/(auth)/**'
+              - 'src/app/for-coaches/**'
+              - 'src/app/pricing/**'
+              - 'src/app/demo/**'
+              - 'tests/e2e/**'
+              - '.github/workflows/ci.yml'
+            rollout_policy:
+              - 'config/feature-rollout-policy.json'
+              - 'docs/engineering/pr-churn-reduction-policy.md'
+
+      - name: Enforce feature-flag-first label on risky changes
+        if: steps.changed.outputs.risky == 'true'
+        uses: actions/github-script@v8
+        env:
+          ROLLOUT_POLICY_CHANGED: ${{ steps.changed.outputs.rollout_policy }}
+        with:
+          script: |
+            const labels = (context.payload.pull_request?.labels || []).map((l) => l.name)
+            const hasFeatureFlagLabel = labels.includes('feature-flagged')
+            const rolloutPolicyChanged = process.env.ROLLOUT_POLICY_CHANGED === 'true'
+
+            if (!hasFeatureFlagLabel && !rolloutPolicyChanged) {
+              core.setFailed('Risky PR requires feature-flagged label or rollout policy update (config/feature-rollout-policy.json).')
+            }
+
   playwright:
     name: Playwright E2E
     runs-on: ubuntu-latest
@@ -221,11 +262,11 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  playwright-pr:
-    name: Playwright E2E (PR)
+  playwright-merge-queue-full:
+    name: Playwright merge-queue full suite
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    if: github.event_name == 'pull_request'
+    timeout-minutes: 45
+    if: github.event_name == 'merge_group'
 
     steps:
       - uses: actions/checkout@v5
@@ -241,10 +282,136 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Run E2E tests
-        run: npm run test:e2e
+      - name: Run merge-queue expanded Playwright suites
+        run: npx playwright test --project=setup --project=smoke --project=monitor-generated --project=synthetics
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: https://starting-monday-staging.up.railway.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+
+      - name: Upload merge-queue Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-merge-queue-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  playwright-pr-plan:
+    name: Playwright PR plan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      playwright_base_url: ${{ steps.base_url.outputs.playwright_base_url }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed files
+        id: changed
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            authux:
+              - 'src/app/(auth)/**'
+              - 'tests/e2e/auth-ux.spec.ts'
+            luxuryux:
+              - 'src/app/for-coaches/**'
+              - 'tests/e2e/luxury-ux.spec.ts'
+            synthetic10:
+              - 'tests/e2e/synthetics.spec.ts'
+              - 'src/app/(auth)/signup/**'
+              - 'src/app/partners/**'
+            full:
+              - '.github/workflows/ci.yml'
+              - 'playwright.config.ts'
+              - 'tests/e2e/global-setup.ts'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'tests/e2e/generated/**'
+
+      - name: Resolve Playwright base URL
+        id: base_url
+        shell: bash
+        run: |
+          if [ "${{ github.head_ref }}" = "staging" ] || [ "${{ github.ref }}" = "refs/heads/staging" ]; then
+            echo "playwright_base_url=https://starting-monday-staging.up.railway.app" >> "$GITHUB_OUTPUT"
+          else
+            echo "playwright_base_url=${{ secrets.PLAYWRIGHT_BASE_URL }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build changed-files matrix
+        id: plan
+        shell: bash
+        env:
+          AUTH_CHANGED: ${{ steps.changed.outputs.authux }}
+          LUXURY_CHANGED: ${{ steps.changed.outputs.luxuryux }}
+          SYNTHETIC_CHANGED: ${{ steps.changed.outputs.synthetic10 }}
+          FULL_CHANGED: ${{ steps.changed.outputs.full }}
+        run: |
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const suites = []
+          const full = process.env.FULL_CHANGED === 'true'
+          const auth = process.env.AUTH_CHANGED === 'true'
+          const luxury = process.env.LUXURY_CHANGED === 'true'
+          const synthetic = process.env.SYNTHETIC_CHANGED === 'true'
+
+          if (full) {
+            suites.push({ name: 'smoke-core', command: 'npm run test:e2e' })
+          } else {
+            if (auth) suites.push({ name: 'auth-ux', command: 'npm run test:e2e:auth-ux' })
+            if (luxury) suites.push({ name: 'luxury-ux', command: 'npm run test:e2e:luxury' })
+            if (synthetic) {
+              suites.push({
+                name: 'synthetic-10',
+                command: 'npx playwright test tests/e2e/synthetics.spec.ts --project=synthetics --grep "Synthetic-10"',
+              })
+            }
+          }
+
+          if (suites.length === 0) {
+            suites.push({ name: 'focused-default', command: 'npm run test:e2e:auth-ux && npm run test:e2e:luxury' })
+          }
+
+          process.stdout.write('matrix=' + JSON.stringify(suites) + '\n')
+          NODE
+
+  playwright-pr:
+    name: Playwright E2E (PR)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event_name == 'pull_request'
+    needs: [playwright-pr-plan]
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.playwright-pr-plan.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run E2E tests (${{ matrix.name }})
+        run: ${{ matrix.command }}
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ needs.playwright-pr-plan.outputs.playwright_base_url }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
@@ -254,7 +421,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: playwright-report-pr
+          name: playwright-report-pr-${{ matrix.name }}
           path: playwright-report/
           retention-days: 7
 
@@ -293,7 +460,7 @@ jobs:
       - name: Run signup-to-first-value synthetic (blocking)
         run: npx playwright test tests/e2e/synthetics.spec.ts --project=synthetics --grep "Synthetic-10"
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ ((github.event_name == 'pull_request' && github.head_ref == 'staging') || github.ref == 'refs/heads/staging') && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
           PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
           PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
 
@@ -406,7 +573,7 @@ jobs:
       - name: Run auth UX guard suite
         run: npm run test:e2e:auth-ux
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ ((github.event_name == 'pull_request' && github.head_ref == 'staging') || github.ref == 'refs/heads/staging') && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
 
       - name: Upload auth UX artifacts
         if: always()

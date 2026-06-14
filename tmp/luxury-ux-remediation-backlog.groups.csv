@@ -1,0 +1,8 @@
+tier,issue_types,page_count
+internal-dashboard,tiny-text-heavy,27
+public-nonpremium,tiny-text-heavy,7
+internal-dashboard,tiny-text-heavy|excess-uppercase-micro-labels,3
+public-nonpremium,excess-uppercase-micro-labels,2
+internal-dashboard,excess-uppercase-micro-labels,1
+public-nonpremium,tiny-text-heavy|repeated-cta-labels,1
+public-premium,tiny-text-heavy,1

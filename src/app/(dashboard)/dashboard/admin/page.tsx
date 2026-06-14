@@ -528,17 +528,17 @@ export default async function AdminPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/sales-enablement" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 transition-colors">Sales enablement</Link>
-            <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
-            <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
-            <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
-            <Link href="/dashboard/admin/guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
-            <Link href="/dashboard/admin/internal-guide" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Internal guide</Link>
-            <Link href="/dashboard/admin/onboarding/video" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding video</Link>
-            <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
-            <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
+            <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors">Sales enablement</Link>
+            <Link href="/dashboard/admin/revenue" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
+            <Link href="/dashboard/admin/product" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
+            <Link href="/dashboard/admin/operations" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/guide" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Guide</Link>
+            <Link href="/dashboard/admin/internal-guide" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Internal guide</Link>
+            <Link href="/dashboard/admin/onboarding/video" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding video</Link>
+            <Link href="/dashboard/admin/traces" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Traces</Link>
+            <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Team</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Dashboard</Link>
           </div>
         </div>
@@ -550,7 +550,7 @@ export default async function AdminPage() {
             <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Admin</h1>
             <p className="text-[13px] text-slate-500 mt-1.5">
               Signed in as <span className="font-semibold">{user.email}</span>
-              <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
+              <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -566,8 +566,8 @@ export default async function AdminPage() {
         </div>
 
         <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#control-rooms" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Control rooms</a>
             <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
             <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
@@ -579,26 +579,26 @@ export default async function AdminPage() {
         </section>
 
         <section id="control-rooms" className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Control rooms</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Control rooms</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px]">
             <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
               <p className="font-semibold text-slate-900">Sales enablement</p>
-              <p className="text-[12px] text-slate-500 mt-1">Compare proposals, checkpoints, and weighted scorecards.</p>
+              <p className="text-[13px] text-slate-500 mt-1">Compare proposals, checkpoints, and weighted scorecards.</p>
             </Link>
             <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
               <p className="font-semibold text-slate-900">Revenue</p>
-              <p className="text-[12px] text-slate-500 mt-1">Conversion, trial health, and paid growth diagnostics.</p>
+              <p className="text-[13px] text-slate-500 mt-1">Conversion, trial health, and paid growth diagnostics.</p>
             </Link>
             <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
               <p className="font-semibold text-slate-900">Operations</p>
-              <p className="text-[12px] text-slate-500 mt-1">Reliability, release quality, and monitoring alerts.</p>
+              <p className="text-[13px] text-slate-500 mt-1">Reliability, release quality, and monitoring alerts.</p>
             </Link>
           </div>
         </section>
 
         <section id="email-council-health" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
-          <p className="text-[12px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day EJES trend.</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
+          <p className="text-[13px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day EJES trend.</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
             {[{
@@ -616,22 +616,22 @@ export default async function AdminPage() {
             }].map((card) => (
               <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
                 <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
-                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+                <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="border border-slate-200 rounded p-4">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Top blockers (24h)</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Top blockers (24h)</p>
               {topBlockers.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No blockers logged in the last 24 hours.</p>
+                <p className="text-[13px] text-slate-500">No blockers logged in the last 24 hours.</p>
               ) : (
                 <ul className="space-y-2">
                   {topBlockers.map(([blocker, count]) => (
-                    <li key={blocker} className="text-[12px] text-slate-700 flex items-start justify-between gap-3">
+                    <li key={blocker} className="text-[13px] text-slate-700 flex items-start justify-between gap-3">
                       <span className="leading-relaxed">{blocker}</span>
-                      <span className="text-[11px] font-bold text-slate-500">{count}</span>
+                      <span className="text-[13px] font-bold text-slate-500">{count}</span>
                     </li>
                   ))}
                 </ul>
@@ -639,16 +639,16 @@ export default async function AdminPage() {
             </div>
 
             <div className="border border-slate-200 rounded p-4">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Channel EJES trend (7d)</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Channel EJES trend (7d)</p>
               {channelEjesTrend.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No channel score data yet.</p>
+                <p className="text-[13px] text-slate-500">No channel score data yet.</p>
               ) : (
                 <div className="space-y-2">
                   {channelEjesTrend.map((row) => (
-                    <div key={row.channel} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-[12px]">
+                    <div key={row.channel} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-[13px]">
                       <span className="text-slate-700">{row.channel}</span>
                       <span className="text-slate-500">EJES {row.avgEjes}</span>
-                      <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${row.blockedRate === 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                      <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${row.blockedRate === 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
                         blocked {row.blockedRate}%
                       </span>
                     </div>
@@ -660,7 +660,7 @@ export default async function AdminPage() {
         </section>
 
         <div className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
+          <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Operating Areas</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {PAGE_GROUPS.map((group) => {
               const corePages = group.pages.filter((page) => page.priority === 'core')
@@ -668,15 +668,15 @@ export default async function AdminPage() {
               return (
                 <div key={group.id} className="bg-white border border-slate-200 rounded p-4">
                   <p className="text-[14px] font-bold text-slate-900">{group.label}</p>
-                  <p className="text-[12px] text-slate-500 mt-1 leading-relaxed">{group.purpose}</p>
+                  <p className="text-[13px] text-slate-500 mt-1 leading-relaxed">{group.purpose}</p>
                   <div className="mt-3 space-y-1.5">
                     {corePages.map((page) => (
-                      <Link key={page.path} href={page.path} className="block text-[12px] font-semibold text-slate-700 hover:text-slate-900 hover:underline">
+                      <Link key={page.path} href={page.path} className="block text-[13px] font-semibold text-slate-700 hover:text-slate-900 hover:underline">
                         {page.label}
                       </Link>
                     ))}
                     {advancedCount > 0 && (
-                      <p className="text-[11px] text-slate-400 mt-2">+ {advancedCount} advanced pages</p>
+                      <p className="text-[13px] text-slate-400 mt-2">+ {advancedCount} advanced pages</p>
                     )}
                   </div>
                 </div>
@@ -686,7 +686,7 @@ export default async function AdminPage() {
         </div>
 
         <div className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily activation snapshot (24h)</p>
+          <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Daily activation snapshot (24h)</p>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
             {[
               { label: 'New users', value: users24h?.length ?? 0 },
@@ -697,19 +697,19 @@ export default async function AdminPage() {
             ].map((card) => (
               <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
                 <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
-                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+                <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
           <div className="mt-3">
-            <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+            <Link href="/guide" className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
               Automation alerts: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
 
         <div className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Search control telemetry (7d)</p>
+          <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Search control telemetry (7d)</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {[
               { label: 'Paused events', value: searchPaused7d },
@@ -719,15 +719,15 @@ export default async function AdminPage() {
             ].map((card) => (
               <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
                 <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
-                <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+                <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
           <div className="mt-4 bg-white border border-slate-200 rounded p-4">
             <div className="flex items-center justify-between gap-3 mb-3">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily trend</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily trend</p>
               <span
-                className={`text-[10px] font-bold px-2 py-1 rounded border ${
+                className={`text-[13px] font-bold px-2 py-1 rounded border ${
                   telemetryAlertLevel === 'risk'
                     ? 'text-red-700 bg-red-50 border-red-200'
                     : telemetryAlertLevel === 'watch'
@@ -738,13 +738,13 @@ export default async function AdminPage() {
                 {telemetryAlertLevel === 'risk' ? 'At risk' : telemetryAlertLevel === 'watch' ? 'Watch' : 'Healthy'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 mb-3">
+            <p className="text-[13px] text-slate-500 mb-3">
               Last 3d net: <span className="font-semibold text-slate-700">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
               {' '}({positiveNetDaysLast3d}/3 days positive)
             </p>
             <div className="space-y-2">
               {pauseResumeTrend7d.map((row) => (
-                <div key={row.dayKey} className="grid grid-cols-[84px_1fr_44px] items-center gap-3 text-[11px]">
+                <div key={row.dayKey} className="grid grid-cols-[84px_1fr_44px] items-center gap-3 text-[13px]">
                   <span className="text-slate-500">{row.label}</span>
                   <div className="grid grid-cols-2 gap-2">
                     <progress
@@ -766,7 +766,7 @@ export default async function AdminPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-3 flex items-center gap-4 text-[10px] text-slate-400">
+            <div className="mt-3 flex items-center gap-4 text-[13px] text-slate-400">
               <span><span className="inline-block w-2 h-2 rounded bg-slate-900 mr-1" />Paused</span>
               <span><span className="inline-block w-2 h-2 rounded bg-emerald-500 mr-1" />Resumed</span>
               <span>Net shown at right</span>
@@ -775,13 +775,13 @@ export default async function AdminPage() {
         </div>
 
         <section id="role-path-ranking" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Role Path Ranking Debug</h2>
-          <p className="text-[12px] text-slate-400 mb-4">Live homepage order inputs from click volume and conversion behavior (90d window).</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Role Path Ranking Debug</h2>
+          <p className="text-[13px] text-slate-400 mb-4">Live homepage order inputs from click volume and conversion behavior (90d window).</p>
           {rolePathPriorityDebug.length === 0 ? (
-            <p className="text-[12px] text-slate-500">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
+            <p className="text-[13px] text-slate-500">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px] min-w-[760px]">
+              <table className="w-full text-[13px] min-w-[760px]">
                 <thead>
                   <tr className="text-left text-slate-400 border-b border-slate-100">
                     <th className="py-2 pr-3 font-semibold">Rank</th>
@@ -814,25 +814,25 @@ export default async function AdminPage() {
         <section id="go-no-go" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</h2>
-              <p className="text-[12px] text-slate-400 mt-1">Auto-evaluated from current measurable thresholds.</p>
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</h2>
+              <p className="text-[13px] text-slate-400 mt-1">Auto-evaluated from current measurable thresholds.</p>
             </div>
-            <div className={`text-[12px] font-bold px-3 py-1.5 rounded border ${statusClass(decision.status)}`}>
+            <div className={`text-[13px] font-bold px-3 py-1.5 rounded border ${statusClass(decision.status)}`}>
               {decision.label}
             </div>
           </div>
-          <p className="text-[12px] text-slate-600 mb-4">{decision.reason}</p>
+          <p className="text-[13px] text-slate-600 mb-4">{decision.reason}</p>
           <div className="space-y-2">
             {scoreRows.map((row) => (
               <div key={row.label} className="border border-slate-200 rounded px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-[13px] font-semibold text-slate-900 truncate">{row.label}</p>
-                    <p className="text-[11px] text-slate-400">Threshold: {row.threshold}</p>
+                    <p className="text-[13px] text-slate-400">Threshold: {row.threshold}</p>
                   </div>
-                  <span className={`text-[11px] font-bold px-2.5 py-1 rounded border shrink-0 ${statusClass(row.status)}`}>{row.value}</span>
+                  <span className={`text-[13px] font-bold px-2.5 py-1 rounded border shrink-0 ${statusClass(row.status)}`}>{row.value}</span>
                 </div>
-                {row.note && <p className="text-[11px] text-slate-500 mt-1.5">{row.note}</p>}
+                {row.note && <p className="text-[13px] text-slate-500 mt-1.5">{row.note}</p>}
               </div>
             ))}
           </div>
@@ -850,14 +850,14 @@ export default async function AdminPage() {
           ].map(({ label, value, highlight }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
               <div className={`text-[28px] font-bold ${highlight ? 'text-orange-500' : 'text-slate-900'}`}>{value}</div>
-              <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+              <div className="text-[13px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
         </section>
 
         {/* System health */}
         <section id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
+          <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
           <div className="flex items-center gap-3 mb-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
             <span className="text-[13px] text-slate-700">
@@ -869,7 +869,7 @@ export default async function AdminPage() {
                   : '-- never sent'}
             </span>
             {briefingStale && (
-              <span className="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
+              <span className="text-[13px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">STALE</span>
             )}
           </div>
           <div className="flex items-center gap-3">
@@ -888,7 +888,7 @@ export default async function AdminPage() {
                 ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago • checked ${latestExecutiveResearchRun.checked_count ?? 0} • changed ${latestExecutiveResearchRun.changed_count ?? 0}`
                 : '-- no runs yet'}
             </span>
-            <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+            <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
               executiveResearchStatus === 'healthy'
                 ? 'text-green-700 bg-green-50'
                 : executiveResearchStatus === 'degraded'
@@ -899,11 +899,11 @@ export default async function AdminPage() {
             }`}>
               {executiveResearchStatus.toUpperCase()}
             </span>
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[13px] text-slate-500">
               Sources: {executiveResearchSourceCount ?? 0} • Failures: {executiveResearchFailureCount ?? 0}
             </span>
           </div>
-          <p className="text-[12px] text-slate-500 mt-2">
+          <p className="text-[13px] text-slate-500 mt-2">
             API: <span className="font-mono">/api/admin/executive-research/health</span>
           </p>
         </section>
@@ -911,24 +911,24 @@ export default async function AdminPage() {
         {/* Team summary */}
         <section id="team-summary" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
-            <Link href="/dashboard/admin/team" className="text-[12px] text-slate-500 hover:text-slate-700">Manage Team</Link>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
+            <Link href="/dashboard/admin/team" className="text-[13px] text-slate-500 hover:text-slate-700">Manage Team</Link>
           </div>
           <div className="divide-y divide-slate-50">
             {teamMembers.map(m => (
               <div key={m.id} className="px-6 py-3 flex items-center justify-between">
                 <span className="text-[13px] text-slate-900">{m.email}</span>
-                <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${roleBadge(m.role)}`}>{m.role}</span>
+                <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(m.role)}`}>{m.role}</span>
               </div>
             ))}
           </div>
         </section>
 
         <section id="internal-pages" className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-[13px]">
             <div className="border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Go to market</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Go to market</p>
               <div className="grid grid-cols-1 gap-2">
                 <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Sales enablement control room</Link>
                 <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
@@ -936,7 +936,7 @@ export default async function AdminPage() {
               </div>
             </div>
             <div className="border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Platform operations</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Platform operations</p>
               <div className="grid grid-cols-1 gap-2">
                 <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Operations</Link>
                 <Link href="/dashboard/admin/onboarding/video" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
@@ -948,10 +948,10 @@ export default async function AdminPage() {
 
         {/* Six-actions funnel */}
         <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</h2>
-          <p className="text-[12px] text-slate-400 mb-6">Trialing + active users (n={activeUserIds.size})</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</h2>
+          <p className="text-[13px] text-slate-400 mb-6">Trialing + active users (n={activeUserIds.size})</p>
           <FunnelChart data={funnelData} />
-          <table className="w-full mt-4 text-[12px]">
+          <table className="w-full mt-4 text-[13px]">
             <thead>
               <tr className="text-left text-slate-400">
                 <th className="py-1 font-semibold">Step</th>
@@ -973,14 +973,14 @@ export default async function AdminPage() {
 
         {/* Event volume */}
         <section id="event-volume" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</h2>
-          <p className="text-[12px] text-slate-400 mb-6">7d counts in right column</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</h2>
+          <p className="text-[13px] text-slate-400 mb-6">7d counts in right column</p>
           {eventVolumeData.length === 0 ? (
             <p className="text-[13px] text-slate-400">No events yet.</p>
           ) : (
             <>
               <EventVolumeChart data={eventVolumeData} />
-              <table className="w-full mt-4 text-[12px]">
+              <table className="w-full mt-4 text-[13px]">
                 <thead>
                   <tr className="text-left text-slate-400">
                     <th className="py-1 font-semibold">Event</th>
@@ -991,7 +991,7 @@ export default async function AdminPage() {
                 <tbody className="divide-y divide-slate-50">
                   {eventVolumeData.map(row => (
                     <tr key={row.event_name}>
-                      <td className="py-2 text-slate-700 font-mono text-[11px]">{row.event_name}</td>
+                      <td className="py-2 text-slate-700 font-mono text-[13px]">{row.event_name}</td>
                       <td className="py-2 text-right font-semibold text-slate-900">{row.count}</td>
                       <td className="py-2 text-right text-slate-400">{eventCounts7d[row.event_name] ?? 0}</td>
                     </tr>
@@ -1004,20 +1004,20 @@ export default async function AdminPage() {
 
         {/* Trial conversion */}
         <section id="trial-conversion" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</h2>
-          <p className="text-[12px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</h2>
+          <p className="text-[13px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
           <div className={`mb-5 border rounded p-4 ${linkedInAdsGatePass ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'}`}>
             <div className="flex items-center justify-between gap-3 mb-1">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">LinkedIn Ads Gate</p>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${linkedInAdsGatePass ? 'bg-green-600 text-white' : 'bg-amber-600 text-white'}`}>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-500">LinkedIn Ads Gate</p>
+              <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${linkedInAdsGatePass ? 'bg-green-600 text-white' : 'bg-amber-600 text-white'}`}>
                 {linkedInAdsDecision}
               </span>
             </div>
-            <p className="text-[12px] text-slate-600">
+            <p className="text-[13px] text-slate-600">
               Requires trial-to-paid conversion of at least {linkedInAdsThreshold}%. Current: {conversionRate !== null ? `${conversionRate}%` : 'N/A'}.
             </p>
             {!linkedInAdsGatePass && (
-              <p className="text-[12px] text-slate-500 mt-1">
+              <p className="text-[13px] text-slate-500 mt-1">
                 Paid ads stay deferred until this threshold is reached.
               </p>
             )}
@@ -1038,14 +1038,14 @@ export default async function AdminPage() {
                         ? rate >= 40 ? 'text-green-600' : rate >= 20 ? 'text-amber-600' : 'text-red-600'
                         : 'text-slate-900'
                     }`}>{value}</div>
-                    <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+                    <div className="text-[13px] text-slate-400 mt-1">{label}</div>
                   </div>
                 ))}
               </div>
               {channelRows.length > 0 && (
                 <div>
-                  <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">By channel</p>
-                  <table className="w-full text-[12px]">
+                  <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">By channel</p>
+                  <table className="w-full text-[13px]">
                     <thead>
                       <tr className="text-left border-b border-slate-100">
                         <th className="pb-2 font-semibold text-slate-400">Source</th>
@@ -1074,20 +1074,20 @@ export default async function AdminPage() {
         </section>
 
         <section id="active-trials" className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
           <p className="text-[13px] text-slate-600">Active trials: {trialUsers.length}</p>
         </section>
 
         {/* Signal to action rate */}
         <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
+          <summary className="cursor-pointer text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
           <div className="pt-4">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
-          <p className="text-[12px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
+          <p className="text-[13px] text-slate-400 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p>
           {signalRows.length === 0 ? (
             <p className="text-[13px] text-slate-400">No signals yet.</p>
           ) : (
-            <table className="w-full text-[12px]">
+            <table className="w-full text-[13px]">
               <thead>
                 <tr className="text-left text-slate-400 border-b border-slate-100">
                   <th className="py-2 font-semibold">Signal type</th>
@@ -1116,7 +1116,7 @@ export default async function AdminPage() {
         </details>
 
         <section id="partners" className="bg-white border border-slate-200 rounded p-5">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Commercial snapshot</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Commercial snapshot</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
             <div className="border border-slate-200 rounded px-3 py-2">Partners: <span className="font-semibold">{partners.length}</span></div>
             <div className="border border-slate-200 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>

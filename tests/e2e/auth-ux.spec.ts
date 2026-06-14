@@ -42,10 +42,15 @@ test.describe('Auth UX contract and visual guard @auth-ux', () => {
     await page.setViewportSize({ width: 1280, height: 900 })
     await page.waitForTimeout(300)
 
-    await expect(page).toHaveScreenshot('auth-signup-desktop.png', {
-      fullPage: true,
+    await expect(page.locator('main > div.w-full.max-w-sm')).toHaveScreenshot('auth-signup-desktop.png', {
       animations: 'disabled',
       maxDiffPixelRatio: 0.02,
+      // Turnstile may be enabled in some environments and absent in others.
+      // Mask it so the guard checks auth layout rather than captcha vendor rendering.
+      mask: [
+        page.locator('iframe[src*="challenges.cloudflare.com"]'),
+        page.locator('text=Complete the security check before signing in.'),
+      ],
     })
   })
 })

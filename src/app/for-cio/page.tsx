@@ -118,32 +118,32 @@ export default function ForCioPage() {
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div data-emi-proof="cio_prehero_proof" className="lg:col-span-2 border border-slate-700 rounded-xl p-5 bg-slate-950/40">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">CIO proof snapshot</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">CIO proof snapshot</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">81%</p>
-                <p className="text-[12px] text-slate-200">Reached first interview inside 30 days</p>
+                <p className="text-[13px] text-slate-200">Reached first interview inside 30 days</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">27</p>
-                <p className="text-[12px] text-slate-200">Pilot executives in Jan-May 2026 cohort</p>
+                <p className="text-[13px] text-slate-200">Pilot executives in Jan-May 2026 cohort</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
                 <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">9 days</p>
-                <p className="text-[12px] text-slate-200">Median time to first qualified outreach</p>
+                <p className="text-[13px] text-slate-200">Median time to first qualified outreach</p>
               </div>
             </div>
-            <p className="text-[12px] text-slate-200">Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Denominator: 27. Window: Jan-May 2026. Results vary by market and campaign consistency.</p>
+            <p className="text-[13px] text-slate-200">Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Denominator: 27. Window: Jan-May 2026. Results vary by market and campaign consistency.</p>
           </div>
           <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Decision CTAs</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Decision CTAs</p>
             <div className="space-y-2">
               <TrackLink
                 href="/signup?from=executive"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_start_trial', source_page: '/for-cio' }}
-                className="block text-center text-[12px] font-semibold text-slate-900 bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 transition-colors"
+                className="block text-center text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 transition-colors"
               >
                 Start trial
               </TrackLink>
@@ -152,7 +152,7 @@ export default function ForCioPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_view_evidence', source_page: '/for-cio' }}
-                className="block text-center text-[12px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
+                className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
               >
                 View evidence
               </TrackLink>
@@ -161,14 +161,14 @@ export default function ForCioPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}
-                className="block text-center text-[12px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
+                className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
               >
                 Review method
               </TrackLink>
             </div>
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="mt-3 border border-slate-700 rounded-lg p-3">
-              <summary className="list-none cursor-pointer text-[12px] font-semibold text-slate-200">Common CIO objections</summary>
-              <ul className="mt-2 space-y-1 text-[12px] text-slate-200">
+              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-200">Common CIO objections</summary>
+              <ul className="mt-2 space-y-1 text-[13px] text-slate-200">
                 <li>• "I need this to stay confidential."</li>
                 <li>• "I already have recruiter coverage."</li>
                 <li>• "I am not ready to go active yet."</li>

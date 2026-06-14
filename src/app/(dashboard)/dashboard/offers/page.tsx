@@ -55,11 +55,11 @@ export default async function OffersPage() {
     }},
     { label: 'Fit score',    render: (o: OfferCompany) => o.fit_score != null ? o.fit_score : <span className="text-slate-300">-</span> },
     { label: 'Notes',        render: (o: OfferCompany) => o.offer_notes
-      ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_notes}</span>
+      ? <span className="text-[13px] text-slate-500 leading-relaxed">{o.offer_notes}</span>
       : <span className="text-slate-300">-</span>
     },
     { label: 'Factors',      render: (o: OfferCompany) => o.offer_decision_factors
-      ? <span className="text-[12px] text-slate-500 leading-relaxed">{o.offer_decision_factors}</span>
+      ? <span className="text-[13px] text-slate-500 leading-relaxed">{o.offer_decision_factors}</span>
       : <span className="text-slate-300">-</span>
     },
   ]
@@ -68,7 +68,7 @@ export default async function OffersPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -103,20 +103,20 @@ export default async function OffersPage() {
             <div className="px-6 py-[18px] border-b border-green-100 flex items-center justify-between">
               <div>
                 <h2 className="text-[18px] font-bold text-slate-900">{offers[0].name}</h2>
-                {offers[0].sector && <p className="text-[12px] text-slate-400 mt-0.5">{offers[0].sector}</p>}
+                {offers[0].sector && <p className="text-[13px] text-slate-400 mt-0.5">{offers[0].sector}</p>}
               </div>
               <div className="flex items-center gap-3">
                 {offers[0].offer_role_title && (
                   <a
                     href={`/dashboard/salary?company=${encodeURIComponent(offers[0].name)}&role=${encodeURIComponent(offers[0].offer_role_title)}`}
-                    className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
+                    className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
                   >
                     Get negotiation script →
                   </a>
                 )}
                 <Link
                   href={`/dashboard/companies/${offers[0].id}`}
-                  className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
+                  className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
                 >
                   View company →
                 </Link>
@@ -127,14 +127,14 @@ export default async function OffersPage() {
                 const val = row.render(offers[0])
                 return (
                   <div key={row.label} className="px-6 py-4 flex items-start gap-6">
-                    <span className="text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 w-24 shrink-0 pt-0.5">{row.label}</span>
+                    <span className="text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 w-24 shrink-0 pt-0.5">{row.label}</span>
                     <span className="text-[14px] text-slate-800 flex-1">{val}</span>
                   </div>
                 )
               })}
             </div>
             <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
-              <p className="text-[12px] text-slate-400">
+              <p className="text-[13px] text-slate-400">
                 Add offer details on the{' '}
                 <Link href={`/dashboard/companies/${offers[0].id}`} className="text-slate-600 underline hover:text-slate-900">
                   company page
@@ -147,13 +147,13 @@ export default async function OffersPage() {
           // Multiple offers: comparison table
           <div className="bg-white border border-green-200 rounded overflow-hidden">
             <div className="px-6 py-[18px] border-b border-green-100">
-              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-green-700">Side-by-side comparison</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-green-700">Side-by-side comparison</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-slate-100">
-                    <th scope="col" className="py-3 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400 w-28">
+                    <th scope="col" className="py-3 pl-6 pr-4 text-left text-[13px] font-bold tracking-[0.09em] uppercase text-slate-400 w-28">
                       Field
                     </th>
                     {offers.map(o => (
@@ -161,7 +161,7 @@ export default async function OffersPage() {
                         <Link href={`/dashboard/companies/${o.id}`} className="text-[14px] font-bold text-slate-900 hover:text-slate-600 block">
                           {o.name}
                         </Link>
-                        {o.sector && <p className="text-[11px] text-slate-400 font-normal mt-0.5">{o.sector}</p>}
+                        {o.sector && <p className="text-[13px] text-slate-400 font-normal mt-0.5">{o.sector}</p>}
                       </th>
                     ))}
                   </tr>
@@ -169,7 +169,7 @@ export default async function OffersPage() {
                 <tbody>
                   {ROWS.map(row => (
                     <tr key={row.label} className="border-b border-slate-50">
-                      <td className="py-3.5 pl-6 pr-4 text-[11px] font-bold tracking-[0.07em] uppercase text-slate-400 align-top">
+                      <td className="py-3.5 pl-6 pr-4 text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 align-top">
                         {row.label}
                       </td>
                       {offers.map(o => (
@@ -187,14 +187,14 @@ export default async function OffersPage() {
                           {o.offer_role_title && (
                             <a
                               href={`/dashboard/salary?company=${encodeURIComponent(o.name)}&role=${encodeURIComponent(o.offer_role_title)}`}
-                              className="text-[11px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors inline-block"
+                              className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors inline-block"
                             >
                               Negotiate →
                             </a>
                           )}
                           <Link
                             href={`/dashboard/companies/${o.id}`}
-                            className="text-[11px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors inline-block"
+                            className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors inline-block"
                           >
                             Details →
                           </Link>

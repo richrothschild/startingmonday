@@ -310,7 +310,7 @@ export default async function PartnerDashboardPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
         </div>
@@ -318,7 +318,7 @@ export default async function PartnerDashboardPage({
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 <div className="mb-8">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Partner Dashboard</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Partner Dashboard</h2>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Welcome, {partner.name.split(' ')[0]}.</h1>
           <p className="text-[13px] text-slate-500 mt-1.5">
             Partner since {new Date(partner.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}.
@@ -327,8 +327,8 @@ export default async function PartnerDashboardPage({
         </div>
 
         <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#partner-stats" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Stats</a>
             <a href="#partner-performance" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Performance</a>
             <a href="#partner-referral-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Referral link</a>
@@ -341,15 +341,15 @@ export default async function PartnerDashboardPage({
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/partners#apply" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Partnership terms</p>
-            <p className="text-[12px] text-slate-500 mt-1">Review partner program details and commission rules.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Review partner program details and commission rules.</p>
           </Link>
           <Link href="/dashboard/admin/customers" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Open customers</p>
-            <p className="text-[12px] text-slate-500 mt-1">Inspect converted subscribers and plan mix.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Inspect converted subscribers and plan mix.</p>
           </Link>
           <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
             <p className="text-[13px] font-semibold text-slate-900">Back to dashboard</p>
-            <p className="text-[12px] text-slate-500 mt-1">Return to your main campaign workspace.</p>
+            <p className="text-[13px] text-slate-500 mt-1">Return to your main campaign workspace.</p>
           </Link>
         </section>
 
@@ -362,7 +362,7 @@ export default async function PartnerDashboardPage({
           ].map(({ label, value }) => (
             <div key={label} className="bg-white border border-slate-200 rounded p-5">
               <div className="text-[28px] font-bold text-slate-900">{value}</div>
-              <div className="text-[12px] text-slate-400 mt-1">{label}</div>
+              <div className="text-[13px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
         </section>
@@ -370,46 +370,46 @@ export default async function PartnerDashboardPage({
         <section id="partner-performance" className="bg-white border border-slate-200 rounded p-6 mb-6">
           <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
             <div>
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Partner reporting dashboard v1</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Partner reporting dashboard v1</h2>
               <p className="text-[13px] text-slate-500">Utilization, prep completion, follow-up completion, and pipeline movement for pilot operations.</p>
             </div>
-            <p className="text-[11px] text-slate-400">Scope users: {denominator}</p>
+            <p className="text-[13px] text-slate-400">Scope users: {denominator}</p>
           </div>
 
           <form method="get" className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-5">
-            <label className="text-[11px] font-semibold text-slate-600">
+            <label className="text-[13px] font-semibold text-slate-600">
               Partner account
-              <select name="partner" disabled className="mt-1 w-full bg-slate-100 border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-600">
+              <select name="partner" disabled className="mt-1 w-full bg-slate-100 border border-slate-200 rounded px-2 py-2 text-[13px] text-slate-600">
                 <option>{partner.name}</option>
               </select>
             </label>
-            <label className="text-[11px] font-semibold text-slate-600">
+            <label className="text-[13px] font-semibold text-slate-600">
               Program
-              <select name="program" defaultValue={selectedProgram} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+              <select name="program" defaultValue={selectedProgram} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[13px] text-slate-700">
                 <option value="all">All programs</option>
                 {programOptions.map((option) => (
                   <option key={option} value={option}>{option}</option>
                 ))}
               </select>
             </label>
-            <label className="text-[11px] font-semibold text-slate-600">
+            <label className="text-[13px] font-semibold text-slate-600">
               Cohort
-              <select name="cohort" defaultValue={selectedCohort} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+              <select name="cohort" defaultValue={selectedCohort} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[13px] text-slate-700">
                 <option value="all">All cohorts</option>
                 {cohortOptions.map((option) => (
                   <option key={option} value={option}>{option}</option>
                 ))}
               </select>
             </label>
-            <label className="text-[11px] font-semibold text-slate-600">
+            <label className="text-[13px] font-semibold text-slate-600">
               Date range
-              <select name="range" defaultValue={selectedRange.value} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[12px] text-slate-700">
+              <select name="range" defaultValue={selectedRange.value} className="mt-1 w-full bg-white border border-slate-200 rounded px-2 py-2 text-[13px] text-slate-700">
                 {RANGE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </label>
-            <button type="submit" className="sm:col-span-4 w-full sm:w-auto bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+            <button type="submit" className="sm:col-span-4 w-full sm:w-auto bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
               Apply filters
             </button>
           </form>
@@ -422,21 +422,21 @@ export default async function PartnerDashboardPage({
               { label: 'Pipeline movement', value: pipelineMovementRate, delta: pipelineMovementDelta },
             ].map((metric) => (
               <div key={metric.label} className="border border-slate-200 rounded p-3 bg-slate-50">
-                <p className="text-[11px] font-semibold text-slate-500">{metric.label}</p>
+                <p className="text-[13px] font-semibold text-slate-500">{metric.label}</p>
                 <p className="text-[24px] font-bold text-slate-900 mt-1">{formatPct(metric.value)}</p>
-                <p className="text-[11px] text-slate-500 mt-1">vs prior window: {formatDelta(metric.delta)}</p>
+                <p className="text-[13px] text-slate-500 mt-1">vs prior window: {formatDelta(metric.delta)}</p>
               </div>
             ))}
           </div>
 
           <div className="border border-slate-200 rounded overflow-hidden">
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly usage tracking</p>
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly usage tracking</p>
             </div>
             {weeklyUsageRows.length === 0 ? (
-              <p className="px-4 py-4 text-[12px] text-slate-500">No weekly usage data yet for this filter scope.</p>
+              <p className="px-4 py-4 text-[13px] text-slate-500">No weekly usage data yet for this filter scope.</p>
             ) : (
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="bg-white border-b border-slate-100 text-left">
                     <th className="px-4 py-2 font-semibold text-slate-500">Week</th>
@@ -468,16 +468,16 @@ export default async function PartnerDashboardPage({
 
         {/* Referral link */}
         <section id="partner-referral-link" className="bg-white border border-slate-200 rounded p-6 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Your referral link</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Your referral link</h2>
           <div className="flex items-center gap-3 flex-wrap">
             <code className="flex-1 text-[13px] bg-slate-50 border border-slate-200 rounded px-4 py-2.5 text-slate-700 font-mono min-w-0 truncate">
               {referralLink}
             </code>
-            <span className="text-[11px] font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded font-mono">
+            <span className="text-[13px] font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded font-mono">
               {partner.referral_code}
             </span>
           </div>
-          <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
+          <p className="mt-3 text-[13px] text-slate-400 leading-relaxed">
             Share this link with your clients. When they sign up and convert to a paid plan, you earn {partner.commission_pct}% of their monthly subscription for as long as they remain active.
           </p>
         </section>
@@ -488,7 +488,7 @@ export default async function PartnerDashboardPage({
         {/* Subscriber table */}
         <section id="partner-subscribers" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Referred Subscribers ({scopedRows.length} in current filter)
             </h2>
           </div>
@@ -497,7 +497,7 @@ export default async function PartnerDashboardPage({
                 No subscribers in this filter scope. Adjust program, cohort, or date range.
             </p>
           ) : (
-            <table className="w-full text-[12px]">
+            <table className="w-full text-[13px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100 text-left">
                   <th className="px-6 py-2.5 font-semibold text-slate-400">Joined</th>
@@ -517,7 +517,7 @@ export default async function PartnerDashboardPage({
                       </td>
                       <td className="px-4 py-3 text-slate-700">{tierLabel[row.tier] ?? row.tier}</td>
                       <td className="px-4 py-3">
-                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${statusColor[row.status] ?? 'bg-slate-100 text-slate-400'}`}>
+                        <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${statusColor[row.status] ?? 'bg-slate-100 text-slate-400'}`}>
                           {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
                         </span>
                       </td>
@@ -534,7 +534,7 @@ export default async function PartnerDashboardPage({
 
         {/* Commission explanation */}
         <section id="partner-commission" className="bg-white border border-slate-200 rounded p-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">How commissions work</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">How commissions work</h2>
           <div className="flex flex-col gap-2">
             {[
               'Share your referral link with executives you work with.',
@@ -544,7 +544,7 @@ export default async function PartnerDashboardPage({
               'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">
-                <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+                <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[13px] font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
                 {line}
               </div>
             ))}

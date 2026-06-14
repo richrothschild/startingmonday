@@ -95,10 +95,11 @@ const actionTargets = [
   },
   {
     "expectedStatuses": [
+      200,
       401,
       404
     ],
-    "note": "Route is not deployed on production at this time and may return auth-first 401",
+    "note": "Route may be deployed in some environments (200) or return auth/not-found depending on tenant rollout",
     "path": "/api/billing/pause",
     "methods": [
       "POST"
@@ -116,10 +117,11 @@ const actionTargets = [
   },
   {
     "expectedStatuses": [
+      200,
       401,
       404
     ],
-    "note": "Route is not deployed on production at this time and may return auth-first 401",
+    "note": "Route may be deployed in some environments (200) or return auth/not-found depending on tenant rollout",
     "path": "/api/billing/resume",
     "methods": [
       "POST"
@@ -567,6 +569,15 @@ const actionTargets = [
     "hasDynamicSegment": false
   },
   {
+    "methodOverride": "OPTIONS",
+    "expectedStatuses": [
+      200,
+      204,
+      401,
+      403,
+      405
+    ],
+    "note": "Use preflight-style probe to avoid OAuth-provider runtime dependency in contract mode",
     "path": "/api/google-calendar/connect",
     "methods": [
       "GET"
