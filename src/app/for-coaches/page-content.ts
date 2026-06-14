@@ -93,13 +93,13 @@ export const PILOT_SCORECARD = [
 
 export const ROLE_BOUNDARY = {
   platform: [
-    'Detects signal movement and keeps the pipeline current between sessions',
-    'Generates prep briefs and tracks execution activity',
-    'Surfaces weekly risk markers and overdue actions',
+    'Keeps signal changes and pipeline updates visible between sessions',
+    'Builds prep briefs and shows recent execution activity',
+    'Flags weekly risks and overdue actions',
   ],
   coach: [
-    'Owns strategic judgment, narrative calibration, and accountability coaching',
-    'Decides where to focus client effort and when to change search strategy',
+    'Owns strategic judgment, narrative quality, and accountability coaching',
+    'Decides where client effort goes and when strategy should change',
   ],
 }
 
@@ -142,5 +142,94 @@ export const COACH_RYTHM = [
     title: 'Before each interview',
     label: 'Run the prep brief',
     detail: 'Generate win thesis, likely objections, and peer-level questions before the session starts.',
+  },
+]
+
+export const COACH_JOURNEY_MAP = [
+  {
+    stage: 'Week 0 onboarding',
+    withoutTool: 'Coach often rebuilds context across notes, inbox threads, and call recaps.',
+    withStartingMonday: 'Coach and client can start from a shared operating view on day one.',
+  },
+  {
+    stage: 'Weekly execution',
+    withoutTool: 'Between-session progress can be harder to verify consistently.',
+    withStartingMonday: 'Signals, actions, and stalled items are easier to review in one cadence.',
+  },
+  {
+    stage: 'Session preparation',
+    withoutTool: 'Session time may begin with recap and memory-based status checks.',
+    withStartingMonday: 'Coach can enter with a prep brief and clearer movement context before the call.',
+  },
+  {
+    stage: 'Decision moments',
+    withoutTool: 'High-stakes choices may rely more on anecdotal context.',
+    withStartingMonday: 'Tradeoffs can be reviewed with explicit signal and momentum context.',
+  },
+  {
+    stage: '30-day outcome',
+    withoutTool: 'Client momentum may vary and more time can shift to admin catch-up.',
+    withStartingMonday: 'Coach can preserve strategic depth and use a pass/fail decision on evidence.',
+  },
+]
+
+export const COACH_PERSONA_JOURNEYS = [
+  {
+    persona: 'Transition specialist',
+    withoutTool: 'Often chases status updates manually between sessions.',
+    withStartingMonday: 'Can run a clearer weekly rhythm with signal-triggered priorities.',
+  },
+  {
+    persona: 'VP-to-CXO coach',
+    withoutTool: 'Narrative quality can drift across stakeholder conversations.',
+    withStartingMonday: 'Can maintain more consistent story quality with repeatable prep structure.',
+  },
+  {
+    persona: 'Search-process coach',
+    withoutTool: 'Prep quality may depend on client discipline and late-cycle effort.',
+    withStartingMonday: 'Can use brief-ready sessions to support interview decision quality.',
+  },
+  {
+    persona: 'Board and governance coach',
+    withoutTool: 'Long-cycle relationship cadence may be harder to sustain consistently.',
+    withStartingMonday: 'Can track continuity with a visible operating loop over quarters.',
+  },
+]
+
+export const COACH_COMPETITIVE_TABLE = [
+  {
+    dimension: 'Primary orientation',
+    startingMonday: 'Focused operating layer for executive-transition coaching',
+    coachingDotCom: 'Coach enablement and practice management platform',
+    betterUp: 'Enterprise coaching marketplace and program platform',
+    diy: 'Spreadsheets, docs, CRM, and ad hoc check-ins',
+  },
+  {
+    dimension: 'Between-session execution visibility',
+    startingMonday: 'One shared view for client movement and weekly actions',
+    coachingDotCom: 'Visibility depends on setup and team usage habits',
+    betterUp: 'Visibility is usually shown at the program level',
+    diy: 'Visibility depends on manual updates across multiple tools',
+  },
+  {
+    dimension: 'Prep depth before high-stakes conversations',
+    startingMonday: 'Prep briefs are built for fast session readiness',
+    coachingDotCom: 'Supports coaching process; prep depth varies by setup',
+    betterUp: 'Supports coaching quality in structured programs; prep style varies by use case',
+    diy: 'Prep quality depends on coach process and available time',
+  },
+  {
+    dimension: 'Fit for independent and boutique executive coaches',
+    startingMonday: 'Built for small rosters and high-stakes transition work',
+    coachingDotCom: 'Can fit independent and team practices based on operating model',
+    betterUp: 'Commonly oriented to enterprise-sponsored coaching programs',
+    diy: 'Flexible, but consistency and scale depend on individual discipline',
+  },
+  {
+    dimension: '30-day testability',
+    startingMonday: 'Includes a clear pass/fail pilot scorecard',
+    coachingDotCom: 'Pilot structure may depend on package and setup choices',
+    betterUp: 'Evaluation cycle usually follows enterprise buying and program setup',
+    diy: 'Can start immediately, usually without a standard validation method',
   },
 ]
