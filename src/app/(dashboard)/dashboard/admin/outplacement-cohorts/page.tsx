@@ -126,7 +126,7 @@ export default function OutplacementCohortsAdminPage() {
           <button
             type="button"
             onClick={() => void loadCohorts()}
-            className="text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5"
+            className="text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5"
           >
             Refresh
           </button>
@@ -138,29 +138,29 @@ export default function OutplacementCohortsAdminPage() {
 
         <section className="bg-white border border-slate-200 rounded p-4 grid sm:grid-cols-5 gap-3">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Cohorts</p>
+            <p className="text-[13px] tracking-[0.08em] text-slate-400">Cohorts</p>
             <p className="text-[24px] font-bold text-slate-900">{data?.summary.cohort_count ?? 0}</p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Roster users</p>
+            <p className="text-[13px] tracking-[0.08em] text-slate-400">Roster users</p>
             <p className="text-[24px] font-bold text-slate-900">{data?.summary.roster_users ?? 0}</p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">On track</p>
+            <p className="text-[13px] tracking-[0.08em] text-slate-400">On track</p>
             <p className="text-[24px] font-bold text-green-700">{data?.summary.on_track ?? 0}</p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Needs attention</p>
+            <p className="text-[13px] tracking-[0.08em] text-slate-400">Needs attention</p>
             <p className="text-[24px] font-bold text-amber-700">{data?.summary.needs_attention ?? 0}</p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">At risk</p>
+            <p className="text-[13px] tracking-[0.08em] text-slate-400">At risk</p>
             <p className="text-[24px] font-bold text-red-700">{data?.summary.at_risk ?? 0}</p>
           </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded p-4">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Create cohort</p>
+          <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Create cohort</p>
           <form className="grid sm:grid-cols-4 gap-3" onSubmit={createCohort}>
             <input
               value={cohortForm.partnerId}
@@ -197,12 +197,12 @@ export default function OutplacementCohortsAdminPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50">
-                  <th className="px-4 py-2 text-left text-[10px] uppercase tracking-[0.08em] text-slate-500">Cohort</th>
-                  <th className="px-4 py-2 text-left text-[10px] uppercase tracking-[0.08em] text-slate-500">Program</th>
-                  <th className="px-4 py-2 text-center text-[10px] uppercase tracking-[0.08em] text-slate-500">Roster</th>
-                  <th className="px-4 py-2 text-center text-[10px] uppercase tracking-[0.08em] text-slate-500">Completion</th>
-                  <th className="px-4 py-2 text-center text-[10px] uppercase tracking-[0.08em] text-slate-500">Status</th>
-                  <th className="px-4 py-2 text-right text-[10px] uppercase tracking-[0.08em] text-slate-500">Actions</th>
+                  <th className="px-4 py-2 text-left text-[13px] tracking-[0.08em] text-slate-500">Cohort</th>
+                  <th className="px-4 py-2 text-left text-[13px] tracking-[0.08em] text-slate-500">Program</th>
+                  <th className="px-4 py-2 text-center text-[13px] tracking-[0.08em] text-slate-500">Roster</th>
+                  <th className="px-4 py-2 text-center text-[13px] tracking-[0.08em] text-slate-500">Completion</th>
+                  <th className="px-4 py-2 text-center text-[13px] tracking-[0.08em] text-slate-500">Status</th>
+                  <th className="px-4 py-2 text-right text-[13px] tracking-[0.08em] text-slate-500">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,13 +210,13 @@ export default function OutplacementCohortsAdminPage() {
                   <tr key={cohort.cohortId} className="border-b border-slate-100">
                     <td className="px-4 py-3">
                       <p className="text-[13px] font-semibold text-slate-900">{cohort.partnerName}</p>
-                      <p className="text-[12px] text-slate-500">{cohort.cohortKey}</p>
+                      <p className="text-[13px] text-slate-500">{cohort.cohortKey}</p>
                     </td>
-                    <td className="px-4 py-3 text-[12px] text-slate-700">{cohort.program}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-700">{cohort.program}</td>
                     <td className="px-4 py-3 text-center text-[13px] font-semibold text-slate-900 tabular-nums">{cohort.rosterSize}</td>
                     <td className="px-4 py-3 text-center text-[13px] font-semibold text-slate-900 tabular-nums">{cohort.sponsorSnapshot.fields.milestone_completion_rate.toFixed(2)}%</td>
                     <td className="px-4 py-3 text-center">
-                      <span className={`text-[10px] uppercase tracking-[0.08em] px-2 py-0.5 rounded border ${
+                      <span className={`text-[13px] tracking-[0.08em] px-2 py-0.5 rounded border ${
                         cohort.sponsorSnapshot.status === 'on_track'
                           ? 'text-green-700 border-green-200 bg-green-50'
                           : cohort.sponsorSnapshot.status === 'needs_attention'
@@ -230,7 +230,7 @@ export default function OutplacementCohortsAdminPage() {
                       <button
                         type="button"
                         onClick={() => void markMilestone(cohort, 'prep_ready')}
-                        className="text-[12px] font-semibold text-slate-700 underline underline-offset-2"
+                        className="text-[13px] font-semibold text-slate-700 underline underline-offset-2"
                       >
                         Mark prep ready
                       </button>

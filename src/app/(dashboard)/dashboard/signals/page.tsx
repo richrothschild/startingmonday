@@ -139,11 +139,11 @@ export default async function SignalsPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="hidden sm:flex items-center gap-5">
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
-            <Link href="/dashboard/help" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Help</Link>
+            <Link href="/dashboard/chat" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
+            <Link href="/dashboard/contacts" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+            <Link href="/dashboard/help" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Help</Link>
             <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
             <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
             <LogoutButton label="Sign out" />
@@ -151,7 +151,7 @@ export default async function SignalsPage({
           <div className="flex sm:hidden items-center gap-2">
             <Link
               href="/dashboard"
-              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
             >
               Dashboard
             </Link>
@@ -232,11 +232,11 @@ export default async function SignalsPage({
         {/* Signal list */}
         {signalList.length > 0 && (
           <div className="mb-4">
-            <p className="text-[12px] text-slate-400 italic leading-relaxed">
+            <p className="text-[13px] text-slate-400 italic leading-relaxed">
               Use signals as a reason to reconnect with someone who already knows you. Cold outreach on a signal rarely lands at the executive level.
             </p>
             {suppressedCount > 0 && (
-              <p className="text-[12px] text-slate-500 mt-1">
+              <p className="text-[13px] text-slate-500 mt-1">
                 Suppressed {suppressedCount} low-confidence or stale signal{suppressedCount !== 1 ? 's' : ''} using Sprint 5 quality filters.
               </p>
             )}
@@ -271,31 +271,31 @@ export default async function SignalsPage({
                           {co.name}
                         </Link>
                       )}
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[13px] font-bold bg-amber-50 text-amber-700">
                         {typeLabel}
                       </span>
-                      <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
+                      <span className="text-[13px] text-slate-400 ml-auto">{dateLabel}</span>
                     </div>
                     <p className="text-[13px] text-slate-700 leading-relaxed mb-2">{sig.signal_summary}</p>
                     <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[13px] font-bold bg-slate-100 text-slate-600">
                         Confidence {sig._confidence}
                       </span>
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[13px] font-bold bg-blue-50 text-blue-700">
                         Relevance {sig._relevance}
                       </span>
                       {sig.source_kind && (
-                        <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700">
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[13px] font-bold bg-emerald-50 text-emerald-700">
                           {sig.source_kind}
                         </span>
                       )}
                     </div>
                     {sig.outreach_angle && (
                       <details className="group">
-                        <summary className="text-[12px] text-amber-700 font-semibold cursor-pointer list-none hover:text-amber-900">
+                        <summary className="text-[13px] text-amber-700 font-semibold cursor-pointer list-none hover:text-amber-900">
                           Outreach angle ?
                         </summary>
-                        <p className="text-[12px] text-slate-500 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
+                        <p className="text-[13px] text-slate-500 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
                       </details>
                     )}
                     {sig.outreach_draft && (
@@ -306,7 +306,7 @@ export default async function SignalsPage({
                         href={sig.source_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block mt-2 text-[11px] text-slate-400 hover:text-slate-600 underline"
+                        className="inline-block mt-2 text-[13px] text-slate-400 hover:text-slate-600 underline"
                       >
                         Source ?
                       </a>
@@ -316,7 +316,7 @@ export default async function SignalsPage({
                         {contact ? (
                           <Link
                             href={`/dashboard/contacts/${contact.id}/outreach`}
-                            className="text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
+                            className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
                           >
                             Draft outreach ? {contact.name}
                           </Link>
@@ -324,13 +324,13 @@ export default async function SignalsPage({
                           <>
                             <Link
                               href={`/dashboard/contacts/new?company_id=${co.id}`}
-                              className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
+                              className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
                             >
                               + Add contact at {co.name}
                             </Link>
                             <Link
                               href={`/dashboard/companies/${co.id}/prep?stage=informal_meeting`}
-                              className="text-[12px] font-semibold text-slate-400 hover:text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
+                              className="text-[13px] font-semibold text-slate-400 hover:text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors"
                             >
                               Prep a conversation
                             </Link>
@@ -341,7 +341,7 @@ export default async function SignalsPage({
                           <input type="hidden" name="signal_summary" value={sig.signal_summary} />
                           <button
                             type="submit"
-                            className="text-[12px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors bg-white cursor-pointer"
+                            className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded transition-colors bg-white cursor-pointer"
                           >
                             + Follow up in 5 days
                           </button>
@@ -371,7 +371,7 @@ export default async function SignalsPage({
             >
               ? Previous
             </Link>
-            <span className="text-[12px] text-slate-400">
+            <span className="text-[13px] text-slate-400">
               Page {page + 1} of {totalPages}
             </span>
             <Link

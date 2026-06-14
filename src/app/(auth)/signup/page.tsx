@@ -355,7 +355,7 @@ export default function SignupPage() {
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
         </div>
@@ -389,10 +389,10 @@ export default function SignupPage() {
                   <>
                     <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                      <p className="text-[12px] text-slate-400 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
+                      <p className="text-[13px] text-slate-400 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">
-                      <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
-                      <ol className="space-y-1.5 text-[12px] text-slate-600 leading-relaxed">
+                      <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Your first steps</p>
+                      <ol className="space-y-1.5 text-[13px] text-slate-600 leading-relaxed">
                         <li>1. Create your account</li>
                         <li>2. {SITUATION_COPY[situation].firstStep}</li>
                         <li>3. Morning rhythm starts: one priority action each day</li>
@@ -407,10 +407,10 @@ export default function SignupPage() {
                 )}
                 {entrySource && ENTRY_HANDOFF[entrySource] && (
                   <div className="mt-4 rounded border border-slate-200 bg-white p-3">
-                    <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Continuity note</p>
-                    <p className="text-[12px] text-slate-700 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].title}</p>
-                    <p className="text-[12px] text-slate-600 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].body}</p>
-                    <p className="text-[12px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Next:</span> {ENTRY_HANDOFF[entrySource].nextStep}</p>
+                    <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Continuity note</p>
+                    <p className="text-[13px] text-slate-700 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].title}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed mb-1.5">{ENTRY_HANDOFF[entrySource].body}</p>
+                    <p className="text-[13px] text-slate-600 leading-relaxed"><span className="font-semibold text-slate-700">Next:</span> {ENTRY_HANDOFF[entrySource].nextStep}</p>
                   </div>
                 )}
               </section>
@@ -418,7 +418,7 @@ export default function SignupPage() {
               <div className="bg-white border border-slate-200 rounded p-8">
 
                 <section id="social-signin" className="mb-5">
-                <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
+                <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
                 <button
                   type="button"
                   onClick={handleGoogle}
@@ -449,15 +449,15 @@ export default function SignupPage() {
 
                 <div className="flex items-center gap-3 mb-5">
                   <div className="flex-1 h-px bg-slate-200" />
-                  <span className="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">or</span>
+                  <span className="text-[13px] text-slate-400 font-semibold uppercase tracking-wide">or</span>
                   <div className="flex-1 h-px bg-slate-200" />
                 </div>
 
                 <form id="email-signup" onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Email signup</h2>
+                  <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Email signup</h2>
 
                   <div>
-                    <label htmlFor="email" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                    <label htmlFor="email" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                       Email
                     </label>
                     <input
@@ -472,7 +472,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="password" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                    <label htmlFor="password" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                       Password
                     </label>
                     <input
@@ -484,11 +484,11 @@ export default function SignupPage() {
                       onChange={e => setPassword(e.target.value)}
                       className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
                     />
-                    <p className="mt-1.5 text-[12px] text-slate-400">At least 8 characters.</p>
+                    <p className="mt-1.5 text-[13px] text-slate-400">At least 8 characters.</p>
                   </div>
 
                   <div>
-                    <label htmlFor="heard-about" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                    <label htmlFor="heard-about" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                       How did you hear about Starting Monday?
                     </label>
                     <select
@@ -504,15 +504,15 @@ export default function SignupPage() {
                       ))}
                     </select>
                     {heardAboutLocked ? (
-                      <p className="mt-1.5 text-[12px] text-slate-400">Auto-selected from the Manager Tools link.</p>
+                      <p className="mt-1.5 text-[13px] text-slate-400">Auto-selected from the Manager Tools link.</p>
                     ) : (
-                      <p className="mt-1.5 text-[12px] text-slate-400">Optional. Helps us tailor your onboarding.</p>
+                      <p className="mt-1.5 text-[13px] text-slate-400">Optional. Helps us tailor your onboarding.</p>
                     )}
                   </div>
 
                   {heardAbout === 'other' && !heardAboutLocked ? (
                     <div>
-                      <label htmlFor="heard-about-other" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                      <label htmlFor="heard-about-other" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                         Other source
                       </label>
                       <input
@@ -541,7 +541,7 @@ export default function SignupPage() {
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
-                  <p id="signup-trust" className="text-center text-[11px] text-slate-400">
+                  <p id="signup-trust" className="text-center text-[13px] text-slate-400">
                     Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
                     <Link href="/privacy" className="underline hover:text-slate-600">Privacy policy &rarr;</Link>
                   </p>
@@ -564,7 +564,7 @@ export default function SignupPage() {
             </>
           )}
 
-          <p className="text-center text-[11px] text-slate-300 mt-8">
+          <p className="text-center text-[13px] text-slate-300 mt-8">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
           </p>
 

@@ -1,0 +1,2 @@
+ticket_id,wave,tier,page,issue_types,priority_score,owner,eta,status,acceptance_criteria,source_report
+LUX-W1-001,Wave 1,public-premium,src/app/for-cio/page.tsx,tiny-text-heavy,366,design-system,3d,todo,Support/body copy moved to 13-14px baseline where applicable | Page passes luxury tiny-text static gate | Run: npm run ux:luxury:static:staged,tmp/luxury-ux-remediation-backlog.csv

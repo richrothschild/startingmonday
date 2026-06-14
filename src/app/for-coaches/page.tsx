@@ -5,6 +5,9 @@ import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import {
+  COACH_COMPETITIVE_TABLE,
+  COACH_JOURNEY_MAP,
+  COACH_PERSONA_JOURNEYS,
   COACH_BUYER_PLANS,
   COACH_PROOF_STRIPS,
   PILOT_SCORECARD,
@@ -23,6 +26,11 @@ export const metadata: Metadata = {
 }
 
 export default function ForCoachesPage() {
+  const visibleJourneyStages = COACH_JOURNEY_MAP.slice(0, 3)
+  const hiddenJourneyStages = COACH_JOURNEY_MAP.slice(3)
+  const visibleComparisonRows = COACH_COMPETITIVE_TABLE.slice(0, 3)
+  const hiddenComparisonRows = COACH_COMPETITIVE_TABLE.slice(3)
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
@@ -48,7 +56,7 @@ export default function ForCoachesPage() {
         <div className="mx-auto max-w-5xl">
           <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Coach Partner Preview</p>
           <h1 className="mb-5 max-w-3xl text-[30px] font-bold leading-[1.08] tracking-tight text-white sm:text-[42px]">
-            Clients arrive prepared.
+            Clients arrive prepared.{' '}
             <br className="hidden sm:block" />
             Coaching stays strategic.
           </h1>
@@ -61,25 +69,14 @@ export default function ForCoachesPage() {
 
           <div className="mb-7 space-y-3">
             <CoachPreviewActions />
-            <div className="flex flex-wrap items-center gap-4 text-[13px]">
-              <TrackLink
-                href="/coaches/personas"
-                event={EVENT_NAMES.personaRouteSelected}
-                logToUserEvents
-                properties={{ channel: 'coaches', persona: 'persona_hub', source_route: '/for-coaches', target_route: '/coaches/personas' }}
-                className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
-              >
-                Choose coach path
-              </TrackLink>
-              <TrackLink
-                href="/for-coaches/trust-pack"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'coach_trust_pack', source_page: '/for-coaches' }}
-                className="text-orange-300 underline underline-offset-2 transition-colors hover:text-orange-200"
-              >
-                View trust pack
-              </TrackLink>
+            <div className="flex flex-wrap items-center gap-3 text-[12px] text-slate-200">
+              <span className="font-semibold text-slate-100">Jump to:</span>
+              <a href="#journey-map" className="underline underline-offset-2 transition-colors hover:text-white">
+                Journey map
+              </a>
+              <a href="#competitive-comparison" className="underline underline-offset-2 transition-colors hover:text-white">
+                Comparison table
+              </a>
             </div>
           </div>
 
@@ -94,7 +91,7 @@ export default function ForCoachesPage() {
           <p className="mt-3 text-[11px] leading-relaxed text-slate-200">
             Proof: clients show up better prepared, session time stays strategic, and between-session momentum is visible.
           </p>
-          <p className="mt-1 text-[11px] leading-relaxed text-slate-200">
+          <p className="mt-1 text-[13px] leading-relaxed text-slate-200">
             Source: Jan-May 2026 pilot cohorts with documented denominator and timeframe notes.
           </p>
         </div>
@@ -144,6 +141,151 @@ export default function ForCoachesPage() {
           </div>
         </section>
 
+        <section id="journey-map" className="scroll-mt-24 px-4 pb-14 sm:px-6">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/65 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">Coach journey map</p>
+            <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">The path your coaching practice takes with Starting Monday.</h2>
+            <p className="mb-7 max-w-3xl text-[14px] leading-relaxed text-slate-200">
+              Start with the first three stages, then expand for the full map. This keeps the key operating delta visible without overload.
+            </p>
+
+            <div className="overflow-x-auto pb-1">
+              <div className="grid min-w-[620px] grid-cols-3 gap-3">
+                {visibleJourneyStages.map((step, index) => (
+                  <article key={step.stage} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="mb-2 text-[12px] font-semibold text-orange-200">Stage {index + 1}</p>
+                    <h3 className="mb-3 text-[14px] font-semibold text-white">{step.stage}</h3>
+                    <div className="space-y-2.5">
+                      <div className="rounded-xl border border-red-200/30 bg-red-300/10 p-2.5">
+                        <p className="mb-1 text-[12px] font-semibold text-red-100">Without a dedicated operating layer</p>
+                        <p className="text-[13px] leading-relaxed text-slate-200">{step.withoutTool}</p>
+                      </div>
+                      <div className="rounded-xl border border-emerald-200/30 bg-emerald-300/10 p-2.5">
+                        <p className="mb-1 text-[12px] font-semibold text-emerald-100">With Starting Monday</p>
+                        <p className="text-[13px] leading-relaxed text-slate-100">{step.withStartingMonday}</p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <details className="mt-7 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <summary className="cursor-pointer text-[14px] font-semibold text-orange-100">
+                Show full journey (stages 4-5 + persona paths)
+              </summary>
+              <div className="mt-4 overflow-x-auto pb-1">
+                <div className="grid min-w-[460px] grid-cols-2 gap-3">
+                  {hiddenJourneyStages.map((step, index) => (
+                    <article key={step.stage} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <p className="mb-2 text-[12px] font-semibold text-orange-200">Stage {visibleJourneyStages.length + index + 1}</p>
+                      <h3 className="mb-3 text-[14px] font-semibold text-white">{step.stage}</h3>
+                      <div className="space-y-2.5">
+                        <div className="rounded-xl border border-red-200/30 bg-red-300/10 p-2.5">
+                          <p className="mb-1 text-[12px] font-semibold text-red-100">Without a dedicated operating layer</p>
+                          <p className="text-[13px] leading-relaxed text-slate-200">{step.withoutTool}</p>
+                        </div>
+                        <div className="rounded-xl border border-emerald-200/30 bg-emerald-300/10 p-2.5">
+                          <p className="mb-1 text-[12px] font-semibold text-emerald-100">With Starting Monday</p>
+                          <p className="text-[13px] leading-relaxed text-slate-100">{step.withStartingMonday}</p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
+                {COACH_PERSONA_JOURNEYS.map((item) => (
+                  <article key={item.persona} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="mb-2 text-[13px] font-semibold text-orange-200">{item.persona}</p>
+                    <div className="grid gap-2">
+                      <p className="rounded-lg border border-red-200/30 bg-red-300/10 px-3 py-2 text-[13px] leading-relaxed text-slate-200">
+                        <span className="font-semibold text-red-100">Without tool:</span> {item.withoutTool}
+                      </p>
+                      <p className="rounded-lg border border-emerald-200/30 bg-emerald-300/10 px-3 py-2 text-[13px] leading-relaxed text-slate-100">
+                        <span className="font-semibold text-emerald-100">With Starting Monday:</span> {item.withStartingMonday}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section id="competitive-comparison" className="scroll-mt-24 px-4 pb-14 sm:px-6">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/65 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">Competitive comparison</p>
+            <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">Starting Monday vs coaching.com vs BetterUp vs DIY.</h2>
+            <p className="max-w-3xl text-[14px] leading-relaxed text-slate-200">
+              A coach-first snapshot of where each option typically performs for executive-transition workflows.
+            </p>
+            <p className="mt-3 mb-7 max-w-3xl text-[14px] leading-relaxed text-slate-100">
+              Key takeaway: Starting Monday is designed to give independent coaches faster session readiness with less manual coordination.
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-white/10 text-left">
+                <thead>
+                  <tr className="bg-white/[0.04]">
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">Dimension</th>
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-100">Starting Monday</th>
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">coaching.com</th>
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">BetterUp</th>
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">DIY stack</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visibleComparisonRows.map((row) => (
+                    <tr key={row.dimension} className="align-top odd:bg-white/[0.02]">
+                      <th scope="row" className="border-t border-white/10 px-4 py-3 text-[13px] font-semibold text-white">{row.dimension}</th>
+                      <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-100">{row.startingMonday}</td>
+                      <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.coachingDotCom}</td>
+                      <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.betterUp}</td>
+                      <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.diy}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <details className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <summary className="cursor-pointer text-[14px] font-semibold text-orange-100">
+                Show full comparison (additional dimensions)
+              </summary>
+              <div className="mt-4 overflow-x-auto">
+                <table className="min-w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-white/10 text-left">
+                  <thead>
+                    <tr className="bg-white/[0.04]">
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">Dimension</th>
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-100">Starting Monday</th>
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">coaching.com</th>
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">BetterUp</th>
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">DIY stack</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hiddenComparisonRows.map((row) => (
+                      <tr key={row.dimension} className="align-top odd:bg-white/[0.02]">
+                        <th scope="row" className="border-t border-white/10 px-4 py-3 text-[13px] font-semibold text-white">{row.dimension}</th>
+                        <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-100">{row.startingMonday}</td>
+                        <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.coachingDotCom}</td>
+                        <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.betterUp}</td>
+                        <td className="border-t border-white/10 px-4 py-3 text-[13px] leading-relaxed text-slate-200">{row.diy}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+            <p className="mt-4 text-[13px] leading-relaxed text-slate-300">
+              Comparison note: this is a directional summary for coach evaluation, based on each platform&apos;s typical positioning and use model.
+            </p>
+          </div>
+        </section>
+
         <section className="px-4 pb-14 sm:px-6">
           <div className="mx-auto max-w-5xl">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Pricing clarity</p>
@@ -175,29 +317,29 @@ export default function ForCoachesPage() {
           </div>
         </section>
 
-        <section className="px-4 pb-14 sm:px-6">
+        <section className="px-4 pb-16 sm:px-6">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Trust and privacy</p>
+            <p className="mb-4 text-[12px] font-semibold text-orange-200">Trust and privacy</p>
             <h2 className="mb-4 text-[22px] font-bold leading-snug text-white">Starting Monday supports coaching. It does not replace it.</h2>
             <div className="mb-4 grid gap-8 md:grid-cols-2 md:divide-x md:divide-slate-200">
               <div>
-                <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.1em] text-slate-200">Platform handles</p>
-                <ul className="space-y-2 text-[13px] leading-relaxed text-slate-200">
+                <p className="mb-2 text-[13px] font-semibold text-slate-100">Platform handles</p>
+                <ul className="space-y-2 text-[14px] leading-relaxed text-slate-200">
                   {ROLE_BOUNDARY.platform.map((line) => (
                     <li key={line}>{line}</li>
                   ))}
                 </ul>
               </div>
               <div className="md:pl-8">
-                <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.1em] text-orange-200">Coach handles</p>
-                <ul className="space-y-2 text-[13px] leading-relaxed text-slate-200">
+                <p className="mb-2 text-[13px] font-semibold text-orange-200">Coach handles</p>
+                <ul className="space-y-2 text-[14px] leading-relaxed text-slate-200">
                   {ROLE_BOUNDARY.coach.map((line) => (
                     <li key={line}>{line}</li>
                   ))}
                 </ul>
               </div>
             </div>
-            <p className="mb-4 text-[13px] leading-relaxed text-slate-200">Clients control access, can revoke it anytime, there is no recruiter-side data sharing, and the trust pack explains the permission model in one minute.</p>
+            <p className="mb-5 text-[14px] leading-relaxed text-slate-200">Clients control access and can revoke it at any time. There is no recruiter-side data sharing. The trust pack explains permissions in under one minute.</p>
             <div className="flex flex-wrap gap-3">
               <TrackLink
                 href="/for-coaches/trust-pack"
@@ -223,18 +365,10 @@ export default function ForCoachesPage() {
 
         <section className="px-4 pb-16 sm:px-6">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 text-white shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Next step</p>
+            <p className="mb-3 text-[12px] font-semibold text-orange-200">Next step</p>
             <h2 className="mb-3 text-[22px] font-bold leading-snug">Request the preview, then decide from a live client workflow.</h2>
             <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200">See the workflow with two to three live clients for 30 days, then decide based on outcomes in your own practice.</p>
             <CoachPreviewActions />
-            <div className="mt-5 flex flex-wrap gap-4 text-[13px]">
-              <Link href="/for-coaches/faq" className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white">
-                Read the FAQ
-              </Link>
-              <Link href="/for-coaches/economics" className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white">
-                Open economics
-              </Link>
-            </div>
           </div>
         </section>
       </main>

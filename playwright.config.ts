@@ -74,6 +74,24 @@ export default defineConfig({
       },
     },
     {
+      name: 'luxury-desktop',
+      testMatch: /luxury-ux\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
+      name: 'luxury-mobile',
+      testMatch: /luxury-ux\.spec\.ts/,
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 3,
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
+    {
       name: 'mobile-iphone',
       testMatch: /mobile-(ui|key-routes|public-routes|visual|visual-smoke|elite-visual)\.spec\.ts/,
       dependencies: ['setup'],

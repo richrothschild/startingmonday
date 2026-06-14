@@ -64,11 +64,11 @@ export default async function SocialAdminPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">? Admin</Link>
+            <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">? Admin</Link>
           </div>
         </div>
       </header>
@@ -82,7 +82,7 @@ export default async function SocialAdminPage() {
           <div className="mt-3">
             <a
               href="#content-checker"
-              className="inline-flex items-center text-[12px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+              className="inline-flex items-center text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
             >
               Content Checker
             </a>
@@ -90,8 +90,8 @@ export default async function SocialAdminPage() {
         </div>
 
         <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#post-history" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Post history</a>
             <a href="#google-calendar" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Google Calendar sync</a>
             <a href="#daily-workflow" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Daily workflow</a>
@@ -108,25 +108,25 @@ export default async function SocialAdminPage() {
               <p className="text-[13px] text-slate-500 mt-1.5 max-w-2xl">
                 Connect Google Calendar to sync the posting reminder schedule directly instead of relying on manual .ics imports.
               </p>
-              <p className="text-[12px] text-slate-500 mt-1.5">
+              <p className="text-[13px] text-slate-500 mt-1.5">
                 Source calendar: <span className="font-semibold text-slate-700">startingmonday-posting-reminders.ics</span>
               </p>
             </div>
 
             <div className="flex flex-col sm:items-end gap-2">
               {googleCalendarIntegration?.active ? (
-                <span className="inline-flex w-fit text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded">
+                <span className="inline-flex w-fit text-[13px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded">
                   Connected
                 </span>
               ) : (
-                <span className="inline-flex w-fit text-[11px] font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded">
+                <span className="inline-flex w-fit text-[13px] font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded">
                   Not connected
                 </span>
               )}
               <div className="flex flex-wrap gap-2">
                 <a
                   href="/api/google-calendar/connect?returnTo=/dashboard/admin/social"
-                  className="inline-flex items-center justify-center text-[12px] font-semibold bg-slate-900 text-white px-3.5 py-2 rounded hover:bg-slate-800 transition-colors"
+                  className="inline-flex items-center justify-center text-[13px] font-semibold bg-slate-900 text-white px-3.5 py-2 rounded hover:bg-slate-800 transition-colors"
                 >
                   {googleCalendarIntegration?.active ? 'Reconnect' : 'Connect Google Calendar'}
                 </a>
@@ -135,7 +135,7 @@ export default async function SocialAdminPage() {
                     <input type="hidden" name="returnTo" value="/dashboard/admin/social" />
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center text-[12px] font-semibold border border-slate-300 text-slate-700 px-3.5 py-2 rounded hover:border-slate-400 hover:text-slate-900 transition-colors"
+                      className="inline-flex items-center justify-center text-[13px] font-semibold border border-slate-300 text-slate-700 px-3.5 py-2 rounded hover:border-slate-400 hover:text-slate-900 transition-colors"
                     >
                       Disconnect
                     </button>
@@ -145,7 +145,7 @@ export default async function SocialAdminPage() {
             </div>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-3 text-[12px] text-slate-600">
+          <div className="mt-4 grid gap-3 sm:grid-cols-3 text-[13px] text-slate-600">
             <div className="rounded bg-slate-50 border border-slate-200 p-3">
               <p className="font-semibold text-slate-800 mb-1">Calendar</p>
               <p>{googleCalendarIntegration?.calendar_id ?? 'primary'}</p>
@@ -166,9 +166,9 @@ export default async function SocialAdminPage() {
         {/* Post history */}
         {posts.length > 0 && (
           <section id="post-history" className="mt-10">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Post History (30 days)</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Post History (30 days)</h2>
             <div className="bg-white border border-slate-200 rounded overflow-hidden">
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[13px]">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-left">
                     <th className="px-5 py-3 font-semibold text-slate-400">Date</th>
@@ -193,21 +193,21 @@ export default async function SocialAdminPage() {
                       </td>
                       <td className="px-4 py-3">
                         {p.is_posted ? (
-                          <span className="text-[11px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">Posted</span>
+                          <span className="text-[13px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded">Posted</span>
                         ) : p.buffer_scheduled_at ? (
-                          <span className="text-[11px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Queued</span>
+                          <span className="text-[13px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Queued</span>
                         ) : (
-                          <span className="text-[11px] font-bold bg-slate-100 text-slate-400 px-2 py-0.5 rounded">Draft</span>
+                          <span className="text-[13px] font-bold bg-slate-100 text-slate-400 px-2 py-0.5 rounded">Draft</span>
                         )}
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex flex-col gap-1">
-                          <span className={`inline-block text-[11px] font-bold px-2 py-0.5 rounded w-fit ${
+                          <span className={`inline-block text-[13px] font-bold px-2 py-0.5 rounded w-fit ${
                             councilPass ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
                           }`}>
                             {councilPass ? 'Pass' : 'Fail'}
                           </span>
-                          <span className="text-[10px] text-slate-500">
+                          <span className="text-[13px] text-slate-500">
                             {emotionalAngle ? emotionalAngle.replace('_', ' ') : 'No angle'}
                           </span>
                         </div>
@@ -226,17 +226,17 @@ export default async function SocialAdminPage() {
 
         {/* Liz instructions */}
         <section id="daily-workflow" className="mt-10 bg-white border border-slate-200 rounded p-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow -- Monday Through Friday</h2>
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-4">Daily Workflow -- Monday Through Friday</h2>
 
           <div className="mb-6 border border-blue-200 bg-blue-50/40 rounded p-4">
-            <h3 className="text-[11px] font-bold tracking-[0.08em] uppercase text-blue-700 mb-2">Executive Coach Outreach Guide For Liz</h3>
+            <h3 className="text-[13px] font-bold tracking-[0.08em] uppercase text-blue-700 mb-2">Executive Coach Outreach Guide For Liz</h3>
             <p className="text-[13px] text-slate-700 leading-relaxed mb-3">
               The full step-by-step guide, coach-finding criteria, and message options are in:
               {' '}
               <span className="font-mono text-slate-800">docs/liz-executive-coach-linkedin-guide.md</span>
             </p>
-            <p className="text-[12px] text-slate-600 mb-2">Send-ready email draft:</p>
-            <div className="bg-white border border-blue-100 rounded p-3 text-[12px] text-slate-700 leading-relaxed">
+            <p className="text-[13px] text-slate-600 mb-2">Send-ready email draft:</p>
+            <div className="bg-white border border-blue-100 rounded p-3 text-[13px] text-slate-700 leading-relaxed">
               <p><span className="font-semibold text-slate-900">Subject:</span> Executive coach outreach guide now live</p>
               <p className="mt-2">Hi Liz,</p>
               <p className="mt-1">
@@ -249,7 +249,7 @@ export default async function SocialAdminPage() {
             </div>
             <a
               href="mailto:?subject=Executive%20coach%20outreach%20guide%20now%20live&body=Hi%20Liz%2C%0A%0AI%20published%20the%20daily%20executive%20coach%20outreach%20guide.%20It%20mirrors%20the%20Social%20page%20operating%20style%20and%20includes%3A%20coach-finding%20filters%2C%20persona%20criteria%2C%20objection%20tags%2C%20connection%20note%20options%2C%20and%20the%207-touch%20follow-up%20sequence.%0A%0APlease%20start%20with%20this%20file%3A%20docs%2Fliz-executive-coach-linkedin-guide.md%0A%0AThanks%2C%0ARich"
-              className="inline-block mt-3 text-[12px] font-semibold text-blue-700 border border-blue-200 rounded px-3 py-2 hover:border-blue-400 hover:text-blue-800 transition-colors"
+              className="inline-block mt-3 text-[13px] font-semibold text-blue-700 border border-blue-200 rounded px-3 py-2 hover:border-blue-400 hover:text-blue-800 transition-colors"
             >
               Open email draft
             </a>
@@ -279,7 +279,7 @@ export default async function SocialAdminPage() {
               },
             ].map((step, i) => (
               <li key={i} className="flex gap-3 text-[13px] text-slate-600">
-                <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center mt-0.5">
+                <span className="shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white text-[13px] font-bold flex items-center justify-center mt-0.5">
                   {i + 1}
                 </span>
                 <div>
@@ -291,33 +291,33 @@ export default async function SocialAdminPage() {
           </ol>
 
           <div className="mt-6 pt-5 border-t border-slate-100">
-            <h3 id="cio-outreach" className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</h3>
-            <p className="text-[12px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one two-sentence body, then send same day.</p>
+            <h3 id="cio-outreach" className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">CIO Outreach - Accepted Connection Follow-Up</h3>
+            <p className="text-[13px] text-slate-500 mb-3">Use these when a CIO accepts the connection request. Pick one subject and one two-sentence body, then send same day.</p>
             <div className="bg-slate-50 border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct And Memorable</p>
-              <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> Most CIO searches stall between sessions.</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version A - Direct And Memorable</p>
+              <p className="text-[13px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> Most CIO searches stall between sessions.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
                 [Name], thanks for connecting. Most CIO searches lose momentum between sessions, so we built Starting Monday to keep execution tight with company signals, prep briefs, and a live pipeline view; open to a 15-minute walkthrough?
               </p>
             </div>
             <div className="mt-3 bg-slate-50 border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version B - Relationship First</p>
-              <p className="text-[12px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> You run strategy. We handle the between-session execution.</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Version B - Relationship First</p>
+              <p className="text-[13px] text-slate-800 mb-2"><span className="font-semibold">Subject:</span> You run strategy. We handle the between-session execution.</p>
               <p className="text-[13px] text-slate-700 leading-relaxed">
                 [Name], appreciate the connection. The quiet middle of a CIO transition is where searches drift, so Starting Monday gives candidates a daily operating rhythm that keeps research, outreach, and interview prep moving; open to a short 15-minute walkthrough?
               </p>
             </div>
-            <div className="mt-3 text-[12px] text-slate-600 leading-relaxed">
+            <div className="mt-3 text-[13px] text-slate-600 leading-relaxed">
               <p><span className="font-semibold text-slate-800">If no response after 3 days:</span> Happy to send a short demo video if that is easier than a live call.</p>
               <p className="mt-1"><span className="font-semibold text-slate-800">If no response after 7 days:</span> No pressure if timing is not right. If priorities shift, I am happy to reconnect.</p>
             </div>
 
             <div className="mt-5 pt-4 border-t border-slate-100">
-              <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Executive Coach Outreach - Quick Use</h3>
-              <p className="text-[12px] text-slate-600 mb-3">
+              <h3 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Executive Coach Outreach - Quick Use</h3>
+              <p className="text-[13px] text-slate-600 mb-3">
                 Steps and message options are now on this page and fully documented in the guide above.
               </p>
-              <ol className="list-decimal pl-5 space-y-1 text-[12px] text-slate-700 leading-relaxed">
+              <ol className="list-decimal pl-5 space-y-1 text-[13px] text-slate-700 leading-relaxed">
                 <li>Build 10-15 daily prospects in Sales Navigator (1-10 employee firms, active in last 30 days).</li>
                 <li>Tag each coach persona (Transition, VP-to-CXO, Search Affiliate, Board).</li>
                 <li>Send personalized connection notes the same day.</li>
@@ -327,9 +327,9 @@ export default async function SocialAdminPage() {
             </div>
 
             <div id="council-review" className="mt-5 pt-4 border-t border-slate-100">
-              <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Synthetic Council Review - Sales Marketing And Pricing</h3>
+              <h3 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Synthetic Council Review - Sales Marketing And Pricing</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-[12px] text-left border border-slate-200 rounded overflow-hidden">
+                <table className="w-full text-[13px] text-left border border-slate-200 rounded overflow-hidden">
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-200">
                       <th className="px-3 py-2 font-semibold text-slate-900">Member</th>
@@ -371,7 +371,7 @@ export default async function SocialAdminPage() {
 
           {/* Pillar legend */}
           <div id="pillar-legend" className="mt-6 pt-5 border-t border-slate-100">
-            <h3 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</h3>
+            <h3 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What the pillar labels mean</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 { label: 'Search Craft', desc: 'Practical advice for running a senior executive job search' },
@@ -381,15 +381,15 @@ export default async function SocialAdminPage() {
                 { label: 'Engagement', desc: 'Questions and conversation-starters for the audience' },
               ].map(p => (
                 <div key={p.label} className="flex gap-2 items-start">
-                  <span className="text-[11px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded shrink-0">{p.label}</span>
-                  <span className="text-[12px] text-slate-500 mt-0.5">{p.desc}</span>
+                  <span className="text-[13px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded shrink-0">{p.label}</span>
+                  <span className="text-[13px] text-slate-500 mt-0.5">{p.desc}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="mt-5 pt-4 border-t border-slate-100">
-            <p className="text-[12px] text-slate-400">
+            <p className="text-[13px] text-slate-400">
               This page: <span className="font-mono text-slate-600">https://startingmonday.app/dashboard/admin/social</span>
             </p>
           </div>

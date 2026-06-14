@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T14:21:07.431Z",
+  "generatedAt": "2026-06-14T16:34:27.413Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
+      "lastModifiedAt": "2026-06-14T16:26:53.852Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-13T15:13:04.946Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.102Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -82,7 +82,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.383Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.104Z"
     },
     {
       "id": "feature:/dashboard/admin/coach-outreach",
@@ -110,7 +110,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.385Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.104Z"
     },
     {
       "id": "feature:/dashboard/admin/customers",
@@ -124,7 +124,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.387Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.105Z"
     },
     {
       "id": "feature:/dashboard/admin/diagrams",
@@ -180,7 +180,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T01:12:24.813Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.106Z"
     },
     {
       "id": "feature:/dashboard/admin/intelligence/qa",
@@ -194,7 +194,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.393Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.106Z"
     },
     {
       "id": "feature:/dashboard/admin/internal-guide",
@@ -236,7 +236,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.398Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.107Z"
     },
     {
       "id": "feature:/dashboard/admin/onboarding/qa",
@@ -250,7 +250,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.399Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.107Z"
     },
     {
       "id": "feature:/dashboard/admin/onboarding/video",
@@ -264,7 +264,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.399Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.108Z"
     },
     {
       "id": "feature:/dashboard/admin/operations",
@@ -278,7 +278,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.400Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.109Z"
     },
     {
       "id": "feature:/dashboard/admin/outplacement-cohorts",
@@ -292,7 +292,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.400Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.109Z"
     },
     {
       "id": "feature:/dashboard/admin/outplacement-outreach",
@@ -320,7 +320,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.402Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.110Z"
     },
     {
       "id": "feature:/dashboard/admin/outreach-reliability",
@@ -334,7 +334,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.402Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.111Z"
     },
     {
       "id": "feature:/dashboard/admin",
@@ -348,7 +348,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.403Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.112Z"
     },
     {
       "id": "feature:/dashboard/admin/product/catalog",
@@ -376,7 +376,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.405Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.112Z"
     },
     {
       "id": "feature:/dashboard/admin/revenue",
@@ -390,7 +390,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.405Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.113Z"
     },
     {
       "id": "feature:/dashboard/admin/sales-enablement",
@@ -418,7 +418,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.408Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.113Z"
     },
     {
       "id": "feature:/dashboard/admin/speakers",
@@ -460,7 +460,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.415Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.114Z"
     },
     {
       "id": "feature:/dashboard/admin/traces/rubric",
@@ -530,7 +530,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.426Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.114Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -572,7 +572,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.443Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.116Z"
     },
     {
       "id": "feature:/dashboard/discover",
@@ -670,7 +670,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.459Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.118Z"
     },
     {
       "id": "feature:/dashboard/outplacement",
@@ -698,7 +698,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.463Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.118Z"
     },
     {
       "id": "feature:/dashboard",
@@ -712,7 +712,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-09T02:15:10.429Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.119Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -726,7 +726,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.467Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.119Z"
     },
     {
       "id": "feature:/dashboard/pilot-outreach",
@@ -782,7 +782,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.475Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.120Z"
     },
     {
       "id": "feature:/dashboard/profile",
@@ -796,7 +796,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.477Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.120Z"
     },
     {
       "id": "feature:/dashboard/profile/tailor",
@@ -838,7 +838,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-13T13:43:14.978Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.121Z"
     },
     {
       "id": "feature:/dashboard/start",
@@ -1440,7 +1440,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:27:30.102Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.121Z"
     },
     {
       "id": "feature:/coaches",
@@ -1496,7 +1496,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.928Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.122Z"
     },
     {
       "id": "feature:/demo/cio/notes",
@@ -1734,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-08T01:11:05.851Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.123Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T01:31:58.081Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.123Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:41:30.257Z"
+      "lastModifiedAt": "2026-06-14T15:33:47.137Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -2322,7 +2322,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:37:41.432Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.125Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution/customer-email-by-channel",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:37:41.432Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.125Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution",
@@ -2350,7 +2350,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:37:41.432Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.126Z"
     },
     {
       "id": "feature:/mauricio-kickoff",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.809Z"
+      "lastModifiedAt": "2026-06-14T16:09:11.124Z"
     },
     {
       "id": "feature:/method-and-evidence",
@@ -8759,6 +8759,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.301Z"
     },
     {
+      "id": "script:scripts/apply-luxury-ux-backlog-fixes.mjs",
+      "title": "Script scripts/apply-luxury-ux-backlog-fixes.mjs",
+      "body": "Keep first CTA label, diversify following duplicates to avoid repeated-label overload.",
+      "type": "script",
+      "ref": "scripts/apply-luxury-ux-backlog-fixes.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T16:11:28.815Z"
+    },
+    {
       "id": "script:scripts/audit-outreach-db.mjs",
       "title": "Script scripts/audit-outreach-db.mjs",
       "body": "import 'dotenv/config'",
@@ -9095,6 +9108,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.321Z"
+    },
+    {
+      "id": "script:scripts/check-luxury-ux-static-gate.mjs",
+      "title": "Script scripts/check-luxury-ux-static-gate.mjs",
+      "body": "Gate 1: avoid pages drifting into tiny-text heavy support copy.",
+      "type": "script",
+      "ref": "scripts/check-luxury-ux-static-gate.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T16:04:46.177Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -9641,6 +9667,32 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.344Z"
+    },
+    {
+      "id": "script:scripts/generate-luxury-ux-remediation-backlog.mjs",
+      "title": "Script scripts/generate-luxury-ux-remediation-backlog.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/generate-luxury-ux-remediation-backlog.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T16:06:30.198Z"
+    },
+    {
+      "id": "script:scripts/generate-luxury-ux-wave1-tickets.mjs",
+      "title": "Script scripts/generate-luxury-ux-wave1-tickets.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/generate-luxury-ux-wave1-tickets.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-14T16:11:28.815Z"
     },
     {
       "id": "script:scripts/generate-mobile-route-coverage-report.mjs",
@@ -10433,7 +10485,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T04:33:03.717Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.293Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10566,6 +10618,19 @@
       "lastModifiedAt": "2026-06-06T19:57:44.618Z"
     },
     {
+      "id": "infra:.github/workflows/luxury-ux-tiered.yml",
+      "title": "Workflow .github/workflows/luxury-ux-tiered.yml",
+      "body": "name: Luxury UX Tiered Gate",
+      "type": "infra",
+      "ref": ".github/workflows/luxury-ux-tiered.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-14T16:04:46.177Z"
+    },
+    {
       "id": "infra:.github/workflows/managertools-launch-monitoring.yml",
       "title": "Workflow .github/workflows/managertools-launch-monitoring.yml",
       "body": "name: Manager Tools Launch Monitoring",
@@ -10667,7 +10732,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T14:20:31.033Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.322Z"
     },
     {
       "id": "infra:.github/workflows/production-generated-monitoring.yml",
@@ -16579,7 +16644,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
+      "lastModifiedAt": "2026-06-14T16:26:53.852Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16618,7 +16683,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:08:43.559Z"
+      "lastModifiedAt": "2026-06-14T16:26:53.852Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16775,6 +16840,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.039Z"
+    },
+    {
+      "id": "doc:docs/luxury-ux-remediation-handoff-2026-06-14.md",
+      "title": "Doc docs/luxury-ux-remediation-handoff-2026-06-14.md",
+      "body": "Luxury UX Remediation Handoff",
+      "type": "doc",
+      "ref": "docs/luxury-ux-remediation-handoff-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T16:13:29.473Z"
+    },
+    {
+      "id": "doc:docs/luxury-ux-testing-playbook.md",
+      "title": "Doc docs/luxury-ux-testing-playbook.md",
+      "body": "Luxury UX Testing Playbook",
+      "type": "doc",
+      "ref": "docs/luxury-ux-testing-playbook.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T16:04:46.177Z"
     },
     {
       "id": "doc:docs/main-landing-page-council-review.md",
@@ -17984,6 +18075,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.118Z"
+    },
+    {
+      "id": "doc:docs/slack-chris-luxury-ux-handoff-2026-06-14.md",
+      "title": "Doc docs/slack-chris-luxury-ux-handoff-2026-06-14.md",
+      "body": "Slack Copy: Luxury UX Remediation Handoff",
+      "type": "doc",
+      "ref": "docs/slack-chris-luxury-ux-handoff-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T16:21:27.032Z"
     },
     {
       "id": "doc:docs/sm-acquisition-sprints.md",
@@ -19881,7 +19985,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.291Z"
     },
     {
       "id": "doc:docs/strategy/mark-horstman-review.md",
@@ -19998,7 +20102,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:04:57.529Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.291Z"
     },
     {
       "id": "doc:docs/strategy/slack-channel-naming-pack-2026-06-04.md",
@@ -20063,7 +20167,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.291Z"
     },
     {
       "id": "doc:docs/strategy/tam-financial-model.md",
@@ -20440,7 +20544,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T14:03:38.188Z"
+      "lastModifiedAt": "2026-06-14T15:15:06.291Z"
     },
     {
       "id": "doc:docs/ui-ux-rerun-2026-05-26.md",
@@ -20492,7 +20596,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T04:07:52.407Z"
+      "lastModifiedAt": "2026-06-14T16:26:51.012Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

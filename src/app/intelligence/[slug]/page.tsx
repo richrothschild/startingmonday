@@ -54,17 +54,17 @@ export default async function IntelligencePage({
       {/* Header */}
       <header className="bg-slate-950 border-b border-slate-800">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-white transition-colors">
+          <Link href="/" className="text-[13px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-white transition-colors">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[12px] font-semibold text-slate-200 hover:text-white transition-colors">
+            <Link href="/login" className="text-[13px] font-semibold text-slate-200 hover:text-white transition-colors">
               Sign in
             </Link>
             <Link
               href="/signup"
-              className="bg-orange-500 hover:bg-orange-600 text-white text-[12px] font-semibold px-4 py-2 rounded transition-colors"
+              className="bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors"
             >
               Start free
             </Link>
@@ -74,8 +74,8 @@ export default async function IntelligencePage({
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 <section className="mb-6 bg-white border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
             <a href="#company-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company overview</a>
             <a href="#recent-intelligence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Recent intelligence</a>
             <a href="#access-gate" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Access gate</a>
@@ -94,7 +94,7 @@ export default async function IntelligencePage({
                 {company.company_name}
               </h1>
               {company.sector && (
-                <span className="text-[12px] font-semibold text-slate-200 tracking-wide uppercase">
+                <span className="text-[13px] font-semibold text-slate-200 tracking-wide uppercase">
                   {company.sector}
                 </span>
               )}
@@ -126,7 +126,7 @@ export default async function IntelligencePage({
               </a>
             )}
             {isUnlocked && (
-              <span className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-600 bg-orange-50 px-2.5 py-1 rounded">
+              <span className="text-[13px] font-bold tracking-[0.1em] uppercase text-orange-600 bg-orange-50 px-2.5 py-1 rounded">
                 Full access
               </span>
             )}
@@ -135,7 +135,7 @@ export default async function IntelligencePage({
 
         {/* Intelligence feed */}
         <section id="recent-intelligence" className="mb-4">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-200 mb-4">
             Recent intelligence
           </h2>
 
@@ -147,7 +147,7 @@ export default async function IntelligencePage({
               <p className="text-[13px] text-slate-500 mb-6 max-w-sm mx-auto">
                 Sign up to track this company. We scan for signals every 48 hours and alert you the moment something changes.
               </p>
-              <p className="text-[12px] text-slate-500 mb-3">Outcome metric: signal scans every 48 hours improve timing before public search activity peaks.</p>
+              <p className="text-[13px] text-slate-500 mb-3">Outcome metric: signal scans every 48 hours improve timing before public search activity peaks.</p>
               <Link
                 href="/signup"
                 className="inline-block bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold px-6 py-3 rounded transition-colors"
@@ -164,12 +164,12 @@ export default async function IntelligencePage({
                 >
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <span className={[
-                      'text-[10px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-full',
+                      'text-[13px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-full',
                       SIGNAL_COLORS[signal.signal_type] ?? 'bg-slate-100 text-slate-600',
                     ].join(' ')}>
                       {signalLabel(signal.signal_type)}
                     </span>
-                    <span className="text-[12px] text-slate-200">
+                    <span className="text-[13px] text-slate-200">
                       {new Date(signal.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', {
                         month: 'short', day: 'numeric', year: 'numeric',
                       })}
@@ -183,7 +183,7 @@ export default async function IntelligencePage({
                       href={signal.source_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-[12px] text-slate-200 hover:text-slate-700 transition-colors"
+                      className="mt-2 inline-block text-[13px] text-slate-200 hover:text-slate-700 transition-colors"
                     >
                       Source &nearr;
                     </a>
@@ -201,10 +201,10 @@ export default async function IntelligencePage({
             <div className="pointer-events-none select-none overflow-hidden rounded-lg" aria-hidden>
               <div className="bg-white border border-slate-200 rounded-lg px-5 py-4 opacity-30 blur-sm">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-[10px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">
+                  <span className="text-[13px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">
                     Exec Move
                   </span>
-                  <span className="text-[12px] text-slate-200">Recent</span>
+                  <span className="text-[13px] text-slate-200">Recent</span>
                 </div>
                 <p className="text-[14px] text-slate-700 leading-relaxed">
                   Senior leadership change detected at {company.company_name}. New appointment signals a strategic shift in technology direction.
@@ -220,14 +220,14 @@ export default async function IntelligencePage({
               <p className="text-[14px] text-slate-500 mb-6 max-w-xs">
                 Track {company.company_name} and every company on your target list. Get daily alerts when timing shifts.
               </p>
-              <p className="text-[12px] text-slate-500 mb-3">Trust and confidentiality: your tracked companies and signal workflow stay private to your account.</p>
+              <p className="text-[13px] text-slate-500 mb-3">Trust and confidentiality: your tracked companies and signal workflow stay private to your account.</p>
               <Link
                 href={`${APP_URL}/signup`}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-8 py-3 rounded transition-colors"
               >
-                Get started now
+                Start free trial
               </Link>
-              <Link href="/login" className="mt-3 text-[12px] text-slate-200 hover:text-slate-700 transition-colors">
+              <Link href="/login" className="mt-3 text-[13px] text-slate-200 hover:text-slate-700 transition-colors">
                 Already have an account? Sign in
               </Link>
             </div>
@@ -237,7 +237,7 @@ export default async function IntelligencePage({
         {/* Bottom CTA for unlocked pages */}
         {isUnlocked && allSignals.length > 0 && (
           <section id="next-step" className="mt-10 bg-slate-950 rounded-xl px-6 sm:px-8 py-8 text-center">
-            <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
+            <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">
               Starting Monday Intelligence
             </div>
             <h2 className="text-[22px] font-bold text-white mb-3">
@@ -246,7 +246,7 @@ export default async function IntelligencePage({
             <p className="text-[14px] text-slate-200 leading-relaxed mb-6 max-w-md mx-auto">
               Exec moves, funding rounds, acquisitions, and filing trends. Signals delivered daily before you start your day.
             </p>
-            <p className="text-[12px] text-slate-200 leading-relaxed mb-4">Outcome metric: better signal timing improves outreach response windows and interview readiness.</p>
+            <p className="text-[13px] text-slate-200 leading-relaxed mb-4">Outcome metric: better signal timing improves outreach response windows and interview readiness.</p>
             <Link
               href="/signup"
               className="inline-block bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-8 py-3 rounded transition-colors"
@@ -260,7 +260,7 @@ export default async function IntelligencePage({
 
       {/* Footer */}
       <footer className="max-w-3xl mx-auto px-4 sm:px-6 py-8 border-t border-slate-200 mt-10">
-        <p className="text-[12px] text-slate-200 text-center">
+        <p className="text-[13px] text-slate-200 text-center">
           <Link href="/" className="hover:text-slate-700 transition-colors">Starting Monday</Link>
           {' '}&middot;{' '}Executive intelligence for active job seekers
         </p>

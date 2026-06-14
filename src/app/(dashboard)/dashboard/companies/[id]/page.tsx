@@ -172,7 +172,7 @@ export default async function CompanyPage({
 
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-600">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
@@ -219,7 +219,7 @@ export default async function CompanyPage({
 
           {/* Edit form */}
           <section id="company-details" className="bg-white border border-slate-200 rounded p-5 sm:p-8">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Company details
             </h2>
 
@@ -240,7 +240,7 @@ export default async function CompanyPage({
                       stageUp === 'offer'         ? 'Offer' : stageUp
                     }.
                   </p>
-                  <p className="text-[12px] text-green-700 mt-0.5">That is real progress.</p>
+                  <p className="text-[13px] text-green-700 mt-0.5">That is real progress.</p>
                 </div>
               </div>
             ) : saved ? (
@@ -250,8 +250,8 @@ export default async function CompanyPage({
             ) : null}
 
             <div className="mb-5 bg-slate-50 border border-slate-200 rounded p-4">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Current snapshot</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px] text-slate-600">
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Current snapshot</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px] text-slate-600">
                 <p><span className="font-semibold text-slate-700">Stage:</span> {(STAGES.find((s) => s.value === company.stage)?.label) ?? company.stage}</p>
                 <p><span className="font-semibold text-slate-700">Fit score:</span> {company.fit_score ?? 'Not set'}</p>
                 <p><span className="font-semibold text-slate-700">Sector:</span> {company.sector ?? 'Not set'}</p>
@@ -261,14 +261,14 @@ export default async function CompanyPage({
 
             <details className="border border-slate-200 rounded">
               <summary className="cursor-pointer list-none px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <span className="text-[12px] font-semibold text-slate-700">Edit company profile</span>
-                <span className="text-[11px] text-slate-400">Open fields</span>
+                <span className="text-[13px] font-semibold text-slate-700">Edit company profile</span>
+                <span className="text-[13px] text-slate-400">Open fields</span>
               </summary>
 
               <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5 p-4 sm:p-5">
 
               <div>
-                <label htmlFor="company-name" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label htmlFor="company-name" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Company name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -283,7 +283,7 @@ export default async function CompanyPage({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="stage" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label htmlFor="stage" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                     Stage
                   </label>
                   <select
@@ -299,7 +299,7 @@ export default async function CompanyPage({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                     Fit score <span className="text-slate-300 font-normal">(1–10)</span>
                   </label>
                   <input
@@ -311,13 +311,13 @@ export default async function CompanyPage({
                     placeholder="-"
                     className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                   />
-                  <p className="mt-1.5 text-[12px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>
+                  <p className="mt-1.5 text-[13px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                     Sector
                   </label>
                   <input
@@ -329,7 +329,7 @@ export default async function CompanyPage({
                   />
                 </div>
                 <div>
-                  <label htmlFor="edit_company_size" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label htmlFor="edit_company_size" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                     Company size
                   </label>
                   <select
@@ -347,7 +347,7 @@ export default async function CompanyPage({
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Company website
                 </label>
                 <input
@@ -357,11 +357,11 @@ export default async function CompanyPage({
                   placeholder="acme.com or https://acme.com"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
-                <p className="mt-1.5 text-[12px] text-slate-400">Main URL &mdash; used to discover press room and leadership page</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Main URL &mdash; used to discover press room and leadership page</p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Career page URL
                 </label>
                 <input
@@ -371,11 +371,11 @@ export default async function CompanyPage({
                   placeholder="acme.com/careers or https://acme.com/careers"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
-                <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   LinkedIn company URL
                 </label>
                 <input
@@ -385,11 +385,11 @@ export default async function CompanyPage({
                   placeholder="linkedin.com/company/acme"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
-                <p className="mt-1.5 text-[12px] text-slate-400">Used to detect executive hires and departures</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Used to detect executive hires and departures</p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Crunchbase permalink
                 </label>
                 <input
@@ -399,11 +399,11 @@ export default async function CompanyPage({
                   placeholder="e.g. acme-corp"
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
-                <p className="mt-1.5 text-[12px] text-slate-400">Last segment of the Crunchbase URL &mdash; crunchbase.com/organization/<span className="font-medium text-slate-500">acme-corp</span>. Enables funding round signals.</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Last segment of the Crunchbase URL &mdash; crunchbase.com/organization/<span className="font-medium text-slate-500">acme-corp</span>. Enables funding round signals.</p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
                   Notes
                 </label>
                 <textarea
@@ -413,13 +413,13 @@ export default async function CompanyPage({
                   placeholder={notesPlaceholder}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
-                <p className="mt-1.5 text-[11px] text-slate-400">Your notes are private. Only you can read them.</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Your notes are private. Only you can read them.</p>
               </div>
 
               <CompanyCompetitiveField competitiveContext={company.competitive_context} />
 
               <div className="pt-1 border-t border-slate-100">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Interview Notes</p>
+                <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Interview Notes</p>
                 <textarea
                   name="interview_notes"
                   rows={5}
@@ -427,7 +427,7 @@ export default async function CompanyPage({
                   placeholder={'Add notes after each conversation. What was asked, what landed, what surprised you, who was in the room, what you want to prep differently next time.\n\nSeparate entries by stage or date - e.g. "Recruiter screen 5/7:" then "Hiring manager 5/14:"'}
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                 />
-                <p className="mt-1.5 text-[11px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
               </div>
 
               {company.stage === 'offer' && (() => {
@@ -448,11 +448,11 @@ export default async function CompanyPage({
                 return (
                   <div className="pt-1 border-t-2 border-green-200">
                     <div className="flex items-center justify-between mb-3">
-                      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-green-700">Offer in Hand</p>
+                      <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-green-700">Offer in Hand</p>
                       {co.offer_role_title && (
                         <a
                           href={`/dashboard/salary?company=${encodeURIComponent(company.name)}&role=${encodeURIComponent(co.offer_role_title)}`}
-                          className="text-[11px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-2.5 py-1 rounded transition-colors"
+                          className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-2.5 py-1 rounded transition-colors"
                         >
                           Get negotiation script &rarr;
                         </a>
@@ -460,7 +460,7 @@ export default async function CompanyPage({
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Role title offered</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Role title offered</label>
                         <input
                           name="offer_role_title"
                           type="text"
@@ -470,7 +470,7 @@ export default async function CompanyPage({
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Base salary</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Base salary</label>
                         <input
                           name="offer_base"
                           type="number"
@@ -480,7 +480,7 @@ export default async function CompanyPage({
                         />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Target bonus %</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Target bonus %</label>
                         <input
                           name="offer_bonus_pct"
                           type="number"
@@ -491,11 +491,11 @@ export default async function CompanyPage({
                           className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                         />
                         {bonusEst !== null && (
-                          <p className="mt-1 text-[11px] text-slate-400">{fmt(bonusEst)} at target</p>
+                          <p className="mt-1 text-[13px] text-slate-400">{fmt(bonusEst)} at target</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Signing bonus</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Signing bonus</label>
                         <input
                           name="offer_signing"
                           type="number"
@@ -506,7 +506,7 @@ export default async function CompanyPage({
                       </div>
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Equity</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Equity</label>
                       <input
                         name="offer_equity"
                         type="text"
@@ -516,7 +516,7 @@ export default async function CompanyPage({
                       />
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Offer notes</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Offer notes</label>
                       <textarea
                         name="offer_notes"
                         rows={3}
@@ -526,7 +526,7 @@ export default async function CompanyPage({
                       />
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Decision factors</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Decision factors</label>
                       <textarea
                         name="offer_decision_factors"
                         rows={4}
@@ -534,21 +534,21 @@ export default async function CompanyPage({
                         placeholder="Relocation required - moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
                         className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                       />
-                      <div className="mt-1 text-[11px] text-slate-400">Everything the numbers do not capture. Private.</div>
+                      <div className="mt-1 text-[13px] text-slate-400">Everything the numbers do not capture. Private.</div>
                     </div>
                     {totalCash !== null && (
                       <div className="mt-3 px-4 py-3 bg-green-50 border border-green-200 rounded flex items-center justify-between">
-                        <span className="text-[12px] font-semibold text-green-800">Total cash (base + bonus at target)</span>
+                        <span className="text-[13px] font-semibold text-green-800">Total cash (base + bonus at target)</span>
                         <span className="text-[16px] font-bold text-green-800">{fmt(totalCash)}</span>
                       </div>
                     )}
-                    <div className="mt-2 text-[11px] text-slate-400">Private. Not shared or used in AI outputs.</div>
+                    <div className="mt-2 text-[13px] text-slate-400">Private. Not shared or used in AI outputs.</div>
                   </div>
                 )
               })()}
 
               <div className="pt-1 border-t border-slate-100">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What I&rsquo;m Looking For Here</p>
+                <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What I&rsquo;m Looking For Here</p>
                 <textarea
                   name="role_watch_description"
                   rows={3}
@@ -556,7 +556,7 @@ export default async function CompanyPage({
                   placeholder="e.g. A CTO or VP Engineering role overseeing platform, specifically where they need someone to scale the team post-Series B and modernize the data stack..."
                   className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
-                <p className="mt-1.5 text-[11px] text-slate-400">Used by the job scanner to match roles semantically, not just by keyword. More specific beats generic.</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Used by the job scanner to match roles semantically, not just by keyword. More specific beats generic.</p>
               </div>
 
               <div>
@@ -588,8 +588,8 @@ export default async function CompanyPage({
 
             <details className="bg-white border border-slate-200 rounded overflow-hidden">
               <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Open Actions</span>
-                <span className="text-[11px] text-slate-400">{(followUps ?? []).length}</span>
+                <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Open Actions</span>
+                <span className="text-[13px] text-slate-400">{(followUps ?? []).length}</span>
               </summary>
               {followUps && followUps.length > 0 ? (
                 <div className="divide-y divide-slate-50">
@@ -603,13 +603,13 @@ export default async function CompanyPage({
                       <div key={fu.id} className="px-5 py-3.5">
                         <div className="text-[13px] font-semibold text-slate-900 mb-1.5">{fu.action}</div>
                         <div className="flex items-center justify-between">
-                          <span className={`text-[12px] font-semibold ${isOverdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
+                          <span className={`text-[13px] font-semibold ${isOverdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
                             {dateLabel}
                           </span>
                           <form action={markFollowUpDone.bind(null, fu.id, id)}>
                             <button
                               type="submit"
-                              className="text-[11px] text-slate-400 border border-slate-200 rounded px-2.5 py-0.5 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent"
+                              className="text-[13px] text-slate-400 border border-slate-200 rounded px-2.5 py-0.5 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent"
                             >
                               Done
                             </button>
@@ -640,10 +640,10 @@ export default async function CompanyPage({
         {/* Contacts */}
         <section id="people" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               People
             </h2>
-            <span className="text-[12px] text-slate-400">
+            <span className="text-[13px] text-slate-400">
               {(contacts ?? []).length} {(contacts ?? []).length === 1 ? 'contact' : 'contacts'}
             </span>
           </div>
@@ -660,12 +660,12 @@ export default async function CompanyPage({
         <details id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+              <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Documents
               </span>
-              <div className="text-[12px] text-slate-400 mt-0.5">Job descriptions improve prep-brief quality.</div>
+              <div className="text-[13px] text-slate-400 mt-0.5">Job descriptions improve prep-brief quality.</div>
             </div>
-            <span className="text-[12px] text-slate-400 shrink-0">
+            <span className="text-[13px] text-slate-400 shrink-0">
               {(documents ?? []).length} {(documents ?? []).length === 1 ? 'document' : 'documents'}
             </span>
           </summary>
@@ -676,15 +676,15 @@ export default async function CompanyPage({
         {/* Scan results */}
         <details id="job-scan" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Job Scan
             </h2>
             {latestScan ? (
-              <span className="text-[12px] text-slate-400">
+              <span className="text-[13px] text-slate-400">
                 Last scanned {new Date(latestScan.scanned_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </span>
             ) : (
-              <span className="text-[12px] text-slate-400">Scans run Mon / Wed / Fri</span>
+              <span className="text-[13px] text-slate-400">Scans run Mon / Wed / Fri</span>
             )}
           </summary>
 
@@ -700,7 +700,7 @@ export default async function CompanyPage({
         {/* Signals */}
         <details id="signals" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Signals
             </h2>
             <LogSignalForm companyId={company.id} />
@@ -713,12 +713,12 @@ export default async function CompanyPage({
         <details id="interview-sessions" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
           <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
             <div>
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
+              <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Interview Sessions
               </h2>
-              <p className="text-[12px] text-slate-400 mt-0.5">Each session sharpens the next prep brief.</p>
+              <p className="text-[13px] text-slate-400 mt-0.5">Each session sharpens the next prep brief.</p>
             </div>
-            <span className="text-[12px] text-slate-400 shrink-0">
+            <span className="text-[13px] text-slate-400 shrink-0">
               {interviewLogs.length} {interviewLogs.length === 1 ? 'session' : 'sessions'}
             </span>
           </summary>

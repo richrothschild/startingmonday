@@ -63,10 +63,10 @@ export default async function AdminOperationsPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
-            <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
+            <Link href="/dashboard/admin/revenue" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
+            <Link href="/dashboard/admin/product" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
             <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Admin</Link>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default async function AdminOperationsPage() {
           <p className="text-[13px] text-slate-500 mt-1.5">Reliability, release quality, and monitoring operations.</p>
           <p className="text-[13px] text-slate-500 mt-1">
             Signed in as <span className="font-semibold text-slate-700">{user.email}</span>
-            <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
+            <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
           </p>
         </div>
 
@@ -91,18 +91,18 @@ export default async function AdminOperationsPage() {
           ].map((card) => (
             <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
               <div className="text-[24px] font-bold text-slate-900 leading-none capitalize">{card.value}</div>
-              <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+              <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
             </div>
           ))}
         </div>
 
         <div className="bg-white border border-slate-200 rounded p-5 mb-6">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Role-based quick actions</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Role-based quick actions</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {quickActions.map((action) => (
               <Link key={action.href} href={action.href} className="block border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
                 <p className="text-[13px] font-semibold text-slate-900">{action.label}</p>
-                <p className="text-[12px] text-slate-500 mt-1.5 leading-relaxed">{action.description}</p>
+                <p className="text-[13px] text-slate-500 mt-1.5 leading-relaxed">{action.description}</p>
               </Link>
             ))}
           </div>
@@ -110,8 +110,8 @@ export default async function AdminOperationsPage() {
 
         <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Operations alert panel</p>
-            <Link href="/guide" className="text-[12px] text-slate-500 hover:text-slate-700">Runbook →</Link>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Operations alert panel</p>
+            <Link href="/guide" className="text-[13px] text-slate-500 hover:text-slate-700">Runbook →</Link>
           </div>
           {(recentAlerts ?? []).length === 0 ? (
             <p className="px-5 py-4 text-[13px] text-slate-500">No open operations alerts.</p>
@@ -121,11 +121,11 @@ export default async function AdminOperationsPage() {
                 <div key={alert.id} className="px-5 py-3">
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-[13px] font-semibold text-slate-900">{alert.message}</p>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                    <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
                       alert.severity === 'high' ? 'bg-red-50 text-red-700' : alert.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-500'
                     }`}>{alert.severity}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-1 font-mono">{alert.source_table} • {new Date(alert.created_at).toLocaleString()}</p>
+                  <p className="text-[13px] text-slate-400 mt-1 font-mono">{alert.source_table} • {new Date(alert.created_at).toLocaleString()}</p>
                 </div>
               ))}
             </div>

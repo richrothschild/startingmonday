@@ -124,12 +124,12 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
-            <Link href="/dashboard/admin/onboarding/qa" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding QA</Link>
+            <Link href="/dashboard/admin/operations" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Operations</Link>
+            <Link href="/dashboard/admin/onboarding/qa" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Onboarding QA</Link>
             <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">Admin</Link>
           </div>
         </div>
@@ -142,21 +142,21 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
         </div>
 
         <section className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
-          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-slate-900">{summary.total}</p><p className="text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-1">Runs</p></div>
-          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-amber-700">{summary.queued}</p><p className="text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-1">Queued</p></div>
-          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-blue-700">{summary.processing}</p><p className="text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-1">Processing</p></div>
-          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-emerald-700">{summary.completed}</p><p className="text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-1">Completed</p></div>
-          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-red-700">{summary.failed}</p><p className="text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-1">Failed</p></div>
+          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-slate-900">{summary.total}</p><p className="text-[13px] uppercase tracking-[0.1em] text-slate-400 mt-1">Runs</p></div>
+          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-amber-700">{summary.queued}</p><p className="text-[13px] uppercase tracking-[0.1em] text-slate-400 mt-1">Queued</p></div>
+          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-blue-700">{summary.processing}</p><p className="text-[13px] uppercase tracking-[0.1em] text-slate-400 mt-1">Processing</p></div>
+          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-emerald-700">{summary.completed}</p><p className="text-[13px] uppercase tracking-[0.1em] text-slate-400 mt-1">Completed</p></div>
+          <div className="bg-white border border-slate-200 rounded p-4"><p className="text-[24px] font-bold text-red-700">{summary.failed}</p><p className="text-[13px] uppercase tracking-[0.1em] text-slate-400 mt-1">Failed</p></div>
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-5">
           <section className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-              <h2 className="text-[12px] font-semibold text-slate-900">Recent runs</h2>
-              <span className="text-[11px] text-slate-400">Showing {runs.length}</span>
+              <h2 className="text-[13px] font-semibold text-slate-900">Recent runs</h2>
+              <span className="text-[13px] text-slate-400">Showing {runs.length}</span>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[780px] text-[12px]">
+              <table className="w-full min-w-[780px] text-[13px]">
                 <thead className="bg-slate-50 border-b border-slate-100 text-slate-500">
                   <tr>
                     <th className="px-4 py-2 text-left">Status</th>
@@ -180,7 +180,7 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
                     return (
                       <tr key={run.id} className={`border-t border-slate-100 ${selectedRun?.id === run.id ? 'bg-orange-50/40' : ''}`}>
                         <td className="px-4 py-2">
-                          <Link href={`/dashboard/admin/onboarding/video?runId=${run.id}`} className={`text-[10px] font-semibold px-2 py-1 rounded ${statusBadge(run.status)}`}>
+                          <Link href={`/dashboard/admin/onboarding/video?runId=${run.id}`} className={`text-[13px] font-semibold px-2 py-1 rounded ${statusBadge(run.status)}`}>
                             {run.status}
                           </Link>
                         </td>
@@ -200,33 +200,33 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
 
           <section className="space-y-5">
             <div className="bg-white border border-slate-200 rounded p-4">
-              <h2 className="text-[12px] font-semibold text-slate-900 mb-3">Run detail</h2>
+              <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Run detail</h2>
               {!selectedRun ? (
-                <p className="text-[12px] text-slate-500">Select a run to inspect timeline details.</p>
+                <p className="text-[13px] text-slate-500">Select a run to inspect timeline details.</p>
               ) : (
-                <div className="space-y-2 text-[12px]">
+                <div className="space-y-2 text-[13px]">
                   <p className="text-slate-600">Run: <span className="font-mono text-slate-900">{selectedRun.id}</span></p>
                   <p className="text-slate-600">Provider run: <span className="font-mono text-slate-900">{selectedRun.provider_run_id ?? '--'}</span></p>
                   <p className="text-slate-600">Started: {selectedRun.started_at ? new Date(selectedRun.started_at).toLocaleString() : '--'}</p>
                   <p className="text-slate-600">Completed: {selectedRun.completed_at ? new Date(selectedRun.completed_at).toLocaleString() : '--'}</p>
-                  <p className="text-slate-600">Output: <span className="font-mono text-[11px] text-slate-900 break-all">{compactJson(selectedRun.output_payload ?? {})}</span></p>
-                  <p className="text-slate-600">Error: <span className="font-mono text-[11px] text-slate-900 break-all">{compactJson(selectedRun.error_payload ?? {})}</span></p>
-                  <Link href={`/api/admin/automation/onboarding/video-queue/${selectedRun.id}?include_events=1&include_webhooks=1`} className="inline-flex mt-2 text-[12px] text-slate-600 hover:text-slate-900 underline underline-offset-2">View JSON API response</Link>
+                  <p className="text-slate-600">Output: <span className="font-mono text-[13px] text-slate-900 break-all">{compactJson(selectedRun.output_payload ?? {})}</span></p>
+                  <p className="text-slate-600">Error: <span className="font-mono text-[13px] text-slate-900 break-all">{compactJson(selectedRun.error_payload ?? {})}</span></p>
+                  <Link href={`/api/admin/automation/onboarding/video-queue/${selectedRun.id}?include_events=1&include_webhooks=1`} className="inline-flex mt-2 text-[13px] text-slate-600 hover:text-slate-900 underline underline-offset-2">View JSON API response</Link>
                 </div>
               )}
             </div>
 
             <div className="bg-white border border-slate-200 rounded p-4">
-              <h3 className="text-[12px] font-semibold text-slate-900 mb-3">Run event timeline</h3>
+              <h3 className="text-[13px] font-semibold text-slate-900 mb-3">Run event timeline</h3>
               {runEvents.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No run events for this selection.</p>
+                <p className="text-[13px] text-slate-500">No run events for this selection.</p>
               ) : (
-                <ul className="space-y-2 text-[12px]">
+                <ul className="space-y-2 text-[13px]">
                   {runEvents.map((event) => (
                     <li key={event.id} className="border border-slate-100 rounded px-3 py-2">
                       <p className="font-semibold text-slate-800">{event.event_type}</p>
                       <p className="text-slate-500">{new Date(event.created_at).toLocaleString()}</p>
-                      <p className="text-[11px] font-mono text-slate-600 break-all mt-1">{compactJson(event.event_payload ?? {})}</p>
+                      <p className="text-[13px] font-mono text-slate-600 break-all mt-1">{compactJson(event.event_payload ?? {})}</p>
                     </li>
                   ))}
                 </ul>
@@ -234,21 +234,21 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
             </div>
 
             <div className="bg-white border border-slate-200 rounded p-4">
-              <h3 className="text-[12px] font-semibold text-slate-900 mb-3">Webhook timeline</h3>
+              <h3 className="text-[13px] font-semibold text-slate-900 mb-3">Webhook timeline</h3>
               {webhookEvents.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No webhook events for this provider run yet.</p>
+                <p className="text-[13px] text-slate-500">No webhook events for this provider run yet.</p>
               ) : (
-                <ul className="space-y-2 text-[12px]">
+                <ul className="space-y-2 text-[13px]">
                   {webhookEvents.map((event) => (
                     <li key={event.id} className="border border-slate-100 rounded px-3 py-2">
                       <div className="flex items-center justify-between gap-2">
                         <p className="font-semibold text-slate-800">{event.event_type}</p>
-                        <span className={`text-[10px] px-2 py-0.5 rounded ${event.event_status === 'processed' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>{event.event_status}</span>
+                        <span className={`text-[13px] px-2 py-0.5 rounded ${event.event_status === 'processed' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>{event.event_status}</span>
                       </div>
                       <p className="text-slate-500">Received: {new Date(event.received_at).toLocaleString()}</p>
                       <p className="text-slate-500">Processed: {event.processed_at ? new Date(event.processed_at).toLocaleString() : '--'}</p>
-                      {event.error_message && <p className="text-red-600 text-[11px] mt-1">{event.error_message}</p>}
-                      <p className="text-[11px] font-mono text-slate-600 break-all mt-1">{compactJson(event.payload ?? {})}</p>
+                      {event.error_message && <p className="text-red-600 text-[13px] mt-1">{event.error_message}</p>}
+                      <p className="text-[13px] font-mono text-slate-600 break-all mt-1">{compactJson(event.payload ?? {})}</p>
                     </li>
                   ))}
                 </ul>

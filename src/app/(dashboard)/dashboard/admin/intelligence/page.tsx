@@ -203,19 +203,19 @@ export default async function AdminIntelligencePage() {
           <h2 className="text-[15px] font-bold text-slate-900 mb-3">Campaign health monitor</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Health Score</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Health Score</div>
               <div className="text-[18px] font-bold text-slate-900">{adminCampaignHealthScore}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Active Campaigns</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Active Campaigns</div>
               <div className="text-[18px] font-bold text-slate-900">{activeCampaigns}</div>
             </div>
             <div className="rounded-lg border border-amber-200 px-3 py-2.5 bg-amber-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-amber-700 font-bold">Stalled 14+ Days</div>
+              <div className="text-[10px] tracking-[0.08em] text-amber-700 font-bold">Stalled 14+ Days</div>
               <div className="text-[18px] font-bold text-amber-900">{stalledCampaigns}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Overdue Follow-ups</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Overdue Follow-ups</div>
               <div className="text-[18px] font-bold text-slate-900">{dueFollowUps}</div>
             </div>
           </div>
@@ -226,61 +226,61 @@ export default async function AdminIntelligencePage() {
           <h2 className="text-[15px] font-bold text-slate-900 mb-4">Discover conversion + quality (last 30 days)</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-3">
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Generated</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Generated</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.generatedEvents30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Runs</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Runs</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.runCreatedEvents30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Opened</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Opened</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.openedEvents30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Contact Adds</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Contact Adds</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.recommendedContactsAdded30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Outreach Starts</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Outreach Starts</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.outreachStarts30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Added</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Added</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.addedCompanies30d}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">Avg Fit</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Avg Fit</div>
               <div className="text-[18px] font-bold text-slate-900">{discoverSummary.avgFit30d.toFixed(1)}</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">People Coverage</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">People Coverage</div>
               <div className="text-[18px] font-bold text-slate-900">{Math.round(discoverSummary.peopleCoverage30d * 100)}%</div>
             </div>
             <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold">High-Conf People</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">High-Conf People</div>
               <div className="text-[18px] font-bold text-slate-900">{Math.round(discoverSummary.highConfidencePeopleCoverage30d * 100)}%</div>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.narrativeOpenRate30d >= 0.35 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Narrative Open Rate</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-500 font-bold">Narrative Open Rate</div>
               <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.narrativeOpenRate30d * 100)}%</div>
               <div className="text-[11px] text-slate-600">Target: 35%+</div>
             </div>
             <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.outreachStartRate30d >= 0.2 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Outreach Start Rate</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-500 font-bold">Outreach Start Rate</div>
               <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.outreachStartRate30d * 100)}%</div>
               <div className="text-[11px] text-slate-600">Target: 20%+</div>
             </div>
             <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.suggestedPeopleAcceptanceRate30d >= 0.15 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Suggested People Acceptance</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-500 font-bold">Suggested People Acceptance</div>
               <div className="text-[16px] font-bold text-slate-900">{Math.round(discoverSummary.suggestedPeopleAcceptanceRate30d * 100)}%</div>
               <div className="text-[11px] text-slate-600">Target: 15%+</div>
             </div>
             <div className={`rounded-lg border px-3 py-2.5 ${discoverSummary.watchlistLiftVsBaselinePct !== null && discoverSummary.watchlistLiftVsBaselinePct >= 25 ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-              <div className="text-[10px] uppercase tracking-[0.08em] text-slate-500 font-bold">Add-to-Watchlist Lift</div>
+              <div className="text-[10px] tracking-[0.08em] text-slate-500 font-bold">Add-to-Watchlist Lift</div>
               <div className="text-[16px] font-bold text-slate-900">
                 {discoverSummary.watchlistLiftVsBaselinePct === null ? 'N/A' : `${Math.round(discoverSummary.watchlistLiftVsBaselinePct)}%`}
               </div>

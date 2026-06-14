@@ -1,0 +1,43 @@
+wave,tier,priority_score,page,issue_count,issue_types,issues,tiny_count,body_count,uppercase_micro_count,repeated_cta_count
+Wave 1,public-premium,366,src/app/for-cio/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=0",11,0,0,0
+Wave 2,public-nonpremium,296,src/app/intelligence/[slug]/page.tsx,2,tiny-text-heavy|repeated-cta-labels,"tiny-text-heavy: tiny=19, body=13 || repeated-cta-labels: Get started now (3x)",19,13,0,1
+Wave 2,public-nonpremium,284,src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=33, body=4",33,4,4,0
+Wave 2,public-nonpremium,284,src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=32, body=3",32,3,4,0
+Wave 2,public-nonpremium,281,src/app/mauricio-kickoff/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=35, body=9",35,9,0,0
+Wave 2,public-nonpremium,274,src/app/mauricio-kickoff-execution/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=29, body=10",29,10,0,0
+Wave 2,public-nonpremium,263,src/app/coaches/mock-dashboard/page.tsx,1,excess-uppercase-micro-labels,excess-uppercase-micro-labels: 10,13,10,10,0
+Wave 2,public-nonpremium,262,src/app/coaches/mock-dashboard/[clientId]/page.tsx,1,excess-uppercase-micro-labels,excess-uppercase-micro-labels: 15,17,15,15,0
+Wave 2,public-nonpremium,262,src/app/contributor/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=10, body=3",10,3,0,0
+Wave 2,public-nonpremium,260,src/app/(auth)/signup/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=20, body=15",20,15,1,0
+Wave 2,public-nonpremium,260,src/app/feedback/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=6",11,6,1,0
+Wave 3,internal-dashboard,226,src/app/(dashboard)/dashboard/admin/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=87, body=16",87,16,0,0
+Wave 3,internal-dashboard,188,src/app/(dashboard)/dashboard/admin/social/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=40, body=7",40,7,0,0
+Wave 3,internal-dashboard,187,src/app/(dashboard)/dashboard/coach/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=50, body=18",50,18,8,0
+Wave 3,internal-dashboard,183,src/app/(dashboard)/dashboard/post-search/page.tsx,2,tiny-text-heavy|excess-uppercase-micro-labels,"tiny-text-heavy: tiny=26, body=13 || excess-uppercase-micro-labels: 13",26,13,13,0
+Wave 3,internal-dashboard,181,src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=28, body=2",28,2,5,0
+Wave 3,internal-dashboard,179,src/app/(dashboard)/dashboard/companies/[id]/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=56, body=32",56,32,0,0
+Wave 3,internal-dashboard,179,src/app/(dashboard)/dashboard/partner/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=32, body=8",32,8,0,0
+Wave 3,internal-dashboard,178,src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=36, body=13",36,13,0,0
+Wave 3,internal-dashboard,176,src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx,2,tiny-text-heavy|excess-uppercase-micro-labels,"tiny-text-heavy: tiny=17, body=11 || excess-uppercase-micro-labels: 12",17,11,12,0
+Wave 3,internal-dashboard,175,src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx,2,tiny-text-heavy|excess-uppercase-micro-labels,"tiny-text-heavy: tiny=17, body=12 || excess-uppercase-micro-labels: 12",17,12,12,0
+Wave 3,internal-dashboard,172,src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=21, body=4",21,4,0,0
+Wave 3,internal-dashboard,171,src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=39, body=23",39,23,1,0
+Wave 3,internal-dashboard,171,src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=17, body=1",17,1,0,0
+Wave 3,internal-dashboard,170,src/app/(dashboard)/dashboard/admin/customers/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=17, body=2",17,2,0,0
+Wave 3,internal-dashboard,170,src/app/(dashboard)/dashboard/admin/traces/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=18, body=3",18,3,0,0
+Wave 3,internal-dashboard,170,src/app/(dashboard)/dashboard/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=21, body=6",21,6,3,0
+Wave 3,internal-dashboard,168,src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=14, body=1",14,1,0,0
+Wave 3,internal-dashboard,167,src/app/(dashboard)/dashboard/admin/crm/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=25, body=13",25,13,1,0
+Wave 3,internal-dashboard,167,src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=13, body=1",13,1,0,0
+Wave 3,internal-dashboard,167,src/app/(dashboard)/dashboard/admin/metrics/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=20, body=8",20,8,0,0
+Wave 3,internal-dashboard,164,src/app/(dashboard)/dashboard/admin/intelligence/page.tsx,1,excess-uppercase-micro-labels,excess-uppercase-micro-labels: 17,23,19,17,0
+Wave 3,internal-dashboard,163,src/app/(dashboard)/dashboard/profile/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=17, body=9",17,9,0,0
+Wave 3,internal-dashboard,161,src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=5",11,5,0,0
+Wave 3,internal-dashboard,161,src/app/(dashboard)/dashboard/contacts/[id]/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=30, body=24",30,24,0,0
+Wave 3,internal-dashboard,161,src/app/(dashboard)/dashboard/offers/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=14, body=8",14,8,0,0
+Wave 3,internal-dashboard,161,src/app/(dashboard)/dashboard/signals/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=20, body=14",20,14,0,0
+Wave 3,internal-dashboard,160,src/app/(dashboard)/dashboard/admin/operations/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=6",11,6,0,0
+Wave 3,internal-dashboard,160,src/app/(dashboard)/dashboard/admin/product/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=6",11,6,0,0
+Wave 3,internal-dashboard,160,src/app/(dashboard)/dashboard/admin/revenue/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=11, body=6",11,6,0,0
+Wave 3,internal-dashboard,160,src/app/(dashboard)/dashboard/contacts/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=17, body=12",17,12,3,0
+Wave 3,internal-dashboard,160,src/app/(dashboard)/dashboard/outreach/page.tsx,1,tiny-text-heavy,"tiny-text-heavy: tiny=18, body=13",18,13,0,0

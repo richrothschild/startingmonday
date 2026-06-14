@@ -16,7 +16,7 @@ export default function MockCoachDashboardPage() {
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <nav className="border-b border-slate-800 bg-slate-950 text-white">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <Link href="/coaches" className="text-[13px] text-slate-200 transition-colors hover:text-white">
@@ -27,7 +27,7 @@ export default function MockCoachDashboardPage() {
 
       <header className="border-b border-slate-200 bg-white px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Mock coach dashboard</p>
+          <p className="text-[11px] font-bold tracking-[0.14em] text-orange-500">Mock coach dashboard</p>
           <h1 className="mt-2 text-[30px] font-bold leading-tight text-slate-900 sm:text-[38px]">
             Your next coaching session should start with decisions, not recap.
           </h1>
@@ -42,7 +42,7 @@ export default function MockCoachDashboardPage() {
         <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {MOCK_PORTFOLIO_KPIS.map((kpi) => (
             <article key={kpi.label} className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">{kpi.label}</p>
+              <p className="text-[10px] font-bold tracking-[0.1em] text-slate-500">{kpi.label}</p>
               <p className="mt-2 text-[28px] font-bold leading-none text-slate-900">{kpi.value}</p>
               <p className="mt-1 text-[12px] text-slate-500">{kpi.note}</p>
             </article>
@@ -51,19 +51,19 @@ export default function MockCoachDashboardPage() {
 
         <section className="rounded-2xl border border-slate-200 bg-white p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">Portfolio command center</p>
+            <p className="text-[11px] font-bold tracking-[0.12em] text-slate-500">Portfolio command center</p>
             <p className="text-[12px] text-slate-500">Click any client to open the detailed coach dashboard</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-slate-200">
-                  <th className="py-2 pr-3 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Client</th>
-                  <th className="py-2 pr-3 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Track</th>
-                  <th className="py-2 pr-3 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Status</th>
-                  <th className="py-2 pr-3 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Momentum</th>
-                  <th className="py-2 pr-3 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Overdue</th>
-                  <th className="py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">Next session focus</th>
+                  <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] text-slate-500">Client</th>
+                  <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] text-slate-500">Track</th>
+                  <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] text-slate-500">Status</th>
+                  <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] text-slate-500">Momentum</th>
+                  <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] text-slate-500">Overdue</th>
+                  <th className="py-2 text-[11px] font-bold tracking-[0.08em] text-slate-500">Next session focus</th>
                 </tr>
               </thead>
               <tbody>

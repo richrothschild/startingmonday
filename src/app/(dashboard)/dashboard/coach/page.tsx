@@ -146,7 +146,7 @@ export default function CoachDashboard() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -157,7 +157,7 @@ export default function CoachDashboard() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="mb-6">
-          <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Coach</div>
+          <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Coach</div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Portfolio Command Center</h1>
           <p className="text-[13px] text-slate-500 mt-1">
             {clients.length} client{clients.length !== 1 ? 's' : ''} under your account.
@@ -167,19 +167,19 @@ export default function CoachDashboard() {
         {!loading && commandCenter && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             <div className="bg-white border border-slate-200 rounded p-3">
-              <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-400">Total clients</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400">Total clients</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1 tabular-nums">{commandCenter.portfolio.total_clients}</p>
             </div>
             <div className="bg-white border border-red-200 rounded p-3">
-              <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-red-500">High risk</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-red-500">High risk</p>
               <p className="text-[24px] font-bold text-red-700 mt-1 tabular-nums">{commandCenter.portfolio.urgency.high}</p>
             </div>
             <div className="bg-white border border-amber-200 rounded p-3">
-              <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-amber-600">Stale data</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-amber-600">Stale data</p>
               <p className="text-[24px] font-bold text-amber-700 mt-1 tabular-nums">{commandCenter.freshness_sla.stale_clients}</p>
             </div>
             <div className="bg-white border border-slate-200 rounded p-3">
-              <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-slate-400">Avg risk</p>
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400">Avg risk</p>
               <p className="text-[24px] font-bold text-slate-900 mt-1 tabular-nums">{commandCenter.portfolio.average_risk_score}</p>
             </div>
           </div>
@@ -187,26 +187,26 @@ export default function CoachDashboard() {
 
         {!loading && commandCenter?.monitoring && (
           <div className="bg-white border border-slate-200 rounded p-4 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Route performance</p>
+            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Route performance</p>
             <div className="grid sm:grid-cols-5 gap-3">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Route fetch</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Route fetch</p>
                 <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.fetch_ms}ms</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Home load</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Home load</p>
                 <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{homeLoadMs ?? '-'}ms</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Budget</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Budget</p>
                 <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.budget_ms}ms</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Client rows</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Client rows</p>
                 <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_clients}</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400">Upcoming rows</p>
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Upcoming rows</p>
                 <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_sessions}</p>
               </div>
             </div>
@@ -215,7 +215,7 @@ export default function CoachDashboard() {
 
         {!loading && (atRisk.length > 0 || overdue.length > 0) && (
           <div className="bg-amber-50 border border-amber-200 rounded p-4 mb-6">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-amber-700 mb-2">Needs Attention</p>
+            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-700 mb-2">Needs Attention</p>
             {atRisk.length > 0 && (
               <p className="text-[13px] text-slate-700 mb-1">
                 <span className="font-semibold">{atRisk.length}</span> client{atRisk.length !== 1 ? 's' : ''} in high-risk status.
@@ -232,19 +232,19 @@ export default function CoachDashboard() {
         {!loading && commandCenter && (
           <div className="grid lg:grid-cols-2 gap-4 mb-6">
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Upcoming sessions</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Upcoming sessions</p>
               {commandCenter.upcoming_sessions.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No upcoming sessions or due touchpoints in the current window.</p>
+                <p className="text-[13px] text-slate-500">No upcoming sessions or due touchpoints in the current window.</p>
               ) : (
                 <div className="space-y-3">
                   {commandCenter.upcoming_sessions.slice(0, 6).map(session => (
                     <div key={`${session.user_id}-${session.scheduled_for}`} className="border border-slate-100 rounded p-3">
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-[13px] font-semibold text-slate-900 truncate">{session.name ?? session.email ?? 'Client'}</p>
-                        <span className={`text-[10px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
+                        <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
                       </div>
-                      <p className="text-[12px] text-slate-500 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
-                      {session.action && <p className="text-[12px] text-slate-700 mt-1">{session.action}</p>}
+                      <p className="text-[13px] text-slate-500 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
+                      {session.action && <p className="text-[13px] text-slate-700 mt-1">{session.action}</p>}
                     </div>
                   ))}
                 </div>
@@ -252,19 +252,19 @@ export default function CoachDashboard() {
             </div>
 
             <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Priority action queue</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Priority action queue</p>
               {actionQueue.length === 0 ? (
-                <p className="text-[12px] text-slate-500">No open actions. Weekly review queue is clear.</p>
+                <p className="text-[13px] text-slate-500">No open actions. Weekly review queue is clear.</p>
               ) : (
                 <div className="space-y-3">
                   {actionQueue.map(client => (
                     <div key={client.user_id} className="border border-slate-100 rounded p-3">
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-[13px] font-semibold text-slate-900 truncate">{client.name ?? client.email ?? 'Client'}</p>
-                        <span className={`text-[10px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
+                        <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
                       </div>
-                      <p className="text-[12px] text-slate-700 mt-1">{client.next_action?.action}</p>
-                      <p className="text-[12px] text-slate-500 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
+                      <p className="text-[13px] text-slate-700 mt-1">{client.next_action?.action}</p>
+                      <p className="text-[13px] text-slate-500 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
                     </div>
                   ))}
                 </div>
@@ -287,13 +287,13 @@ export default function CoachDashboard() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-100">
-                  <th className="text-left text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Client</th>
-                  <th className="text-left text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Level</th>
-                  <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Risk</th>
-                  <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Urgency</th>
-                  <th className="text-center text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Overdue</th>
-                  <th className="text-left text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Next action + activity</th>
-                  <th className="text-right text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Actions</th>
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Client</th>
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Level</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Risk</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Urgency</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Overdue</th>
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Next action + activity</th>
+                  <th className="text-right text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
@@ -301,51 +301,51 @@ export default function CoachDashboard() {
                   <tr key={client.user_id} className={client.urgency === 'high' || client.risk_inputs.overdue_actions > 0 ? 'bg-amber-50/40' : ''}>
                     <td className="px-6 py-4">
                       <p className="text-[14px] font-semibold text-slate-900">{client.name ?? '(not onboarded)'}</p>
-                      <p className="text-[12px] text-slate-400">{client.email ?? '-'}</p>
+                      <p className="text-[13px] text-slate-400">{client.email ?? '-'}</p>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="text-[12px] text-slate-500">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '-'}</span>
+                      <span className="text-[13px] text-slate-500">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '-'}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <span className="text-[12px] font-bold text-slate-900 tabular-nums">{client.risk_score}</span>
+                      <span className="text-[13px] font-bold text-slate-900 tabular-nums">{client.risk_score}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <span className={`text-[10px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
+                      <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
                       {client.risk_inputs.overdue_actions > 0
-                        ? <span className="text-[12px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full tabular-nums">{client.risk_inputs.overdue_actions}</span>
-                        : <span className="text-[12px] text-slate-300">-</span>
+                        ? <span className="text-[13px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full tabular-nums">{client.risk_inputs.overdue_actions}</span>
+                        : <span className="text-[13px] text-slate-300">-</span>
                       }
                     </td>
                     <td className="px-4 py-4">
                       {client.next_action?.action ? (
                         <div className="space-y-0.5">
-                          <p className="text-[12px] font-semibold text-slate-800 truncate max-w-[220px]">{client.next_action.action}</p>
-                          <p className="text-[11px] text-slate-500">
+                          <p className="text-[13px] font-semibold text-slate-800 truncate max-w-[220px]">{client.next_action.action}</p>
+                          <p className="text-[13px] text-slate-500">
                             {client.next_action.owner ? `Owner: ${client.next_action.owner}` : 'Owner: unassigned'}
                           </p>
-                          <p className={`text-[11px] ${client.next_action.due_date && client.next_action.due_date < new Date().toISOString().split('T')[0] ? 'text-red-600' : 'text-slate-500'}`}>
+                          <p className={`text-[13px] ${client.next_action.due_date && client.next_action.due_date < new Date().toISOString().split('T')[0] ? 'text-red-600' : 'text-slate-500'}`}>
                             Due {client.next_action.due_date ?? 'TBD'}{client.next_action.status ? ` · ${client.next_action.status}` : ''}
                           </p>
-                          <p className="text-[11px] text-slate-400">
+                          <p className="text-[13px] text-slate-400">
                             Last activity {client.last_activity_at ? client.last_activity_at.slice(0, 10) : 'none'} · lag {client.risk_inputs.days_since_activity}d
                           </p>
                         </div>
                       ) : (
-                        <span className="text-[12px] text-slate-300">-</span>
+                        <span className="text-[13px] text-slate-300">-</span>
                       )}
                     </td>
                     <td className="px-6 py-4 text-right">
                       {client.user_id ? (
                         <Link
                           href={`/dashboard/coach/${client.user_id}`}
-                          className="text-[12px] font-semibold text-slate-700 hover:text-slate-900 underline underline-offset-2"
+                          className="text-[13px] font-semibold text-slate-700 hover:text-slate-900 underline underline-offset-2"
                         >
                           View Data
                         </Link>
                       ) : (
-                        <span className="text-[12px] text-slate-300">-</span>
+                        <span className="text-[13px] text-slate-300">-</span>
                       )}
                     </td>
                   </tr>
@@ -356,7 +356,7 @@ export default function CoachDashboard() {
 
           {!loading && commandCenter?.pagination && commandCenter.pagination.total_pages > 1 && (
             <div className="border-t border-slate-100 px-6 py-3 flex items-center justify-between">
-              <p className="text-[12px] text-slate-500">
+              <p className="text-[13px] text-slate-500">
                 Page {commandCenter.pagination.page} of {commandCenter.pagination.total_pages} · {commandCenter.pagination.total_clients} clients
               </p>
               <div className="flex items-center gap-2">
@@ -364,7 +364,7 @@ export default function CoachDashboard() {
                   type="button"
                   onClick={() => setPage((prev) => Math.max(1, prev - 1))}
                   disabled={!commandCenter.pagination.has_previous}
-                  className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
                 >
                   Previous
                 </button>
@@ -372,7 +372,7 @@ export default function CoachDashboard() {
                   type="button"
                   onClick={() => setPage((prev) => prev + 1)}
                   disabled={!commandCenter.pagination.has_next}
-                  className="text-[12px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
                 >
                   Next
                 </button>
@@ -382,7 +382,7 @@ export default function CoachDashboard() {
         </div>
 
         <div className="bg-white border border-slate-200 rounded p-6">
-          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Invite a client</p>
+          <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Invite a client</p>
           <form onSubmit={sendInvite} className="flex gap-3 items-start">
             <input
               type="email"
@@ -400,12 +400,12 @@ export default function CoachDashboard() {
             </button>
           </form>
           {inviteSent && (
-            <p className="text-[12px] text-green-700 mt-2">Invite sent to {inviteSent}.</p>
+            <p className="text-[13px] text-green-700 mt-2">Invite sent to {inviteSent}.</p>
           )}
           {inviteError && (
-            <p className="text-[12px] text-red-600 mt-2">{inviteError}</p>
+            <p className="text-[13px] text-red-600 mt-2">{inviteError}</p>
           )}
-          <p className="text-[11px] text-slate-400 mt-3">
+          <p className="text-[13px] text-slate-400 mt-3">
             Your client will receive an email to create their account under your coaching relationship. Up to {Math.max(0, 10 - clients.length)} seat{Math.max(0, 10 - clients.length) !== 1 ? 's' : ''} remaining.
           </p>
         </div>

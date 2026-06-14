@@ -261,10 +261,10 @@ export default async function MauricioKickoffExecutionPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <nav className="bg-slate-900 border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <Link href="/mauricio-kickoff" className="text-[12px] text-slate-300 hover:text-white">
+          <Link href="/mauricio-kickoff" className="text-[13px] text-slate-300 hover:text-white">
             Back to kickoff page
           </Link>
         </div>
@@ -272,37 +272,37 @@ export default async function MauricioKickoffExecutionPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <header className="mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">BD workspace</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">BD workspace</p>
           <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">Mauricio execution workspace</h1>
           <p className="text-[14px] text-slate-600 max-w-4xl">
             This page is the run surface for weekly execution, daily unblock requests, and reporting guardrails.
             If it is not on this page, it is not in this sprint.
           </p>
-          <p className="mt-2 text-[12px] text-slate-600">
+          <p className="mt-2 text-[13px] text-slate-600">
             Confidential operating plan. Core outcome target: move from outreach to qualified meeting with a weekly conversion lift.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <a
               href={emailMauricioHref}
-              className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[12px] font-semibold text-orange-700 hover:bg-orange-500/20"
+              className="inline-flex items-center rounded border border-orange-300 bg-orange-500/10 px-3 py-2 text-[13px] font-semibold text-orange-700 hover:bg-orange-500/20"
             >
               Email Mauricio when needed
             </a>
             <a
               href={requestFounderHref}
-              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[12px] font-semibold text-slate-700 hover:bg-slate-50"
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[13px] font-semibold text-slate-700 hover:bg-slate-50"
             >
               Send founder-input request
             </a>
             <Link
               href="/feedback"
-              className="inline-flex items-center rounded border border-emerald-300 bg-emerald-50 px-3 py-2 text-[12px] font-semibold text-emerald-800 hover:bg-emerald-100"
+              className="inline-flex items-center rounded border border-emerald-300 bg-emerald-50 px-3 py-2 text-[13px] font-semibold text-emerald-800 hover:bg-emerald-100"
             >
               Log execution feedback
             </Link>
             <Link
               href="/mauricio-kickoff-execution/customer-email-by-channel"
-              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[12px] font-semibold text-slate-700 hover:bg-slate-50"
+              className="inline-flex items-center rounded border border-slate-300 bg-white px-3 py-2 text-[13px] font-semibold text-slate-700 hover:bg-slate-50"
             >
               Start weekly channel review
             </Link>
@@ -311,24 +311,24 @@ export default async function MauricioKickoffExecutionPage() {
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
           <div className="bg-white border border-slate-200 rounded-xl p-5">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">This week priorities</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">This week priorities</h2>
             <ul className="space-y-2">
               {THIS_WEEK_PRIORITIES.map((item) => (
                 <li key={item.title} className="border border-slate-100 rounded-lg px-3 py-2.5">
                   <p className="text-[13px] font-semibold text-slate-900">{item.title}</p>
-                  <p className="text-[12px] text-slate-600 mt-1">Done when: {item.doneDefinition}</p>
+                  <p className="text-[13px] text-slate-600 mt-1">Done when: {item.doneDefinition}</p>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="bg-white border border-amber-200 rounded-xl p-5">
-            <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-3">Inputs needed from founder</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-amber-700 mb-3">Inputs needed from founder</h2>
             <ul className="space-y-2">
               {FOUNDER_NEEDS.map((item) => (
                 <li key={item.request} className="border border-amber-100 rounded-lg bg-amber-50/40 px-3 py-2.5">
                   <p className="text-[13px] font-semibold text-slate-900">{item.request}</p>
-                  <p className="text-[12px] text-slate-600 mt-1">Owner: {item.owner} | Due: {item.due}</p>
+                  <p className="text-[13px] text-slate-600 mt-1">Owner: {item.owner} | Due: {item.due}</p>
                 </li>
               ))}
             </ul>
@@ -336,21 +336,21 @@ export default async function MauricioKickoffExecutionPage() {
         </section>
 
         <section className="bg-white border border-slate-200 rounded-xl p-5 mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Operating links</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-3">Operating links</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {OPERATING_LINKS.map((link) => (
               <div key={link.href} className="border border-slate-100 rounded-lg px-3 py-2.5">
                 <Link href={link.href} className="text-[13px] font-semibold text-slate-900 hover:text-orange-600">
                   {link.label}
                 </Link>
-                <p className="text-[12px] text-slate-600 mt-1">{link.helper}</p>
+                <p className="text-[13px] text-slate-600 mt-1">{link.helper}</p>
               </div>
             ))}
           </div>
         </section>
 
         <section className="bg-white border border-orange-200 rounded-xl p-5 mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Requested data viewers</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-700 mb-2">Requested data viewers</p>
           <p className="text-[13px] text-slate-600 mb-4">
             Open the two pages below to review Apollo read-access files and weekly customer email outcomes by channel.
           </p>
@@ -380,23 +380,23 @@ export default async function MauricioKickoffExecutionPage() {
             <table className="w-full min-w-[1050px] text-left">
               <thead className="bg-white border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Week</th>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Task</th>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Why it matters</th>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Required output</th>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Success metric</th>
-                  <th className="px-4 py-2.5 text-[10px] font-bold tracking-[0.09em] uppercase text-slate-500">Owner</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Week</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Task</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Why it matters</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Required output</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Success metric</th>
+                  <th className="px-4 py-2.5 text-[13px] font-bold tracking-[0.09em] uppercase text-slate-500">Owner</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {TASKS.map((task) => (
                   <tr key={`${task.week}-${task.title}`}>
-                    <td className="px-4 py-3 text-[12px] font-semibold text-slate-900">{task.week}</td>
-                    <td className="px-4 py-3 text-[12px] font-semibold text-slate-800">{task.title}</td>
-                    <td className="px-4 py-3 text-[12px] text-slate-700">{task.whyItMatters}</td>
-                    <td className="px-4 py-3 text-[12px] text-slate-600">{task.output}</td>
-                    <td className="px-4 py-3 text-[12px] text-slate-600">{task.metric}</td>
-                    <td className="px-4 py-3 text-[12px] text-slate-600">{task.owner}</td>
+                    <td className="px-4 py-3 text-[13px] font-semibold text-slate-900">{task.week}</td>
+                    <td className="px-4 py-3 text-[13px] font-semibold text-slate-800">{task.title}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-700">{task.whyItMatters}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-600">{task.output}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-600">{task.metric}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-600">{task.owner}</td>
                   </tr>
                 ))}
               </tbody>
@@ -406,7 +406,7 @@ export default async function MauricioKickoffExecutionPage() {
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Weekly review format</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Weekly review format</p>
             <ul className="space-y-2">
               {WEEKLY_REVIEW.map((item) => (
                 <li key={item} className="text-[13px] text-slate-700 leading-relaxed flex gap-2.5">
@@ -418,7 +418,7 @@ export default async function MauricioKickoffExecutionPage() {
           </div>
 
           <div className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Day-30 decision gates</p>
+            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Day-30 decision gates</p>
             <ul className="space-y-2 text-[13px] text-slate-700 leading-relaxed">
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>10+ qualified meetings held.</span></li>
               <li className="flex gap-2.5"><span className="text-orange-500 font-bold">+</span><span>2 B2B customer trials.</span></li>

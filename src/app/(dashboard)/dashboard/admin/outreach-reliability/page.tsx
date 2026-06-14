@@ -42,12 +42,12 @@ export default async function OutreachReliabilityPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
-            <Link href="/dashboard/admin/outreach-analytics" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Outreach Performance</Link>
+            <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Admin</Link>
+            <Link href="/dashboard/admin/outreach-analytics" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Outreach Performance</Link>
           </div>
         </div>
       </header>
@@ -62,33 +62,33 @@ export default async function OutreachReliabilityPage() {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Confidence Score</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Confidence Score</h2>
             <p className={`text-[28px] font-bold ${confidenceClass(snapshot.confidence.band)}`}>{snapshot.confidence.score}</p>
-            <p className="text-[12px] text-slate-500 mt-1 capitalize">{snapshot.confidence.band} confidence</p>
+            <p className="text-[13px] text-slate-500 mt-1 capitalize">{snapshot.confidence.band} confidence</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Accepted Rate (7d)</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Accepted Rate (7d)</h2>
             <p className="text-[28px] font-bold text-slate-900">{pct(last7AcceptedRate)}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Threshold: {snapshot.thresholds.minAcceptedRatePct}%</p>
+            <p className="text-[13px] text-slate-500 mt-1">Threshold: {snapshot.thresholds.minAcceptedRatePct}%</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Negative Outcomes</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Negative Outcomes</h2>
             <p className="text-[28px] font-bold text-slate-900">{pct(snapshot.totals.negativeOutcomeRatePct)}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Threshold: {snapshot.thresholds.maxNegativeOutcomeRatePct}% max</p>
+            <p className="text-[13px] text-slate-500 mt-1">Threshold: {snapshot.thresholds.maxNegativeOutcomeRatePct}% max</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Queue Health</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Queue Health</h2>
             <p className="text-[28px] font-bold text-slate-900">{snapshot.queueHealth.queuedStaleCount + snapshot.queueHealth.sendingStaleCount}</p>
-            <p className="text-[12px] text-slate-500 mt-1">Stale queued + stale sending jobs</p>
+            <p className="text-[13px] text-slate-500 mt-1">Stale queued + stale sending jobs</p>
           </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Alert Thresholds</h2>
-            <span className="text-[11px] text-slate-500">Updated {new Date(snapshot.generatedAt).toLocaleString()}</span>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Alert Thresholds</h2>
+            <span className="text-[13px] text-slate-500">Updated {new Date(snapshot.generatedAt).toLocaleString()}</span>
           </div>
-          <div className="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[12px] text-slate-700">
+          <div className="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[13px] text-slate-700">
             <div className="border border-slate-200 rounded p-3">Accepted rate floor: <span className="font-semibold">{snapshot.thresholds.minAcceptedRatePct}%</span></div>
             <div className="border border-slate-200 rounded p-3">Negative outcome cap: <span className="font-semibold">{snapshot.thresholds.maxNegativeOutcomeRatePct}%</span></div>
             <div className="border border-slate-200 rounded p-3">Hard failure cap: <span className="font-semibold">{snapshot.thresholds.maxHardFailureRatePct}%</span></div>
@@ -103,7 +103,7 @@ export default async function OutreachReliabilityPage() {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Active Alerts</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Active Alerts</h2>
             </div>
             <div className="px-5 py-4 space-y-2">
               {snapshot.alerts.length === 0 ? (
@@ -111,8 +111,8 @@ export default async function OutreachReliabilityPage() {
               ) : (
                 snapshot.alerts.map(alert => (
                   <article key={alert.code} className={`border rounded p-3 ${alertClass(alert.level)}`}>
-                    <h3 className="text-[12px] font-semibold">{alert.title}</h3>
-                    <p className="text-[12px] mt-1">{alert.detail}</p>
+                    <h3 className="text-[13px] font-semibold">{alert.title}</h3>
+                    <p className="text-[13px] mt-1">{alert.detail}</p>
                   </article>
                 ))
               )}
@@ -121,13 +121,13 @@ export default async function OutreachReliabilityPage() {
 
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Domain Reliability</h2>
+              <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Domain Reliability</h2>
             </div>
             <div className="px-5 py-4">
               {snapshot.domainBreakdown.length === 0 ? (
                 <p className="text-[13px] text-slate-500">No sends in the selected window.</p>
               ) : (
-                <table className="w-full text-[12px]">
+                <table className="w-full text-[13px]">
                   <thead>
                     <tr className="text-left text-slate-400">
                       <th className="pb-2 font-semibold">Bucket</th>
@@ -154,13 +154,13 @@ export default async function OutreachReliabilityPage() {
 
         <section className="bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily Reliability Trend</h2>
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily Reliability Trend</h2>
           </div>
           <div className="px-5 py-4 overflow-x-auto">
             {snapshot.daily.length === 0 ? (
               <p className="text-[13px] text-slate-500">No daily records yet.</p>
             ) : (
-              <table className="w-full text-[12px] min-w-[720px]">
+              <table className="w-full text-[13px] min-w-[720px]">
                 <thead>
                   <tr className="text-left text-slate-400">
                     <th className="pb-2 font-semibold">Date</th>
