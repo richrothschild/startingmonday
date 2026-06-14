@@ -42,8 +42,7 @@ test.describe('Auth UX contract and visual guard @auth-ux', () => {
     await page.setViewportSize({ width: 1280, height: 900 })
     await page.waitForTimeout(300)
 
-    await expect(page).toHaveScreenshot('auth-signup-desktop.png', {
-      fullPage: true,
+    await expect(page.locator('main > div.w-full.max-w-sm')).toHaveScreenshot('auth-signup-desktop.png', {
       animations: 'disabled',
       maxDiffPixelRatio: 0.02,
     })

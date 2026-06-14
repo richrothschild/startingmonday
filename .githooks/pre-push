@@ -46,6 +46,12 @@ npm run growth:metrics:strict
 echo "ux/ui rubric page gate..."
 npm run ux:rubric:pages
 
+echo "push Playwright guard..."
+npm run guard:push:playwright
+
+echo "push environment-sensitive guard..."
+npm run guard:push:env
+
 if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
 	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
 else

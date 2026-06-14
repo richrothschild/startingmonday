@@ -19,6 +19,9 @@ echo "outreach template drift..."
 echo "outreach lint..."
 node scripts/precommit-outreach-lint.mjs
 
+echo "route guard tests..."
+npm run test:route-guards
+
 echo "mobile-ui gate..."
 node scripts/precommit-mobile-ui-gate.mjs
 
