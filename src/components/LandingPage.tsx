@@ -1,4 +1,4 @@
-﻿import { BrandIcon } from '@/components/BrandIcon'
+import { BrandIcon } from '@/components/BrandIcon'
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
@@ -293,7 +293,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.14),_transparent_32%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(11,17,30,0.94)_56%,_rgba(10,15,28,0.96)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80" aria-label="Go to homepage">
@@ -339,16 +339,16 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
         <section id="core-clarity" data-emi-section="clarity_block" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
             {isHomePage ? (
-              <div className="mb-8 rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-[0_32px_120px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:p-8 lg:p-10">
+              <div className="mb-8 rounded-[2rem] border border-white/12 bg-slate-950/82 p-6 shadow-[0_38px_130px_rgba(15,23,42,0.3)] backdrop-blur-xl sm:p-8 lg:p-10">
                 <p className="max-w-3xl text-[1.15rem] font-semibold leading-[1.18] tracking-tight text-orange-200/90 sm:text-[1.35rem] lg:text-[1.55rem]">
                   {hero.eyebrow}
                 </p>
-                <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.06] tracking-tight text-white sm:text-[2.55rem] lg:text-[3.35rem]">
+                <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
                   {hero.h1Lines.map((line, i) => (
                     <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
                   ))}
                 </h1>
-                <p className="mt-4 max-w-4xl text-[1.35rem] font-semibold leading-[1.14] tracking-tight text-slate-100/95 sm:text-[1.65rem] lg:text-[2.2rem]">
+                <p className="mt-5 max-w-4xl text-[1.35rem] font-semibold leading-[1.12] tracking-tight text-slate-100/95 sm:text-[1.7rem] lg:text-[2.24rem]">
                   {hero.body}
                 </p>
               </div>
@@ -370,7 +370,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             {experimentVariant === 'proof_first' && proofHighlights && proofHighlights.length > 0 && (
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
-                  <article key={item.metric} className="rounded-2xl border border-white/10 bg-white/6 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.16)] backdrop-blur">
+                  <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
                     <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
                     <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
                   </article>
@@ -405,7 +405,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && (
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
-                  <article key={item.metric} className="rounded-2xl border border-white/10 bg-white/6 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.16)] backdrop-blur">
+                  <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
                     <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
                     <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
                   </article>
@@ -419,13 +419,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </p>
             )}
 
-            <div className="mb-6 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm" data-emi-proof="landing_clarity_panel">
+            <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
               <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
                 Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
               </p>
               <div className="grid grid-cols-1 gap-3">
-                <article className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+                <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
                   <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Opportunity Timing Gap</p>
                   <div className="pb-1">
                     <OpportunityTimingGapChart />
@@ -437,7 +437,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   </div>
                 </article>
 
-                <article className="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+                <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
                   <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Role Landing Probability</p>
                   <div className="pb-1">
                     <RoleLandingProbabilityChart />
@@ -453,12 +453,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 href="/demo/executive-brief"
                 className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors"
               >
-                See how an interview brief works in 60 seconds →
+                See how an interview brief works in 60 seconds ?
               </Link>
             </div>
 
             {isExecutivesPage && (
-              <section className="mb-6 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-6" aria-labelledby="executive-differentiation-title">
+              <section className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md sm:p-6" aria-labelledby="executive-differentiation-title">
                 <div className="flex flex-col gap-2 mb-5">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Executive platform capabilities</p>
                   <h2 id="executive-differentiation-title" className="text-[22px] font-bold leading-snug text-white sm:text-[24px]">

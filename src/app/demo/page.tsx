@@ -133,7 +133,7 @@ export function DemoContent({
   return (
     <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-slate-950'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
       )}
       {/* Nav */}
       <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 border-b border-slate-800 sticky top-0 z-10'}>
@@ -168,7 +168,7 @@ export function DemoContent({
               { label: 'Brief in 60 seconds', body: 'Company-specific, role-specific, grounded in your background. Not generic.' },
               { label: 'Objections handled', body: 'Likely pushbacks and how to counter them, specific to the search context.' },
             ].map(item => (
-              <div key={item.label} className="border border-slate-700 rounded-lg p-4">
+              <div key={item.label} className="border border-white/12 bg-white/[0.06] rounded-lg p-4 shadow-[0_14px_48px_rgba(15,23,42,0.16)]">
                 <p className="text-[12px] font-bold text-orange-400 mb-1.5">{item.label}</p>
                 <p className="text-[13px] text-slate-200 leading-relaxed">{item.body}</p>
               </div>
@@ -176,7 +176,7 @@ export function DemoContent({
           </div>
 
           {/* Visual: timing gap inline mini-chart */}
-          <div className="border border-slate-700 rounded-lg bg-slate-950/50 p-4 mb-2">
+          <div className="border border-white/12 rounded-lg bg-slate-950/62 p-4 mb-2 shadow-[0_18px_56px_rgba(15,23,42,0.2)] backdrop-blur-sm">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Opportunity window</p>
             <svg viewBox="0 0 420 60" className="w-full h-[52px]" aria-label="Opportunity window timing" role="img">
               <line x1="20" y1="28" x2="400" y2="28" stroke="#334155" strokeWidth="2" />
@@ -207,7 +207,7 @@ export function DemoContent({
       </header>
 
       <section className={`px-4 sm:px-6 pb-6 ${premiumEnabled ? '' : 'bg-slate-950'}`}>
-        <div className="max-w-3xl mx-auto rounded-2xl border border-white/10 bg-white/6 p-4">
+        <div className="max-w-3xl mx-auto rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_16px_52px_rgba(15,23,42,0.16)]">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Source note</p>
           <p className="text-[12px] text-slate-200 leading-relaxed">
             Demo claims reflect observed prep-brief behavior in pilot cohorts and are linked to source-backed methodology in the evidence room.
@@ -216,19 +216,19 @@ export function DemoContent({
       </section>
 
       {/* Demo section */}
-      <section id="run-demo" className="bg-white px-4 sm:px-6 py-12 sm:py-16" ref={briefRef}>
+      <section id="run-demo" className={`${premiumEnabled ? 'bg-slate-950/70 border-t border-white/10' : 'bg-white'} px-4 sm:px-6 py-12 sm:py-16`} ref={briefRef}>
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-[22px] font-bold text-slate-900 mb-1">Generate a prep brief</h2>
-          <p className="text-[13px] text-slate-500 mb-6">
+          <h2 className={`text-[22px] font-bold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Generate a prep brief</h2>
+          <p className={`text-[13px] mb-6 ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
             Showing a brief for <span className="font-semibold text-slate-700">{DEMO_COMPANY}</span>. Select a role below.
             {runCount > 0 && runsLeft > 0 && (
               <span className="ml-2 text-slate-200">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this demo.</span>
             )}
           </p>
 
-          <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col gap-4 mb-8">
+          <form onSubmit={handleGenerate} className={`${premiumEnabled ? 'bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm' : 'bg-white border border-slate-200'} rounded-lg p-6 flex flex-col gap-4 mb-8`}>
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-200 mb-1.5">
+              <label className={`block text-[11px] font-bold tracking-[0.07em] uppercase mb-1.5 ${premiumEnabled ? 'text-slate-100' : 'text-slate-200'}`}>
                 Role
               </label>
               <select
@@ -245,9 +245,9 @@ export function DemoContent({
             </div>
 
             {exhausted ? (
-              <div className="bg-slate-50 border border-slate-200 rounded p-5">
-                <p className="text-[14px] font-semibold text-slate-900 mb-2">Demo limit reached.</p>
-                <p className="text-[13px] text-slate-500 mb-4 leading-relaxed">
+              <div className={`${premiumEnabled ? 'bg-slate-950/64 border border-white/12' : 'bg-slate-50 border border-slate-200'} rounded p-5`}>
+                <p className={`text-[14px] font-semibold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Demo limit reached.</p>
+                <p className={`text-[13px] mb-4 leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
                   You have run {MAX_RUNS} briefs. Create a free account to generate unlimited briefs for your own target companies, with your background woven in.
                 </p>
                 <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors">
@@ -279,20 +279,20 @@ export function DemoContent({
                 </div>
               )}
               {content && (
-                <div className="bg-white border border-slate-200 rounded-lg p-6 sm:p-8 mb-8">
+                <div className={`${premiumEnabled ? 'bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm' : 'bg-white border border-slate-200'} rounded-lg p-6 sm:p-8 mb-8`}>
                   {renderBrief(content, loading)}
                 </div>
               )}
               {content && !loading && (
-                <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 text-center">
-                  <p className="text-[15px] font-semibold text-slate-900 mb-1.5">Ready to run briefs for your targets?</p>
-                  <p className="text-[13px] text-slate-500 mb-5 leading-relaxed">
+                <div className={`${premiumEnabled ? 'bg-slate-950/64 border border-white/12' : 'bg-slate-50 border border-slate-200'} rounded-lg p-6 text-center`}>
+                  <p className={`text-[15px] font-semibold mb-1.5 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Ready to run briefs for your targets?</p>
+                  <p className={`text-[13px] mb-5 leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
                     Your account generates briefs with your background, your companies, and your narrative woven in.
                   </p>
                   <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[14px] font-semibold px-7 py-3 rounded hover:bg-orange-600 transition-colors">
                     Start free trial
                   </Link>
-                  <p className="text-[12px] text-slate-200 mt-3">30 days free. No credit card.</p>
+                  <p className={`text-[12px] mt-3 ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>30 days free. No credit card.</p>
                 </div>
               )}
             </div>

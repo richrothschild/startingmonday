@@ -62,7 +62,7 @@ export default function MethodAndEvidencePage() {
   return (
     <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-white'}`}>
       {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[26rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.16),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
       )}
       <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
@@ -78,20 +78,20 @@ export default function MethodAndEvidencePage() {
       </nav>
 
       <main className={`max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-18 ${premiumEnabled ? 'text-slate-100' : ''}`}>
-<header className="mb-12 max-w-3xl">
+    <header className="mb-14 max-w-3xl">
           <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-3 ${premiumEnabled ? 'text-orange-300' : 'text-orange-500'}`}>Method and evidence</p>
-          <h1 className={`text-[34px] sm:text-[44px] font-bold leading-tight mb-4 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>How Starting Monday turns research into product decisions.</h1>
+          <h1 className={`text-[34px] sm:text-[44px] font-bold leading-[1.05] mb-4 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>How Starting Monday turns research into product decisions.</h1>
           <p className={`text-[15px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             We use peer-reviewed coaching, transition, behavior-change, and weak-signal research to decide what to build, what to claim, and what to measure.
           </p>
         </header>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm' : 'border border-slate-200'}`}>
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/12 bg-slate-950/64 shadow-[0_20px_62px_rgba(15,23,42,0.2)] backdrop-blur-md' : 'border border-slate-200'}`}>
             <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Evidence stack</p>
             <BarChart items={EVIDENCE_STACK} labelKey="label" valueKey="value" noteKey="note" widthKey="widthClass" premium={premiumEnabled} />
           </div>
-          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+          <div className={`rounded-2xl p-5 ${premiumEnabled ? 'border border-white/12 bg-white/[0.07] shadow-[0_16px_52px_rgba(15,23,42,0.16)]' : 'border border-slate-200 bg-slate-50'}`}>
             <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Timing model</p>
             <BarChart items={TIMING_MODEL} labelKey="stage" valueKey="value" noteKey="note" widthKey="widthClass" premium={premiumEnabled} />
           </div>
@@ -112,7 +112,7 @@ export default function MethodAndEvidencePage() {
           </div>
         </section>
 
-        <section className={`mb-12 rounded-lg p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-slate-950/55 backdrop-blur-sm text-white' : 'border border-slate-200 bg-slate-950 text-white'}`}>
+        <section className={`mb-12 rounded-lg p-5 sm:p-6 ${premiumEnabled ? 'border border-white/12 bg-slate-950/64 shadow-[0_20px_62px_rgba(15,23,42,0.2)] backdrop-blur-md text-white' : 'border border-slate-200 bg-slate-950 text-white'}`}>
           <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-3 ${premiumEnabled ? 'text-orange-200' : 'text-orange-300'}`}>Dig deeper</p>
           <p className={`text-[14px] leading-relaxed mb-5 ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>
             Explore the citations, pilot data, and timing-model methodology behind every product decision.
@@ -124,7 +124,7 @@ export default function MethodAndEvidencePage() {
           </div>
         </section>
 
-        <section className={`rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/10 bg-white/6' : 'border border-slate-200 bg-slate-50'}`}>
+        <section className={`rounded-2xl p-5 sm:p-6 ${premiumEnabled ? 'border border-white/12 bg-white/[0.07] shadow-[0_16px_52px_rgba(15,23,42,0.16)]' : 'border border-slate-200 bg-slate-50'}`}>
           <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-2 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Source note</p>
           <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
             All percentage bars represent weighted confidence applied to each evidence category, not absolute efficacy. Source citations and denominator notes are maintained in the references and evidence-room assets.
