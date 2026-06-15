@@ -7,7 +7,6 @@
     "src/app/for-coaches/**",
     "src/app/pricing/**",
     "src/app/demo/**",
-    "tests/e2e/**",
     ".github/workflows/ci.yml"
   ],
   "requiredPrLabel": "feature-flagged",
