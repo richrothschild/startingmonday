@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-15T04:20:31.616Z
+Last generated: 2026-06-15T15:01:17.544Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -996,7 +996,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (605)
+## Documentation (608)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1022,6 +1022,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/campaign-standard.md | docs/campaign-standard.md | The Campaign Standard
 - Doc docs/chris-slack-summary-2026-06-08.md | docs/chris-slack-summary-2026-06-08.md | Starting Monday: 3-Day Summary for Chris
 - Doc docs/chris-vscode-workspace-setup.md | docs/chris-vscode-workspace-setup.md | Chris Setup Guide: Match Rich's VS Code Workspace
+- Doc docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md | docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md | Coach and Outplacement Persona Deep Dive (2026-06-15)
 - Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
 - Doc docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | Coach Journey Visuals And Competitive Comparison
 - Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign
@@ -1228,6 +1229,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-ui-ux-no-disruption-remediation.md | docs/epic-ui-ux-no-disruption-remediation.md | Epic: UI/UX Excellence Remediation (No-Disruption Rollout)
 - Doc docs/evals/prep-brief-optimization-cycle-01.md | docs/evals/prep-brief-optimization-cycle-01.md | Prep Brief Optimization Cycle 01
 - Doc docs/executive-coach-outreach-messages.md | docs/executive-coach-outreach-messages.md | Executive Coach Outreach Messages
+- Doc docs/executive-coaches-market-research-2026-06-14.md | docs/executive-coaches-market-research-2026-06-14.md | Executive Coaches Market Deep Dive (2026-06-14)
 - Doc docs/executive-dashboard-implementation-spec-2026-06-07.md | docs/executive-dashboard-implementation-spec-2026-06-07.md | Executive Dashboard Implementation Spec
 - Doc docs/executive-job-search/01-source-register.md | docs/executive-job-search/01-source-register.md | Executive Job Search Source Register
 - Doc docs/executive-job-search/02-behavior-ontology-v1.md | docs/executive-job-search/02-behavior-ontology-v1.md | Executive Job Search Behavior Ontology v1
@@ -1452,6 +1454,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
 - Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
 - Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
