@@ -7,7 +7,7 @@ import { chromium, webkit } from 'playwright'
 import fs from 'fs'
 import path from 'path'
 
-const BASE_URL = 'https://starting-monday-staging.up.railway.app'
+const BASE_URL = process.env.BASE_URL || 'https://starting-monday-staging.up.railway.app'
 const SCREENSHOT_DIR = path.join(process.cwd(), 'tmp', 'mobile-screenshots')
 const MOBILE_VIEWPORT = { width: 390, height: 844 }  // iPhone 12/13/14
 const USE_WEBKIT = process.env.BROWSER === 'webkit'
