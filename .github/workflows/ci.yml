@@ -204,7 +204,6 @@ jobs:
               - 'src/app/for-coaches/**'
               - 'src/app/pricing/**'
               - 'src/app/demo/**'
-              - 'tests/e2e/**'
               - '.github/workflows/ci.yml'
             rollout_policy:
               - 'config/feature-rollout-policy.json'

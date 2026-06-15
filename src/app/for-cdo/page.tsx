@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search Campaign Infrastructure',
@@ -109,6 +110,11 @@ export default function ForCdoPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for C-suite digital leaders in CDO searches</h1>
+      <ProofStrip
+        metric="81%"
+        label="of pilot executives reached first interview inside 30 days"
+        source="27 executives in the Jan–May 2026 cohort across all C-suite tracks"
+      />
       <LandingPage
         sourcePage="/for-cdo"
         hero={{

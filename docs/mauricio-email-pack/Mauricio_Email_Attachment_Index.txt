@@ -1,0 +1,16 @@
+Mauricio email attachment pack (generated 2026-06-14)
+
+Attach these files:
+1) Mauricio_Strategy_Plan_Starting_Monday.rtf
+2) Mauricio_Item1_Board_Level_GTM_Memo.rtf
+3) Mauricio_Item2_Day_by_Day_Execution_Checklist.rtf
+4) Mauricio_Item3_Call_Script_and_Objection_Tree.rtf
+5) Mauricio_Adjacency_Strategy_Awareness_and_Category_Authority.rtf
+6) Mauricio_Execution_Playbook_Awareness_Avenues_Metrics_and_Product_Build.rtf
+
+Folder:
+docs/mauricio-email-pack/
+
+Notes:
+- All files are Word-compatible RTF documents.
+- Open in Microsoft Word and optionally Save As .docx if desired.

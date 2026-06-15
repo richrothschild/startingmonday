@@ -453,7 +453,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 href="/demo/executive-brief"
                 className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors"
               >
-                See how an interview brief works in 60 seconds ?
+                See how an interview brief works in 60 seconds
               </Link>
             </div>
 
@@ -657,6 +657,25 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
           </div>
         </section>
+
+        {faqs && faqs.length > 0 && (
+          <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6" aria-labelledby="faq-heading">
+            <div className="max-w-5xl mx-auto">
+              <h2 id="faq-heading" className="text-[22px] font-bold text-white mb-6">Common questions</h2>
+              <div className="space-y-3">
+                {faqs.map((f) => (
+                  <details key={f.question} className="rounded-xl border border-white/10 bg-white/5 px-5 py-4 group">
+                    <summary className="list-none cursor-pointer text-[14px] font-semibold text-white flex justify-between items-start gap-3">
+                      <span>{f.question}</span>
+                      <span className="mt-0.5 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+                    </summary>
+                    <p className="mt-3 text-[13px] leading-relaxed text-slate-200 [text-wrap:pretty]">{f.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {faqs && faqs.length > 0 && (
           <JsonLd data={{

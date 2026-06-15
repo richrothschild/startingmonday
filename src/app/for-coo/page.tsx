@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -110,9 +111,14 @@ export default function ForCooPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for C-suite leaders moving to COO roles</h1>
+      <ProofStrip
+        metric="4.2 wks"
+        label="earlier first outreach on average vs typical reactive search timing"
+        source="Jan–May 2026 pilot cohort, signal-tracking group vs control"
+      />
       <LandingPage
         hero={{
-          eyebrow: 'The technology executive who can run the business is the most valuable person in the room.',
+          eyebrow: 'The technology executive who can run the business is among the rarest people in the room.',
           h1Lines: ['Operations is', 'the next', 'mandate.'],
           body: 'The path from CIO or CTO into the COO seat is one of the most valuable transitions in the current market. Digital-native companies scaling past the point where the CEO can run everything need someone who understands the technology foundation and can manage the business built on top of it. PE-backed companies driving operational improvement need executives who can deliver efficiency without breaking the digital advantage. The candidate who makes this move deliberately, with a clear operational narrative, is rare enough to command the room.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

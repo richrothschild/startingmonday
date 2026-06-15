@@ -36,6 +36,13 @@ const PREMIUM_PUBLIC_PATTERNS = [
   /^src\/app\/for-executives\/page\.tsx$/,
   /^src\/app\/for-coaches\/page\.tsx$/,
   /^src\/app\/for-search-firms\/page\.tsx$/,
+  /^src\/app\/executives\/page\.tsx$/,
+  /^src\/app\/executives\/active\/page\.tsx$/,
+  /^src\/app\/executives\/passive\/page\.tsx$/,
+  /^src\/app\/executives\/personas\/page\.tsx$/,
+  /^src\/app\/executives\/personas\/\[slug\]\/page\.tsx$/,
+  /^src\/app\/career-tools\/page\.tsx$/,
+  /^src\/app\/about\/page\.tsx$/,
 ]
 
 function classifyRouteTier(relativePath) {

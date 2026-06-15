@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for CPOs - Chief Product Officer Search Campaign Infrastructure',
@@ -59,9 +60,9 @@ const SITUATIONS: SituationCard[] = [
     sub: 'Strategy without execution. I know the difference. Time to find somewhere that does not.',
   },
   {
-    id: 'returning',
-    headline: "I've been saying 'starting Monday' for months.",
-    sub: 'This is the one that sticks.',
+    id: 'board-not-ready',
+    headline: 'The CEO wants a product executive who can present to the board.',
+    sub: 'I have the record. I need to close the gap between product credibility and board-level fluency.',
   },
 ]
 
@@ -108,6 +109,11 @@ export default function ForCpoPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for Chief Product Officer searches</h1>
+      <ProofStrip
+        metric="9 days"
+        label="median time to first qualified outreach for CPO-track executives"
+        source="Jan–May 2026 pilot cohort, product executive segment"
+      />
       <LandingPage
         sourcePage="/for-cpo"
         hero={{
@@ -118,7 +124,7 @@ export default function ForCpoPage() {
           steps: [
             'Identify companies where the product mandate is genuinely C-suite: board-level investment, a CEO who understands product deeply, and a current leadership gap or transition that creates a real opening rather than a posted backfill',
             'Watch the signals that precede CPO searches: new CEOs resetting product vision, Series C and D companies formalizing product leadership for the first time, and public companies where the product has fallen behind the competitive market',
-            'Prepare the brief that makes the case in two registers - the visionary who sees the market opportunity, and the executive who has shipped at scale and built teams that outlasted their tenure',
+            'Prepare a brief that speaks in two registers: the visionary register (a point of view on where the market is going and how this company should build for it) and the executive register (evidence that you have shipped at scale and built teams that outlasted your tenure). Evaluators expect both — the first earns their interest, the second closes their confidence.',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

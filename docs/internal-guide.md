@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-15T03:30:54.013Z
+Last generated: 2026-06-15T04:20:31.616Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -814,7 +814,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (37)
+## Infrastructure and Workflows (38)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -826,6 +826,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/fast-burn-alert.yml | .github/workflows/fast-burn-alert.yml | Runs offset from monitoring.yml (which runs at */30) to avoid double-alerts.
 - Workflow .github/workflows/guide-analytics-weekly.yml | .github/workflows/guide-analytics-weekly.yml | name: Guide Analytics Weekly
 - Workflow .github/workflows/guide-sync.yml | .github/workflows/guide-sync.yml | name: Guide Sync
+- Workflow .github/workflows/jira-import.yml | .github/workflows/jira-import.yml | Two triggers:
 - Workflow .github/workflows/luxury-ux-tiered.yml | .github/workflows/luxury-ux-tiered.yml | name: Luxury UX Tiered Gate
 - Workflow .github/workflows/managertools-launch-monitoring.yml | .github/workflows/managertools-launch-monitoring.yml | name: Manager Tools Launch Monitoring
 - Workflow .github/workflows/monitoring-watchdog.yml | .github/workflows/monitoring-watchdog.yml | Synthetics runs every 5 minutes, but GitHub scheduled workflows can drift significantly during incidents.
@@ -995,7 +996,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (602)
+## Documentation (605)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1098,6 +1099,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/content/outreach-sales-synthetic-council.md | docs/content/outreach-sales-synthetic-council.md | Outreach Sales Synthetic Council
 - Doc docs/content/product-onboarding-experts-synthetic-council.md | docs/content/product-onboarding-experts-synthetic-council.md | Product Onboarding Experts Synthetic Council
 - Doc docs/content/release-note-2026-05-26-sitewide-execution-epic.md | docs/content/release-note-2026-05-26-sitewide-execution-epic.md | Release Note - Sitewide Execution Epic Rollout
+- Doc docs/content/release-note-2026-06-14-pr117-production.md | docs/content/release-note-2026-06-14-pr117-production.md | Release Note - PR #117 Production Deployment
 - Doc docs/content/revenue-economics-synthetic-council.md | docs/content/revenue-economics-synthetic-council.md | Revenue and Economics Synthetic Council
 - Doc docs/content/sales-marketing-synthetic-council.md | docs/content/sales-marketing-synthetic-council.md | The Starting Monday Synthetic Council
 - Doc docs/content/site-review-may-2026-full-council-v6.md | docs/content/site-review-may-2026-full-council-v6.md | Synthetic Council Full Site Review v6 (May 13, 2026)
@@ -1217,6 +1219,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | docs/epic-7-layer-luxury-experience-foundation-2026-2027.md | Epic: 7-Layer Luxury Experience Foundation
 - Doc docs/epic-90-day-reliability-rollout.md | docs/epic-90-day-reliability-rollout.md | Epic: 90-Day Reliability Rollout (SRE + UX Quality)
 - Doc docs/epic-council-score-95-summary-2026-05-24.md | docs/epic-council-score-95-summary-2026-05-24.md | Council Score 95 Epic Summary
+- Doc docs/epic-executive-pages-ux-remediation-2026-06-14.md | docs/epic-executive-pages-ux-remediation-2026-06-14.md | Epic: Executive Pages UX Remediation and Luxury Measurement Hardening
 - Doc docs/epic-online-guide-and-chat-2026-05-30.md | docs/epic-online-guide-and-chat-2026-05-30.md | Epic: Online User Guide + Guide Chat + Auto-Sync
 - Doc docs/epic-partner-scale-and-flywheel-2026-2027.md | docs/epic-partner-scale-and-flywheel-2026-2027.md | Epic: Partner Scale and Flywheel
 - Doc docs/epic-sitewide-luxury-modern-elevation-2026-2027.md | docs/epic-sitewide-luxury-modern-elevation-2026-2027.md | Epic: Sitewide Luxury-Modern Elevation (2026-2027)
@@ -1263,6 +1266,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/executive-job-search/35-sprint-4-execution-packet.md | docs/executive-job-search/35-sprint-4-execution-packet.md | Sprint 4 Execution Packet
 - Doc docs/executive-job-search/36-sprint-5-execution-packet.md | docs/executive-job-search/36-sprint-5-execution-packet.md | Sprint 5 Execution Packet
 - Doc docs/executive-job-search/37-sprint-6-execution-packet.md | docs/executive-job-search/37-sprint-6-execution-packet.md | Sprint 6 Execution Packet
+- Doc docs/executive-pages-ux-audit-2026-06-14.md | docs/executive-pages-ux-audit-2026-06-14.md | Executive Pages UX and Content Audit
 - Doc docs/executive-search-playbook.md | docs/executive-search-playbook.md | The Executive Search Playbook
 - Doc docs/for-coaches-review-from-synthetic-council-may-2026.md | docs/for-coaches-review-from-synthetic-council-may-2026.md | /for-coaches Page Review from Synthetic Council
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets

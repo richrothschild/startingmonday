@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -109,6 +110,11 @@ export default function ForVpTechnologyPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for VP Technology searches</h1>
+      <ProofStrip
+        metric="81%"
+        label="of pilot executives reached first interview inside 30 days"
+        source="27 executives in the Jan–May 2026 cohort"
+      />
       <LandingPage
         hero={{
           eyebrow: 'The best VP Technology roles go to the candidates already in the room.',

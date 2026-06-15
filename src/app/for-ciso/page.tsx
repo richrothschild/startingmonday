@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
@@ -110,6 +111,12 @@ export default function ForCisoPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for CISO searches</h1>
+      <ProofStrip
+        metric="5×"
+        label="more event-triggered outreach initiated by pilot CISO-track executives vs baseline"
+        source="Jan–May 2026 pilot cohort, security-executive segment"
+        caveat="Small sample; observed in structured signal-tracking group. Results vary."
+      />
       <LandingPage
         sourcePage="/for-ciso"
         hero={{
