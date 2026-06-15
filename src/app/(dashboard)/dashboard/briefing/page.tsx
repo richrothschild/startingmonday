@@ -624,13 +624,13 @@ export default async function BriefingPage({
           <h2 className="text-[11px] font-semibold text-slate-500">View:</h2>
           <Link
             href="/dashboard/briefing?mode=focused"
-            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
           >
             Focused
           </Link>
           <Link
             href="/dashboard/briefing?mode=full"
-            className={`text-[11px] font-semibold border rounded px-2 py-1 transition-colors ${mode === 'full' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'full' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
           >
             Full
           </Link>
