@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-15T04:08:52.857Z
+Last generated: 2026-06-15T23:13:17.413Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (160)
+## Features (161)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -170,6 +170,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Search firms / Personas](/search-firms/personas) - Open /search-firms/personas to use this feature area and related workflows.
 - [Search firms / Sample cfo brief](/search-firms/sample-cfo-brief) - Open /search-firms/sample-cfo-brief to use this feature area and related workflows.
 - [Security](/security) - Open /security to use this feature area and related workflows.
+- [Stuart meyer review](/stuart-meyer-review) - Open /stuart-meyer-review to use this feature area and related workflows.
 - [Terms](/terms) - Open /terms to use this feature area and related workflows.
 - [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 

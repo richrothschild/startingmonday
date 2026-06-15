@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T15:01:17.544Z",
+  "generatedAt": "2026-06-15T23:13:20.237Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-15T04:30:29.872Z"
+      "lastModifiedAt": "2026-06-15T15:01:17.559Z"
     },
     {
       "id": "feature:/login",
@@ -2645,6 +2645,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-14T00:23:57.337Z"
+    },
+    {
+      "id": "feature:/stuart-meyer-review",
+      "title": "Feature Stuart meyer review",
+      "body": "User-facing page route /stuart-meyer-review.",
+      "type": "feature",
+      "ref": "/stuart-meyer-review",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-15T23:11:52.995Z"
     },
     {
       "id": "feature:/terms",
@@ -9942,6 +9956,19 @@
       "lastModifiedAt": "2026-06-13T23:12:19.714Z"
     },
     {
+      "id": "script:scripts/jira/list-jira-issues.mjs",
+      "title": "Script scripts/jira/list-jira-issues.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/jira/list-jira-issues.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-15T21:59:48.326Z"
+    },
+    {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
       "title": "Script scripts/lib/mobile-route-inventory.mjs",
       "body": "export function discoverPublicMobileRoutes() {",
@@ -13277,7 +13304,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T14:08:17.941Z"
+      "lastModifiedAt": "2026-06-15T21:59:48.326Z"
     },
     {
       "id": "doc:docs/coach-council-epic.md",
@@ -16761,7 +16788,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:30:29.871Z"
+      "lastModifiedAt": "2026-06-15T15:01:17.559Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16800,7 +16827,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:30:29.872Z"
+      "lastModifiedAt": "2026-06-15T15:01:17.559Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20713,7 +20740,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:30:29.875Z"
+      "lastModifiedAt": "2026-06-15T23:13:17.417Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

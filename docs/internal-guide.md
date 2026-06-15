@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-15T15:01:17.544Z
+Last generated: 2026-06-15T23:13:20.237Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (190)
+## Features (191)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -204,6 +204,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Search firms / Personas | /search-firms/personas | User-facing page route /search-firms/personas.
 - Feature Search firms / Sample cfo brief | /search-firms/sample-cfo-brief | User-facing page route /search-firms/sample-cfo-brief.
 - Feature Security | /security | User-facing page route /security.
+- Feature Stuart meyer review | /stuart-meyer-review | User-facing page route /stuart-meyer-review.
 - Feature Terms | /terms | User-facing page route /terms.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
@@ -676,7 +677,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (136)
+## Internal Scripts (137)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -771,6 +772,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/internal-guide-sync.ts | scripts/internal-guide-sync.ts | import { createHash } from 'crypto'
 - Script scripts/jira/create-jira-issue.mjs | scripts/jira/create-jira-issue.mjs | #!/usr/bin/env node
 - Script scripts/jira/import-csv-to-jira.mjs | scripts/jira/import-csv-to-jira.mjs | Keep raw text when Jira does not return JSON.
+- Script scripts/jira/list-jira-issues.mjs | scripts/jira/list-jira-issues.mjs | #!/usr/bin/env node
 - Script scripts/lib/mobile-route-inventory.mjs | scripts/lib/mobile-route-inventory.mjs | export function discoverPublicMobileRoutes() {
 - Script scripts/link-integrity-audit.mjs | scripts/link-integrity-audit.mjs | import fs from 'node:fs/promises'
 - Script scripts/lint-outreach-first-sentence.mjs | scripts/lint-outreach-first-sentence.mjs | import { readdir, readFile } from 'node:fs/promises'
