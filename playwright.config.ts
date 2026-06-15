@@ -105,6 +105,15 @@ export default defineConfig({
       },
     },
     {
+      name: 'mobile-safari',
+      testMatch: /mobile-(ui|key-routes|public-routes|visual|elite-visual)\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['iPhone 13'],
+        storageState: 'tests/e2e/.auth/user.json',
+      },
+    },
+    {
       name: 'mobile-android',
       testMatch: /mobile-(ui|key-routes|public-routes|visual|visual-smoke|elite-visual)\.spec\.ts/,
       dependencies: ['setup'],
