@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14",
+  "updatedAt": "2026-06-15",
   "owner": "engineering",
   "riskyPaths": [
     "src/app/(auth)/**",
