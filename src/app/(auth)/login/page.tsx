@@ -281,7 +281,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
               </div>
 
@@ -297,7 +297,7 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 focus:outline-none focus:border-slate-400"
                 />
               </div>
 

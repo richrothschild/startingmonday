@@ -467,7 +467,7 @@ export default function SignupPage() {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                     />
                   </div>
 
@@ -482,7 +482,7 @@ export default function SignupPage() {
                       minLength={8}
                       value={password}
                       onChange={e => setPassword(e.target.value)}
-                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 focus:outline-none focus:border-slate-400"
                     />
                     <p className="mt-1.5 text-[13px] text-slate-400">At least 8 characters.</p>
                   </div>
@@ -496,7 +496,7 @@ export default function SignupPage() {
                       value={heardAbout}
                       onChange={(e) => setHeardAbout(e.target.value as HeardAboutOption | '')}
                       disabled={heardAboutLocked}
-                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 disabled:bg-slate-100 disabled:text-slate-500"
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 focus:outline-none focus:border-slate-400 disabled:bg-slate-100 disabled:text-slate-500"
                     >
                       <option value="">Select (optional)</option>
                       {HEARD_ABOUT_OPTIONS.map((option) => (
@@ -521,7 +521,7 @@ export default function SignupPage() {
                         value={heardAboutOther}
                         onChange={(e) => setHeardAboutOther(e.target.value)}
                         placeholder="Please specify"
-                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                       />
                     </div>
                   ) : null}
