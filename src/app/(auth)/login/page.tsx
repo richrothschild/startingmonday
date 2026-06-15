@@ -338,12 +338,12 @@ export default function LoginPage() {
             </form>
           </div>
 
-          <p className="text-center text-[13px] text-slate-400 mt-5">
-            No account?{' '}
-            <Link href="/signup" className="text-slate-700 font-semibold hover:text-slate-900">
+          <div className="flex flex-col items-center mt-5">
+            <span className="text-[13px] text-slate-400">No account?</span>
+            <Link href="/signup" className="flex items-center justify-center min-h-[44px] text-[13px] text-slate-700 font-semibold hover:text-slate-900">
               Get early access
             </Link>
-          </p>
+          </div>
 
           <p className="text-center text-[11px] text-slate-300 mt-8">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.

@@ -543,24 +543,24 @@ export default function SignupPage() {
                   </button>
                   <p id="signup-trust" className="text-center text-[13px] text-slate-400">
                     Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
-                    <Link href="/privacy" className="underline hover:text-slate-600">Privacy policy &rarr;</Link>
+                    <Link href="/privacy" className="inline-flex items-center min-h-[44px] underline hover:text-slate-600">Privacy policy &rarr;</Link>
                   </p>
 
                 </form>
               </div>
 
-              <p className="text-center text-[13px] text-slate-400 mt-5">
-                Already have an account?{' '}
-                <Link href="/login" className="text-slate-700 font-semibold hover:text-slate-900">
+              <div className="flex flex-col items-center mt-5">
+                <span className="text-[13px] text-slate-400">Already have an account?</span>
+                <Link href="/login" className="flex items-center justify-center min-h-[44px] text-[13px] text-slate-700 font-semibold hover:text-slate-900">
                   Sign in
                 </Link>
-              </p>
-              <p className="text-center text-[13px] text-slate-400 mt-3">
-                Not ready to commit?{' '}
-                <Link href="/demo" className="text-slate-700 font-semibold hover:text-slate-900">
+              </div>
+              <div className="flex flex-col items-center mt-1">
+                <span className="text-[13px] text-slate-400">Not ready to commit?</span>
+                <Link href="/demo" className="flex items-center justify-center min-h-[44px] text-[13px] text-slate-700 font-semibold hover:text-slate-900">
                   Explore the demo first &rarr;
                 </Link>
-              </p>
+              </div>
             </>
           )}
 
