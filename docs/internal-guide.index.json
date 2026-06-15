@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T20:02:50.959Z",
+  "generatedAt": "2026-06-15T04:01:46.971Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-14T17:22:12.146Z"
+      "lastModifiedAt": "2026-06-15T03:51:13.024Z"
     },
     {
       "id": "feature:/login",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.930Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.367Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.763Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.368Z"
     },
     {
       "id": "feature:/feedback",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.765Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.369Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.123Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.366Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.769Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.368Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.779Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.368Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.781Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.368Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.782Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.367Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.796Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.370Z"
     },
     {
       "id": "feature:/for-vp",
@@ -5194,7 +5194,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T16:53:53.570Z"
+      "lastModifiedAt": "2026-06-14T20:23:19.821Z"
     },
     {
       "id": "api:/api/google-calendar/disconnect",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T16:04:46.177Z"
+      "lastModifiedAt": "2026-06-15T03:48:51.367Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -9757,7 +9757,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-14T19:58:29.691Z"
+      "lastModifiedAt": "2026-06-14T20:06:12.443Z"
     },
     {
       "id": "script:scripts/growth-synthetic-council-audit.mjs",
@@ -10498,7 +10498,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T19:59:07.574Z"
+      "lastModifiedAt": "2026-06-14T21:03:26.536Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10631,6 +10631,19 @@
       "lastModifiedAt": "2026-06-06T19:57:44.618Z"
     },
     {
+      "id": "infra:.github/workflows/jira-import.yml",
+      "title": "Workflow .github/workflows/jira-import.yml",
+      "body": "Two triggers:",
+      "type": "infra",
+      "ref": ".github/workflows/jira-import.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-15T03:41:51.144Z"
+    },
+    {
       "id": "infra:.github/workflows/luxury-ux-tiered.yml",
       "title": "Workflow .github/workflows/luxury-ux-tiered.yml",
       "body": "name: Luxury UX Tiered Gate",
@@ -10745,7 +10758,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T19:59:14.432Z"
+      "lastModifiedAt": "2026-06-14T20:23:19.818Z"
     },
     {
       "id": "infra:.github/workflows/production-generated-monitoring.yml",
@@ -10953,7 +10966,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-14T19:58:40.826Z"
+      "lastModifiedAt": "2026-06-14T20:06:12.434Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -13160,7 +13173,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.719Z"
+      "lastModifiedAt": "2026-06-15T03:41:51.149Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -14253,6 +14266,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:14.968Z"
+    },
+    {
+      "id": "doc:docs/content/release-note-2026-06-14-pr117-production.md",
+      "title": "Doc docs/content/release-note-2026-06-14-pr117-production.md",
+      "body": "Release Note - PR #117 Production Deployment",
+      "type": "doc",
+      "ref": "docs/content/release-note-2026-06-14-pr117-production.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-14T21:03:26.541Z"
     },
     {
       "id": "doc:docs/content/revenue-economics-synthetic-council.md",
@@ -15760,7 +15786,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T19:58:51.641Z"
+      "lastModifiedAt": "2026-06-14T20:06:12.435Z"
     },
     {
       "id": "doc:docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
@@ -15800,6 +15826,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.006Z"
+    },
+    {
+      "id": "doc:docs/epic-executive-pages-ux-remediation-2026-06-14.md",
+      "title": "Doc docs/epic-executive-pages-ux-remediation-2026-06-14.md",
+      "body": "Epic: Executive Pages UX Remediation and Luxury Measurement Hardening",
+      "type": "doc",
+      "ref": "docs/epic-executive-pages-ux-remediation-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-15T03:41:51.144Z"
     },
     {
       "id": "doc:docs/epic-online-guide-and-chat-2026-05-30.md",
@@ -16400,6 +16439,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.021Z"
     },
     {
+      "id": "doc:docs/executive-pages-ux-audit-2026-06-14.md",
+      "title": "Doc docs/executive-pages-ux-audit-2026-06-14.md",
+      "body": "Executive Pages UX and Content Audit",
+      "type": "doc",
+      "ref": "docs/executive-pages-ux-audit-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-15T03:41:51.144Z"
+    },
+    {
       "id": "doc:docs/executive-search-playbook.md",
       "title": "Doc docs/executive-search-playbook.md",
       "body": "The Executive Search Playbook",
@@ -16683,7 +16735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T17:22:12.146Z"
+      "lastModifiedAt": "2026-06-15T03:51:13.025Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16722,7 +16774,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T17:22:12.146Z"
+      "lastModifiedAt": "2026-06-15T03:51:13.024Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16891,7 +16943,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T16:13:29.473Z"
+      "lastModifiedAt": "2026-06-14T20:23:19.818Z"
     },
     {
       "id": "doc:docs/luxury-ux-testing-playbook.md",
@@ -18126,7 +18178,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T16:21:27.032Z"
+      "lastModifiedAt": "2026-06-14T20:23:19.818Z"
     },
     {
       "id": "doc:docs/sm-acquisition-sprints.md",
@@ -20635,7 +20687,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T17:22:09.665Z"
+      "lastModifiedAt": "2026-06-15T03:51:29.294Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

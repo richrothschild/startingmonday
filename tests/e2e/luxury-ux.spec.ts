@@ -205,3 +205,94 @@ test.describe('Luxury UX checks @luxury', () => {
     expect(isOpen).toBeTruthy()
   })
 })
+
+// ---------------------------------------------------------------------------
+// EXUX-301: Executive route luxury checks
+// ---------------------------------------------------------------------------
+
+/**
+ * Routes that should load with a 2xx status and pass baseline luxury checks.
+ * /for-vp is a redirect — asserted separately below.
+ */
+const EXECUTIVE_ROUTES = [
+  '/for-executives',
+  '/for-cio',
+  '/for-vp-technology',
+  '/for-data-officer',
+  '/for-cdo',
+  '/for-ciso',
+  '/for-cpo',
+  '/for-coo',
+  '/executives',
+  '/executives/active',
+  '/executives/passive',
+  '/executives/personas',
+  '/career-tools',
+  '/about',
+] as const
+
+async function luxuryMetricsFor(page: Page, url: string) {
+  const response = await page.goto(url, { waitUntil: 'domcontentloaded' })
+  expect(response?.status() ?? 0, `${url} should return 2xx`).toBeLessThan(400)
+
+  return page.evaluate(() => {
+    const links = Array.from(document.querySelectorAll('a[href]')).map((a) => (a.textContent || '').trim()).filter(Boolean)
+    const ctaLabels = links.filter((t) =>
+      /(start|view|explore|learn|open|begin|request|sign|trial|demo|preview|evidence|method)/i.test(t),
+    )
+    const repeatedMap = new Map<string, number>()
+    for (const label of ctaLabels) repeatedMap.set(label, (repeatedMap.get(label) || 0) + 1)
+
+    const headingLevels = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).map((el) => Number(el.tagName.slice(1)))
+    // Count only visible h1s — sr-only h1s are accessibility aids, not visual hierarchy violations.
+    const h1Count = Array.from(document.querySelectorAll('h1')).filter((el) => {
+      return !el.classList.contains('sr-only')
+    }).length
+    let headingSkip = false
+    for (let i = 1; i < headingLevels.length; i++) {
+      if (headingLevels[i] - headingLevels[i - 1] > 1) { headingSkip = true; break }
+    }
+
+    const hasInternalPath = /docs\/strategy|artifacts\/production-exports|\.json\b/.test(
+      document.querySelector('main')?.innerText ?? '',
+    )
+
+    return {
+      repeatedCtas: [...repeatedMap.entries()].filter(([, c]) => c > 2),
+      h1Count,
+      headingSkip,
+      hasInternalPath,
+      ctaCount: ctaLabels.length,
+    }
+  })
+}
+
+test.describe('Executive route luxury checks @luxury', () => {
+  for (const route of EXECUTIVE_ROUTES) {
+    test(`${route} — baseline luxury standards`, async ({ page }) => {
+      const url = `${BASE_URL}${route}`
+      const m = await luxuryMetricsFor(page, url)
+
+      expect(m.h1Count, `${route}: exactly one h1`).toBe(1)
+      expect(m.headingSkip, `${route}: no heading level skip`).toBeFalsy()
+      expect(m.repeatedCtas, `${route}: no CTA label repeated more than twice`).toEqual([])
+      expect(m.ctaCount, `${route}: CTA count <= 14`).toBeLessThanOrEqual(14)
+      expect(m.hasInternalPath, `${route}: no internal source paths in body text`).toBeFalsy()
+    })
+
+    test(`${route} — mobile no horizontal overflow`, async ({ page }, testInfo) => {
+      test.skip(!testInfo.project.name.includes('luxury-mobile'), 'Mobile check only')
+      await page.goto(`${BASE_URL}${route}`, { waitUntil: 'domcontentloaded' })
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)
+      expect(overflow, `${route}: no horizontal overflow on mobile`).toBeFalsy()
+    })
+  }
+
+  test('/for-vp redirect — no redirect loop and lands 2xx', async ({ page }) => {
+    const response = await page.goto(`${BASE_URL}/for-vp`, { waitUntil: 'domcontentloaded' })
+    // Should redirect to a valid executive page (2xx after redirect chain)
+    expect(response?.status() ?? 0).toBeLessThan(400)
+    // Final URL must not be /for-vp itself (redirect must have resolved)
+    expect(page.url()).not.toBe(`${BASE_URL}/for-vp`)
+  })
+})

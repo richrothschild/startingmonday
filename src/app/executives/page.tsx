@@ -74,10 +74,10 @@ export default function ExecutivesChannelPage() {
             href="/for-cio"
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
-            properties={{ channel: 'executives', cta_label: 'Open executive journey', source_page: '/executives' }}
+            properties={{ channel: 'executives', cta_label: 'start_executive_campaign', source_page: '/executives' }}
             className="inline-block bg-orange-500 text-slate-900 text-[14px] font-semibold px-5 py-3 rounded hover:bg-orange-600 transition-colors"
           >
-            Open executive journey
+            Start your campaign
           </TrackLink>
           <TrackLink
             href="/signup"

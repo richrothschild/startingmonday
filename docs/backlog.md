@@ -57,6 +57,7 @@ Use this section during review to decide what Chris can own now, what to queue n
 
 | ID | Item family | Trigger |
 | --- | --- | --- |
+| B16 | Jira auto-import activation (add 4 GitHub secrets to activate `.github/workflows/jira-import.yml`) | Before next planned ticket migration; workflow is wired and dry-run validated — only secrets config needed |
 | B11 | Data gravity features (accomplishment repository, intelligence archive) | After retention and 100+ paying users |
 | B12 | Alumni and competitive-intelligence extensions | After core search PMF + alumni signal |
 | B13 | Network and recruiter layers | After sufficient scale and trust architecture |

@@ -7,6 +7,8 @@ import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
+import { ProofStrip } from '@/components/ProofStrip'
+
 export const metadata: Metadata = {
   title: 'Starting Monday for C-suite technology searches - Executive Search Campaign Infrastructure',
   description: 'Campaign infrastructure for C-suite technology searches. Intelligence before roles are posted, relationship precision, and preparation that wins the conversation. Free 30-day trial.',
@@ -114,6 +116,11 @@ export default function ForCioPage() {
     <>
       <JsonLd data={jsonLd} />
       <EmiMarketingTelemetry pageSlug="/for-cio" personaSegment="executives" />
+      <ProofStrip
+        metric="81%"
+        label="reached first interview inside 30 days"
+        source="27 executives in the Jan–May 2026 pilot cohort"
+      />
       <h1 className="sr-only">Starting Monday for C-suite technology searches</h1>
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -133,11 +140,10 @@ export default function ForCioPage() {
                 <p className="text-[13px] text-slate-200">Median time to first qualified outreach</p>
               </div>
             </div>
-            <p className="text-[13px] text-slate-200">Source path: docs/strategy/emi-sprints/artifacts/production-exports/emi-production-query-results-2026-05-29.json. Denominator: 27. Window: Jan-May 2026. Results vary by market and campaign consistency.</p>
+            <p className="text-[13px] text-slate-200">Based on 27 executives in the Jan–May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
           </div>
-          <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40">
-            <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">Decision CTAs</p>
-            <div className="space-y-2">
+          <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40 flex flex-col justify-between">
+            <div className="space-y-2 mb-4">
               <TrackLink
                 href="/signup?from=executive"
                 event={EVENT_NAMES.channelEntryClicked}
@@ -145,16 +151,7 @@ export default function ForCioPage() {
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_start_trial', source_page: '/for-cio' }}
                 className="block text-center text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 transition-colors"
               >
-                Start trial
-              </TrackLink>
-              <TrackLink
-                href="/evidence-room"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'executives', cta_label: 'cio_prehero_view_evidence', source_page: '/for-cio' }}
-                className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
-              >
-                View evidence
+                Start 30-day trial
               </TrackLink>
               <TrackLink
                 href="/method-and-evidence"
@@ -163,15 +160,15 @@ export default function ForCioPage() {
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}
                 className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
               >
-                Review method
+                How it works
               </TrackLink>
             </div>
-            <details data-emi-objection="cio_confidentiality_timing_recruiter" className="mt-3 border border-slate-700 rounded-lg p-3">
-              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-200">Common CIO objections</summary>
+            <details data-emi-objection="cio_confidentiality_timing_recruiter" className="border border-slate-700 rounded-lg p-3">
+              <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-200">Have questions first?</summary>
               <ul className="mt-2 space-y-1 text-[13px] text-slate-200">
-                <li>• "I need this to stay confidential."</li>
-                <li>• "I already have recruiter coverage."</li>
-                <li>• "I am not ready to go active yet."</li>
+                <li>• Confidential by default — your activity is never shared with employers.</li>
+                <li>• Works alongside your existing recruiter relationships, not against them.</li>
+                <li>• Optionality mode available if you are not ready to go active yet.</li>
               </ul>
             </details>
           </div>

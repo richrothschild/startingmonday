@@ -1,0 +1,137 @@
+name: Jira Import
+
+# Two triggers:
+#   1. workflow_dispatch — manual import of any CSV in docs/jira/ with dry-run option
+#   2. push to main/staging when a docs/jira/*.csv changes — auto-imports the changed file
+#
+# Required GitHub secrets (Settings → Secrets and variables → Actions):
+#   JIRA_BASE_URL         e.g. https://yourcompany.atlassian.net
+#   JIRA_EMAIL            Atlassian account email
+#   JIRA_API_TOKEN        Atlassian API token (create at id.atlassian.com → Security → API tokens)
+#   JIRA_PROJECT_KEY      e.g. SM
+#
+# Optional secret:
+#   JIRA_STORY_POINTS_FIELD  e.g. customfield_10016 (only needed if your project uses Story Points)
+
+on:
+  workflow_dispatch:
+    inputs:
+      csv_path:
+        description: 'Path to the Jira import CSV (relative to repo root)'
+        required: true
+        default: 'docs/jira/luxury-modern-sitewide-elevation-import.csv'
+      project_key:
+        description: 'Jira project key override (leave blank to use JIRA_PROJECT_KEY secret)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run — simulate import without touching Jira'
+        required: false
+        type: boolean
+        default: true
+
+  push:
+    branches: [main, staging]
+    paths:
+      - 'docs/jira/*.csv'
+
+concurrency:
+  group: jira-import-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  import:
+    name: Import CSV to Jira
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      # Check that secrets are configured before proceeding.
+      # On push events: skip gracefully when secrets are absent (e.g. forks, early branch work).
+      # On manual dispatch: fail loudly so the operator knows setup is incomplete.
+      - name: Verify Jira credentials are configured
+        id: jira_config
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: |
+          if [ -z "$JIRA_BASE_URL" ] || [ -z "$JIRA_EMAIL" ] || [ -z "$JIRA_API_TOKEN" ] || [ -z "$JIRA_PROJECT_KEY" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip on push when secrets are missing
+        if: steps.jira_config.outputs.configured != 'true' && github.event_name == 'push'
+        run: echo "Jira secrets not configured — skipping auto-import on this push."
+
+      - name: Fail on manual dispatch when secrets are missing
+        if: steps.jira_config.outputs.configured != 'true' && github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Jira credentials missing. Set JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN, JIRA_PROJECT_KEY in GitHub secrets."
+          exit 1
+
+      # -----------------------------------------------------------------------
+      # Manual dispatch: import the CSV the operator specified.
+      # -----------------------------------------------------------------------
+      - name: Import (manual dispatch)
+        if: steps.jira_config.outputs.configured == 'true' && github.event_name == 'workflow_dispatch'
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+          JIRA_STORY_POINTS_FIELD: ${{ secrets.JIRA_STORY_POINTS_FIELD }}
+        run: |
+          ARGS="${{ inputs.csv_path }}"
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ inputs.project_key }}" ]; then
+            ARGS="$ARGS --project ${{ inputs.project_key }}"
+          fi
+          node scripts/jira/import-csv-to-jira.mjs $ARGS
+
+      # -----------------------------------------------------------------------
+      # Push event: import every CSV that was added or modified in this push.
+      # We use git diff to discover which docs/jira/*.csv files changed so we
+      # only push deltas, not the full backlog every time.
+      # -----------------------------------------------------------------------
+      - name: Detect changed Jira CSVs
+        if: steps.jira_config.outputs.configured == 'true' && github.event_name == 'push'
+        id: changed_csvs
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'docs/jira/*.csv' | tr '\n' ' ')
+          echo "files=$CHANGED" >> "$GITHUB_OUTPUT"
+          if [ -z "$CHANGED" ]; then
+            echo "No changed CSV files found."
+          else
+            echo "Changed CSVs: $CHANGED"
+          fi
+
+      - name: Import changed CSVs (push event)
+        if: >
+          steps.jira_config.outputs.configured == 'true' &&
+          github.event_name == 'push' &&
+          steps.changed_csvs.outputs.files != ''
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+          JIRA_STORY_POINTS_FIELD: ${{ secrets.JIRA_STORY_POINTS_FIELD }}
+        run: |
+          for CSV in ${{ steps.changed_csvs.outputs.files }}; do
+            echo "--- Importing $CSV ---"
+            node scripts/jira/import-csv-to-jira.mjs "$CSV"
+          done

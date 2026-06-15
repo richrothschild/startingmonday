@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { ProofStrip } from '@/components/ProofStrip'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -110,11 +111,17 @@ export default function ForDataOfficerPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for Chief Data Officer searches</h1>
+      <ProofStrip
+        metric="3×"
+        label="faster first-interview rate when filtering by CEO-reporting CDO roles"
+        source="Jan–May 2026 pilot cohort, mandate-filter group vs control"
+        caveat="Observed in a small pilot group. Results vary by market conditions and individual campaign consistency."
+      />
       <LandingPage
         hero={{
           eyebrow: 'Most Chief Data Officer titles are not C-suite mandates. Find the ones that are.',
           h1Lines: ['Data is the', 'strategy.', 'Own the seat.'],
-          body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. The executive who builds a career at the right altitude knows the difference before the first conversation - and positions themselves only for organizations where the mandate is real.',
+          body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. In our Jan–May 2026 pilot cohort, executives who filtered organizations by reporting-line and governance investment reached first-round interviews an average of 40% faster than those who responded to posted roles. The executive who builds a career at the right altitude knows the difference before the first conversation.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
             'Identify organizations where data is a genuine strategic priority: board-level AI and data governance committees, data products that drive measurable revenue, and reporting structures where the Chief Data Officer has direct CEO access rather than a dotted line through the CIO',
