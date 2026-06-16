@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:24:18.199Z",
+  "generatedAt": "2026-06-16T05:02:40.050Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T04:24:14.583Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.520Z"
     },
     {
       "id": "feature:/login",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.588Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.524Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.589Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.525Z"
     },
     {
       "id": "feature:/feedback",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.589Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.525Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.590Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.527Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.590Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.527Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.591Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.528Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.592Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.529Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.592Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.529Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T04:24:14.593Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.530Z"
     },
     {
       "id": "feature:/for-vp",
@@ -5168,7 +5168,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T04:24:08.101Z"
+      "lastModifiedAt": "2026-06-16T04:26:59.942Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -5415,7 +5415,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T04:23:54.692Z"
+      "lastModifiedAt": "2026-06-16T05:02:29.674Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-16T04:24:14.587Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.523Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -13160,7 +13160,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:24:14.578Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.515Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -16683,7 +16683,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:24:14.583Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.519Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16722,7 +16722,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:24:14.583Z"
+      "lastModifiedAt": "2026-06-16T05:02:36.520Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20622,7 +20622,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:24:16.271Z"
+      "lastModifiedAt": "2026-06-16T05:02:38.156Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
