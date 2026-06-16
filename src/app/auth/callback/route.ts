@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
                 username: (user.user_metadata?.full_name ?? user.user_metadata?.name ?? '').trim() || null,
                 tier: 'trialing',
                 source,
-                is_staging: forwardedHost ? !forwardedHost.endsWith('startingmonday.app') : false,
+                is_staging: !forwardedHost || !forwardedHost.endsWith('startingmonday.app'),
               }),
             }).catch(() => {})
           : Promise.resolve(),
