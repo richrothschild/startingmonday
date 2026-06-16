@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:13:06.598Z",
+  "generatedAt": "2026-06-16T04:15:19.117Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
+      "lastModifiedAt": "2026-06-16T04:15:15.586Z"
     },
     {
       "id": "feature:/login",
@@ -2647,6 +2647,20 @@
       "lastModifiedAt": "2026-06-15T04:08:07.277Z"
     },
     {
+      "id": "feature:/stuart-meyer-review",
+      "title": "Feature Stuart meyer review",
+      "body": "User-facing page route /stuart-meyer-review.",
+      "type": "feature",
+      "ref": "/stuart-meyer-review",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T04:15:01.564Z"
+    },
+    {
       "id": "feature:/terms",
       "title": "Feature Terms",
       "body": "User-facing page route /terms.",
@@ -2659,6 +2673,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-15T04:08:07.278Z"
+    },
+    {
+      "id": "feature:/terry-anderson-review",
+      "title": "Feature Terry anderson review",
+      "body": "User-facing page route /terry-anderson-review.",
+      "type": "feature",
+      "ref": "/terry-anderson-review",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T04:15:01.564Z"
     },
     {
       "id": "feature:/unsubscribe/confirmed",
@@ -13267,6 +13295,19 @@
       "lastModifiedAt": "2026-05-29T22:58:54.757Z"
     },
     {
+      "id": "doc:docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md",
+      "title": "Doc docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md",
+      "body": "Coach and Outplacement Persona Deep Dive (2026-06-15)",
+      "type": "doc",
+      "ref": "docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T04:15:01.554Z"
+    },
+    {
       "id": "doc:docs/coach-council-epic.md",
       "title": "Doc docs/coach-council-epic.md",
       "body": "Coach Conversion Epic",
@@ -15945,6 +15986,19 @@
       "lastModifiedAt": "2026-05-29T22:58:54.802Z"
     },
     {
+      "id": "doc:docs/executive-coaches-market-research-2026-06-14.md",
+      "title": "Doc docs/executive-coaches-market-research-2026-06-14.md",
+      "body": "Executive Coaches Market Deep Dive (2026-06-14)",
+      "type": "doc",
+      "ref": "docs/executive-coaches-market-research-2026-06-14.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T04:15:01.554Z"
+    },
+    {
       "id": "doc:docs/executive-dashboard-implementation-spec-2026-06-07.md",
       "title": "Doc docs/executive-dashboard-implementation-spec-2026-06-07.md",
       "body": "Executive Dashboard Implementation Spec",
@@ -16735,7 +16789,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
+      "lastModifiedAt": "2026-06-16T04:15:15.585Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16774,7 +16828,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
+      "lastModifiedAt": "2026-06-16T04:15:15.586Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20674,7 +20728,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T04:13:04.690Z"
+      "lastModifiedAt": "2026-06-16T04:15:17.170Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
