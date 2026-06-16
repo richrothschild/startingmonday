@@ -65,6 +65,8 @@ export function buildCohortModel(args: {
   prepUsers: Set<string>
   outreachUsers: Set<string>
   closedFollowupUsers: Set<string>
+  defaultProgramByPartnerId?: Map<string, string>
+  cohortNamingPrefixByPartnerId?: Map<string, string | null>
 }): CohortRecord[] {
   const partnerMap = new Map(args.partners.map((row) => [row.id, row.name]))
   const cohortBuckets = new Map<string, { partnerId: string; partnerName: string; cohortKey: string; userIds: Set<string> }>()
@@ -142,8 +144,12 @@ export function buildCohortModel(args: {
       cohortId: `${bucket.partnerId}-${bucket.cohortKey}`,
       partnerId: bucket.partnerId,
       partnerName: bucket.partnerName,
-      cohortKey: bucket.cohortKey,
-      program: inferOutplacementProgram(bucket.partnerName),
+      cohortKey: (() => {
+        const prefix = args.cohortNamingPrefixByPartnerId?.get(bucket.partnerId)?.trim()
+        if (!prefix) return bucket.cohortKey
+        return `${prefix}-${bucket.cohortKey}`
+      })(),
+      program: args.defaultProgramByPartnerId?.get(bucket.partnerId) ?? inferOutplacementProgram(bucket.partnerName),
       rosterUserIds: userIds,
       rosterSize,
       milestones,

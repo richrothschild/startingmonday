@@ -2,6 +2,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
 import { toPercent } from '@/lib/partner-kpi-schema'
+import { isSponsorTemplateVariant, type SponsorTemplateVariant } from '@/lib/partner-program-settings'
 
 type PartnerRow = {
   id: string
@@ -60,8 +61,6 @@ function toCsv(rows: Array<Record<string, unknown>>): string {
   ]
   return `${lines.join('\n')}\n`
 }
-
-type SponsorTemplateVariant = 'enterprise_board' | 'growth_ops' | 'pilot_compact'
 
 type TemplateDefinition = {
   id: SponsorTemplateVariant
@@ -459,7 +458,16 @@ export async function POST(request: NextRequest) {
       }))
 
       const templateOverride = parsePartnerTemplateOverride(partner.notes)
-      const templateVariant = inferTemplateVariant(partner, templateOverride)
+      const settingsRes = await sb
+        .from('partner_program_settings')
+        .select('sponsor_template_variant')
+        .eq('partner_id', partner.id)
+        .maybeSingle()
+
+      const settingsVariant = settingsRes.data?.sponsor_template_variant
+      const templateVariant = isSponsorTemplateVariant(settingsVariant)
+        ? settingsVariant
+        : inferTemplateVariant(partner, templateOverride)
       const templateDefinition = TEMPLATE_LIBRARY[templateVariant]
       const brand = resolveBrandConfig(partner, templateOverride)
       const sectionToggles = resolveSectionToggles(templateDefinition, templateOverride)

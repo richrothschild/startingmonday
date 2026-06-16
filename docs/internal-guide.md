@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-16T20:38:47.635Z
+Last generated: 2026-06-16T23:44:35.900Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (204)
+## Features (205)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -160,6 +160,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature For coaches / Faq | /for-coaches/faq | User-facing page route /for-coaches/faq.
 - Feature For coaches / Micro products | /for-coaches/micro-products | User-facing page route /for-coaches/micro-products.
 - Feature For coaches | /for-coaches | User-facing page route /for-coaches.
+- Feature For coaches / Search affiliate | /for-coaches/search-affiliate | User-facing page route /for-coaches/search-affiliate.
 - Feature For coaches / Trust pack | /for-coaches/trust-pack | User-facing page route /for-coaches/trust-pack.
 - Feature For coo | /for-coo | User-facing page route /for-coo.
 - Feature For cpo | /for-cpo | User-facing page route /for-cpo.
@@ -221,7 +222,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (261)
+## API Surface (263)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -478,13 +479,15 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/tailor | src/app/api/tailor/route.ts | export async function POST(request: NextRequest) {
 - API /api/tailor/strengthen | src/app/api/tailor/strengthen/route.ts | export async function POST(request: NextRequest) {
 - API /api/team/invite | src/app/api/team/invite/route.ts | export async function POST(request: NextRequest) {
+- API /api/team/program-settings | src/app/api/team/program-settings/route.ts | export async function GET(request: NextRequest) {
 - API /api/team/seat/[id] | src/app/api/team/seat/[id]/route.ts | export async function DELETE(
+- API /api/team/white-label | src/app/api/team/white-label/route.ts | export async function GET(request: NextRequest) {
 - API /api/track/open | src/app/api/track/open/route.ts | 1x1 transparent GIF
 - API /api/webhooks/onboarding-video | src/app/api/webhooks/onboarding-video/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (206)
+## Codebase Modules (209)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -601,6 +604,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/owner-email.ts | src/lib/owner-email.ts | export function getOwnerEmail(): string | undefined {
 - Code src/lib/partner-kpi-schema.test.ts | src/lib/partner-kpi-schema.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/partner-kpi-schema.ts | src/lib/partner-kpi-schema.ts | export const PARTNER_PROGRAMS = ['intelligence', 'active', 'executive', 'free'] as const
+- Code src/lib/partner-program-settings.ts | src/lib/partner-program-settings.ts | export const PARTNER_PROGRAM_IDS = [
 - Code src/lib/partner-provisioning.test.ts | src/lib/partner-provisioning.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/partner-provisioning.ts | src/lib/partner-provisioning.ts | export type ProvisioningSeatStatus = 'invited' | 'active' | 'suspended' | 'transferred' | 'archived'
 - Code src/lib/persona-routes.test.ts | src/lib/persona-routes.test.ts | import { describe, expect, it } from 'vitest'
@@ -691,6 +695,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 - Code src/lib/what-matters-scoring.ts | src/lib/what-matters-scoring.ts | ─── Default criteria ────────────────────────────────────────────
+- Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
 ## Internal Scripts (136)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
@@ -870,7 +876,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (140)
+## Data and Migrations (142)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -1011,8 +1017,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
+- Migration supabase/migrations/137_partner_white_label_settings.sql | supabase/migrations/137_partner_white_label_settings.sql | alter table public.partners
+- Migration supabase/migrations/138_partner_program_settings.sql | supabase/migrations/138_partner_program_settings.sql | create table if not exists public.partner_program_settings (
 
-## Documentation (616)
+## Documentation (620)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1315,6 +1323,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
 - Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md | docs/jira/luxury-modern-sitewide-elevation-import-README.md | Luxury-Modern Sitewide Elevation Jira Import (Ready)
+- Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | White-Label Transition MVP Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
@@ -1378,7 +1387,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/outreach/search-firm-personas-by-size-and-specialty.md | docs/outreach/search-firm-personas-by-size-and-specialty.md | Search Firm Personas by Size and Specialty
 - Doc docs/outreach/us-must-target-search-firms.md | docs/outreach/us-must-target-search-firms.md | US Must-Target Search Firms
 - Doc docs/outreach/us-senior-executive-target-slate.md | docs/outreach/us-senior-executive-target-slate.md | US Senior Executive Target Slate
+- Doc docs/partners/expansion-packet-template.md | docs/partners/expansion-packet-template.md | Expansion Packet Template
 - Doc docs/partners/monthly-partner-report-template.md | docs/partners/monthly-partner-report-template.md | Monthly Partner Report Template
+- Doc docs/partners/pilot-closeout-packet-template.md | docs/partners/pilot-closeout-packet-template.md | Pilot Closeout Packet Template
 - Doc docs/partners/renewal-decision-packet-template.md | docs/partners/renewal-decision-packet-template.md | Renewal Decision Packet Template
 - Doc docs/partners/reports/2026-06-pilot-partner-report.md | docs/partners/reports/2026-06-pilot-partner-report.md | Pilot Partner Report - June 2026
 - Doc docs/pe-transition-pricing.md | docs/pe-transition-pricing.md | Starting Monday — Per-Transition Pricing for VC and PE Firms
@@ -1628,6 +1639,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/wbs-online-guide-and-chat-2026-05-30.md | docs/wbs-online-guide-and-chat-2026-05-30.md | WBS: Online User Guide + Guide Chat
 - Doc docs/weekly-search-review-template.md | docs/weekly-search-review-template.md | Weekly Search Review Template
 - Doc docs/weekly-unified-audit.latest.md | docs/weekly-unified-audit.latest.md | Weekly Unified Audit
+- Doc docs/white-label-product-spec-2026-06-16.md | docs/white-label-product-spec-2026-06-16.md | White-Label Product Spec (One Page)
 - Doc docs/writing-guidelines.md | docs/writing-guidelines.md | Writing Guidelines — Resumes, Cover Letters, Messaging
 
 ## What It Is Not

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T19:13:32.584Z",
+  "generatedAt": "2026-06-16T23:44:33.007Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -767,7 +767,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.820Z",
+      "lastModifiedAt": "2026-06-16T23:34:13.541Z",
       "qualityWeight": 1.2
     },
     {
@@ -1040,7 +1040,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.490Z",
+      "lastModifiedAt": "2026-06-16T23:38:14.100Z",
       "qualityWeight": 1
     },
     {
@@ -1534,7 +1534,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.839Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.901Z",
       "qualityWeight": 1
     },
     {
@@ -1560,11 +1560,24 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.843Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.901Z",
       "qualityWeight": 1
     },
     {
       "id": "feature-116",
+      "title": "For coaches / Search affiliate",
+      "body": "Open /for-coaches/search-affiliate to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/for-coaches/search-affiliate",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-16T23:19:39.949Z",
+      "qualityWeight": 1
+    },
+    {
+      "id": "feature-117",
       "title": "For coaches / Trust pack",
       "body": "Open /for-coaches/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1577,7 +1590,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-117",
+      "id": "feature-118",
       "title": "For coo",
       "body": "Open /for-coo to use this feature area and related workflows.",
       "type": "feature",
@@ -1590,7 +1603,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-118",
+      "id": "feature-119",
       "title": "For cpo",
       "body": "Open /for-cpo to use this feature area and related workflows.",
       "type": "feature",
@@ -1603,7 +1616,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-119",
+      "id": "feature-120",
       "title": "For data officer",
       "body": "Open /for-data-officer to use this feature area and related workflows.",
       "type": "feature",
@@ -1616,7 +1629,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-120",
+      "id": "feature-121",
       "title": "For executives",
       "body": "Open /for-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1625,11 +1638,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.844Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-121",
+      "id": "feature-122",
       "title": "For financial advisors",
       "body": "Open /for-financial-advisors to use this feature area and related workflows.",
       "type": "feature",
@@ -1642,7 +1655,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-122",
+      "id": "feature-123",
       "title": "For fractional executives",
       "body": "Open /for-fractional-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1655,7 +1668,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-123",
+      "id": "feature-124",
       "title": "For media partners",
       "body": "Open /for-media-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1668,7 +1681,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-124",
+      "id": "feature-125",
       "title": "For outplacement / Economics",
       "body": "Open /for-outplacement/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1681,7 +1694,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-125",
+      "id": "feature-126",
       "title": "For outplacement / Executive summary",
       "body": "Open /for-outplacement/executive-summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1694,7 +1707,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-126",
+      "id": "feature-127",
       "title": "For outplacement / Faq",
       "body": "Open /for-outplacement/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1707,7 +1720,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-127",
+      "id": "feature-128",
       "title": "For outplacement / Metric dictionary",
       "body": "Open /for-outplacement/metric-dictionary to use this feature area and related workflows.",
       "type": "feature",
@@ -1720,7 +1733,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-128",
+      "id": "feature-129",
       "title": "For outplacement / Operating scorecard",
       "body": "Open /for-outplacement/operating-scorecard to use this feature area and related workflows.",
       "type": "feature",
@@ -1733,7 +1746,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-129",
+      "id": "feature-130",
       "title": "For outplacement",
       "body": "Open /for-outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1746,7 +1759,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-130",
+      "id": "feature-131",
       "title": "For outplacement / Runbook",
       "body": "Open /for-outplacement/runbook to use this feature area and related workflows.",
       "type": "feature",
@@ -1759,7 +1772,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-131",
+      "id": "feature-132",
       "title": "For outplacement / Security overview",
       "body": "Open /for-outplacement/security-overview to use this feature area and related workflows.",
       "type": "feature",
@@ -1772,7 +1785,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-132",
+      "id": "feature-133",
       "title": "For outplacement / Trust pack",
       "body": "Open /for-outplacement/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1785,7 +1798,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-133",
+      "id": "feature-134",
       "title": "For pe partners",
       "body": "Open /for-pe-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1798,7 +1811,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-134",
+      "id": "feature-135",
       "title": "For pe teams",
       "body": "Open /for-pe-teams to use this feature area and related workflows.",
       "type": "feature",
@@ -1811,7 +1824,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-135",
+      "id": "feature-136",
       "title": "For relocation",
       "body": "Open /for-relocation to use this feature area and related workflows.",
       "type": "feature",
@@ -1824,7 +1837,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-136",
+      "id": "feature-137",
       "title": "For search firms",
       "body": "Open /for-search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1833,11 +1846,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.847Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-137",
+      "id": "feature-138",
       "title": "For vp technology",
       "body": "Open /for-vp-technology to use this feature area and related workflows.",
       "type": "feature",
@@ -1850,7 +1863,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-138",
+      "id": "feature-139",
       "title": "For vp",
       "body": "Open /for-vp to use this feature area and related workflows.",
       "type": "feature",
@@ -1863,7 +1876,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-139",
+      "id": "feature-140",
       "title": "Founder note",
       "body": "Open /founder-note to use this feature area and related workflows.",
       "type": "feature",
@@ -1876,7 +1889,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-140",
+      "id": "feature-141",
       "title": "Guide",
       "body": "Open /guide to use this feature area and related workflows.",
       "type": "feature",
@@ -1889,7 +1902,7 @@
       "qualityWeight": 1.45
     },
     {
-      "id": "feature-141",
+      "id": "feature-142",
       "title": "Ideas",
       "body": "Open /ideas to use this feature area and related workflows.",
       "type": "feature",
@@ -1902,7 +1915,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-142",
+      "id": "feature-143",
       "title": "Managertools",
       "body": "Open /managertools to use this feature area and related workflows.",
       "type": "feature",
@@ -1915,7 +1928,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-143",
+      "id": "feature-144",
       "title": "Mark demo",
       "body": "Open /mark-demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1928,7 +1941,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-144",
+      "id": "feature-145",
       "title": "Mark review / Appendix",
       "body": "Open /mark-review/appendix to use this feature area and related workflows.",
       "type": "feature",
@@ -1941,7 +1954,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-145",
+      "id": "feature-146",
       "title": "Mark review / Business plan",
       "body": "Open /mark-review/business-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -1954,7 +1967,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-146",
+      "id": "feature-147",
       "title": "Mark review",
       "body": "Open /mark-review to use this feature area and related workflows.",
       "type": "feature",
@@ -1967,7 +1980,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-147",
+      "id": "feature-148",
       "title": "Mark review / Summary",
       "body": "Open /mark-review/summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1980,7 +1993,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-148",
+      "id": "feature-149",
       "title": "Mauricio kickoff execution / Apollo read access",
       "body": "Open /mauricio-kickoff-execution/apollo-read-access to use this feature area and related workflows.",
       "type": "feature",
@@ -1993,7 +2006,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-149",
+      "id": "feature-150",
       "title": "Mauricio kickoff execution / Customer email by channel",
       "body": "Open /mauricio-kickoff-execution/customer-email-by-channel to use this feature area and related workflows.",
       "type": "feature",
@@ -2006,7 +2019,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-150",
+      "id": "feature-151",
       "title": "Mauricio kickoff execution",
       "body": "Open /mauricio-kickoff-execution to use this feature area and related workflows.",
       "type": "feature",
@@ -2019,7 +2032,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-151",
+      "id": "feature-152",
       "title": "Mauricio kickoff",
       "body": "Open /mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2032,7 +2045,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-152",
+      "id": "feature-153",
       "title": "Method and evidence",
       "body": "Open /method-and-evidence to use this feature area and related workflows.",
       "type": "feature",
@@ -2045,7 +2058,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-153",
+      "id": "feature-154",
       "title": "Onboarding",
       "body": "Open /onboarding to use this feature area and related workflows.",
       "type": "feature",
@@ -2058,7 +2071,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-154",
+      "id": "feature-155",
       "title": "Optimize",
       "body": "Open /optimize to use this feature area and related workflows.",
       "type": "feature",
@@ -2071,7 +2084,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-155",
+      "id": "feature-156",
       "title": "Outplacement",
       "body": "Open /outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -2084,7 +2097,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-156",
+      "id": "feature-157",
       "title": "Outplacement / Personas",
       "body": "Open /outplacement/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2097,7 +2110,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-157",
+      "id": "feature-158",
       "title": "Partners / Mauricio kickoff",
       "body": "Open /partners/mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2110,7 +2123,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-158",
+      "id": "feature-159",
       "title": "Partners",
       "body": "Open /partners to use this feature area and related workflows.",
       "type": "feature",
@@ -2119,11 +2132,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.848Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-159",
+      "id": "feature-160",
       "title": "Partners / Reporting",
       "body": "Open /partners/reporting to use this feature area and related workflows.",
       "type": "feature",
@@ -2132,11 +2145,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.116Z",
+      "lastModifiedAt": "2026-06-16T23:20:56.485Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-160",
+      "id": "feature-161",
       "title": "Pilot findings",
       "body": "Open /pilot-findings to use this feature area and related workflows.",
       "type": "feature",
@@ -2149,7 +2162,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-161",
+      "id": "feature-162",
       "title": "Pricing",
       "body": "Open /pricing to use this feature area and related workflows.",
       "type": "feature",
@@ -2162,7 +2175,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-162",
+      "id": "feature-163",
       "title": "Privacy",
       "body": "Open /privacy to use this feature area and related workflows.",
       "type": "feature",
@@ -2175,7 +2188,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-163",
+      "id": "feature-164",
       "title": "Proof / Roi calculator",
       "body": "Open /proof/roi-calculator to use this feature area and related workflows.",
       "type": "feature",
@@ -2188,7 +2201,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-164",
+      "id": "feature-165",
       "title": "References",
       "body": "Open /references to use this feature area and related workflows.",
       "type": "feature",
@@ -2201,7 +2214,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-165",
+      "id": "feature-166",
       "title": "Research brief",
       "body": "Open /research-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2214,7 +2227,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-166",
+      "id": "feature-167",
       "title": "Sales marketing plan",
       "body": "Open /sales-marketing-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -2227,7 +2240,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-167",
+      "id": "feature-168",
       "title": "Search firms",
       "body": "Open /search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -2236,11 +2249,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.849Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-168",
+      "id": "feature-169",
       "title": "Search firms / Personas",
       "body": "Open /search-firms/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2253,7 +2266,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-169",
+      "id": "feature-170",
       "title": "Search firms / Sample cfo brief",
       "body": "Open /search-firms/sample-cfo-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2266,7 +2279,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-170",
+      "id": "feature-171",
       "title": "Security",
       "body": "Open /security to use this feature area and related workflows.",
       "type": "feature",
@@ -2279,7 +2292,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-171",
+      "id": "feature-172",
       "title": "Stuart meyer review",
       "body": "Open /stuart-meyer-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2292,7 +2305,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-172",
+      "id": "feature-173",
       "title": "Terms",
       "body": "Open /terms to use this feature area and related workflows.",
       "type": "feature",
@@ -2305,7 +2318,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-173",
+      "id": "feature-174",
       "title": "Terry anderson review",
       "body": "Open /terry-anderson-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2318,7 +2331,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-174",
+      "id": "feature-175",
       "title": "Unsubscribe / Confirmed",
       "body": "Open /unsubscribe/confirmed to use this feature area and related workflows.",
       "type": "feature",
@@ -3120,7 +3133,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.537Z",
+      "lastModifiedAt": "2026-06-16T22:55:22.425Z",
       "qualityWeight": 0.95
     },
     {
@@ -3237,7 +3250,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.545Z",
+      "lastModifiedAt": "2026-06-16T22:55:22.427Z",
       "qualityWeight": 0.95
     },
     {
@@ -3406,7 +3419,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.558Z",
+      "lastModifiedAt": "2026-06-16T22:55:22.427Z",
       "qualityWeight": 0.95
     },
     {
@@ -3419,7 +3432,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.559Z",
+      "lastModifiedAt": "2026-06-16T22:55:22.852Z",
       "qualityWeight": 0.95
     },
     {
@@ -5842,6 +5855,19 @@
     },
     {
       "id": "api-257",
+      "title": "/api/team/program-settings",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/team/program-settings",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-06-16T23:40:23.303Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-258",
       "title": "/api/team/seat/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5854,7 +5880,20 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-258",
+      "id": "api-259",
+      "title": "/api/team/white-label",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/team/white-label",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-06-16T23:41:26.608Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-260",
       "title": "/api/track/open",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5867,7 +5906,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-259",
+      "id": "api-261",
       "title": "/api/webhooks/onboarding-video",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5880,7 +5919,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-260",
+      "id": "api-262",
       "title": "/api/webhooks/resend",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5893,7 +5932,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-261",
+      "id": "api-263",
       "title": "/api/webhooks/stripe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -6395,7 +6434,7 @@
         "retained search candidate preparation",
         "technology executive interview preparation"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.832Z",
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
       "qualityWeight": 0.9
     }
   ]

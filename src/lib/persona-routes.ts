@@ -75,6 +75,12 @@ export const COACH_PERSONAS: readonly PersonaSpec[] = [
     summary: 'Cohort governance and proof for enterprise-sponsored transition programs.',
     destination: '/for-coaches/trust-pack',
   },
+  {
+    slug: 'search-affiliate-transition-coach',
+    label: 'Search-affiliate transition coach',
+    summary: 'Retained-search-adjacent workflow with trust boundaries, interview arcs, and proof assets.',
+    destination: '/for-coaches/search-affiliate',
+  },
 ]
 
 export const OUTPLACEMENT_PERSONAS: readonly PersonaSpec[] = [
