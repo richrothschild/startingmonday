@@ -60,6 +60,7 @@ async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
       timeZone: 'America/Chicago', month: 'short', day: 'numeric',
       hour: 'numeric', minute: '2-digit',
     })
+    const isStaging = process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://mytnhoxcgvnzxhgcumkf.supabase.co'
 
     const inviteRow = inviteCode
       ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Invite code</td><td>${inviteCode}</td></tr>`
@@ -67,7 +68,7 @@ async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
 
     await sendEmail({
       to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
-      subject: 'New Feedback!',
+      subject: isStaging ? 'New Feedback! - staging' : 'New Feedback!',
       bypassCouncil: true,
       html: `
         <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">

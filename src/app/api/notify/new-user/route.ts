@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
 
   const tierLabel = TIER_LABELS[tier] ?? tier
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+  const isStaging = process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://mytnhoxcgvnzxhgcumkf.supabase.co'
 
   const usernameRow = username
     ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${username}</td></tr>`
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
 
   void sendEmail({
     to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
-    subject: 'New User Registered!',
+    subject: isStaging ? 'New User Registered! - staging' : 'New User Registered!',
     bypassCouncil: true,
     html: `
       <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">

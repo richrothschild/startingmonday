@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-15T03:30:54.013Z
+Last generated: 2026-06-16T04:04:36.227Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -676,7 +676,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
 
-## Internal Scripts (136)
+## Internal Scripts (137)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -803,6 +803,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/seed-social-calendar.ts | scripts/seed-social-calendar.ts | Replace future unposted queue so /social reflects the new multi-audience calendar.
 - Script scripts/send-liz-linkedin-company-launch-email.mjs | scripts/send-liz-linkedin-company-launch-email.mjs | import { config } from 'dotenv'
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
+- Script scripts/setup-atlassian-mcp.mjs | scripts/setup-atlassian-mcp.mjs | Read existing settings safely
 - Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
 - Script scripts/sync-docs-to-gdrive.mjs | scripts/sync-docs-to-gdrive.mjs | #!/usr/bin/env node
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.

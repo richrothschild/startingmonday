@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T03:30:54.013Z",
+  "generatedAt": "2026-06-16T04:04:36.227Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-15T03:24:32.591Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.118Z"
     },
     {
       "id": "feature:/login",
@@ -26,7 +26,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:24:17.835Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.870Z"
     },
     {
       "id": "feature:/signup",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:24:12.576Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.870Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -82,7 +82,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.120Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.193Z"
     },
     {
       "id": "feature:/dashboard/admin/coach-outreach",
@@ -110,7 +110,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.120Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.193Z"
     },
     {
       "id": "feature:/dashboard/admin/customers",
@@ -124,7 +124,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.121Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.194Z"
     },
     {
       "id": "feature:/dashboard/admin/diagrams",
@@ -180,7 +180,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.122Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.195Z"
     },
     {
       "id": "feature:/dashboard/admin/intelligence/qa",
@@ -194,7 +194,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.123Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.196Z"
     },
     {
       "id": "feature:/dashboard/admin/internal-guide",
@@ -236,7 +236,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.124Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.196Z"
     },
     {
       "id": "feature:/dashboard/admin/onboarding/qa",
@@ -250,7 +250,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.124Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.197Z"
     },
     {
       "id": "feature:/dashboard/admin/onboarding/video",
@@ -264,7 +264,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.125Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.197Z"
     },
     {
       "id": "feature:/dashboard/admin/operations",
@@ -278,7 +278,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.126Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.198Z"
     },
     {
       "id": "feature:/dashboard/admin/outplacement-cohorts",
@@ -292,7 +292,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.126Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.198Z"
     },
     {
       "id": "feature:/dashboard/admin/outplacement-outreach",
@@ -320,7 +320,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.129Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.200Z"
     },
     {
       "id": "feature:/dashboard/admin/outreach-reliability",
@@ -334,7 +334,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.129Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.200Z"
     },
     {
       "id": "feature:/dashboard/admin",
@@ -348,7 +348,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.134Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.201Z"
     },
     {
       "id": "feature:/dashboard/admin/product/catalog",
@@ -376,7 +376,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.134Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.201Z"
     },
     {
       "id": "feature:/dashboard/admin/revenue",
@@ -390,7 +390,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.135Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.202Z"
     },
     {
       "id": "feature:/dashboard/admin/sales-enablement",
@@ -418,7 +418,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.135Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.202Z"
     },
     {
       "id": "feature:/dashboard/admin/speakers",
@@ -460,7 +460,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.136Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.203Z"
     },
     {
       "id": "feature:/dashboard/admin/traces/rubric",
@@ -488,7 +488,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:30:38.153Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.872Z"
     },
     {
       "id": "feature:/dashboard/calendar",
@@ -530,7 +530,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.138Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.204Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -572,7 +572,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.143Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.208Z"
     },
     {
       "id": "feature:/dashboard/discover",
@@ -670,7 +670,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.144Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.209Z"
     },
     {
       "id": "feature:/dashboard/outplacement",
@@ -698,7 +698,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.145Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.209Z"
     },
     {
       "id": "feature:/dashboard",
@@ -712,7 +712,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.146Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.210Z"
     },
     {
       "id": "feature:/dashboard/partner",
@@ -726,7 +726,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.147Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.211Z"
     },
     {
       "id": "feature:/dashboard/pilot-outreach",
@@ -782,7 +782,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.147Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z"
     },
     {
       "id": "feature:/dashboard/profile",
@@ -796,7 +796,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.149Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z"
     },
     {
       "id": "feature:/dashboard/profile/tailor",
@@ -838,7 +838,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.149Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z"
     },
     {
       "id": "feature:/dashboard/start",
@@ -936,7 +936,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.150Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z"
     },
     {
       "id": "feature:/annual-report-2026/executive-search-ai-confidentiality",
@@ -950,7 +950,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.150Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.215Z"
     },
     {
       "id": "feature:/annual-report-2026",
@@ -1230,7 +1230,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.168Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.230Z"
     },
     {
       "id": "feature:/blog/pe-backed-cio",
@@ -1398,7 +1398,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.169Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.230Z"
     },
     {
       "id": "feature:/case-studies",
@@ -1412,7 +1412,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.169Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.231Z"
     },
     {
       "id": "feature:/coaches-guide",
@@ -1426,7 +1426,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.170Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.231Z"
     },
     {
       "id": "feature:/coaches/mock-dashboard",
@@ -1440,7 +1440,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.171Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.232Z"
     },
     {
       "id": "feature:/coaches",
@@ -1454,7 +1454,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.171Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.233Z"
     },
     {
       "id": "feature:/coaches/personas",
@@ -1496,7 +1496,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.174Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.234Z"
     },
     {
       "id": "feature:/demo/cio/notes",
@@ -1538,7 +1538,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.174Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z"
     },
     {
       "id": "feature:/demo/executive-dashboard",
@@ -1552,7 +1552,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.175Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z"
     },
     {
       "id": "feature:/demo/manager-tools",
@@ -1580,7 +1580,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.176Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z"
     },
     {
       "id": "feature:/demo/michael-strategy-brief",
@@ -1594,7 +1594,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.176Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.236Z"
     },
     {
       "id": "feature:/demo",
@@ -1608,7 +1608,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.177Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.236Z"
     },
     {
       "id": "feature:/demo/presenter",
@@ -1622,7 +1622,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.177Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.237Z"
     },
     {
       "id": "feature:/evaluate",
@@ -1650,7 +1650,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.179Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.237Z"
     },
     {
       "id": "feature:/executive-brief",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.179Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.118Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-29T22:58:55.448Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.126Z"
     },
     {
       "id": "feature:/feedback",
@@ -1734,7 +1734,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.180Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.239Z"
     },
     {
       "id": "feature:/for-cdo",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-10T17:41:01.828Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.126Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1762,7 +1762,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.180Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.240Z"
     },
     {
       "id": "feature:/for-cio",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.182Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.127Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-10T17:41:01.828Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.127Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1804,7 +1804,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.182Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.242Z"
     },
     {
       "id": "feature:/for-coaches/economics",
@@ -1818,7 +1818,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.183Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.243Z"
     },
     {
       "id": "feature:/for-coaches/faq",
@@ -1832,7 +1832,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.184Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.244Z"
     },
     {
       "id": "feature:/for-coaches/micro-products",
@@ -1846,7 +1846,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.185Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.245Z"
     },
     {
       "id": "feature:/for-coaches",
@@ -1860,7 +1860,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.187Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.246Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1874,7 +1874,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.187Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.247Z"
     },
     {
       "id": "feature:/for-coo",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-29T22:58:55.464Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.127Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-10T17:41:01.850Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.127Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-29T22:58:55.467Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.129Z"
     },
     {
       "id": "feature:/for-executives",
@@ -1930,7 +1930,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.188Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.250Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -1944,7 +1944,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.189Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.250Z"
     },
     {
       "id": "feature:/for-fractional-executives",
@@ -1958,7 +1958,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.190Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.250Z"
     },
     {
       "id": "feature:/for-media-partners",
@@ -1972,7 +1972,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.191Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.252Z"
     },
     {
       "id": "feature:/for-outplacement/economics",
@@ -1986,7 +1986,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.192Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.252Z"
     },
     {
       "id": "feature:/for-outplacement/executive-summary",
@@ -2000,7 +2000,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.192Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.252Z"
     },
     {
       "id": "feature:/for-outplacement/faq",
@@ -2014,7 +2014,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.193Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z"
     },
     {
       "id": "feature:/for-outplacement/metric-dictionary",
@@ -2028,7 +2028,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.193Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z"
     },
     {
       "id": "feature:/for-outplacement/operating-scorecard",
@@ -2042,7 +2042,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.194Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z"
     },
     {
       "id": "feature:/for-outplacement",
@@ -2056,7 +2056,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.195Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z"
     },
     {
       "id": "feature:/for-outplacement/runbook",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.196Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z"
     },
     {
       "id": "feature:/for-outplacement/security-overview",
@@ -2084,7 +2084,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.196Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z"
     },
     {
       "id": "feature:/for-outplacement/trust-pack",
@@ -2098,7 +2098,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.197Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z"
     },
     {
       "id": "feature:/for-pe-partners",
@@ -2112,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.197Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.258Z"
     },
     {
       "id": "feature:/for-pe-teams",
@@ -2126,7 +2126,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.198Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.258Z"
     },
     {
       "id": "feature:/for-relocation",
@@ -2140,7 +2140,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.199Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.258Z"
     },
     {
       "id": "feature:/for-search-firms",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.199Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.260Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-29T22:58:55.481Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.129Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2224,7 +2224,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.201Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.262Z"
     },
     {
       "id": "feature:/managertools",
@@ -2266,7 +2266,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.203Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.264Z"
     },
     {
       "id": "feature:/mark-review/business-plan",
@@ -2322,7 +2322,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.205Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.265Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution/customer-email-by-channel",
@@ -2336,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.205Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.265Z"
     },
     {
       "id": "feature:/mauricio-kickoff-execution",
@@ -2350,7 +2350,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.206Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.266Z"
     },
     {
       "id": "feature:/mauricio-kickoff",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.207Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.266Z"
     },
     {
       "id": "feature:/method-and-evidence",
@@ -2378,7 +2378,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.207Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.267Z"
     },
     {
       "id": "feature:/onboarding",
@@ -2406,7 +2406,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.210Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.268Z"
     },
     {
       "id": "feature:/outplacement",
@@ -2420,7 +2420,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.211Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.268Z"
     },
     {
       "id": "feature:/outplacement/personas",
@@ -2448,7 +2448,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.211Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.269Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -2476,7 +2476,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.212Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.269Z"
     },
     {
       "id": "feature:/partners/reporting",
@@ -2490,7 +2490,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.213Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.270Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -2518,7 +2518,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.213Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.270Z"
     },
     {
       "id": "feature:/privacy",
@@ -2532,7 +2532,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.215Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.272Z"
     },
     {
       "id": "feature:/proof/roi-calculator",
@@ -2546,7 +2546,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.216Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.272Z"
     },
     {
       "id": "feature:/references",
@@ -2560,7 +2560,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.216Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.273Z"
     },
     {
       "id": "feature:/research-brief",
@@ -2574,7 +2574,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.217Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.273Z"
     },
     {
       "id": "feature:/sales-marketing-plan",
@@ -2588,7 +2588,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.218Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.274Z"
     },
     {
       "id": "feature:/search-firms",
@@ -2602,7 +2602,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.219Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.275Z"
     },
     {
       "id": "feature:/search-firms/personas",
@@ -2630,7 +2630,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.221Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.277Z"
     },
     {
       "id": "feature:/security",
@@ -2644,7 +2644,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.221Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.277Z"
     },
     {
       "id": "feature:/terms",
@@ -2658,7 +2658,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T03:08:17.222Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.278Z"
     },
     {
       "id": "feature:/unsubscribe/confirmed",
@@ -3465,7 +3465,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.152Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.215Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/prep-provenance-coverage",
@@ -4245,7 +4245,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.153Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.216Z"
     },
     {
       "id": "api:/api/briefs/[id]/rate",
@@ -4258,7 +4258,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.154Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.216Z"
     },
     {
       "id": "api:/api/briefs/download",
@@ -4284,7 +4284,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.154Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.218Z"
     },
     {
       "id": "api:/api/chat",
@@ -4336,7 +4336,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.155Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.218Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/actions",
@@ -4362,7 +4362,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.155Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.219Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/briefs",
@@ -4375,7 +4375,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.156Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.219Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/companies",
@@ -4401,7 +4401,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.158Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.220Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/signals",
@@ -4908,7 +4908,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.159Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.220Z"
     },
     {
       "id": "api:/api/demo-brief/manager-tools",
@@ -4921,7 +4921,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.159Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.222Z"
     },
     {
       "id": "api:/api/demo-brief",
@@ -4973,7 +4973,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.159Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.222Z"
     },
     {
       "id": "api:/api/discover",
@@ -4986,7 +4986,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.160Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.223Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -5077,7 +5077,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.161Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.223Z"
     },
     {
       "id": "api:/api/executive-brief/transcription",
@@ -5155,7 +5155,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.161Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.224Z"
     },
     {
       "id": "api:/api/feedback",
@@ -5168,7 +5168,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.161Z"
+      "lastModifiedAt": "2026-06-16T04:02:59.400Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -5194,7 +5194,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.163Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.225Z"
     },
     {
       "id": "api:/api/google-calendar/disconnect",
@@ -5207,7 +5207,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.165Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.225Z"
     },
     {
       "id": "api:/api/guide/chat/feedback",
@@ -5259,7 +5259,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.165Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.227Z"
     },
     {
       "id": "api:/api/intelligence/companies",
@@ -5415,7 +5415,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-11T15:00:34.343Z"
+      "lastModifiedAt": "2026-06-16T04:02:54.833Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -5519,7 +5519,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.166Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.227Z"
     },
     {
       "id": "api:/api/outreach/status",
@@ -5935,7 +5935,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.168Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.228Z"
     },
     {
       "id": "api:/api/suggestions",
@@ -6169,7 +6169,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.228Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.285Z"
     },
     {
       "id": "code:src/lib/action-scores.ts",
@@ -6182,7 +6182,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.229Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.285Z"
     },
     {
       "id": "code:src/lib/activation.test.ts",
@@ -6572,7 +6572,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.229Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.286Z"
     },
     {
       "id": "code:src/lib/config.test.ts",
@@ -6845,7 +6845,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.230Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.287Z"
     },
     {
       "id": "code:src/lib/executive-brief-knowledge.ts",
@@ -6936,7 +6936,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.230Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.287Z"
     },
     {
       "id": "code:src/lib/form-utils.test.ts",
@@ -7703,7 +7703,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.231Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.288Z"
     },
     {
       "id": "code:src/lib/pmf-event-taxonomy.ts",
@@ -7716,7 +7716,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.231Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.289Z"
     },
     {
       "id": "code:src/lib/post-search-relationship-loop.test.ts",
@@ -7911,7 +7911,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.232Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.289Z"
     },
     {
       "id": "code:src/lib/program-template-governance.test.ts",
@@ -8223,7 +8223,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.232Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.290Z"
     },
     {
       "id": "code:src/lib/slack.test.ts",
@@ -8535,7 +8535,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.234Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.291Z"
     },
     {
       "id": "code:src/lib/supabase/server.test.ts",
@@ -8678,7 +8678,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-15T03:08:17.235Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.292Z"
     },
     {
       "id": "code:src/lib/value-lane-pricing.ts",
@@ -8769,7 +8769,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.107Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.183Z"
     },
     {
       "id": "script:scripts/audit-outreach-db.mjs",
@@ -8821,7 +8821,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.107Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.183Z"
     },
     {
       "id": "script:scripts/backfill-brief-lifecycle.mjs",
@@ -8834,7 +8834,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.107Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.184Z"
     },
     {
       "id": "script:scripts/backfill-company-size-bands.mjs",
@@ -9055,7 +9055,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.109Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.184Z"
     },
     {
       "id": "script:scripts/check-key-funnel-visual-darkness-gate.mjs",
@@ -9068,7 +9068,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.109Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.185Z"
     },
     {
       "id": "script:scripts/check-lighthouse-budget-config.mjs",
@@ -9081,7 +9081,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.110Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.185Z"
     },
     {
       "id": "script:scripts/check-linkedin-ads-gate.mjs",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.110Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.118Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -9133,7 +9133,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.110Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.186Z"
     },
     {
       "id": "script:scripts/check-migration-rollback-readiness.mjs",
@@ -9172,7 +9172,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.111Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.186Z"
     },
     {
       "id": "script:scripts/check-mobile-production-thresholds.mjs",
@@ -9679,7 +9679,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.111Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.187Z"
     },
     {
       "id": "script:scripts/generate-luxury-ux-wave1-tickets.mjs",
@@ -9692,7 +9692,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.113Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.187Z"
     },
     {
       "id": "script:scripts/generate-mobile-route-coverage-report.mjs",
@@ -9718,7 +9718,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.113Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.187Z"
     },
     {
       "id": "script:scripts/generate-monitoring-matrix.mjs",
@@ -9757,7 +9757,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.113Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.188Z"
     },
     {
       "id": "script:scripts/growth-synthetic-council-audit.mjs",
@@ -9939,7 +9939,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.114Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.188Z"
     },
     {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
@@ -10095,7 +10095,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.115Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.189Z"
     },
     {
       "id": "script:scripts/precommit-guide-freshness.mjs",
@@ -10108,7 +10108,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.115Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.189Z"
     },
     {
       "id": "script:scripts/precommit-mobile-ui-gate.mjs",
@@ -10147,7 +10147,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.117Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.189Z"
     },
     {
       "id": "script:scripts/refine-outreach-templates-by-council.mjs",
@@ -10358,6 +10358,19 @@
       "lastModifiedAt": "2026-05-12T08:41:36.618Z"
     },
     {
+      "id": "script:scripts/setup-atlassian-mcp.mjs",
+      "title": "Script scripts/setup-atlassian-mcp.mjs",
+      "body": "Read existing settings safely",
+      "type": "script",
+      "ref": "scripts/setup-atlassian-mcp.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-15T16:12:05.242Z"
+    },
+    {
       "id": "script:scripts/slo-report.mjs",
       "title": "Script scripts/slo-report.mjs",
       "body": "---------------------------------------------------------------------------",
@@ -10446,7 +10459,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.117Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.191Z"
     },
     {
       "id": "script:scripts/user-guide-sync.ts",
@@ -10498,7 +10511,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.021Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.113Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10641,7 +10654,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.022Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.114Z"
     },
     {
       "id": "infra:.github/workflows/managertools-launch-monitoring.yml",
@@ -10732,7 +10745,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.022Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.114Z"
     },
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
@@ -10745,7 +10758,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.023Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.114Z"
     },
     {
       "id": "infra:.github/workflows/production-generated-monitoring.yml",
@@ -10797,7 +10810,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-12T15:28:38.335Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.115Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -10953,7 +10966,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T03:08:17.023Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.116Z"
     },
     {
       "id": "infra:.github/workflows/weekly-unified-audit.yml",
@@ -12926,7 +12939,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T03:08:17.236Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.293Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -13160,7 +13173,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-10T19:09:49.848Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.114Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -13212,7 +13225,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.027Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.120Z"
     },
     {
       "id": "doc:docs/campaign-standard.md",
@@ -13264,7 +13277,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.027Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.121Z"
     },
     {
       "id": "doc:docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md",
@@ -13277,7 +13290,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.029Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.121Z"
     },
     {
       "id": "doc:docs/coach-outreach-messages.md",
@@ -13368,7 +13381,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.030Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.122Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -13433,7 +13446,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.030Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.122Z"
     },
     {
       "id": "doc:docs/content/annual-report-2026-launch-post-and-slack-note.md",
@@ -13563,7 +13576,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.032Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.123Z"
     },
     {
       "id": "doc:docs/content/coach-low-cannibalization-micro-products-2026-05-28.md",
@@ -13628,7 +13641,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.032Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.123Z"
     },
     {
       "id": "doc:docs/content/council-review-process.md",
@@ -13641,7 +13654,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.033Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.123Z"
     },
     {
       "id": "doc:docs/content/council-score-95-site-improvement-epic.md",
@@ -13862,7 +13875,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.034Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.124Z"
     },
     {
       "id": "doc:docs/content/executive-user-synthetic-council.md",
@@ -14226,7 +14239,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.035Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.124Z"
     },
     {
       "id": "doc:docs/content/product-onboarding-experts-synthetic-council.md",
@@ -14278,7 +14291,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.035Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.125Z"
     },
     {
       "id": "doc:docs/content/site-review-may-2026-full-council-v6.md",
@@ -15266,7 +15279,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.036Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.126Z"
     },
     {
       "id": "doc:docs/decision-log.md",
@@ -15279,7 +15292,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.037Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.127Z"
     },
     {
       "id": "doc:docs/development/emi-artifacts-implementation-tickets.md",
@@ -15578,7 +15591,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.037Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.127Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -15760,7 +15773,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.039Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.128Z"
     },
     {
       "id": "doc:docs/epic-7-layer-luxury-experience-foundation-2026-2027.md",
@@ -15838,7 +15851,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.039Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.129Z"
     },
     {
       "id": "doc:docs/epic-sre-council-backlog.md",
@@ -16514,7 +16527,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.040Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.130Z"
     },
     {
       "id": "doc:docs/growth-synthetic-council.latest.md",
@@ -16527,7 +16540,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.041Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.130Z"
     },
     {
       "id": "doc:docs/growth/synthetic-growth-council.md",
@@ -16683,7 +16696,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:24:32.591Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.118Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16722,7 +16735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:24:32.591Z"
+      "lastModifiedAt": "2026-06-15T04:12:07.118Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -16748,7 +16761,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.050Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.137Z"
     },
     {
       "id": "doc:docs/jira/four-channel-customer-journey-import-README.md",
@@ -16774,7 +16787,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.051Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.137Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -16891,7 +16904,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.051Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.137Z"
     },
     {
       "id": "doc:docs/luxury-ux-testing-playbook.md",
@@ -16904,7 +16917,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.052Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.138Z"
     },
     {
       "id": "doc:docs/main-landing-page-council-review.md",
@@ -16982,7 +16995,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.053Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.142Z"
     },
     {
       "id": "doc:docs/mobile-ui-remediation-spec.md",
@@ -17138,7 +17151,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.053Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.142Z"
     },
     {
       "id": "doc:docs/onboarding/07-contributor-agreement.md",
@@ -17190,7 +17203,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.055Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.143Z"
     },
     {
       "id": "doc:docs/operating-system.md",
@@ -17216,7 +17229,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.057Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.143Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/02-observability-alerting/README.md",
@@ -17229,7 +17242,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.057Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.144Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/03-ci-cd-release-gates/README.md",
@@ -17242,7 +17255,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.058Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.145Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/04-quality-assurance-and-code-health/README.md",
@@ -17255,7 +17268,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.059Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.146Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/05-data-integrity-and-security/README.md",
@@ -17268,7 +17281,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.059Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.146Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/06-growth-pmf-and-reporting/README.md",
@@ -17281,7 +17294,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.061Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.148Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/07-outreach-and-gtm-operations/README.md",
@@ -17294,7 +17307,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.062Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.148Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/08-guide-and-knowledge-sync/README.md",
@@ -17307,7 +17320,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.062Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/09-worker-automations/README.md",
@@ -17320,7 +17333,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.063Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/10-infrastructure-runtime-operations/README.md",
@@ -17333,7 +17346,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.063Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/11-governance-council-audits/README.md",
@@ -17346,7 +17359,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.064Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/operations-tooling-taxonomy/TOC.md",
@@ -17359,7 +17372,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.064Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/outplacement-a-plus-conversion-epic.md",
@@ -17385,7 +17398,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.065Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.149Z"
     },
     {
       "id": "doc:docs/outreach-csv-remediation-report.md",
@@ -17684,7 +17697,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.069Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.152Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -17736,7 +17749,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.069Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.152Z"
     },
     {
       "id": "doc:docs/product-architecture.md",
@@ -17788,7 +17801,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.071Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.155Z"
     },
     {
       "id": "doc:docs/product-personas.md",
@@ -17801,7 +17814,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.071Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.155Z"
     },
     {
       "id": "doc:docs/product-requirements.md",
@@ -17814,7 +17827,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.073Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.155Z"
     },
     {
       "id": "doc:docs/product-roadmap-chris-review-deck.md",
@@ -17970,7 +17983,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.074Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.155Z"
     },
     {
       "id": "doc:docs/salesnavigator.md",
@@ -18035,7 +18048,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.075Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.158Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -18126,7 +18139,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.076Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.158Z"
     },
     {
       "id": "doc:docs/sm-acquisition-sprints.md",
@@ -18815,7 +18828,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.076Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.159Z"
     },
     {
       "id": "doc:docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md",
@@ -18828,7 +18841,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.076Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.159Z"
     },
     {
       "id": "doc:docs/status/synthetic-remediation-tracker-2026-06-13.md",
@@ -18841,7 +18854,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.077Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.159Z"
     },
     {
       "id": "doc:docs/staying-sharp-between-searches.md",
@@ -18880,7 +18893,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.078Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.160Z"
     },
     {
       "id": "doc:docs/strategy/agent-graph-implementation-tickets-2026-06-13.md",
@@ -18893,7 +18906,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.078Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.160Z"
     },
     {
       "id": "doc:docs/strategy/anne-applebaum-email-template-review-2026-05-26.md",
@@ -18919,7 +18932,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.079Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.160Z"
     },
     {
       "id": "doc:docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
@@ -19764,7 +19777,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.079Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.162Z"
     },
     {
       "id": "doc:docs/strategy/executive-momentum-intelligence-backlog.md",
@@ -19894,7 +19907,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.081Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.164Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-next-quarter-backlog-2026-q3.md",
@@ -19907,7 +19920,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.082Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.164Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-redesign-brief-home-and-channel-pages-2026-06-13.md",
@@ -19920,7 +19933,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.083Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.165Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-sitewide-execution-plan-2026-06-13.md",
@@ -19933,7 +19946,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.083Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.165Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-sprint-1-closeout-2026-06-13.md",
@@ -19946,7 +19959,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.083Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.165Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-sprint-2-acceptance-closeout-2026-06-13.md",
@@ -19959,7 +19972,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.084Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.166Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-sprint-3-readout-2026-06-13.md",
@@ -19972,7 +19985,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.084Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.166Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-sprint-4-governance-closeout-2026-06-13.md",
@@ -19985,7 +19998,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.084Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.166Z"
     },
     {
       "id": "doc:docs/strategy/luxury-modern-tone-and-proof-governance-guide-2026-06-13.md",
@@ -19998,7 +20011,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.085Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.168Z"
     },
     {
       "id": "doc:docs/strategy/luxury-reference-benchmark-snapshot-2026-06-13.md",
@@ -20011,7 +20024,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.085Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.168Z"
     },
     {
       "id": "doc:docs/strategy/mark-horstman-review.md",
@@ -20089,7 +20102,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.085Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.168Z"
     },
     {
       "id": "doc:docs/strategy/pricing-strategy.md",
@@ -20102,7 +20115,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.086Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.168Z"
     },
     {
       "id": "doc:docs/strategy/product-fit-gaps.md",
@@ -20115,7 +20128,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.086Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.169Z"
     },
     {
       "id": "doc:docs/strategy/selected-ideas-implementation-plan-2026-06-13.md",
@@ -20128,7 +20141,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.088Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.169Z"
     },
     {
       "id": "doc:docs/strategy/slack-channel-naming-pack-2026-06-04.md",
@@ -20180,7 +20193,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.089Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.169Z"
     },
     {
       "id": "doc:docs/strategy/starting-monday-vs-top-10-luxury-sites-2026-06-13.md",
@@ -20193,7 +20206,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.089Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.170Z"
     },
     {
       "id": "doc:docs/strategy/tam-financial-model.md",
@@ -20206,7 +20219,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.090Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.170Z"
     },
     {
       "id": "doc:docs/strategy/ui-review-plan-from-notes-2026-06-04.md",
@@ -20440,7 +20453,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.095Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.175Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -20466,7 +20479,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.097Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.175Z"
     },
     {
       "id": "doc:docs/templates/archive-note-template.md",
@@ -20570,7 +20583,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.098Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.176Z"
     },
     {
       "id": "doc:docs/ui-ux-rerun-2026-05-26.md",
@@ -20596,7 +20609,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.098Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.177Z"
     },
     {
       "id": "doc:docs/ui-ux-weekly-review-checklist.md",
@@ -20622,7 +20635,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:30:52.038Z"
+      "lastModifiedAt": "2026-06-16T04:04:34.118Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -20739,7 +20752,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:08:17.103Z"
+      "lastModifiedAt": "2026-06-15T04:08:07.181Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",
