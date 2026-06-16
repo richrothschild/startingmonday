@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T05:02:40.050Z",
+  "generatedAt": "2026-06-16T05:19:15.478Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T05:02:36.520Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.420Z"
     },
     {
       "id": "feature:/login",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.524Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.424Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.525Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.424Z"
     },
     {
       "id": "feature:/feedback",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.525Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.425Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.527Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.426Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.527Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.426Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.528Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.427Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.529Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.427Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.529Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.428Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:02:36.530Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.428Z"
     },
     {
       "id": "feature:/for-vp",
@@ -5415,7 +5415,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T05:02:29.674Z"
+      "lastModifiedAt": "2026-06-16T05:04:59.263Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-16T05:02:36.523Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.423Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -13160,7 +13160,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:02:36.515Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.414Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -16683,7 +16683,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:02:36.519Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.419Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16722,7 +16722,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:02:36.520Z"
+      "lastModifiedAt": "2026-06-16T05:19:11.420Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20622,7 +20622,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:02:38.156Z"
+      "lastModifiedAt": "2026-06-16T05:19:13.413Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
