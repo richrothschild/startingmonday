@@ -1,6 +1,5 @@
 'use server'
 import { redirect } from 'next/navigation'
-import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { OnboardingFormSchema } from '@/lib/schemas'
 import { captureServerEvent } from '@/lib/posthog-server'
@@ -169,9 +168,7 @@ export async function completeOnboarding(formData: FormData) {
   const notifyEmails = getNotifyEmails()
   if (user.email && notifyEmails.length > 0) {
     const notifyNow = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
-    const headersList = await headers()
-    const forwardedHost = headersList.get('x-forwarded-host')
-    const isStaging = !forwardedHost || !forwardedHost.endsWith('startingmonday.app')
+    const isStaging = process.env.STAGING === 'true'
     const nameRow = fullName
       ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${fullName}</td></tr>`
       : ''

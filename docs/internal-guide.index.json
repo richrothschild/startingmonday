@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T05:32:30.199Z",
+  "generatedAt": "2026-06-16T05:46:32.664Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T05:32:24.511Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.402Z"
     },
     {
       "id": "feature:/login",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.515Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.406Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.516Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.407Z"
     },
     {
       "id": "feature:/feedback",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.516Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.407Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.517Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.408Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.517Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.408Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.518Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.409Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.518Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.410Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.519Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.410Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T05:32:24.519Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.411Z"
     },
     {
       "id": "feature:/for-vp",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-16T05:32:24.514Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.405Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -13160,7 +13160,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:32:24.506Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.396Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -16683,7 +16683,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:32:24.511Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.401Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16722,7 +16722,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:32:24.511Z"
+      "lastModifiedAt": "2026-06-16T05:46:26.402Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20622,7 +20622,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T05:32:28.316Z"
+      "lastModifiedAt": "2026-06-16T05:46:30.590Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
