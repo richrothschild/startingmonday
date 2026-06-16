@@ -9,6 +9,16 @@ type Result = {
   description: string
 }
 
+function buildAnswer(query: string, results: Result[]): string {
+  if (results.length === 0) {
+    return `I could not find a close match for "${query}" yet. Try keywords like signals, prep briefs, outreach, coaching workflow, pricing, or executive search.`
+  }
+
+  const top = results.slice(0, 3)
+  const summary = top.map((item) => item.description).join(' ')
+  return `Starting Monday helps by combining signal visibility, prep briefs, and follow-through in one operating flow. Based on your question, here is the best-fit guidance: ${summary}`
+}
+
 function rankPosts(query: string, posts: BlogPostMeta[]): Result[] {
   const q = query.toLowerCase().trim()
   if (!q) return []
@@ -35,43 +45,80 @@ function rankPosts(query: string, posts: BlogPostMeta[]): Result[] {
     .map(({ post }) => ({ slug: post.slug, title: post.title, description: post.description }))
 }
 
-export function BlogChat({ posts }: { posts: BlogPostMeta[] }) {
+export function BlogChat({
+  posts,
+  title = 'Ask the blog',
+  description = 'Ask a question and find the most relevant articles and guides.',
+  placeholder = 'e.g. How do I get in front of a search firm?',
+  answerMode = false,
+  showResultLinks = true,
+  showGuideCta = false,
+  guideCtaHref = '/guide',
+  guideCtaLabel = 'Open guide and guide chat',
+}: {
+  posts: BlogPostMeta[]
+  title?: string
+  description?: string
+  placeholder?: string
+  answerMode?: boolean
+  showResultLinks?: boolean
+  showGuideCta?: boolean
+  guideCtaHref?: string
+  guideCtaLabel?: string
+}) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Result[] | null>(null)
   const [searched, setSearched] = useState(false)
 
-  function handleSearch(e: React.FormEvent) {
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const matches = rankPosts(query, posts)
+    const submittedQuery = String(new FormData(e.currentTarget).get('query') ?? '').trim()
+    if (!submittedQuery) {
+      setResults([])
+      setSearched(true)
+      return
+    }
+
+    const matches = rankPosts(submittedQuery, posts)
+    setQuery(submittedQuery)
     setResults(matches)
     setSearched(true)
   }
 
   return (
     <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 sm:p-6">
-      <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Ask the blog</p>
+      <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">{title}</p>
       <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
-        Ask a question and find the most relevant articles and guides.
+        {description}
       </p>
       <form onSubmit={handleSearch} className="flex gap-2 mb-4">
         <input
+          name="query"
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          placeholder="e.g. How do I get in front of a search firm?"
+          placeholder={placeholder}
           className="flex-1 border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-500 bg-white"
         />
         <button
           type="submit"
-          disabled={!query.trim()}
           className="bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 rounded hover:bg-slate-700 transition-colors disabled:opacity-40 shrink-0"
         >
           Search
         </button>
       </form>
 
+      {searched && answerMode && results !== null && (
+        <div className="mb-4 rounded border border-slate-200 bg-white p-4">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1.5">Answer</p>
+          <p className="text-[13px] text-slate-700 leading-relaxed">
+            {buildAnswer(query.trim(), results)}
+          </p>
+        </div>
+      )}
+
       {searched && results !== null && (
-        results.length > 0 ? (
+        results.length > 0 && showResultLinks ? (
           <ul className="space-y-3">
             {results.map(r => (
               <li key={r.slug}>
@@ -87,8 +134,19 @@ export function BlogChat({ posts }: { posts: BlogPostMeta[] }) {
             ))}
           </ul>
         ) : (
-          <p className="text-[13px] text-slate-500">No matching articles found. Try different keywords.</p>
+          !answerMode ? <p className="text-[13px] text-slate-500">No matching articles found. Try different keywords.</p> : null
         )
+      )}
+
+      {showGuideCta && (
+        <div className="mt-4">
+          <Link
+            href={guideCtaHref}
+            className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-5 py-2.5 hover:border-slate-500 transition-colors"
+          >
+            {guideCtaLabel}
+          </Link>
+        </div>
       )}
     </div>
   )
