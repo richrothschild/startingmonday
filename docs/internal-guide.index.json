@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T04:08:54.888Z",
+  "generatedAt": "2026-06-16T04:13:06.598Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-15T04:08:42.865Z"
+      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
     },
     {
       "id": "feature:/login",
@@ -1692,7 +1692,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.238Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.368Z"
     },
     {
       "id": "feature:/executives/passive",
@@ -1720,7 +1720,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.239Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.369Z"
     },
     {
       "id": "feature:/feedback",
@@ -1748,7 +1748,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.240Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.370Z"
     },
     {
       "id": "feature:/for-cio-associations",
@@ -1776,7 +1776,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.241Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.371Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -1790,7 +1790,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.242Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.371Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -1888,7 +1888,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.248Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.372Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.248Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.373Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -1916,7 +1916,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.248Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.373Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-15T04:08:07.260Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.374Z"
     },
     {
       "id": "feature:/for-vp",
@@ -5168,7 +5168,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T04:08:07.224Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.598Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -5415,7 +5415,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-11T15:00:34.343Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.598Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -9120,7 +9120,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T04:08:07.185Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.325Z"
     },
     {
       "id": "script:scripts/check-marketing-trust-proof-gate.mjs",
@@ -10498,7 +10498,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T04:08:07.113Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.588Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10641,7 +10641,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T04:08:07.113Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.305Z"
     },
     {
       "id": "infra:.github/workflows/luxury-ux-tiered.yml",
@@ -13173,7 +13173,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:07.120Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.307Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -14278,7 +14278,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:07.125Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.308Z"
     },
     {
       "id": "doc:docs/content/revenue-economics-synthetic-council.md",
@@ -15838,7 +15838,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:07.129Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.309Z"
     },
     {
       "id": "doc:docs/epic-online-guide-and-chat-2026-05-30.md",
@@ -16449,7 +16449,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:07.129Z"
+      "lastModifiedAt": "2026-06-16T04:12:50.309Z"
     },
     {
       "id": "doc:docs/executive-search-playbook.md",
@@ -16735,7 +16735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:42.865Z"
+      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16774,7 +16774,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:42.865Z"
+      "lastModifiedAt": "2026-06-16T04:13:03.012Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20674,7 +20674,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:52.860Z"
+      "lastModifiedAt": "2026-06-16T04:13:04.690Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
