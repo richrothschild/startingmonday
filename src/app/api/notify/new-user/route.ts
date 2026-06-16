@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   const username = (body?.username ?? '').toString().trim() || null
   const tier     = (body?.tier     ?? 'trialing').toString().trim()
   const source   = (body?.source   ?? '').toString().trim() || null
+  const isStaging = body?.is_staging === true
 
   const blocked = await enforcePublicEndpointGuard({
     request,
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
 
   void sendEmail({
     to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
-    subject: 'New User Registered!',
+    subject: isStaging ? 'New User Registered! - staging' : 'New User Registered!',
     bypassCouncil: true,
     html: `
       <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">

@@ -168,12 +168,13 @@ export async function completeOnboarding(formData: FormData) {
   const notifyEmails = getNotifyEmails()
   if (user.email && notifyEmails.length > 0) {
     const notifyNow = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+    const isStaging = process.env.STAGING === 'true'
     const nameRow = fullName
       ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${fullName}</td></tr>`
       : ''
     void sendEmail({
       to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
-      subject: 'New User Registered!',
+      subject: isStaging ? 'New User Registered! - staging' : 'New User Registered!',
       bypassCouncil: true,
       html: `
         <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">

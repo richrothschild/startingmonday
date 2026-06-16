@@ -41,8 +41,8 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
   {
     channel: 'search_firms',
     label: 'Search Firms',
-    route: '/for-search-firms',
-    targetCanonicalRoute: '/for-search-firms',
+    route: '/search-firms',
+    targetCanonicalRoute: '/search-firms',
     primaryCtaLabel: 'Enter search-firm path',
     hero: 'Strengthen kickoff quality and shortlist velocity on retained mandates.',
     trust: 'Role-specific preparation depth before first-round interviews.',

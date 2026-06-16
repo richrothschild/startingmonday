@@ -115,7 +115,7 @@ export const SEARCH_FIRM_PERSONAS: readonly PersonaSpec[] = [
     slug: 'principal-delivery-lead',
     label: 'Principal and delivery lead',
     summary: 'Execution-quality route for consultant workflows and candidate prep standards.',
-    destination: '/for-search-firms',
+    destination: '/search-firms',
   },
   {
     slug: 'candidate-success-owner',

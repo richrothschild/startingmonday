@@ -14,6 +14,13 @@ type RiskInputs = {
   active_pipeline_companies: number
 }
 
+type WeeklyReviewSummary = {
+  week_start: string
+  confidence_level: string | null
+  momentum_level: string | null
+  narrative_drift: boolean
+}
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value))
 }
@@ -121,7 +128,7 @@ export async function GET(request: NextRequest) {
     const now = new Date()
     const since60d = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000).toISOString()
 
-    const [profilesRes, companiesRes, followUpsRes, eventsRes] = await Promise.all([
+    const [profilesRes, companiesRes, followUpsRes, eventsRes, weeklyReviewsRes] = await Promise.all([
       admin
         .from('user_profiles')
         .select('user_id, full_name, momentum_score, search_persona')
@@ -144,12 +151,20 @@ export async function GET(request: NextRequest) {
         .gte('created_at', since60d)
         .order('created_at', { ascending: false })
         .limit(50000),
+      admin
+        .from('coach_weekly_reviews')
+        .select('client_id, week_start, review_answers')
+        .eq('coach_id', userId)
+        .in('client_id', clientIds)
+        .order('week_start', { ascending: false })
+        .limit(500),
     ])
 
     const profiles = profilesRes.data ?? []
     const companies = companiesRes.data ?? []
     const followUps = followUpsRes.data ?? []
     const events = eventsRes.data ?? []
+    const weeklyReviews = weeklyReviewsRes.data ?? []
 
     const profileMap = new Map(profiles.map((row) => [row.user_id, row]))
     const seatMetaMap = new Map((seats ?? []).map((seat) => [seat.member_user_id ?? '', seat]))
@@ -161,6 +176,7 @@ export async function GET(request: NextRequest) {
       owner: string | null
       status: string | null
     }>()
+    const weeklyReviewMap = new Map<string, WeeklyReviewSummary>()
     const lastActivityMap = new Map<string, string>()
 
     for (const row of companies) {
@@ -201,6 +217,31 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    for (const row of weeklyReviews) {
+      if (!row.client_id || weeklyReviewMap.has(row.client_id)) continue
+
+      const answers = row.review_answers && typeof row.review_answers === 'object'
+        ? row.review_answers as Record<string, unknown>
+        : {}
+
+      const confidenceLevel = typeof answers.confidence_level === 'string'
+        ? answers.confidence_level
+        : null
+      const momentumLevel = typeof answers.momentum_level === 'string'
+        ? answers.momentum_level
+        : null
+      const narrativeDriftText = typeof answers.narrative_drift === 'string'
+        ? answers.narrative_drift.trim()
+        : ''
+
+      weeklyReviewMap.set(row.client_id, {
+        week_start: row.week_start,
+        confidence_level: confidenceLevel,
+        momentum_level: momentumLevel,
+        narrative_drift: narrativeDriftText.length > 0,
+      })
+    }
+
     const clients = clientIds.map((clientId) => {
       const profile = profileMap.get(clientId)
       const seatMeta = seatMetaMap.get(clientId)
@@ -226,6 +267,7 @@ export async function GET(request: NextRequest) {
         urgency,
         risk_inputs: inputs,
         next_action: nextAction,
+        weekly_review_summary: weeklyReviewMap.get(clientId) ?? null,
       }
     })
 

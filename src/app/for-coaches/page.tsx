@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { CoachPreviewActions } from './coach-preview-actions'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
+import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import {
   COACH_COMPETITIVE_TABLE,
@@ -10,6 +11,7 @@ import {
   COACH_PERSONA_JOURNEYS,
   COACH_BUYER_PLANS,
   COACH_PROOF_STRIPS,
+  NAMED_COACH_PROOF,
   PILOT_SCORECARD,
   ROLE_BOUNDARY,
 } from './page-content'
@@ -58,13 +60,13 @@ export default function ForCoachesPage() {
           <h1 className="mb-5 max-w-3xl text-[30px] font-bold leading-[1.08] tracking-tight text-white sm:text-[42px]">
             Clients arrive prepared.{' '}
             <br className="hidden sm:block" />
-            Coaching stays strategic.
+            Sessions remain strategic.
           </h1>
           <p className="mb-2 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-            Starting Monday gives executive coaches and coaching firms one private operating layer for signals, prep briefs, and weekly follow-through so sessions start at decision level instead of context rebuild.
+            Starting Monday gives executive coaches and coaching firms one operating layer for signals and prep so sessions stay strategic.
           </p>
           <p className="mb-6 max-w-2xl text-[13px] leading-relaxed text-slate-200">
-            Coach-first by design. Clients control access, there is no recruiter-side data sharing, the platform keeps the rhythm visible, and your judgment stays in charge.
+            Client-controlled access. No recruiter visibility. Coaching authority intact.
           </p>
 
           <div className="mb-7 space-y-3">
@@ -97,6 +99,47 @@ export default function ForCoachesPage() {
         </div>
       </header>
 
+      <CompactTimelineModule
+        channel="coaches"
+        sourcePage="/for-coaches"
+        eyebrow="Mini timeline"
+        title="See the coach workflow in 3 key phases"
+        summary="Preview how features sequence across session prep, execution, and reporting."
+        steps={[
+          { phase: 'Discover', focus: 'Pre-session signal and context delta review', visual: 'Snapshot strip + top changes' },
+          { phase: 'Activate', focus: 'Weekly confidence, momentum, and commitment capture', visual: 'Three-state weekly markers' },
+          { phase: 'Operate', focus: 'Portfolio risk and intervention prioritization', visual: 'Command center + exception queue' },
+        ]}
+      />
+
+      {/* Named coach proof block — Sprint ITS-2 */}
+      <section className="border-b border-white/10 px-4 py-10 sm:px-6">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-400">What coaches say</p>
+          <h2 className="mb-6 text-[20px] font-bold text-white leading-snug">
+            How pilot coaches transformed sessions.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {NAMED_COACH_PROOF.filter((p) => p.tier !== 'placeholder').map((proof) => (
+              <figure key={proof.name} className="rounded-2xl border border-slate-700 bg-slate-900/60 p-5">
+                <blockquote className="text-[14px] text-slate-200 leading-relaxed mb-4 italic">
+                  &ldquo;{proof.quote}&rdquo;
+                </blockquote>
+                <figcaption>
+                  <p className="text-[13px] font-semibold text-white">{proof.name}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">{proof.descriptor}</p>
+                  <p className="text-[11px] text-orange-400 mt-1">{proof.outcome}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-4 text-[11px] text-slate-500">
+            Named proof assets collected with participant permission. Additional named coach cases in progress.
+            See our <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-300 transition-colors">trust pack</Link> for methodology and claims policy.
+          </p>
+        </div>
+      </section>
+
       <section className="px-4 py-8 sm:px-6 sm:py-10">
         <div className="mx-auto max-w-5xl rounded-[2rem] border border-orange-300/20 bg-orange-400/5 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.18)] backdrop-blur-sm sm:p-7">
           <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
@@ -104,7 +147,7 @@ export default function ForCoachesPage() {
               <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">30-day pilot scorecard</p>
               <h2 className="text-[24px] font-bold leading-snug text-white">Run the preview with live clients, then decide from evidence.</h2>
               <p className="mt-3 text-[14px] leading-relaxed text-slate-200">
-                The buying motion is simple: test with two to three live clients, measure readiness and follow-through, and make a pass/fail decision at day 30.
+                Test 2-3 clients, measure outcomes, and decide at day 30.
               </p>
             </div>
             <div className="grid gap-3">
@@ -123,11 +166,11 @@ export default function ForCoachesPage() {
         <section className="px-4 py-10 sm:px-6 sm:py-12">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">How this helps</p>
-            <h2 className="mb-6 text-[24px] font-bold leading-snug text-white">One workflow for sessions, prep, and between-session follow-through.</h2>
+            <h2 className="mb-6 text-[24px] font-bold leading-snug text-white">One workflow: session prep, execution, follow-through.</h2>
             <div className="space-y-5">
               <div className="grid gap-1 md:grid-cols-[280px_1fr]">
                 <p className="text-[15px] font-semibold text-white">Before each session</p>
-                <p className="text-[14px] leading-relaxed text-slate-200">See signal movement and prep context before you meet, so the session starts with decisions, not recap.</p>
+                <p className="text-[14px] leading-relaxed text-slate-200">See signals and prep before meetings start strategic, not with recap.</p>
               </div>
               <div className="grid gap-1 md:grid-cols-[280px_1fr]">
                 <p className="text-[15px] font-semibold text-white">Between sessions</p>
@@ -146,7 +189,7 @@ export default function ForCoachesPage() {
             <p className="mb-2 text-[12px] font-semibold text-orange-200">Coach journey map</p>
             <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">The path your coaching practice takes with Starting Monday.</h2>
             <p className="mb-7 max-w-3xl text-[14px] leading-relaxed text-slate-200">
-              Start with the first three stages, then expand for the full map. This keeps the key operating delta visible without overload.
+              Start with three stages, then expand. Keeps key deltas visible.
             </p>
 
             <div className="overflow-x-auto pb-1">

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 import { CoachValueNudge } from '@/components/CoachValueNudge'
 import { BrandIcon } from '@/components/BrandIcon'
+import { CapabilityDisclosure } from '@/components/CapabilityDisclosure'
 
 export const metadata: Metadata = {
   title: 'Coach FAQ & Objection Responses | Starting Monday',
@@ -15,7 +16,7 @@ const FAQS = [
     id: 'proof',
     category: 'Evidence & Validation',
     question: 'How do you validate your claims? Are these real results?',
-    answer: 'All claims in our materials come from verified pilot evidence with named executives (pending permission) and disclosed methodology. We publish sample sizes, date windows, and methodological notes. The 81% first-interview rate, 9-day median outreach, and 43% coaching adoption rate come from the Jan-May 2026 pilot cohort (n=27). We do not publish coach-claimed outcomes—we publish client-verified outcomes. This matters because coaches are being asked to trust a workflow with data, not just language.',
+    answer: 'All claims in our materials come from verified pilot evidence and disclosed methodology. We publish sample sizes, date windows, and methodological notes. The 81% first-interview rate and 9-day median outreach come from the Jan-May 2026 pilot cohort (n=27). We do not publish coach-claimed outcomes-we publish client-verified outcomes. This matters because coaches trust data over language.',
   },
   {
     id: 'integration',
@@ -51,19 +52,19 @@ const FAQS = [
     id: 'security',
     category: 'Data Security & Compliance',
     question: 'How do you protect client data? What is your security posture?',
-    answer: 'Data security is foundational. All data is encrypted at rest (AES-256) and in transit (TLS 1.2+). We use role-based access control (RBAC) and row-level security (RLS) in Postgres so coaches can only see what clients grant. All access is logged for audit trails. We pass SOC 2 Type II audit, comply with GDPR and CCPA, and store data in US-based infrastructure with HIPAA-grade encryption. Clients own their data—you cannot export without permission. Detailed security documentation is available under NDA.',
+    answer: 'Data security is foundational. All data is encrypted at rest (AES-256) and in transit (TLS 1.2+). We use role-based access control (RBAC) and row-level security (RLS) in Postgres so coaches can only see what clients grant. All access is logged for audit trails. Data is stored in US-based infrastructure. We are working toward SOC 2 Type II certification; current security controls are documented and available to enterprise partners through our diligence request process. Clients own their data—you cannot export without permission. We are designed with GDPR and CCPA principles; our privacy policy details data handling terms.',
   },
   {
     id: 'compliance',
     category: 'Legal & Compliance',
     question: 'Are there any compliance concerns for coaches using this with clients?',
-    answer: 'No material compliance issues. We handle data security; you handle coaching ethics. If you work in regulated industries (PE, executive recruiting), we have compliance documentation. We are not legal or investment advice—you retain full responsibility for your advice and recommendations. Our terms clarify that coaches are independent contractors, not Starting Monday employees, and Starting Monday does not provide coaching or investment guidance.',
+    answer: 'No material compliance issues. We handle data security; you handle coaching ethics. If you work in regulated industries (PE, executive recruiting), our current trust and governance materials are available for review on request. We are not legal or investment advice—you retain full responsibility for your advice and recommendations. Our terms clarify that coaches are independent contractors, not Starting Monday employees, and Starting Monday does not provide coaching or investment guidance.',
   },
   {
     id: 'pricing',
     category: 'Investment & ROI',
     question: 'What does this cost and what is the ROI?',
-    answer: 'Coach previews are free for 30 days-no payment, no commitment. After preview, coaches can choose a buyer plan: Starter Coach ($99/mo + $39 per active client seat), Studio Coach ($249/mo for a small active roster), or Team Coach ($599/mo for up to 10 client seats). They can also use a referral lane where clients subscribe directly and the coach earns recurring partner revenue. Most coaches see ROI within 60 days because they spend less time rebuilding context and more time on strategy. Detailed economics and ROI examples are on the economics page.',
+    answer: 'Coach previews are free for 30 days-no payment, no commitment. After preview, coaches can choose a buyer plan: Starter Coach ($99/mo + $39 per active client seat), Studio Coach ($249/mo for a small active roster), or Team Coach ($599/mo for up to 10 client seats). They can also use a referral lane where clients subscribe directly and the coach earns recurring partner revenue. Coaches in our early pilot reported recovering prep time within 60 days, driven by less context rebuild and more strategy time per session. Detailed economics and ROI examples are on the economics page.',
   },
   {
     id: 'support',
@@ -107,17 +108,17 @@ const OBJECTIONS = [
   {
     id: 'competitors',
     objection: '"My clients already have LinkedIn Premium and a CRM. Why do they need another tool?"',
-    response: 'Good question. This is not a replacement for LinkedIn or CRM. It is the operating layer underneath them. LinkedIn is passive discovery and profile browsing. This is active, automated signal tracking—when CFOs leave or boards shift, your clients know immediately. A CRM is for contact management. This is for structured pipeline discipline and prep generation. Think of it as: LinkedIn finds leads, this tracks momentum and prepares for conversations.',
+    response: "Precisely. This isn't a replacement for LinkedIn or CRM-it's the operating layer beneath them. LinkedIn is passive discovery and profile browsing. This is active, automated signal tracking-when CFOs leave or boards shift, your clients know immediately. A CRM is for contact management. This is for structured pipeline discipline and prep generation. Think of it as: LinkedIn finds leads, this tracks momentum and prepares for conversations.",
   },
   {
     id: 'workload',
     objection: '"I already handle this in my coaching—pipeline review, prep work, accountability. This feels like overhead."',
-    response: 'It does not have to be. Most coaches spend 20-30 minutes per session on operational catch-up: "So where did we leave off? What companies have you contacted?" This tool answers those questions before the session starts. You arrive knowing the state of the pipeline, what signals moved, and what prep the client reviewed. Session time stays the same—more of it goes to strategy instead of context rebuilding. Early coaches report spending less total time on operational work.',
+    response: 'Not necessarily. Most coaches spend 20-30 minutes per session on operational catch-up: "So where did we leave off? What companies have you contacted?" This tool answers those questions before the session starts. You arrive knowing the state of the pipeline, what signals moved, and what prep the client reviewed. Session time stays the same-more of it goes to strategy instead of context rebuilding. Early coaches report spending less total time on operational work.',
   },
   {
     id: 'adoption',
     objection: '"My clients will not adopt another platform. They have decision fatigue."',
-    response: 'That is fair. But the preview lets you test this with 2-3 real clients in 30 minutes. In pilot data, 81% of clients who saw the tool during a preview decided to track one company. When it is positioned as "this reduces your work between sessions," adoption is high. And this is not a standalone product—it is a layer for coaches. Clients access it through your recommendation, not a marketplace.',
+    response: 'A fair concern. Preview the workflow with 2-3 real clients-concrete proof in 30 minutes. In pilot data, 81% of clients who saw the tool during a preview decided to track one company. When it is positioned as "this reduces your work between sessions," adoption is consistently high. And this is not a standalone product-it is a layer for coaches. Clients access it through your recommendation, not a marketplace.',
   },
   {
     id: 'cost',
@@ -127,12 +128,12 @@ const OBJECTIONS = [
   {
     id: 'data-risk',
     objection: '"I am nervous about data security and liability if coach data is breached."',
-    response: 'Data security is foundational—SOC 2 Type II certified, AES-256 encryption, GDPR/CCPA compliant. You, as the coach, are not liable for platform security—that is on Starting Monday. The terms are clear: coaches are independent contractors, not employees, and Starting Monday carries liability for data handling. Detailed compliance docs are available under NDA. If your firm has specific security requirements, our enterprise team can discuss custom options.',
+    response: 'Data security is foundational—AES-256 encryption at rest, TLS 1.2+ in transit, role-based access controls. You, as the coach, are not liable for platform security—that is on Starting Monday. The terms are clear: coaches are independent contractors, not employees, and Starting Monday carries liability for data handling. We are working toward SOC 2 Type II certification; security documentation is available to enterprise partners through our diligence request process. If your firm has specific security requirements, our enterprise team can discuss custom options.',
   },
   {
     id: 'privacy',
     objection: '"My clients are worried about their data being visible to a coach. How do I address that?"',
-    response: 'Clients have full control. They decide which coaches can access their data and can revoke access instantly. All access is logged with timestamps—clients see exactly when and what a coach viewed. During preview setup, explain this to clients: "This is your data. I get to see the pipeline, signals, and prep you reviewed—but only what you grant me, and you can turn it off anytime." In pilot, 100% of clients who understood this permission model were comfortable.',
+    response: 'Clients have full control. They decide which coaches can access their data and can revoke access instantly. All access is logged with timestamps-clients see exactly when and what a coach viewed. During preview setup, explain this to clients: "This is your data. I get to see the pipeline, signals, and prep you reviewed-but only what you grant me, and you can turn it off anytime." Early feedback from pilot participants suggests strong comfort when the permission model is clearly explained; we are expanding this validation across the growing user base.',
   },
   {
     id: 'competitive-concern',
@@ -173,7 +174,7 @@ export default function CoachFaqPage() {
             Coach FAQ
           </p>
           <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-[1.15] tracking-tight mb-4">
-            Questions, objections, and clarity on what this is—and what it is not.
+            Answers, objections addressed, and clear boundaries.
           </h1>
           <p className="text-[15px] text-slate-200 leading-relaxed">
             If you cannot find your question here, email us at contact@startingmonday.app.
@@ -279,10 +280,31 @@ export default function CoachFaqPage() {
 
           {/* Data security deep dive */}
           <section id="security" className="mt-16 pt-12 border-t border-slate-300">
-            <h2 className="text-[20px] font-bold text-slate-900 mb-6 inline-flex items-center gap-2">
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 inline-flex items-center gap-2">
               <BrandIcon name="security" className="h-5 w-5 text-orange-600" />
-              Data Security & Compliance Deep Dive
+              Data Security &amp; Compliance Deep Dive
             </h2>
+            <p className="text-[13px] text-slate-500 mb-6">
+              The items below are live in production today. Roadmap items are clearly labeled.
+            </p>
+            <CapabilityDisclosure
+              className="mb-8"
+              live={[
+                'AES-256 encryption at rest',
+                'TLS 1.2+ encryption in transit',
+                'Role-based access control (RBAC)',
+                'Row-level security (RLS) in Postgres',
+                'Per-coach, client-controlled access with instant revoke',
+                'Audit logs with timestamps on all coach access',
+                'US-based data infrastructure',
+                'Vendor SOC 2 (Supabase, Stripe)',
+              ]}
+              roadmap={[
+                { label: 'SOC 2 Type II certification (Starting Monday)', eta: 'In progress' },
+                { label: 'Formal GDPR/CCPA compliance documentation', eta: 'Q3 2026' },
+                { label: 'Enterprise security review packet', eta: 'Available via diligence request' },
+              ]}
+            />
             <div className="space-y-5">
               <div className="border border-emerald-200 rounded-lg p-5 bg-emerald-50/30">
                 <p className="text-[13px] font-semibold text-emerald-900 mb-2">Encryption</p>
@@ -299,7 +321,10 @@ export default function CoachFaqPage() {
               <div className="border border-emerald-200 rounded-lg p-5 bg-emerald-50/30">
                 <p className="text-[13px] font-semibold text-emerald-900 mb-2">Compliance</p>
                 <p className="text-[13px] text-emerald-800 leading-relaxed">
-                  SOC 2 Type II certified. GDPR and CCPA compliant. HIPAA-grade encryption. Data stored in US-based infrastructure. All vendor integrations (Supabase, Stripe, etc.) are SOC 2 certified.
+                  We are working toward SOC 2 Type II certification. Data is stored in US-based infrastructure.
+                  We are designed with GDPR and CCPA principles; data handling terms are in our privacy policy.
+                  Vendor integrations (Supabase, Stripe) maintain their own SOC 2 certifications.
+                  Detailed security documentation is available to enterprise partners through our diligence request process.
                 </p>
               </div>
               <div className="border border-emerald-200 rounded-lg p-5 bg-emerald-50/30">

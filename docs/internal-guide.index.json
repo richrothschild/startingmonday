@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T00:45:02.514Z",
+  "generatedAt": "2026-06-16T20:17:52.440Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-15T23:13:20.252Z"
+      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
     },
     {
       "id": "feature:/login",
@@ -477,6 +477,20 @@
       "lastModifiedAt": "2026-06-06T16:52:15.416Z"
     },
     {
+      "id": "feature:/dashboard/board-track",
+      "title": "Feature Dashboard / Board track",
+      "body": "User-facing page route /dashboard/board-track.",
+      "type": "feature",
+      "ref": "/dashboard/board-track",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.811Z"
+    },
+    {
       "id": "feature:/dashboard/briefing",
       "title": "Feature Dashboard / Briefing",
       "body": "User-facing page route /dashboard/briefing.",
@@ -530,7 +544,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.114Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.812Z"
     },
     {
       "id": "feature:/dashboard/companies/new",
@@ -673,6 +687,104 @@
       "lastModifiedAt": "2026-06-14T16:09:11.118Z"
     },
     {
+      "id": "feature:/dashboard/optionality/branding",
+      "title": "Feature Dashboard / Optionality / Branding",
+      "body": "User-facing page route /dashboard/optionality/branding.",
+      "type": "feature",
+      "ref": "/dashboard/optionality/branding",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.814Z"
+    },
+    {
+      "id": "feature:/dashboard/optionality/decision-cockpit",
+      "title": "Feature Dashboard / Optionality / Decision cockpit",
+      "body": "User-facing page route /dashboard/optionality/decision-cockpit.",
+      "type": "feature",
+      "ref": "/dashboard/optionality/decision-cockpit",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.815Z"
+    },
+    {
+      "id": "feature:/dashboard/optionality",
+      "title": "Feature Dashboard / Optionality",
+      "body": "User-facing page route /dashboard/optionality.",
+      "type": "feature",
+      "ref": "/dashboard/optionality",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.816Z"
+    },
+    {
+      "id": "feature:/dashboard/outplacement/counselor",
+      "title": "Feature Dashboard / Outplacement / Counselor",
+      "body": "User-facing page route /dashboard/outplacement/counselor.",
+      "type": "feature",
+      "ref": "/dashboard/outplacement/counselor",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.818Z"
+    },
+    {
+      "id": "feature:/dashboard/outplacement/enterprise",
+      "title": "Feature Dashboard / Outplacement / Enterprise",
+      "body": "User-facing page route /dashboard/outplacement/enterprise.",
+      "type": "feature",
+      "ref": "/dashboard/outplacement/enterprise",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.819Z"
+    },
+    {
+      "id": "feature:/dashboard/outplacement/firm-admin",
+      "title": "Feature Dashboard / Outplacement / Firm admin",
+      "body": "User-facing page route /dashboard/outplacement/firm-admin.",
+      "type": "feature",
+      "ref": "/dashboard/outplacement/firm-admin",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.820Z"
+    },
+    {
+      "id": "feature:/dashboard/outplacement/operator",
+      "title": "Feature Dashboard / Outplacement / Operator",
+      "body": "User-facing page route /dashboard/outplacement/operator.",
+      "type": "feature",
+      "ref": "/dashboard/outplacement/operator",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.822Z"
+    },
+    {
       "id": "feature:/dashboard/outplacement",
       "title": "Feature Dashboard / Outplacement",
       "body": "User-facing page route /dashboard/outplacement.",
@@ -684,7 +796,21 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.460Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.823Z"
+    },
+    {
+      "id": "feature:/dashboard/outplacement/sponsor-report",
+      "title": "Feature Dashboard / Outplacement / Sponsor report",
+      "body": "User-facing page route /dashboard/outplacement/sponsor-report.",
+      "type": "feature",
+      "ref": "/dashboard/outplacement/sponsor-report",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.825Z"
     },
     {
       "id": "feature:/dashboard/outreach",
@@ -769,6 +895,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-06T16:52:15.474Z"
+    },
+    {
+      "id": "feature:/dashboard/post-landing",
+      "title": "Feature Dashboard / Post landing",
+      "body": "User-facing page route /dashboard/post-landing.",
+      "type": "feature",
+      "ref": "/dashboard/post-landing",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.827Z"
     },
     {
       "id": "feature:/dashboard/post-search",
@@ -1258,7 +1398,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.740Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.832Z"
     },
     {
       "id": "feature:/blog/retained-search-firms",
@@ -1413,6 +1553,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-14T00:24:20.939Z"
+    },
+    {
+      "id": "feature:/channels/feature-map",
+      "title": "Feature Channels / Feature map",
+      "body": "User-facing page route /channels/feature-map.",
+      "type": "feature",
+      "ref": "/channels/feature-map",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.835Z"
     },
     {
       "id": "feature:/coaches-guide",
@@ -1751,6 +1905,20 @@
       "lastModifiedAt": "2026-06-15T03:48:51.369Z"
     },
     {
+      "id": "feature:/for-chro",
+      "title": "Feature For chro",
+      "body": "User-facing page route /for-chro.",
+      "type": "feature",
+      "ref": "/for-chro",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T19:12:56.837Z"
+    },
+    {
       "id": "feature:/for-cio-associations",
       "title": "Feature For cio associations",
       "body": "User-facing page route /for-cio-associations.",
@@ -1832,7 +2000,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:41:30.258Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.839Z"
     },
     {
       "id": "feature:/for-coaches/micro-products",
@@ -1860,7 +2028,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T15:33:47.137Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.843Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -1930,7 +2098,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.844Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2056,7 +2224,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:31:50.894Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.846Z"
     },
     {
       "id": "feature:/for-outplacement/runbook",
@@ -2154,7 +2322,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.951Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.847Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2476,7 +2644,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:23:57.361Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.848Z"
     },
     {
       "id": "feature:/partners/reporting",
@@ -2602,7 +2770,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.964Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.849Z"
     },
     {
       "id": "feature:/search-firms/personas",
@@ -4455,7 +4623,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:32.850Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.828Z"
     },
     {
       "id": "api:/api/coach/clients",
@@ -4481,7 +4649,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:32.850Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.830Z"
     },
     {
       "id": "api:/api/companies/quick-add",
@@ -5196,7 +5364,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:13:05.016Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.439Z"
     },
     {
       "id": "api:/api/google-calendar/callback",
@@ -5443,7 +5611,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:13:04.952Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.440Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -6488,7 +6656,7 @@
     {
       "id": "code:src/lib/career-mode.ts",
       "title": "Code src/lib/career-mode.ts",
-      "body": "export type CareerMode = 'active_search' | 'post_search'",
+      "body": "export type CareerMode = 'active_search' | 'post_search' | 'optionality' | 'board_track'",
       "type": "code",
       "ref": "src/lib/career-mode.ts",
       "tags": [
@@ -6496,7 +6664,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.007Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.859Z"
     },
     {
       "id": "code:src/lib/channel-ia.test.ts",
@@ -6522,7 +6690,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.009Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.860Z"
     },
     {
       "id": "code:src/lib/channel-metrics-events.test.ts",
@@ -6913,6 +7081,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.019Z"
+    },
+    {
+      "id": "code:src/lib/executive-lifecycle.ts",
+      "title": "Code src/lib/executive-lifecycle.ts",
+      "body": "─── Lifecycle States ───────────────────────────────────────────",
+      "type": "code",
+      "ref": "src/lib/executive-lifecycle.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-16T19:12:56.861Z"
     },
     {
       "id": "code:src/lib/executive-research-library.ts",
@@ -7640,7 +7821,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.059Z"
+      "lastModifiedAt": "2026-06-16T19:12:56.862Z"
     },
     {
       "id": "code:src/lib/pixel-token.test.ts",
@@ -8746,6 +8927,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-05-06T14:47:16.485Z"
+    },
+    {
+      "id": "code:src/lib/what-matters-scoring.ts",
+      "title": "Code src/lib/what-matters-scoring.ts",
+      "body": "─── Default criteria ────────────────────────────────────────────",
+      "type": "code",
+      "ref": "src/lib/what-matters-scoring.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-16T19:12:56.863Z"
     },
     {
       "id": "script:scripts/admin-seed-user.mjs",
@@ -9970,19 +10164,6 @@
       "lastModifiedAt": "2026-06-13T23:12:19.714Z"
     },
     {
-      "id": "script:scripts/jira/list-jira-issues.mjs",
-      "title": "Script scripts/jira/list-jira-issues.mjs",
-      "body": "#!/usr/bin/env node",
-      "type": "script",
-      "ref": "scripts/jira/list-jira-issues.mjs",
-      "tags": [
-        "script",
-        "operations"
-      ],
-      "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-15T23:16:37.071Z"
-    },
-    {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
       "title": "Script scripts/lib/mobile-route-inventory.mjs",
       "body": "export function discoverPublicMobileRoutes() {",
@@ -10539,7 +10720,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-15T04:29:32.789Z"
+      "lastModifiedAt": "2026-06-16T20:08:30.367Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -10825,7 +11006,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:14.830Z"
+      "lastModifiedAt": "2026-06-16T20:08:36.614Z"
     },
     {
       "id": "infra:.github/workflows/production-synthetics.yml",
@@ -13345,6 +13526,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-14T13:55:39.429Z"
+    },
+    {
+      "id": "doc:docs/coach-outplacement-gap-analysis-report-2026-06-15.md",
+      "title": "Doc docs/coach-outplacement-gap-analysis-report-2026-06-15.md",
+      "body": "Coach and Outplacement Gap Analysis Report (2026-06-15)",
+      "type": "doc",
+      "ref": "docs/coach-outplacement-gap-analysis-report-2026-06-15.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.788Z"
     },
     {
       "id": "doc:docs/coach-outreach-messages.md",
@@ -16802,7 +16996,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T23:13:20.252Z"
+      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -16841,7 +17035,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T23:13:20.252Z"
+      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19977,6 +20171,19 @@
       "lastModifiedAt": "2026-06-09T01:55:26.036Z"
     },
     {
+      "id": "doc:docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md",
+      "title": "Doc docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md",
+      "body": "Integrated Transition System Gap Closure Plan (2026-06-15)",
+      "type": "doc",
+      "ref": "docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.800Z"
+    },
+    {
       "id": "doc:docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md",
       "title": "Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md",
       "body": "Jira + VS Code Integration Checklist (Concrete Setup)",
@@ -20679,6 +20886,84 @@
       "lastModifiedAt": "2026-06-06T16:52:15.200Z"
     },
     {
+      "id": "doc:docs/trust/artifact-ownership-register-2026-06-16.md",
+      "title": "Doc docs/trust/artifact-ownership-register-2026-06-16.md",
+      "body": "Artifact Ownership and Refresh Register (2026-06-16)",
+      "type": "doc",
+      "ref": "docs/trust/artifact-ownership-register-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.801Z"
+    },
+    {
+      "id": "doc:docs/trust/claims-taxonomy-2026-06-16.md",
+      "title": "Doc docs/trust/claims-taxonomy-2026-06-16.md",
+      "body": "Claims Taxonomy and Public Proof Policy (2026-06-16)",
+      "type": "doc",
+      "ref": "docs/trust/claims-taxonomy-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.802Z"
+    },
+    {
+      "id": "doc:docs/trust/coach-claims-audit-2026-06-16.md",
+      "title": "Doc docs/trust/coach-claims-audit-2026-06-16.md",
+      "body": "Coach Trust and Claims Audit (2026-06-16)",
+      "type": "doc",
+      "ref": "docs/trust/coach-claims-audit-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.803Z"
+    },
+    {
+      "id": "doc:docs/trust/enterprise-coach-cohort-governance-pack-2026-06-16.md",
+      "title": "Doc docs/trust/enterprise-coach-cohort-governance-pack-2026-06-16.md",
+      "body": "Enterprise Coach Cohort Governance Pack",
+      "type": "doc",
+      "ref": "docs/trust/enterprise-coach-cohort-governance-pack-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.804Z"
+    },
+    {
+      "id": "doc:docs/trust/named-proof-asset-intake-2026-06-16.md",
+      "title": "Doc docs/trust/named-proof-asset-intake-2026-06-16.md",
+      "body": "Named Proof Asset Intake (2026-06-16)",
+      "type": "doc",
+      "ref": "docs/trust/named-proof-asset-intake-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.805Z"
+    },
+    {
+      "id": "doc:docs/trust/outplacement-claims-audit-2026-06-16.md",
+      "title": "Doc docs/trust/outplacement-claims-audit-2026-06-16.md",
+      "body": "Outplacement Trust and Claims Audit (2026-06-16)",
+      "type": "doc",
+      "ref": "docs/trust/outplacement-claims-audit-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-16T19:12:56.806Z"
+    },
+    {
       "id": "doc:docs/ui-guide.md",
       "title": "Doc docs/ui-guide.md",
       "body": "Starting Monday — UI Guide",
@@ -20754,7 +21039,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T00:44:59.476Z"
+      "lastModifiedAt": "2026-06-16T19:13:32.589Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

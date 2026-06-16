@@ -44,13 +44,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to save' }, { status: 500 })
   }
 
+  const host = request.headers.get('host') ?? ''
   // fire-and-forget: notify admins with AI sentiment analysis
-  void notifyAdmins(text, inviteCode)
+  void notifyAdmins(text, inviteCode, host)
 
   return NextResponse.json({ ok: true })
 }
 
-async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
+async function notifyAdmins(feedbackText: string, inviteCode: string | null, host: string) {
   const notifyEmails = getNotifyEmails()
   if (notifyEmails.length === 0) return
 
@@ -60,6 +61,7 @@ async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
       timeZone: 'America/Chicago', month: 'short', day: 'numeric',
       hour: 'numeric', minute: '2-digit',
     })
+    const isStaging = !host.endsWith('startingmonday.app')
 
     const inviteRow = inviteCode
       ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Invite code</td><td>${inviteCode}</td></tr>`
@@ -67,7 +69,7 @@ async function notifyAdmins(feedbackText: string, inviteCode: string | null) {
 
     await sendEmail({
       to: notifyEmails.length === 1 ? notifyEmails[0] : notifyEmails,
-      subject: 'New Feedback!',
+      subject: isStaging ? 'New Feedback! - staging' : 'New Feedback!',
       bypassCouncil: true,
       html: `
         <p style="font-family:sans-serif;font-size:14px;color:#0f172a;margin:0 0 12px 0;">

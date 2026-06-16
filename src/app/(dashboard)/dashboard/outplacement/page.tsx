@@ -16,6 +16,19 @@ export default function OutplacementLanding() {
           Modern, executive-focused outplacement for high-performing leaders.<br />
           White-label, partner-branded, and ready to launch in days.
         </p>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          {[
+            { href: '/dashboard/outplacement/firm-admin', label: 'Firm admin view', desc: 'Compare by book and by cohort.' },
+            { href: '/dashboard/outplacement/counselor', label: 'Counselor view', desc: 'What changed, what is stuck, what to do next.' },
+            { href: '/dashboard/outplacement/enterprise', label: 'Enterprise view', desc: 'Sponsor-safe reporting and governance gates.' },
+            { href: '/dashboard/outplacement/operator', label: 'Operator console', desc: 'Cohort health, exceptions, and interventions.' },
+          ].map((item) => (
+            <Link key={item.href} href={item.href} className="rounded-lg border border-slate-200 p-4 text-left hover:border-orange-300 transition-colors">
+              <p className="text-[14px] font-semibold text-slate-900">{item.label}</p>
+              <p className="text-[12px] text-slate-500 mt-1">{item.desc}</p>
+            </Link>
+          ))}
+        </div>
         <ul className="text-slate-700 text-base mb-8 space-y-2 list-disc list-inside">
           <li>1:1 executive coaching and job search strategy</li>
           <li>Personalized introductions to top executive recruiters</li>

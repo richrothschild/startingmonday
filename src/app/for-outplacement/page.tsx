@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
 
 export const metadata: Metadata = {
   title: 'Outplacement Partner Preview | Starting Monday',
@@ -16,7 +17,7 @@ const FEATURES = [
   {
     name: 'Active Search Infrastructure',
     forFirm: 'Your program graduates executives with a clear understanding of the search process. Starting Monday gives them the platform to actually run it. Pipeline command center, company intelligence scanner, daily briefing, interview prep briefs - it is the operational layer that turns your workshop into an active campaign.',
-    outcome: 'Executives leave your program with a running search, not a revised resume and a list of job boards. Your placement outcomes improve. Your client\'s HR team sees the difference.',
+    outcome: 'Executives leave your program with a running search, not a revised resume and a list of job boards. Programs using the operating layer show stronger early-stage momentum—higher first-interview rates and more signal-driven actions in the first 30 days. Your client\'s HR team sees the difference.',
   },
   {
     name: 'Company Intelligence Scanner',
@@ -25,7 +26,7 @@ const FEATURES = [
   },
   {
     name: 'Daily Briefing and Accountability',
-    forFirm: 'Every morning, the platform sends each enrolled executive a digest of new signals, pending follow-up actions, and pipeline status. It installs the daily discipline that displaced executives often lose when the structure of employment disappears. No coach or counselor needs to manually check in.',
+    forFirm: 'Every morning, the platform sends each enrolled executive a digest of new signals, pending follow-up actions, and pipeline status. It installs the daily discipline that displaced executives often lose when the structure of employment disappears. This reduces the need for manual check-ins between sessions—based on early pilot observation.',
     outcome: 'Search activity stays consistent between check-ins. Executives who were drifting stay in motion. Your counselors spend time on strategy, not accountability.',
   },
 ]
@@ -87,7 +88,7 @@ const COMPARISON_ROWS = [
   {
     dimension: 'Program-level visibility',
     current: 'Delayed and manual status collection',
-    operatingLayer: 'Cohort-level engagement and risk visibility with weekly review packet',
+    operatingLayer: 'Cohort-level engagement, confidence, momentum, and narrative-drift visibility with a weekly review packet',
   },
 ]
 
@@ -99,7 +100,7 @@ const GOVERNANCE_MEETINGS = [
   },
   {
     cadence: 'Biweekly counselor sync',
-    owner: 'Counselor lead',
+    outcome: 'Search activity stays consistent between check-ins. Executives who were drifting stay in motion, and the weekly review packet makes confidence and narrative drift visible before they become session problems. Your counselors spend time on strategy, not accountability.',
     requiredOutput: 'Session-yield trends, adoption blockers, and coaching adjustments.',
   },
 ]
@@ -262,6 +263,19 @@ export default function ForOutplacementPage() {
             </div>
           </div>
         </header>
+
+        <CompactTimelineModule
+          channel="outplacement"
+          sourcePage="/for-outplacement"
+          eyebrow="Mini timeline"
+          title="See the outplacement operating flow in 3 phases"
+          summary="A compact map of activation, intervention, and sponsor-readout milestones that keeps program buyers oriented quickly."
+          steps={[
+            { phase: 'Discover', focus: 'Define cohort scope and day-30 baseline risk', visual: 'Book/cohort baseline tiles' },
+            { phase: 'Activate', focus: 'Drive weekly signal-to-action velocity', visual: 'Velocity and prep coverage cards' },
+            { phase: 'Operate', focus: 'Intervene on stalls and prep sponsor decision packs', visual: 'Exception queue + gate summary' },
+          ]}
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">

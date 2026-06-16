@@ -129,6 +129,9 @@ export async function POST(
         freeform: typeof payload.session_notes.freeform === 'string' ? payload.session_notes.freeform.trim() : '',
       }
     : { wins: '', risks: '', decisions: '', freeform: '' }
+  const confidenceLevel = typeof payload.confidence_level === 'string' ? payload.confidence_level.trim() : ''
+  const momentumLevel = typeof payload.momentum_level === 'string' ? payload.momentum_level.trim() : ''
+  const narrativeDrift = typeof payload.narrative_drift === 'string' ? payload.narrative_drift.trim() : ''
 
   if (!nextActionText || !nextActionOwner || !nextActionDueDate) {
     return NextResponse.json({ error: 'Weekly review needs a next action owner and due date' }, { status: 400 })
@@ -181,6 +184,9 @@ export async function POST(
       agenda_template: agendaTemplate,
       agenda_items: agendaItems,
       session_notes: sessionNotes,
+      confidence_level: confidenceLevel,
+      momentum_level: momentumLevel,
+      narrative_drift: narrativeDrift,
     },
     next_follow_up_id: savedAction.id,
     status: 'completed',
