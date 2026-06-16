@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-15T23:13:17.413Z
+Last generated: 2026-06-16T00:44:59.472Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (161)
+## Features (162)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -172,6 +172,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Security](/security) - Open /security to use this feature area and related workflows.
 - [Stuart meyer review](/stuart-meyer-review) - Open /stuart-meyer-review to use this feature area and related workflows.
 - [Terms](/terms) - Open /terms to use this feature area and related workflows.
+- [Terry anderson review](/terry-anderson-review) - Open /terry-anderson-review to use this feature area and related workflows.
 - [Unsubscribe / Confirmed](/unsubscribe/confirmed) - Open /unsubscribe/confirmed to use this feature area and related workflows.
 
 ## How-To Playbooks

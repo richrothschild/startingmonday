@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-15T23:13:20.237Z
+Last generated: 2026-06-16T00:45:02.514Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (191)
+## Features (192)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -206,6 +206,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Security | /security | User-facing page route /security.
 - Feature Stuart meyer review | /stuart-meyer-review | User-facing page route /stuart-meyer-review.
 - Feature Terms | /terms | User-facing page route /terms.
+- Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
 ## API Surface (261)
