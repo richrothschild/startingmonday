@@ -637,7 +637,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                           }}
                           className="inline-flex items-center rounded bg-orange-400 px-3 py-1.5 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
                         >
-                          Open channel
+                          Open {spec.label}
                         </TrackLink>
                         <TrackLink
                           href={`/channels/feature-map?channel=${spec.channel}`}
@@ -651,7 +651,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                           }}
                           className="text-[12px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
                         >
-                          Preview timeline
+                          Preview {spec.label} timeline
                         </TrackLink>
                       </div>
                     </article>
