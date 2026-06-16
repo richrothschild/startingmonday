@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-16T05:48:24.834Z
+Last generated: 2026-06-16T19:13:35.638Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (192)
+## Features (204)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -49,6 +49,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Admin / Team | /dashboard/admin/team | User-facing page route /dashboard/admin/team.
 - Feature Dashboard / Admin / Traces | /dashboard/admin/traces | User-facing page route /dashboard/admin/traces.
 - Feature Dashboard / Admin / Traces / Rubric | /dashboard/admin/traces/rubric | User-facing page route /dashboard/admin/traces/rubric.
+- Feature Dashboard / Board track | /dashboard/board-track | User-facing page route /dashboard/board-track.
 - Feature Dashboard / Briefing | /dashboard/briefing | User-facing page route /dashboard/briefing.
 - Feature Dashboard / Calendar | /dashboard/calendar | User-facing page route /dashboard/calendar.
 - Feature Dashboard / Chat | /dashboard/chat | User-facing page route /dashboard/chat.
@@ -63,13 +64,22 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Dashboard / Invite | /dashboard/invite | User-facing page route /dashboard/invite.
 - Feature Dashboard / Kanban | /dashboard/kanban | User-facing page route /dashboard/kanban.
 - Feature Dashboard / Offers | /dashboard/offers | User-facing page route /dashboard/offers.
+- Feature Dashboard / Optionality / Branding | /dashboard/optionality/branding | User-facing page route /dashboard/optionality/branding.
+- Feature Dashboard / Optionality / Decision cockpit | /dashboard/optionality/decision-cockpit | User-facing page route /dashboard/optionality/decision-cockpit.
+- Feature Dashboard / Optionality | /dashboard/optionality | User-facing page route /dashboard/optionality.
+- Feature Dashboard / Outplacement / Counselor | /dashboard/outplacement/counselor | User-facing page route /dashboard/outplacement/counselor.
+- Feature Dashboard / Outplacement / Enterprise | /dashboard/outplacement/enterprise | User-facing page route /dashboard/outplacement/enterprise.
+- Feature Dashboard / Outplacement / Firm admin | /dashboard/outplacement/firm-admin | User-facing page route /dashboard/outplacement/firm-admin.
+- Feature Dashboard / Outplacement / Operator | /dashboard/outplacement/operator | User-facing page route /dashboard/outplacement/operator.
 - Feature Dashboard / Outplacement | /dashboard/outplacement | User-facing page route /dashboard/outplacement.
+- Feature Dashboard / Outplacement / Sponsor report | /dashboard/outplacement/sponsor-report | User-facing page route /dashboard/outplacement/sponsor-report.
 - Feature Dashboard / Outreach | /dashboard/outreach | User-facing page route /dashboard/outreach.
 - Feature Dashboard | /dashboard | User-facing page route /dashboard.
 - Feature Dashboard / Partner | /dashboard/partner | User-facing page route /dashboard/partner.
 - Feature Dashboard / Pilot outreach | /dashboard/pilot-outreach | User-facing page route /dashboard/pilot-outreach.
 - Feature Dashboard / Placed | /dashboard/placed | User-facing page route /dashboard/placed.
 - Feature Dashboard / Positioning | /dashboard/positioning | User-facing page route /dashboard/positioning.
+- Feature Dashboard / Post landing | /dashboard/post-landing | User-facing page route /dashboard/post-landing.
 - Feature Dashboard / Post search | /dashboard/post-search | User-facing page route /dashboard/post-search.
 - Feature Dashboard / Profile | /dashboard/profile | User-facing page route /dashboard/profile.
 - Feature Dashboard / Profile / Tailor | /dashboard/profile/tailor | User-facing page route /dashboard/profile/tailor.
@@ -116,6 +126,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Blog / Why starting monday exists | /blog/why-starting-monday-exists | User-facing page route /blog/why-starting-monday-exists.
 - Feature Career tools | /career-tools | User-facing page route /career-tools.
 - Feature Case studies | /case-studies | User-facing page route /case-studies.
+- Feature Channels / Feature map | /channels/feature-map | User-facing page route /channels/feature-map.
 - Feature Coaches guide | /coaches-guide | User-facing page route /coaches-guide.
 - Feature Coaches / Mock dashboard | /coaches/mock-dashboard | User-facing page route /coaches/mock-dashboard.
 - Feature Coaches | /coaches | User-facing page route /coaches.
@@ -140,6 +151,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Executives / Personas | /executives/personas | User-facing page route /executives/personas.
 - Feature Feedback | /feedback | User-facing page route /feedback.
 - Feature For cdo | /for-cdo | User-facing page route /for-cdo.
+- Feature For chro | /for-chro | User-facing page route /for-chro.
 - Feature For cio associations | /for-cio-associations | User-facing page route /for-cio-associations.
 - Feature For cio | /for-cio | User-facing page route /for-cio.
 - Feature For ciso | /for-ciso | User-facing page route /for-ciso.
@@ -472,7 +484,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (204)
+## Codebase Modules (206)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -503,7 +515,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/burst-limit.test.ts | src/lib/burst-limit.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/burst-limit.ts | src/lib/burst-limit.ts | In-memory sliding-window burst limiter for AI routes.
 - Code src/lib/career-mode.test.ts | src/lib/career-mode.test.ts | import { describe, expect, it } from 'vitest'
-- Code src/lib/career-mode.ts | src/lib/career-mode.ts | export type CareerMode = 'active_search' | 'post_search'
+- Code src/lib/career-mode.ts | src/lib/career-mode.ts | export type CareerMode = 'active_search' | 'post_search' | 'optionality' | 'board_track'
 - Code src/lib/channel-ia.test.ts | src/lib/channel-ia.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/channel-ia.ts | src/lib/channel-ia.ts | export type ChannelRouteSpec = {
 - Code src/lib/channel-metrics-events.test.ts | src/lib/channel-metrics-events.test.ts | import { describe, expect, it } from 'vitest'
@@ -536,6 +548,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-brief-knowledge.ts | src/lib/executive-brief-knowledge.ts | export type MentalModel = {
 - Code src/lib/executive-job-search.test.ts | src/lib/executive-job-search.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/executive-job-search.ts | src/lib/executive-job-search.ts | export const SearchPersonaSchema = z.enum(['csuite', 'vp', 'director', 'board'])
+- Code src/lib/executive-lifecycle.ts | src/lib/executive-lifecycle.ts | ─── Lifecycle States ───────────────────────────────────────────
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
 - Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
 - Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
@@ -677,6 +690,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/value-lane-pricing.ts | src/lib/value-lane-pricing.ts | export type ValueLane = 'launch' | 'scale' | 'transform'
 - Code src/lib/watermark.test.ts | src/lib/watermark.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/watermark.ts | src/lib/watermark.ts | export function encodeUserId(userId: string): string {
+- Code src/lib/what-matters-scoring.ts | src/lib/what-matters-scoring.ts | ─── Default criteria ────────────────────────────────────────────
 
 ## Internal Scripts (136)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
@@ -998,7 +1012,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 
-## Documentation (607)
+## Documentation (616)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1027,6 +1041,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md | docs/coach-and-outplacement-persona-deep-dive-2026-06-15.md | Coach and Outplacement Persona Deep Dive (2026-06-15)
 - Doc docs/coach-council-epic.md | docs/coach-council-epic.md | Coach Conversion Epic
 - Doc docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | docs/coach-journey-visuals-and-competitive-comparison-2026-06-13.md | Coach Journey Visuals And Competitive Comparison
+- Doc docs/coach-outplacement-gap-analysis-report-2026-06-15.md | docs/coach-outplacement-gap-analysis-report-2026-06-15.md | Coach and Outplacement Gap Analysis Report (2026-06-15)
 - Doc docs/coach-outreach-messages.md | docs/coach-outreach-messages.md | Coach Outreach Messages — Sales Navigator Campaign
 - Doc docs/coach-outreach-pain-led-messaging-system.md | docs/coach-outreach-pain-led-messaging-system.md | Coach Outreach Pain-Led Messaging System
 - Doc docs/coach-peer-forward-note.md | docs/coach-peer-forward-note.md | Coach Peer Forward Note
@@ -1456,6 +1471,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
 - Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
 - Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
@@ -1536,6 +1552,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
 - Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | Four-Channel Customer Journey Implementation Backlog
 - Doc docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | Four-Channel Now Tranche Kickoff
+- Doc docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md | docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md | Integrated Transition System Gap Closure Plan (2026-06-15)
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
@@ -1590,6 +1607,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/terry-coach-forward-email.md | docs/terry-coach-forward-email.md | Coach Forward Email
 - Doc docs/thought-leadership-authority-epic.md | docs/thought-leadership-authority-epic.md | Epic: 12-Week Thought Leadership Authority Build
 - Doc docs/tickets-online-guide-and-chat-2026-05-30.md | docs/tickets-online-guide-and-chat-2026-05-30.md | Tickets: Online User Guide + Guide Chat
+- Doc docs/trust/artifact-ownership-register-2026-06-16.md | docs/trust/artifact-ownership-register-2026-06-16.md | Artifact Ownership and Refresh Register (2026-06-16)
+- Doc docs/trust/claims-taxonomy-2026-06-16.md | docs/trust/claims-taxonomy-2026-06-16.md | Claims Taxonomy and Public Proof Policy (2026-06-16)
+- Doc docs/trust/coach-claims-audit-2026-06-16.md | docs/trust/coach-claims-audit-2026-06-16.md | Coach Trust and Claims Audit (2026-06-16)
+- Doc docs/trust/enterprise-coach-cohort-governance-pack-2026-06-16.md | docs/trust/enterprise-coach-cohort-governance-pack-2026-06-16.md | Enterprise Coach Cohort Governance Pack
+- Doc docs/trust/named-proof-asset-intake-2026-06-16.md | docs/trust/named-proof-asset-intake-2026-06-16.md | Named Proof Asset Intake (2026-06-16)
+- Doc docs/trust/outplacement-claims-audit-2026-06-16.md | docs/trust/outplacement-claims-audit-2026-06-16.md | Outplacement Trust and Claims Audit (2026-06-16)
 - Doc docs/ui-guide.md | docs/ui-guide.md | Starting Monday — UI Guide
 - Doc docs/ui-ux-remediation-wave-closeout-2026-06-14.md | docs/ui-ux-remediation-wave-closeout-2026-06-14.md | UI/UX Remediation Wave Closeout (Staged)
 - Doc docs/ui-ux-rerun-2026-05-26.md | docs/ui-ux-rerun-2026-05-26.md | UI/UX Rerun - 2026-05-26

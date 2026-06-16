@@ -93,13 +93,13 @@ export default function RetainedSearchCandidatePreparationPage() {
 
         <p>
           The honest reality is that most candidates are not spending two to four hours on each.
-          They are spending forty-five minutes. They read the website, scan the press releases,
+          They allocate forty-five minutes. They read the website, scan the press releases,
           look at the executive team page, and review the job description one more time. That is
           the preparation that produces first-round feedback about not seeming fully prepared.
         </p>
 
         <p>
-          This is not a character issue. It is a resource issue. The research capacity required
+          This reflects resource constraints, not commitment. The research capacity required
           to prepare adequately for every conversation in an active senior search exceeds what
           a single person can sustain manually, especially when that person is also managing
           active follow-ups, maintaining relationships with six to eight search firm contacts,
@@ -109,7 +109,7 @@ export default function RetainedSearchCandidatePreparationPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What changes the equation</h2>
 
         <p>
-          The preparation gap closes when the research layer is automated. An AI-generated prep
+          Adequate preparation becomes sustainable when the information-gathering infrastructure is systematized. An AI-generated prep
           brief that takes sixty seconds to produce can cover the company situation, the technology
           context, the candidate's win thesis for that specific role, the likely objections and
           how to address them, and the questions that signal genuine peer-level preparation.
@@ -181,7 +181,7 @@ export default function RetainedSearchCandidatePreparationPage() {
 
         <p>
           Starting Monday was built for VP and C-suite executives in active search. The{' '}
-          <a href="/for-search-firms" className="text-slate-900 font-semibold underline underline-offset-2 hover:text-orange-600 transition-colors">
+          <a href="/search-firms" className="text-slate-900 font-semibold underline underline-offset-2 hover:text-orange-600 transition-colors">
             search firm partner guide
           </a>
           {' '}covers how the platform works in practice and how firms can refer and support candidates.

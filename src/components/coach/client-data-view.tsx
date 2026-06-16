@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { CoachPreSessionSnapshot } from '@/components/coach/CoachPreSessionSnapshot'
 
 interface Scorecard {
   pipeline: {
@@ -129,7 +130,8 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
   const [agendaTemplateId, setAgendaTemplateId] = useState('pipeline_reset')
   const [agendaItemsText, setAgendaItemsText] = useState('')
   const [sessionNotes, setSessionNotes] = useState({ wins: '', risks: '', decisions: '', freeform: '' })
-  const [activeTab, setActiveTab] = useState('scorecard')
+  const [weeklyStateSignals, setWeeklyStateSignals] = useState({ confidenceLevel: 'steady', momentumLevel: 'building', narrativeDrift: '' })
+  const [activeTab, setActiveTab] = useState('prep')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [savingAction, setSavingAction] = useState(false)
@@ -198,6 +200,11 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           risks: typeof notes.risks === 'string' ? notes.risks : '',
           decisions: typeof notes.decisions === 'string' ? notes.decisions : '',
           freeform: typeof notes.freeform === 'string' ? notes.freeform : '',
+        })
+        setWeeklyStateSignals({
+          confidenceLevel: typeof answers.confidence_level === 'string' ? answers.confidence_level : 'steady',
+          momentumLevel: typeof answers.momentum_level === 'string' ? answers.momentum_level : 'building',
+          narrativeDrift: typeof answers.narrative_drift === 'string' ? answers.narrative_drift : '',
         })
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -288,6 +295,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             decisions: sessionNotes.decisions.trim(),
             freeform: sessionNotes.freeform.trim(),
           },
+          confidence_level: weeklyStateSignals.confidenceLevel,
+          momentum_level: weeklyStateSignals.momentumLevel,
+          narrative_drift: weeklyStateSignals.narrativeDrift.trim(),
         }),
       })
 
@@ -552,6 +562,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
       <div className="border-b border-slate-200">
         <div className="flex gap-4">
           {[
+            { id: 'prep', label: '⚡ Prep' },
             { id: 'scorecard', label: 'Scorecard' },
             { id: 'review', label: 'Weekly Review' },
             { id: 'trends', label: 'Weekly Trends' },
@@ -573,6 +584,29 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
           ))}
         </div>
       </div>
+
+      {/* Pre-Session Snapshot Tab */}
+      {activeTab === 'prep' && scorecard.session_prep_snapshot && (
+        <CoachPreSessionSnapshot
+          snapshot={scorecard.session_prep_snapshot}
+          nextActionText={nextAction?.action ?? undefined}
+          confidenceField={
+            workflow?.current_review?.review_answers?.confidence_level
+              ? String(workflow.current_review.review_answers.confidence_level)
+              : undefined
+          }
+          momentumField={
+            workflow?.current_review?.review_answers?.momentum_level
+              ? String(workflow.current_review.review_answers.momentum_level)
+              : undefined
+          }
+          narrativeDriftFlag={
+            workflow?.current_review?.review_answers?.narrative_drift
+              ? String(workflow.current_review.review_answers.narrative_drift)
+              : undefined
+          }
+        />
+      )}
 
       {/* Scorecard Tab */}
       {activeTab === 'scorecard' && (
@@ -687,81 +721,180 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
 
       {/* Weekly Review Tab */}
       {activeTab === 'review' && (
-        <form onSubmit={saveWeeklyReview} className="space-y-4 border border-slate-200 rounded-lg p-5 bg-white">
+        <form onSubmit={saveWeeklyReview} className="space-y-5 border border-slate-200 rounded-lg p-5 bg-white">
+          {/* Header */}
           <div>
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-1">Weekly review</p>
-            <h3 className="text-[16px] font-semibold text-slate-900">Turn the template into a recurring workflow</h3>
-            <p className="text-[13px] text-slate-500 mt-1">Week of {workflow?.week_start ?? 'this week'}</p>
+            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-500 mb-1">Weekly Review Ritual</p>
+            <h3 className="text-[16px] font-semibold text-slate-900">Four-part session operating loop</h3>
+            <p className="text-[13px] text-slate-500 mt-1">
+              Week of {workflow?.week_start ?? 'this week'} · Complete all four parts to save.
+            </p>
           </div>
 
-          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 space-y-3">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Session agenda template</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Part 1: Strategic Decision */}
+          <div className="rounded-xl border border-blue-200 bg-blue-50/30 p-5 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-6 w-6 rounded-full bg-blue-600 text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <p className="text-[13px] font-bold text-blue-900">Strategic decision this session</p>
+            </div>
+            <p className="text-[12px] text-blue-700 leading-relaxed">
+              What is the one strategic call the client needs to make — targeting, narrative, sequencing, or go/no-go?
+            </p>
+            <textarea
+              value={sessionNotes.decisions}
+              onChange={(event) => setSessionNotes((current) => ({ ...current, decisions: event.target.value }))}
+              rows={3}
+              className="w-full border border-blue-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-blue-400 resize-none bg-white"
+              placeholder="e.g. Decide whether to pursue the CFO role at Acme or hold for the PE-backed opportunity."
+            />
+          </div>
+
+          {/* Part 2: Risk */}
+          <div className="rounded-xl border border-red-200 bg-red-50/30 p-5 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-6 w-6 rounded-full bg-red-600 text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <p className="text-[13px] font-bold text-red-900">Risk and blockers</p>
+            </div>
+            <p className="text-[12px] text-red-700 leading-relaxed">
+              What could derail momentum this week — signals missed, confidence drop, narrative inconsistency, or pipeline stall?
+            </p>
+            <textarea
+              value={sessionNotes.risks}
+              onChange={(event) => setSessionNotes((current) => ({ ...current, risks: event.target.value }))}
+              rows={3}
+              className="w-full border border-red-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-red-400 resize-none bg-white"
+              placeholder="e.g. Client has not responded to three tier-1 contacts — outreach rhythm is stalling."
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="agenda-template" className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Template</label>
-                <select
-                  id="agenda-template"
-                  value={agendaTemplateId}
-                  onChange={(event) => setAgendaTemplateId(event.target.value)}
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
-                >
-                  {agendaTemplates.map((template) => (
-                    <option key={template.id} value={template.id}>{template.label}</option>
-                  ))}
-                </select>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">What changed in signals?</label>
+                <textarea
+                  value={weeklyAnswers.signals}
+                  onChange={(event) => setWeeklyAnswers((current) => ({ ...current, signals: event.target.value }))}
+                  rows={2}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none bg-white"
+                  placeholder="New hires, funding, exits, board changes"
+                />
               </div>
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Agenda items (editable)</label>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Which companies moved or stalled?</label>
                 <textarea
-                  value={agendaItemsText}
-                  onChange={(event) => setAgendaItemsText(event.target.value)}
-                  rows={4}
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
-                  placeholder="One item per line"
+                  value={weeklyAnswers.pipeline}
+                  onChange={(event) => setWeeklyAnswers((current) => ({ ...current, pipeline: event.target.value }))}
+                  rows={2}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none bg-white"
+                  placeholder="Stage changes, blockers, interview progress"
                 />
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">What changed in signals?</label>
-              <textarea
-                value={weeklyAnswers.signals}
-                onChange={(event) => setWeeklyAnswers((current) => ({ ...current, signals: event.target.value }))}
-                rows={3}
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
-                placeholder="New hires, funding, promotions, product launches, or other moves"
-              />
+          {/* Part 3: Narrative Shift */}
+          <div className="rounded-xl border border-amber-200 bg-amber-50/30 p-5 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-6 w-6 rounded-full bg-amber-600 text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <p className="text-[13px] font-bold text-amber-900">Narrative adjustment</p>
+            </div>
+            <p className="text-[12px] text-amber-700 leading-relaxed">
+              Did the client's story change this week? Did an objection reveal a gap in the current narrative?
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Narrative change or rehearsal need</label>
+                <textarea
+                  value={weeklyAnswers.brief}
+                  onChange={(event) => setWeeklyAnswers((current) => ({ ...current, brief: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-amber-100 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-amber-400 resize-none bg-white"
+                  placeholder="e.g. Client weakened on 'why now' — needs tighter inflection story."
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Wins to reinforce</label>
+                <textarea
+                  value={sessionNotes.wins}
+                  onChange={(event) => setSessionNotes((current) => ({ ...current, wins: event.target.value }))}
+                  rows={3}
+                  className="w-full border border-amber-100 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-amber-400 resize-none bg-white"
+                  placeholder="Moments of strong narrative delivery or target progress."
+                />
+              </div>
             </div>
             <div>
-              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Which companies moved or stalled?</label>
+              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Freeform session notes</label>
               <textarea
-                value={weeklyAnswers.pipeline}
-                onChange={(event) => setWeeklyAnswers((current) => ({ ...current, pipeline: event.target.value }))}
+                value={sessionNotes.freeform}
+                onChange={(event) => setSessionNotes((current) => ({ ...current, freeform: event.target.value }))}
                 rows={3}
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
-                placeholder="Pipeline movement, blockers, interview progress, or delays"
+                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none bg-white"
+                placeholder="Context, observations, themes to track."
               />
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-5 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-6 w-6 rounded-full bg-slate-700 text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <p className="text-[13px] font-bold text-slate-900">State signals</p>
+            </div>
+            <p className="text-[12px] text-slate-600 leading-relaxed">
+              Record the client&apos;s current confidence, momentum, and any explicit narrative drift worth surfacing next session.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Confidence level</label>
+                <select
+                  value={weeklyStateSignals.confidenceLevel}
+                  onChange={(event) => setWeeklyStateSignals((current) => ({ ...current, confidenceLevel: event.target.value }))}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
+                >
+                  <option value="low">Low</option>
+                  <option value="steady">Steady</option>
+                  <option value="strong">Strong</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Momentum level</label>
+                <select
+                  value={weeklyStateSignals.momentumLevel}
+                  onChange={(event) => setWeeklyStateSignals((current) => ({ ...current, momentumLevel: event.target.value }))}
+                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
+                >
+                  <option value="slowing">Slowing</option>
+                  <option value="building">Building</option>
+                  <option value="accelerating">Accelerating</option>
+                </select>
+              </div>
             </div>
             <div>
-              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Which prep brief matters this week?</label>
+              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Narrative drift note</label>
               <textarea
-                value={weeklyAnswers.brief}
-                onChange={(event) => setWeeklyAnswers((current) => ({ ...current, brief: event.target.value }))}
+                value={weeklyStateSignals.narrativeDrift}
+                onChange={(event) => setWeeklyStateSignals((current) => ({ ...current, narrativeDrift: event.target.value }))}
                 rows={3}
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
-                placeholder="The most important brief, interview, or conversation to prepare"
+                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none bg-white"
+                placeholder="e.g. Story is leaning too operational; needs a sharper strategic arc."
               />
             </div>
+          </div>
+
+          {/* Part 4: Next Action */}
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/30 p-5 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-6 w-6 rounded-full bg-emerald-600 text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <p className="text-[13px] font-bold text-emerald-900">Committed next action</p>
+            </div>
+            <p className="text-[12px] text-emerald-700 leading-relaxed">
+              One non-negotiable action with a named owner and a hard deadline. Review cannot be saved without this.
+            </p>
             <div>
               <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">What is the one action before next session?</label>
               <textarea
                 value={weeklyAnswers.nextStep}
                 onChange={(event) => setWeeklyAnswers((current) => ({ ...current, nextStep: event.target.value }))}
-                rows={3}
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400 resize-none"
-                placeholder="One concrete step to finish before the next weekly check-in"
+                rows={2}
+                className="w-full border border-emerald-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-emerald-400 resize-none bg-white"
+                placeholder="e.g. Send follow-up to three tier-1 contacts by Thursday."
               />
             </div>
           </div>
@@ -810,62 +943,54 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 space-y-3">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">Next action required</p>
-                <p className="text-[12px] text-slate-500">The review cannot be saved without an owner and due date.</p>
-              </div>
-              {actionIsOverdue && <span className="text-[11px] font-semibold text-red-700 bg-red-50 px-2 py-1 rounded-full">Overdue</span>}
+            {/* Owner, due date, status inside Part 4 */}
+            <div className="flex items-center justify-between gap-3 pt-1">
+              {actionIsOverdue && <span className="text-[11px] font-semibold text-red-700 bg-red-50 border border-red-200 px-2 py-1 rounded-full">Overdue</span>}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Action</label>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Action (system field)</label>
                 <input
-                    aria-label="Weekly review next action"
+                  aria-label="Weekly review next action"
                   value={actionDraft.action}
                   onChange={(event) => setActionDraft((current) => ({ ...current, action: event.target.value }))}
                   placeholder="Confirm interview prep session"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400"
+                  className="w-full border border-emerald-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-emerald-400"
                 />
               </div>
               <div>
                 <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Owner</label>
                 <input
-                    aria-label="Weekly review next action owner"
+                  aria-label="Weekly review next action owner"
                   value={actionDraft.owner}
                   onChange={(event) => setActionDraft((current) => ({ ...current, owner: event.target.value }))}
                   placeholder="Client or coach"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400"
+                  className="w-full border border-emerald-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-emerald-400"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Due date</label>
+                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Deadline</label>
                 <input
-                    aria-label="Weekly review next action due date"
+                  aria-label="Weekly review next action due date"
                   value={actionDraft.dueDate}
                   onChange={(event) => setActionDraft((current) => ({ ...current, dueDate: event.target.value }))}
                   type="date"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400"
+                  className="w-full border border-emerald-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-emerald-400"
                 />
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex-1 max-w-[220px]">
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Next action status</label>
-                <select
-                  aria-label="Weekly review next action status"
-                  value={actionDraft.status}
-                  onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
-                >
-                  <option value="open">Open</option>
-                  <option value="in_progress">In progress</option>
-                  <option value="completed">Completed</option>
-                </select>
-              </div>
+            <div className="max-w-[220px]">
+              <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Status</label>
+              <select
+                aria-label="Weekly review next action status"
+                value={actionDraft.status}
+                onChange={(event) => setActionDraft((current) => ({ ...current, status: event.target.value }))}
+                className="w-full border border-emerald-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-emerald-400"
+              >
+                <option value="open">Open</option>
+                <option value="in_progress">In progress</option>
+                <option value="completed">Completed</option>
+              </select>
             </div>
           </div>
 
@@ -906,6 +1031,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                       <p><span className="font-semibold text-slate-700">Pipeline:</span> {review.review_answers.pipeline ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Brief:</span> {review.review_answers.brief ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Next step:</span> {review.review_answers.nextStep ?? '—'}</p>
+                      <p><span className="font-semibold text-slate-700">Confidence:</span> {review.review_answers.confidence_level ?? '—'}</p>
+                      <p><span className="font-semibold text-slate-700">Momentum:</span> {review.review_answers.momentum_level ?? '—'}</p>
+                      <p className="md:col-span-2"><span className="font-semibold text-slate-700">Narrative drift:</span> {review.review_answers.narrative_drift ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Agenda:</span> {review.review_answers.agenda_template ?? '—'}</p>
                       <p><span className="font-semibold text-slate-700">Session notes:</span> {review.review_answers.session_notes?.freeform ?? '—'}</p>
                     </div>

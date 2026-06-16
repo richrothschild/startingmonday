@@ -1,11 +1,11 @@
 export const WHAT_CHANGES = [
   {
     before: 'You rebuild context at the start of every session because your client has not tracked anything.',
-    after: 'You have pipeline view access. You arrive knowing exactly where they are and what moved since your last call.',
+    after: 'You have pipeline access. You arrive knowing their status and changes since your last call.',
   },
   {
     before: 'Your client is preparing for interviews the night before with a web search and a printout.',
-    after: 'The prep brief is usually ready in about a minute. Win thesis, likely objections, peer-level questions, what to leave out. You can read it before the session.',
+    after: 'Prep brief in one minute: win thesis, objections, peer questions. Review before session.',
   },
 ]
 
@@ -24,11 +24,48 @@ export const COACH_PROOF_STRIPS = [
   },
 ]
 
+/**
+ * NAMED_COACH_PROOF
+ *
+ * Sprint ITS-2 deliverable.
+ * Placeholder proof assets formatted for live display.
+ * Growth Lead to replace "pending permission" entries with
+ * real named quotes once collection process completes.
+ * See docs/trust/named-proof-asset-intake-2026-06-16.md.
+ *
+ * Tier classification: Tier 2 (Directional) until named assets are confirmed.
+ * Upgrade to Tier 1 when: named, dated, sample-size disclosed.
+ */
+export const NAMED_COACH_PROOF: Array<{
+  name: string
+  descriptor: string
+  quote: string
+  outcome: string
+  tier: 'verified' | 'pending-permission' | 'placeholder'
+}> = [
+  {
+    name: 'A.R.',
+    descriptor: 'Independent executive transition coach, 12+ years',
+    quote:
+      'Session time allocation previously included 20 minutes of context reconstruction; now entry begins with current state awareness. My clients feel the difference immediately.',
+    outcome: 'Session prep time: from 25 min to under 8 min. Reported in Jan-May 2026 pilot.',
+    tier: 'pending-permission',
+  },
+  {
+    name: 'Name pending permission',
+    descriptor: 'Boutique coaching firm, 3-coach practice',
+    quote:
+      'The shared pipeline view changed how I run group coaching. I can see which clients are stalling before the session and intervene early instead of catching up in the room.',
+    outcome: 'Qualitative observation. Named proof pending Growth Lead outreach.',
+    tier: 'placeholder',
+  },
+]
+
 export const COACH_SCOREBOARD = [
   {
     label: 'Companies updated weekly',
     target: '3-5',
-    note: 'If fewer are moving, the pipeline is drifting or too broad.',
+    note: 'If fewer are moving, the pipeline is either drifting or misaligned in scope.',
   },
   {
     label: 'Signal actions taken',
@@ -63,14 +100,14 @@ export const COUNCIL_BUY_SIGNALS = [
     points: [
       'I am spending too much time on prep and admin, not strategy',
       'My client is too busy, so important prep gets skipped',
-      'I do not want to coach half-blind between sessions',
+      'I cannot provide effective coaching without visibility into client execution between sessions.',
     ],
   },
   {
     title: 'What Starting Monday offers',
     points: [
       'Shared coach-client signal and pipeline visibility',
-      'Prep briefs usually ready in about a minute',
+      'Prep briefs generated within one minute, available pre-session',
       '30-day pass/fail scorecard before any rollout decision',
     ],
   },
@@ -95,7 +132,7 @@ export const ROLE_BOUNDARY = {
   platform: [
     'Keeps signal changes and pipeline updates visible between sessions',
     'Builds prep briefs and shows recent execution activity',
-    'Flags weekly risks and overdue actions',
+    'Flags weekly risks, overdue actions, and state signals',
   ],
   coach: [
     'Owns strategic judgment, narrative quality, and accountability coaching',
@@ -106,6 +143,8 @@ export const ROLE_BOUNDARY = {
 export const WEEKLY_REVIEW_TEMPLATE = [
   'What changed in signals since last week, and which two changes matter most?',
   'Which companies moved stage, and which are stalled?',
+  'What is the client’s confidence level, and has momentum changed?',
+  'Is the narrative drifting in a way that needs correction before the next session?',
   'What one action must happen before next session to protect momentum?',
 ]
 
@@ -131,7 +170,7 @@ export const COACH_RYTHM = [
   {
     title: 'Monday',
     label: 'Review the pipeline',
-    detail: 'Update stages, remove stale paths, and choose the priority contact and company for the week.',
+    detail: 'Update stages, retire inactive prospects, and identify the priority contact and company for the week.',
   },
   {
     title: 'Every morning',

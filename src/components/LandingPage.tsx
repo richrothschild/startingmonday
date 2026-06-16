@@ -75,7 +75,7 @@ type RolePathItem = {
 
 const EXECUTIVE_WHY = [
   'The short list is shaped before the posting goes live.',
-  'Better cadence beats better credentials when timing gets tight.',
+  'Strategic timing and disciplined execution outweigh credentials alone when competition intensifies.',
   'Narrative quality decides whether you get invited back.',
   'Without a weekly operating loop, even top candidates become reactive.',
 ]
@@ -91,11 +91,11 @@ const EXECUTIVE_GETS = [
   },
   {
     title: 'Run a weekly execution rhythm',
-    detail: 'Turn outreach and follow-up into a repeatable cadence instead of reactive bursts.',
+    detail: 'Replace reactive outreach cycles with a structured weekly operating cadence.',
   },
   {
     title: 'Prove progress with evidence',
-    detail: 'Track signals, responses, and outcomes so strategy changes are grounded in reality.',
+    detail: 'Track signals and outcomes so strategy changes ground in data.',
   },
 ]
 
@@ -118,7 +118,7 @@ const EXECUTIVE_FEATURE_MATRIX = [
   {
     feature: 'Weekly operating cadence',
     whatYouGet: 'A repeatable weekly loop for targets, outreach, follow-up, and decision review.',
-    whyItMatters: 'Momentum compounds instead of resetting every time your calendar gets busy.',
+    whyItMatters: 'Sustained momentum replaces the stop-start pattern inherent in ad hoc scheduling.',
   },
 ]
 
@@ -398,7 +398,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {proofHighlights && proofHighlights.length > 0 && (
               <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
-                <span className="font-semibold text-orange-200">Proof:</span> Executives using Starting Monday stay organized, sharpen narrative-to-role fit, and walk into interviews with role-specific evidence.
+                <span className="font-semibold text-orange-200">Proof:</span> Executives maintain disciplined narratives and enter conversations grounded in company context.
               </p>
             )}
 
@@ -422,7 +422,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
               <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
-                Connect with the right relationships at the right time and get to the front of the line before the role is obvious to the market.
+                Build relationships during signal windows before mandate announcements concentrate competition.
               </p>
               <div className="grid grid-cols-1 gap-3">
                 <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
@@ -453,7 +453,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 href="/demo/executive-brief"
                 className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors"
               >
-                See how an interview brief works in 60 seconds
+                See prep brief in 60 seconds
               </Link>
             </div>
 
@@ -462,7 +462,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <div className="flex flex-col gap-2 mb-5">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Executive platform capabilities</p>
                   <h2 id="executive-differentiation-title" className="text-[22px] font-bold leading-snug text-white sm:text-[24px]">
-                    Everything important in one operating view.
+                    All essentials in one operating view.
                   </h2>
                   <p className="max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
                     Starting Monday is designed for executive-transition behavior: earlier timing, sharper mandate narrative, and disciplined weekly execution.
@@ -619,21 +619,42 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </h2>
                 <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {CHANNEL_ROUTE_SPECS.map((spec) => (
-                    <TrackLink
+                    <article
                       key={`next_${spec.channel}`}
-                      href={spec.route}
-                      event={EVENT_NAMES.channelEntryClicked}
-                      logToUserEvents
-                      properties={{
-                        channel: spec.channel,
-                        cta_label: 'next_step_channel_card',
-                        source_page: sourcePage,
-                      }}
-                      className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
                     >
                       <p className="text-[13px] font-semibold text-white">{spec.label}</p>
                       <p className="mt-1 text-[12px] leading-relaxed text-slate-300">{CHANNEL_BEST_FOR[spec.channel]}</p>
-                    </TrackLink>
+                      <div className="mt-3 flex flex-wrap items-center gap-3">
+                        <TrackLink
+                          href={spec.route}
+                          event={EVENT_NAMES.channelEntryClicked}
+                          logToUserEvents
+                          properties={{
+                            channel: spec.channel,
+                            cta_label: 'next_step_channel_card',
+                            source_page: sourcePage,
+                          }}
+                          className="inline-flex items-center rounded bg-orange-400 px-3 py-1.5 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+                        >
+                          Open channel
+                        </TrackLink>
+                        <TrackLink
+                          href={`/channels/feature-map?channel=${spec.channel}`}
+                          event={EVENT_NAMES.channelEntryClicked}
+                          logToUserEvents
+                          properties={{
+                            channel: spec.channel,
+                            cta_label: 'next_step_channel_timeline',
+                            source_page: sourcePage,
+                            destination: '/channels/feature-map',
+                          }}
+                          className="text-[12px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
+                        >
+                          Preview timeline
+                        </TrackLink>
+                      </div>
+                    </article>
                   ))}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">

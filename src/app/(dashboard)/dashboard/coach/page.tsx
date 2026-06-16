@@ -24,6 +24,12 @@ type CommandCenterClient = {
     owner: string | null
     status: string | null
   } | null
+  weekly_review_summary: {
+    week_start: string
+    confidence_level: string | null
+    momentum_level: string | null
+    narrative_drift: boolean
+  } | null
 }
 
 type CommandCenterResponse = {
@@ -136,6 +142,21 @@ export default function CoachDashboard() {
     })
     .slice(0, 8)
 
+  const reviewsWithState = clients
+    .map((client) => client.weekly_review_summary)
+    .filter((review): review is NonNullable<CommandCenterClient['weekly_review_summary']> => Boolean(review))
+  const confidenceCounts = {
+    low: reviewsWithState.filter((review) => review.confidence_level === 'low').length,
+    steady: reviewsWithState.filter((review) => review.confidence_level === 'steady').length,
+    strong: reviewsWithState.filter((review) => review.confidence_level === 'strong').length,
+  }
+  const momentumCounts = {
+    slowing: reviewsWithState.filter((review) => review.momentum_level === 'slowing').length,
+    building: reviewsWithState.filter((review) => review.momentum_level === 'building').length,
+    accelerating: reviewsWithState.filter((review) => review.momentum_level === 'accelerating').length,
+  }
+  const narrativeDriftCount = reviewsWithState.filter((review) => review.narrative_drift).length
+
   function urgencyClass(urgency: 'high' | 'medium' | 'low') {
     if (urgency === 'high') return 'text-red-700 bg-red-50 border-red-200'
     if (urgency === 'medium') return 'text-amber-700 bg-amber-50 border-amber-200'
@@ -230,7 +251,7 @@ export default function CoachDashboard() {
         )}
 
         {!loading && commandCenter && (
-          <div className="grid lg:grid-cols-2 gap-4 mb-6">
+          <div className="grid lg:grid-cols-3 gap-4 mb-6">
             <div className="bg-white border border-slate-200 rounded p-4">
               <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Upcoming sessions</p>
               {commandCenter.upcoming_sessions.length === 0 ? (
@@ -267,6 +288,39 @@ export default function CoachDashboard() {
                       <p className="text-[13px] text-slate-500 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
                     </div>
                   ))}
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded p-4">
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Weekly review state</p>
+              {reviewsWithState.length === 0 ? (
+                <p className="text-[13px] text-slate-500">No saved weekly reviews with state signals yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
+                      <p className="text-[11px] text-slate-500">Low</p>
+                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.low}</p>
+                    </div>
+                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
+                      <p className="text-[11px] text-slate-500">Steady</p>
+                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.steady}</p>
+                    </div>
+                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
+                      <p className="text-[11px] text-slate-500">Strong</p>
+                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.strong}</p>
+                    </div>
+                  </div>
+                  <p className="text-[12px] text-slate-600">
+                    Momentum: {momentumCounts.slowing} slowing, {momentumCounts.building} building, {momentumCounts.accelerating} accelerating.
+                  </p>
+                  <p className="text-[12px] text-slate-600">
+                    Narrative drift flagged for <span className="font-semibold text-slate-800 tabular-nums">{narrativeDriftCount}</span> client{narrativeDriftCount !== 1 ? 's' : ''}.
+                  </p>
+                  <p className="text-[12px] text-slate-400">
+                    Coverage: {reviewsWithState.length}/{clients.length} active clients.
+                  </p>
                 </div>
               )}
             </div>

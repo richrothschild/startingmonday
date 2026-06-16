@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { TrackLink } from '@/components/TrackLink'
 import { ChannelMicroProductRail } from '@/components/micro-products/ChannelMicroProductRail'
 import { SiteFooter } from '@/components/SiteFooter'
+import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export const metadata: Metadata = {
@@ -78,7 +79,7 @@ const metrics = [
 export default function SearchFirmsPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.16em]">
             Starting Monday
@@ -100,14 +101,14 @@ export default function SearchFirmsPage() {
       <main>
 <section className="bg-slate-950 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
           <div className="mx-auto max-w-4xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-400">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">
               For retained search firms
             </p>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl">
-              One brief.<br />No rework.
+              Single comprehensive brief.<br />No rework.
             </h1>
             <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-200">
-              Starting Monday gives your team role-specific pre-search briefs that improve kickoff quality, sharpen candidate positioning, and help you move from mandate to shortlist faster.
+              Starting Monday gives your team role-specific pre-search briefs that improve kickoff quality, sharpen candidate positioning, and compress mandate-to-shortlist timelines.
             </p>
             <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-200">
               If your firm already researches every mandate, this is not a replacement. It is the briefing layer that keeps partners from starting from zero.
@@ -148,6 +149,20 @@ export default function SearchFirmsPage() {
             <div className="mt-8">
               <ChannelMicroProductRail channel="search_firms" sourceRoute="/search-firms" />
             </div>
+
+            <CompactTimelineModule
+              channel="search_firms"
+              sourcePage="/search-firms"
+              eyebrow="Mini timeline"
+              title="See the retained-search workflow in 3 phases"
+              summary="A fast visual sequence of kickoff readiness, candidate prep quality, and shortlist reporting outcomes."
+              steps={[
+                { phase: 'Discover', focus: 'Mandate intake and lane-specific context build', visual: 'Role-lane brief panel' },
+                { phase: 'Activate', focus: 'Deliver pre-search brief before kickoff', visual: 'Kickoff readiness timeline' },
+                { phase: 'Operate', focus: 'Improve shortlist quality and reduce resets', visual: 'Shortlist quality scoreboard' },
+              ]}
+              theme="light"
+            />
           </div>
         </section>
 

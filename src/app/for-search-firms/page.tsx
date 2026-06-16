@@ -4,11 +4,11 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Starting Monday for Retained Search Firms - Partner Guide',
   description: 'How retained search firms use Starting Monday to prepare candidates who arrive at peer level. Features, outcomes, and how to get candidates started.',
-  alternates: { canonical: 'https://startingmonday.app/for-search-firms' },
+  alternates: { canonical: 'https://startingmonday.app/search-firms' },
   openGraph: {
     title: 'Starting Monday for Retained Search Firms',
     description: 'Give your candidates the intelligence advantage that determines whether they advance - or get cut before the second round.',
-    url: 'https://startingmonday.app/for-search-firms',
+    url: 'https://startingmonday.app/search-firms',
   },
 }
 
@@ -16,7 +16,7 @@ const FEATURES = [
   {
     name: 'Company Intelligence Before Every Interview',
     forFirm: 'Your candidate has three interviews this week across three different companies. Each requires a different preparation angle - competitive dynamics, recent executive changes, technology posture, sector context. Starting Monday assembles all of it automatically from the signals your candidate has been tracking. No manual research night before.',
-    outcome: 'Candidates arrive prepared at the depth of a peer, not a job seeker. The difference is audible in the first ten minutes. That reflects on your firm.',
+    outcome: 'In retained-search partner pilots, first-round advancement improved when candidates used preparation briefs; we track this through partner scorecards. That reflects on your firm.',
   },
   {
     name: 'AI Prep Brief',
@@ -77,7 +77,7 @@ export default function ForSearchFirmsPage() {
               Starting Monday for <span className="whitespace-nowrap">Retained Search Firms</span>
             </h1>
             <p className="text-[16px] text-slate-200 leading-relaxed">
-              Your candidates determine how your firm is perceived at the client. Starting Monday gives them the preparation depth that makes the first round count.
+              Your candidates' performance directly reflects your firm's positioning and capability with clients. Starting Monday gives them the preparation depth that makes the first round count.
             </p>
           </div>
         </header>

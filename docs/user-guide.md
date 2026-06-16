@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-16T05:48:22.787Z
+Last generated: 2026-06-16T19:13:32.584Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (162)
+## Features (174)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -45,6 +45,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Admin / Team](/dashboard/admin/team) - Open /dashboard/admin/team to use this feature area and related workflows.
 - [Dashboard / Admin / Traces](/dashboard/admin/traces) - Open /dashboard/admin/traces to use this feature area and related workflows.
 - [Dashboard / Admin / Traces / Rubric](/dashboard/admin/traces/rubric) - Open /dashboard/admin/traces/rubric to use this feature area and related workflows.
+- [Dashboard / Board track](/dashboard/board-track) - Open /dashboard/board-track to use this feature area and related workflows.
 - [Dashboard / Briefing](/dashboard/briefing) - Open /dashboard/briefing to use this feature area and related workflows.
 - [Dashboard / Calendar](/dashboard/calendar) - Open /dashboard/calendar to use this feature area and related workflows.
 - [Dashboard / Chat](/dashboard/chat) - Open /dashboard/chat to use this feature area and related workflows.
@@ -59,13 +60,22 @@ This guide is generated from product routes, APIs, and published articles.
 - [Dashboard / Invite](/dashboard/invite) - Open /dashboard/invite to use this feature area and related workflows.
 - [Dashboard / Kanban](/dashboard/kanban) - Open /dashboard/kanban to use this feature area and related workflows.
 - [Dashboard / Offers](/dashboard/offers) - Open /dashboard/offers to use this feature area and related workflows.
+- [Dashboard / Optionality / Branding](/dashboard/optionality/branding) - Open /dashboard/optionality/branding to use this feature area and related workflows.
+- [Dashboard / Optionality / Decision cockpit](/dashboard/optionality/decision-cockpit) - Open /dashboard/optionality/decision-cockpit to use this feature area and related workflows.
+- [Dashboard / Optionality](/dashboard/optionality) - Open /dashboard/optionality to use this feature area and related workflows.
+- [Dashboard / Outplacement / Counselor](/dashboard/outplacement/counselor) - Open /dashboard/outplacement/counselor to use this feature area and related workflows.
+- [Dashboard / Outplacement / Enterprise](/dashboard/outplacement/enterprise) - Open /dashboard/outplacement/enterprise to use this feature area and related workflows.
+- [Dashboard / Outplacement / Firm admin](/dashboard/outplacement/firm-admin) - Open /dashboard/outplacement/firm-admin to use this feature area and related workflows.
+- [Dashboard / Outplacement / Operator](/dashboard/outplacement/operator) - Open /dashboard/outplacement/operator to use this feature area and related workflows.
 - [Dashboard / Outplacement](/dashboard/outplacement) - Open /dashboard/outplacement to use this feature area and related workflows.
+- [Dashboard / Outplacement / Sponsor report](/dashboard/outplacement/sponsor-report) - Open /dashboard/outplacement/sponsor-report to use this feature area and related workflows.
 - [Dashboard / Outreach](/dashboard/outreach) - Open /dashboard/outreach to use this feature area and related workflows.
 - [Dashboard](/dashboard) - Open /dashboard to use this feature area and related workflows.
 - [Dashboard / Partner](/dashboard/partner) - Open /dashboard/partner to use this feature area and related workflows.
 - [Dashboard / Pilot outreach](/dashboard/pilot-outreach) - Open /dashboard/pilot-outreach to use this feature area and related workflows.
 - [Dashboard / Placed](/dashboard/placed) - Open /dashboard/placed to use this feature area and related workflows.
 - [Dashboard / Positioning](/dashboard/positioning) - Open /dashboard/positioning to use this feature area and related workflows.
+- [Dashboard / Post landing](/dashboard/post-landing) - Open /dashboard/post-landing to use this feature area and related workflows.
 - [Dashboard / Post search](/dashboard/post-search) - Open /dashboard/post-search to use this feature area and related workflows.
 - [Dashboard / Profile](/dashboard/profile) - Open /dashboard/profile to use this feature area and related workflows.
 - [Dashboard / Profile / Tailor](/dashboard/profile/tailor) - Open /dashboard/profile/tailor to use this feature area and related workflows.
@@ -83,6 +93,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Blog](/blog) - Open /blog to use this feature area and related workflows.
 - [Career tools](/career-tools) - Open /career-tools to use this feature area and related workflows.
 - [Case studies](/case-studies) - Open /case-studies to use this feature area and related workflows.
+- [Channels / Feature map](/channels/feature-map) - Open /channels/feature-map to use this feature area and related workflows.
 - [Coaches guide](/coaches-guide) - Open /coaches-guide to use this feature area and related workflows.
 - [Coaches / Mock dashboard](/coaches/mock-dashboard) - Open /coaches/mock-dashboard to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
@@ -107,6 +118,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Executives / Personas](/executives/personas) - Open /executives/personas to use this feature area and related workflows.
 - [Feedback](/feedback) - Open /feedback to use this feature area and related workflows.
 - [For cdo](/for-cdo) - Open /for-cdo to use this feature area and related workflows.
+- [For chro](/for-chro) - Open /for-chro to use this feature area and related workflows.
 - [For cio associations](/for-cio-associations) - Open /for-cio-associations to use this feature area and related workflows.
 - [For cio](/for-cio) - Open /for-cio to use this feature area and related workflows.
 - [For ciso](/for-ciso) - Open /for-ciso to use this feature area and related workflows.

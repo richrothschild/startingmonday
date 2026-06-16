@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Executives - Move into C-suite and board-caliber roles',
@@ -83,7 +84,7 @@ const PROOF_HIGHLIGHTS = [
     detail: 'Pilot window measured across Jan-May 2026 cohorts.',
   },
   {
-    metric: 'Earlier outreach by 4.2 weeks on average',
+    metric: 'Earlier outreach timing relative to typical reactive candidate timelines; detailed methodology available in our pilot report (pilot-2026-q2.md).',
     detail: 'Compared with typical reactive outreach timing in similar executive searches.',
   },
   {
@@ -123,7 +124,7 @@ export default async function ForExecutivesPage({ searchParams }: ForExecutivesP
       <h1 className="sr-only">Starting Monday for executives pursuing C-suite and board-level roles</h1>
       <LandingPage
         hero={{
-          eyebrow: 'Become the executive they shape the role for.',
+          eyebrow: 'Position yourself as the executive the mandate is designed to accommodate.',
           h1Lines: ['Lead at executive altitude', 'before the shortlist hardens.'],
           body: 'Starting Monday gives you a repeatable operating system to win stronger executive conversations, protect role-fit quality, and shorten time to the right mandate.',
           steps: [
@@ -139,6 +140,20 @@ export default async function ForExecutivesPage({ searchParams }: ForExecutivesP
         sourcePage="/for-executives"
         experimentVariant={experimentVariant}
       />
+      <div className="bg-slate-950 pb-12 sm:pb-14">
+        <CompactTimelineModule
+          channel="executives"
+          sourcePage="/for-executives"
+          eyebrow="Mini timeline"
+          title="See the executive transition flow in 3 phases"
+          summary="A quick sequence of how executive features support mandate timing, narrative quality, and shortlist momentum."
+          steps={[
+            { phase: 'Discover', focus: 'Spot role-shaping signals before mandate visibility peaks', visual: 'Signal timing line' },
+            { phase: 'Activate', focus: 'Convert target context into audience-specific positioning', visual: 'Narrative cue cards' },
+            { phase: 'Operate', focus: 'Run weekly outreach and prep cadence with accountability', visual: 'Cadence board and progress strip' },
+          ]}
+        />
+      </div>
     </>
   )
 }

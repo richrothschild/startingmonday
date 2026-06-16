@@ -30,8 +30,8 @@ const COACH_PROOF = [
 
 const COST_OF_STAYING_THE_SAME = [
   {
-    title: 'Session drift compounds quickly',
-    body: 'If a client shows up unprepared, strategy time turns into recap and recovery.',
+    title: 'Session preparation quality affects coaching ROI',
+    body: 'Structured prep reduces administrative rework in early sessions.',
   },
   {
     title: 'Great coaching still loses to weak execution',
@@ -66,7 +66,7 @@ const DOUBT_BLOCKS = [
 ]
 
 const OTHER_PARTNERS = [
-  { label: 'Search firms', href: '/for-search-firms' },
+  { label: 'Search firms', href: '/search-firms' },
   { label: 'Outplacement providers', href: '/for-outplacement' },
   { label: 'PE talent teams', href: '/for-pe-teams' },
   { label: 'Relocation firms', href: '/for-relocation' },
