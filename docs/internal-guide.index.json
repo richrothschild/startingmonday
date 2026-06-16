@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T20:17:52.440Z",
+  "generatedAt": "2026-06-16T20:38:47.635Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-16T20:17:52.454Z"
     },
     {
       "id": "feature:/login",
@@ -10720,7 +10720,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T20:08:30.367Z"
+      "lastModifiedAt": "2026-06-16T20:38:24.412Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -16996,7 +16996,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-16T20:17:52.454Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17035,7 +17035,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-16T20:17:52.454Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

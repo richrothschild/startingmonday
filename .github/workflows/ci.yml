@@ -380,7 +380,10 @@ jobs:
           const synthetic = process.env.SYNTHETIC_CHANGED === 'true'
 
           if (full) {
-            suites.push({ name: 'smoke-core', command: 'npm run test:e2e' })
+            suites.push({
+              name: 'smoke-core',
+              command: 'npx playwright test tests/e2e/smoke.spec.ts --project=setup --project=smoke',
+            })
           } else {
             if (auth) suites.push({ name: 'auth-ux', command: 'npm run test:e2e:auth-ux' })
             if (luxury) suites.push({ name: 'luxury-ux', command: 'npm run test:e2e:luxury' })
