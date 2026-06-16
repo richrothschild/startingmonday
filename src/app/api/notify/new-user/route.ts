@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   const username = (body?.username ?? '').toString().trim() || null
   const tier     = (body?.tier     ?? 'trialing').toString().trim()
   const source   = (body?.source   ?? '').toString().trim() || null
+  const isStaging = body?.is_staging === true
 
   const blocked = await enforcePublicEndpointGuard({
     request,
@@ -29,8 +30,6 @@ export async function POST(request: NextRequest) {
 
   const tierLabel = TIER_LABELS[tier] ?? tier
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
-  const host = request.headers.get('host') ?? ''
-  const isStaging = !host.endsWith('startingmonday.app')
 
   const usernameRow = username
     ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${username}</td></tr>`
