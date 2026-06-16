@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:04:34.113Z",
+  "generatedAt": "2026-06-16T04:24:16.266Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -1248,7 +1248,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.118Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.588Z",
       "qualityWeight": 1
     },
     {
@@ -1274,7 +1274,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.126Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.589Z",
       "qualityWeight": 1
     },
     {
@@ -1300,7 +1300,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.126Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.589Z",
       "qualityWeight": 1
     },
     {
@@ -1326,7 +1326,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.127Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.590Z",
       "qualityWeight": 1
     },
     {
@@ -1339,7 +1339,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.127Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.590Z",
       "qualityWeight": 1
     },
     {
@@ -1430,7 +1430,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.127Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.591Z",
       "qualityWeight": 1
     },
     {
@@ -1443,7 +1443,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.127Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.592Z",
       "qualityWeight": 1
     },
     {
@@ -1456,7 +1456,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.129Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.592Z",
       "qualityWeight": 1
     },
     {
@@ -1690,7 +1690,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:12:07.129Z",
+      "lastModifiedAt": "2026-06-16T04:24:14.593Z",
       "qualityWeight": 1
     },
     {
@@ -4823,7 +4823,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T04:02:59.400Z",
+      "lastModifiedAt": "2026-06-16T04:24:08.101Z",
       "qualityWeight": 0.95
     },
     {
@@ -5070,7 +5070,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T04:02:54.833Z",
+      "lastModifiedAt": "2026-06-16T04:23:54.692Z",
       "qualityWeight": 0.95
     },
     {

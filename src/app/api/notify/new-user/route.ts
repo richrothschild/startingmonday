@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
 
   const tierLabel = TIER_LABELS[tier] ?? tier
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
-  const isStaging = process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://mytnhoxcgvnzxhgcumkf.supabase.co'
+  const host = request.headers.get('host') ?? ''
+  const isStaging = !host.endsWith('startingmonday.app')
 
   const usernameRow = username
     ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Name</td><td>${username}</td></tr>`
