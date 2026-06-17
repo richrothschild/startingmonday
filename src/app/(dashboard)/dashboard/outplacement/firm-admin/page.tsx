@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import type { Metadata } from 'next'
+import { WHITE_LABEL_TIERS, WHITE_LABEL_TRACKS, formatDollarAmount, formatWhiteLabelTierPrice, resolveWhiteLabelSettings } from '@/lib/white-label'
 
 export const metadata: Metadata = {
   title: 'Firm Admin View | Starting Monday',
@@ -9,6 +11,19 @@ export const metadata: Metadata = {
 }
 
 type PartnerRow = { id: string; name: string }
+type PartnerWithWhiteLabelRow = {
+  id: string
+  name: string
+  email: string | null
+  user_id: string | null
+  white_label_brand_name: string | null
+  white_label_track_id: string | null
+  white_label_tier_id: string | null
+  white_label_primary_color: string | null
+  white_label_accent_color: string | null
+  white_label_support_email: string | null
+  white_label_logo_url: string | null
+}
 type AttributionRow = { partner_id: string; signup_user_id: string; attributed_at: string }
 type UserEventRow = { user_id: string; created_at: string }
 type OutreachRow = { user_id: string; sent_at: string }
@@ -40,10 +55,57 @@ function riskLabel(rate: number): 'on_track' | 'watch' | 'needs_attention' {
   return 'needs_attention'
 }
 
+function mean(values: number[]): number {
+  if (values.length === 0) return 0
+  return values.reduce((sum, value) => sum + value, 0) / values.length
+}
+
+function stdDev(values: number[]): number {
+  if (values.length < 2) return 0
+  const avg = mean(values)
+  const variance = values.reduce((sum, value) => sum + ((value - avg) ** 2), 0) / values.length
+  return Number(Math.sqrt(variance).toFixed(1))
+}
+
 export default async function FirmAdminViewPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+
+  const admin = createAdminClient()
+  const { data: partnerByUserRaw } = await admin
+    .from('partners')
+    .select('id, name, email, user_id, white_label_brand_name, white_label_track_id, white_label_tier_id, white_label_primary_color, white_label_accent_color, white_label_support_email, white_label_logo_url')
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  const partnerByUser = (partnerByUserRaw ?? null) as PartnerWithWhiteLabelRow | null
+  let partner = partnerByUser
+  if (!partner && user.email) {
+    const { data: partnerByEmailRaw } = await admin
+      .from('partners')
+      .select('id, name, email, user_id, white_label_brand_name, white_label_track_id, white_label_tier_id, white_label_primary_color, white_label_accent_color, white_label_support_email, white_label_logo_url')
+      .eq('email', user.email)
+      .eq('is_active', true)
+      .maybeSingle()
+    partner = (partnerByEmailRaw ?? null) as PartnerWithWhiteLabelRow | null
+    if (partner && !partner.user_id) {
+      await admin.from('partners').update({ user_id: user.id }).eq('id', partner.id)
+      partner.user_id = user.id
+    }
+  }
+
+  const whiteLabelSettings = partner ? resolveWhiteLabelSettings({
+    brandName: partner.white_label_brand_name ?? undefined,
+    trackId: (partner.white_label_track_id ?? undefined) as 'executive_transition' | 'professional_transition' | undefined,
+    tierId: (partner.white_label_tier_id ?? undefined) as 'solo' | 'boutique' | 'outplacement' | undefined,
+    primaryColor: partner.white_label_primary_color ?? undefined,
+    accentColor: partner.white_label_accent_color ?? undefined,
+    supportEmail: partner.white_label_support_email ?? undefined,
+    logoUrl: partner.white_label_logo_url,
+    fallbackBrandName: partner.name,
+    fallbackSupportEmail: partner.email,
+  }) : null
 
   const { data: partnerOwnerRows } = await supabase
     .from('partners')
@@ -153,13 +215,52 @@ export default async function FirmAdminViewPage() {
 
       return {
         book: partner.name,
-        coaches: scopedCount,
+        participants: scopedCount,
         cohorts: cohortCount,
         on_track: `${Math.round(activation)}%`,
         note,
       }
     })
-    .sort((a, b) => b.coaches - a.coaches)
+    .sort((a, b) => b.participants - a.participants)
+
+  const BENCHMARK_DEFINITIONS = [
+    {
+      metric: 'Activation rate',
+      definition: 'Participants with user events or outreach activity in the trailing 14 days.',
+    },
+    {
+      metric: 'Action velocity',
+      definition: 'Outreach sends per participant per week in the trailing 30-day window.',
+    },
+    {
+      metric: 'Cohort variance',
+      definition: 'Standard deviation of cohort activation rates inside the same partner book.',
+    },
+  ]
+
+  const PARTNER_BENCHMARK_ROWS = partners
+    .map((partner) => {
+      const cohortKeys = Array.from(usersByCohort.keys()).filter((key) => key.startsWith(`${partner.id}::`))
+      const cohortActivations = cohortKeys
+        .map((key) => {
+          const cohortUsers = Array.from(usersByCohort.get(key) ?? new Set<string>())
+          return toPercent(cohortUsers.filter((id) => activeUsers.has(id)).length, cohortUsers.length)
+        })
+      const avgActivation = Number(mean(cohortActivations).toFixed(1))
+      const cohortVariance = stdDev(cohortActivations)
+      const scopedUsers = Array.from(usersByPartner.get(partner.id) ?? new Set<string>())
+      const stalled = scopedUsers.filter((id) => stalledUsers.has(id)).length
+      const stalledRate = toPercent(stalled, scopedUsers.length)
+
+      return {
+        partnerName: partner.name,
+        cohorts: cohortKeys.length,
+        avgActivation,
+        cohortVariance,
+        stalledRate,
+      }
+    })
+    .sort((a, b) => b.avgActivation - a.avgActivation)
 
   const COHORT_ROWS = Array.from(usersByCohort.entries())
     .map(([key, userSet]) => {
@@ -181,6 +282,11 @@ export default async function FirmAdminViewPage() {
     .sort((a, b) => Number(b.activation.replace('%', '')) - Number(a.activation.replace('%', '')))
 
   const openExceptions = Array.from(overdueByUser.values()).reduce((sum, value) => sum + value, 0) + stalledUsers.size
+  const brandingSummary = [
+    whiteLabelSettings ? `${whiteLabelSettings.brandName} brand layer` : 'Custom logo and colors per firm',
+    whiteLabelSettings ? `${WHITE_LABEL_TRACKS.find((track) => track.id === whiteLabelSettings.trackId)?.label ?? 'Executive Transition'} track` : 'Partner-branded weekly digests',
+    whiteLabelSettings ? `${WHITE_LABEL_TIERS.find((tier) => tier.id === whiteLabelSettings.tierId)?.name ?? 'Boutique'} tier` : 'Executive and professional transition tracks',
+  ]
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
@@ -219,6 +325,73 @@ export default async function FirmAdminViewPage() {
           ))}
         </section>
 
+        <section className="rounded-2xl border border-orange-200 bg-white p-5 space-y-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">White-label setup</p>
+            <h2 className="text-[18px] font-bold text-slate-900 leading-tight">Partner-branded delivery for mixed-seniority transition programs</h2>
+            <p className="text-[13px] text-slate-500 mt-1 max-w-3xl">
+              This shared configuration layer keeps the core product consistent while letting each partner control branding, track language, and reporting depth.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {brandingSummary.map((item) => (
+              <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-[13px] font-semibold text-slate-900">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          {whiteLabelSettings && (
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400">Current saved configuration</p>
+                  <p className="text-[14px] font-semibold text-slate-900 mt-1">{whiteLabelSettings.brandName}</p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-[12px] text-slate-500">
+                  <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5">{whiteLabelSettings.primaryColor}</span>
+                  <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5">{whiteLabelSettings.accentColor}</span>
+                  <span>{whiteLabelSettings.supportEmail}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <h3 className="text-[12px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Tracks</h3>
+              <div className="space-y-3">
+                {WHITE_LABEL_TRACKS.map((track) => (
+                  <div key={track.id} className="rounded-lg border border-slate-100 bg-slate-50 p-3">
+                    <p className="text-[13px] font-semibold text-slate-900">{track.label}</p>
+                    <p className="text-[12px] text-slate-500 mt-1">{track.summary}</p>
+                    <p className="text-[12px] text-slate-600 mt-2">Milestones: {track.defaultMilestones.join(' · ')}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <h3 className="text-[12px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pricing</h3>
+              <div className="space-y-3">
+                {WHITE_LABEL_TIERS.map((tier) => (
+                  <div key={tier.id} className="rounded-lg border border-slate-100 bg-slate-50 p-3">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <p className="text-[13px] font-semibold text-slate-900">{tier.name}</p>
+                      <p className="text-[13px] font-semibold text-slate-900">{formatWhiteLabelTierPrice(tier)}</p>
+                    </div>
+                    <p className="text-[12px] text-slate-500 mt-1">
+                      {tier.includedParticipants} included participants · {formatDollarAmount(tier.overageCents)}/participant overage
+                    </p>
+                    <p className="text-[12px] text-slate-600 mt-2">{tier.inclusions.join(' · ')}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100">
             <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Compare by book</h2>
@@ -232,9 +405,39 @@ export default async function FirmAdminViewPage() {
                   <p className="text-[14px] font-semibold text-slate-900">{row.book}</p>
                   <p className="text-[12px] text-slate-500 mt-1">{row.note}</p>
                 </div>
-                <div className="text-[13px] text-slate-700">{row.coaches} counselors</div>
+                <div className="text-[13px] text-slate-700">{row.participants} participants</div>
                 <div className="text-[13px] text-slate-700">{row.cohorts} cohorts</div>
                 <div className="text-[13px] font-semibold text-slate-900">On track: {row.on_track}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100">
+            <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Benchmark layer</h2>
+            <p className="text-[12px] text-slate-500 mt-1">Partner analytics for recurring cohort benchmarks and delivery variance checks.</p>
+          </div>
+          <div className="px-5 py-4 border-b border-slate-100 bg-slate-50">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {BENCHMARK_DEFINITIONS.map((item) => (
+                <article key={item.metric} className="rounded-xl border border-slate-200 bg-white p-3">
+                  <p className="text-[12px] font-semibold text-slate-800">{item.metric}</p>
+                  <p className="text-[12px] text-slate-500 mt-1">{item.definition}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {PARTNER_BENCHMARK_ROWS.length === 0 ? (
+              <div className="px-5 py-4 text-[13px] text-slate-500">No benchmark rows available yet.</div>
+            ) : PARTNER_BENCHMARK_ROWS.map((row) => (
+              <div key={row.partnerName} className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-3 px-5 py-4 items-center">
+                <p className="text-[14px] font-semibold text-slate-900">{row.partnerName}</p>
+                <p className="text-[13px] text-slate-700">{row.cohorts} cohorts</p>
+                <p className="text-[13px] text-slate-700">Avg activation {row.avgActivation.toFixed(1)}%</p>
+                <p className="text-[13px] text-slate-700">Variance {row.cohortVariance.toFixed(1)}</p>
+                <p className="text-[13px] text-slate-700">Stalled {row.stalledRate.toFixed(1)}%</p>
               </div>
             ))}
           </div>

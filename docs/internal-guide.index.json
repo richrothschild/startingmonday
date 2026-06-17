@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T20:17:52.440Z",
+  "generatedAt": "2026-06-17T00:36:54.489Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
     },
     {
       "id": "feature:/login",
@@ -768,7 +768,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.820Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "feature:/dashboard/outplacement/operator",
@@ -1062,7 +1062,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.490Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "feature:/about",
@@ -1398,7 +1398,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.832Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "feature:/blog/retained-search-firms",
@@ -2000,7 +2000,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.839Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.901Z"
     },
     {
       "id": "feature:/for-coaches/micro-products",
@@ -2028,7 +2028,21 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.843Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.901Z"
+    },
+    {
+      "id": "feature:/for-coaches/search-affiliate",
+      "title": "Feature For coaches / Search affiliate",
+      "body": "User-facing page route /for-coaches/search-affiliate.",
+      "type": "feature",
+      "ref": "/for-coaches/search-affiliate",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-16T23:19:39.949Z"
     },
     {
       "id": "feature:/for-coaches/trust-pack",
@@ -2098,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.844Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2322,7 +2336,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.847Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2644,7 +2658,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.848Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "feature:/partners/reporting",
@@ -2658,7 +2672,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:27:30.116Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.489Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -2770,7 +2784,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.849Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "feature:/search-firms/personas",
@@ -3479,7 +3493,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.537Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.425Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/council-review-prep",
@@ -3596,7 +3610,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.545Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.427Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/partner-kpi-schema",
@@ -3765,7 +3779,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.558Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.427Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/sponsor-snapshot-cadence",
@@ -3778,7 +3792,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:15.559Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.852Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/sprint-5-exit-metrics",
@@ -4598,6 +4612,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-14T03:54:42.221Z"
+    },
+    {
+      "id": "api:/api/coach/client/[clientId]/session-snapshot",
+      "title": "API /api/coach/client/[clientId]/session-snapshot",
+      "body": "GET /api/coach/client/[clientId]/session-snapshot",
+      "type": "api",
+      "ref": "src/app/api/coach/client/[clientId]/session-snapshot/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:18:32.667Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/signals",
@@ -5757,6 +5784,32 @@
       "lastModifiedAt": "2026-06-06T16:52:15.687Z"
     },
     {
+      "id": "api:/api/partner/outcome-events",
+      "title": "API /api/partner/outcome-events",
+      "body": "export const OUTCOME_EVENT_TYPES = [",
+      "type": "api",
+      "ref": "src/app/api/partner/outcome-events/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:06:37.273Z"
+    },
+    {
+      "id": "api:/api/partner/weekly-loop",
+      "title": "API /api/partner/weekly-loop",
+      "body": "GET /api/partner/weekly-loop",
+      "type": "api",
+      "ref": "src/app/api/partner/weekly-loop/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:06:37.274Z"
+    },
+    {
       "id": "api:/api/partners/attribute",
       "title": "API /api/partners/attribute",
       "body": "export async function POST(request: NextRequest) {",
@@ -6199,6 +6252,45 @@
       "lastModifiedAt": "2026-06-06T16:52:15.719Z"
     },
     {
+      "id": "api:/api/team/program-settings",
+      "title": "API /api/team/program-settings",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/team/program-settings/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:36:49.640Z"
+    },
+    {
+      "id": "api:/api/team/roles/[id]",
+      "title": "API /api/team/roles/[id]",
+      "body": "DELETE /api/team/roles/[id] - revoke a role assignment",
+      "type": "api",
+      "ref": "src/app/api/team/roles/[id]/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
+    },
+    {
+      "id": "api:/api/team/roles",
+      "title": "API /api/team/roles",
+      "body": "export const PARTNER_ROLES = ['firm_admin', 'counselor', 'participant', 'sponsor_viewer'] as const",
+      "type": "api",
+      "ref": "src/app/api/team/roles/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
+    },
+    {
       "id": "api:/api/team/seat/[id]",
       "title": "API /api/team/seat/[id]",
       "body": "export async function DELETE(",
@@ -6210,6 +6302,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:15.720Z"
+    },
+    {
+      "id": "api:/api/team/white-label",
+      "title": "API /api/team/white-label",
+      "body": "export async function GET(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/team/white-label/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:36:49.641Z"
     },
     {
       "id": "api:/api/track/open",
@@ -7535,7 +7640,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.046Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.664Z"
     },
     {
       "id": "code:src/lib/outplacement-cohort-model.ts",
@@ -7548,7 +7653,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.047Z"
+      "lastModifiedAt": "2026-06-16T22:55:22.424Z"
     },
     {
       "id": "code:src/lib/outreach/auto-remediate.test.ts",
@@ -7772,6 +7877,19 @@
       "lastModifiedAt": "2026-06-06T16:52:16.057Z"
     },
     {
+      "id": "code:src/lib/partner-program-settings.ts",
+      "title": "Code src/lib/partner-program-settings.ts",
+      "body": "export const PARTNER_PROGRAM_IDS = [",
+      "type": "code",
+      "ref": "src/lib/partner-program-settings.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-16T22:55:22.423Z"
+    },
+    {
       "id": "code:src/lib/partner-provisioning.test.ts",
       "title": "Code src/lib/partner-provisioning.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -7808,7 +7926,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.059Z"
+      "lastModifiedAt": "2026-06-16T23:19:39.949Z"
     },
     {
       "id": "code:src/lib/persona-routes.ts",
@@ -7821,7 +7939,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-16T19:12:56.862Z"
+      "lastModifiedAt": "2026-06-16T23:19:39.948Z"
     },
     {
       "id": "code:src/lib/pixel-token.test.ts",
@@ -8940,6 +9058,32 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-16T19:12:56.863Z"
+    },
+    {
+      "id": "code:src/lib/white-label.test.ts",
+      "title": "Code src/lib/white-label.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/white-label.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-16T22:44:47.445Z"
+    },
+    {
+      "id": "code:src/lib/white-label.ts",
+      "title": "Code src/lib/white-label.ts",
+      "body": "export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'",
+      "type": "code",
+      "ref": "src/lib/white-label.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-16T22:44:47.388Z"
     },
     {
       "id": "script:scripts/admin-seed-user.mjs",
@@ -10720,7 +10864,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T20:08:30.367Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -11006,7 +11150,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T20:08:36.614Z"
+      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
     },
     {
       "id": "infra:.github/workflows/production-synthetics.yml",
@@ -13162,6 +13306,104 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-14T03:54:42.228Z"
+    },
+    {
+      "id": "data:supabase/migrations/137_partner_white_label_settings.sql",
+      "title": "Migration supabase/migrations/137_partner_white_label_settings.sql",
+      "body": "alter table public.partners",
+      "type": "data",
+      "ref": "supabase/migrations/137_partner_white_label_settings.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-16T22:44:47.488Z"
+    },
+    {
+      "id": "data:supabase/migrations/138_partner_program_settings.sql",
+      "title": "Migration supabase/migrations/138_partner_program_settings.sql",
+      "body": "create table if not exists public.partner_program_settings (",
+      "type": "data",
+      "ref": "supabase/migrations/138_partner_program_settings.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-16T22:55:22.423Z"
+    },
+    {
+      "id": "data:supabase/migrations/139_partner_audit_events.sql",
+      "title": "Migration supabase/migrations/139_partner_audit_events.sql",
+      "body": "create table if not exists public.partner_audit_events (",
+      "type": "data",
+      "ref": "supabase/migrations/139_partner_audit_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:02:28.490Z"
+    },
+    {
+      "id": "data:supabase/migrations/140_partner_roles.sql",
+      "title": "Migration supabase/migrations/140_partner_roles.sql",
+      "body": "-- Partner role model: firm_admin, counselor, participant, sponsor_viewer",
+      "type": "data",
+      "ref": "supabase/migrations/140_partner_roles.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "title": "Migration supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "body": "-- Partner programs and cohorts",
+      "type": "data",
+      "ref": "supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/142_partner_outcome_events.sql",
+      "title": "Migration supabase/migrations/142_partner_outcome_events.sql",
+      "body": "-- Canonical outcome event schema for white-label partner KPI tracking.",
+      "type": "data",
+      "ref": "supabase/migrations/142_partner_outcome_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/143_partner_weekly_loop.sql",
+      "title": "Migration supabase/migrations/143_partner_weekly_loop.sql",
+      "body": "-- Weekly loop tracking for partner participants.",
+      "type": "data",
+      "ref": "supabase/migrations/143_partner_weekly_loop.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -16996,7 +17238,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17035,7 +17277,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T19:13:35.656Z"
+      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17909,6 +18151,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.102Z"
     },
     {
+      "id": "doc:docs/partners/expansion-packet-template.md",
+      "title": "Doc docs/partners/expansion-packet-template.md",
+      "body": "Expansion Packet Template",
+      "type": "doc",
+      "ref": "docs/partners/expansion-packet-template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:02:28.489Z"
+    },
+    {
       "id": "doc:docs/partners/monthly-partner-report-template.md",
       "title": "Doc docs/partners/monthly-partner-report-template.md",
       "body": "Monthly Partner Report Template",
@@ -17920,6 +18175,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-09T01:12:24.814Z"
+    },
+    {
+      "id": "doc:docs/partners/partner-pilot-onboarding-kit.md",
+      "title": "Doc docs/partners/partner-pilot-onboarding-kit.md",
+      "body": "Partner Pilot Onboarding Kit",
+      "type": "doc",
+      "ref": "docs/partners/partner-pilot-onboarding-kit.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
+    },
+    {
+      "id": "doc:docs/partners/pilot-closeout-packet-template.md",
+      "title": "Doc docs/partners/pilot-closeout-packet-template.md",
+      "body": "Pilot Closeout Packet Template",
+      "type": "doc",
+      "ref": "docs/partners/pilot-closeout-packet-template.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "doc:docs/partners/renewal-decision-packet-template.md",
@@ -21039,7 +21320,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T19:13:32.589Z"
+      "lastModifiedAt": "2026-06-17T00:36:51.820Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Partner Reporting Packet - Starting Monday',
-  description: 'Partner reporting template, renewal packet structure, and first issued monthly report artifact.',
+  description: 'Partner reporting template with closeout, renewal, and expansion packet structures across day-30/day-60/day-90 decision gates.',
   alternates: { canonical: 'https://startingmonday.app/partners/reporting' },
 }
 
@@ -21,6 +21,20 @@ const RENEWAL_PACKET = [
   'Program-level wins, losses, and confidence statement',
   'Renewal options with plan economics and support levels',
   'Decision checklist and timeline',
+]
+
+const CLOSEOUT_PACKET = [
+  'Day-30 pass/tune/stop decision outcome with rationale',
+  'Execution delta versus baseline plus unresolved risks',
+  'Trust and data confidence review for sponsor signoff',
+  'Commercial closeout position and next checkpoint owner',
+]
+
+const EXPANSION_PACKET = [
+  'Day-60 scale-readiness review across activation and variance',
+  'Day-90 stability and renewal-confidence review',
+  'Expansion economics, support options, and contract path',
+  'Operating commitments for governance and reporting cadence',
 ]
 
 const REPORT_VARIANTS = [
@@ -58,7 +72,7 @@ export default function PartnerReportingPage() {
           <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-orange-500 mb-3">Partner operations</p>
           <h1 className="text-[34px] sm:text-[42px] font-bold text-slate-900 leading-tight mb-4">Partner reporting and renewal packet</h1>
           <p className="text-[15px] text-slate-600 leading-relaxed max-w-3xl">
-            Standardized structure for monthly partner reporting, renewal decision support, and issued reporting artifacts.
+            Standardized structure for monthly partner reporting, closeout, renewal, and expansion decisions.
           </p>
         </header>
 
@@ -72,9 +86,23 @@ export default function PartnerReportingPage() {
         </section>
 
         <section className="mb-8 border border-slate-200 rounded-lg p-5 sm:p-6 bg-white">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pilot closeout packet template (day-30)</p>
+          <ul className="space-y-2 mb-5">
+            {CLOSEOUT_PACKET.map((item) => (
+              <li key={item} className="text-[13px] text-slate-700">- {item}</li>
+            ))}
+          </ul>
+
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Renewal decision packet template</p>
-          <ul className="space-y-2">
+          <ul className="space-y-2 mb-5">
             {RENEWAL_PACKET.map((item) => (
+              <li key={item} className="text-[13px] text-slate-700">- {item}</li>
+            ))}
+          </ul>
+
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Expansion packet template (day-60/day-90)</p>
+          <ul className="space-y-2">
+            {EXPANSION_PACKET.map((item) => (
               <li key={item} className="text-[13px] text-slate-700">- {item}</li>
             ))}
           </ul>
@@ -93,10 +121,22 @@ export default function PartnerReportingPage() {
           </div>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[12px] text-slate-600">
             <div className="rounded border border-slate-200 bg-white p-3">
-              <p className="font-semibold text-slate-900 mb-1">Template artifact</p>
+              <p className="font-semibold text-slate-900 mb-1">Monthly report template artifact</p>
               <p>docs/partners/monthly-partner-report-template.md</p>
             </div>
             <div className="rounded border border-slate-200 bg-white p-3">
+              <p className="font-semibold text-slate-900 mb-1">Renewal packet template artifact</p>
+              <p>docs/partners/renewal-decision-packet-template.md</p>
+            </div>
+            <div className="rounded border border-slate-200 bg-white p-3">
+              <p className="font-semibold text-slate-900 mb-1">Pilot closeout packet template artifact</p>
+              <p>docs/partners/pilot-closeout-packet-template.md</p>
+            </div>
+            <div className="rounded border border-slate-200 bg-white p-3">
+              <p className="font-semibold text-slate-900 mb-1">Expansion packet template artifact</p>
+              <p>docs/partners/expansion-packet-template.md</p>
+            </div>
+            <div className="rounded border border-slate-200 bg-white p-3 sm:col-span-2">
               <p className="font-semibold text-slate-900 mb-1">First issued report artifact</p>
               <p>docs/partners/reports/2026-06-pilot-partner-report.md</p>
             </div>

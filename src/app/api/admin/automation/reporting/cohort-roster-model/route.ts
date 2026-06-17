@@ -28,6 +28,25 @@ export async function GET(request: NextRequest) {
 
   const partners = (partnersRes.data ?? []) as Array<{ id: string; name: string }>
   const attributions = (attributionRes.data ?? []) as Array<{ partner_id: string; signup_user_id: string; attributed_at: string }>
+  const partnerIds = partners.map((row) => row.id)
+  const partnerSettingsRes = partnerIds.length > 0
+    ? await sb
+      .from('partner_program_settings')
+      .select('partner_id,default_program,cohort_naming_prefix')
+      .in('partner_id', partnerIds)
+    : { data: [] }
+
+  const defaultProgramByPartnerId = new Map(
+    ((partnerSettingsRes.data ?? []) as Array<{ partner_id: string; default_program: string | null }> )
+      .filter((row) => typeof row.default_program === 'string' && row.default_program.length > 0)
+      .map((row) => [row.partner_id, row.default_program as string]),
+  )
+
+  const cohortNamingPrefixByPartnerId = new Map(
+    ((partnerSettingsRes.data ?? []) as Array<{ partner_id: string; cohort_naming_prefix: string | null }> )
+      .map((row) => [row.partner_id, row.cohort_naming_prefix]),
+  )
+
   const scopedUserIds = Array.from(new Set(attributions.map((row) => row.signup_user_id)))
 
   let activeUsers = new Set<string>()
@@ -63,6 +82,8 @@ export async function GET(request: NextRequest) {
     prepUsers,
     outreachUsers,
     closedFollowupUsers,
+    defaultProgramByPartnerId,
+    cohortNamingPrefixByPartnerId,
   })
 
   return NextResponse.json({

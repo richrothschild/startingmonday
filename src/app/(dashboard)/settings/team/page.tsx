@@ -5,6 +5,13 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { canUserSeeAdminHeader } from '@/lib/staff'
 import { TeamSettings } from './team-settings'
 import { ClientCoachAccessManager } from '@/components/client/coach-access-manager'
+import { resolveWhiteLabelSettings } from '@/lib/white-label'
+import {
+  resolvePartnerProgramSettings,
+  type PartnerProgramId,
+  type SponsorTemplateVariant,
+  type WeeklySummaryDay,
+} from '@/lib/partner-program-settings'
 
 export const metadata = { title: 'Team - Starting Monday' }
 
@@ -14,11 +21,55 @@ type SeatStatus = {
   briefGenerated: boolean
 }
 
+type PartnerProgramSettingsRow = {
+  default_program: PartnerProgramId | null
+  sponsor_template_variant: SponsorTemplateVariant | null
+  cohort_naming_prefix: string | null
+  weekly_summary_day: WeeklySummaryDay | null
+}
+
+type PartnerWithWhiteLabelRow = {
+  id: string
+  name: string
+  email: string | null
+  user_id: string | null
+  white_label_brand_name: string | null
+  white_label_track_id: string | null
+  white_label_tier_id: string | null
+  white_label_primary_color: string | null
+  white_label_accent_color: string | null
+  white_label_support_email: string | null
+  white_label_logo_url: string | null
+}
+
 export default async function TeamSettingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
   const isRothschildAdmin = await canUserSeeAdminHeader(user.email ?? '')
+  const admin = createAdminClient()
+
+  const { data: partnerRowRaw } = await admin
+    .from('partners')
+    .select('id, name, email, user_id, white_label_brand_name, white_label_track_id, white_label_tier_id, white_label_primary_color, white_label_accent_color, white_label_support_email, white_label_logo_url')
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  const partnerRow = (partnerRowRaw ?? null) as PartnerWithWhiteLabelRow | null
+  let partner = partnerRow
+  if (!partner && user.email) {
+    const { data: partnerByEmailRaw } = await admin
+      .from('partners')
+      .select('id, name, email, user_id, white_label_brand_name, white_label_track_id, white_label_tier_id, white_label_primary_color, white_label_accent_color, white_label_support_email, white_label_logo_url')
+      .eq('email', user.email)
+      .eq('is_active', true)
+      .maybeSingle()
+    partner = (partnerByEmailRaw ?? null) as PartnerWithWhiteLabelRow | null
+    if (partner && !partner.user_id) {
+      await admin.from('partners').update({ user_id: user.id }).eq('id', partner.id)
+      partner.user_id = user.id
+    }
+  }
 
   const { data: rawSeats } = await supabase
     .from('team_seats')
@@ -28,8 +79,16 @@ export default async function TeamSettingsPage() {
 
   const seats = rawSeats ?? []
 
+  const { data: programSettingsRowRaw } = partner
+    ? await admin
+      .from('partner_program_settings')
+      .select('default_program, sponsor_template_variant, cohort_naming_prefix, weekly_summary_day')
+      .eq('partner_id', partner.id)
+      .maybeSingle()
+    : { data: null }
+  const programSettingsRow = (programSettingsRowRaw ?? null) as PartnerProgramSettingsRow | null
+
   // Compute activation status for accepted seats
-  const admin = createAdminClient()
   const seatStatuses: Record<string, SeatStatus> = {}
 
   await Promise.all(
@@ -78,6 +137,23 @@ export default async function TeamSettingsPage() {
         </div>
 
         <TeamSettings
+          whiteLabel={partner ? resolveWhiteLabelSettings({
+            brandName: partner.white_label_brand_name ?? undefined,
+            trackId: (partner.white_label_track_id ?? undefined) as 'executive_transition' | 'professional_transition' | undefined,
+            tierId: (partner.white_label_tier_id ?? undefined) as 'solo' | 'boutique' | 'outplacement' | undefined,
+            primaryColor: partner.white_label_primary_color ?? undefined,
+            accentColor: partner.white_label_accent_color ?? undefined,
+            supportEmail: partner.white_label_support_email ?? undefined,
+            logoUrl: partner.white_label_logo_url,
+            fallbackBrandName: partner.name,
+            fallbackSupportEmail: partner.email,
+          }) : null}
+          programSettings={partner ? resolvePartnerProgramSettings({
+            defaultProgram: programSettingsRow?.default_program ?? undefined,
+            sponsorTemplateVariant: programSettingsRow?.sponsor_template_variant ?? undefined,
+            cohortNamingPrefix: programSettingsRow?.cohort_naming_prefix ?? undefined,
+            weeklySummaryDay: programSettingsRow?.weekly_summary_day ?? undefined,
+          }) : null}
           seats={seats.map(s => ({
             id: s.id,
             member_email: s.member_email,

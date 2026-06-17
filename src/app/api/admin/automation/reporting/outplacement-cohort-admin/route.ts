@@ -108,6 +108,25 @@ async function loadCohortView(sb: any) {
   ])
 
   const partners = (partnersRes.data ?? []) as Array<{ id: string; name: string }>
+  const partnerIds = partners.map((row) => row.id)
+  const partnerSettingsRes = partnerIds.length > 0
+    ? await sb
+      .from('partner_program_settings')
+      .select('partner_id,default_program,cohort_naming_prefix')
+      .in('partner_id', partnerIds)
+    : { data: [] }
+
+  const defaultProgramByPartnerId = new Map(
+    ((partnerSettingsRes.data ?? []) as Array<{ partner_id: string; default_program: string | null }> )
+      .filter((row) => typeof row.default_program === 'string' && row.default_program.length > 0)
+      .map((row) => [row.partner_id, row.default_program as string]),
+  )
+
+  const cohortNamingPrefixByPartnerId = new Map(
+    ((partnerSettingsRes.data ?? []) as Array<{ partner_id: string; cohort_naming_prefix: string | null }> )
+      .map((row) => [row.partner_id, row.cohort_naming_prefix]),
+  )
+
   const attributions = (attributionRes.data ?? []) as Array<{ partner_id: string; signup_user_id: string; attributed_at: string }>
   const activeUsers = new Set(((eventsRes.data ?? []) as Array<{ user_id: string }>).map((row) => row.user_id))
   const prepUsers = new Set(((prepRes.data ?? []) as Array<{ user_id: string }>).map((row) => row.user_id))
@@ -121,7 +140,16 @@ async function loadCohortView(sb: any) {
       .map((row) => row.user_id),
   )
 
-  const cohorts = buildCohortModel({ partners, attributions, activeUsers, prepUsers, outreachUsers, closedFollowupUsers })
+  const cohorts = buildCohortModel({
+    partners,
+    attributions,
+    activeUsers,
+    prepUsers,
+    outreachUsers,
+    closedFollowupUsers,
+    defaultProgramByPartnerId,
+    cohortNamingPrefixByPartnerId,
+  })
   const operations = (opsRes.data ?? []) as Array<{ id: string; created_at: string; trend_payload: any }>
   return applyOverrides({ cohorts, operations })
 }
