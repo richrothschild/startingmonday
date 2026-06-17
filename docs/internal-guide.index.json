@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:20:14.972Z",
+  "generatedAt": "2026-06-17T00:21:14.450Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
+      "lastModifiedAt": "2026-06-17T00:20:14.990Z"
     },
     {
       "id": "feature:/login",
@@ -6262,7 +6262,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
+      "lastModifiedAt": "2026-06-17T00:20:59.214Z"
     },
     {
       "id": "api:/api/team/roles/[id]",
@@ -6314,7 +6314,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
+      "lastModifiedAt": "2026-06-17T00:20:59.215Z"
     },
     {
       "id": "api:/api/track/open",
@@ -17238,7 +17238,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
+      "lastModifiedAt": "2026-06-17T00:20:14.990Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17277,7 +17277,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
+      "lastModifiedAt": "2026-06-17T00:20:14.990Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17330,19 +17330,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-13T23:12:19.713Z"
-    },
-    {
-      "id": "doc:docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
-      "title": "Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
-      "body": "White-Label Transition MVP Jira Import (Ready)",
-      "type": "doc",
-      "ref": "docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:48:02.060Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -21333,7 +21320,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:20:12.209Z"
+      "lastModifiedAt": "2026-06-17T00:21:11.651Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -21451,19 +21438,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-13T15:13:05.094Z"
-    },
-    {
-      "id": "doc:docs/white-label-product-spec-2026-06-16.md",
-      "title": "Doc docs/white-label-product-spec-2026-06-16.md",
-      "body": "White-Label Product Spec (One Page)",
-      "type": "doc",
-      "ref": "docs/white-label-product-spec-2026-06-16.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:48:02.062Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",
