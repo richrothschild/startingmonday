@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-17T22:19:02.164Z
+Last generated: 2026-06-17T22:23:23.734Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1316,7 +1316,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/executive-job-search/37-sprint-6-execution-packet.md | docs/executive-job-search/37-sprint-6-execution-packet.md | Sprint 6 Execution Packet
 - Doc docs/executive-pages-ux-audit-2026-06-14.md | docs/executive-pages-ux-audit-2026-06-14.md | Executive Pages UX and Content Audit
 - Doc docs/executive-search-playbook.md | docs/executive-search-playbook.md | The Executive Search Playbook
-- Doc docs/features/features-executive-coaches.md | docs/features/features-executive-coaches.md | Feature Guide: Executive Coaches
+- Doc docs/features/features-executive-coaches.md | docs/features/features-executive-coaches.md | What Starting Monday gives coaches - one page
 - Doc docs/features/features-executives.md | docs/features/features-executives.md | Feature Guide: Executives
 - Doc docs/features/features-outplacement.md | docs/features/features-outplacement.md | Feature Guide: Outplacement Firms
 - Doc docs/features/features-search-firms.md | docs/features/features-search-firms.md | Feature Guide: Executive Search Firms
