@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T17:42:55.356Z",
+  "generatedAt": "2026-06-17T18:11:31.464Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-17T16:43:02.826Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "feature:/login",
@@ -7277,7 +7277,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
+      "lastModifiedAt": "2026-06-17T18:09:28.909Z"
     },
     {
       "id": "code:src/lib/feature-flags.ts",
@@ -16147,7 +16147,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.224Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/139_partner_audit_events.md",
@@ -16160,7 +16160,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.323Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/140_partner_roles.md",
@@ -16173,7 +16173,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.440Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
@@ -16186,7 +16186,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.537Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/142_partner_outcome_events.md",
@@ -16199,7 +16199,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.624Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/143_partner_weekly_loop.md",
@@ -16212,7 +16212,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:32:01.694Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -17421,7 +17421,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:43:02.826Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17460,7 +17460,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T16:43:02.826Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17967,7 +17967,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T14:38:27.251Z"
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
     },
     {
       "id": "doc:docs/onboarding/quick-start-outplacement.md",

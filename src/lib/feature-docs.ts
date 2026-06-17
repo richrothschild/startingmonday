@@ -155,26 +155,28 @@ function tokenize(input: string): string[] {
 }
 
 export async function listFeatureDocCards(): Promise<FeatureDocCard[]> {
-  const cards = await Promise.all(
-    FEATURE_DOCS.map(async (meta) => {
-      const fullPath = absolutePath(meta.filePath)
-      const content = await readFile(fullPath, 'utf8')
-      const lines = content.split(/\r?\n/)
-      const headingCount = lines.filter((line) => line.startsWith('## ') || line.startsWith('### ')).length
-      const fileStat = await stat(fullPath).catch(() => null)
-      const lastLine = lines.filter((line) => line.trim().length > 0).at(-1) ?? ''
+  const cards: FeatureDocCard[] = []
 
-      return {
-        ...meta,
-        title: titleFromContent(content, meta.title),
-        summary: clip(firstUsefulLine(content)),
-        lineCount: lines.length,
-        headingCount,
-        updatedAt: fileStat?.mtime?.toISOString(),
-        lastLine: clip(lastLine, 140),
-      }
-    }),
-  )
+  for (const meta of FEATURE_DOCS) {
+    const fullPath = absolutePath(meta.filePath)
+    const content = await readFile(fullPath, 'utf8').catch(() => '')
+    if (!content) continue
+
+    const lines = content.split(/\r?\n/)
+    const headingCount = lines.filter((line) => line.startsWith('## ') || line.startsWith('### ')).length
+    const fileStat = await stat(fullPath).catch(() => null)
+    const lastLine = lines.filter((line) => line.trim().length > 0).at(-1) ?? ''
+
+    cards.push({
+      ...meta,
+      title: titleFromContent(content, meta.title),
+      summary: clip(firstUsefulLine(content)),
+      lineCount: lines.length,
+      headingCount,
+      updatedAt: fileStat?.mtime?.toISOString(),
+      lastLine: clip(lastLine, 140),
+    })
+  }
 
   return cards
 }
