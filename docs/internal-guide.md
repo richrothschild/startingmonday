@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-17T00:36:11.231Z
+Last generated: 2026-06-17T00:36:54.489Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1030,7 +1030,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 
-## Documentation (621)
+## Documentation (619)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1333,7 +1333,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
 - Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md | docs/jira/luxury-modern-sitewide-elevation-import-README.md | Luxury-Modern Sitewide Elevation Jira Import (Ready)
-- Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | White-Label Transition MVP Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
@@ -1650,7 +1649,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/wbs-online-guide-and-chat-2026-05-30.md | docs/wbs-online-guide-and-chat-2026-05-30.md | WBS: Online User Guide + Guide Chat
 - Doc docs/weekly-search-review-template.md | docs/weekly-search-review-template.md | Weekly Search Review Template
 - Doc docs/weekly-unified-audit.latest.md | docs/weekly-unified-audit.latest.md | Weekly Unified Audit
-- Doc docs/white-label-product-spec-2026-06-16.md | docs/white-label-product-spec-2026-06-16.md | White-Label Product Spec (One Page)
 - Doc docs/writing-guidelines.md | docs/writing-guidelines.md | Writing Guidelines — Resumes, Cover Letters, Messaging
 
 ## What It Is Not
