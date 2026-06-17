@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-17T18:48:57.417Z
+Last generated: 2026-06-17T22:19:02.164Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (206)
+## Features (208)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -131,10 +131,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Coaches / Mock dashboard | /coaches/mock-dashboard | User-facing page route /coaches/mock-dashboard.
 - Feature Coaches | /coaches | User-facing page route /coaches.
 - Feature Coaches / Personas | /coaches/personas | User-facing page route /coaches/personas.
+- Feature Coachos | /coachos | User-facing page route /coachos.
 - Feature Concierge | /concierge | User-facing page route /concierge.
 - Feature Contributor | /contributor | User-facing page route /contributor.
 - Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
 - Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
+- Feature Demo / Coach dashboard | /demo/coach-dashboard | User-facing page route /demo/coach-dashboard.
 - Feature Demo / Executive brief | /demo/executive-brief | User-facing page route /demo/executive-brief.
 - Feature Demo / Executive dashboard | /demo/executive-dashboard | User-facing page route /demo/executive-dashboard.
 - Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
