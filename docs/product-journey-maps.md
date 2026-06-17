@@ -364,7 +364,7 @@ Behaviors that are identical across personas appear once and are referenced ther
 ---
 ---
 
-# Persona 4 — The Passive Looker
+# Persona 4 — The Intelligence Looker
 *Employed, comfortable, open to the right thing. Doesn't want to work hard at the search.*
 
 ---
@@ -606,7 +606,7 @@ Behaviors that are identical across personas appear once and are referenced ther
 
 # Subscription Retention by Stage
 
-The passive subscriber (Persona 4) stays subscribed indefinitely because the
+The intelligence subscriber (Persona 4) stays subscribed indefinitely because the
 **Maintenance** row never goes away. Every other persona churns at the end of
 the **First 90 Days** row — but many resubscribe for the next search.
 

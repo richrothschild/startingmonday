@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:36:51.816Z",
+  "generatedAt": "2026-06-17T17:42:52.403Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -1422,6 +1422,19 @@
     },
     {
       "id": "feature-105",
+      "title": "Features",
+      "body": "Open /features to use this feature area and related workflows.",
+      "type": "feature",
+      "url": "/features",
+      "tags": [
+        "feature",
+        "dashboard"
+      ],
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z",
+      "qualityWeight": 1
+    },
+    {
+      "id": "feature-106",
       "title": "Feedback",
       "body": "Open /feedback to use this feature area and related workflows.",
       "type": "feature",
@@ -1434,7 +1447,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-106",
+      "id": "feature-107",
       "title": "For cdo",
       "body": "Open /for-cdo to use this feature area and related workflows.",
       "type": "feature",
@@ -1447,7 +1460,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-107",
+      "id": "feature-108",
       "title": "For chro",
       "body": "Open /for-chro to use this feature area and related workflows.",
       "type": "feature",
@@ -1460,7 +1473,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-108",
+      "id": "feature-109",
       "title": "For cio associations",
       "body": "Open /for-cio-associations to use this feature area and related workflows.",
       "type": "feature",
@@ -1473,7 +1486,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-109",
+      "id": "feature-110",
       "title": "For cio",
       "body": "Open /for-cio to use this feature area and related workflows.",
       "type": "feature",
@@ -1486,7 +1499,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-110",
+      "id": "feature-111",
       "title": "For ciso",
       "body": "Open /for-ciso to use this feature area and related workflows.",
       "type": "feature",
@@ -1499,7 +1512,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-111",
+      "id": "feature-112",
       "title": "For coaches / Coach prep worksheet",
       "body": "Open /for-coaches/coach-prep-worksheet to use this feature area and related workflows.",
       "type": "feature",
@@ -1512,7 +1525,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-112",
+      "id": "feature-113",
       "title": "For coaches / Economics",
       "body": "Open /for-coaches/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1525,7 +1538,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-113",
+      "id": "feature-114",
       "title": "For coaches / Faq",
       "body": "Open /for-coaches/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1538,7 +1551,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-114",
+      "id": "feature-115",
       "title": "For coaches / Micro products",
       "body": "Open /for-coaches/micro-products to use this feature area and related workflows.",
       "type": "feature",
@@ -1551,7 +1564,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-115",
+      "id": "feature-116",
       "title": "For coaches",
       "body": "Open /for-coaches to use this feature area and related workflows.",
       "type": "feature",
@@ -1560,11 +1573,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.901Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.227Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-116",
+      "id": "feature-117",
       "title": "For coaches / Search affiliate",
       "body": "Open /for-coaches/search-affiliate to use this feature area and related workflows.",
       "type": "feature",
@@ -1577,7 +1590,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-117",
+      "id": "feature-118",
       "title": "For coaches / Trust pack",
       "body": "Open /for-coaches/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1590,7 +1603,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-118",
+      "id": "feature-119",
       "title": "For coo",
       "body": "Open /for-coo to use this feature area and related workflows.",
       "type": "feature",
@@ -1603,7 +1616,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-119",
+      "id": "feature-120",
       "title": "For cpo",
       "body": "Open /for-cpo to use this feature area and related workflows.",
       "type": "feature",
@@ -1616,7 +1629,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-120",
+      "id": "feature-121",
       "title": "For data officer",
       "body": "Open /for-data-officer to use this feature area and related workflows.",
       "type": "feature",
@@ -1629,7 +1642,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-121",
+      "id": "feature-122",
       "title": "For executives",
       "body": "Open /for-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1638,11 +1651,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.228Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-122",
+      "id": "feature-123",
       "title": "For financial advisors",
       "body": "Open /for-financial-advisors to use this feature area and related workflows.",
       "type": "feature",
@@ -1655,7 +1668,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-123",
+      "id": "feature-124",
       "title": "For fractional executives",
       "body": "Open /for-fractional-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1668,7 +1681,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-124",
+      "id": "feature-125",
       "title": "For media partners",
       "body": "Open /for-media-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1681,7 +1694,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-125",
+      "id": "feature-126",
       "title": "For outplacement / Economics",
       "body": "Open /for-outplacement/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1694,7 +1707,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-126",
+      "id": "feature-127",
       "title": "For outplacement / Executive summary",
       "body": "Open /for-outplacement/executive-summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1707,7 +1720,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-127",
+      "id": "feature-128",
       "title": "For outplacement / Faq",
       "body": "Open /for-outplacement/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1720,7 +1733,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-128",
+      "id": "feature-129",
       "title": "For outplacement / Metric dictionary",
       "body": "Open /for-outplacement/metric-dictionary to use this feature area and related workflows.",
       "type": "feature",
@@ -1733,7 +1746,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-129",
+      "id": "feature-130",
       "title": "For outplacement / Operating scorecard",
       "body": "Open /for-outplacement/operating-scorecard to use this feature area and related workflows.",
       "type": "feature",
@@ -1746,7 +1759,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-130",
+      "id": "feature-131",
       "title": "For outplacement",
       "body": "Open /for-outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1755,11 +1768,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.846Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.226Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-131",
+      "id": "feature-132",
       "title": "For outplacement / Runbook",
       "body": "Open /for-outplacement/runbook to use this feature area and related workflows.",
       "type": "feature",
@@ -1772,7 +1785,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-132",
+      "id": "feature-133",
       "title": "For outplacement / Security overview",
       "body": "Open /for-outplacement/security-overview to use this feature area and related workflows.",
       "type": "feature",
@@ -1785,7 +1798,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-133",
+      "id": "feature-134",
       "title": "For outplacement / Trust pack",
       "body": "Open /for-outplacement/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1798,7 +1811,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-134",
+      "id": "feature-135",
       "title": "For pe partners",
       "body": "Open /for-pe-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1811,7 +1824,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-135",
+      "id": "feature-136",
       "title": "For pe teams",
       "body": "Open /for-pe-teams to use this feature area and related workflows.",
       "type": "feature",
@@ -1824,7 +1837,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-136",
+      "id": "feature-137",
       "title": "For relocation",
       "body": "Open /for-relocation to use this feature area and related workflows.",
       "type": "feature",
@@ -1837,7 +1850,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-137",
+      "id": "feature-138",
       "title": "For search firms",
       "body": "Open /for-search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1850,7 +1863,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-138",
+      "id": "feature-139",
       "title": "For vp technology",
       "body": "Open /for-vp-technology to use this feature area and related workflows.",
       "type": "feature",
@@ -1863,7 +1876,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-139",
+      "id": "feature-140",
       "title": "For vp",
       "body": "Open /for-vp to use this feature area and related workflows.",
       "type": "feature",
@@ -1876,7 +1889,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-140",
+      "id": "feature-141",
       "title": "Founder note",
       "body": "Open /founder-note to use this feature area and related workflows.",
       "type": "feature",
@@ -1889,7 +1902,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-141",
+      "id": "feature-142",
       "title": "Guide",
       "body": "Open /guide to use this feature area and related workflows.",
       "type": "feature",
@@ -1902,7 +1915,7 @@
       "qualityWeight": 1.45
     },
     {
-      "id": "feature-142",
+      "id": "feature-143",
       "title": "Ideas",
       "body": "Open /ideas to use this feature area and related workflows.",
       "type": "feature",
@@ -1915,7 +1928,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-143",
+      "id": "feature-144",
       "title": "Managertools",
       "body": "Open /managertools to use this feature area and related workflows.",
       "type": "feature",
@@ -1928,7 +1941,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-144",
+      "id": "feature-145",
       "title": "Mark demo",
       "body": "Open /mark-demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1941,7 +1954,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-145",
+      "id": "feature-146",
       "title": "Mark review / Appendix",
       "body": "Open /mark-review/appendix to use this feature area and related workflows.",
       "type": "feature",
@@ -1954,7 +1967,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-146",
+      "id": "feature-147",
       "title": "Mark review / Business plan",
       "body": "Open /mark-review/business-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -1967,7 +1980,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-147",
+      "id": "feature-148",
       "title": "Mark review",
       "body": "Open /mark-review to use this feature area and related workflows.",
       "type": "feature",
@@ -1980,7 +1993,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-148",
+      "id": "feature-149",
       "title": "Mark review / Summary",
       "body": "Open /mark-review/summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1993,7 +2006,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-149",
+      "id": "feature-150",
       "title": "Mauricio kickoff execution / Apollo read access",
       "body": "Open /mauricio-kickoff-execution/apollo-read-access to use this feature area and related workflows.",
       "type": "feature",
@@ -2006,7 +2019,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-150",
+      "id": "feature-151",
       "title": "Mauricio kickoff execution / Customer email by channel",
       "body": "Open /mauricio-kickoff-execution/customer-email-by-channel to use this feature area and related workflows.",
       "type": "feature",
@@ -2019,7 +2032,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-151",
+      "id": "feature-152",
       "title": "Mauricio kickoff execution",
       "body": "Open /mauricio-kickoff-execution to use this feature area and related workflows.",
       "type": "feature",
@@ -2032,7 +2045,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-152",
+      "id": "feature-153",
       "title": "Mauricio kickoff",
       "body": "Open /mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2045,7 +2058,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-153",
+      "id": "feature-154",
       "title": "Method and evidence",
       "body": "Open /method-and-evidence to use this feature area and related workflows.",
       "type": "feature",
@@ -2058,7 +2071,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-154",
+      "id": "feature-155",
       "title": "Onboarding",
       "body": "Open /onboarding to use this feature area and related workflows.",
       "type": "feature",
@@ -2071,7 +2084,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-155",
+      "id": "feature-156",
       "title": "Optimize",
       "body": "Open /optimize to use this feature area and related workflows.",
       "type": "feature",
@@ -2084,7 +2097,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-156",
+      "id": "feature-157",
       "title": "Outplacement",
       "body": "Open /outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -2097,7 +2110,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-157",
+      "id": "feature-158",
       "title": "Outplacement / Personas",
       "body": "Open /outplacement/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2110,7 +2123,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-158",
+      "id": "feature-159",
       "title": "Partners / Mauricio kickoff",
       "body": "Open /partners/mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2123,7 +2136,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-159",
+      "id": "feature-160",
       "title": "Partners",
       "body": "Open /partners to use this feature area and related workflows.",
       "type": "feature",
@@ -2132,11 +2145,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.229Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-160",
+      "id": "feature-161",
       "title": "Partners / Reporting",
       "body": "Open /partners/reporting to use this feature area and related workflows.",
       "type": "feature",
@@ -2149,7 +2162,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-161",
+      "id": "feature-162",
       "title": "Pilot findings",
       "body": "Open /pilot-findings to use this feature area and related workflows.",
       "type": "feature",
@@ -2162,7 +2175,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-162",
+      "id": "feature-163",
       "title": "Pricing",
       "body": "Open /pricing to use this feature area and related workflows.",
       "type": "feature",
@@ -2175,7 +2188,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-163",
+      "id": "feature-164",
       "title": "Privacy",
       "body": "Open /privacy to use this feature area and related workflows.",
       "type": "feature",
@@ -2188,7 +2201,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-164",
+      "id": "feature-165",
       "title": "Proof / Roi calculator",
       "body": "Open /proof/roi-calculator to use this feature area and related workflows.",
       "type": "feature",
@@ -2201,7 +2214,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-165",
+      "id": "feature-166",
       "title": "References",
       "body": "Open /references to use this feature area and related workflows.",
       "type": "feature",
@@ -2214,7 +2227,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-166",
+      "id": "feature-167",
       "title": "Research brief",
       "body": "Open /research-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2227,7 +2240,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-167",
+      "id": "feature-168",
       "title": "Sales marketing plan",
       "body": "Open /sales-marketing-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -2240,7 +2253,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-168",
+      "id": "feature-169",
       "title": "Search firms",
       "body": "Open /search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -2249,11 +2262,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.228Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-169",
+      "id": "feature-170",
       "title": "Search firms / Personas",
       "body": "Open /search-firms/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2266,7 +2279,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-170",
+      "id": "feature-171",
       "title": "Search firms / Sample cfo brief",
       "body": "Open /search-firms/sample-cfo-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2279,7 +2292,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-171",
+      "id": "feature-172",
       "title": "Security",
       "body": "Open /security to use this feature area and related workflows.",
       "type": "feature",
@@ -2292,7 +2305,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-172",
+      "id": "feature-173",
       "title": "Stuart meyer review",
       "body": "Open /stuart-meyer-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2305,7 +2318,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-173",
+      "id": "feature-174",
       "title": "Terms",
       "body": "Open /terms to use this feature area and related workflows.",
       "type": "feature",
@@ -2318,7 +2331,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-174",
+      "id": "feature-175",
       "title": "Terry anderson review",
       "body": "Open /terry-anderson-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2331,7 +2344,7 @@
       "qualityWeight": 1
     },
     {
-      "id": "feature-175",
+      "id": "feature-176",
       "title": "Unsubscribe / Confirmed",
       "body": "Open /unsubscribe/confirmed to use this feature area and related workflows.",
       "type": "feature",
@@ -4264,7 +4277,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-17T00:18:32.667Z",
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z",
       "qualityWeight": 0.95
     },
     {
@@ -4971,6 +4984,19 @@
     },
     {
       "id": "api-189",
+      "title": "/api/features/chat",
+      "body": "Programmatic endpoint available for platform behavior or integrations.",
+      "type": "api",
+      "url": "/api/features/chat",
+      "tags": [
+        "api",
+        "automation"
+      ],
+      "lastModifiedAt": "2026-06-17T14:33:26.238Z",
+      "qualityWeight": 0.95
+    },
+    {
+      "id": "api-190",
       "title": "/api/feedback/items/[id]/comments",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4983,7 +5009,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-190",
+      "id": "api-191",
       "title": "/api/feedback/items/[id]/status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4996,7 +5022,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-191",
+      "id": "api-192",
       "title": "/api/feedback/items/[id]/vote",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5009,7 +5035,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-192",
+      "id": "api-193",
       "title": "/api/feedback/items",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5022,7 +5048,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-193",
+      "id": "api-194",
       "title": "/api/feedback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5035,7 +5061,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-194",
+      "id": "api-195",
       "title": "/api/google-calendar/callback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5048,7 +5074,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-195",
+      "id": "api-196",
       "title": "/api/google-calendar/connect",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5061,7 +5087,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-196",
+      "id": "api-197",
       "title": "/api/google-calendar/disconnect",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5074,7 +5100,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-197",
+      "id": "api-198",
       "title": "/api/guide/chat/feedback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5087,7 +5113,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-198",
+      "id": "api-199",
       "title": "/api/guide/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5100,7 +5126,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-199",
+      "id": "api-200",
       "title": "/api/health",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5113,7 +5139,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-200",
+      "id": "api-201",
       "title": "/api/ideas",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5126,7 +5152,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-201",
+      "id": "api-202",
       "title": "/api/intelligence/companies",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5139,7 +5165,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-202",
+      "id": "api-203",
       "title": "/api/intelligence/radar",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5152,7 +5178,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-203",
+      "id": "api-204",
       "title": "/api/intelligence/token",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5165,7 +5191,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-204",
+      "id": "api-205",
       "title": "/api/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5178,7 +5204,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-205",
+      "id": "api-206",
       "title": "/api/linkedin-import/audit",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5191,7 +5217,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-206",
+      "id": "api-207",
       "title": "/api/linkedin-import/consent",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5204,7 +5230,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-207",
+      "id": "api-208",
       "title": "/api/linkedin-import/extract",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5217,7 +5243,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-208",
+      "id": "api-209",
       "title": "/api/linkedin-import/match",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5230,7 +5256,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-209",
+      "id": "api-210",
       "title": "/api/linkedin-import",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5243,7 +5269,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-210",
+      "id": "api-211",
       "title": "/api/narrative/generate-linkedin",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5256,7 +5282,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-211",
+      "id": "api-212",
       "title": "/api/narrative/generate-positioning",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5269,7 +5295,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-212",
+      "id": "api-213",
       "title": "/api/notify/new-user",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5282,7 +5308,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-213",
+      "id": "api-214",
       "title": "/api/offer-synthesis",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5295,7 +5321,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-214",
+      "id": "api-215",
       "title": "/api/onboarding/events",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5308,7 +5334,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-215",
+      "id": "api-216",
       "title": "/api/onboarding/intel",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5321,7 +5347,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-216",
+      "id": "api-217",
       "title": "/api/optimize",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5334,7 +5360,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-217",
+      "id": "api-218",
       "title": "/api/outreach/current-status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5347,7 +5373,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-218",
+      "id": "api-219",
       "title": "/api/outreach/draft",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5360,7 +5386,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-219",
+      "id": "api-220",
       "title": "/api/outreach/send/batch-status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5373,7 +5399,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-220",
+      "id": "api-221",
       "title": "/api/outreach/send",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5386,7 +5412,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-221",
+      "id": "api-222",
       "title": "/api/outreach/status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5399,7 +5425,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-222",
+      "id": "api-223",
       "title": "/api/outreach/suppression",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5412,7 +5438,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-223",
+      "id": "api-224",
       "title": "/api/outreach/template",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5425,7 +5451,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-224",
+      "id": "api-225",
       "title": "/api/partner/outcome-events",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5438,7 +5464,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-225",
+      "id": "api-226",
       "title": "/api/partner/weekly-loop",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5451,7 +5477,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-226",
+      "id": "api-227",
       "title": "/api/partners/attribute",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5464,7 +5490,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-227",
+      "id": "api-228",
       "title": "/api/partners/report",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5477,7 +5503,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-228",
+      "id": "api-229",
       "title": "/api/partners",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5490,7 +5516,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-229",
+      "id": "api-230",
       "title": "/api/pilot-outreach",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5503,7 +5529,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-230",
+      "id": "api-231",
       "title": "/api/positioning/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5516,7 +5542,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-231",
+      "id": "api-232",
       "title": "/api/positioning/save",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5529,7 +5555,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-232",
+      "id": "api-233",
       "title": "/api/preferences/briefing",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5542,7 +5568,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-233",
+      "id": "api-234",
       "title": "/api/prep/[id]/background",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5555,7 +5581,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-234",
+      "id": "api-235",
       "title": "/api/prep/[id]/challenges",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5568,7 +5594,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-235",
+      "id": "api-236",
       "title": "/api/prep/[id]/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5581,7 +5607,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-236",
+      "id": "api-237",
       "title": "/api/prep/[id]/competitive",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5594,7 +5620,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-237",
+      "id": "api-238",
       "title": "/api/prep/[id]/leadership",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5607,7 +5633,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-238",
+      "id": "api-239",
       "title": "/api/prep/[id]/outreach/log",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5620,7 +5646,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-239",
+      "id": "api-240",
       "title": "/api/prep/[id]/outreach",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5633,7 +5659,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-240",
+      "id": "api-241",
       "title": "/api/prep/[id]/priorities",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5646,7 +5672,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-241",
+      "id": "api-242",
       "title": "/api/prep/[id]/questions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5659,7 +5685,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-242",
+      "id": "api-243",
       "title": "/api/prep/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5672,7 +5698,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-243",
+      "id": "api-244",
       "title": "/api/prep/[id]/tech-stack",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5685,7 +5711,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-244",
+      "id": "api-245",
       "title": "/api/prep/[id]/why-here",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5698,7 +5724,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-245",
+      "id": "api-246",
       "title": "/api/prep/[id]/wins",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5711,7 +5737,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-246",
+      "id": "api-247",
       "title": "/api/profile/export",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5724,7 +5750,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-247",
+      "id": "api-248",
       "title": "/api/profile/upload-linkedin",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5737,7 +5763,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-248",
+      "id": "api-249",
       "title": "/api/profile/upload-resume",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5750,7 +5776,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-249",
+      "id": "api-250",
       "title": "/api/readiness",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5763,7 +5789,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-250",
+      "id": "api-251",
       "title": "/api/salary-intelligence",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5776,7 +5802,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-251",
+      "id": "api-252",
       "title": "/api/search",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5789,7 +5815,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-252",
+      "id": "api-253",
       "title": "/api/signals/classify",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5802,7 +5828,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-253",
+      "id": "api-254",
       "title": "/api/strategy/followup",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5815,7 +5841,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-254",
+      "id": "api-255",
       "title": "/api/strategy",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5828,7 +5854,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-255",
+      "id": "api-256",
       "title": "/api/suggestions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5841,7 +5867,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-256",
+      "id": "api-257",
       "title": "/api/tailor/check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5854,7 +5880,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-257",
+      "id": "api-258",
       "title": "/api/tailor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5867,7 +5893,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-258",
+      "id": "api-259",
       "title": "/api/tailor/strengthen",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5880,7 +5906,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-259",
+      "id": "api-260",
       "title": "/api/team/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5893,7 +5919,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-260",
+      "id": "api-261",
       "title": "/api/team/program-settings",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5902,11 +5928,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-17T00:36:49.640Z",
+      "lastModifiedAt": "2026-06-17T00:38:57.731Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-261",
+      "id": "api-262",
       "title": "/api/team/roles/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5919,7 +5945,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-262",
+      "id": "api-263",
       "title": "/api/team/roles",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5932,7 +5958,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-263",
+      "id": "api-264",
       "title": "/api/team/seat/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5945,7 +5971,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-264",
+      "id": "api-265",
       "title": "/api/team/white-label",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5954,11 +5980,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-17T00:36:49.641Z",
+      "lastModifiedAt": "2026-06-17T00:38:57.732Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-265",
+      "id": "api-266",
       "title": "/api/track/open",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5971,7 +5997,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-266",
+      "id": "api-267",
       "title": "/api/webhooks/onboarding-video",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5984,7 +6010,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-267",
+      "id": "api-268",
       "title": "/api/webhooks/resend",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5997,7 +6023,7 @@
       "qualityWeight": 0.95
     },
     {
-      "id": "api-268",
+      "id": "api-269",
       "title": "/api/webhooks/stripe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",

@@ -89,7 +89,7 @@ PostHog server client: `src/lib/posthog-server.ts`. Reference any existing `post
 ### Stripe Pricing Update
 
 **Background**: The current pricing doesn't match the roadmap tiers. Update to:
-- Intelligence (was Passive): $49/month
+- Intelligence (legacy name): $49/month
 - Active: $199/month  
 - Executive: $499/month
 

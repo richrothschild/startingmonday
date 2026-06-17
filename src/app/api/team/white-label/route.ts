@@ -23,7 +23,29 @@ type PartnerRow = {
   white_label_logo_url: string | null
 }
 
+type PartnerAuditAction =
+  | 'settings_accessed'
+  | 'white_label_updated'
+  | 'role_linked'
+
 const PARTNER_FIELDS = 'id, name, email, user_id, white_label_brand_name, white_label_track_id, white_label_tier_id, white_label_primary_color, white_label_accent_color, white_label_support_email, white_label_logo_url'
+
+async function writePartnerAuditEvent(args: {
+  admin: ReturnType<typeof createAdminClient>
+  partnerId: string
+  actorUserId: string
+  action: PartnerAuditAction
+  details?: Record<string, unknown>
+}) {
+  await args.admin
+    .from('partner_audit_events' as never)
+    .insert({
+      partner_id: args.partnerId,
+      actor_user_id: args.actorUserId,
+      action: args.action,
+      details: args.details ?? {},
+    } as never)
+}
 
 function isWhiteLabelTrackId(value: unknown): value is WhiteLabelTrackId {
   return typeof value === 'string' && WHITE_LABEL_TRACKS.some((track) => track.id === value)
@@ -84,6 +106,13 @@ async function findPartner(admin: ReturnType<typeof createAdminClient>, userId: 
   if (!partner.user_id) {
     await admin.from('partners').update({ user_id: userId }).eq('id', partner.id)
     partner.user_id = userId
+    await writePartnerAuditEvent({
+      admin,
+      partnerId: partner.id,
+      actorUserId: userId,
+      action: 'role_linked',
+      details: { link_reason: 'email_match_backfill' },
+    })
   }
 
   return partner
@@ -100,6 +129,14 @@ export async function GET(request: NextRequest) {
   if (!partner) {
     return withAuthCookies(NextResponse.json({ error: 'Partner workspace not found.' }, { status: 404 }), auth)
   }
+
+  await writePartnerAuditEvent({
+    admin,
+    partnerId: partner.id,
+    actorUserId: auth.userId,
+    action: 'settings_accessed',
+    details: { surface: 'team_white_label_get' },
+  })
 
   return withAuthCookies(NextResponse.json({ data: partnerToSettings(partner), partner: { id: partner.id, name: partner.name } }), auth)
 }
@@ -180,6 +217,14 @@ export async function PATCH(request: NextRequest) {
     ...partner,
     ...updates,
   }
+
+  await writePartnerAuditEvent({
+    admin,
+    partnerId: partner.id,
+    actorUserId: auth.userId,
+    action: 'white_label_updated',
+    details: { updated_fields: Object.keys(updates).sort() },
+  })
 
   return withAuthCookies(NextResponse.json({
     ok: true,

@@ -45,7 +45,7 @@ This document covers acquisition strategy, channel prioritization, messaging arc
 - **WTP:** $99–$199/month
 - **Average duration:** 6–12 months
 
-### Tertiary ICP: The Passive Monitor
+### Tertiary ICP: The Intelligence Monitor
 
 - **Situation:** Employed, not actively looking, watching for the right opportunity
 - **WTP:** $49/month ("alert me if anything changes at my target companies")
@@ -78,7 +78,7 @@ The outcome, not the features. The promise is the job — the specific Monday wh
 **For VP candidates making the level jump:**
 - "Built for the VP search you've never run before. Knows the market. Knows your positioning. Available at 11pm when you're drafting that message."
 
-**For passive monitors:**
+**For intelligence monitors:**
 - "$49/month to know the moment something changes at the companies you're watching. Cancel when you stop watching."
 
 ### Competitive counter-messaging

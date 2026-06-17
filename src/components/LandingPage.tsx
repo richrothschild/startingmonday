@@ -1,5 +1,3 @@
-import { BrandIcon } from '@/components/BrandIcon'
-/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
@@ -7,7 +5,6 @@ import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowSta
 import { ChartZoomModal } from '@/components/home/ChartZoomModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
-import type { Channel } from '@/lib/channel-metrics-events'
 
 export interface SituationCard {
   id: string
@@ -65,40 +62,6 @@ const CHANNEL_BEST_FOR: Record<string, string> = {
 
 const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
 
-type RolePathItem = {
-  ctaKey: string
-  label: string
-  iconToken: string
-  priority: number
-  href?: string
-}
-
-const EXECUTIVE_WHY = [
-  'The short list is shaped before the posting goes live.',
-  'Strategic timing and disciplined execution outweigh credentials alone when competition intensifies.',
-  'Narrative quality decides whether you get invited back.',
-  'Without a weekly operating loop, even top candidates become reactive.',
-]
-
-const EXECUTIVE_GETS = [
-  {
-    title: 'Position for a specific audience',
-    detail: 'Define one clear narrative per audience so decision-makers know why you now.',
-  },
-  {
-    title: 'Control high-stakes conversations',
-    detail: 'Use calibrated questions and objection prep to steer each conversation toward next steps.',
-  },
-  {
-    title: 'Run a weekly execution rhythm',
-    detail: 'Replace reactive outreach cycles with a structured weekly operating cadence.',
-  },
-  {
-    title: 'Prove progress with evidence',
-    detail: 'Track signals and outcomes so strategy changes ground in data.',
-  },
-]
-
 const EXECUTIVE_FEATURE_MATRIX = [
   {
     feature: 'Executive signal intelligence',
@@ -144,33 +107,6 @@ const EXECUTIVE_DIFFERENTIATORS = [
     otherTools: 'Generic interview tips that rarely map to executive mandate discussions.',
   },
 ]
-
-const HOME_BLUF_SECTIONS = [
-  {
-    title: 'Be the person that shapes the role',
-    summary: 'Learn about likely executive openings before formal posting windows appear.',
-    detail: 'We surface movement signals so you can engage earlier with stronger context and better timing.',
-    href: '/blog/cio-job-search-timeline',
-  },
-  {
-    title: 'Relationship cadence that compounds',
-    summary: 'Stay in touch with the right people at the right time without reactive scrambling.',
-    detail: 'A weekly rhythm keeps outreach intentional across search firms, coaches, HR partners, peers, and boards.',
-    href: '/blog/cio-board-presentation',
-  },
-  {
-    title: 'Strategy over grunt work',
-    summary: 'Spend more time on decision quality and less on manual search busywork.',
-    detail: 'Signal tracking, prep framing, and recurring operating routines remove low-value repetition from the search.',
-    href: '/blog/executive-coaching-job-search',
-  },
-  {
-    title: 'Narrative control by audience',
-    summary: 'Refine your narrative for each conversation context without reinventing it every time.',
-    detail: 'Positioning is adapted for role paths and audiences so conversations stay consistent and role-aligned.',
-    href: '/blog/cio-vs-cto-which-role',
-  },
-] as const
 
 function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
@@ -296,10 +232,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80" aria-label="Go to homepage">
+          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
+            <Link href="/features" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-2" aria-label="Open docs hub">
+              Docs
+            </Link>
             {isManagerToolsPage ? (
               <>
                 <Link
@@ -321,12 +260,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 py-1.5 rounded hover:bg-orange-600 transition-colors"
+                  className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
                   aria-label="Sign up"
                 >
                   Sign Up
                 </Link>
-                <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors" aria-label="Log in">
+                <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
                   Log in
                 </Link>
               </>
@@ -451,7 +390,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
               <Link
                 href="/demo/executive-brief"
-                className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors"
+                className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors py-2.5"
               >
                 See prep brief in 60 seconds
               </Link>
@@ -635,7 +574,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                             cta_label: 'next_step_channel_card',
                             source_page: sourcePage,
                           }}
-                          className="inline-flex items-center rounded bg-orange-400 px-3 py-1.5 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+                          className="inline-flex items-center rounded bg-orange-400 px-3 py-2.5 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
                         >
                           Open {spec.label}
                         </TrackLink>
@@ -649,7 +588,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                             source_page: sourcePage,
                             destination: '/channels/feature-map',
                           }}
-                          className="text-[12px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
+                          className="text-[12px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white py-2.5"
                         >
                           Preview {spec.label} timeline
                         </TrackLink>
@@ -717,16 +656,16 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
               <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
-                <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
-                <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
-                <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
-                <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
-                <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
-                <Link href="/optimize" className="hover:text-slate-300 transition-colors">Free Profile Grade</Link>
-                <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">LinkedIn</a>
-                <Link href="/security" className="hover:text-slate-300 transition-colors">Security</Link>
-                <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
+                <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors py-2.5">Method and evidence</Link>
+                <Link href="/evidence-room" className="hover:text-slate-300 transition-colors py-2.5">Evidence room</Link>
+                <Link href="/pricing" className="hover:text-slate-300 transition-colors py-2.5">Pricing</Link>
+                <Link href="/blog" className="hover:text-slate-300 transition-colors py-2.5">Blog</Link>
+                <Link href="/about" className="hover:text-slate-300 transition-colors py-2.5">About</Link>
+                <Link href="/optimize" className="hover:text-slate-300 transition-colors py-2.5">Free Profile Grade</Link>
+                <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors py-2.5">LinkedIn</a>
+                <Link href="/security" className="hover:text-slate-300 transition-colors py-2.5">Security</Link>
+                <Link href="/privacy" className="hover:text-slate-300 transition-colors py-2.5">Privacy Policy</Link>
+                <Link href="/terms" className="hover:text-slate-300 transition-colors py-2.5">Terms</Link>
               </div>
             </div>
 

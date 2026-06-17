@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-17T00:36:51.816Z
+Last generated: 2026-06-17T17:42:52.403Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (175)
+## Features (176)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -116,6 +116,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Executives](/executives) - Open /executives to use this feature area and related workflows.
 - [Executives / Passive](/executives/passive) - Open /executives/passive to use this feature area and related workflows.
 - [Executives / Personas](/executives/personas) - Open /executives/personas to use this feature area and related workflows.
+- [Features](/features) - Open /features to use this feature area and related workflows.
 - [Feedback](/feedback) - Open /feedback to use this feature area and related workflows.
 - [For cdo](/for-cdo) - Open /for-cdo to use this feature area and related workflows.
 - [For chro](/for-chro) - Open /for-chro to use this feature area and related workflows.
@@ -204,7 +205,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (268)
+## API and Automation (269)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -393,6 +394,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/executive-brief/grill-me/sessions](/api/executive-brief/grill-me/sessions) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/executive-brief/transcription](/api/executive-brief/transcription) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/executive-transition/emotion-state/score](/api/executive-transition/emotion-state/score) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/features/chat](/api/features/chat) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/comments](/api/feedback/items/[id]/comments) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/status](/api/feedback/items/[id]/status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/feedback/items/[id]/vote](/api/feedback/items/[id]/vote) - Programmatic endpoint available for platform behavior or integrations.

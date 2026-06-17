@@ -85,7 +85,7 @@ What would keep me from buying: I would not buy if confidentiality language is v
 Buy likelihood: 86/100.
 
 ### Sitting CIO Managing Optionality
-What I like: The intelligence and quiet monitoring use case is credible and aligns with optionality management. A micro-product for passive market readiness has clear value.
+What I like: The intelligence and quiet monitoring use case is credible and aligns with optionality management. A micro-product for intelligence market readiness has clear value.
 What would keep me from buying: I would not buy if the experience feels like active-search workflow pressure when I need low-noise, strategic awareness.
 Buy likelihood: 75/100.
 
@@ -112,7 +112,7 @@ Buy likelihood: 78/100.
 ### Executive Council Summary And Recommendations
 - Overall merit: very strong for active-transition personas.
 - Recommendation 1: prioritize transition-first onboarding with first-value in under 10 minutes.
-- Recommendation 2: separate passive-optionality and active-transition paths as distinct micro-product experiences.
+- Recommendation 2: separate intelligence-optionality and active-transition paths as distinct micro-product experiences.
 - Recommendation 3: harden confidentiality and trust messaging across public pages.
 
 ## Coaches Synthetic Council Review

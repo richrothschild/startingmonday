@@ -152,7 +152,7 @@ Mark's lens: **Execution discipline, accountability, anti-vagueness, decision fo
 2. **Tier names are vague**
    - "Monitor" suggests passive observation; this contradicts "disciplined campaign" messaging
    - "Active" and "Executive" are barely different semantically; unclear which is right
-   - **Better names:** "$49 Tracking Tier" (for passive monitoring), "$199 Campaign Tier" (for active search), "$499 Done-With-Me Tier" (for concierge)
+   - **Better names:** "$49 Tracking Tier" (for intelligence monitoring), "$199 Campaign Tier" (for active search), "$499 Done-With-Me Tier" (for concierge)
 
 3. **No features listed per tier**
    - What does each tier include? You don't say.
@@ -174,13 +174,13 @@ Mark's lens: **Execution discipline, accountability, anti-vagueness, decision fo
 
 **What Mark would recommend:**
 - **Restructure pricing table:**
-  - **$49/mo "Passive Monitoring"** — Track up to 50 companies, daily briefing, no prep briefs, email alerts
+  - **$49/mo "Intelligence Monitoring"** — Track up to 50 companies, daily briefing, no prep briefs, email alerts
   - **$199/mo "Active Campaign"** — Track up to 200 companies, daily briefing, AI prep briefs, call tracking, pipeline dashboard
   - **$499/mo "Full Done-With-Me"** — Unlimited tracking, prep briefs, weekly strategic calls with advisor, target list optimization
   - **Teams/Enterprise** — "Seat management for 5+ users. Starts at $2,000/mo. Book a call."
 
 - **Add expected outcomes per tier:**
-  - $49: "Passive monitoring. Spot 1–2 unexpected opportunities per quarter."
+- $49: "Intelligence monitoring. Spot 1–2 unexpected opportunities per quarter."
   - $199: "Active search. 3–5 opportunity conversations within 60 days."
   - $499: "Full support. First role target within 90 days OR we credit your next month."
 

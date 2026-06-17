@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:36:54.489Z",
+  "generatedAt": "2026-06-17T18:11:31.464Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "feature:/login",
@@ -1877,6 +1877,20 @@
       "lastModifiedAt": "2026-06-15T03:48:51.368Z"
     },
     {
+      "id": "feature:/features",
+      "title": "Feature Features",
+      "body": "User-facing page route /features.",
+      "type": "feature",
+      "ref": "/features",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
+    },
+    {
       "id": "feature:/feedback",
       "title": "Feature Feedback",
       "body": "User-facing page route /feedback.",
@@ -2028,7 +2042,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T20:41:50.901Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.227Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -2112,7 +2126,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.228Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2238,7 +2252,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T19:12:56.846Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.226Z"
     },
     {
       "id": "feature:/for-outplacement/runbook",
@@ -2658,7 +2672,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.229Z"
     },
     {
       "id": "feature:/partners/reporting",
@@ -2784,7 +2798,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.228Z"
     },
     {
       "id": "feature:/search-firms/personas",
@@ -4624,7 +4638,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-17T00:18:32.667Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z"
     },
     {
       "id": "api:/api/coach/client/[clientId]/signals",
@@ -5327,6 +5341,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:15.659Z"
+    },
+    {
+      "id": "api:/api/features/chat",
+      "title": "API /api/features/chat",
+      "body": "export async function POST(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/features/chat/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T14:33:26.238Z"
     },
     {
       "id": "api:/api/feedback/items/[id]/comments",
@@ -6262,7 +6289,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-17T00:36:49.640Z"
+      "lastModifiedAt": "2026-06-17T00:38:57.731Z"
     },
     {
       "id": "api:/api/team/roles/[id]",
@@ -6314,7 +6341,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-17T00:36:49.641Z"
+      "lastModifiedAt": "2026-06-17T00:38:57.732Z"
     },
     {
       "id": "api:/api/track/open",
@@ -7238,6 +7265,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.021Z"
+    },
+    {
+      "id": "code:src/lib/feature-docs.ts",
+      "title": "Code src/lib/feature-docs.ts",
+      "body": "export type FeatureDocCategory = 'features' | 'onboarding' | 'analysis'",
+      "type": "code",
+      "ref": "src/lib/feature-docs.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-17T18:09:28.909Z"
     },
     {
       "id": "code:src/lib/feature-flags.ts",
@@ -13442,7 +13482,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:52:41.764Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.346Z"
     },
     {
       "id": "doc:docs/adjacent-products.md",
@@ -13585,7 +13625,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.705Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
     },
     {
       "id": "doc:docs/article-submission-targets.md",
@@ -13637,7 +13677,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T03:41:51.149Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.283Z"
     },
     {
       "id": "doc:docs/business-plan-synthetic-council-gap-analysis.md",
@@ -13689,7 +13729,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.436Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.288Z"
     },
     {
       "id": "doc:docs/campaign-standard.md",
@@ -14157,7 +14197,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.953Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.521Z"
     },
     {
       "id": "doc:docs/content/culture-organization-synthetic-council.md",
@@ -14716,7 +14756,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.967Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
     },
     {
       "id": "doc:docs/content/outreach-sales-synthetic-council.md",
@@ -14924,7 +14964,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:59:53.804Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.469Z"
     },
     {
       "id": "doc:docs/content/sprint-4-micro-product-rollout-runbook-2026-05-24.md",
@@ -14976,7 +15016,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:59:53.815Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.561Z"
     },
     {
       "id": "doc:docs/content/sprint-8-governance-cadence-2026-05-24.md",
@@ -15002,7 +15042,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:59:53.822Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.473Z"
     },
     {
       "id": "doc:docs/content/synthetic-council-structure.md",
@@ -16097,6 +16137,84 @@
       "lastModifiedAt": "2026-06-14T04:29:51.801Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "title": "Doc docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "body": "138_partner_program_settings rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "title": "Doc docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "body": "139_partner_audit_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/140_partner_roles.md",
+      "title": "Doc docs/development/migration-rollbacks/140_partner_roles.md",
+      "body": "140_partner_roles rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/140_partner_roles.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "title": "Doc docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "body": "141_partner_programs_and_cohorts rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "title": "Doc docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "body": "142_partner_outcome_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "title": "Doc docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "body": "143_partner_weekly_loop rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.339Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -16224,7 +16342,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.004Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.535Z"
     },
     {
       "id": "doc:docs/diagrams/signals-intelligence.md",
@@ -16315,7 +16433,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.006Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.378Z"
     },
     {
       "id": "doc:docs/epic-executive-pages-ux-remediation-2026-06-14.md",
@@ -16968,6 +17086,71 @@
       "lastModifiedAt": "2026-06-07T13:53:40.757Z"
     },
     {
+      "id": "doc:docs/features/features-executive-coaches.md",
+      "title": "Doc docs/features/features-executive-coaches.md",
+      "body": "Feature Guide: Executive Coaches",
+      "type": "doc",
+      "ref": "docs/features/features-executive-coaches.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.232Z"
+    },
+    {
+      "id": "doc:docs/features/features-executives.md",
+      "title": "Doc docs/features/features-executives.md",
+      "body": "Feature Guide: Executives",
+      "type": "doc",
+      "ref": "docs/features/features-executives.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.232Z"
+    },
+    {
+      "id": "doc:docs/features/features-outplacement.md",
+      "title": "Doc docs/features/features-outplacement.md",
+      "body": "Feature Guide: Outplacement Firms",
+      "type": "doc",
+      "ref": "docs/features/features-outplacement.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.232Z"
+    },
+    {
+      "id": "doc:docs/features/features-search-firms.md",
+      "title": "Doc docs/features/features-search-firms.md",
+      "body": "Feature Guide: Executive Search Firms",
+      "type": "doc",
+      "ref": "docs/features/features-search-firms.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
+    },
+    {
+      "id": "doc:docs/features/features-white-label.md",
+      "title": "Doc docs/features/features-white-label.md",
+      "body": "Feature Guide: White-Label Partners",
+      "type": "doc",
+      "ref": "docs/features/features-white-label.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
+    },
+    {
       "id": "doc:docs/for-coaches-review-from-synthetic-council-may-2026.md",
       "title": "Doc docs/for-coaches-review-from-synthetic-council-may-2026.md",
       "body": "/for-coaches Page Review from Synthetic Council",
@@ -17238,7 +17421,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17277,7 +17460,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:36:11.245Z"
+      "lastModifiedAt": "2026-06-17T17:42:55.372Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17303,7 +17486,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.436Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.329Z"
     },
     {
       "id": "doc:docs/jira/four-channel-customer-journey-import-README.md",
@@ -17330,6 +17513,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-13T23:12:19.713Z"
+    },
+    {
+      "id": "doc:docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
+      "title": "Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
+      "body": "White-Label Transition MVP Jira Import (Ready)",
+      "type": "doc",
+      "ref": "docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:38:57.817Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -17498,7 +17694,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.040Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
     },
     {
       "id": "doc:docs/market-reassessment-executives-coaches-outplacement-2026-05-28.md",
@@ -17524,7 +17720,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.783Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.411Z"
     },
     {
       "id": "doc:docs/mobile-reliability-plan.md",
@@ -17667,7 +17863,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.045Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.659Z"
     },
     {
       "id": "doc:docs/onboarding/05-dev-workflow.md",
@@ -17733,6 +17929,84 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:53:55.916Z"
+    },
+    {
+      "id": "doc:docs/onboarding/onboarding-analysis.md",
+      "title": "Doc docs/onboarding/onboarding-analysis.md",
+      "body": "Onboarding and Time-to-Value Analysis",
+      "type": "doc",
+      "ref": "docs/onboarding/onboarding-analysis.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.232Z"
+    },
+    {
+      "id": "doc:docs/onboarding/quick-start-executive-coaches.md",
+      "title": "Doc docs/onboarding/quick-start-executive-coaches.md",
+      "body": "Quick-Start Guide: Executive Coaches",
+      "type": "doc",
+      "ref": "docs/onboarding/quick-start-executive-coaches.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z"
+    },
+    {
+      "id": "doc:docs/onboarding/quick-start-executives.md",
+      "title": "Doc docs/onboarding/quick-start-executives.md",
+      "body": "Quick-Start Guide: Executives",
+      "type": "doc",
+      "ref": "docs/onboarding/quick-start-executives.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T17:46:20.338Z"
+    },
+    {
+      "id": "doc:docs/onboarding/quick-start-outplacement.md",
+      "title": "Doc docs/onboarding/quick-start-outplacement.md",
+      "body": "Quick-Start Guide: Outplacement Firms",
+      "type": "doc",
+      "ref": "docs/onboarding/quick-start-outplacement.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z"
+    },
+    {
+      "id": "doc:docs/onboarding/quick-start-search-firms.md",
+      "title": "Doc docs/onboarding/quick-start-search-firms.md",
+      "body": "Quick-Start Guide: Executive Search Firms",
+      "type": "doc",
+      "ref": "docs/onboarding/quick-start-search-firms.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z"
+    },
+    {
+      "id": "doc:docs/onboarding/quick-start-white-label.md",
+      "title": "Doc docs/onboarding/quick-start-white-label.md",
+      "body": "Quick-Start Guide: White-Label Partners",
+      "type": "doc",
+      "ref": "docs/onboarding/quick-start-white-label.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T14:33:26.230Z"
     },
     {
       "id": "doc:docs/one-pager.md",
@@ -17940,7 +18214,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.262Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.420Z"
     },
     {
       "id": "doc:docs/outreach-csv-remediation-report.md",
@@ -18031,7 +18305,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.087Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.675Z"
     },
     {
       "id": "doc:docs/outreach/proof-asset-01-pilot-cohort-methodology-note.md",
@@ -18304,7 +18578,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:29:22.410Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.427Z"
     },
     {
       "id": "doc:docs/press-release.md",
@@ -18330,7 +18604,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.437Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.351Z"
     },
     {
       "id": "doc:docs/product-architecture.md",
@@ -18369,7 +18643,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.845Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.434Z"
     },
     {
       "id": "doc:docs/product-obstacles.md",
@@ -18382,7 +18656,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.265Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.228Z"
     },
     {
       "id": "doc:docs/product-personas.md",
@@ -18395,7 +18669,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.262Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.439Z"
     },
     {
       "id": "doc:docs/product-requirements.md",
@@ -18408,7 +18682,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.262Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.442Z"
     },
     {
       "id": "doc:docs/product-roadmap-chris-review-deck.md",
@@ -18564,7 +18838,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.265Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.461Z"
     },
     {
       "id": "doc:docs/salesnavigator.md",
@@ -18733,7 +19007,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.959Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.375Z"
     },
     {
       "id": "doc:docs/sm-gtm-b2b.md",
@@ -18759,7 +19033,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.970Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.377Z"
     },
     {
       "id": "doc:docs/sm-sprints.md",
@@ -18772,7 +19046,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.119Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.379Z"
     },
     {
       "id": "doc:docs/sm-wbs.md",
@@ -18785,7 +19059,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.983Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.381Z"
     },
     {
       "id": "doc:docs/sprint-backlog.md",
@@ -18902,7 +19176,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-10T15:49:14.439Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.233Z"
     },
     {
       "id": "doc:docs/sprints/sprint-02.md",
@@ -19305,7 +19579,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-11T00:14:45.994Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.399Z"
     },
     {
       "id": "doc:docs/startingmonday_sprint_plan.md",
@@ -19461,7 +19735,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:51:36.748Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.487Z"
     },
     {
       "id": "doc:docs/strategy/30-day-execution-plan.md",
@@ -19474,7 +19748,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:15.146Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.716Z"
     },
     {
       "id": "doc:docs/strategy/agent-graph-design-spec-2026-06-13.md",
@@ -19487,7 +19761,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.437Z"
+      "lastModifiedAt": "2026-06-17T13:49:30.718Z"
     },
     {
       "id": "doc:docs/strategy/agent-graph-implementation-tickets-2026-06-13.md",
@@ -20436,7 +20710,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-09T01:55:26.036Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.637Z"
     },
     {
       "id": "doc:docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md",
@@ -20722,7 +20996,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:37:41.435Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.227Z"
     },
     {
       "id": "doc:docs/strategy/product-fit-gaps.md",
@@ -20748,7 +21022,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T15:15:06.291Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.226Z"
     },
     {
       "id": "doc:docs/strategy/slack-channel-naming-pack-2026-06-04.md",
@@ -21086,7 +21360,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-14T03:41:30.260Z"
+      "lastModifiedAt": "2026-06-17T14:33:26.227Z"
     },
     {
       "id": "doc:docs/templates/archive-note-template.md",
@@ -21255,7 +21529,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-07T13:53:40.933Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.408Z"
     },
     {
       "id": "doc:docs/ui-ux-remediation-wave-closeout-2026-06-14.md",
@@ -21320,7 +21594,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:36:51.820Z"
+      "lastModifiedAt": "2026-06-17T17:42:52.408Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -21333,7 +21607,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-05-05T13:40:03.240Z"
+      "lastModifiedAt": "2026-06-17T13:50:08.413Z"
     },
     {
       "id": "doc:docs/ux-moments-audit.md",
@@ -21438,6 +21712,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-13T15:13:05.094Z"
+    },
+    {
+      "id": "doc:docs/white-label-product-spec-2026-06-16.md",
+      "title": "Doc docs/white-label-product-spec-2026-06-16.md",
+      "body": "White-Label Product Spec (One Page)",
+      "type": "doc",
+      "ref": "docs/white-label-product-spec-2026-06-16.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:38:57.819Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",

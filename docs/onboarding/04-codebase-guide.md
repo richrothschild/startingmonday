@@ -205,7 +205,7 @@ Key files:
 | `followup-job` | Daily 06:00 | Follow-up reminder emails |
 | `momentum-job` | Sunday 23:00 | Pipeline momentum score calculation |
 | `momentum-nudge-job` | Daily 10:00 | Emails users when momentum score drops 15+ points |
-| `market-digest-job` | Sunday 22:30 | Market intel digest for Monitor/passive tier users |
+| `market-digest-job` | Sunday 22:30 | Market intel digest for Monitor/intelligence tier users |
 | `weekly-report-job` | Sunday 23:30 | Weekly progress report |
 | `usage-monitor-job` | Daily 09:00 | Checks all services against plan limits |
 | `trial-reminder-job` | Daily 10:00 | T-3 and T-0 trial expiry emails |

@@ -35,7 +35,7 @@ Final closure from Sprint 8:
 
 ### Sprint 3: Persona path implementation
 - Added persona-specific route trees by channel.
-- Split passive-optionality and active-transition executive journeys.
+- Split intelligence-optionality and active-transition executive journeys.
 
 ### Sprint 4: Micro-product back office foundation
 - Implemented micro-product catalog and bundle operations foundations.

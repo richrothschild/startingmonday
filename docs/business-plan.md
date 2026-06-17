@@ -63,7 +63,7 @@ Subscription SaaS, billed monthly or quarterly.
 
 | Plan | Monthly | Quarterly | Target persona |
 | --- | --- | --- | --- |
-| Passive | $49 | $132 | Passive monitors, early-stage candidates |
+| Intelligence | $49 | $132 | Intelligence monitors, early-stage candidates |
 | Search | $199 | $537 | Actively searching VP/C-suite |
 | Executive | $499 | Waitlist | C-suite, board-track, high-stakes search |
 | Campaign | $999 | 3-month minimum | Concierge, managed search |
@@ -133,7 +133,7 @@ The first hire, when revenue supports it, is a customer success function: someon
 | --- | --- | --- | --- |
 | Anthropic API cost increases | Medium | Medium | Token budgets enforced in code; model selection tuned per task |
 | Slow trial-to-paid conversion | Medium | High | Onboarding optimized to first brief in under 15 minutes; exit survey data |
-| Executive search market softens | Low | High | Passive tier creates counter-cyclical demand from stable-role professionals |
+| Executive search market softens | Low | High | Intelligence tier creates counter-cyclical demand from stable-role professionals |
 | Competitor enters market | Medium | Medium | Moat is data, founder credibility, and user relationships, not technology |
 | Churn at end of search | Structural | Medium | Alumni mode retains users; referral incentive at offer |
 | Anthropic model capability regression | Very Low | High | Models are improving; the risk is upside |

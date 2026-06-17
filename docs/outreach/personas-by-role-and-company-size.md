@@ -86,7 +86,7 @@ This framework segments target C-suite personas across three company size bands.
 - Weak fit. Search firm controls the process
 - Search firm has more authority than CEO
 - CEO sees tools as irrelevant once search firm is engaged
-- However, value exists *before* decision to search (passive monitoring)
+- However, value exists *before* decision to search (intelligence monitoring)
 
 **Top Objections**
 1. "My board or investor will hire a search firm; that's how this works."
@@ -277,7 +277,7 @@ This framework segments target C-suite personas across three company size bands.
 
 **Starting Monday Fit**
 - Weak fit. Search is board-controlled and highly formal.
-- Pre-mobility passive monitoring might be valuable (2+ year horizon).
+- Pre-mobility intelligence monitoring might be valuable (2+ year horizon).
 - But CFO is unlikely to use tool for active search.
 
 **Top Objections**
@@ -290,7 +290,7 @@ This framework segments target C-suite personas across three company size bands.
 **Outreach Angle**
 - Do not position as search platform.
 - Position as "board director intelligence" or "investor signal tracking."
-- Focus on long-horizon, passive monitoring value for future transitions.
+- Focus on long-horizon, intelligence monitoring value for future transitions.
 
 ---
 
@@ -421,7 +421,7 @@ This framework segments target C-suite personas across three company size bands.
 
 **Starting Monday Fit**
 - Weak fit. Search is formal and board-orchestrated.
-- Pre-mobility passive monitoring of enterprise technology market might be valuable (2+ year horizon).
+- Pre-mobility intelligence monitoring of enterprise technology market might be valuable (2+ year horizon).
 - But unlikely to use tool for active search.
 
 **Top Objections**
@@ -564,7 +564,7 @@ This framework segments target C-suite personas across three company size bands.
 
 **Starting Monday Fit**
 - Weak fit. Search is board-controlled and highly formal.
-- Pre-mobility passive monitoring might have value (2+ year horizon).
+- Pre-mobility intelligence monitoring might have value (2+ year horizon).
 - But unlikely to use tool for active search.
 
 **Top Objections**
@@ -577,7 +577,7 @@ This framework segments target C-suite personas across three company size bands.
 **Outreach Angle**
 - Do not position as search platform.
 - Position as "board and investor operations intelligence."
-- Focus on long-horizon, passive monitoring value.
+- Focus on long-horizon, intelligence monitoring value.
 
 ---
 
@@ -707,7 +707,7 @@ This framework segments target C-suite personas across three company size bands.
 
 **Starting Monday Fit**
 - Weak fit. Search is board-controlled and highly formal.
-- Pre-mobility passive monitoring of regulatory and security market signals might be valuable (2+ year horizon).
+- Pre-mobility intelligence monitoring of regulatory and security market signals might be valuable (2+ year horizon).
 - But unlikely to use tool for active search.
 
 **Top Objections**
@@ -850,7 +850,7 @@ This framework segments target C-suite personas across three company size bands.
 
 **Starting Monday Fit**
 - Weak fit. Search is board-controlled and highly formal.
-- Pre-mobility passive monitoring of data regulation and analytics market signals might be valuable (2+ year horizon).
+- Pre-mobility intelligence monitoring of data regulation and analytics market signals might be valuable (2+ year horizon).
 - But unlikely to use tool for active search.
 
 **Top Objections**

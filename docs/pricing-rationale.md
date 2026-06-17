@@ -23,7 +23,7 @@ The pricing decision is therefore not "what is fair?" but "what is the right sig
 
 | Plan | Monthly | Quarterly | Notes |
 | --- | --- | --- | --- |
-| Passive | $49 | $132 | 10% quarterly discount |
+| Intelligence | $49 | $132 | 10% quarterly discount |
 | Search | $199 | $537 | 10% quarterly discount |
 | Executive | $499 | Waitlist | No quarterly pricing yet |
 | Campaign | $999 | 3-month minimum | Effectively a $2,997 commitment |
@@ -32,9 +32,9 @@ The pricing decision is therefore not "what is fair?" but "what is the right sig
 
 ## Plan-by-Plan Rationale
 
-### Passive at $49 per Month
+### Intelligence at $49 per Month
 
-The Passive plan is for senior professionals who are monitoring but not actively searching, and for early-stage active candidates who are not yet ready to commit to the full suite. At $49 per month, the price sits below the psychological "significant expense" threshold for a professional earning $200,000 or more. This is less than one restaurant dinner. It should be an easy yes — something purchased without a long consideration cycle. The objective is low-friction entry and a large funnel.
+The Intelligence plan is for senior professionals who are monitoring but not actively searching, and for early-stage active candidates who are not yet ready to commit to the full suite. At $49 per month, the price sits below the psychological "significant expense" threshold for a professional earning $200,000 or more. This is less than one restaurant dinner. It should be an easy yes — something purchased without a long consideration cycle. The objective is low-friction entry and a large funnel.
 
 The plan must prove its monitoring value quickly. If a scan result surfaces a relevant role within the first two weeks, the user understands what they are paying for. If nothing fires in thirty days, churn risk is high. Onboarding should prompt users to add ten or more target companies so the probability of at least one scan result in the first two weeks is high.
 
@@ -78,7 +78,7 @@ Target trial-to-paid conversion is 30 percent. At thirty days of Active access, 
 
 ## Pricing the B2B Channels
 
-Outplacement and bulk access is priced at $35 to $40 per seat per month at ten or more seats, against the $49 retail Passive rate. That gives the institution a meaningful margin to bundle Starting Monday into their program while still making economic sense for Starting Monday. The institution buys; the executive uses — which removes the friction of individual purchase decisions at a moment when the candidate in transition may be financially cautious. At volume, the CAC advantage of the institutional channel — zero marketing spend, large cohorts of the right users at the right moment — justifies the lower per-seat margin.
+Outplacement and bulk access is priced at $35 to $40 per seat per month at ten or more seats, against the $49 retail Intelligence rate. That gives the institution a meaningful margin to bundle Starting Monday into their program while still making economic sense for Starting Monday. The institution buys; the executive uses — which removes the friction of individual purchase decisions at a moment when the candidate in transition may be financially cautious. At volume, the CAC advantage of the institutional channel — zero marketing spend, large cohorts of the right users at the right moment — justifies the lower per-seat margin.
 
 The referral program is one free month for the referrer and one month added to the referee's trial. The cost of one free Search month is $199 against a lifetime value of $1,600 or more — a 12 percent acquisition cost on a referral that is already self-qualified by a satisfied peer.
 
@@ -90,16 +90,16 @@ Discounting on demand is off the table. If a user asks for a lower price, the an
 
 The free tier — pipeline and contacts only — exists for technical reasons around auth and onboarding flow. It is not marketed as a sustainable state. It exists to keep the onboarding door open, not to build a large free user base.
 
-$49 is the floor on the Passive tier. If anything, Passive may move to $59 or $69 as the product adds scanning depth and signal quality. The direction of pricing is up, not down, as the product proves its value at scale.
+$49 is the floor on the Intelligence tier. If anything, Intelligence may move to $59 or $69 as the product adds scanning depth and signal quality. The direction of pricing is up, not down, as the product proves its value at scale.
 
 ---
 
 ## Pricing Evolution
 
-Near-term: Passive and Active pricing are stable. The priority is finding the trial-to-paid conversion rate that validates the price point. Conversion above 35 percent means the product is underpriced. Conversion below 20 percent indicates either a product problem or an onboarding problem — not a price problem.
+Near-term: Intelligence and Active pricing are stable. The priority is finding the trial-to-paid conversion rate that validates the price point. Conversion above 35 percent means the product is underpriced. Conversion below 20 percent indicates either a product problem or an onboarding problem — not a price problem.
 
 At twelve months: Executive and Campaign tier launches from waitlist. If the waitlist has fifty or more users, both tiers launch simultaneously. If fewer, Executive launches first.
 
-At twenty-four months: Consider an annual billing option — ten months for the price of twelve — for users who are not in active search but want to maintain Alumni mode or passive monitoring on a longer horizon.
+At twenty-four months: Consider an annual billing option — ten months for the price of twelve — for users who are not in active search but want to maintain Alumni mode or intelligence monitoring on a longer horizon.
 
 At thirty-six months: B2B channel pricing formalized. Outplacement integration pricing may move to per-seat-per-year to match the institutional billing cycle.

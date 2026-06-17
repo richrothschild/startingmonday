@@ -19,7 +19,7 @@ Public pricing ladder:
 
 | Tier | Monthly | Annual | Internal key | Public status |
 |------|---------|--------|--------------|---------------|
-| Intelligence | $49 | $490 | `passive` | Public |
+| Intelligence | $49 | $490 | `intelligence` | Public |
 | Search | $199 | $1,990 | `active` | Public |
 | Executive | $499 | $5,000 | `executive` | Public |
 | Concierge | $499 | $4,990 | `concierge` | Non-primary / invite-led |
@@ -89,7 +89,7 @@ This sentence should appear above or adjacent to the plan cards. It makes the Se
 ### Intelligence ($49)
 The name is correct. It signals "I want market awareness" without implying active search posture. This is the right framing for: (a) executives in slow-burn mode, and (b) post-placement users who want to stay informed about their market.
 
-The risk: Intelligence tier attracts passive buyers who will not engage deeply and will churn at the search-end cohort without generating a testimonial. Consider building a retention path that keeps landed executives on Intelligence at a symbolic price point ($29/mo or $290/yr) after they mark their search complete.
+The risk: Intelligence tier attracts intelligence buyers who will not engage deeply and will churn at the search-end cohort without generating a testimonial. Consider building a retention path that keeps landed executives on Intelligence at a symbolic price point ($29/mo or $290/yr) after they mark their search complete.
 
 ### Search ($199)
 The strongest tier in the product. Search is the clearest external name for the core active campaign tier. The copy should reinforce the commitment this requires: "This tier is for executives running an active search. If you are not sending outreach this week, you will not get full value."

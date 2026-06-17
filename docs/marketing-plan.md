@@ -25,7 +25,7 @@ One-sentence positioning: Starting Monday is the operating system for a senior p
 
 The primary audience is the active VP and C-suite candidate: VP, SVP, CIO, CTO, COO, CFO, and equivalent titles earning $250,000 to $1 million or more in total compensation. They are actively searching or genuinely open to the right opportunity. Their pain is not a lack of credentials — it is the gap between what they know they are worth and how poorly the search process serves them at their level. They live on LinkedIn as passive scrollers, not active applicants, and they move through referral networks, professional associations, alumni programs, and outplacement programs.
 
-The secondary audience is the passive monitor: the same title range, not yet actively searching, willing to pay $49 per month to stay informed and keep relationships warm. They convert to the Active plan at the moment they decide to commit. The Passive tier exists specifically for this persona.
+The secondary audience is the intelligence monitor: the same title range, not yet actively searching, willing to pay $49 per month to stay informed and keep relationships warm. They convert to the Active plan at the moment they decide to commit. The Intelligence tier exists specifically for this persona.
 
 The tertiary audience is the level-up candidate: Director to VP, VP to CIO. Ready for the promotion that requires changing companies, more uncertain about positioning, and with the highest need for the strategy brief and AI chat among any segment.
 
@@ -111,7 +111,7 @@ The tone is spare, direct, and confident. The copy should read as if it was writ
 | Trial to paid conversion | 30% | 35% | 40% |
 | Monthly churn | under 10% | under 7% | under 5% |
 | NPS (paying users) | 50 | 55 | 60 |
-| Active-to-Passive ratio | 2:1 | 2:1 | 2:1 |
+| Active-to-Intelligence ratio | 2:1 | 2:1 | 2:1 |
 
 The most important metric in Phase 1 is not revenue. It is stories. How many users can describe a specific moment where Starting Monday gave them an advantage? Those stories are the product's proof of concept and the foundation of everything that comes after.
 

@@ -37,7 +37,7 @@ Source of truth: yes
 - **Pain:** Doesn't know how to work the hidden job market. Doesn't have a VP-level network. Imposter syndrome about the title jump. Applying to job postings and hearing nothing.
 - **Willingness to pay:** $99-199/month
 - **Duration:** 6-12 months (longer because employed, more selective)
-- **Retention driver:** Positioning coaching + market intelligence. Stays subscribed as a passive looker between active sprints.
+- **Retention driver:** Positioning coaching + market intelligence. Stays subscribed as a intelligence looker between active sprints.
 - **Key features:** Company discovery engine, positioning coach, outreach drafting, interview prep, progress analytics
 
 ---
@@ -56,7 +56,7 @@ Source of truth: yes
 
 ---
 
-### Persona 4 — The Passive Looker
+### Persona 4 — The Intelligence Looker
 **"I'm not desperate, but I'd leave for the right thing. Just don't make me work hard at it."**
 
 - **Who:** Employed professional at any level, 5-20 years experience, making reasonable money but knows the market has moved
@@ -123,7 +123,7 @@ and alerts within 24 hours of a new matching role going live. Claude scores each
 relevance before alerting — no noise, only real matches.
 
 > *Reach:* Works for every persona. Replaces a manual task everyone hates.
-> *Retention:* Keeps passive lookers subscribed indefinitely. They can't replicate this without the tool.
+> *Retention:* Keeps intelligence lookers subscribed indefinitely. They can't replicate this without the tool.
 
 ---
 
@@ -236,7 +236,7 @@ is trending up." Gamification-lite. Creates accountability without a human coach
 **12. Market Intelligence Digest**
 Weekly or monthly email: "5 companies in your target sectors posted relevant roles this
 week." "3 Series C companies in logistics tech closed funding — likely to be hiring
-IT leadership in the next 90 days." For passive lookers especially, this is the reason
+IT leadership in the next 90 days." For intelligence lookers especially, this is the reason
 to stay subscribed with zero active effort.
 
 > *Reach:* Low-friction passive value. Works for employed professionals who can't commit
@@ -272,7 +272,7 @@ open the negotiation."
 
 | Tier | Price | Target Personas | Key Features |
 |---|---|---|---|
-| **Monitor** | $49/month | Passive Looker, early Mid-Career | Company watchlist, scan alerts, weekly digest |
+| **Monitor** | $49/month | Intelligence Looker, early Mid-Career | Company watchlist, scan alerts, weekly digest |
 | **Search** | $199/month | Mid-Career Climber, Career Pivoter, Returning | All Intelligence + chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer |
 | **Executive** | $499/month | Transformation Executive, VP Candidate, Laid-Off | All Search + interview prep, positioning coach, salary intelligence, recruiter tracker, priority scan frequency |
 | **Coach** | $599/month | Career coaches (up to 10 clients) | Multi-client dashboard, white-label briefings, aggregate pipeline view |
@@ -289,6 +289,6 @@ Annual pricing at 20% discount on all tiers.
 | 500 users | 150 Monitor / 225 Active / 100 Executive / 25 Coach | $72,350 |
 | 1,000 users | 300 Monitor / 450 Active / 200 Executive / 50 Coach | $144,700 |
 
-Passive Lookers (Monitor tier) are the LTV backbone — they stay 12-24 months.
+Intelligence Lookers (Monitor tier) are the LTV backbone — they stay 12-24 months.
 Active searchers churn in 3-6 months but are the acquisition engine (word of mouth
 when they land, testimonials, referrals to colleagues).

@@ -73,6 +73,12 @@ vi.mock('@/lib/supabase/admin', () => ({
         }
       }
 
+      if (table === 'partner_audit_events') {
+        return {
+          insert: async () => ({ error: null }),
+        }
+      }
+
       return {
         select: () => ({
           eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }),

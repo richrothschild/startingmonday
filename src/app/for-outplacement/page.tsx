@@ -261,6 +261,14 @@ export default function ForOutplacementPage() {
                 <p><span className="text-white font-semibold">This sounds like one more platform to manage.</span> The goal is the opposite: reduce counselor overhead and keep strategy time high.</p>
               </div>
             </div>
+            <div className="mt-5">
+              <Link
+                href="/features/outplacement"
+                className="inline-flex items-center rounded border border-slate-600 bg-slate-900 px-4 py-2 text-[13px] font-semibold text-slate-100 hover:border-slate-400"
+              >
+                View full outplacement feature one-pager
+              </Link>
+            </div>
           </div>
         </header>
 

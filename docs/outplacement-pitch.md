@@ -44,7 +44,7 @@ There are three ways to work together, with different levels of commitment and i
 
 The first is a referral arrangement. Starting Monday is listed as a recommended tool in your client materials. Clients receive a free trial extension or a discount code. In return, Starting Monday pays a revenue share of 15 to 20 percent on first-year subscriptions from your clients. No integration required, no seat commitment.
 
-The second is co-branded bulk access. Your firm purchases seats for clients in your executive transition programs, and Starting Monday is delivered as part of the program package, white-labeled or co-branded with your identity. Pricing is $35 to $45 per seat per month at a minimum of ten seats, against the $49 retail Passive rate. The initial term is six months.
+The second is co-branded bulk access. Your firm purchases seats for clients in your executive transition programs, and Starting Monday is delivered as part of the program package, white-labeled or co-branded with your identity. Pricing is $35 to $45 per seat per month at a minimum of ten seats, against the $49 retail Intelligence rate. The initial term is six months.
 
 The third is deep integration. Starting Monday is embedded in your firm's workflow: client data flows between your CRM and Starting Monday, coaches have view-only access to client pipelines, and brief outputs are shared directly in coaching sessions. This is an enterprise license on a twelve-month minimum, with pricing custom to scope. It requires integration work from both sides and is suited to large firms with existing technology infrastructure.
 

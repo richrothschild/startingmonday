@@ -131,7 +131,7 @@ Story 2.3: Offer Decision Cockpit
 - KPI target:
   - >= 70% of offer-stage users complete a decision scorecard.
 
-Story 2.4: Passive Search Watch Mode
+Story 2.4: Intelligence Search Watch Mode
 - Description:
   - Confidential low-noise mode for seated executives with trigger thresholds and discreet cadence.
 - Acceptance criteria:
@@ -295,7 +295,7 @@ Next (days 31-60)
 Later (days 61-90)
 - 1.4 Multi-Stakeholder Workspace
 - 2.3 Offer Decision Cockpit
-- 2.4 Passive Search Watch Mode
+- 2.4 Intelligence Search Watch Mode
 - 3.3 Coaching ROI Scorecard
 - 3.4 White-Label Weekly Digest
 - 4.3 Employer-Facing Impact Packet

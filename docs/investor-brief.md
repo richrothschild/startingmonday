@@ -59,7 +59,7 @@ Consumer subscriptions are the primary revenue stream, with an institutional cha
 
 | Plan | Monthly | Quarterly | Status |
 | --- | --- | --- | --- |
-| Passive | $49 | $132 | Live |
+| Intelligence | $49 | $132 | Live |
 | Search | $199 | $537 | Live |
 | Executive | $499 | — | Waitlist |
 | Campaign | $999 | 3-month min. | Waitlist |
@@ -108,7 +108,7 @@ The institutional channel is a pull, not a push. Outplacement firms serve large 
 | Slow trial-to-paid conversion | Medium probability, high impact | Onboarding improved to reach first brief in under 15 minutes |
 | Anthropic API cost increases | Low probability | Token budgets enforced in code; model selection tuned per task |
 | Competitor entry | Medium probability, medium impact | Moat is data and founder credibility, not technology |
-| Executive search market softens | Low probability | Passive tier creates counter-cyclical demand |
+| Executive search market softens | Low probability | Intelligence tier creates counter-cyclical demand |
 | Churn at offer | Structural | Alumni mode designed to retain users between search cycles |
 
 ---

@@ -79,6 +79,12 @@ export default function ForCoachesPage() {
               <a href="#competitive-comparison" className="underline underline-offset-2 transition-colors hover:text-white">
                 Comparison table
               </a>
+              <Link href="/features/executive-coaches" className="underline underline-offset-2 transition-colors hover:text-white">
+                Feature one-pager
+              </Link>
+              <Link href="/features" className="underline underline-offset-2 transition-colors hover:text-white">
+                Docs hub
+              </Link>
             </div>
           </div>
 

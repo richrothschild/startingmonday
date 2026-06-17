@@ -233,18 +233,18 @@ In-app view (`/dashboard/briefing`): Same content viewable in the dashboard.
 Subscription management:
 
 - Current plan, status, billing period
-- Upgrade and downgrade options (Passive and Active)
+- Upgrade and downgrade options (Intelligence and Active)
 - Pause subscription
 - Access Stripe Customer Portal (payment method, invoice history)
 - Trial countdown if in trial period
 
-Feature gating: Features unavailable on the current tier display an upgrade prompt inline — for example, trying to open a prep brief on Passive shows the Active upgrade card. The UI does not hide the navigation; it shows what's possible at the next tier.
+Feature gating: Features unavailable on the current tier display an upgrade prompt inline — for example, trying to open a prep brief on Intelligence shows the Active upgrade card. The UI does not hide the navigation; it shows what's possible at the next tier.
 
 ---
 
 ## Subscription Gating
 
-Features are gated at the API layer (`requireFeatureAccess`) and displayed conditionally in the UI. Users on the free or passive tier see the features but encounter upgrade prompts when they attempt to use gated capabilities.
+Features are gated at the API layer (`requireFeatureAccess`) and displayed conditionally in the UI. Users on the free or intelligence tier see the features but encounter upgrade prompts when they attempt to use gated capabilities.
 
 Paused accounts: All AI features disabled. User sees a "resume subscription" prompt.
 

@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-17T00:36:54.489Z
+Last generated: 2026-06-17T18:11:31.464Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (205)
+## Features (206)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -149,6 +149,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Executives | /executives | User-facing page route /executives.
 - Feature Executives / Passive | /executives/passive | User-facing page route /executives/passive.
 - Feature Executives / Personas | /executives/personas | User-facing page route /executives/personas.
+- Feature Features | /features | User-facing page route /features.
 - Feature Feedback | /feedback | User-facing page route /feedback.
 - Feature For cdo | /for-cdo | User-facing page route /for-cdo.
 - Feature For chro | /for-chro | User-facing page route /for-chro.
@@ -222,7 +223,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (268)
+## API Surface (269)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -411,6 +412,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/executive-brief/grill-me/sessions | src/app/api/executive-brief/grill-me/sessions/route.ts | export async function GET(request: NextRequest) {
 - API /api/executive-brief/transcription | src/app/api/executive-brief/transcription/route.ts | export async function GET(request: NextRequest) {
 - API /api/executive-transition/emotion-state/score | src/app/api/executive-transition/emotion-state/score/route.ts | export async function POST(request: NextRequest) {
+- API /api/features/chat | src/app/api/features/chat/route.ts | export async function POST(request: NextRequest) {
 - API /api/feedback/items/[id]/comments | src/app/api/feedback/items/[id]/comments/route.ts | GET /api/feedback/items/[id]/comments - list comments
 - API /api/feedback/items/[id]/status | src/app/api/feedback/items/[id]/status/route.ts | PATCH /api/feedback/items/[id]/status - update status (staff only)
 - API /api/feedback/items/[id]/vote | src/app/api/feedback/items/[id]/vote/route.ts | POST /api/feedback/items/[id]/vote - add vote
@@ -492,7 +494,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (209)
+## Codebase Modules (210)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -560,6 +562,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/executive-research-library.ts | src/lib/executive-research-library.ts | export type VerifiedSourceTier = 'A' | 'B' | 'C'
 - Code src/lib/experiment-route-coverage-guard.test.ts | src/lib/experiment-route-coverage-guard.test.ts | import fs from 'node:fs'
 - Code src/lib/experiment-variants.ts | src/lib/experiment-variants.ts | export type VariantProps = Record<string, string | number | boolean | null>
+- Code src/lib/feature-docs.ts | src/lib/feature-docs.ts | export type FeatureDocCategory = 'features' | 'onboarding' | 'analysis'
 - Code src/lib/feature-flags.ts | src/lib/feature-flags.ts | export function isEnabledFlag(value: string | null | undefined): boolean {
 - Code src/lib/form-utils.test.ts | src/lib/form-utils.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/form-utils.ts | src/lib/form-utils.ts | Shared FormData parsing helpers for server actions.
@@ -1030,7 +1033,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 
-## Documentation (619)
+## Documentation (638)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1238,6 +1241,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
 - Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
 - Doc docs/development/migration-rollbacks/136_brief_lifecycle_state.md | docs/development/migration-rollbacks/136_brief_lifecycle_state.md | 136_brief_lifecycle_state rollback
+- Doc docs/development/migration-rollbacks/138_partner_program_settings.md | docs/development/migration-rollbacks/138_partner_program_settings.md | 138_partner_program_settings rollback
+- Doc docs/development/migration-rollbacks/139_partner_audit_events.md | docs/development/migration-rollbacks/139_partner_audit_events.md | 139_partner_audit_events rollback
+- Doc docs/development/migration-rollbacks/140_partner_roles.md | docs/development/migration-rollbacks/140_partner_roles.md | 140_partner_roles rollback
+- Doc docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | 141_partner_programs_and_cohorts rollback
+- Doc docs/development/migration-rollbacks/142_partner_outcome_events.md | docs/development/migration-rollbacks/142_partner_outcome_events.md | 142_partner_outcome_events rollback
+- Doc docs/development/migration-rollbacks/143_partner_weekly_loop.md | docs/development/migration-rollbacks/143_partner_weekly_loop.md | 143_partner_weekly_loop rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
@@ -1305,6 +1314,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/executive-job-search/37-sprint-6-execution-packet.md | docs/executive-job-search/37-sprint-6-execution-packet.md | Sprint 6 Execution Packet
 - Doc docs/executive-pages-ux-audit-2026-06-14.md | docs/executive-pages-ux-audit-2026-06-14.md | Executive Pages UX and Content Audit
 - Doc docs/executive-search-playbook.md | docs/executive-search-playbook.md | The Executive Search Playbook
+- Doc docs/features/features-executive-coaches.md | docs/features/features-executive-coaches.md | Feature Guide: Executive Coaches
+- Doc docs/features/features-executives.md | docs/features/features-executives.md | Feature Guide: Executives
+- Doc docs/features/features-outplacement.md | docs/features/features-outplacement.md | Feature Guide: Outplacement Firms
+- Doc docs/features/features-search-firms.md | docs/features/features-search-firms.md | Feature Guide: Executive Search Firms
+- Doc docs/features/features-white-label.md | docs/features/features-white-label.md | Feature Guide: White-Label Partners
 - Doc docs/for-coaches-review-from-synthetic-council-may-2026.md | docs/for-coaches-review-from-synthetic-council-may-2026.md | /for-coaches Page Review from Synthetic Council
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
@@ -1333,6 +1347,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
 - Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md | docs/jira/luxury-modern-sitewide-elevation-import-README.md | Luxury-Modern Sitewide Elevation Jira Import (Ready)
+- Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | White-Label Transition MVP Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
 - Doc docs/landing-page-council-review.md | docs/landing-page-council-review.md | Landing Page Council Review
@@ -1364,6 +1379,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/onboarding/07-contributor-agreement.md | docs/onboarding/07-contributor-agreement.md | Starting Monday — Contributor Agreement
 - Doc docs/onboarding/08-day-one-checklist.md | docs/onboarding/08-day-one-checklist.md | Day One Checklist
 - Doc docs/onboarding/local-setup-prompt.md | docs/onboarding/local-setup-prompt.md | Claude Setup Prompt — Get localhost:3000 Running
+- Doc docs/onboarding/onboarding-analysis.md | docs/onboarding/onboarding-analysis.md | Onboarding and Time-to-Value Analysis
+- Doc docs/onboarding/quick-start-executive-coaches.md | docs/onboarding/quick-start-executive-coaches.md | Quick-Start Guide: Executive Coaches
+- Doc docs/onboarding/quick-start-executives.md | docs/onboarding/quick-start-executives.md | Quick-Start Guide: Executives
+- Doc docs/onboarding/quick-start-outplacement.md | docs/onboarding/quick-start-outplacement.md | Quick-Start Guide: Outplacement Firms
+- Doc docs/onboarding/quick-start-search-firms.md | docs/onboarding/quick-start-search-firms.md | Quick-Start Guide: Executive Search Firms
+- Doc docs/onboarding/quick-start-white-label.md | docs/onboarding/quick-start-white-label.md | Quick-Start Guide: White-Label Partners
 - Doc docs/one-pager.md | docs/one-pager.md | Starting Monday
 - Doc docs/operating-system.md | docs/operating-system.md | Starting Monday — Internal Operating System
 - Doc docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | docs/operations-tooling-taxonomy/01-synthetic-monitoring/README.md | 01 Synthetic Monitoring
@@ -1649,6 +1670,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/wbs-online-guide-and-chat-2026-05-30.md | docs/wbs-online-guide-and-chat-2026-05-30.md | WBS: Online User Guide + Guide Chat
 - Doc docs/weekly-search-review-template.md | docs/weekly-search-review-template.md | Weekly Search Review Template
 - Doc docs/weekly-unified-audit.latest.md | docs/weekly-unified-audit.latest.md | Weekly Unified Audit
+- Doc docs/white-label-product-spec-2026-06-16.md | docs/white-label-product-spec-2026-06-16.md | White-Label Product Spec (One Page)
 - Doc docs/writing-guidelines.md | docs/writing-guidelines.md | Writing Guidelines — Resumes, Cover Letters, Messaging
 
 ## What It Is Not

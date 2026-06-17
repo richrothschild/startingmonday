@@ -58,5 +58,5 @@ All new persona and mode CTAs are instrumented with:
 - S3-002 Coach persona routes: complete
 - S3-003 Outplacement buyer-role routes: complete
 - S3-004 Search-firm sub-persona routes: complete
-- S3-005 Passive vs active executive mode split: complete
+- S3-005 Intelligence vs active executive mode split: complete
 - S3-006 Persona telemetry QA: complete

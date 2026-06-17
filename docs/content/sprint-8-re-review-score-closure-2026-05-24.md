@@ -57,7 +57,7 @@ Scoring rubric used for Sprint 8 closure:
 | Member | Sprint 8 score | Closure evidence | Next action |
 | --- | ---: | --- | --- |
 | Ambitious VP IT Seeking CIO Role | 95 | Persona-aware routes and prep depth surfaced in executive paths | Keep VP-to-CIO pathway copy and CTA coherence in sync |
-| Sitting CIO Managing Optionality | 95 | Passive versus active mode split and low-noise path are live | Preserve passive-optionality UX during future onboarding edits |
+| Sitting CIO Managing Optionality | 95 | Intelligence versus active mode split and low-noise path are live | Preserve intelligence-optionality UX during future onboarding edits |
 | Displaced Technology Executive | 97 | Transition-first quickstart and guided onboarding under Sprint 6 | Maintain under-10-minute first-value monitoring weekly |
 | PE-Backed Transformation Operator | 95 | Intelligence quality scoring and confidence improvements delivered | Keep transformation-signal quality checks in QA scorecard |
 | Burned-Out Technology Executive | 96 | Low-energy mode and cognitive-load reduction delivered | Review completion and drop-off trend monthly by cohort |
