@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Starting Monday - For Career Tools Listeners',
   description: 'The search infrastructure built for C-suite job searches. If you are approaching the senior executive level - or already there - this is what the search looks like and what it takes to run it well.',
   alternates: { canonical: 'https://startingmonday.app/career-tools' },
-  robots: { index: false },
+  robots: { index: true, follow: true },
 }
 
 const WHAT_CHANGES = [
