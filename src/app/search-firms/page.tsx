@@ -144,6 +144,18 @@ export default function SearchFirmsPage() {
               >
                 Run a pilot
               </TrackLink>
+              <Link
+                href="/features/search-firms"
+                className="rounded border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-200 hover:border-slate-400"
+              >
+                Feature one-pager
+              </Link>
+              <Link
+                href="/features"
+                className="rounded border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-200 hover:border-slate-400"
+              >
+                Docs hub
+              </Link>
             </div>
 
             <div className="mt-8">

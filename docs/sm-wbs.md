@@ -33,11 +33,11 @@
 | 1.2.6 | Step 5: Generate first prep brief for one of their companies (in-wizard) | M | B | P1 | Brief renders during wizard; first "wow" moment before exit |
 | 1.2.7 | Wizard completion → "Your search is live" screen with first briefing scheduled | S | B | P1 | User sees confirmation + exact time of first briefing |
 
-### 1.3 Monitor Tier + Passive Onboarding (Sprint C — Jun 16-29)
+### 1.3 Monitor Tier + Intelligence Onboarding (Sprint C — Jun 16-29)
 
 | ID | Task | Effort | Sprint | Priority | Definition of Done |
 |----|------|--------|--------|----------|-------------------|
-| 1.3.1 | Passive setup track — 3-field fast path: title, 5 companies, email | M | C | P1 | Passive user can complete setup in <3 min; briefing time defaults to 7am |
+| 1.3.1 | Intelligence setup track — 3-field fast path: title, 5 companies, email | M | C | P1 | Passive user can complete setup in <3 min; briefing time defaults to 7am |
 | 1.3.2 | Weekly Market Intelligence Digest — email with signals + scan matches, no login required | L | C | P1 | Digest sends every Sunday; content is relevant, not generic |
 | 1.3.3 | Proactive company suggestions in Monitor dashboard — "based on your profile, try these" | M | C | P2 | Suggestions appear on first login; based on title + sector from profile |
 | 1.3.4 | Data export (GDPR) — one-click download of all user data as JSON | M | C | P2 | Export works; includes pipeline, contacts, drafts, profile |

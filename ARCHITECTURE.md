@@ -78,12 +78,12 @@ Apply new migrations in the Supabase SQL Editor or via `scripts/migrate.sh`.
 
 ## Subscription & Feature Gating
 
-Tiers (stored in `users.subscription_tier`): `free`, `passive` (Monitor), `active` (Search), `executive`, `campaign`, `coach`
+Tiers (stored in `users.subscription_tier`): `free`, `intelligence`, `active` (Search), `executive`, `campaign`, `coach`
 
 Feature access is defined in `src/lib/subscription.ts` as a `FEATURE_TIERS` map:
 
 ```text
-scan                passive+
+scan                intelligence+
 ai_chat             active+
 prep_brief          active+
 strategy_brief      active+

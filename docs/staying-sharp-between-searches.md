@@ -46,7 +46,7 @@ The discipline of staying sharp includes documenting accomplishments while they 
 
 The companies on your watch list from the last search are still worth watching. Some of them will have moved on from the moment that made them interesting. Others will have evolved in ways that make the next mandate more relevant, not less.
 
-Keep eight to ten companies under passive monitoring. Review the list once a quarter and update it — add the companies that have become more interesting, remove the ones that have drifted from your target. The career page scans run regardless. When something fires, you will see it.
+Keep eight to ten companies under intelligence monitoring. Review the list once a quarter and update it — add the companies that have become more interesting, remove the ones that have drifted from your target. The career page scans run regardless. When something fires, you will see it.
 
 The benefit of continuous monitoring over the two or three years between searches is not obvious until the moment it matters. The executive who has been watching a company for 26 months when the CIO departure is announced has context no newcomer can match. They know the company's priorities, the signals that fired over the past two years, and often have a contact or two who remembers their last conversation. That context is an advantage that cannot be manufactured in 48 hours.
 

@@ -107,12 +107,26 @@ export default function PartnersPage() {
               </p>
 
               <div className="mt-7">
-                <a
-                  href="#apply"
-                  className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
-                >
-                  Apply now
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="#apply"
+                    className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+                  >
+                    Apply now
+                  </a>
+                  <Link
+                    href="/features/white-label"
+                    className="inline-flex items-center justify-center rounded border border-slate-600 px-5 py-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-slate-400"
+                  >
+                    White-label guide
+                  </Link>
+                  <Link
+                    href="/features/executive-coaches"
+                    className="inline-flex items-center justify-center rounded border border-slate-600 px-5 py-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-slate-400"
+                  >
+                    Coach feature guide
+                  </Link>
+                </div>
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3 text-[13px] text-slate-200">

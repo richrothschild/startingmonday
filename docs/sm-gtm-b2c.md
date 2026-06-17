@@ -22,7 +22,7 @@ The second insight: the product must convert on **depth of value**, not breadth 
 - Search urgency: High. Severance runway is finite. Every week matters.
 - WTP: $129-249/month. Easy yes if the product is visibly excellent.
 
-**Secondary:** Passive executive monitor (Persona 4)
+**Secondary:** Intelligence executive monitor (Persona 4)
 - Employed, watching for the right opportunity
 - WTP: $49/month
 - LTV anchor: stays 12-24 months; low churn; stabilizes MRR as active-searchers cycle

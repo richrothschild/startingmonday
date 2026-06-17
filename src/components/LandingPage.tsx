@@ -1,5 +1,3 @@
-import { BrandIcon } from '@/components/BrandIcon'
-/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
@@ -7,7 +5,6 @@ import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowSta
 import { ChartZoomModal } from '@/components/home/ChartZoomModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
-import type { Channel } from '@/lib/channel-metrics-events'
 
 export interface SituationCard {
   id: string
@@ -65,40 +62,6 @@ const CHANNEL_BEST_FOR: Record<string, string> = {
 
 const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
 
-type RolePathItem = {
-  ctaKey: string
-  label: string
-  iconToken: string
-  priority: number
-  href?: string
-}
-
-const EXECUTIVE_WHY = [
-  'The short list is shaped before the posting goes live.',
-  'Strategic timing and disciplined execution outweigh credentials alone when competition intensifies.',
-  'Narrative quality decides whether you get invited back.',
-  'Without a weekly operating loop, even top candidates become reactive.',
-]
-
-const EXECUTIVE_GETS = [
-  {
-    title: 'Position for a specific audience',
-    detail: 'Define one clear narrative per audience so decision-makers know why you now.',
-  },
-  {
-    title: 'Control high-stakes conversations',
-    detail: 'Use calibrated questions and objection prep to steer each conversation toward next steps.',
-  },
-  {
-    title: 'Run a weekly execution rhythm',
-    detail: 'Replace reactive outreach cycles with a structured weekly operating cadence.',
-  },
-  {
-    title: 'Prove progress with evidence',
-    detail: 'Track signals and outcomes so strategy changes ground in data.',
-  },
-]
-
 const EXECUTIVE_FEATURE_MATRIX = [
   {
     feature: 'Executive signal intelligence',
@@ -144,33 +107,6 @@ const EXECUTIVE_DIFFERENTIATORS = [
     otherTools: 'Generic interview tips that rarely map to executive mandate discussions.',
   },
 ]
-
-const HOME_BLUF_SECTIONS = [
-  {
-    title: 'Be the person that shapes the role',
-    summary: 'Learn about likely executive openings before formal posting windows appear.',
-    detail: 'We surface movement signals so you can engage earlier with stronger context and better timing.',
-    href: '/blog/cio-job-search-timeline',
-  },
-  {
-    title: 'Relationship cadence that compounds',
-    summary: 'Stay in touch with the right people at the right time without reactive scrambling.',
-    detail: 'A weekly rhythm keeps outreach intentional across search firms, coaches, HR partners, peers, and boards.',
-    href: '/blog/cio-board-presentation',
-  },
-  {
-    title: 'Strategy over grunt work',
-    summary: 'Spend more time on decision quality and less on manual search busywork.',
-    detail: 'Signal tracking, prep framing, and recurring operating routines remove low-value repetition from the search.',
-    href: '/blog/executive-coaching-job-search',
-  },
-  {
-    title: 'Narrative control by audience',
-    summary: 'Refine your narrative for each conversation context without reinventing it every time.',
-    detail: 'Positioning is adapted for role paths and audiences so conversations stay consistent and role-aligned.',
-    href: '/blog/cio-vs-cto-which-role',
-  },
-] as const
 
 function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
@@ -299,7 +235,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
+            <Link href="/features" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors" aria-label="Open docs hub">
+              Docs
+            </Link>
             {isManagerToolsPage ? (
               <>
                 <Link

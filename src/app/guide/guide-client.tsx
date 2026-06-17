@@ -278,6 +278,7 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/help" className="text-[13px] text-slate-300 hover:text-white transition-colors">Help</Link>
+            <Link href="/features" className="text-[13px] text-slate-300 hover:text-white transition-colors">Features Docs</Link>
             <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">Dashboard</Link>
           </div>
         </div>

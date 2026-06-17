@@ -116,7 +116,7 @@ Resume tailoring (Feature 7) and LinkedIn Optimizer (Feature 8) are the entry fe
 
 ---
 
-### Persona 4 — The Passive Looker
+### Persona 4 — The Intelligence Looker
 *Employed, $49/month Monitor tier, 12-24 month duration*
 
 **Grade: B-**
@@ -129,17 +129,17 @@ The structural MRR anchor. High LTV due to long duration and low churn. The Moni
 They are not actually good enough — LinkedIn alerts surface posted jobs, not triggering signals (executive moves, funding rounds, team expansion patterns). The Market Intelligence Digest (Feature 12) and the scan-before-posting signal are the real differentiators. These need to be the lead value prop for this persona, not "track your pipeline" (they have no active pipeline).
 
 **"I'll sign up when I'm actually looking."**
-The counter: you won't see the signal if you're not watching before it appears. The 4-6 week window between a triggering event (new CEO, Series C, division expansion) and a role being posted is the entire value of passive monitoring. "By the time the CIO role is posted, someone already has the inside track. Start watching now." This framing needs to be in the Monitor tier landing page explicitly.
+The counter: you won't see the signal if you're not watching before it appears. The 4-6 week window between a triggering event (new CEO, Series C, division expansion) and a role being posted is the entire value of intelligence monitoring. "By the time the CIO role is posted, someone already has the inside track. Start watching now." This framing needs to be in the Monitor tier landing page explicitly.
 
 **"I won't use it."**
-Passive looker anxiety. They're right to worry — if there's no zero-effort value delivery (weekly digest, quarterly market brief), they'll pay $49 for two months and cancel before seeing a real signal. The Monitor tier must deliver value with near-zero user effort. The weekly Market Intelligence Digest is mandatory, not optional, for this persona's retention.
+Intelligence looker anxiety. They're right to worry — if there's no zero-effort value delivery (weekly digest, quarterly market brief), they'll pay $49 for two months and cancel before seeing a real signal. The Monitor tier must deliver value with near-zero user effort. The weekly Market Intelligence Digest is mandatory, not optional, for this persona's retention.
 
 **Key friction:**
-Onboarding designed for active searchers creates too much friction for a passive user who doesn't have a target list, a resume ready to upload, or 20 minutes to set up. Need a "passive setup" track: enter 5-10 companies, enter your title, receive weekly digest. No pipeline setup, no contact management, no briefing configuration. Done in under 3 minutes.
+Onboarding designed for active searchers creates too much friction for a passive user who doesn't have a target list, a resume ready to upload, or 20 minutes to set up. Need a "intelligence setup" track: enter 5-10 companies, enter your title, receive weekly digest. No pipeline setup, no contact management, no briefing configuration. Done in under 3 minutes.
 
 **Gaps specific to this persona:**
 - Market Intelligence Digest (not fully built)
-- "Passive setup" onboarding track (not built)
+- "Intelligence setup" onboarding track (not built)
 - Zero-effort weekly email with signal + market data (not built)
 - Proactive company suggestions based on minimal profile input (not built)
 
@@ -217,11 +217,11 @@ The product's best value (monitoring that alerts before a role is posted, compan
 | Company Discovery Engine | Blocks Personas 2, 3, 6, 7 | Month 6-9 |
 | Positioning Coach | Blocks Personas 2, 6, 7 | Month 9-12 |
 | Momentum Score + nudge email | Retention in weeks 3-4 (the churn wall) | Month 3-6 |
-| Market Intelligence Digest | Retention for Persona 4 (passive looker) | Month 3-6 |
+| Market Intelligence Digest | Retention for Persona 4 (intelligence looker) | Month 3-6 |
 | Pause-on-cancel (vs. hard cancel) | Loses 10-15% of churning users who would reactivate | Month 6 |
 | Resume tailoring (DOCX + ATS check) | Table stakes for Personas 3, 5 | Month 9 |
 | Referral program | 20% of placed users become acquisition | At 20 paying users |
-| "Passive setup" onboarding track | Converts Persona 4 (currently can't start) | Month 4-6 |
+| "Intelligence setup" onboarding track | Converts Persona 4 (currently can't start) | Month 4-6 |
 
 ### Manageable gaps (worth fixing, not urgent)
 
@@ -426,7 +426,7 @@ The entire Year 1 model assumes 40% trial-to-paid. If it's 15-20%, Year 1 revenu
 **Obstacle 2: Structural churn is mathematically aggressive.**
 At 11% monthly blended churn, to grow from 100 to 200 users requires acquiring ~33 users/month while ~11/month churn. That's a demanding acquisition rate that requires multiple channels working simultaneously. A single channel failure during growth phase causes flat or declining user count.
 
-*What to do:* Build the Monitor tier ($49 passive) as the structural MRR stabilizer by Month 6. Every Monitor tier user added cuts blended churn by ~0.1% and adds 18 months of subscription duration vs. 5 months. The math changes materially when the Monitor tier is properly differentiated and actively acquired.
+*What to do:* Build the Monitor tier ($49 intelligence) as the structural MRR stabilizer by Month 6. Every Monitor tier user added cuts blended churn by ~0.1% and adds 18 months of subscription duration vs. 5 months. The math changes materially when the Monitor tier is properly differentiated and actively acquired.
 
 **Obstacle 3: The Manager Tools window is time-limited.**
 The Mark Horstman relationship is the single highest-leverage acquisition opportunity in the model. But it requires: polished product, defensible AI output quality, 20-30 satisfied paying users with documented outcomes, and a product that can handle a sudden influx of 500-1,000 users without breaking. The window to approach this is approximately Q3 2027 (Month 15). Approaching before the product is ready burns the opportunity permanently.

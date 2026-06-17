@@ -49,7 +49,7 @@ Exit criteria:
 
 - All must-ship-now epics have owners and acceptance criteria.
 - Event pipeline validates in production with no missing critical events.
-- Zero remaining user-facing Passive tier references.
+- Zero remaining user-facing Intelligence tier references.
 
 ### Week 2 (Days 8-14): Build Core Workflow
 

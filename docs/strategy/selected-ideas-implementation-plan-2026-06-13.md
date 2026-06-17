@@ -44,7 +44,7 @@ Strategy doc states:
 - Executive: $499
 
 Live code states:
-- passive: $49
+- intelligence: $49
 - active: $199
 - executive: $499
 - concierge: $499

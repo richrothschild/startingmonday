@@ -86,7 +86,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 | Transformation Executive | 18–25 yrs | In transition from $250K–$500K role | $199–349 | 3–6 mo | $600–2,100 |
 | VP/Director Candidate | 12–18 yrs | Employed, targeting VP first-time | $99–199 | 6–12 mo | $600–2,400 |
 | Mid-Career Climber | 3–8 yrs | Active search, first real market experience | $49–99 | 2–5 mo | $100–495 |
-| Passive Looker | 5–20 yrs | Employed, open to right opportunity | $49–99 | 12–24 mo | $588–2,376 |
+| Intelligence Looker | 5–20 yrs | Employed, open to right opportunity | $49–99 | 12–24 mo | $588–2,376 |
 | Laid-Off Professional | Any | Urgent search, high anxiety, severance window | $99–199 | 3–9 mo | $300–1,800 |
 | Career Pivoter | 7–15 yrs | Transferable skills, wrong job titles | $79–129 | 6–12 mo | $474–1,548 |
 | Returning Professional | 8–20 yrs | 2–5 yr break, cold network, gap anxiety | $79–129 | 4–9 mo | $316–1,161 |
@@ -117,7 +117,7 @@ The product is powered by Anthropic's Claude API and designed for professionals 
 - **Required features:** Company discovery, resume tailoring, outreach templates, interview prep, LinkedIn optimizer, application tracker
 - **Tier target:** Search ($199/month)
 
-#### Persona 4 — Passive Looker
+#### Persona 4 — Intelligence Looker
 - **Title examples:** Any employed professional, 5–20 years
 - **Entry trigger:** Comfortable but knows the market has moved. Would leave for 30% comp bump.
 - **Search style:** Zero-effort — wants to be alerted, not to search
@@ -477,7 +477,7 @@ User pastes their LinkedIn About section, headline, and top 3 experience descrip
 | F8.6 | User can request up to 3 rounds of revision on any section |
 | F8.7 | Optimized sections are saved in the user profile as a reference |
 | F8.8 | This feature is accessible in the onboarding flow — not buried post-setup |
-| F8.9 | The LinkedIn Optimizer is available as a free public-facing tool at startingmonday.app/optimize — no account required. Results are displayed in-session. A "Save your results and start your free trial" CTA appears after the analysis completes. No personal data is collected unless the user creates an account. This is the primary top-of-funnel acquisition hook for the executive and passive looker personas — capturing users at the exact moment they update their LinkedIn profile to signal they are beginning a search. |
+| F8.9 | The LinkedIn Optimizer is available as a free public-facing tool at startingmonday.app/optimize — no account required. Results are displayed in-session. A "Save your results and start your free trial" CTA appears after the analysis completes. No personal data is collected unless the user creates an account. This is the primary top-of-funnel acquisition hook for the executive and intelligence looker personas — capturing users at the exact moment they update their LinkedIn profile to signal they are beginning a search. |
 
 #### Acceptance Criteria
 - [ ] User receives scored critique and rewrite within 15 seconds
@@ -573,7 +573,7 @@ Every Sunday: a structured summary of search velocity — outreach sent, respons
 **Priority:** P2
 
 #### Description
-Weekly or monthly email: "5 companies in your target sectors posted relevant roles this week." "3 Series C companies in logistics tech closed funding — likely hiring IT leadership in the next 90 days." For Passive Lookers, this is the reason to stay subscribed with zero active effort.
+Weekly or monthly email: "5 companies in your target sectors posted relevant roles this week." "3 Series C companies in logistics tech closed funding — likely hiring IT leadership in the next 90 days." For Intelligence Lookers, this is the reason to stay subscribed with zero active effort.
 
 #### Functional Requirements
 
@@ -1466,7 +1466,7 @@ Success criteria: 2+ outplacement firm agreements signed, 5+ Coach tier subscrib
 
 | Tier | Price | Target Personas | Key Features |
 |---|---|---|---|
-| **Intelligence** | $49/month | Passive Looker, early Mid-Career | Company watchlist (10 co.), twice-weekly scans, match alerts, weekly digest |
+| **Intelligence** | $49/month | Intelligence Looker, early Mid-Career | Company watchlist (10 co.), twice-weekly scans, match alerts, weekly digest |
 | **Search** | $199/month | Mid-Career Climber, Career Pivoter, Returning Professional | All Intelligence + AI chat, daily briefing, outreach drafting, resume tailoring, LinkedIn optimizer, company discovery (30 co., 3x/week scans) |
 | **Executive** | $499/month | Transformation Executive, VP Candidate, Laid-Off | All Search + interview prep, positioning coach, salary intelligence, recruiter tracker, daily scans, 50 companies |
 | **Coach** | $599/month | Career coaches (up to 10 clients) | Multi-client dashboard, white-label briefings, aggregate pipeline view |
@@ -1516,10 +1516,10 @@ The market has trained job seekers to expect a meaningful free tier. Two options
 | Option | Structure | Acquisition benefit | Risk |
 |---|---|---|---|
 | **A — Time-limited trial (current plan)** | 7-day full Active trial, then paid | Clean conversion gate, no perpetual free users | Lower top-of-funnel vs. freemium |
-| **B — Feature-limited freemium** | Monitor tier free: 3 companies, 1 scan/week, no AI, alerts only | Large top-of-funnel; passive lookers discover product before they need it | Free users don't convert unless they enter an active search |
-| **C — Hybrid** | 7-day trial + permanent free (3 companies, weekly scan, no AI) | Best of both; free tier retains passive lookers indefinitely | More complex billing logic; risk of free tier cannibalization |
+| **B — Feature-limited freemium** | Monitor tier free: 3 companies, 1 scan/week, no AI, alerts only | Large top-of-funnel; intelligence lookers discover product before they need it | Free users don't convert unless they enter an active search |
+| **C — Hybrid** | 7-day trial + permanent free (3 companies, weekly scan, no AI) | Best of both; free tier retains intelligence lookers indefinitely | More complex billing logic; risk of free tier cannibalization |
 
-**Recommendation:** Option C, with the addition of the free public LinkedIn Optimizer at startingmonday.app/optimize (see Feature 8, F8.9). Jack and Jill AI's completely free candidate model creates direct top-of-funnel pricing pressure — SM must have a zero-friction entry point that acquires users before they default to free competing tools. The free public LinkedIn Optimizer captures users at the exact moment they begin a search (when they update their LinkedIn profile) and converts them into the SM ecosystem before they discover alternatives. The permanent freemium Monitor tier (3 companies, weekly scan, no AI) then retains passive lookers at near-zero cost until they enter an active search. Decision required before Phase 2 launch.
+**Recommendation:** Option C, with the addition of the free public LinkedIn Optimizer at startingmonday.app/optimize (see Feature 8, F8.9). Jack and Jill AI's completely free candidate model creates direct top-of-funnel pricing pressure — SM must have a zero-friction entry point that acquires users before they default to free competing tools. The free public LinkedIn Optimizer captures users at the exact moment they begin a search (when they update their LinkedIn profile) and converts them into the SM ecosystem before they discover alternatives. The permanent freemium Monitor tier (3 companies, weekly scan, no AI) then retains intelligence lookers at near-zero cost until they enter an active search. Decision required before Phase 2 launch.
 
 ---
 

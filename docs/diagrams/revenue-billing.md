@@ -22,7 +22,7 @@ flowchart TD
     E4 --> DB
     DB --> FG["requireFeatureAccess"]
     FG --> T1["free: pipeline only"]
-    FG --> T2["passive $49: scan + alerts"]
+    FG --> T2["intelligence $49: scan + alerts"]
     FG --> T3["active $129-199: AI + prep + outreach"]
     FG --> T4["executive $249-499: Opus + daily scan + salary"]
 

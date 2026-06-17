@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
@@ -153,6 +154,14 @@ export default async function ForExecutivesPage({ searchParams }: ForExecutivesP
             { phase: 'Operate', focus: 'Run weekly outreach and prep cadence with accountability', visual: 'Cadence board and progress strip' },
           ]}
         />
+        <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6">
+          <Link
+            href="/features/executives"
+            className="inline-flex items-center rounded border border-slate-700 bg-slate-900 px-4 py-2 text-[13px] font-semibold text-slate-200 hover:border-slate-500 hover:text-white"
+          >
+            Read the full executive feature guide
+          </Link>
+        </div>
       </div>
     </>
   )

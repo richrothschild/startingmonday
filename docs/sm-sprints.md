@@ -170,20 +170,20 @@ Verify Privacy Policy covers: data stored, data shared, right to deletion, right
 ---
 
 ## Sprint C — Jun 16-29, 2026
-**Theme: Monitor Tier + Passive UX. Unlock the structural MRR stabilizer.**
+**Theme: Monitor Tier + Intelligence UX. Unlock the structural MRR stabilizer.**
 
-Passive users (Persona 4) are the MRR anchor. They stay 12-24 months. The current product doesn't serve them — it's designed for active searchers. This sprint fixes that.
+Intelligence users (Persona 4) are the MRR anchor. They stay 12-24 months. The current product doesn't serve them — it's designed for active searchers. This sprint fixes that.
 
 ### Product (10h)
 
-**[M] 1.3.1 — Passive setup track** (3h)
-A "3-field fast path" for passive users: title, 5 companies (or "suggest for me"), email. Briefing defaults to weekly digest instead of daily. No pipeline setup, no contact management. Done in under 3 minutes.
+**[M] 1.3.1 — Intelligence setup track** (3h)
+A "3-field fast path" for intelligence users: title, 5 companies (or "suggest for me"), email. Briefing defaults to weekly digest instead of daily. No pipeline setup, no contact management. Done in under 3 minutes.
 
 **[L] 1.3.2 — Weekly Market Intelligence Digest** (5h)
 Sunday email to Monitor tier users: scan matches from the week (all companies in watchlist), notable signals (new executive hires, funding announcements at target companies), and 2 specific "you might want to add this company" suggestions based on profile. No login required. All value in the email.
 
 **[M] 1.3.3 — Proactive company suggestions in Monitor dashboard** (2h)
-On first login after passive setup: "Based on your title and sector, you might want to watch these 5 companies." One-click add. Uses Claude + basic profile to suggest.
+On first login after intelligence setup: "Based on your title and sector, you might want to watch these 5 companies." One-click add. Uses Claude + basic profile to suggest.
 
 ### B2C GTM (4h)
 
@@ -204,7 +204,7 @@ Continue Sales Navigator DMs. Target: first demo call completed this sprint.
 Simple: name, email, asked/not-asked, testimonial received/not, referral sent/not.
 
 **Sprint C Success Criteria:**
-- Passive setup track live; at least 1 Monitor tier user converted
+- Intelligence setup track live; at least 1 Monitor tier user converted
 - Weekly digest live and sending
 - First SEO article published
 - First coach demo call completed
@@ -289,7 +289,7 @@ Personalized emails to career center directors at 5 MBA programs referencing the
 ---
 
 ## Sprint F — Jul 28-Aug 10, 2026
-**Theme: Company Discovery Engine. Unlock Persona 2 and passive users without a target list.**
+**Theme: Company Discovery Engine. Unlock Persona 2 and intelligence users without a target list.**
 
 ### Product (10h)
 

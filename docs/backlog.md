@@ -234,7 +234,7 @@ Move forward when: user base is large enough that average monitoring duration ex
 
 ### Alumni Mode (Reduced Subscription)
 
-A $49/month post-offer tier with passive monitoring of a small company watchlist, quarterly signal digest, and maintenance of the accomplishment repository.
+A $49/month post-offer tier with intelligence monitoring of a small company watchlist, quarterly signal digest, and maintenance of the accomplishment repository.
 
 Deferred because: acquisition is the current priority. Alumni mode has high long-term LTV value (returning users convert immediately for second searches) but requires an established user base to generate meaningful alumni volume.
 
@@ -286,7 +286,7 @@ Move forward when: post-completion email sequence is live and the voice for this
 
 ### Persona-Based Pricing Presentation
 
-Showing different pricing tiers based on which persona the user self-identifies with (e.g., the Transformation CIO sees the Executive tier prominently; the Passive Monitor sees Passive first). Reduces pricing complexity perception without reducing tier count.
+Showing different pricing tiers based on which persona the user self-identifies with (e.g., the Transformation CIO sees the Executive tier prominently; the Intelligence Monitor sees Intelligence first). Reduces pricing complexity perception without reducing tier count.
 
 Move forward when: tier count reaches four or more paid options and conversion data suggests visitors are confused by the pricing page.
 
@@ -298,7 +298,7 @@ Move forward when: institutional channels are active and a discount structure ca
 
 ### Additional Subscription Tiers
 
-Tiers beyond Passive and Active (Alumni, Competitive Intelligence subscription, Board Positioning). Each requires a distinct value proposition, distinct user segment, and a pricing rationale that does not undermine adjacent tiers.
+Tiers beyond Intelligence and Active (Alumni, Competitive Intelligence subscription, Board Positioning). Each requires a distinct value proposition, distinct user segment, and a pricing rationale that does not undermine adjacent tiers.
 
 Move forward when: core tiers have stable conversion rates and the use cases for additional tiers are validated by user research, not by hypothesis.
 

@@ -24,6 +24,28 @@ type PartnerProgramSettingsRow = {
   weekly_summary_day: WeeklySummaryDay | null
 }
 
+type PartnerAuditAction =
+  | 'settings_accessed'
+  | 'program_settings_updated'
+  | 'role_linked'
+
+async function writePartnerAuditEvent(args: {
+  admin: ReturnType<typeof createAdminClient>
+  partnerId: string
+  actorUserId: string
+  action: PartnerAuditAction
+  details?: Record<string, unknown>
+}) {
+  await args.admin
+    .from('partner_audit_events' as never)
+    .insert({
+      partner_id: args.partnerId,
+      actor_user_id: args.actorUserId,
+      action: args.action,
+      details: args.details ?? {},
+    } as never)
+}
+
 async function findPartner(admin: ReturnType<typeof createAdminClient>, userId: string, email: string | null): Promise<PartnerRow | null> {
   const { data: byUser } = await admin
     .from('partners')
@@ -47,6 +69,13 @@ async function findPartner(admin: ReturnType<typeof createAdminClient>, userId: 
   if (!partner.user_id) {
     await admin.from('partners').update({ user_id: userId }).eq('id', partner.id)
     partner.user_id = userId
+    await writePartnerAuditEvent({
+      admin,
+      partnerId: partner.id,
+      actorUserId: userId,
+      action: 'role_linked',
+      details: { link_reason: 'email_match_backfill' },
+    })
   }
 
   return partner
@@ -76,6 +105,14 @@ export async function GET(request: NextRequest) {
     sponsorTemplateVariant: row?.sponsor_template_variant ?? undefined,
     cohortNamingPrefix: row?.cohort_naming_prefix ?? undefined,
     weeklySummaryDay: row?.weekly_summary_day ?? undefined,
+  })
+
+  await writePartnerAuditEvent({
+    admin,
+    partnerId: partner.id,
+    actorUserId: auth.userId,
+    action: 'settings_accessed',
+    details: { surface: 'team_program_settings_get' },
   })
 
   return withAuthCookies(NextResponse.json({ data: settings, partner: { id: partner.id } }), auth)
@@ -142,6 +179,14 @@ export async function PATCH(request: NextRequest) {
     .eq('partner_id', partner.id)
     .maybeSingle()
   const saved = (savedRaw ?? null) as PartnerProgramSettingsRow | null
+
+  await writePartnerAuditEvent({
+    admin,
+    partnerId: partner.id,
+    actorUserId: auth.userId,
+    action: 'program_settings_updated',
+    details: { updated_fields: Object.keys(updates).sort() },
+  })
 
   return withAuthCookies(NextResponse.json({
     ok: true,

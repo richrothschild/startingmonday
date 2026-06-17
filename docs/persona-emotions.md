@@ -54,7 +54,7 @@ What Starting Monday must not do: sound cheerful or congratulatory; add administ
 
 ---
 
-## Persona 2: The Passive Monitor
+## Persona 2: The Intelligence Monitor
 
 A senior professional who is stable in their current role but aware — in a way they don't fully admit — that something has shifted. The job is fine. The compensation is good. But they find themselves reading articles about other companies, thinking about other mandates, noticing when a peer makes a move.
 
@@ -78,7 +78,7 @@ Internal voice: "If I had just been paying attention..."
 
 Something breaks the inertia. An unexpected restructuring announcement at their company. A peer who gets a remarkable offer. A recruiter call that goes unusually well. Suddenly they are serious, and they realize they have no infrastructure for it.
 
-### What Starting Monday Does for the Passive Monitor
+### What Starting Monday Does for the Intelligence Monitor
 
 Set up ten target companies, get a weekly digest. If something moves, they know. If nothing moves, they spent zero time on it. A contact tracker surfaces follow-ups when they are due, so relationships do not go cold because life got busy. At $49 per month, the decision is easy — it is less than one business dinner, easy to justify as professional hygiene. And when the decision point comes, they have context, contacts, and a system already running. The search starts from preparation, not scramble.
 
@@ -192,4 +192,4 @@ The first brief is the conversion moment. Whatever brings a user to the product,
 
 These are professionals who are not in the habit of admitting struggle. The product should never put them in a position of having to acknowledge it. No "how are you feeling about your search?" prompts. No progress celebrations that imply they needed encouragement.
 
-"Starting Monday" is the thing the passive monitor and the re-starter have been saying to themselves. The name creates immediate recognition and implicit permission — this is for people who have been here, and it is okay.
+"Starting Monday" is the thing the intelligence monitor and the re-starter have been saying to themselves. The name creates immediate recognition and implicit permission — this is for people who have been here, and it is okay.

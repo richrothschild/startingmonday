@@ -180,7 +180,7 @@ Next transitions:
 - outreach drafted
 - prep brief requested
 - follow-up scheduled
-- passive monitoring continues
+- intelligence monitoring continues
 
 ## Node 5: Outreach drafted
 

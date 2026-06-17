@@ -144,7 +144,7 @@ Route guards:
 - `requireAuth(request)` — validates JWT, returns `{ ok: true, userId }` or `{ ok: false, response: 401 }`
 - `requireFeatureAccess(request, feature)` — chains: auth, subscription tier check, monthly rate limit check. Returns `{ ok: true, userId, supabase }` or error response (401/402/429).
 
-Subscription tiers: `free | passive | active | executive | campaign`
+Subscription tiers: `free | intelligence | active | executive | campaign`
 
 Subscription statuses: `inactive | trialing | active | paused | past_due | canceled`
 

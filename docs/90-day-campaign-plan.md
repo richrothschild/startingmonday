@@ -6,7 +6,7 @@ startingmonday.app | May 2026
 
 Most executive searches take longer than they should because they start slowly, peak somewhere in month two or three, and then lose momentum. The candidate becomes tired, the outreach becomes sporadic, and the weekly discipline erodes into checking the pipeline when something happens to remind them it exists.
 
-This plan front-loads the work, builds sustainable habits in the middle, and finishes the search with the active momentum it needs to close. It is designed for an executive in full active search — not a passive monitor, not someone testing the waters. Someone who needs to arrive at an offer within 90 days or close to it.
+This plan front-loads the work, builds sustainable habits in the middle, and finishes the search with the active momentum it needs to close. It is designed for an executive in full active search — not a intelligence monitor, not someone testing the waters. Someone who needs to arrive at an offer within 90 days or close to it.
 
 ---
 

@@ -278,11 +278,11 @@ Write the 15-minute structure from sm-gtm-b2b.md. Practice once. Know the three 
 ---
 
 ## Sprint C (Jun 16–29, ~20h)
-**Theme: Monitor Tier + Content Compound. Unlock passive users and get LinkedIn working.**
+**Theme: Monitor Tier + Content Compound. Unlock intelligence users and get LinkedIn working.**
 
 ### Product (10h)
 
-**[M] Passive setup track — 3-field fast path (3h)**
+**[M] Intelligence setup track — 3-field fast path (3h)**
 For Monitor tier: title, 5 companies (or suggest), email. Briefing defaults to weekly digest. Done in under 3 minutes. No pipeline, no contact management.
 
 **[L] Weekly Market Intelligence Digest (5h)**
@@ -309,7 +309,7 @@ By end of Sprint C: 60 coach DMs total. Target: first demo call completed this s
 
 ### Sprint C Success Criteria
 
-- [ ] Monitor tier passive track live; at least 1 $49/month subscriber
+- [ ] Monitor tier intelligence track live; at least 1 $49/month subscriber
 - [ ] Weekly digest live and sending
 - [ ] First SEO article published
 - [ ] First coach demo call completed

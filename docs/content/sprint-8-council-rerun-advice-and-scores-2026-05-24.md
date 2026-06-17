@@ -67,8 +67,8 @@ Why I would not buy: If confidentiality and trust language become less explicit 
 Score: 95/100.
 
 ### Sitting CIO Managing Optionality
-Why I would buy: Passive-optionality path now looks more aligned with quiet monitoring and low-noise strategic awareness.
-Why I would not buy: If passive mode gets cluttered with active-search pressure, the fit for this persona breaks.
+Why I would buy: Intelligence-optionality path now looks more aligned with quiet monitoring and low-noise strategic awareness.
+Why I would not buy: If intelligence mode gets cluttered with active-search pressure, the fit for this persona breaks.
 Score: 95/100.
 
 ### Displaced Technology Executive

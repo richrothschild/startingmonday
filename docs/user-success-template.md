@@ -22,7 +22,7 @@ User profile (for internal use, not shared):
 - Title at time of search: _______________
 - Title of role accepted: _______________
 - Search duration (approximate): _______________
-- Starting Monday plan: Passive / Active / Trial
+- Starting Monday plan: Intelligence / Active / Trial
 
 ---
 

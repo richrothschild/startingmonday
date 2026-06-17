@@ -78,7 +78,7 @@ C-01. Add confidentiality assurance block on executive entry and onboarding page
 Source: VP IT, CIO.
 Measure: trust objection rate in qualitative interviews.
 
-C-02. Create passive-optionality mode separate from active-search mode UX.
+C-02. Create intelligence-optionality mode separate from active-search mode UX.
 Source: Sitting CIO.
 Measure: passive cohort retention at day 30.
 

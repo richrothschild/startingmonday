@@ -15,7 +15,7 @@ Source of truth: yes
 At a blended average of ~$150/month across tiers, $25K MRR = approximately **167 paying users**.
 
 To maintain 167 paying users with 4-month average active-search churn, you need to be
-acquiring roughly **40-50 new customers per month** while retaining passive lookers
+acquiring roughly **40-50 new customers per month** while retaining intelligence lookers
 as the stable base. This is the math everything else flows from.
 
 The obstacles below are grouped by category and rated by severity:
@@ -358,7 +358,7 @@ every month just to stay flat. To grow, you must acquire significantly more than
 This is an aggressive treadmill.
 
 **What needs to happen:**
-- Build the Passive Looker tier ($49/month) as the MRR stabilization layer — these users
+- Build the Intelligence Looker tier ($49/month) as the MRR stabilization layer — these users
   stay 12-24 months and reduce blended churn rate significantly
 - Build re-engagement pathway: users who cancel get a "pause" option (3 months, half price)
   rather than a hard cancel — many will reactivate the next time they look
@@ -389,9 +389,9 @@ impression that spreads.
 
 ---
 
-### 🟢 Passive Lookers Are Hard to Keep Engaged
+### 🟢 Intelligence Lookers Are Hard to Keep Engaged
 
-**The problem:** A Passive Looker subscribes, sets up 10 target companies, and then... waits.
+**The problem:** A Intelligence Looker subscribes, sets up 10 target companies, and then... waits.
 If nothing matches in 60 days, they question whether the $49/month is worth it.
 
 **What needs to happen:**
@@ -400,7 +400,7 @@ If nothing matches in 60 days, they question whether the $49/month is worth it.
 - Proactive "you might like this company" discovery: "Based on your profile, here are 3 new
   companies we think you'd score a 8+ on. Want to add them?"
 - Annual "career readiness" report: "Here's how your profile and target market have evolved
-  over the past year" — gives passive users a reason to engage once a quarter
+  over the past year" — gives intelligence users a reason to engage once a quarter
 
 ---
 
@@ -418,7 +418,7 @@ most price-sensitive. They've lost their income. Charging $149-249/month to some
 - Offer a "Job Seeker" monthly option at $99 with a clear "cancel anytime, no questions asked" policy
 - Consider a "Results Guarantee": if you don't get at least one interview in 60 days, the
   next 30 days are free — reduces perceived risk, forces product quality
-- Annual plan at 20% off works for passive lookers; actively searching users won't commit annually
+- Annual plan at 20% off works for intelligence lookers; actively searching users won't commit annually
 
 ---
 
@@ -629,11 +629,11 @@ demand is high but willingness to pay falls with income uncertainty. The market 
 product launches into significantly affects growth trajectory.
 
 **What needs to happen:**
-- The passive looker tier is the counter-cyclical hedge: even in a hot market, people
+- The intelligence looker tier is the counter-cyclical hedge: even in a hot market, people
   monitor for better opportunities
 - Position the product as a career management tool (always-on), not just a job search tool
   (point-in-time) — reduces cyclicality
-- Price the Monitor tier low enough ($49) that it survives as a passive subscription
+- Price the Monitor tier low enough ($49) that it survives as an intelligence subscription
   even when urgency is low
 
 ---
@@ -714,7 +714,7 @@ The obstacles above are not equally urgent. Solving them in the wrong order wast
 
 ### Must solve before $25K MRR:
 11. Consistent acquisition channel (organic SEO, referral program, or coach partnerships)
-12. Passive looker tier to stabilize churn
+12. Intelligence looker tier to stabilize churn
 13. LinkedIn / competitive differentiation positioning locked down
 14. Customer support process (tickets, SLA, self-service docs)
 15. Claude API cost-per-user monitoring and limits
