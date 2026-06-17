@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T22:19:02.164Z",
+  "generatedAt": "2026-06-17T22:23:23.734Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-17T18:48:57.432Z"
+      "lastModifiedAt": "2026-06-17T22:19:02.181Z"
     },
     {
       "id": "feature:/login",
@@ -17116,7 +17116,7 @@
     {
       "id": "doc:docs/features/features-executive-coaches.md",
       "title": "Doc docs/features/features-executive-coaches.md",
-      "body": "Feature Guide: Executive Coaches",
+      "body": "What Starting Monday gives coaches - one page",
       "type": "doc",
       "ref": "docs/features/features-executive-coaches.md",
       "tags": [
@@ -17124,7 +17124,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T14:33:26.232Z"
+      "lastModifiedAt": "2026-06-17T22:20:22.651Z"
     },
     {
       "id": "doc:docs/features/features-executives.md",
@@ -17449,7 +17449,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T18:48:57.432Z"
+      "lastModifiedAt": "2026-06-17T22:19:02.181Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17488,7 +17488,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T18:48:57.432Z"
+      "lastModifiedAt": "2026-06-17T22:19:02.181Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
