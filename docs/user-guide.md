@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-17T18:48:54.579Z
+Last generated: 2026-06-17T22:18:58.924Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (176)
+## Features (178)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -98,10 +98,12 @@ This guide is generated from product routes, APIs, and published articles.
 - [Coaches / Mock dashboard](/coaches/mock-dashboard) - Open /coaches/mock-dashboard to use this feature area and related workflows.
 - [Coaches](/coaches) - Open /coaches to use this feature area and related workflows.
 - [Coaches / Personas](/coaches/personas) - Open /coaches/personas to use this feature area and related workflows.
+- [Coachos](/coachos) - Open /coachos to use this feature area and related workflows.
 - [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
 - [Contributor](/contributor) - Open /contributor to use this feature area and related workflows.
 - [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
 - [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
+- [Demo / Coach dashboard](/demo/coach-dashboard) - Open /demo/coach-dashboard to use this feature area and related workflows.
 - [Demo / Executive brief](/demo/executive-brief) - Open /demo/executive-brief to use this feature area and related workflows.
 - [Demo / Executive dashboard](/demo/executive-dashboard) - Open /demo/executive-dashboard to use this feature area and related workflows.
 - [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
