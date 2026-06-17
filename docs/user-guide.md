@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-16T23:44:33.007Z
+Last generated: 2026-06-17T00:20:12.205Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -204,7 +204,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (263)
+## API and Automation (268)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -338,6 +338,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/coach/client/[clientId]/briefs](/api/coach/client/[clientId]/briefs) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/coach/client/[clientId]/companies](/api/coach/client/[clientId]/companies) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/coach/client/[clientId]/scorecards](/api/coach/client/[clientId]/scorecards) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/coach/client/[clientId]/session-snapshot](/api/coach/client/[clientId]/session-snapshot) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/coach/client/[clientId]/signals](/api/coach/client/[clientId]/signals) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/coach/client/[clientId]/weekly-review](/api/coach/client/[clientId]/weekly-review) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/coach/clients](/api/coach/clients) - Programmatic endpoint available for platform behavior or integrations.
@@ -427,6 +428,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/outreach/status](/api/outreach/status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/suppression](/api/outreach/suppression) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/template](/api/outreach/template) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/partner/outcome-events](/api/partner/outcome-events) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/partner/weekly-loop](/api/partner/weekly-loop) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/partners/attribute](/api/partners/attribute) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/partners/report](/api/partners/report) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/partners](/api/partners) - Programmatic endpoint available for platform behavior or integrations.
@@ -462,6 +465,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/tailor/strengthen](/api/tailor/strengthen) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/team/invite](/api/team/invite) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/team/program-settings](/api/team/program-settings) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/team/roles/[id]](/api/team/roles/[id]) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/team/roles](/api/team/roles) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/team/seat/[id]](/api/team/seat/[id]) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/team/white-label](/api/team/white-label) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/track/open](/api/track/open) - Programmatic endpoint available for platform behavior or integrations.

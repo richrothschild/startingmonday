@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-16T23:44:35.900Z
+Last generated: 2026-06-17T00:20:14.972Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -222,7 +222,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (263)
+## API Surface (268)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -356,6 +356,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/coach/client/[clientId]/briefs | src/app/api/coach/client/[clientId]/briefs/route.ts | export async function GET(
 - API /api/coach/client/[clientId]/companies | src/app/api/coach/client/[clientId]/companies/route.ts | export async function GET(
 - API /api/coach/client/[clientId]/scorecards | src/app/api/coach/client/[clientId]/scorecards/route.ts | export async function GET(
+- API /api/coach/client/[clientId]/session-snapshot | src/app/api/coach/client/[clientId]/session-snapshot/route.ts | GET /api/coach/client/[clientId]/session-snapshot
 - API /api/coach/client/[clientId]/signals | src/app/api/coach/client/[clientId]/signals/route.ts | export async function GET(
 - API /api/coach/client/[clientId]/weekly-review | src/app/api/coach/client/[clientId]/weekly-review/route.ts | export async function GET(
 - API /api/coach/clients | src/app/api/coach/clients/route.ts | export async function GET(request: NextRequest) {
@@ -445,6 +446,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/outreach/status | src/app/api/outreach/status/route.ts | export async function POST(request: NextRequest) {
 - API /api/outreach/suppression | src/app/api/outreach/suppression/route.ts | export async function POST(request: NextRequest) {
 - API /api/outreach/template | src/app/api/outreach/template/route.ts | export async function POST(request: NextRequest) {
+- API /api/partner/outcome-events | src/app/api/partner/outcome-events/route.ts | export const OUTCOME_EVENT_TYPES = [
+- API /api/partner/weekly-loop | src/app/api/partner/weekly-loop/route.ts | GET /api/partner/weekly-loop
 - API /api/partners/attribute | src/app/api/partners/attribute/route.ts | export async function POST(request: NextRequest) {
 - API /api/partners/report | src/app/api/partners/report/route.ts | Retired: temporary demo report endpoint.
 - API /api/partners | src/app/api/partners/route.ts | export async function POST(request: NextRequest) {
@@ -480,6 +483,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/tailor/strengthen | src/app/api/tailor/strengthen/route.ts | export async function POST(request: NextRequest) {
 - API /api/team/invite | src/app/api/team/invite/route.ts | export async function POST(request: NextRequest) {
 - API /api/team/program-settings | src/app/api/team/program-settings/route.ts | export async function GET(request: NextRequest) {
+- API /api/team/roles/[id] | src/app/api/team/roles/[id]/route.ts | DELETE /api/team/roles/[id] - revoke a role assignment
+- API /api/team/roles | src/app/api/team/roles/route.ts | export const PARTNER_ROLES = ['firm_admin', 'counselor', 'participant', 'sponsor_viewer'] as const
 - API /api/team/seat/[id] | src/app/api/team/seat/[id]/route.ts | export async function DELETE(
 - API /api/team/white-label | src/app/api/team/white-label/route.ts | export async function GET(request: NextRequest) {
 - API /api/track/open | src/app/api/track/open/route.ts | 1x1 transparent GIF
@@ -876,7 +881,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (142)
+## Data and Migrations (147)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -1019,8 +1024,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/136_brief_lifecycle_state.sql | supabase/migrations/136_brief_lifecycle_state.sql | alter table public.briefs
 - Migration supabase/migrations/137_partner_white_label_settings.sql | supabase/migrations/137_partner_white_label_settings.sql | alter table public.partners
 - Migration supabase/migrations/138_partner_program_settings.sql | supabase/migrations/138_partner_program_settings.sql | create table if not exists public.partner_program_settings (
+- Migration supabase/migrations/139_partner_audit_events.sql | supabase/migrations/139_partner_audit_events.sql | create table if not exists public.partner_audit_events (
+- Migration supabase/migrations/140_partner_roles.sql | supabase/migrations/140_partner_roles.sql | -- Partner role model: firm_admin, counselor, participant, sponsor_viewer
+- Migration supabase/migrations/141_partner_programs_and_cohorts.sql | supabase/migrations/141_partner_programs_and_cohorts.sql | -- Partner programs and cohorts
+- Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
+- Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 
-## Documentation (620)
+## Documentation (621)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1389,6 +1399,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/outreach/us-senior-executive-target-slate.md | docs/outreach/us-senior-executive-target-slate.md | US Senior Executive Target Slate
 - Doc docs/partners/expansion-packet-template.md | docs/partners/expansion-packet-template.md | Expansion Packet Template
 - Doc docs/partners/monthly-partner-report-template.md | docs/partners/monthly-partner-report-template.md | Monthly Partner Report Template
+- Doc docs/partners/partner-pilot-onboarding-kit.md | docs/partners/partner-pilot-onboarding-kit.md | Partner Pilot Onboarding Kit
 - Doc docs/partners/pilot-closeout-packet-template.md | docs/partners/pilot-closeout-packet-template.md | Pilot Closeout Packet Template
 - Doc docs/partners/renewal-decision-packet-template.md | docs/partners/renewal-decision-packet-template.md | Renewal Decision Packet Template
 - Doc docs/partners/reports/2026-06-pilot-partner-report.md | docs/partners/reports/2026-06-pilot-partner-report.md | Pilot Partner Report - June 2026

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import {
   WHITE_LABEL_DEFAULT_SETTINGS,
   WHITE_LABEL_TIERS,
@@ -71,6 +71,61 @@ export function TeamSettings({
   const [programSaving, setProgramSaving] = useState(false)
   const [programMessage, setProgramMessage] = useState<string | null>(null)
   const [programError, setProgramError] = useState('')
+
+  // Role management
+  type RoleRow = { id: string; user_id: string; role: string; granted_at: string }
+  const [roles, setRoles] = useState<RoleRow[] | null>(null)
+  const [roleUserId, setRoleUserId] = useState('')
+  const [roleValue, setRoleValue] = useState('counselor')
+  const [roleSaving, setRoleSaving] = useState(false)
+  const [roleMessage, setRoleMessage] = useState<string | null>(null)
+  const [roleError, setRoleError] = useState('')
+
+  const loadRoles = useCallback(async () => {
+    try {
+      const res = await fetch('/api/team/roles')
+      if (!res.ok) return
+      const data = await res.json().catch(() => null)
+      setRoles(data?.data ?? [])
+    } catch { /* ignore */ }
+  }, [])
+
+  useEffect(() => {
+    if (initialWhiteLabel) loadRoles()
+  }, [initialWhiteLabel, loadRoles])
+
+  async function handleAssignRole(e: React.FormEvent) {
+    e.preventDefault()
+    if (!roleUserId.trim()) return
+    setRoleSaving(true)
+    setRoleMessage(null)
+    setRoleError('')
+    try {
+      const res = await fetch('/api/team/roles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: roleUserId.trim(), role: roleValue }),
+      })
+      const data = await res.json().catch(() => null)
+      if (!res.ok) { setRoleError(data?.error ?? 'Failed to assign role.'); return }
+      setRoleMessage(`Role '${roleValue}' assigned.`)
+      setRoleUserId('')
+      loadRoles()
+    } catch {
+      setRoleError('Something went wrong.')
+    } finally {
+      setRoleSaving(false)
+    }
+  }
+
+  async function handleRevokeRole(roleId: string) {
+    if (!confirm('Revoke this role?')) return
+    try {
+      const res = await fetch(`/api/team/roles/${roleId}`, { method: 'DELETE' })
+      if (!res.ok) return
+      loadRoles()
+    } catch { /* ignore */ }
+  }
 
   async function handleWhiteLabelSave(e: React.FormEvent) {
     e.preventDefault()
@@ -445,6 +500,86 @@ export function TeamSettings({
           </div>
         )}
       </div>
+
+      {initialWhiteLabel && (
+        <div className="bg-white border border-slate-200 rounded p-6">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">
+            Partner roles
+          </p>
+          <p className="text-[12px] text-slate-500 mb-4">
+            Assign counselor, sponsor viewer, or participant roles to users in this partner workspace.
+            Firm admin can manage all roles.
+          </p>
+
+          <form onSubmit={handleAssignRole} className="flex flex-wrap gap-3 mb-4">
+            <input
+              type="text"
+              value={roleUserId}
+              onChange={(e) => setRoleUserId(e.target.value)}
+              placeholder="User ID (UUID)"
+              className="flex-1 min-w-[200px] border border-slate-200 rounded px-3 py-2.5 text-[13px] focus:outline-none focus:border-slate-400"
+            />
+            <select
+              title="Role to assign"
+              value={roleValue}
+              onChange={(e) => setRoleValue(e.target.value)}
+              className="border border-slate-200 rounded px-3 py-2.5 text-[13px] bg-white focus:outline-none focus:border-slate-400"
+            >
+              {(['firm_admin', 'counselor', 'participant', 'sponsor_viewer'] as const).map((r) => (
+                <option key={r} value={r}>{r.replace('_', ' ')}</option>
+              ))}
+            </select>
+            <button
+              type="submit"
+              disabled={roleSaving || !roleUserId.trim()}
+              className="bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 rounded border-0 cursor-pointer disabled:opacity-50"
+            >
+              {roleSaving ? 'Assigning…' : 'Assign role'}
+            </button>
+          </form>
+          {roleMessage && <p className="text-[12px] text-emerald-600 mb-2">{roleMessage}</p>}
+          {roleError && <p className="text-[12px] text-red-600 mb-2">{roleError}</p>}
+
+          {roles === null ? (
+            <p className="text-[12px] text-slate-400">Loading roles…</p>
+          ) : roles.length === 0 ? (
+            <p className="text-[12px] text-slate-400">No partner roles assigned yet.</p>
+          ) : (
+            <div className="rounded border border-slate-200 overflow-hidden">
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="px-3 py-2 text-left font-semibold text-slate-500">User ID</th>
+                    <th className="px-3 py-2 text-left font-semibold text-slate-500">Role</th>
+                    <th className="px-3 py-2 text-left font-semibold text-slate-500">Granted</th>
+                    <th className="px-3 py-2" />
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {roles.map((role) => (
+                    <tr key={role.id}>
+                      <td className="px-3 py-2 text-slate-600 font-mono truncate max-w-[160px]">{role.user_id.slice(0, 8)}…</td>
+                      <td className="px-3 py-2">
+                        <span className="rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 font-medium">{role.role}</span>
+                      </td>
+                      <td className="px-3 py-2 text-slate-400">{new Date(role.granted_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                      <td className="px-3 py-2 text-right">
+                        <button
+                          type="button"
+                          onClick={() => handleRevokeRole(role.id)}
+                          className="text-[11px] font-semibold text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer"
+                        >
+                          Revoke
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="bg-white border border-slate-200 rounded p-6">
         <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-4">

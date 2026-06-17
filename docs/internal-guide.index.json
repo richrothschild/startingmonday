@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:44:35.900Z",
+  "generatedAt": "2026-06-17T00:20:14.972Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-16T20:38:47.649Z"
+      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
     },
     {
       "id": "feature:/login",
@@ -768,7 +768,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T23:34:13.541Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "feature:/dashboard/outplacement/operator",
@@ -1062,7 +1062,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T23:38:14.100Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "feature:/about",
@@ -2672,7 +2672,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T23:20:56.485Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.489Z"
     },
     {
       "id": "feature:/pilot-findings",
@@ -4614,6 +4614,19 @@
       "lastModifiedAt": "2026-06-14T03:54:42.221Z"
     },
     {
+      "id": "api:/api/coach/client/[clientId]/session-snapshot",
+      "title": "API /api/coach/client/[clientId]/session-snapshot",
+      "body": "GET /api/coach/client/[clientId]/session-snapshot",
+      "type": "api",
+      "ref": "src/app/api/coach/client/[clientId]/session-snapshot/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:18:32.667Z"
+    },
+    {
       "id": "api:/api/coach/client/[clientId]/signals",
       "title": "API /api/coach/client/[clientId]/signals",
       "body": "export async function GET(",
@@ -5771,6 +5784,32 @@
       "lastModifiedAt": "2026-06-06T16:52:15.687Z"
     },
     {
+      "id": "api:/api/partner/outcome-events",
+      "title": "API /api/partner/outcome-events",
+      "body": "export const OUTCOME_EVENT_TYPES = [",
+      "type": "api",
+      "ref": "src/app/api/partner/outcome-events/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:06:37.273Z"
+    },
+    {
+      "id": "api:/api/partner/weekly-loop",
+      "title": "API /api/partner/weekly-loop",
+      "body": "GET /api/partner/weekly-loop",
+      "type": "api",
+      "ref": "src/app/api/partner/weekly-loop/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:06:37.274Z"
+    },
+    {
       "id": "api:/api/partners/attribute",
       "title": "API /api/partners/attribute",
       "body": "export async function POST(request: NextRequest) {",
@@ -6223,7 +6262,33 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T23:40:23.303Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
+    },
+    {
+      "id": "api:/api/team/roles/[id]",
+      "title": "API /api/team/roles/[id]",
+      "body": "DELETE /api/team/roles/[id] - revoke a role assignment",
+      "type": "api",
+      "ref": "src/app/api/team/roles/[id]/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
+    },
+    {
+      "id": "api:/api/team/roles",
+      "title": "API /api/team/roles",
+      "body": "export const PARTNER_ROLES = ['firm_admin', 'counselor', 'participant', 'sponsor_viewer'] as const",
+      "type": "api",
+      "ref": "src/app/api/team/roles/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
     },
     {
       "id": "api:/api/team/seat/[id]",
@@ -6249,7 +6314,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T23:41:26.608Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "api:/api/track/open",
@@ -13271,6 +13336,76 @@
       "lastModifiedAt": "2026-06-16T22:55:22.423Z"
     },
     {
+      "id": "data:supabase/migrations/139_partner_audit_events.sql",
+      "title": "Migration supabase/migrations/139_partner_audit_events.sql",
+      "body": "create table if not exists public.partner_audit_events (",
+      "type": "data",
+      "ref": "supabase/migrations/139_partner_audit_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:02:28.490Z"
+    },
+    {
+      "id": "data:supabase/migrations/140_partner_roles.sql",
+      "title": "Migration supabase/migrations/140_partner_roles.sql",
+      "body": "-- Partner role model: firm_admin, counselor, participant, sponsor_viewer",
+      "type": "data",
+      "ref": "supabase/migrations/140_partner_roles.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "title": "Migration supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "body": "-- Partner programs and cohorts",
+      "type": "data",
+      "ref": "supabase/migrations/141_partner_programs_and_cohorts.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/142_partner_outcome_events.sql",
+      "title": "Migration supabase/migrations/142_partner_outcome_events.sql",
+      "body": "-- Canonical outcome event schema for white-label partner KPI tracking.",
+      "type": "data",
+      "ref": "supabase/migrations/142_partner_outcome_events.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
+      "id": "data:supabase/migrations/143_partner_weekly_loop.sql",
+      "title": "Migration supabase/migrations/143_partner_weekly_loop.sql",
+      "body": "-- Weekly loop tracking for partner participants.",
+      "type": "data",
+      "ref": "supabase/migrations/143_partner_weekly_loop.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-17T00:06:00.370Z"
+    },
+    {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "title": "Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
       "body": "Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)",
@@ -17103,7 +17238,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T20:38:47.649Z"
+      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17142,7 +17277,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T20:38:47.649Z"
+      "lastModifiedAt": "2026-06-16T23:44:35.915Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -17207,7 +17342,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T22:04:46.222Z"
+      "lastModifiedAt": "2026-06-16T23:48:02.060Z"
     },
     {
       "id": "doc:docs/knowledge/first-principles-repository.md",
@@ -18039,7 +18174,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:20:56.546Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.489Z"
     },
     {
       "id": "doc:docs/partners/monthly-partner-report-template.md",
@@ -18055,6 +18190,19 @@
       "lastModifiedAt": "2026-06-09T01:12:24.814Z"
     },
     {
+      "id": "doc:docs/partners/partner-pilot-onboarding-kit.md",
+      "title": "Doc docs/partners/partner-pilot-onboarding-kit.md",
+      "body": "Partner Pilot Onboarding Kit",
+      "type": "doc",
+      "ref": "docs/partners/partner-pilot-onboarding-kit.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T00:10:37.226Z"
+    },
+    {
       "id": "doc:docs/partners/pilot-closeout-packet-template.md",
       "title": "Doc docs/partners/pilot-closeout-packet-template.md",
       "body": "Pilot Closeout Packet Template",
@@ -18065,7 +18213,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:20:56.461Z"
+      "lastModifiedAt": "2026-06-17T00:02:28.488Z"
     },
     {
       "id": "doc:docs/partners/renewal-decision-packet-template.md",
@@ -21185,7 +21333,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T23:44:33.012Z"
+      "lastModifiedAt": "2026-06-17T00:20:12.209Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -21315,7 +21463,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-16T22:04:46.039Z"
+      "lastModifiedAt": "2026-06-16T23:48:02.062Z"
     },
     {
       "id": "doc:docs/writing-guidelines.md",
