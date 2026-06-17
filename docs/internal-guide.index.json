@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T14:47:03.144Z",
+  "generatedAt": "2026-06-17T16:43:02.810Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-17T00:36:54.503Z"
+      "lastModifiedAt": "2026-06-17T14:47:03.157Z"
     },
     {
       "id": "feature:/login",
@@ -16137,6 +16137,84 @@
       "lastModifiedAt": "2026-06-14T04:29:51.801Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "title": "Doc docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "body": "138_partner_program_settings rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/138_partner_program_settings.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.224Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "title": "Doc docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "body": "139_partner_audit_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/139_partner_audit_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.323Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/140_partner_roles.md",
+      "title": "Doc docs/development/migration-rollbacks/140_partner_roles.md",
+      "body": "140_partner_roles rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/140_partner_roles.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.440Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "title": "Doc docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "body": "141_partner_programs_and_cohorts rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.537Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "title": "Doc docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "body": "142_partner_outcome_events rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/142_partner_outcome_events.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.624Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "title": "Doc docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "body": "143_partner_weekly_loop rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/143_partner_weekly_loop.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-17T16:32:01.694Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/README.md",
       "title": "Doc docs/development/migration-rollbacks/README.md",
       "body": "Migration rollback playbooks",
@@ -17343,7 +17421,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:36:54.503Z"
+      "lastModifiedAt": "2026-06-17T14:47:03.158Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17382,7 +17460,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T00:36:54.503Z"
+      "lastModifiedAt": "2026-06-17T14:47:03.157Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",

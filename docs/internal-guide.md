@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-17T14:47:03.144Z
+Last generated: 2026-06-17T16:43:02.810Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1033,7 +1033,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 
-## Documentation (632)
+## Documentation (638)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1241,6 +1241,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
 - Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
 - Doc docs/development/migration-rollbacks/136_brief_lifecycle_state.md | docs/development/migration-rollbacks/136_brief_lifecycle_state.md | 136_brief_lifecycle_state rollback
+- Doc docs/development/migration-rollbacks/138_partner_program_settings.md | docs/development/migration-rollbacks/138_partner_program_settings.md | 138_partner_program_settings rollback
+- Doc docs/development/migration-rollbacks/139_partner_audit_events.md | docs/development/migration-rollbacks/139_partner_audit_events.md | 139_partner_audit_events rollback
+- Doc docs/development/migration-rollbacks/140_partner_roles.md | docs/development/migration-rollbacks/140_partner_roles.md | 140_partner_roles rollback
+- Doc docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | 141_partner_programs_and_cohorts rollback
+- Doc docs/development/migration-rollbacks/142_partner_outcome_events.md | docs/development/migration-rollbacks/142_partner_outcome_events.md | 142_partner_outcome_events rollback
+- Doc docs/development/migration-rollbacks/143_partner_weekly_loop.md | docs/development/migration-rollbacks/143_partner_weekly_loop.md | 143_partner_weekly_loop rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
