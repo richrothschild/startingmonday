@@ -16,6 +16,8 @@ type OnboardingVideoWebhookPayload = {
   }
 }
 
+type OnboardingQueueAdminClient = Parameters<typeof updateOnboardingVideoRunFromWebhook>[0]
+
 function createAdminClient() {
   return createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -131,18 +133,19 @@ export async function POST(request: NextRequest) {
   }
 
   const eventId = createdEvent?.id as string
-  const updatedRuns = await updateOnboardingVideoRunFromWebhook(supabase as unknown as any, {
+  const updatedRuns = await updateOnboardingVideoRunFromWebhook(supabase as unknown as OnboardingQueueAdminClient, {
     providerRunId: payload.data.provider_run_id,
     eventType: payload.type,
     eventPayload: payload.data,
   })
+  const matchedRunRows = (updatedRuns ?? []) as Array<{ id: string; user_id: string }>
 
   await supabase
     .from('onboarding_video_webhook_events')
     .update({
       user_id: runLookup?.user_id ?? null,
       event_status: 'processed',
-      matched_run_count: updatedRuns.length,
+      matched_run_count: matchedRunRows.length,
       processed_at: new Date().toISOString(),
     })
     .eq('id', eventId)
@@ -150,7 +153,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     deduped: false,
-    matchedRuns: updatedRuns.length,
+    matchedRuns: matchedRunRows.length,
   })
 }
 

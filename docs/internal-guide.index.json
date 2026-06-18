@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T04:36:22.633Z",
+  "generatedAt": "2026-06-18T04:37:54.225Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-18T04:35:56.165Z"
+      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
     },
     {
       "id": "feature:/login",
@@ -17527,7 +17527,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:35:56.165Z"
+      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17566,7 +17566,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:35:56.165Z"
+      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
