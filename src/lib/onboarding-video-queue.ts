@@ -1,13 +1,38 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { logQueueWorkerRun } from '@/lib/telemetry'
 import {
   dispatchOnboardingVideoProvider,
   isProviderTerminalError,
 } from '@/lib/onboarding-video-provider'
+import {
+  clampLimit,
+  computeRetryDelayMs,
+  mapMilestoneToFlow,
+  normalizeMaxRetries,
+  type MilestoneEventName,
+} from '@/lib/onboarding-video-queue.utils'
 
-const DEFAULT_MAX_RETRIES = 3
-const MAX_RETRIES_LIMIT = 10
+type DbError = { message: string }
+type DbResponse<T = unknown> = Promise<{ data: T | null; error: DbError | null }>
+type DbQuery<T = unknown> = DbResponse<T> & {
+  select: (columns: string) => DbQuery<T>
+  insert: (values: unknown) => DbQuery<T>
+  update: (values: unknown) => DbQuery<T>
+  eq: (column: string, value: unknown) => DbQuery<T>
+  in: (column: string, values: unknown[]) => DbQuery<T>
+  contains: (column: string, value: unknown) => DbQuery<T>
+  lte: (column: string, value: string) => DbQuery<T>
+  gte: (column: string, value: string) => DbQuery<T>
+  is: (column: string, value: null) => DbQuery<T>
+  order: (column: string, options?: unknown) => DbQuery<T>
+  limit: (count: number) => DbQuery<T>
+  maybeSingle: () => DbResponse<T>
+  single: () => DbResponse<T>
+}
+type QueueAdminClient = {
+  from: (table: string) => DbQuery<unknown>
+}
 
 export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'
 export type OnboardingVideoTriggerSource = 'manual' | 'event' | 'cron' | 'retry'
@@ -37,55 +62,11 @@ type QueueRunRecord = {
   created_at: string
 }
 
-function clampLimit(limit: number | undefined, fallback: number, max: number): number {
-  const value = Number(limit ?? fallback)
-  if (!Number.isFinite(value)) return fallback
-  return Math.max(1, Math.min(Math.floor(value), max))
-}
-
-function normalizeMaxRetries(maxRetries: number | undefined): number {
-  const value = Number(maxRetries ?? DEFAULT_MAX_RETRIES)
-  if (!Number.isFinite(value)) return DEFAULT_MAX_RETRIES
-  return Math.max(0, Math.min(Math.floor(value), MAX_RETRIES_LIMIT))
-}
-
-function computeRetryDelayMs(retryCount: number): number {
-  const base = 2 * 60 * 1000
-  const exponent = Math.max(0, retryCount)
-  const jitter = Math.floor(Math.random() * 15_000)
-  return Math.min(base * Math.pow(2, exponent) + jitter, 2 * 60 * 60 * 1000)
-}
-
 function shouldForceFailure(inputPayload: Record<string, unknown>): boolean {
   return inputPayload.force_fail === true
 }
 
-type MilestoneEventName =
-  | 'onboarding_started'
-  | 'onboarding_step_completed'
-  | 'onboarding_first_value_ready'
-
-function mapMilestoneToFlow(
-  eventName: MilestoneEventName,
-  properties: Record<string, string | number | boolean | null>,
-): string {
-  if (eventName === 'onboarding_started') return 'onboarding_first_day'
-
-  if (eventName === 'onboarding_first_value_ready') {
-    const channel = String(properties.channel ?? properties.onboarding_channel ?? 'executive').toLowerCase()
-    if (channel.includes('coach')) return 'coach_channel_playbook'
-    if (channel.includes('founder')) return 'founder_channel_playbook'
-    return 'executive_channel_playbook'
-  }
-
-  const step = String(properties.step ?? properties.step_id ?? properties.step_name ?? '').toLowerCase()
-  if (step.includes('follow')) return 'follow_up_rhythm'
-  if (step.includes('brief')) return 'briefing_workflow'
-  if (step.includes('outreach')) return 'outreach_launch'
-  return 'onboarding_step_checkpoint'
-}
-
-async function appendRunEvent(admin: any, input: {
+async function appendRunEvent(admin: QueueAdminClient, input: {
   runId: string
   userId: string
   eventType: string
@@ -133,7 +114,7 @@ function summarizeRuns(runs: QueueRunRecord[]) {
   return summary
 }
 
-export async function enqueueOnboardingVideoRun(admin: any, input: {
+export async function enqueueOnboardingVideoRun(admin: QueueAdminClient, input: {
   userId: string
   workflowId?: string | null
   triggerSource?: OnboardingVideoTriggerSource
@@ -166,21 +147,22 @@ export async function enqueueOnboardingVideoRun(admin: any, input: {
   if (error || !data) {
     throw new Error(error?.message ?? 'Failed to enqueue onboarding video run')
   }
+  const insertedRun = data as QueueRunRecord
 
   await appendRunEvent(admin, {
-    runId: data.id,
-    userId: data.user_id,
+    runId: insertedRun.id,
+    userId: insertedRun.user_id,
     eventType: 'queued',
     eventPayload: {
-      trigger_source: data.trigger_source,
-      provider: data.provider,
+      trigger_source: insertedRun.trigger_source,
+      provider: insertedRun.provider,
     },
   })
 
-  return data as QueueRunRecord
+  return insertedRun
 }
 
-export async function fetchOnboardingVideoRunSnapshot(admin: any, input: {
+export async function fetchOnboardingVideoRunSnapshot(admin: QueueAdminClient, input: {
   userId: string
   workflowId?: string | null
   status?: OnboardingVideoRunStatus
@@ -208,7 +190,7 @@ export async function fetchOnboardingVideoRunSnapshot(admin: any, input: {
   }
 }
 
-export async function fetchOnboardingVideoRunDetails(admin: any, input: {
+export async function fetchOnboardingVideoRunDetails(admin: QueueAdminClient, input: {
   userId: string
   runId: string
   eventLimit?: number
@@ -225,16 +207,17 @@ export async function fetchOnboardingVideoRunDetails(admin: any, input: {
     .eq('id', input.runId)
     .eq('user_id', input.userId)
     .maybeSingle()
+  const runRecord = (run ?? null) as QueueRunRecord | null
 
   if (error) throw new Error(error.message)
-  if (!run) return { run: null, events: [], webhookEvents: [] }
+  if (!runRecord) return { run: null, events: [], webhookEvents: [] }
 
   let events: Array<Record<string, unknown>> = []
   if (includeRunEvents) {
     const { data: eventRows, error: eventError } = await admin
       .from('onboarding_video_run_events')
       .select('id, run_id, event_type, event_payload, created_at')
-      .eq('run_id', run.id)
+      .eq('run_id', runRecord.id)
       .order('created_at', { ascending: false })
       .limit(eventLimit)
 
@@ -243,13 +226,13 @@ export async function fetchOnboardingVideoRunDetails(admin: any, input: {
   }
 
   let webhookEvents: Array<Record<string, unknown>> = []
-  if (includeWebhookEvents && run.provider_run_id) {
+  if (includeWebhookEvents && runRecord.provider_run_id) {
     const { data: webhookRows, error: webhookError } = await admin
       .from('onboarding_video_webhook_events')
       .select('id, provider, provider_event_id, provider_run_id, event_type, event_status, matched_run_count, received_at, processed_at, error_message, payload, created_at')
       .eq('user_id', input.userId)
-      .eq('provider', run.provider)
-      .eq('provider_run_id', run.provider_run_id)
+      .eq('provider', runRecord.provider)
+      .eq('provider_run_id', runRecord.provider_run_id)
       .order('received_at', { ascending: false })
       .limit(eventLimit)
 
@@ -258,13 +241,13 @@ export async function fetchOnboardingVideoRunDetails(admin: any, input: {
   }
 
   return {
-    run,
+    run: runRecord,
     events,
     webhookEvents,
   }
 }
 
-async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: string) {
+async function processClaimedRun(admin: QueueAdminClient, run: QueueRunRecord, workerId: string) {
   const nowIso = new Date().toISOString()
   await appendRunEvent(admin, {
     runId: run.id,
@@ -380,7 +363,8 @@ async function processClaimedRun(admin: any, run: QueueRunRecord, workerId: stri
 }
 
 export async function processOnboardingVideoRuns(input?: { limit?: number; workerId?: string }) {
-  const admin = createAdminClient() as any
+  const startedAtMs = Date.now()
+  const admin = createAdminClient() as unknown as QueueAdminClient
   const limit = clampLimit(input?.limit, 10, 25)
   const workerId = input?.workerId ?? `onboarding-video-worker-${randomUUID()}`
   const nowIso = new Date().toISOString()
@@ -394,6 +378,17 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
     .limit(limit * 4)
 
   if (error) {
+    logQueueWorkerRun({
+      queue: 'onboarding_video_runs',
+      workerId,
+      event: 'queue_worker_run_error',
+      startedAtMs,
+      processed: 0,
+      failed: 0,
+      retried: 0,
+      error: error.message,
+    })
+
     return {
       ok: false as const,
       workerId,
@@ -425,14 +420,15 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
       .eq('status', 'queued')
       .select('id, user_id, workflow_id, provider, trigger_source, status, retry_count, max_retries, input_payload, output_payload, error_payload, next_retry_at, started_at, completed_at, created_at')
       .maybeSingle()
+    const claimedRun = (claimed ?? null) as QueueRunRecord | null
 
-    if (!claimed?.id) continue
+    if (!claimedRun?.id) continue
 
     processed += 1
-    const userId = String(claimed.user_id)
+    const userId = String(claimedRun.user_id)
     const summary = byUser.get(userId) ?? { processed: 0, completed: 0, failed: 0, retried: 0 }
     summary.processed += 1
-    const result = await processClaimedRun(admin, claimed as QueueRunRecord, workerId)
+    const result = await processClaimedRun(admin, claimedRun, workerId)
     if (result.ok) {
       completed += 1
       summary.completed += 1
@@ -446,6 +442,29 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
     byUser.set(userId, summary)
   }
 
+  const byUserSummary = Array.from(byUser.entries()).map(([userId, summary]) => ({
+    userId,
+    processed: summary.processed,
+    completed: summary.completed,
+    failed: summary.failed,
+    retried: summary.retried,
+  }))
+
+  logQueueWorkerRun({
+    queue: 'onboarding_video_runs',
+    workerId,
+    event: 'queue_worker_run',
+    startedAtMs,
+    processed,
+    completed,
+    failed,
+    retried,
+    metadata: {
+      limit,
+      by_user: byUserSummary,
+    },
+  })
+
   return {
     ok: true as const,
     workerId,
@@ -453,17 +472,11 @@ export async function processOnboardingVideoRuns(input?: { limit?: number; worke
     completed,
     failed,
     retried,
-    byUser: Array.from(byUser.entries()).map(([userId, summary]) => ({
-      userId,
-      processed: summary.processed,
-      completed: summary.completed,
-      failed: summary.failed,
-      retried: summary.retried,
-    })),
+    byUser: byUserSummary,
   }
 }
 
-export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {
+export async function updateOnboardingVideoRunFromWebhook(admin: QueueAdminClient, input: {
   providerRunId: string
   eventType: OnboardingVideoProviderEvent | string
   eventPayload?: Record<string, unknown>
@@ -498,8 +511,9 @@ export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {
     .update(updatePayload)
     .eq('provider_run_id', input.providerRunId)
     .select('id, user_id')
+  const runRows = (runs ?? []) as Array<{ id: string; user_id: string }>
 
-  for (const run of runs ?? []) {
+  for (const run of runRows) {
     await appendRunEvent(admin, {
       runId: String(run.id),
       userId: String(run.user_id),
@@ -511,11 +525,11 @@ export async function updateOnboardingVideoRunFromWebhook(admin: any, input: {
     })
   }
 
-  return runs ?? []
+  return runRows
 }
 
 export async function enqueueOnboardingVideoRunForMilestoneEvent(
-  admin: any,
+  admin: QueueAdminClient,
   input: {
     userId: string
     eventName: MilestoneEventName
@@ -542,13 +556,14 @@ export async function enqueueOnboardingVideoRunForMilestoneEvent(
     .contains('input_payload', dedupePayload)
     .order('created_at', { ascending: false })
     .limit(1)
+  const existingRuns = (existing ?? []) as Array<{ id?: string }>
 
-  if ((existing ?? []).length > 0) {
+  if (existingRuns.length > 0) {
     return {
       queued: false as const,
       reason: 'deduped_recent_milestone',
       tutorialFlow,
-      runId: String(existing?.[0]?.id ?? ''),
+      runId: String(existingRuns[0]?.id ?? ''),
     }
   }
 

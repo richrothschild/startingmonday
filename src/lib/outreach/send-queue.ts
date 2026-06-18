@@ -1,8 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from 'crypto'
 import { APP_URL } from '@/lib/config'
-import { sendEmail } from '@/lib/email'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { logQueueWorkerRun } from '@/lib/telemetry'
+import { normalizeEmail } from '@/lib/outreach/send-queue.utils'
+import {
+  processClaimedOutreachSendJob,
+} from '@/lib/outreach/send-queue.worker'
+
+type DbError = { message: string }
+type DbResponse<T = unknown> = Promise<{ data: T | null; error: DbError | null }>
+type DbQuery<T = unknown> = DbResponse<T> & {
+  select: (columns: string) => DbQuery<T>
+  insert: (values: unknown) => DbQuery<T>
+  update: (values: unknown) => DbQuery<T>
+  upsert: (values: unknown, options?: unknown) => DbQuery<T>
+  delete: () => DbQuery<T>
+  eq: (column: string, value: unknown) => DbQuery<T>
+  neq: (column: string, value: unknown) => DbQuery<T>
+  not: (column: string, operator: string, value: unknown) => DbQuery<T>
+  contains: (column: string, value: unknown) => DbQuery<T>
+  ilike: (column: string, value: string) => DbQuery<T>
+  lte: (column: string, value: string) => DbQuery<T>
+  gte: (column: string, value: string) => DbQuery<T>
+  order: (column: string, options?: unknown) => DbQuery<T>
+  limit: (count: number) => DbQuery<T>
+  in: (column: string, values: unknown[]) => DbQuery<T>
+  maybeSingle: () => DbResponse<T>
+  single: () => DbResponse<T>
+}
+type QueueAdminClient = {
+  from: (table: string) => DbQuery<unknown>
+}
 
 export const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
 export const DEFAULT_OUTREACH_FROM = `Richard Rothschild <${OUTREACH_REPLY_TO}>`
@@ -71,37 +99,21 @@ type BatchSummary = {
   failedRecipients: Array<{ jobId: string; recipientEmail: string; code: string; message: string }>
 }
 
-function normalizeEmail(value: unknown): string {
-  return (value ?? '').toString().trim().toLowerCase()
+type BatchJobSummaryRow = {
+  id: string
+  recipient_email: string
+  state: OutreachSendJobState | null
+  last_error: Record<string, unknown> | null
 }
 
-function pacificTodayISO(): string {
-  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' })
-}
-
-function addBusinessDays(isoDate: string, businessDays: number): string {
-  const d = new Date(`${isoDate}T00:00:00Z`)
-  let remaining = businessDays
-  while (remaining > 0) {
-    d.setUTCDate(d.getUTCDate() + 1)
-    const day = d.getUTCDay()
-    if (day !== 0 && day !== 6) remaining -= 1
-  }
-  return d.toISOString().slice(0, 10)
-}
-
-function buildGoogleCalendarUrl(input: { title: string; details: string; dateISO: string }): string {
-  const start = `${input.dateISO.replace(/-/g, '')}T170000Z`
-  const endDate = new Date(`${input.dateISO}T00:00:00Z`)
-  endDate.setUTCDate(endDate.getUTCDate() + 1)
-  const end = `${endDate.toISOString().slice(0, 10).replace(/-/g, '')}T000000Z`
-  const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-  const q = new URLSearchParams({
-    text: input.title,
-    dates: `${start}/${end}`,
-    details: input.details,
-  })
-  return `${base}&${q.toString()}`
+type ClaimedOutreachSendJob = {
+  id: string
+  batch_id: string
+  recipient_email: string
+  domain_bucket: OutreachDomainBucket | null
+  attempt_count: number | null
+  payload: OutreachSendJobPayload
+  contact_id: string | null
 }
 
 export function classifyOutreachDomainBucket(email: string): OutreachDomainBucket {
@@ -145,7 +157,7 @@ function buildBatchStatus(summary: BatchSummary): OutreachSendBatchStatus {
   return 'completed'
 }
 
-export async function ensureOutreachSendBatch(admin: any, input: {
+export async function ensureOutreachSendBatch(admin: QueueAdminClient, input: {
   batchId?: string | null
   userId: string
   mode: OutreachSendMode
@@ -166,12 +178,14 @@ export async function ensureOutreachSendBatch(admin: any, input: {
   return batchId
 }
 
-export async function summarizeOutreachSendBatch(admin: any, batchId: string): Promise<{ batchId: string; status: OutreachSendBatchStatus; summary: BatchSummary }> {
+export async function summarizeOutreachSendBatch(admin: QueueAdminClient, batchId: string): Promise<{ batchId: string; status: OutreachSendBatchStatus; summary: BatchSummary }> {
   const { data: jobs } = await admin
     .from('outreach_send_jobs')
     .select('id, recipient_email, state, last_error')
     .eq('batch_id', batchId)
     .order('created_at', { ascending: true })
+
+  const summaryRows = (jobs ?? []) as BatchJobSummaryRow[]
 
   const summary: BatchSummary = {
     totalJobs: 0,
@@ -187,7 +201,7 @@ export async function summarizeOutreachSendBatch(admin: any, batchId: string): P
     failedRecipients: [],
   }
 
-  for (const job of jobs ?? []) {
+  for (const job of summaryRows) {
     summary.totalJobs += 1
     const state = (job.state ?? 'queued') as OutreachSendJobState
     if (state === 'queued') summary.queuedJobs += 1
@@ -224,7 +238,7 @@ export async function summarizeOutreachSendBatch(admin: any, batchId: string): P
   return { batchId, status, summary }
 }
 
-export async function findDuplicateOutreachSend(admin: any, input: { userId: string; recipientEmail: string; idempotencyKey: string }) {
+export async function findDuplicateOutreachSend(admin: QueueAdminClient, input: { userId: string; recipientEmail: string; idempotencyKey: string }) {
   const { data: queuedJob } = await admin
     .from('outreach_send_jobs')
     .select('id, state, provider_message_id')
@@ -235,12 +249,13 @@ export async function findDuplicateOutreachSend(admin: any, input: { userId: str
     .order('created_at', { ascending: false })
     .limit(1)
     .maybeSingle()
+  const queuedJobRow = (queuedJob ?? null) as { id?: string; state?: string | null } | null
 
-  if (queuedJob?.id) {
+  if (queuedJobRow?.id) {
     return {
       duplicate: true,
-      deliveryStatus: queuedJob.state,
-      jobId: queuedJob.id as string,
+      deliveryStatus: queuedJobRow.state,
+      jobId: queuedJobRow.id,
     }
   }
 
@@ -253,11 +268,12 @@ export async function findDuplicateOutreachSend(admin: any, input: { userId: str
     .order('created_at', { ascending: false })
     .limit(1)
     .maybeSingle()
+  const duplicateLogRow = (duplicateLog ?? null) as { id?: string; delivery_status?: string | null } | null
 
-  if (duplicateLog?.id) {
+  if (duplicateLogRow?.id) {
     return {
       duplicate: true,
-      deliveryStatus: duplicateLog.delivery_status ?? null,
+      deliveryStatus: duplicateLogRow.delivery_status ?? null,
       jobId: null,
     }
   }
@@ -269,7 +285,7 @@ export async function findDuplicateOutreachSend(admin: any, input: { userId: str
   }
 }
 
-export async function hasPriorLiveOutreach(admin: any, input: { userId: string; recipientEmail: string; outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms' }) {
+export async function hasPriorLiveOutreach(admin: QueueAdminClient, input: { userId: string; recipientEmail: string; outreachChannel: 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms' }) {
   const { data: priorLog } = await admin
     .from('outreach_logs')
     .select('id, delivery_status, sent_at')
@@ -282,11 +298,12 @@ export async function hasPriorLiveOutreach(admin: any, input: { userId: string; 
     .order('sent_at', { ascending: false })
     .limit(1)
     .maybeSingle()
+  const priorLogRow = (priorLog ?? null) as { id?: string; delivery_status?: string | null } | null
 
-  if (priorLog?.id) {
+  if (priorLogRow?.id) {
     return {
       hasPriorLiveOutreach: true,
-      deliveryStatus: priorLog.delivery_status ?? null,
+      deliveryStatus: priorLogRow.delivery_status ?? null,
     }
   }
 
@@ -296,7 +313,7 @@ export async function hasPriorLiveOutreach(admin: any, input: { userId: string; 
   }
 }
 
-export async function enqueueOutreachSendJob(admin: any, input: {
+export async function enqueueOutreachSendJob(admin: QueueAdminClient, input: {
   batchId: string
   userId: string
   contactId: string | null
@@ -324,11 +341,12 @@ export async function enqueueOutreachSendJob(admin: any, input: {
   if (error) {
     throw new Error(error.message)
   }
+  const insertedRow = (inserted ?? null) as { id?: string } | null
 
   await summarizeOutreachSendBatch(admin, input.batchId)
 
   return {
-    jobId: inserted?.id as string,
+    jobId: String(insertedRow?.id ?? ''),
     batchId: input.batchId,
     domainBucket,
   }
@@ -341,221 +359,9 @@ export async function kickOutreachSendWorker(): Promise<void> {
   void fetch(url, { method: 'GET', cache: 'no-store' }).catch(() => undefined)
 }
 
-async function insertFailedOutreachLog(admin: any, job: any, payload: OutreachSendJobPayload, error: StructuredSendError) {
-  await admin.from('outreach_logs').insert({
-    user_id: payload.userId,
-    contact_id: payload.mode === 'live' ? (job.contact_id ?? null) : null,
-    channel: payload.mode === 'live' ? 'email' : 'other',
-    message_preview: `${payload.mode === 'test_to_self' ? '[TEST] ' : ''}${payload.messageText.slice(0, 200)}`,
-    recipient_email: payload.emailTo,
-    recipient_name: payload.fullName,
-    sender_email: OUTREACH_REPLY_TO,
-    subject: payload.finalSubject,
-    message_body: payload.finalMessageText,
-    send_mode: payload.mode,
-    outreach_channel: payload.outreachChannel,
-    fit_tier: payload.fitTier,
-    persona_focus: payload.personaFocus,
-    delivery_status: 'send_failed',
-    webhook_payload: {
-      email_source: 'outreach_send_worker',
-      send_error: error.message,
-      error_code: error.code,
-      error_raw: error.raw,
-      idempotency_key: payload.idempotencyKey,
-      campaign_step: payload.campaignStep,
-      template_step: payload.templateStep,
-      template_source: payload.templateSource,
-      batch_id: job.batch_id,
-      job_id: job.id,
-    },
-  })
-}
-
-async function applyAcceptedOutreachSideEffects(admin: any, job: any, payload: OutreachSendJobPayload, resendMessageId: string | null) {
-  let contactId = job.contact_id as string | null
-  const warnings: string[] = []
-
-  if (payload.mode === 'live') {
-    const { data: existingContact } = await admin
-      .from('contacts')
-      .select('id, outreach_status, contacted_at')
-      .eq('user_id', payload.userId)
-      .ilike('email', payload.emailTo)
-      .limit(1)
-      .maybeSingle()
-
-    if (existingContact?.id) {
-      contactId = existingContact.id
-      const { error: updateError } = await admin
-        .from('contacts')
-        .update({
-          outreach_status: payload.statusAfter,
-          contacted_at: new Date().toISOString(),
-          status: 'active',
-          channel: CONTACT_CHANNEL,
-          contact_type: payload.fitTier,
-          last_role_discussed: payload.personaFocus,
-        })
-        .eq('id', existingContact.id)
-        .eq('user_id', payload.userId)
-
-      if (updateError) warnings.push(`Contact sync update failed: ${updateError.message}`)
-    } else {
-      const { data: insertedContact, error: insertError } = await admin
-        .from('contacts')
-        .insert({
-          user_id: payload.userId,
-          name: payload.fullName,
-          firm: payload.company || null,
-          title: payload.roleBucket ? payload.roleBucket.toUpperCase() : null,
-          email: payload.emailTo,
-          channel: CONTACT_CHANNEL,
-          status: 'active',
-          outreach_status: payload.statusAfter,
-          contacted_at: new Date().toISOString(),
-          contact_type: payload.fitTier,
-          last_role_discussed: payload.personaFocus,
-        })
-        .select('id')
-        .single()
-
-      if (insertError) warnings.push(`Contact sync insert failed: ${insertError.message}`)
-      contactId = insertedContact?.id ?? null
-    }
-  }
-
-  await admin.from('outreach_logs').insert({
-    user_id: payload.userId,
-    contact_id: payload.mode === 'live' ? contactId : null,
-    channel: payload.mode === 'live' ? 'email' : 'other',
-    message_preview: `${payload.mode === 'test_to_self' ? '[TEST] ' : ''}${payload.finalMessageText.slice(0, 200)}`,
-    recipient_email: payload.emailTo,
-    recipient_name: payload.fullName,
-    sender_email: OUTREACH_REPLY_TO,
-    subject: payload.finalSubject,
-    message_body: payload.finalMessageText,
-    send_mode: payload.mode,
-    outreach_channel: payload.outreachChannel,
-    fit_tier: payload.fitTier,
-    persona_focus: payload.personaFocus,
-    resend_message_id: resendMessageId,
-    delivery_status: 'accepted',
-    webhook_payload: {
-      email_source: 'outreach_send_worker',
-      idempotency_key: payload.idempotencyKey,
-      campaign_step: payload.campaignStep,
-      template_step: payload.templateStep,
-      template_source: payload.templateSource,
-      batch_id: job.batch_id,
-      job_id: job.id,
-      provider_recipient: payload.providerRecipient,
-      warnings,
-    },
-  })
-
-  if (payload.mode === 'live' && contactId) {
-    const todayPacific = pacificTodayISO()
-    const followUp3Date = addBusinessDays(todayPacific, 3)
-    const followUp7Date = addBusinessDays(todayPacific, 7)
-    const googleFollowUp3Url = buildGoogleCalendarUrl({
-      title: `Follow-up 1: ${payload.fullName}`,
-      details: `Channel: ${payload.outreachChannel}\nCompany: ${payload.company || 'N/A'}\nEmail: ${payload.emailTo}`,
-      dateISO: followUp3Date,
-    })
-    const googleFollowUp7Url = buildGoogleCalendarUrl({
-      title: `Follow-up 2: ${payload.fullName}`,
-      details: `Channel: ${payload.outreachChannel}\nCompany: ${payload.company || 'N/A'}\nEmail: ${payload.emailTo}`,
-      dateISO: followUp7Date,
-    })
-
-    const { error: followUpError } = await admin.from('follow_ups').insert([
-      {
-        user_id: payload.userId,
-        contact_id: contactId,
-        action: `Follow-up 1 with ${payload.fullName} (${payload.outreachChannel})`,
-        due_date: followUp3Date,
-        status: 'pending',
-        google_event_url: googleFollowUp3Url,
-      },
-      {
-        user_id: payload.userId,
-        contact_id: contactId,
-        action: `Follow-up 2 with ${payload.fullName} (${payload.outreachChannel})`,
-        due_date: followUp7Date,
-        status: 'pending',
-        google_event_url: googleFollowUp7Url,
-      },
-    ])
-
-    if (followUpError) warnings.push(`Follow-up creation failed: ${followUpError.message}`)
-  }
-
-  return { contactId, warnings }
-}
-
-async function processClaimedJob(admin: any, job: any) {
-  const payload = job.payload as OutreachSendJobPayload
-  const sendResult = await sendEmail({
-    to: payload.providerRecipient,
-    subject: payload.finalSubject,
-    html: payload.finalHtml,
-    channel: payload.outreachChannel,
-    from: payload.fromAddress,
-    replyTo: payload.replyTo,
-    bcc: payload.bcc ?? undefined,
-    headers: payload.headers,
-  })
-
-  if ((sendResult as { error?: { message?: string } } | null)?.error) {
-    const normalized = normalizeSendError((sendResult as { error?: { message?: string } }).error?.message)
-    const canRetry = normalized.transient && Number(job.attempt_count ?? 0) < MAX_ATTEMPTS
-    const nextAttemptAt = canRetry
-      ? new Date(Date.now() + computeRetryDelayMs(Number(job.attempt_count ?? 0), job.domain_bucket as OutreachDomainBucket)).toISOString()
-      : null
-
-    await admin
-      .from('outreach_send_jobs')
-      .update({
-        state: canRetry ? 'queued' : 'failed',
-        next_attempt_at: nextAttemptAt,
-        locked_at: null,
-        locked_by: null,
-        completed_at: canRetry ? null : new Date().toISOString(),
-        last_error: normalized,
-      })
-      .eq('id', job.id)
-
-    if (!canRetry) {
-      await insertFailedOutreachLog(admin, job, payload, normalized)
-    }
-
-    await summarizeOutreachSendBatch(admin, job.batch_id)
-    return { ok: false, retried: canRetry, error: normalized }
-  }
-
-  const resendMessageId = ((sendResult as { data?: { id?: string } | null } | null)?.data?.id ?? null) as string | null
-  const sideEffects = await applyAcceptedOutreachSideEffects(admin, job, payload, resendMessageId)
-
-  await admin
-    .from('outreach_send_jobs')
-    .update({
-      state: 'accepted',
-      contact_id: sideEffects.contactId,
-      provider_message_id: resendMessageId,
-      accepted_at: new Date().toISOString(),
-      locked_at: null,
-      locked_by: null,
-      last_error: sideEffects.warnings.length > 0 ? { code: 'side_effect_warning', message: sideEffects.warnings.join(' | ') } : null,
-    })
-    .eq('id', job.id)
-
-  await summarizeOutreachSendBatch(admin, job.batch_id)
-  return { ok: true, resendMessageId }
-}
-
 export async function processOutreachSendJobs(input?: { limit?: number; workerId?: string }) {
-  const admin = createAdminClient() as any
+  const startedAtMs = Date.now()
+  const admin = createAdminClient() as unknown as QueueAdminClient
   const limit = Math.max(1, Math.min(Number(input?.limit ?? 10), 50))
   const workerId = input?.workerId ?? randomUUID()
   const nowIso = new Date().toISOString()
@@ -569,6 +375,21 @@ export async function processOutreachSendJobs(input?: { limit?: number; workerId
     .limit(limit * 4)
 
   if (error) {
+    logQueueWorkerRun({
+      queue: 'outreach_send_jobs',
+      workerId,
+      event: 'queue_worker_run_error',
+      startedAtMs,
+      processed: 0,
+      accepted: 0,
+      failed: 0,
+      retried: 0,
+      metadata: {
+        limit,
+      },
+      error: error.message,
+    })
+
     return { ok: false, error: error.message, processed: 0, workerId }
   }
 
@@ -578,7 +399,9 @@ export async function processOutreachSendJobs(input?: { limit?: number; workerId
   let failed = 0
   let retried = 0
 
-  for (const candidate of candidates ?? []) {
+  const queuedCandidates = (candidates ?? []) as ClaimedOutreachSendJob[]
+
+  for (const candidate of queuedCandidates) {
     if (processed >= limit) break
     const bucket = (candidate.domain_bucket as OutreachDomainBucket | null) ?? classifyOutreachDomainBucket(candidate.recipient_email)
     if (bucketCounts[bucket] >= DOMAIN_BUCKET_LIMITS[bucket]) continue
@@ -596,16 +419,39 @@ export async function processOutreachSendJobs(input?: { limit?: number; workerId
       .eq('state', 'queued')
       .select('id, batch_id, recipient_email, domain_bucket, attempt_count, payload, contact_id')
       .maybeSingle()
+    const claimedJob = (claimed ?? null) as ClaimedOutreachSendJob | null
 
-    if (!claimed?.id) continue
+    if (!claimedJob?.id) continue
 
     bucketCounts[bucket] += 1
     processed += 1
-    const result = await processClaimedJob(admin, claimed)
+    const result = await processClaimedOutreachSendJob(admin as unknown as Parameters<typeof processClaimedOutreachSendJob>[0], claimedJob, {
+      outreachReplyTo: OUTREACH_REPLY_TO,
+      contactChannel: CONTACT_CHANNEL,
+      maxAttempts: MAX_ATTEMPTS,
+      normalizeSendError,
+      computeRetryDelayMs,
+      summarizeBatch: async (adminClient, batchId) => summarizeOutreachSendBatch(adminClient as unknown as QueueAdminClient, batchId),
+    })
     if (result.ok) accepted += 1
     else if (result.retried) retried += 1
     else failed += 1
   }
+
+  logQueueWorkerRun({
+    queue: 'outreach_send_jobs',
+    workerId,
+    event: 'queue_worker_run',
+    startedAtMs,
+    processed,
+    accepted,
+    failed,
+    retried,
+    metadata: {
+      limit,
+      bucket_counts: bucketCounts,
+    },
+  })
 
   return { ok: true, workerId, processed, accepted, failed, retried, bucketCounts }
 }
@@ -618,7 +464,7 @@ export function mapWebhookEventToJobState(eventType: string): OutreachSendJobSta
   return null
 }
 
-export async function updateOutreachJobStateFromWebhook(admin: any, providerMessageId: string, eventType: string) {
+export async function updateOutreachJobStateFromWebhook(admin: QueueAdminClient, providerMessageId: string, eventType: string) {
   const nextState = mapWebhookEventToJobState(eventType)
   if (!nextState) return null
 
@@ -632,12 +478,13 @@ export async function updateOutreachJobStateFromWebhook(admin: any, providerMess
     })
     .eq('provider_message_id', providerMessageId)
     .select('id, batch_id')
+  const jobRows = (jobs ?? []) as Array<{ id: string; batch_id: string | null }>
 
-  for (const job of jobs ?? []) {
+  for (const job of jobRows) {
     if (job.batch_id) {
       await summarizeOutreachSendBatch(admin, job.batch_id)
     }
   }
 
-  return jobs ?? []
+  return jobRows
 }

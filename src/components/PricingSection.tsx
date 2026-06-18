@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { PRICING } from '@/lib/pricing'
 
 const PASSIVE_FEATURES = [
   'Pipeline tracking for up to 25 companies',
@@ -11,7 +12,7 @@ const PASSIVE_FEATURES = [
 ]
 
 const ACTIVE_FEATURES = [
-  'Everything in Intelligence',
+  'Everything in Monitor',
   'AI Interview Prep Briefs',
   'Search Strategy Brief',
   'AI Chat advisor',
@@ -31,23 +32,21 @@ const EXECUTIVE_FEATURES = [
   'Priority contact flagging and CSV export',
 ]
 
-const MO    = { passive: 49,   active: 199,  executive: 499 }
-const YR    = { passive: 490,  active: 1990, executive: 5000 }
-const YR_MO = { passive: 41,   active: 166,  executive: 417 }
-
-type Tier = keyof typeof MO
+type Tier = 'passive' | 'active' | 'executive'
 
 export function PricingSection({ trialNote }: { trialNote: string }) {
   const [annual, setAnnual] = useState(false)
 
   function price(tier: Tier): string {
-    return (annual ? YR_MO[tier] : MO[tier]).toLocaleString()
+    return (annual ? PRICING[tier].annualMonthly : PRICING[tier].monthly).toLocaleString()
   }
 
   function subline(tier: Tier): string {
+    const annualTotal = PRICING[tier].annual
+    const savings = PRICING[tier].monthly * 12 - annualTotal
     return annual
-      ? `$${YR[tier].toLocaleString()} billed annually`
-      : `or $${YR[tier].toLocaleString()}/yr - 2 months free`
+      ? `billed as $${annualTotal.toLocaleString()}/yr · Save $${savings.toLocaleString()}`
+      : `or $${annualTotal.toLocaleString()}/yr — save $${savings.toLocaleString()}`
   }
 
   return (
@@ -71,7 +70,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
           <span>No recruiter marketplace</span>
         </div>
         <p className="text-[12px] text-slate-500 mb-8">
-          Most executives start on Intelligence, move to Active once they see what prep briefs do. C-suite leaders who want deeper analysis move to Executive when they need full coverage.
+          Most executives start on Monitor, move to Active once they see what prep briefs do. C-suite leaders who want deeper analysis move to Executive when they need full coverage.
         </p>
 
         {/* Billing toggle */}
@@ -104,7 +103,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
               <span className="text-[13px] font-bold text-green-600">$49/mo</span>
               <span className="text-[12px] text-slate-400">Track up to 25 companies, get weekly signals</span>
             </div>
-            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Intelligence</p>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Monitor</p>
             <p className="text-[32px] font-bold text-slate-900 leading-none mb-1">
               ${price('passive')}<span className="text-[16px] font-normal text-slate-400">/mo</span>
             </p>

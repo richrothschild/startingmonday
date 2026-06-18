@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-06-13T22:25:18.672Z",
-  "status": "PASS",
+  "checkedAt": "2026-06-18T03:36:07.740Z",
+  "status": "FAIL",
   "checks": [
     {
       "metric": "qualified_signup_rate",
@@ -60,11 +60,13 @@
     }
   ],
   "warnings": [],
-  "failures": [],
+  "failures": [
+    "exported_at is older than 8 days"
+  ],
   "sample": {
     "min_page_views": 100,
     "page_views": null,
     "sufficient": true
   },
-  "metricsPath": "C:\\Users\\roths\\startingmonday\\docs\\growth\\weekly-metrics.latest.json"
+  "metricsPath": "C:\\Dev\\StartingMonday\\docs\\growth\\weekly-metrics.latest.json"
 }

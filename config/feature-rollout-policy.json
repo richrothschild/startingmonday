@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-15",
+  "updatedAt": "2026-06-18",
   "owner": "engineering",
   "riskyPaths": [
     "src/app/(auth)/**",
@@ -23,5 +23,19 @@
       "percentage rollout",
       "full rollout"
     ]
-  }
+  },
+  "activeRollouts": [
+    {
+      "id": "pricing-plan-names-2026-06",
+      "description": "Pricing and for-coaches page updates: plan naming, pricing card layout, and economics page revisions",
+      "paths": [
+        "src/app/pricing/**",
+        "src/app/for-coaches/**"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert PR #128 to restore previous pricing and for-coaches pages",
+      "killSwitch": "Revert src/lib/pricing.ts to previous plan names and values",
+      "startedAt": "2026-06-18"
+    }
+  ]
 }

@@ -1,13 +1,13 @@
 # Code Synthetic Council Audit
 
-Generated: 2026-06-13T14:08:03.922Z
-Scope: 1570 code files across src, scripts, worker, tests
+Generated: 2026-06-17T23:27:02.775Z
+Scope: 1633 code files across src, scripts, worker, tests
 
 ## Overall
 
-- Score: 81
-- Grade: B-
-- Findings: 76
+- Score: 78
+- Grade: C+
+- Findings: 107
 
 ## Category Scores
 
@@ -15,10 +15,10 @@ Scope: 1570 code files across src, scripts, worker, tests
 | --- | ---: |
 | correctness | 100 |
 | security | 100 |
-| maintainability | 82 |
+| maintainability | 76 |
 | performance | 100 |
 | testability | 0 |
-| observability | 70 |
+| observability | 46 |
 | typeSafety | 86 |
 | complexity | 100 |
 | deliveryRisk | 100 |
@@ -29,19 +29,19 @@ Scope: 1570 code files across src, scripts, worker, tests
 | --- | ---: |
 | src/app/(dashboard)/dashboard/admin/sales-enablement/SalesEnablementWorkspace.tsx | 8 |
 | src/app/(dashboard)/dashboard/executive-brief/executive-brief-hub.tsx | 8 |
+| src/app/channels/feature-map/ChannelFeatureMapClient.tsx | 8 |
 | src/app/api/admin/sales-enablement/workspace/route.ts | 7 |
 | src/app/api/admin/social/mock-publish/route.ts | 7 |
+| src/app/api/briefs/[id]/lifecycle/route.ts | 7 |
 | src/app/api/executive-brief/grill-me/route.ts | 7 |
 | src/app/api/executive-brief/grill-me/sessions/route.ts | 7 |
 | src/app/api/executive-brief/grill-me/sessions/[id]/respond/route.ts | 7 |
 | src/app/api/executive-brief/transcription/route.ts | 7 |
-| src/lib/onboarding-video-queue.ts | 7 |
-| src/lib/outreach/send-queue.ts | 7 |
-| src/app/(dashboard)/dashboard/admin/diagrams/diagrams-client.tsx | 4 |
-| src/app/(dashboard)/dashboard/admin/diagrams/diagrams-data.ts | 4 |
-| src/app/(dashboard)/dashboard/companies/[id]/company-competitive-field.tsx | 4 |
-| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-config.ts | 4 |
-| src/app/(dashboard)/dashboard/dashboard-advanced-modules-section.tsx | 4 |
+| src/app/api/features/chat/route.ts | 7 |
+| src/app/api/partner/outcome-events/route.ts | 7 |
+| src/app/api/partner/weekly-loop/route.ts | 7 |
+| src/app/api/team/roles/route.ts | 7 |
+| src/app/api/team/roles/[id]/route.ts | 7 |
 
 ## Highest-Priority Findings (What To Fix)
 
@@ -75,14 +75,14 @@ Scope: 1570 code files across src, scripts, worker, tests
 
 | Largest Source Files | Lines |
 | --- | ---: |
-| src/lib/supabase/database.types.ts | 1429 |
-| src/app/onboarding/onboarding-form.tsx | 1413 |
-| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1407 |
+| src/app/(dashboard)/dashboard/companies/[id]/prep/prep-client.tsx | 1441 |
+| src/lib/supabase/database.types.ts | 1438 |
+| src/app/onboarding/onboarding-form.tsx | 1419 |
+| src/components/coach/client-data-view.tsx | 1191 |
 | src/app/(dashboard)/dashboard/executive-brief/executive-brief-hub.tsx | 1176 |
 | src/app/(dashboard)/dashboard/admin/traces/trace-client.tsx | 1148 |
 | src/app/(dashboard)/dashboard/admin/page.tsx | 1132 |
 | src/app/(dashboard)/dashboard/outreach/outreach-hub-client.tsx | 1105 |
-| src/app/(dashboard)/dashboard/admin/social/social-client.tsx | 1060 |
 
 ## Council Personas
 

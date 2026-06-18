@@ -1,17 +1,18 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { PRICING } from '@/lib/pricing'
 
 type Plan = 'passive' | 'active'
 
 const SEAT_PLANS: Record<Plan, { name: string; pricePerSeat: number; description: string }> = {
   passive: {
-    name: 'Intelligence',
+    name: PRICING.passive.name,
     pricePerSeat: 39,
     description: 'Signal monitoring, daily briefing, pipeline tracking',
   },
   active: {
-    name: 'Active',
+    name: PRICING.active.name,
     pricePerSeat: 89,
     description: 'Full AI prep briefs, outreach drafting, chat advisor',
   },

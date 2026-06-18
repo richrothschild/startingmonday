@@ -5,7 +5,7 @@ import { getNotifyEmails } from '@/lib/owner-email'
 
 const TIER_LABELS: Record<string, string> = {
   trialing:  'Free trial',
-  passive:   'Intelligence ($49/mo)',
+  passive:   'Monitor ($49/mo)',
   active:    'Active ($199/mo)',
   executive: 'Executive ($499/mo)',
 }

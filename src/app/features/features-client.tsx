@@ -155,27 +155,48 @@ export function FeaturesClient({ docs }: { docs: FeatureDocCard[] }) {
             </select>
           </div>
 
-          <div className="mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1" role="tablist" aria-label="Persona filters">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={persona === 'all'}
-              onClick={() => setPersona('all')}
-              className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-semibold ${persona === 'all' ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400'}`}
-            >
-              All personas
-            </button>
-            {(Object.entries(PERSONA_LABELS) as Array<[FeatureDocCard['persona'], string]>).map(([value, label]) => (
+          <div className="mt-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-1" aria-label="Persona filters">
+            {persona === 'all' ? (
               <button
-                key={value}
                 type="button"
-                role="tab"
-                aria-selected={persona === value}
-                onClick={() => setPersona(value)}
-                className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-semibold ${persona === value ? 'border-orange-500 bg-orange-500 text-slate-950' : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400'}`}
+                aria-pressed="true"
+                onClick={() => setPersona('all')}
+                className="whitespace-nowrap rounded-full border border-slate-900 bg-slate-900 px-3 py-1.5 text-[12px] font-semibold text-white"
               >
-                {label}
+                All personas
               </button>
+            ) : (
+              <button
+                type="button"
+                aria-pressed="false"
+                onClick={() => setPersona('all')}
+                className="whitespace-nowrap rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 hover:border-slate-400"
+              >
+                All personas
+              </button>
+            )}
+            {(Object.entries(PERSONA_LABELS) as Array<[FeatureDocCard['persona'], string]>).map(([value, label]) => (
+              persona === value ? (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed="true"
+                  onClick={() => setPersona(value)}
+                  className="whitespace-nowrap rounded-full border border-orange-500 bg-orange-500 px-3 py-1.5 text-[12px] font-semibold text-slate-950"
+                >
+                  {label}
+                </button>
+              ) : (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed="false"
+                  onClick={() => setPersona(value)}
+                  className="whitespace-nowrap rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 hover:border-slate-400"
+                >
+                  {label}
+                </button>
+              )
             ))}
           </div>
 
