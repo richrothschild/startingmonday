@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T22:18:58.924Z",
+  "generatedAt": "2026-06-18T03:49:50.654Z",
   "entries": [
     {
       "id": "get-started-0",
@@ -12,7 +12,7 @@
         "guide",
         "help"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.799Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.499Z",
       "qualityWeight": 1.35
     },
     {
@@ -25,7 +25,7 @@
         "get-started",
         "onboarding"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.484Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.159Z",
       "qualityWeight": 1.35
     },
     {
@@ -38,7 +38,7 @@
         "get-started",
         "profile"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.120Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z",
       "qualityWeight": 1.35
     },
     {
@@ -51,7 +51,7 @@
         "get-started",
         "pipeline"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.436Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.314Z",
       "qualityWeight": 1.35
     },
     {
@@ -65,7 +65,7 @@
         "help",
         "faq"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.453Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.319Z",
       "qualityWeight": 1.35
     },
     {
@@ -78,7 +78,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:19:31.498Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.870Z",
       "qualityWeight": 1
     },
     {
@@ -91,7 +91,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:19:31.499Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.870Z",
       "qualityWeight": 1
     },
     {
@@ -104,7 +104,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-11T12:25:44.751Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.635Z",
       "qualityWeight": 1.2
     },
     {
@@ -117,7 +117,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.382Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.077Z",
       "qualityWeight": 1.2
     },
     {
@@ -130,7 +130,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.104Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.193Z",
       "qualityWeight": 1.2
     },
     {
@@ -143,7 +143,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.384Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.080Z",
       "qualityWeight": 1.2
     },
     {
@@ -156,7 +156,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.104Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.193Z",
       "qualityWeight": 1.2
     },
     {
@@ -169,7 +169,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.105Z",
+      "lastModifiedAt": "2026-06-18T00:07:51.387Z",
       "qualityWeight": 1.2
     },
     {
@@ -182,7 +182,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.389Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.032Z",
       "qualityWeight": 1.2
     },
     {
@@ -195,7 +195,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.390Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.085Z",
       "qualityWeight": 1.2
     },
     {
@@ -208,7 +208,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.391Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.300Z",
       "qualityWeight": 1.2
     },
     {
@@ -221,7 +221,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.106Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.195Z",
       "qualityWeight": 1.2
     },
     {
@@ -234,7 +234,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.106Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.196Z",
       "qualityWeight": 1.2
     },
     {
@@ -247,7 +247,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.395Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.300Z",
       "qualityWeight": 1.2
     },
     {
@@ -260,7 +260,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.395Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.268Z",
       "qualityWeight": 1.2
     },
     {
@@ -273,7 +273,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.107Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.196Z",
       "qualityWeight": 1.2
     },
     {
@@ -286,7 +286,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.107Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.197Z",
       "qualityWeight": 1.2
     },
     {
@@ -299,7 +299,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.108Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.197Z",
       "qualityWeight": 1.2
     },
     {
@@ -312,7 +312,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.109Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.198Z",
       "qualityWeight": 1.2
     },
     {
@@ -325,7 +325,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.109Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.198Z",
       "qualityWeight": 1.2
     },
     {
@@ -338,7 +338,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.401Z",
+      "lastModifiedAt": "2026-05-30T00:17:44.491Z",
       "qualityWeight": 1.2
     },
     {
@@ -351,7 +351,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.110Z",
+      "lastModifiedAt": "2026-06-18T00:08:06.727Z",
       "qualityWeight": 1.2
     },
     {
@@ -364,7 +364,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.111Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.200Z",
       "qualityWeight": 1.2
     },
     {
@@ -377,7 +377,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.112Z",
+      "lastModifiedAt": "2026-06-18T00:08:07.944Z",
       "qualityWeight": 1.2
     },
     {
@@ -390,7 +390,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.404Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.097Z",
       "qualityWeight": 1.2
     },
     {
@@ -403,7 +403,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.112Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.201Z",
       "qualityWeight": 1.2
     },
     {
@@ -416,7 +416,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.113Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.202Z",
       "qualityWeight": 1.2
     },
     {
@@ -429,7 +429,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.406Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.039Z",
       "qualityWeight": 1.2
     },
     {
@@ -442,7 +442,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.113Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.202Z",
       "qualityWeight": 1.2
     },
     {
@@ -455,7 +455,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-10T23:48:03.145Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.648Z",
       "qualityWeight": 1.2
     },
     {
@@ -468,7 +468,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-06T23:01:43.598Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.650Z",
       "qualityWeight": 1.2
     },
     {
@@ -481,7 +481,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.114Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.203Z",
       "qualityWeight": 1.2
     },
     {
@@ -494,7 +494,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.416Z",
+      "lastModifiedAt": "2026-05-15T03:24:54.980Z",
       "qualityWeight": 1.2
     },
     {
@@ -507,7 +507,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.811Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.671Z",
       "qualityWeight": 1.2
     },
     {
@@ -520,7 +520,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T04:19:31.500Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.872Z",
       "qualityWeight": 1.2
     },
     {
@@ -533,7 +533,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.422Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.109Z",
       "qualityWeight": 1.2
     },
     {
@@ -546,7 +546,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.423Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.109Z",
       "qualityWeight": 1.2
     },
     {
@@ -559,7 +559,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.812Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.671Z",
       "qualityWeight": 1.2
     },
     {
@@ -572,7 +572,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.436Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.314Z",
       "qualityWeight": 1.2
     },
     {
@@ -585,7 +585,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.438Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.039Z",
       "qualityWeight": 1.2
     },
     {
@@ -598,7 +598,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.116Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.208Z",
       "qualityWeight": 1.2
     },
     {
@@ -611,7 +611,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-08T13:56:31.971Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.112Z",
       "qualityWeight": 1.2
     },
     {
@@ -624,7 +624,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T19:30:42.409Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.118Z",
       "qualityWeight": 1.2
     },
     {
@@ -637,7 +637,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.452Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.138Z",
       "qualityWeight": 1.2
     },
     {
@@ -650,7 +650,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.453Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.319Z",
       "qualityWeight": 1.2
     },
     {
@@ -663,7 +663,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-11T12:26:59.404Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.684Z",
       "qualityWeight": 1.2
     },
     {
@@ -676,7 +676,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.457Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.141Z",
       "qualityWeight": 1.2
     },
     {
@@ -689,7 +689,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.118Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.209Z",
       "qualityWeight": 1.2
     },
     {
@@ -702,7 +702,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.814Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.674Z",
       "qualityWeight": 1.2
     },
     {
@@ -715,7 +715,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.815Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.674Z",
       "qualityWeight": 1.2
     },
     {
@@ -728,7 +728,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.816Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.674Z",
       "qualityWeight": 1.2
     },
     {
@@ -741,7 +741,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.818Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.674Z",
       "qualityWeight": 1.2
     },
     {
@@ -754,7 +754,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.819Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.677Z",
       "qualityWeight": 1.2
     },
     {
@@ -767,7 +767,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T00:02:28.488Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.677Z",
       "qualityWeight": 1.2
     },
     {
@@ -780,7 +780,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.822Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.677Z",
       "qualityWeight": 1.2
     },
     {
@@ -793,7 +793,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.823Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.681Z",
       "qualityWeight": 1.2
     },
     {
@@ -806,7 +806,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.825Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.681Z",
       "qualityWeight": 1.2
     },
     {
@@ -819,7 +819,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.118Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.209Z",
       "qualityWeight": 1.2
     },
     {
@@ -832,7 +832,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.119Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.210Z",
       "qualityWeight": 1.2
     },
     {
@@ -845,7 +845,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.119Z",
+      "lastModifiedAt": "2026-06-17T23:43:12.344Z",
       "qualityWeight": 1.2
     },
     {
@@ -858,7 +858,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.470Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.008Z",
       "qualityWeight": 1.2
     },
     {
@@ -871,7 +871,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.472Z",
+      "lastModifiedAt": "2026-06-18T00:08:09.380Z",
       "qualityWeight": 1.2
     },
     {
@@ -884,7 +884,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.474Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.012Z",
       "qualityWeight": 1.2
     },
     {
@@ -897,7 +897,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.827Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.681Z",
       "qualityWeight": 1.2
     },
     {
@@ -910,7 +910,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.120Z",
+      "lastModifiedAt": "2026-06-17T23:43:08.907Z",
       "qualityWeight": 1.2
     },
     {
@@ -923,7 +923,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.120Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z",
       "qualityWeight": 1.2
     },
     {
@@ -936,7 +936,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-08T00:11:07.134Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.706Z",
       "qualityWeight": 1.2
     },
     {
@@ -949,7 +949,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-11T12:26:59.408Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.708Z",
       "qualityWeight": 1.2
     },
     {
@@ -962,7 +962,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.121Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z",
       "qualityWeight": 1.2
     },
     {
@@ -975,7 +975,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.484Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.159Z",
       "qualityWeight": 1.2
     },
     {
@@ -988,7 +988,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.485Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.161Z",
       "qualityWeight": 1.2
     },
     {
@@ -1001,7 +1001,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-21T00:23:45.880Z",
+      "lastModifiedAt": "2026-06-17T23:43:11.311Z",
       "qualityWeight": 1.2
     },
     {
@@ -1014,7 +1014,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.488Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.326Z",
       "qualityWeight": 1
     },
     {
@@ -1027,7 +1027,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.489Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.303Z",
       "qualityWeight": 1
     },
     {
@@ -1040,7 +1040,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T00:02:28.488Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.165Z",
       "qualityWeight": 1
     },
     {
@@ -1053,7 +1053,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.079Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.212Z",
       "qualityWeight": 1
     },
     {
@@ -1066,7 +1066,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.081Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.215Z",
       "qualityWeight": 1
     },
     {
@@ -1079,7 +1079,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.493Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.168Z",
       "qualityWeight": 1
     },
     {
@@ -1092,7 +1092,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.333Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.230Z",
       "qualityWeight": 1
     },
     {
@@ -1105,7 +1105,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T21:04:08.462Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.230Z",
       "qualityWeight": 1
     },
     {
@@ -1118,7 +1118,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.939Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.231Z",
       "qualityWeight": 1
     },
     {
@@ -1131,7 +1131,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.835Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.691Z",
       "qualityWeight": 1
     },
     {
@@ -1144,7 +1144,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.357Z",
+      "lastModifiedAt": "2026-06-17T23:43:32.926Z",
       "qualityWeight": 1
     },
     {
@@ -1157,7 +1157,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.121Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.232Z",
       "qualityWeight": 1
     },
     {
@@ -1170,7 +1170,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.334Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.233Z",
       "qualityWeight": 1
     },
     {
@@ -1183,24 +1183,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T02:59:15.114Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.217Z",
       "qualityWeight": 1
     },
     {
       "id": "feature-87",
-      "title": "Coachos",
-      "body": "Open /coachos to use this feature area and related workflows.",
-      "type": "feature",
-      "url": "/coachos",
-      "tags": [
-        "feature",
-        "dashboard"
-      ],
-      "lastModifiedAt": "2026-06-17T21:58:00.512Z",
-      "qualityWeight": 1
-    },
-    {
-      "id": "feature-88",
       "title": "Concierge",
       "body": "Open /concierge to use this feature area and related workflows.",
       "type": "feature",
@@ -1209,11 +1196,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.750Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.429Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-89",
+      "id": "feature-88",
       "title": "Contributor",
       "body": "Open /contributor to use this feature area and related workflows.",
       "type": "feature",
@@ -1222,11 +1209,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.122Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.234Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-90",
+      "id": "feature-89",
       "title": "Demo / Cio / Notes",
       "body": "Open /demo/cio/notes to use this feature area and related workflows.",
       "type": "feature",
@@ -1235,11 +1222,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.755Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.437Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-91",
+      "id": "feature-90",
       "title": "Demo / Cio",
       "body": "Open /demo/cio to use this feature area and related workflows.",
       "type": "feature",
@@ -1248,24 +1235,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.755Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.438Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-92",
-      "title": "Demo / Coach dashboard",
-      "body": "Open /demo/coach-dashboard to use this feature area and related workflows.",
-      "type": "feature",
-      "url": "/demo/coach-dashboard",
-      "tags": [
-        "feature",
-        "dashboard"
-      ],
-      "lastModifiedAt": "2026-06-17T21:58:21.488Z",
-      "qualityWeight": 1
-    },
-    {
-      "id": "feature-93",
+      "id": "feature-91",
       "title": "Demo / Executive brief",
       "body": "Open /demo/executive-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1274,11 +1248,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.340Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-94",
+      "id": "feature-92",
       "title": "Demo / Executive dashboard",
       "body": "Open /demo/executive-dashboard to use this feature area and related workflows.",
       "type": "feature",
@@ -1287,11 +1261,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.940Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-95",
+      "id": "feature-93",
       "title": "Demo / Manager tools",
       "body": "Open /demo/manager-tools to use this feature area and related workflows.",
       "type": "feature",
@@ -1300,11 +1274,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.757Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.205Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-96",
+      "id": "feature-94",
       "title": "Demo / Michael dashboard",
       "body": "Open /demo/michael-dashboard to use this feature area and related workflows.",
       "type": "feature",
@@ -1313,11 +1287,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.960Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.235Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-97",
+      "id": "feature-95",
       "title": "Demo / Michael strategy brief",
       "body": "Open /demo/michael-strategy-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1326,11 +1300,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.941Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.236Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-98",
+      "id": "feature-96",
       "title": "Demo",
       "body": "Open /demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1339,11 +1313,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:57:40.216Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.236Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-99",
+      "id": "feature-97",
       "title": "Demo / Presenter",
       "body": "Open /demo/presenter to use this feature area and related workflows.",
       "type": "feature",
@@ -1352,11 +1326,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.083Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.237Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-100",
+      "id": "feature-98",
       "title": "Evaluate",
       "body": "Open /evaluate to use this feature area and related workflows.",
       "type": "feature",
@@ -1365,11 +1339,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.760Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.442Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-101",
+      "id": "feature-99",
       "title": "Evidence room",
       "body": "Open /evidence-room to use this feature area and related workflows.",
       "type": "feature",
@@ -1378,11 +1352,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.929Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.237Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-102",
+      "id": "feature-100",
       "title": "Executive brief",
       "body": "Open /executive-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -1391,11 +1365,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T19:30:42.414Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.224Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-103",
+      "id": "feature-101",
       "title": "Executives / Active",
       "body": "Open /executives/active to use this feature area and related workflows.",
       "type": "feature",
@@ -1404,11 +1378,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.761Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.442Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-104",
+      "id": "feature-102",
       "title": "Executives",
       "body": "Open /executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1417,11 +1391,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.367Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.691Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-105",
+      "id": "feature-103",
       "title": "Executives / Passive",
       "body": "Open /executives/passive to use this feature area and related workflows.",
       "type": "feature",
@@ -1430,11 +1404,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.762Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.446Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-106",
+      "id": "feature-104",
       "title": "Executives / Personas",
       "body": "Open /executives/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -1443,24 +1417,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.368Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.694Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-107",
-      "title": "Features",
-      "body": "Open /features to use this feature area and related workflows.",
-      "type": "feature",
-      "url": "/features",
-      "tags": [
-        "feature",
-        "dashboard"
-      ],
-      "lastModifiedAt": "2026-06-17T14:33:26.233Z",
-      "qualityWeight": 1
-    },
-    {
-      "id": "feature-108",
+      "id": "feature-105",
       "title": "Feedback",
       "body": "Open /feedback to use this feature area and related workflows.",
       "type": "feature",
@@ -1469,11 +1430,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.123Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.239Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-109",
+      "id": "feature-106",
       "title": "For cdo",
       "body": "Open /for-cdo to use this feature area and related workflows.",
       "type": "feature",
@@ -1482,11 +1443,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.369Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.696Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-110",
+      "id": "feature-107",
       "title": "For chro",
       "body": "Open /for-chro to use this feature area and related workflows.",
       "type": "feature",
@@ -1495,11 +1456,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.837Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.697Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-111",
+      "id": "feature-108",
       "title": "For cio associations",
       "body": "Open /for-cio-associations to use this feature area and related workflows.",
       "type": "feature",
@@ -1508,11 +1469,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.943Z",
+      "lastModifiedAt": "2026-06-17T23:43:19.916Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-112",
+      "id": "feature-109",
       "title": "For cio",
       "body": "Open /for-cio to use this feature area and related workflows.",
       "type": "feature",
@@ -1521,11 +1482,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.366Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.699Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-113",
+      "id": "feature-110",
       "title": "For ciso",
       "body": "Open /for-ciso to use this feature area and related workflows.",
       "type": "feature",
@@ -1534,11 +1495,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.368Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.701Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-114",
+      "id": "feature-111",
       "title": "For coaches / Coach prep worksheet",
       "body": "Open /for-coaches/coach-prep-worksheet to use this feature area and related workflows.",
       "type": "feature",
@@ -1547,11 +1508,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.358Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.242Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-115",
+      "id": "feature-112",
       "title": "For coaches / Economics",
       "body": "Open /for-coaches/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1560,11 +1521,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T03:41:30.258Z",
+      "lastModifiedAt": "2026-06-18T00:08:02.065Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-116",
+      "id": "feature-113",
       "title": "For coaches / Faq",
       "body": "Open /for-coaches/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1573,11 +1534,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.901Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.701Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-117",
+      "id": "feature-114",
       "title": "For coaches / Micro products",
       "body": "Open /for-coaches/micro-products to use this feature area and related workflows.",
       "type": "feature",
@@ -1586,11 +1547,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.104Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.245Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-118",
+      "id": "feature-115",
       "title": "For coaches",
       "body": "Open /for-coaches to use this feature area and related workflows.",
       "type": "feature",
@@ -1599,24 +1560,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T14:33:26.227Z",
+      "lastModifiedAt": "2026-06-18T03:49:38.527Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-119",
-      "title": "For coaches / Search affiliate",
-      "body": "Open /for-coaches/search-affiliate to use this feature area and related workflows.",
-      "type": "feature",
-      "url": "/for-coaches/search-affiliate",
-      "tags": [
-        "feature",
-        "dashboard"
-      ],
-      "lastModifiedAt": "2026-06-16T23:19:39.949Z",
-      "qualityWeight": 1
-    },
-    {
-      "id": "feature-120",
+      "id": "feature-116",
       "title": "For coaches / Trust pack",
       "body": "Open /for-coaches/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1625,11 +1573,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.082Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.247Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-121",
+      "id": "feature-117",
       "title": "For coo",
       "body": "Open /for-coo to use this feature area and related workflows.",
       "type": "feature",
@@ -1638,11 +1586,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.368Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.704Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-122",
+      "id": "feature-118",
       "title": "For cpo",
       "body": "Open /for-cpo to use this feature area and related workflows.",
       "type": "feature",
@@ -1651,11 +1599,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.368Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.707Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-123",
+      "id": "feature-119",
       "title": "For data officer",
       "body": "Open /for-data-officer to use this feature area and related workflows.",
       "type": "feature",
@@ -1664,11 +1612,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T14:07:47.433Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.710Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-124",
+      "id": "feature-120",
       "title": "For executives",
       "body": "Open /for-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1677,11 +1625,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T14:33:26.228Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.710Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-125",
+      "id": "feature-121",
       "title": "For financial advisors",
       "body": "Open /for-financial-advisors to use this feature area and related workflows.",
       "type": "feature",
@@ -1690,11 +1638,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.945Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.250Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-126",
+      "id": "feature-122",
       "title": "For fractional executives",
       "body": "Open /for-fractional-executives to use this feature area and related workflows.",
       "type": "feature",
@@ -1703,11 +1651,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.946Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.250Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-127",
+      "id": "feature-123",
       "title": "For media partners",
       "body": "Open /for-media-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1716,11 +1664,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.936Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.252Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-128",
+      "id": "feature-124",
       "title": "For outplacement / Economics",
       "body": "Open /for-outplacement/economics to use this feature area and related workflows.",
       "type": "feature",
@@ -1729,11 +1677,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.347Z",
+      "lastModifiedAt": "2026-06-18T00:08:22.882Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-129",
+      "id": "feature-125",
       "title": "For outplacement / Executive summary",
       "body": "Open /for-outplacement/executive-summary to use this feature area and related workflows.",
       "type": "feature",
@@ -1742,11 +1690,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.108Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.252Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-130",
+      "id": "feature-126",
       "title": "For outplacement / Faq",
       "body": "Open /for-outplacement/faq to use this feature area and related workflows.",
       "type": "feature",
@@ -1755,11 +1703,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.961Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-131",
+      "id": "feature-127",
       "title": "For outplacement / Metric dictionary",
       "body": "Open /for-outplacement/metric-dictionary to use this feature area and related workflows.",
       "type": "feature",
@@ -1768,11 +1716,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.110Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-132",
+      "id": "feature-128",
       "title": "For outplacement / Operating scorecard",
       "body": "Open /for-outplacement/operating-scorecard to use this feature area and related workflows.",
       "type": "feature",
@@ -1781,11 +1729,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.111Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.254Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-133",
+      "id": "feature-129",
       "title": "For outplacement",
       "body": "Open /for-outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -1794,11 +1742,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T14:33:26.226Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.710Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-134",
+      "id": "feature-130",
       "title": "For outplacement / Runbook",
       "body": "Open /for-outplacement/runbook to use this feature area and related workflows.",
       "type": "feature",
@@ -1807,11 +1755,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.113Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-135",
+      "id": "feature-131",
       "title": "For outplacement / Security overview",
       "body": "Open /for-outplacement/security-overview to use this feature area and related workflows.",
       "type": "feature",
@@ -1820,11 +1768,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:27:30.115Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-136",
+      "id": "feature-132",
       "title": "For outplacement / Trust pack",
       "body": "Open /for-outplacement/trust-pack to use this feature area and related workflows.",
       "type": "feature",
@@ -1833,11 +1781,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.339Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.256Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-137",
+      "id": "feature-133",
       "title": "For pe partners",
       "body": "Open /for-pe-partners to use this feature area and related workflows.",
       "type": "feature",
@@ -1846,11 +1794,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.948Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.258Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-138",
+      "id": "feature-134",
       "title": "For pe teams",
       "body": "Open /for-pe-teams to use this feature area and related workflows.",
       "type": "feature",
@@ -1859,11 +1807,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.362Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.258Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-139",
+      "id": "feature-135",
       "title": "For relocation",
       "body": "Open /for-relocation to use this feature area and related workflows.",
       "type": "feature",
@@ -1872,11 +1820,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.949Z",
+      "lastModifiedAt": "2026-06-17T23:43:30.073Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-140",
+      "id": "feature-136",
       "title": "For search firms",
       "body": "Open /for-search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -1885,11 +1833,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
+      "lastModifiedAt": "2026-06-17T23:43:22.497Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-141",
+      "id": "feature-137",
       "title": "For vp technology",
       "body": "Open /for-vp-technology to use this feature area and related workflows.",
       "type": "feature",
@@ -1898,11 +1846,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-15T03:48:51.370Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.714Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-142",
+      "id": "feature-138",
       "title": "For vp",
       "body": "Open /for-vp to use this feature area and related workflows.",
       "type": "feature",
@@ -1911,11 +1859,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.797Z",
+      "lastModifiedAt": "2026-06-10T17:41:01.854Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-143",
+      "id": "feature-139",
       "title": "Founder note",
       "body": "Open /founder-note to use this feature area and related workflows.",
       "type": "feature",
@@ -1924,11 +1872,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.797Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.485Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-144",
+      "id": "feature-140",
       "title": "Guide",
       "body": "Open /guide to use this feature area and related workflows.",
       "type": "feature",
@@ -1937,11 +1885,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.799Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.499Z",
       "qualityWeight": 1.45
     },
     {
-      "id": "feature-145",
+      "id": "feature-141",
       "title": "Ideas",
       "body": "Open /ideas to use this feature area and related workflows.",
       "type": "feature",
@@ -1950,11 +1898,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.356Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.262Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-146",
+      "id": "feature-142",
       "title": "Managertools",
       "body": "Open /managertools to use this feature area and related workflows.",
       "type": "feature",
@@ -1963,11 +1911,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-07T01:05:11.047Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.247Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-147",
+      "id": "feature-143",
       "title": "Mark demo",
       "body": "Open /mark-demo to use this feature area and related workflows.",
       "type": "feature",
@@ -1976,11 +1924,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.804Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.494Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-148",
+      "id": "feature-144",
       "title": "Mark review / Appendix",
       "body": "Open /mark-review/appendix to use this feature area and related workflows.",
       "type": "feature",
@@ -1989,11 +1937,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T03:37:41.432Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.264Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-149",
+      "id": "feature-145",
       "title": "Mark review / Business plan",
       "body": "Open /mark-review/business-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -2002,11 +1950,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.806Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.217Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-150",
+      "id": "feature-146",
       "title": "Mark review",
       "body": "Open /mark-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2015,11 +1963,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.807Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.217Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-151",
+      "id": "feature-147",
       "title": "Mark review / Summary",
       "body": "Open /mark-review/summary to use this feature area and related workflows.",
       "type": "feature",
@@ -2028,11 +1976,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.808Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.217Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-152",
+      "id": "feature-148",
       "title": "Mauricio kickoff execution / Apollo read access",
       "body": "Open /mauricio-kickoff-execution/apollo-read-access to use this feature area and related workflows.",
       "type": "feature",
@@ -2041,11 +1989,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.125Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.265Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-153",
+      "id": "feature-149",
       "title": "Mauricio kickoff execution / Customer email by channel",
       "body": "Open /mauricio-kickoff-execution/customer-email-by-channel to use this feature area and related workflows.",
       "type": "feature",
@@ -2054,11 +2002,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.125Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.265Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-154",
+      "id": "feature-150",
       "title": "Mauricio kickoff execution",
       "body": "Open /mauricio-kickoff-execution to use this feature area and related workflows.",
       "type": "feature",
@@ -2067,11 +2015,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.126Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.266Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-155",
+      "id": "feature-151",
       "title": "Mauricio kickoff",
       "body": "Open /mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2080,11 +2028,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T16:09:11.124Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.266Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-156",
+      "id": "feature-152",
       "title": "Method and evidence",
       "body": "Open /method-and-evidence to use this feature area and related workflows.",
       "type": "feature",
@@ -2093,11 +2041,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:57:40.215Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.267Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-157",
+      "id": "feature-153",
       "title": "Onboarding",
       "body": "Open /onboarding to use this feature area and related workflows.",
       "type": "feature",
@@ -2106,11 +2054,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.814Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.501Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-158",
+      "id": "feature-154",
       "title": "Optimize",
       "body": "Open /optimize to use this feature area and related workflows.",
       "type": "feature",
@@ -2119,11 +2067,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:30:34.697Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.268Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-159",
+      "id": "feature-155",
       "title": "Outplacement",
       "body": "Open /outplacement to use this feature area and related workflows.",
       "type": "feature",
@@ -2132,11 +2080,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.081Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.268Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-160",
+      "id": "feature-156",
       "title": "Outplacement / Personas",
       "body": "Open /outplacement/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2145,11 +2093,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.824Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.505Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-161",
+      "id": "feature-157",
       "title": "Partners / Mauricio kickoff",
       "body": "Open /partners/mauricio-kickoff to use this feature area and related workflows.",
       "type": "feature",
@@ -2158,11 +2106,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.826Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.226Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-162",
+      "id": "feature-158",
       "title": "Partners",
       "body": "Open /partners to use this feature area and related workflows.",
       "type": "feature",
@@ -2171,11 +2119,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T14:33:26.229Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.717Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-163",
+      "id": "feature-159",
       "title": "Partners / Reporting",
       "body": "Open /partners/reporting to use this feature area and related workflows.",
       "type": "feature",
@@ -2184,11 +2132,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T00:02:28.489Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.270Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-164",
+      "id": "feature-160",
       "title": "Pilot findings",
       "body": "Open /pilot-findings to use this feature area and related workflows.",
       "type": "feature",
@@ -2197,11 +2145,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.829Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.508Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-165",
+      "id": "feature-161",
       "title": "Pricing",
       "body": "Open /pricing to use this feature area and related workflows.",
       "type": "feature",
@@ -2210,11 +2158,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T03:37:41.428Z",
+      "lastModifiedAt": "2026-06-18T00:08:12.200Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-166",
+      "id": "feature-162",
       "title": "Privacy",
       "body": "Open /privacy to use this feature area and related workflows.",
       "type": "feature",
@@ -2223,11 +2171,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:30:34.699Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.272Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-167",
+      "id": "feature-163",
       "title": "Proof / Roi calculator",
       "body": "Open /proof/roi-calculator to use this feature area and related workflows.",
       "type": "feature",
@@ -2236,11 +2184,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.956Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.272Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-168",
+      "id": "feature-164",
       "title": "References",
       "body": "Open /references to use this feature area and related workflows.",
       "type": "feature",
@@ -2249,11 +2197,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.957Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.273Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-169",
+      "id": "feature-165",
       "title": "Research brief",
       "body": "Open /research-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2262,11 +2210,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:24:20.958Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.273Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-170",
+      "id": "feature-166",
       "title": "Sales marketing plan",
       "body": "Open /sales-marketing-plan to use this feature area and related workflows.",
       "type": "feature",
@@ -2275,11 +2223,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.346Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.274Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-171",
+      "id": "feature-167",
       "title": "Search firms",
       "body": "Open /search-firms to use this feature area and related workflows.",
       "type": "feature",
@@ -2288,11 +2236,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-17T14:33:26.228Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.717Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-172",
+      "id": "feature-168",
       "title": "Search firms / Personas",
       "body": "Open /search-firms/personas to use this feature area and related workflows.",
       "type": "feature",
@@ -2301,11 +2249,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.846Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.519Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-173",
+      "id": "feature-169",
       "title": "Search firms / Sample cfo brief",
       "body": "Open /search-firms/sample-cfo-brief to use this feature area and related workflows.",
       "type": "feature",
@@ -2314,11 +2262,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T01:31:58.083Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.277Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-174",
+      "id": "feature-170",
       "title": "Security",
       "body": "Open /security to use this feature area and related workflows.",
       "type": "feature",
@@ -2327,11 +2275,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:23:57.337Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.277Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-175",
+      "id": "feature-171",
       "title": "Stuart meyer review",
       "body": "Open /stuart-meyer-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2340,11 +2288,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T00:36:31.472Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.720Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-176",
+      "id": "feature-172",
       "title": "Terms",
       "body": "Open /terms to use this feature area and related workflows.",
       "type": "feature",
@@ -2353,11 +2301,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-14T00:30:34.701Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.278Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-177",
+      "id": "feature-173",
       "title": "Terry anderson review",
       "body": "Open /terry-anderson-review to use this feature area and related workflows.",
       "type": "feature",
@@ -2366,11 +2314,11 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-06-16T00:44:43.173Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.723Z",
       "qualityWeight": 1
     },
     {
-      "id": "feature-178",
+      "id": "feature-174",
       "title": "Unsubscribe / Confirmed",
       "body": "Open /unsubscribe/confirmed to use this feature area and related workflows.",
       "type": "feature",
@@ -2379,7 +2327,7 @@
         "feature",
         "dashboard"
       ],
-      "lastModifiedAt": "2026-05-05T18:05:27.656Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.928Z",
       "qualityWeight": 1
     },
     {
@@ -2393,7 +2341,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-2",
@@ -2406,7 +2354,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-3",
@@ -2419,7 +2367,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-4",
@@ -2432,7 +2380,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-5",
@@ -2445,7 +2393,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-6",
@@ -2458,7 +2406,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-7",
@@ -2471,7 +2419,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-8",
@@ -2484,7 +2432,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-9",
@@ -2497,7 +2445,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-10",
@@ -2510,7 +2458,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-11",
@@ -2523,7 +2471,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-12",
@@ -2536,7 +2484,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-13",
@@ -2549,7 +2497,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "howto-14",
@@ -2562,7 +2510,7 @@
         "operations"
       ],
       "qualityWeight": 1.3,
-      "lastModifiedAt": "2026-06-07T13:53:40.710Z"
+      "lastModifiedAt": "2026-06-10T19:09:49.844Z"
     },
     {
       "id": "api-1",
@@ -2574,7 +2522,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.495Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.169Z",
       "qualityWeight": 0.95
     },
     {
@@ -2587,7 +2535,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.495Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.170Z",
       "qualityWeight": 0.95
     },
     {
@@ -2600,7 +2548,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.496Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.171Z",
       "qualityWeight": 0.95
     },
     {
@@ -2613,7 +2561,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.497Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.172Z",
       "qualityWeight": 0.95
     },
     {
@@ -2626,7 +2574,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.498Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2639,7 +2587,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.499Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.173Z",
       "qualityWeight": 0.95
     },
     {
@@ -2652,7 +2600,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.500Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.175Z",
       "qualityWeight": 0.95
     },
     {
@@ -2665,7 +2613,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.501Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.176Z",
       "qualityWeight": 0.95
     },
     {
@@ -2678,7 +2626,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.501Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.177Z",
       "qualityWeight": 0.95
     },
     {
@@ -2691,7 +2639,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.502Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.177Z",
       "qualityWeight": 0.95
     },
     {
@@ -2704,7 +2652,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.503Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.177Z",
       "qualityWeight": 0.95
     },
     {
@@ -2717,7 +2665,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.504Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.177Z",
       "qualityWeight": 0.95
     },
     {
@@ -2730,7 +2678,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.504Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2743,7 +2691,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.505Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2756,7 +2704,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.506Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2769,7 +2717,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.508Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2782,7 +2730,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.508Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2795,7 +2743,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.509Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.182Z",
       "qualityWeight": 0.95
     },
     {
@@ -2808,7 +2756,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.510Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.187Z",
       "qualityWeight": 0.95
     },
     {
@@ -2821,7 +2769,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.511Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.187Z",
       "qualityWeight": 0.95
     },
     {
@@ -2834,7 +2782,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.512Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.187Z",
       "qualityWeight": 0.95
     },
     {
@@ -2847,7 +2795,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.513Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.187Z",
       "qualityWeight": 0.95
     },
     {
@@ -2860,7 +2808,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.514Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.192Z",
       "qualityWeight": 0.95
     },
     {
@@ -2873,7 +2821,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.514Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.193Z",
       "qualityWeight": 0.95
     },
     {
@@ -2886,7 +2834,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.515Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.193Z",
       "qualityWeight": 0.95
     },
     {
@@ -2899,7 +2847,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.516Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2912,7 +2860,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.518Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.193Z",
       "qualityWeight": 0.95
     },
     {
@@ -2925,7 +2873,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.518Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.193Z",
       "qualityWeight": 0.95
     },
     {
@@ -2938,7 +2886,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.519Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2951,7 +2899,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.520Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2964,7 +2912,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.521Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2977,7 +2925,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.522Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.055Z",
       "qualityWeight": 0.95
     },
     {
@@ -2990,7 +2938,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.522Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.060Z",
       "qualityWeight": 0.95
     },
     {
@@ -3003,7 +2951,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.523Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.336Z",
       "qualityWeight": 0.95
     },
     {
@@ -3016,7 +2964,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.524Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.060Z",
       "qualityWeight": 0.95
     },
     {
@@ -3029,7 +2977,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.525Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.060Z",
       "qualityWeight": 0.95
     },
     {
@@ -3042,7 +2990,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.526Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.064Z",
       "qualityWeight": 0.95
     },
     {
@@ -3055,7 +3003,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.527Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.064Z",
       "qualityWeight": 0.95
     },
     {
@@ -3068,7 +3016,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.528Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.064Z",
       "qualityWeight": 0.95
     },
     {
@@ -3081,7 +3029,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.529Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.066Z",
       "qualityWeight": 0.95
     },
     {
@@ -3094,7 +3042,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.531Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.066Z",
       "qualityWeight": 0.95
     },
     {
@@ -3107,7 +3055,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.532Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.066Z",
       "qualityWeight": 0.95
     },
     {
@@ -3120,7 +3068,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.533Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.068Z",
       "qualityWeight": 0.95
     },
     {
@@ -3133,7 +3081,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.534Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.068Z",
       "qualityWeight": 0.95
     },
     {
@@ -3146,7 +3094,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.535Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.346Z",
       "qualityWeight": 0.95
     },
     {
@@ -3159,7 +3107,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.536Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.208Z",
       "qualityWeight": 0.95
     },
     {
@@ -3172,7 +3120,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T22:55:22.425Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.346Z",
       "qualityWeight": 0.95
     },
     {
@@ -3185,7 +3133,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.538Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.068Z",
       "qualityWeight": 0.95
     },
     {
@@ -3198,7 +3146,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.539Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.072Z",
       "qualityWeight": 0.95
     },
     {
@@ -3211,7 +3159,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.540Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.215Z",
       "qualityWeight": 0.95
     },
     {
@@ -3224,7 +3172,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.541Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.072Z",
       "qualityWeight": 0.95
     },
     {
@@ -3237,7 +3185,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.542Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.072Z",
       "qualityWeight": 0.95
     },
     {
@@ -3250,7 +3198,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.543Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.076Z",
       "qualityWeight": 0.95
     },
     {
@@ -3263,7 +3211,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.544Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.076Z",
       "qualityWeight": 0.95
     },
     {
@@ -3276,7 +3224,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.544Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.077Z",
       "qualityWeight": 0.95
     },
     {
@@ -3289,7 +3237,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T22:55:22.427Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.079Z",
       "qualityWeight": 0.95
     },
     {
@@ -3302,7 +3250,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.546Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.360Z",
       "qualityWeight": 0.95
     },
     {
@@ -3315,7 +3263,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.547Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.080Z",
       "qualityWeight": 0.95
     },
     {
@@ -3328,7 +3276,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.548Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.366Z",
       "qualityWeight": 0.95
     },
     {
@@ -3341,7 +3289,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.549Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.371Z",
       "qualityWeight": 0.95
     },
     {
@@ -3354,7 +3302,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.221Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.215Z",
       "qualityWeight": 0.95
     },
     {
@@ -3367,7 +3315,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.551Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.373Z",
       "qualityWeight": 0.95
     },
     {
@@ -3380,7 +3328,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.551Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.084Z",
       "qualityWeight": 0.95
     },
     {
@@ -3393,7 +3341,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.552Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.086Z",
       "qualityWeight": 0.95
     },
     {
@@ -3406,7 +3354,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.553Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.381Z",
       "qualityWeight": 0.95
     },
     {
@@ -3419,7 +3367,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.554Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.087Z",
       "qualityWeight": 0.95
     },
     {
@@ -3432,7 +3380,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.555Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.381Z",
       "qualityWeight": 0.95
     },
     {
@@ -3445,7 +3393,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.556Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.381Z",
       "qualityWeight": 0.95
     },
     {
@@ -3458,7 +3406,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T22:55:22.427Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.090Z",
       "qualityWeight": 0.95
     },
     {
@@ -3471,7 +3419,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T22:55:22.852Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.389Z",
       "qualityWeight": 0.95
     },
     {
@@ -3484,7 +3432,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.560Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.215Z",
       "qualityWeight": 0.95
     },
     {
@@ -3497,7 +3445,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.561Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.389Z",
       "qualityWeight": 0.95
     },
     {
@@ -3510,7 +3458,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.562Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.092Z",
       "qualityWeight": 0.95
     },
     {
@@ -3523,7 +3471,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.563Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.093Z",
       "qualityWeight": 0.95
     },
     {
@@ -3536,7 +3484,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.563Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.093Z",
       "qualityWeight": 0.95
     },
     {
@@ -3549,7 +3497,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.565Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.094Z",
       "qualityWeight": 0.95
     },
     {
@@ -3562,7 +3510,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.566Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.095Z",
       "qualityWeight": 0.95
     },
     {
@@ -3575,7 +3523,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.567Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.095Z",
       "qualityWeight": 0.95
     },
     {
@@ -3588,7 +3536,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.568Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.097Z",
       "qualityWeight": 0.95
     },
     {
@@ -3601,7 +3549,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.569Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.098Z",
       "qualityWeight": 0.95
     },
     {
@@ -3614,7 +3562,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.570Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.099Z",
       "qualityWeight": 0.95
     },
     {
@@ -3627,7 +3575,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.571Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.100Z",
       "qualityWeight": 0.95
     },
     {
@@ -3640,7 +3588,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.572Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.388Z",
       "qualityWeight": 0.95
     },
     {
@@ -3653,7 +3601,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T01:48:54.176Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.124Z",
       "qualityWeight": 0.95
     },
     {
@@ -3666,7 +3614,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.572Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.100Z",
       "qualityWeight": 0.95
     },
     {
@@ -3679,7 +3627,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.573Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.024Z",
       "qualityWeight": 0.95
     },
     {
@@ -3692,7 +3640,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.574Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.100Z",
       "qualityWeight": 0.95
     },
     {
@@ -3705,7 +3653,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.575Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.103Z",
       "qualityWeight": 0.95
     },
     {
@@ -3718,7 +3666,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.577Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.224Z",
       "qualityWeight": 0.95
     },
     {
@@ -3731,7 +3679,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.577Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.103Z",
       "qualityWeight": 0.95
     },
     {
@@ -3744,7 +3692,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.578Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.391Z",
       "qualityWeight": 0.95
     },
     {
@@ -3757,7 +3705,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.579Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.106Z",
       "qualityWeight": 0.95
     },
     {
@@ -3770,7 +3718,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.580Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.106Z",
       "qualityWeight": 0.95
     },
     {
@@ -3783,7 +3731,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.581Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.107Z",
       "qualityWeight": 0.95
     },
     {
@@ -3796,7 +3744,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:04.947Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.126Z",
       "qualityWeight": 0.95
     },
     {
@@ -3809,7 +3757,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.583Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.395Z",
       "qualityWeight": 0.95
     },
     {
@@ -3822,7 +3770,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.584Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.107Z",
       "qualityWeight": 0.95
     },
     {
@@ -3835,7 +3783,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.585Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.107Z",
       "qualityWeight": 0.95
     },
     {
@@ -3848,7 +3796,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:04.947Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.128Z",
       "qualityWeight": 0.95
     },
     {
@@ -3861,7 +3809,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.587Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.107Z",
       "qualityWeight": 0.95
     },
     {
@@ -3874,7 +3822,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.587Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.112Z",
       "qualityWeight": 0.95
     },
     {
@@ -3887,7 +3835,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.588Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.399Z",
       "qualityWeight": 0.95
     },
     {
@@ -3900,7 +3848,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.589Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.113Z",
       "qualityWeight": 0.95
     },
     {
@@ -3913,7 +3861,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.590Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.402Z",
       "qualityWeight": 0.95
     },
     {
@@ -3926,7 +3874,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.591Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.113Z",
       "qualityWeight": 0.95
     },
     {
@@ -3939,7 +3887,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T03:45:30.176Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.130Z",
       "qualityWeight": 0.95
     },
     {
@@ -3952,7 +3900,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.593Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.116Z",
       "qualityWeight": 0.95
     },
     {
@@ -3965,7 +3913,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.594Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.404Z",
       "qualityWeight": 0.95
     },
     {
@@ -3978,7 +3926,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.595Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.116Z",
       "qualityWeight": 0.95
     },
     {
@@ -3991,7 +3939,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.596Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.116Z",
       "qualityWeight": 0.95
     },
     {
@@ -4004,7 +3952,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.597Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.414Z",
       "qualityWeight": 0.95
     },
     {
@@ -4017,7 +3965,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:04.948Z",
+      "lastModifiedAt": "2026-06-11T15:00:46.538Z",
       "qualityWeight": 0.95
     },
     {
@@ -4030,7 +3978,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.600Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.119Z",
       "qualityWeight": 0.95
     },
     {
@@ -4043,7 +3991,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.601Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.121Z",
       "qualityWeight": 0.95
     },
     {
@@ -4056,7 +4004,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.602Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.121Z",
       "qualityWeight": 0.95
     },
     {
@@ -4069,7 +4017,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.603Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.121Z",
       "qualityWeight": 0.95
     },
     {
@@ -4082,7 +4030,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.604Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.031Z",
       "qualityWeight": 0.95
     },
     {
@@ -4095,7 +4043,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.605Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.121Z",
       "qualityWeight": 0.95
     },
     {
@@ -4108,7 +4056,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.605Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.031Z",
       "qualityWeight": 0.95
     },
     {
@@ -4121,7 +4069,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.606Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.125Z",
       "qualityWeight": 0.95
     },
     {
@@ -4134,7 +4082,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.228Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.216Z",
       "qualityWeight": 0.95
     },
     {
@@ -4147,7 +4095,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.224Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.216Z",
       "qualityWeight": 0.95
     },
     {
@@ -4160,7 +4108,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.609Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.125Z",
       "qualityWeight": 0.95
     },
     {
@@ -4173,7 +4121,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.224Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.218Z",
       "qualityWeight": 0.95
     },
     {
@@ -4186,7 +4134,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.611Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.130Z",
       "qualityWeight": 0.95
     },
     {
@@ -4199,7 +4147,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.612Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.412Z",
       "qualityWeight": 0.95
     },
     {
@@ -4212,7 +4160,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.612Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.413Z",
       "qualityWeight": 0.95
     },
     {
@@ -4225,7 +4173,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T16:24:40.389Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.218Z",
       "qualityWeight": 0.95
     },
     {
@@ -4238,7 +4186,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.848Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.135Z",
       "qualityWeight": 0.95
     },
     {
@@ -4251,7 +4199,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.224Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.219Z",
       "qualityWeight": 0.95
     },
     {
@@ -4264,7 +4212,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.224Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.219Z",
       "qualityWeight": 0.95
     },
     {
@@ -4277,7 +4225,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.618Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.419Z",
       "qualityWeight": 0.95
     },
     {
@@ -4290,24 +4238,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.221Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.220Z",
       "qualityWeight": 0.95
     },
     {
       "id": "api-134",
-      "title": "/api/coach/client/[clientId]/session-snapshot",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/coach/client/[clientId]/session-snapshot",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T14:33:26.230Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-135",
       "title": "/api/coach/client/[clientId]/signals",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4316,11 +4251,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.620Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.422Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-136",
+      "id": "api-135",
       "title": "/api/coach/client/[clientId]/weekly-review",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4329,11 +4264,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.828Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.684Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-137",
+      "id": "api-136",
       "title": "/api/coach/clients",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4342,11 +4277,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.622Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.424Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-138",
+      "id": "api-137",
       "title": "/api/coach/command-center",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4355,11 +4290,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.830Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.684Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-139",
+      "id": "api-138",
       "title": "/api/companies/quick-add",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4368,11 +4303,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.624Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.419Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-140",
+      "id": "api-139",
       "title": "/api/companies/reference/search",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4381,11 +4316,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.626Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.035Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-141",
+      "id": "api-140",
       "title": "/api/companies",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4394,11 +4329,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T02:11:04.687Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.145Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-142",
+      "id": "api-141",
       "title": "/api/concierge-waitlist",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4407,11 +4342,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.627Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.136Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-143",
+      "id": "api-142",
       "title": "/api/concierge/calls",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4420,11 +4355,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-09T17:34:52.259Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.761Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-144",
+      "id": "api-143",
       "title": "/api/contacts/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4433,11 +4368,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.629Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.427Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-145",
+      "id": "api-144",
       "title": "/api/contacts",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4446,11 +4381,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T03:13:46.398Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.146Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-146",
+      "id": "api-145",
       "title": "/api/conversation",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4459,11 +4394,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.630Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.138Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-147",
+      "id": "api-146",
       "title": "/api/cron/apollo-quality-audit",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4472,11 +4407,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T01:48:54.177Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.149Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-148",
+      "id": "api-147",
       "title": "/api/cron/commitment-friday",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4485,11 +4420,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.631Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.037Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-149",
+      "id": "api-148",
       "title": "/api/cron/commitment-sunday",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4498,11 +4433,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.632Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.038Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-150",
+      "id": "api-149",
       "title": "/api/cron/drip",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4511,11 +4446,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.633Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.039Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-151",
+      "id": "api-150",
       "title": "/api/cron/edgar-freshness-audit",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4524,11 +4459,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T00:54:53.279Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.151Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-152",
+      "id": "api-151",
       "title": "/api/cron/edgar-signals",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4537,11 +4472,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.634Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.283Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-153",
+      "id": "api-152",
       "title": "/api/cron/edgar-watchdog",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4550,11 +4485,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T01:48:54.177Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.152Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-154",
+      "id": "api-153",
       "title": "/api/cron/enrichment-contact-retention",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4563,11 +4498,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T13:56:31.971Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.156Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-155",
+      "id": "api-154",
       "title": "/api/cron/executive-research-refresh",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4576,11 +4511,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.634Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.140Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-156",
+      "id": "api-155",
       "title": "/api/cron/google-calendar-sync",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4589,11 +4524,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.635Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.142Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-157",
+      "id": "api-156",
       "title": "/api/cron/ideas-monthly",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4602,11 +4537,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.636Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.285Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-158",
+      "id": "api-157",
       "title": "/api/cron/link-integrity-weekly-review",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4615,11 +4550,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T23:31:53.405Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.157Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-159",
+      "id": "api-158",
       "title": "/api/cron/managertools-day2-brief",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4628,11 +4563,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T00:12:32.435Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.159Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-160",
+      "id": "api-159",
       "title": "/api/cron/managertools-lifecycle",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4641,11 +4576,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T00:30:16.123Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.161Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-161",
+      "id": "api-160",
       "title": "/api/cron/managertools-signup-alerts",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4654,11 +4589,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T00:12:32.436Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.162Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-162",
+      "id": "api-161",
       "title": "/api/cron/managertools-signup-summary",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4667,11 +4602,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T00:12:32.436Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.164Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-163",
+      "id": "api-162",
       "title": "/api/cron/onboarding-video-worker",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4680,11 +4615,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.638Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.435Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-164",
+      "id": "api-163",
       "title": "/api/cron/outreach-digest",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4693,11 +4628,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.639Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.287Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-165",
+      "id": "api-164",
       "title": "/api/cron/outreach-reconcile",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4706,11 +4641,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.640Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.288Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-166",
+      "id": "api-165",
       "title": "/api/cron/outreach-send-worker",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4719,11 +4654,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.641Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.290Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-167",
+      "id": "api-166",
       "title": "/api/cron/outreach-tone-guard",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4732,11 +4667,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.642Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.291Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-168",
+      "id": "api-167",
       "title": "/api/cron/scan-alert",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4745,11 +4680,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T23:31:53.405Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.166Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-169",
+      "id": "api-168",
       "title": "/api/cron/scores",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4758,11 +4693,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.644Z",
+      "lastModifiedAt": "2026-05-16T00:28:42.440Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-170",
+      "id": "api-169",
       "title": "/api/cron/stall-check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4771,11 +4706,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.645Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.041Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-171",
+      "id": "api-170",
       "title": "/api/cron/ui-ux-weekly-review",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4784,11 +4719,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-08T13:56:31.970Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.170Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-172",
+      "id": "api-171",
       "title": "/api/cron/weekly-digest",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4797,11 +4732,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.647Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.041Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-173",
+      "id": "api-172",
       "title": "/api/demo-brief/executive-brief",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4810,11 +4745,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.014Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.220Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-174",
+      "id": "api-173",
       "title": "/api/demo-brief/manager-tools",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4823,11 +4758,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.014Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.222Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-175",
+      "id": "api-174",
       "title": "/api/demo-brief",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4836,11 +4771,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.651Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.150Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-176",
+      "id": "api-175",
       "title": "/api/demo-brief/tailored",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4849,11 +4784,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.652Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.152Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-177",
+      "id": "api-176",
       "title": "/api/demo-email",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4862,11 +4797,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.653Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.152Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-178",
+      "id": "api-177",
       "title": "/api/deploy-marker",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4875,11 +4810,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.014Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.222Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-179",
+      "id": "api-178",
       "title": "/api/discover",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4888,11 +4823,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.015Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.223Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-180",
+      "id": "api-179",
       "title": "/api/drip/unsubscribe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4901,11 +4836,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.654Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.044Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-181",
+      "id": "api-180",
       "title": "/api/events/channel-funnel",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4914,11 +4849,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.655Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.302Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-182",
+      "id": "api-181",
       "title": "/api/events/daily-momentum",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4927,11 +4862,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.656Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.303Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-183",
+      "id": "api-182",
       "title": "/api/events/pmf",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4940,11 +4875,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.657Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.445Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-184",
+      "id": "api-183",
       "title": "/api/executive-brief/grill-me",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4953,11 +4888,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T19:30:42.410Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.176Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-185",
+      "id": "api-184",
       "title": "/api/executive-brief/grill-me/sessions/[id]/respond",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4966,11 +4901,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T19:30:42.412Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-186",
+      "id": "api-185",
       "title": "/api/executive-brief/grill-me/sessions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4979,11 +4914,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T16:24:40.388Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.223Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-187",
+      "id": "api-186",
       "title": "/api/executive-brief/transcription",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -4992,11 +4927,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-07T19:30:42.413Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.183Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-188",
+      "id": "api-187",
       "title": "/api/executive-transition/emotion-state/score",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5005,24 +4940,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.659Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.152Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-189",
-      "title": "/api/features/chat",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/features/chat",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T14:33:26.238Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-190",
+      "id": "api-188",
       "title": "/api/feedback/items/[id]/comments",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5031,11 +4953,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.660Z",
+      "lastModifiedAt": "2026-05-16T00:28:42.440Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-191",
+      "id": "api-189",
       "title": "/api/feedback/items/[id]/status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5044,11 +4966,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.661Z",
+      "lastModifiedAt": "2026-05-16T00:28:42.442Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-192",
+      "id": "api-190",
       "title": "/api/feedback/items/[id]/vote",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5057,11 +4979,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.661Z",
+      "lastModifiedAt": "2026-05-16T00:28:42.442Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-193",
+      "id": "api-191",
       "title": "/api/feedback/items",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5070,11 +4992,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.016Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.224Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-194",
+      "id": "api-192",
       "title": "/api/feedback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5083,11 +5005,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.439Z",
+      "lastModifiedAt": "2026-06-16T04:26:59.942Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-195",
+      "id": "api-193",
       "title": "/api/google-calendar/callback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5096,11 +5018,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.663Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.310Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-196",
+      "id": "api-194",
       "title": "/api/google-calendar/connect",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5109,11 +5031,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T20:23:19.821Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.225Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-197",
+      "id": "api-195",
       "title": "/api/google-calendar/disconnect",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5122,11 +5044,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.017Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.225Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-198",
+      "id": "api-196",
       "title": "/api/guide/chat/feedback",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5135,11 +5057,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.666Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.161Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-199",
+      "id": "api-197",
       "title": "/api/guide/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5148,11 +5070,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.667Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.163Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-200",
+      "id": "api-198",
       "title": "/api/health",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5161,11 +5083,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.668Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.163Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-201",
+      "id": "api-199",
       "title": "/api/ideas",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5174,11 +5096,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T16:24:40.390Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.227Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-202",
+      "id": "api-200",
       "title": "/api/intelligence/companies",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5187,11 +5109,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.669Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.167Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-203",
+      "id": "api-201",
       "title": "/api/intelligence/radar",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5200,11 +5122,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-09T17:05:54.928Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.784Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-204",
+      "id": "api-202",
       "title": "/api/intelligence/token",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5213,11 +5135,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.671Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.167Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-205",
+      "id": "api-203",
       "title": "/api/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5226,11 +5148,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-05T23:29:28.638Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.786Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-206",
+      "id": "api-204",
       "title": "/api/linkedin-import/audit",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5239,11 +5161,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.672Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.436Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-207",
+      "id": "api-205",
       "title": "/api/linkedin-import/consent",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5252,11 +5174,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.673Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.167Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-208",
+      "id": "api-206",
       "title": "/api/linkedin-import/extract",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5265,11 +5187,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-09T01:50:24.169Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.787Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-209",
+      "id": "api-207",
       "title": "/api/linkedin-import/match",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5278,11 +5200,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.674Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.167Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-210",
+      "id": "api-208",
       "title": "/api/linkedin-import",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5291,11 +5213,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.675Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.170Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-211",
+      "id": "api-209",
       "title": "/api/narrative/generate-linkedin",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5304,11 +5226,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.676Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.170Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-212",
+      "id": "api-210",
       "title": "/api/narrative/generate-positioning",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5317,11 +5239,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.676Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.172Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-213",
+      "id": "api-211",
       "title": "/api/notify/new-user",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5330,11 +5252,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-16T19:12:56.440Z",
+      "lastModifiedAt": "2026-06-18T00:07:41.706Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-214",
+      "id": "api-212",
       "title": "/api/offer-synthesis",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5343,11 +5265,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-09T01:47:47.293Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.793Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-215",
+      "id": "api-213",
       "title": "/api/onboarding/events",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5356,11 +5278,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.679Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.460Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-216",
+      "id": "api-214",
       "title": "/api/onboarding/intel",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5369,11 +5291,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.680Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.174Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-217",
+      "id": "api-215",
       "title": "/api/optimize",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5382,11 +5304,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.681Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.174Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-218",
+      "id": "api-216",
       "title": "/api/outreach/current-status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5395,11 +5317,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.682Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.331Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-219",
+      "id": "api-217",
       "title": "/api/outreach/draft",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5408,11 +5330,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.682Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.174Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-220",
+      "id": "api-218",
       "title": "/api/outreach/send/batch-status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5421,11 +5343,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.683Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.335Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-221",
+      "id": "api-219",
       "title": "/api/outreach/send",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5434,11 +5356,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-14T03:54:42.221Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.227Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-222",
+      "id": "api-220",
       "title": "/api/outreach/status",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5447,11 +5369,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.685Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.176Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-223",
+      "id": "api-221",
       "title": "/api/outreach/suppression",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5460,11 +5382,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.686Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.176Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-224",
+      "id": "api-222",
       "title": "/api/outreach/template",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5473,37 +5395,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.687Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-225",
-      "title": "/api/partner/outcome-events",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/partner/outcome-events",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:06:37.273Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-226",
-      "title": "/api/partner/weekly-loop",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/partner/weekly-loop",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:06:37.274Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-227",
+      "id": "api-223",
       "title": "/api/partners/attribute",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5512,11 +5408,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.687Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-228",
+      "id": "api-224",
       "title": "/api/partners/report",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5525,11 +5421,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.688Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.057Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-229",
+      "id": "api-225",
       "title": "/api/partners",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5538,11 +5434,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.689Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-230",
+      "id": "api-226",
       "title": "/api/pilot-outreach",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5551,11 +5447,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.690Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-231",
+      "id": "api-227",
       "title": "/api/positioning/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5564,11 +5460,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.691Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.179Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-232",
+      "id": "api-228",
       "title": "/api/positioning/save",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5577,11 +5473,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.692Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.060Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-233",
+      "id": "api-229",
       "title": "/api/preferences/briefing",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5590,11 +5486,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.694Z",
+      "lastModifiedAt": "2026-05-15T03:24:55.064Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-234",
+      "id": "api-230",
       "title": "/api/prep/[id]/background",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5603,11 +5499,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.694Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.466Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-235",
+      "id": "api-231",
       "title": "/api/prep/[id]/challenges",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5616,11 +5512,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.695Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.478Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-236",
+      "id": "api-232",
       "title": "/api/prep/[id]/chat",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5629,11 +5525,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.696Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.183Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-237",
+      "id": "api-233",
       "title": "/api/prep/[id]/competitive",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5642,11 +5538,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.697Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.482Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-238",
+      "id": "api-234",
       "title": "/api/prep/[id]/leadership",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5655,11 +5551,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.698Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.482Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-239",
+      "id": "api-235",
       "title": "/api/prep/[id]/outreach/log",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5668,11 +5564,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.699Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.183Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-240",
+      "id": "api-236",
       "title": "/api/prep/[id]/outreach",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5681,11 +5577,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.700Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.183Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-241",
+      "id": "api-237",
       "title": "/api/prep/[id]/priorities",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5694,11 +5590,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.701Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.482Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-242",
+      "id": "api-238",
       "title": "/api/prep/[id]/questions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5707,11 +5603,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.702Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.482Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-243",
+      "id": "api-239",
       "title": "/api/prep/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5720,11 +5616,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.851Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.189Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-244",
+      "id": "api-240",
       "title": "/api/prep/[id]/tech-stack",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5733,11 +5629,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.704Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.495Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-245",
+      "id": "api-241",
       "title": "/api/prep/[id]/why-here",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5746,11 +5642,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.705Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.498Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-246",
+      "id": "api-242",
       "title": "/api/prep/[id]/wins",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5759,11 +5655,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.706Z",
+      "lastModifiedAt": "2026-05-31T22:56:13.499Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-247",
+      "id": "api-243",
       "title": "/api/profile/export",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5772,11 +5668,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-08T04:28:40.310Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.820Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-248",
+      "id": "api-244",
       "title": "/api/profile/upload-linkedin",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5785,11 +5681,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.708Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.369Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-249",
+      "id": "api-245",
       "title": "/api/profile/upload-resume",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5798,11 +5694,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.709Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.371Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-250",
+      "id": "api-246",
       "title": "/api/readiness",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5811,11 +5707,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.709Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.183Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-251",
+      "id": "api-247",
       "title": "/api/salary-intelligence",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5824,11 +5720,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.710Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.187Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-252",
+      "id": "api-248",
       "title": "/api/search",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5837,11 +5733,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-05-09T00:56:02.043Z",
+      "lastModifiedAt": "2026-05-12T08:41:36.824Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-253",
+      "id": "api-249",
       "title": "/api/signals/classify",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5850,11 +5746,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.712Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.187Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-254",
+      "id": "api-250",
       "title": "/api/strategy/followup",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5863,11 +5759,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.713Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.187Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-255",
+      "id": "api-251",
       "title": "/api/strategy",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5876,11 +5772,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-13T15:13:05.017Z",
+      "lastModifiedAt": "2026-06-15T04:08:07.228Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-256",
+      "id": "api-252",
       "title": "/api/suggestions",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5889,11 +5785,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.715Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.187Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-257",
+      "id": "api-253",
       "title": "/api/tailor/check",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5902,11 +5798,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.716Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.191Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-258",
+      "id": "api-254",
       "title": "/api/tailor",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5915,11 +5811,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.717Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.193Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-259",
+      "id": "api-255",
       "title": "/api/tailor/strengthen",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5928,11 +5824,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.718Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.194Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-260",
+      "id": "api-256",
       "title": "/api/team/invite",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5941,50 +5837,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.719Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.194Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-261",
-      "title": "/api/team/program-settings",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/team/program-settings",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:38:57.731Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-262",
-      "title": "/api/team/roles/[id]",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/team/roles/[id]",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:10:37.226Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-263",
-      "title": "/api/team/roles",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/team/roles",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:10:37.226Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-264",
+      "id": "api-257",
       "title": "/api/team/seat/[id]",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -5993,24 +5850,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.720Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.196Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-265",
-      "title": "/api/team/white-label",
-      "body": "Programmatic endpoint available for platform behavior or integrations.",
-      "type": "api",
-      "url": "/api/team/white-label",
-      "tags": [
-        "api",
-        "automation"
-      ],
-      "lastModifiedAt": "2026-06-17T00:38:57.732Z",
-      "qualityWeight": 0.95
-    },
-    {
-      "id": "api-266",
+      "id": "api-258",
       "title": "/api/track/open",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -6019,11 +5863,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.852Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.192Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-267",
+      "id": "api-259",
       "title": "/api/webhooks/onboarding-video",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -6032,11 +5876,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.722Z",
+      "lastModifiedAt": "2026-06-05T20:01:08.197Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-268",
+      "id": "api-260",
       "title": "/api/webhooks/resend",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -6045,11 +5889,11 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.853Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.196Z",
       "qualityWeight": 0.95
     },
     {
-      "id": "api-269",
+      "id": "api-261",
       "title": "/api/webhooks/stripe",
       "body": "Programmatic endpoint available for platform behavior or integrations.",
       "type": "api",
@@ -6058,7 +5902,7 @@
         "api",
         "automation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.854Z",
+      "lastModifiedAt": "2026-06-18T00:07:47.031Z",
       "qualityWeight": 0.95
     },
     {
@@ -6075,7 +5919,7 @@
         "executive positioning strategy",
         "what gets executives interviewed"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.734Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.453Z",
       "qualityWeight": 0.9
     },
     {
@@ -6092,7 +5936,7 @@
         "VP candidate outreach strategy",
         "how to message executive recruiters"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.745Z",
+      "lastModifiedAt": "2026-05-20T06:53:31.454Z",
       "qualityWeight": 0.9
     },
     {
@@ -6109,7 +5953,7 @@
         "VP executive transition",
         "executive positioning infrastructure"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.745Z",
+      "lastModifiedAt": "2026-05-16T00:28:42.455Z",
       "qualityWeight": 0.9
     },
     {
@@ -6126,7 +5970,7 @@
         "career page monitoring method",
         "executive search timing signals"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:32.854Z",
+      "lastModifiedAt": "2026-06-10T19:09:50.203Z",
       "qualityWeight": 0.9
     },
     {
@@ -6143,7 +5987,7 @@
         "executive search discipline",
         "how top executive candidates run search"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.734Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.409Z",
       "qualityWeight": 0.9
     },
     {
@@ -6160,7 +6004,7 @@
         "what executive recruiters want",
         "C-suite job search strategy"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.736Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.412Z",
       "qualityWeight": 0.9
     },
     {
@@ -6177,7 +6021,7 @@
         "executive job search timeline",
         "technology executive search"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.728Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.401Z",
       "qualityWeight": 0.9
     },
     {
@@ -6194,7 +6038,7 @@
         "VP IT to C-suite",
         "C-suite career path"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.744Z",
+      "lastModifiedAt": "2026-06-10T17:41:01.823Z",
       "qualityWeight": 0.9
     },
     {
@@ -6211,7 +6055,7 @@
         "executive job market Q2 2026",
         "C-suite job search 2026"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.728Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.400Z",
       "qualityWeight": 0.9
     },
     {
@@ -6228,7 +6072,7 @@
         "how to prepare for CISO interview",
         "cybersecurity executive interview"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.730Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.404Z",
       "qualityWeight": 0.9
     },
     {
@@ -6245,7 +6089,7 @@
         "CDO hiring criteria",
         "chief data officer job search"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.744Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.423Z",
       "qualityWeight": 0.9
     },
     {
@@ -6262,7 +6106,7 @@
         "how to negotiate executive compensation",
         "C-suite total compensation"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.727Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.399Z",
       "qualityWeight": 0.9
     },
     {
@@ -6279,7 +6123,7 @@
         "technology board presentation",
         "C-suite first 90 days"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.726Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.398Z",
       "qualityWeight": 0.9
     },
     {
@@ -6296,7 +6140,7 @@
         "technology leader private equity",
         "C-suite equity compensation PE"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.739Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.415Z",
       "qualityWeight": 0.9
     },
     {
@@ -6313,7 +6157,7 @@
         "technology executive resume",
         "how to write a C-suite resume"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.735Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.410Z",
       "qualityWeight": 0.9
     },
     {
@@ -6330,7 +6174,7 @@
         "CIO headhunter relationship",
         "retained search candidate strategy"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.741Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.417Z",
       "qualityWeight": 0.9
     },
     {
@@ -6347,7 +6191,7 @@
         "target company list executive search",
         "C-suite search campaign"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.742Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.419Z",
       "qualityWeight": 0.9
     },
     {
@@ -6364,7 +6208,7 @@
         "CIO vs CTO career path",
         "should I be a CIO or CTO"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.729Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.402Z",
       "qualityWeight": 0.9
     },
     {
@@ -6381,7 +6225,7 @@
         "CTO career path",
         "VP of engineering career"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.731Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.405Z",
       "qualityWeight": 0.9
     },
     {
@@ -6398,7 +6242,7 @@
         "CTO career transition timeline",
         "how long to find CTO job"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.731Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.405Z",
       "qualityWeight": 0.9
     },
     {
@@ -6415,7 +6259,7 @@
         "how to use LinkedIn for executive search",
         "executive LinkedIn profile tips"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.738Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.413Z",
       "qualityWeight": 0.9
     },
     {
@@ -6432,7 +6276,7 @@
         "CIO hidden job market",
         "how to find CIO job"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.737Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.413Z",
       "qualityWeight": 0.9
     },
     {
@@ -6449,7 +6293,7 @@
         "chief technology officer job search",
         "CTO executive search"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.741Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.419Z",
       "qualityWeight": 0.9
     },
     {
@@ -6466,7 +6310,7 @@
         "CIO career transition strategy",
         "technology executive career transition"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.736Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.412Z",
       "qualityWeight": 0.9
     },
     {
@@ -6483,7 +6327,7 @@
         "executive coaching tools",
         "executive job search support"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.733Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.405Z",
       "qualityWeight": 0.9
     },
     {
@@ -6500,7 +6344,7 @@
         "how executive coaches improve client search",
         "executive job search coaching"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.732Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.405Z",
       "qualityWeight": 0.9
     },
     {
@@ -6517,7 +6361,7 @@
         "senior executive job search rules",
         "VP CIO CTO job search"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.743Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.421Z",
       "qualityWeight": 0.9
     },
     {
@@ -6534,7 +6378,7 @@
         "chief information officer outplacement",
         "how to support technology executives in transition"
       ],
-      "lastModifiedAt": "2026-06-06T16:52:15.743Z",
+      "lastModifiedAt": "2026-05-29T22:58:55.421Z",
       "qualityWeight": 0.9
     },
     {
@@ -6551,7 +6395,7 @@
         "retained search candidate preparation",
         "technology executive interview preparation"
       ],
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z",
+      "lastModifiedAt": "2026-06-17T05:37:29.688Z",
       "qualityWeight": 0.9
     }
   ]

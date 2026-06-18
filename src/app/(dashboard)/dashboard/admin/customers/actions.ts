@@ -5,13 +5,9 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { sendEmail } from '@/lib/email'
 import { APP_URL } from '@/lib/config'
+import { TIER_DISPLAY_NAMES } from '@/lib/pricing'
 
-const TIER_NAMES: Record<string, string> = {
-  passive:   'Intelligence',
-  active:    'Active',
-  executive: 'Executive',
-  free:      'Free',
-}
+const TIER_NAMES = TIER_DISPLAY_NAMES
 
 function escHtml(s: string): string {
   return String(s ?? '')

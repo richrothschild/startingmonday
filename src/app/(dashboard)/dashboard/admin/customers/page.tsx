@@ -4,23 +4,19 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
 import { sendWelcomeEmail } from './actions'
+import { TIER_DISPLAY_NAMES } from '@/lib/pricing'
 
 type Filter = 'all' | 'trialing' | 'intelligence' | 'search' | 'executive'
 
 const FILTER_LABELS: Record<Filter, string> = {
   all:         'All customers',
   trialing:    'Trialing',
-  intelligence:'Intelligence',
-  search:      'Active',
-  executive:   'Executive',
+  intelligence: TIER_DISPLAY_NAMES.passive,
+  search:      TIER_DISPLAY_NAMES.active,
+  executive:   TIER_DISPLAY_NAMES.executive,
 }
 
-const TIER_NAMES: Record<string, string> = {
-  passive:   'Intelligence',
-  active:    'Active',
-  executive: 'Executive',
-  free:      'Free',
-}
+const TIER_NAMES = TIER_DISPLAY_NAMES
 
 type UserRow = {
   id: string
@@ -185,8 +181,8 @@ export default async function CustomersPage({
   const cards: { filter: Filter; label: string; sublabel: string; accent: boolean }[] = [
     { filter: 'all',          label: String(counts.all),          sublabel: 'Active',        accent: false },
     { filter: 'trialing',     label: String(counts.trialing),     sublabel: 'Trialing',      accent: false },
-    { filter: 'intelligence', label: String(counts.intelligence), sublabel: 'Intelligence',  accent: false },
-    { filter: 'search',       label: String(counts.search),       sublabel: 'Search',        accent: true  },
+    { filter: 'intelligence', label: String(counts.intelligence), sublabel: 'Monitor',  accent: false },
+    { filter: 'search',       label: String(counts.search),       sublabel: 'Active',   accent: true  },
     { filter: 'executive',    label: String(counts.executive),    sublabel: 'Executive',     accent: false },
   ]
 

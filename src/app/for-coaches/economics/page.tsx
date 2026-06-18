@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 const CLIENT_PLANS = [
   {
-    name: 'Intelligence',
+    name: 'Monitor',
     price: '$49/mo',
     fit: 'Executives who want structured signal monitoring and pipeline discipline before the search turns urgent.',
   },
   {
-    name: 'Search',
+    name: 'Active',
     price: '$199/mo',
     fit: 'Executives in active search who need daily signal action, prep briefs, and stronger relationship follow-through.',
   },

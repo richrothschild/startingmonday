@@ -3,6 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { inferPartnerProgramFromTier, toPercent, type PartnerProgram } from '@/lib/partner-kpi-schema'
+import { TIER_DISPLAY_NAMES } from '@/lib/pricing'
 
 import { SeatPurchase } from './seat-purchase'
 import { ExportCsvButton } from './ExportCsvButton'
@@ -285,9 +286,7 @@ export default async function PartnerDashboardPage({
     return `${sign}${value.toFixed(1)} pts`
   }
 
-  const tierLabel: Record<string, string> = {
-    passive: 'Intelligence', active: 'Active', executive: 'Executive', free: 'Free',
-  }
+  const tierLabel = TIER_DISPLAY_NAMES
   const statusColor: Record<string, string> = {
     active: 'bg-green-50 text-green-700',
     trialing: 'bg-amber-50 text-amber-700',
@@ -540,7 +539,7 @@ export default async function PartnerDashboardPage({
               'Share your referral link with executives you work with.',
               `When they sign up and start a paid subscription, you earn ${partner.commission_pct}% of their monthly fee.`,
               'Commissions are calculated on the 1st of each month and paid via Stripe.',
-              'Intelligence tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
+              'Monitor tier: $49/mo subscriber = $' + Math.round(49 * partner.commission_pct / 100) + '/mo for you.',
               'Active tier: $199/mo subscriber = $' + Math.round(199 * partner.commission_pct / 100) + '/mo for you.',
             ].map((line, i) => (
               <div key={i} className="flex gap-3 text-[13px] text-slate-600">

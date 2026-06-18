@@ -25,7 +25,7 @@ const PLANS = [
     description: 'Stop running a reactive search. Prep briefs, pipeline tracking, intelligence, outreach, and a daily briefing. From one place.',
     featured: true,
     features: [
-      'Everything in Intelligence',
+      'Everything in Monitor',
       'AI interview prep briefs',
       'Search strategy brief',
       'AI chat advisor',
@@ -41,7 +41,7 @@ const PLANS = [
     description: 'For executives who want the analysis done, the brief written, and the intelligence running at full depth. Not data to work from.',
     featured: false,
     features: [
-      'Everything in Search',
+      'Everything in Active',
       'Unlimited company pipeline',
       'Career page scanning 2x daily',
       'Immediate pattern and exec departure alerts',
@@ -123,14 +123,14 @@ export function PricingCards() {
             <p className="text-[11px] text-slate-500 mb-2">{plan.buyerMode}</p>
             <div className="mb-1">
               <span className="text-[40px] font-bold text-slate-900 leading-none">
-                ${annual ? plan.annual.toLocaleString() : plan.monthly}
+                ${annual ? plan.annualMonthly : plan.monthly}
               </span>
-              <span className="text-[14px] text-slate-500 ml-1">
-                {annual ? '/yr' : '/mo'}
-              </span>
+              <span className="text-[14px] text-slate-500 ml-1">/mo</span>
             </div>
             {annual && (
-              <p className="text-[12px] text-slate-400 mb-3">${plan.annualMonthly}/mo billed annually</p>
+              <p className="text-[12px] text-slate-400 mb-3">
+                billed as ${plan.annual.toLocaleString()}/yr · <span className="text-green-600">Save ${plan.monthly * 12 - plan.annual}</span>
+              </p>
             )}
             <p className="text-[13px] text-slate-500 leading-relaxed mb-5 mt-2 min-h-[56px]">
               {plan.description}

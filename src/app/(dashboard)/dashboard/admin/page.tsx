@@ -275,11 +275,11 @@ export default async function AdminPage() {
       note: briefingViewers14d.size > 0 ? `Viewers n=${briefingViewers14d.size}` : 'No briefing viewers in window',
     },
     {
-      label: 'Intelligence retention (30d)',
+      label: 'Monitor retention (30d)',
       threshold: '>= 70%',
       value: monitorRetention30d === null ? 'N/A' : `${monitorRetention30d}%`,
       status: monitorRetention30d === null ? 'gray' : monitorRetention30d >= 70 ? 'green' : monitorRetention30d >= 60 ? 'yellow' : 'red',
-      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Intelligence cohort yet',
+      note: monitorCohort.length > 0 ? `Cohort n=${monitorCohort.length}` : 'No matured Monitor cohort yet',
     },
     {
       label: 'Upgrade pull (30d)',
