@@ -346,16 +346,7 @@ export default function ForCoachesPage() {
               <span>1-4 active clients: Starter. Small active roster: Studio. Multi-coach or up to 10 client seats: Team.</span>
             </p>
             <p className="mt-2 text-[12px] text-slate-200">
-              Start with a 30-day pass/fail pilot, then choose the plan that matches your active client load. Volume and partner terms are available for larger coaching teams.{' '}
-              <TrackLink
-                href="/for-coaches/economics"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'coach_pricing_learn_more', source_page: '/for-coaches' }}
-                className="font-semibold text-orange-200 underline underline-offset-2 transition-colors hover:text-orange-100"
-              >
-                Learn more
-              </TrackLink>
+              Start with a 30-day pass/fail pilot, then choose the plan that matches your active client load. Volume and partner terms are available for larger coaching teams.
             </p>
           </div>
         </section>
