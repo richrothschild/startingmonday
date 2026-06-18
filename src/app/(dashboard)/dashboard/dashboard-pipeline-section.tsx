@@ -119,8 +119,16 @@ export function DashboardPipelineSection(props: Props) {
                       />
                     )
                   ) : (
-                    <div className="py-10 text-center text-[14px] text-slate-400">
-                      No companies match that filter.
+                    <div className="py-10 text-center">
+                      <p className="text-[14px] text-slate-400">No companies match that filter.</p>
+                      {q && (
+                        <a
+                          href={`/dashboard/companies/new?name=${encodeURIComponent(q)}`}
+                          className="mt-3 inline-block text-[13px] font-semibold text-slate-900 hover:underline"
+                        >
+                          Add &ldquo;{q}&rdquo; to pipeline →
+                        </a>
+                      )}
                     </div>
                   )}
                 </td>

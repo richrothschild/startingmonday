@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 
 interface Props {
   q: string
@@ -14,6 +14,16 @@ export function PipelineFilter({ q, stage, stages }: Props) {
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const qRef = useRef(q)
   const stageRef = useRef(stage)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // When q changes externally (e.g. user clicks Clear), sync the input imperatively.
+  // Skip if the input is focused — user may still be typing and we don't want to overwrite them.
+  useEffect(() => {
+    if (inputRef.current && document.activeElement !== inputRef.current && inputRef.current.value !== q) {
+      inputRef.current.value = q
+      qRef.current = q
+    }
+  }, [q])
 
   function navigate(newQ: string, newStage: string) {
     const params = new URLSearchParams()
@@ -21,7 +31,8 @@ export function PipelineFilter({ q, stage, stages }: Props) {
     if (newStage) params.set('stage', newStage)
     params.set('page', '0')
     const qs = params.toString()
-    router.push(`/dashboard${qs ? '?' + qs : ''}`)
+    // scroll: false prevents the page from jumping to the top on each keystroke
+    router.push(`/dashboard${qs ? '?' + qs : ''}`, { scroll: false })
   }
 
   function onQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -44,7 +55,7 @@ export function PipelineFilter({ q, stage, stages }: Props) {
     <div className="px-4 sm:px-6 py-3 border-b border-slate-100">
       <div className="flex items-center gap-2 flex-wrap">
         <input
-          key={`q-${q}`}
+          ref={inputRef}
           type="text"
           defaultValue={q}
           onChange={onQueryChange}
