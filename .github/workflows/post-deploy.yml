@@ -328,3 +328,83 @@ jobs:
             post-deploy-synthetic-results.json
             emi-postdeploy-smoke.json
           retention-days: 30
+
+  production-deploy-playwright:
+    name: Playwright E2E (production post-deploy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [canary-gate]
+    # Run after a successful Railway production deployment, once the canary is green.
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      (github.event.deployment.environment == 'production' ||
+       github.event.deployment.environment == 'Production')
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Playwright E2E against production
+        run: npm run test:e2e:auth-ux && npm run test:e2e:luxury
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: production-playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  staging-deploy-playwright:
+    name: Playwright E2E (staging post-deploy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Run after a successful Railway staging deployment.
+    # The deployment_status webhook fires when Railway finishes deploying to staging.
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      (github.event.deployment.environment == 'staging' ||
+       github.event.deployment.environment == 'Staging')
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Playwright E2E against staging
+        run: npm run test:e2e:auth-ux && npm run test:e2e:luxury
+        env:
+          PLAYWRIGHT_BASE_URL: https://starting-monday-staging.up.railway.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: staging-playwright-report
+          path: playwright-report/
+          retention-days: 7
