@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-18T04:37:54.225Z
+Last generated: 2026-06-18T04:41:54.131Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -713,7 +713,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
-## Internal Scripts (136)
+## Internal Scripts (137)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -842,6 +842,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
 - Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
 - Script scripts/sync-docs-to-gdrive.mjs | scripts/sync-docs-to-gdrive.mjs | #!/usr/bin/env node
+- Script scripts/sync-stripe-pricing.ts | scripts/sync-stripe-pricing.ts | Block ends at closing brace
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
 - Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
 - Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
@@ -851,7 +852,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (38)
+## Infrastructure and Workflows (39)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -884,6 +885,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/slack-manual-message.yml | .github/workflows/slack-manual-message.yml | name: Slack Manual Message
 - Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
 - Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
+- Workflow .github/workflows/sync-stripe-pricing.yml | .github/workflows/sync-stripe-pricing.yml | name: Sync Stripe Pricing
 - Workflow .github/workflows/watermark-audit.yml | .github/workflows/watermark-audit.yml | Watermark Documentation Audit — ${TODAY}
 - Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
 - Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T04:37:54.225Z",
+  "generatedAt": "2026-06-18T04:41:54.131Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.098Z"
     },
     {
       "id": "feature:/login",
@@ -124,7 +124,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.105Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.750Z"
     },
     {
       "id": "feature:/dashboard/admin/diagrams",
@@ -320,7 +320,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.110Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.752Z"
     },
     {
       "id": "feature:/dashboard/admin/outreach-reliability",
@@ -348,7 +348,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.112Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.753Z"
     },
     {
       "id": "feature:/dashboard/admin/product/catalog",
@@ -852,7 +852,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.119Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.755Z"
     },
     {
       "id": "feature:/dashboard/pilot-outreach",
@@ -880,7 +880,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.472Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.757Z"
     },
     {
       "id": "feature:/dashboard/positioning",
@@ -922,7 +922,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T16:09:11.120Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.758Z"
     },
     {
       "id": "feature:/dashboard/profile",
@@ -1020,7 +1020,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-05-21T00:23:45.880Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.759Z"
     },
     {
       "id": "feature:/settings/billing",
@@ -1580,7 +1580,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:23:57.357Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.766Z"
     },
     {
       "id": "feature:/coaches/mock-dashboard",
@@ -1972,7 +1972,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.943Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.769Z"
     },
     {
       "id": "feature:/for-cio",
@@ -2028,7 +2028,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:41:30.258Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.770Z"
     },
     {
       "id": "feature:/for-coaches/faq",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-17T14:33:26.227Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.773Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -2210,7 +2210,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:23:57.347Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.780Z"
     },
     {
       "id": "feature:/for-outplacement/executive-summary",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.949Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.781Z"
     },
     {
       "id": "feature:/for-search-firms",
@@ -2378,7 +2378,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-16T20:41:50.903Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.782Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2742,7 +2742,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T03:37:41.428Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.784Z"
     },
     {
       "id": "feature:/privacy",
@@ -5381,7 +5381,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T03:55:59.390Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.127Z"
     },
     {
       "id": "api:/api/feedback/items/[id]/comments",
@@ -5693,7 +5693,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-16T19:12:56.440Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.762Z"
     },
     {
       "id": "api:/api/offer-synthesis",
@@ -6395,7 +6395,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T04:27:09.136Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.129Z"
     },
     {
       "id": "api:/api/webhooks/resend",
@@ -6421,7 +6421,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-06T16:52:32.854Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.765Z"
     },
     {
       "id": "code:src/lib/__tests__/prep-context.test.ts",
@@ -7682,7 +7682,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T03:55:59.392Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.137Z"
     },
     {
       "id": "code:src/lib/onboarding-video-queue.ts",
@@ -7695,7 +7695,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:27:03.869Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.138Z"
     },
     {
       "id": "code:src/lib/onboarding-video-queue.utils.test.ts",
@@ -7708,7 +7708,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:08:24.471Z"
+      "lastModifiedAt": "2026-06-18T04:41:24.064Z"
     },
     {
       "id": "code:src/lib/onboarding-video-queue.utils.ts",
@@ -7721,7 +7721,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:08:24.471Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.140Z"
     },
     {
       "id": "code:src/lib/outplacement-cohort-model.test.ts",
@@ -7864,7 +7864,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:23:20.504Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.141Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.test.ts",
@@ -7877,7 +7877,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T03:55:59.392Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.142Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.ts",
@@ -7890,7 +7890,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:26:42.977Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.143Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.utils.ts",
@@ -7903,7 +7903,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T03:55:59.393Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.144Z"
     },
     {
       "id": "code:src/lib/outreach/send-queue.worker.ts",
@@ -7916,7 +7916,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T04:26:49.968Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.145Z"
     },
     {
       "id": "code:src/lib/outreach/template-draft.test.ts",
@@ -8150,7 +8150,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.062Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.797Z"
     },
     {
       "id": "code:src/lib/pmf-event-taxonomy.test.ts",
@@ -8371,7 +8371,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-14T03:37:41.435Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.798Z"
     },
     {
       "id": "code:src/lib/program-template-governance.test.ts",
@@ -9034,7 +9034,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T03:55:59.392Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.146Z"
     },
     {
       "id": "code:src/lib/telemetry.ts",
@@ -9047,7 +9047,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T03:55:59.390Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.148Z"
     },
     {
       "id": "code:src/lib/toast.test.tsx",
@@ -9957,7 +9957,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T04:28:17.747Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.126Z"
     },
     {
       "id": "script:scripts/depitch-queued-outreach.mjs",
@@ -10883,6 +10883,19 @@
       "lastModifiedAt": "2026-06-07T14:11:34.795Z"
     },
     {
+      "id": "script:scripts/sync-stripe-pricing.ts",
+      "title": "Script scripts/sync-stripe-pricing.ts",
+      "body": "Block ends at closing brace",
+      "type": "script",
+      "ref": "scripts/sync-stripe-pricing.ts",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-18T04:41:23.748Z"
+    },
+    {
       "id": "script:scripts/test-briefing.mjs",
       "title": "Script scripts/test-briefing.mjs",
       "body": "End-to-end test for WBS 1.5 — Daily Briefing Engine.",
@@ -11153,7 +11166,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T04:34:50.485Z"
+      "lastModifiedAt": "2026-06-18T04:41:24.044Z"
     },
     {
       "id": "infra:.github/workflows/managertools-launch-monitoring.yml",
@@ -11401,6 +11414,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-06T16:52:14.833Z"
+    },
+    {
+      "id": "infra:.github/workflows/sync-stripe-pricing.yml",
+      "title": "Workflow .github/workflows/sync-stripe-pricing.yml",
+      "body": "name: Sync Stripe Pricing",
+      "type": "infra",
+      "ref": ".github/workflows/sync-stripe-pricing.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-18T04:41:23.710Z"
     },
     {
       "id": "infra:.github/workflows/watermark-audit.yml",
@@ -14004,7 +14030,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T23:27:02.779Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.088Z"
     },
     {
       "id": "doc:docs/code-synthetic-council-playbook.md",
@@ -14043,7 +14069,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T22:56:08.771Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.089Z"
     },
     {
       "id": "doc:docs/confidential-search-guide.md",
@@ -17358,7 +17384,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-13T22:25:18.674Z"
+      "lastModifiedAt": "2026-06-18T04:41:23.713Z"
     },
     {
       "id": "doc:docs/growth-synthetic-council.latest.md",
@@ -17527,7 +17553,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.097Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17566,7 +17592,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:36:22.647Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.098Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19009,7 +19035,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:29:22.345Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.101Z"
     },
     {
       "id": "doc:docs/security-dev-vulnerability-waiver-2026-06-17.md",
@@ -19022,7 +19048,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T03:55:59.394Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.103Z"
     },
     {
       "id": "doc:docs/seo-keywords.md",
@@ -21453,7 +21479,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:29:18.962Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.115Z"
     },
     {
       "id": "doc:docs/technical-debt-execution-backlog-2026-05-19.md",
@@ -21713,7 +21739,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:36:20.187Z"
+      "lastModifiedAt": "2026-06-18T04:41:51.352Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
@@ -21830,7 +21856,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T23:28:24.967Z"
+      "lastModifiedAt": "2026-06-18T04:41:32.118Z"
     },
     {
       "id": "doc:docs/white-label-product-spec-2026-06-16.md",
