@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T03:34:39.413Z",
+  "generatedAt": "2026-06-18T03:45:21.675Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-17T05:37:29.645Z"
+      "lastModifiedAt": "2026-06-18T03:34:39.432Z"
     },
     {
       "id": "feature:/login",
@@ -16853,7 +16853,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-15T04:08:07.130Z"
+      "lastModifiedAt": "2026-06-18T03:36:07.742Z"
     },
     {
       "id": "doc:docs/growth-synthetic-council.latest.md",
@@ -17022,7 +17022,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T05:37:29.645Z"
+      "lastModifiedAt": "2026-06-18T03:34:39.432Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17061,7 +17061,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-17T05:37:29.645Z"
+      "lastModifiedAt": "2026-06-18T03:34:39.432Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
