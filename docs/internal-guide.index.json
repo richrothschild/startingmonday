@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T04:21:29.924Z",
+  "generatedAt": "2026-06-18T17:18:04.923Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-18T04:20:25.212Z"
+      "lastModifiedAt": "2026-06-18T04:21:29.942Z"
     },
     {
       "id": "feature:/login",
@@ -11205,7 +11205,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T04:21:05.841Z"
+      "lastModifiedAt": "2026-06-18T17:17:53.312Z"
     },
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
@@ -17501,7 +17501,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:20:25.211Z"
+      "lastModifiedAt": "2026-06-18T04:21:29.942Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17540,7 +17540,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T04:20:25.212Z"
+      "lastModifiedAt": "2026-06-18T04:21:29.942Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
