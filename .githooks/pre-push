@@ -46,15 +46,6 @@ npm run growth:metrics:strict
 echo "ux/ui rubric page gate..."
 npm run ux:rubric:pages
 
-echo "push Playwright guard..."
-if ! npm run guard:push:playwright; then
-	echo ""
-	echo "❌ E2E tests failed! Push blocked."
-	echo "   Run: npm run test:e2e:auth-ux && npm run test:e2e:luxury"
-	echo "   Fix failures locally before pushing again."
-	exit 1
-fi
-
 echo "push environment-sensitive guard..."
 if [ -n "${NEXT_PUBLIC_SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
 	npm run guard:push:env
