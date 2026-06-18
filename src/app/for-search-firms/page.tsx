@@ -174,7 +174,7 @@ export default function ForSearchFirmsPage() {
                 {[
                   'Candidates get a 30-day free trial, no credit card required',
                   'Active plan ($199/month) includes all AI features - prep briefs, strategy brief, interview advisor, resume tailoring',
-                  'Intelligence plan ($49/month) for candidates who primarily need signal monitoring and pipeline tracking',
+                  'Monitor plan ($49/month) for candidates who primarily need signal monitoring and pipeline tracking',
                   'View access for partners: your candidate controls who sees their pipeline',
                   'Partner program: apply at startingmonday.app/partners for your referral link and partner resource kit. Preferred partner pricing available for firms placing multiple candidates.',
                 ].map((item, i) => (

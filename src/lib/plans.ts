@@ -1,8 +1,10 @@
+import { PRICING } from './pricing'
+
 export const PLANS = {
   passive: {
-    name: 'Intelligence',
+    name: PRICING.passive.name,
     amount: 4900,
-    annualAmount: 49000,
+    annualAmount: 47000,
     description: 'Company signal monitoring, exec moves, funding rounds, and weekly digest',
     features: [
       'Pipeline tracking for up to 25 companies',
@@ -13,12 +15,12 @@ export const PLANS = {
     ],
   },
   active: {
-    name: 'Active',
+    name: PRICING.active.name,
     amount: 19900,
-    annualAmount: 199000,
+    annualAmount: 202980,
     description: 'Full active campaign infrastructure with AI briefs, daily briefing, and outreach',
     features: [
-      'Everything in Intelligence',
+      'Everything in Monitor',
       'AI Interview Prep Briefs',
       'Search Strategy Brief',
       'AI Chat advisor',
@@ -28,9 +30,9 @@ export const PLANS = {
     ],
   },
   executive: {
-    name: 'Executive',
+    name: PRICING.executive.name,
     amount: 49900,
-    annualAmount: 499000,
+    annualAmount: 479000,
     description: 'For C-suite candidates who need daily intelligence and salary leverage',
     features: [
       'Everything in Active',

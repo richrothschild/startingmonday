@@ -49,7 +49,7 @@ const SCORECARD_METRICS = [
 const COMMERCIAL_NOTES = [
   'Pilot pricing is structured to lower risk and make the first decision evidence-based, not theoretical.',
   'Volume discounts are available for larger cohorts and longer program terms.',
-  'Seat allocations can be tuned across Active and Intelligence usage patterns.',
+  'Seat allocations can be tuned across Active and Monitor usage patterns.',
 ]
 
 const COHORT_SCENARIOS = [
@@ -96,21 +96,21 @@ const COMMERCIAL_EXAMPLES = [
   {
     seats: '25 seats',
     term: '3-month pilot',
-    mix: '15 Active, 10 Intelligence',
+    mix: '15 Active, 10 Monitor',
     monthlyList: '$3,485/mo list before volume discounts',
     estimate: '$10,455 total list over 3 months before negotiated partner terms',
   },
   {
     seats: '50 seats',
     term: '6-month program',
-    mix: '30 Active, 20 Intelligence',
+    mix: '30 Active, 20 Monitor',
     monthlyList: '$6,950/mo list before volume discounts',
     estimate: '$41,700 total list over 6 months before negotiated partner terms',
   },
   {
     seats: '100 seats',
     term: '12-month rollout',
-    mix: '55 Active, 45 Intelligence',
+    mix: '55 Active, 45 Monitor',
     monthlyList: '$13,240/mo list before volume discounts',
     estimate: '$158,880 total list over 12 months before negotiated partner terms',
   },
@@ -227,7 +227,7 @@ const CONTRACT_SLA_MAP = [
 
 const REDLINE_READY_QUOTE_EXCERPT = [
   'Order Form Excerpt (Pilot Cohort):',
-  'Scope: 1 cohort, 25 seats (15 Active, 10 Intelligence), 30-day decision window.',
+  'Scope: 1 cohort, 25 seats (15 Active, 10 Monitor), 30-day decision window.',
   'Term: 3 months, auto-renew disabled during pilot period.',
   'Acceptance criteria: activation >= 70%, prep readiness >= 70%, stall detection <= 5 days median.',
   'Support commitment: P1 same business day, P2 next business day, P3 within two business days (see Schedule B-2).',

@@ -253,7 +253,7 @@ export default async function PostSearchDashboardPage() {
             Review tracked companies
           </Link>
           <Link href="/settings/billing" className="px-4 py-2 rounded border border-slate-700 text-[13px] font-semibold text-slate-300 hover:border-slate-500">
-            Manage Intelligence plan
+            Manage Monitor plan
           </Link>
         </div>
       </div>

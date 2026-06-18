@@ -1,0 +1,60 @@
+name: Sync Stripe Pricing
+
+on:
+  schedule:
+    - cron: '0 7 * * *'   # 7am UTC daily (2am CT)
+  workflow_dispatch:        # allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Stripe pricing sync
+        env:
+          STRIPE_SECRET_KEY:          ${{ secrets.STRIPE_PRICE_SYNC_KEY }}
+          STRIPE_PRICE_PASSIVE:       ${{ secrets.STRIPE_PRICE_PASSIVE }}
+          STRIPE_PRICE_PASSIVE_ANNUAL:  ${{ secrets.STRIPE_PRICE_PASSIVE_ANNUAL }}
+          STRIPE_PRICE_ACTIVE:        ${{ secrets.STRIPE_PRICE_ACTIVE }}
+          STRIPE_PRICE_ACTIVE_ANNUAL:   ${{ secrets.STRIPE_PRICE_ACTIVE_ANNUAL }}
+          STRIPE_PRICE_EXECUTIVE:     ${{ secrets.STRIPE_PRICE_EXECUTIVE }}
+          STRIPE_PRICE_EXECUTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_EXECUTIVE_ANNUAL }}
+        run: npx tsx scripts/sync-stripe-pricing.ts
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open PR if prices changed
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: sync/stripe-pricing-${{ github.run_id }}
+          base: main
+          commit-message: 'chore: sync pricing.ts from Stripe'
+          title: 'chore: sync pricing.ts from Stripe'
+          body: |
+            Automated daily sync detected Stripe price changes.
+
+            Review the diff carefully — this reflects a live Stripe price update.
+            Merge to deploy the updated prices to production.
+          labels: pricing
