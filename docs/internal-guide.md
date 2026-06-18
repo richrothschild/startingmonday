@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-18T17:18:04.923Z
+Last generated: 2026-06-18T18:21:40.359Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1042,7 +1042,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 
-## Documentation (637)
+## Documentation (639)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
