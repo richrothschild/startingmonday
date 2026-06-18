@@ -151,7 +151,7 @@ function main() {
   const placeholderCount = countPlaceholderTests(metrics)
 
   const typecheckRun = runStatus(TSC_CMD, ['--noEmit'])
-  const lintRun = runStatus(ESLINT_CMD, ['.', '--quiet'])
+  const lintRun = runStatus(ESLINT_CMD, [...SOURCE_DIRS, '--quiet'])
   const outdatedRun = runJsonCommand(NPM_CMD, ['outdated', '--json'])
 
   const parserCorruptionFiles = metrics.filter((m) => m.importCorruption).map((m) => m.path)

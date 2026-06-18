@@ -5,9 +5,9 @@ Generated at: 2026-06-18T04:21:29.924Z
 ## What exists
 - Feature pages: 208
 - API routes: 269
-- Library modules: 210
-- Operational scripts: 136
-- Infra workflows: 38
+- Library modules: 215
+- Operational scripts: 137
+- Infra workflows: 39
 - Migrations/data artifacts: 147
 - Internal docs: 637
 

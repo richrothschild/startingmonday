@@ -5,20 +5,12 @@ import { useSearchParams } from 'next/navigation'
 import type { UserSubscription } from '@/lib/subscription'
 import { PLANS, WAITLIST_PLANS } from '@/lib/plans'
 import type { BillingInterval } from '@/lib/plans'
+import { TIER_DISPLAY_NAMES } from '@/lib/pricing'
 import { MICRO_PRODUCT_DEFINITIONS, formatMicroProductPrice } from '@/lib/micro-products'
 
 function fmtDate(d: Date | null) {
   if (!d) return null
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-}
-
-const PLAN_LABEL_MAP: Record<string, string> = {
-  free:      'Free trial',
-  passive:   'Intelligence',
-  monitor:   'Intelligence',
-  active:    'Active',
-  executive: 'Executive',
-  campaign:  'Campaign',
 }
 
 export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountName, isPlaced = false, canSeeAdminHeader }: {
@@ -163,7 +155,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
 
   const planLabel = paused ? 'Paused'
     : sub.status === 'canceled' ? 'Canceled'
-    : PLAN_LABEL_MAP[sub.tier] ?? sub.tier
+    : TIER_DISPLAY_NAMES[sub.tier] ?? sub.tier
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -200,9 +192,9 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         {isPlaced && sub.isPaid && sub.tier !== 'passive' && sub.tier !== 'free' && !paused && (
           <div className="bg-orange-50 border border-orange-200 rounded p-5 mb-6 flex items-start gap-4">
             <div className="flex-1">
-              <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Intelligence.</p>
+              <p className="text-[13px] font-semibold text-slate-900 mb-1">You placed. Consider dropping to Monitor.</p>
               <p className="text-[13px] text-slate-600 leading-relaxed">
-                Intelligence ($49/mo) keeps your signal monitoring and weekly digest running without the active search tools.
+                Monitor ($49/mo) keeps your signal monitoring and weekly digest running without the active search tools.
                 Most executives search again within 3 years. When you are ready, everything you built here will be waiting.
               </p>
             </div>
@@ -363,13 +355,13 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                     )}
                     <p className="text-[20px] font-bold text-slate-900">{plan.name}</p>
                     <p className="text-[28px] font-bold text-slate-900 mt-1">
-                      ${(amount / 100).toFixed(0)}
-                      <span className="text-[14px] font-normal text-slate-500">
-                        {interval === 'annual' ? '/yr' : '/mo'}
-                      </span>
+                      ${interval === 'annual' ? (monthlyEquiv! / 100).toFixed(0) : (amount / 100).toFixed(0)}
+                      <span className="text-[14px] font-normal text-slate-500">/mo</span>
                     </p>
-                    {monthlyEquiv && (
-                      <p className="text-[12px] text-slate-400 mt-0.5">${(monthlyEquiv / 100).toFixed(0)}/mo billed annually</p>
+                    {interval === 'annual' && monthlyEquiv && (
+                      <p className="text-[12px] text-slate-400 mt-0.5">
+                        billed as ${(amount / 100).toFixed(0)}/yr · <span className="text-green-600">Save ${((plan.amount * 12 - plan.annualAmount) / 100).toFixed(0)}</span>
+                      </p>
                     )}
                     <p className="text-[13px] text-slate-500 mt-2 mb-4 leading-relaxed">{plan.description}</p>
                     <ul className="mb-5 flex flex-col gap-1.5">
@@ -428,7 +420,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
         <div className="bg-white border border-slate-200 rounded p-6 mt-8">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Sprint 4 add-ons</p>
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Executive add-ons</p>
               <p className="text-[13px] text-slate-500 mt-1">Micro-products for role-specific outcomes. Purchased separately from plan tier.</p>
             </div>
           </div>

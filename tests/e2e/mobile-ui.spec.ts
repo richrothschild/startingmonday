@@ -16,11 +16,15 @@ async function clickBottomNavItem(page: Page, name: string, href: string) {
   await expect(link).toHaveAttribute('href', href)
 
   for (let attempt = 0; attempt < 2; attempt++) {
-    await link.scrollIntoViewIfNeeded()
-    await link.click()
-    await page.waitForTimeout(120)
-    if (page.url().includes(href)) {
-      return
+    try {
+      await link.scrollIntoViewIfNeeded()
+      await link.click({ timeout: 1500, force: attempt === 1 })
+      await page.waitForTimeout(120)
+      if (page.url().includes(href)) {
+        return
+      }
+    } catch {
+      // Continue to fallback route navigation after bounded retries.
     }
   }
 

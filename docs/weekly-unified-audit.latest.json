@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T13:59:15.117Z",
+  "generatedAt": "2026-06-17T23:28:24.964Z",
   "guardRegression": {
     "status": "not_run"
   },
@@ -11,9 +11,9 @@
     "securityStatus": "not_run"
   },
   "council": {
-    "score": 81,
-    "grade": "B-",
-    "findings": 76,
+    "score": 78,
+    "grade": "C+",
+    "findings": 107,
     "parserCorruptionCount": 0,
     "placeholderBaselineCount": 334
   },
@@ -26,15 +26,15 @@
   },
   "debt": {
     "typecheckStatus": "pass",
-    "lintStatus": "pass",
+    "lintStatus": "fail",
     "parserCorruptionCount": 0,
-    "placeholderCount": 327,
-    "outdatedCount": 14
+    "placeholderCount": 320,
+    "outdatedCount": 17
   },
   "security": {
     "criticalVulns": 0,
-    "highVulns": 1,
-    "trueAuthGaps": 2,
+    "highVulns": 2,
+    "trueAuthGaps": 1,
     "hardcodedSecretHits": 0
   }
 }

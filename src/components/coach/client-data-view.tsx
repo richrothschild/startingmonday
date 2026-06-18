@@ -842,8 +842,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Confidence level</label>
+                <label htmlFor="weekly-state-confidence" className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Confidence level</label>
                 <select
+                  id="weekly-state-confidence"
                   value={weeklyStateSignals.confidenceLevel}
                   onChange={(event) => setWeeklyStateSignals((current) => ({ ...current, confidenceLevel: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"
@@ -854,8 +855,9 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Momentum level</label>
+                <label htmlFor="weekly-state-momentum" className="block text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-1">Momentum level</label>
                 <select
+                  id="weekly-state-momentum"
                   value={weeklyStateSignals.momentumLevel}
                   onChange={(event) => setWeeklyStateSignals((current) => ({ ...current, momentumLevel: event.target.value }))}
                   className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] bg-white focus:outline-none focus:border-slate-400"

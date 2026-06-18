@@ -1,6 +1,6 @@
 # Weekly Unified Audit
 
-Generated: 2026-06-13T13:59:15.117Z
+Generated: 2026-06-17T23:28:24.964Z
 
 ## Guard Regression
 
@@ -16,8 +16,8 @@ Generated: 2026-06-13T13:59:15.117Z
 
 ## Council
 
-- Score: 81 (B-)
-- Findings: 76
+- Score: 78 (C+)
+- Findings: 107
 - Parser-corruption files: 0
 - Placeholder baseline count: 334
 
@@ -32,15 +32,15 @@ Generated: 2026-06-13T13:59:15.117Z
 ## Technical Debt
 
 - Typecheck: pass
-- Lint: pass
+- Lint: fail
 - Parser-corruption files: 0
-- Placeholder files present: 327
-- Outdated dependencies: 14
+- Placeholder files present: 320
+- Outdated dependencies: 17
 
 ## Security
 
 - npm audit critical: 0
-- npm audit high: 1
-- Auth guard true gaps: 2
+- npm audit high: 2
+- Auth guard true gaps: 1
 - Hardcoded secret pattern hits: 0
 

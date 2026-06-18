@@ -20,17 +20,7 @@ on:
 jobs:
   luxury-ux-static:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - runKind: pr
-            tier: public-premium
-          - runKind: nightly
-            tier: public-all
-    if: |
-      (github.event_name == 'pull_request' && matrix.runKind == 'pr') ||
-      (github.event_name == 'schedule' && matrix.runKind == 'nightly') ||
-      (github.event_name == 'workflow_dispatch' && matrix.tier == (github.event.inputs.tier || 'public-premium'))
+    if: github.event_name == 'pull_request' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout
@@ -45,11 +35,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Resolve Enforcement Tier
+        id: tier
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "value=public-all" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "value=${{ github.event.inputs.tier || 'public-premium' }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=public-premium" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run tiered luxury gate
         run: |
-          if [ "${{ matrix.tier }}" = "public-all" ]; then
+          if [ "${{ steps.tier.outputs.value }}" = "public-all" ]; then
             npm run ux:luxury:static:public-all
-          elif [ "${{ matrix.tier }}" = "all-pages" ]; then
+          elif [ "${{ steps.tier.outputs.value }}" = "all-pages" ]; then
             npm run ux:luxury:static:all-pages
           else
             npm run ux:luxury:static
@@ -59,18 +60,18 @@ jobs:
         if: always()
         run: |
           mkdir -p artifacts
-          node scripts/check-luxury-ux-static-gate.mjs --enforce-tier=${{ matrix.tier }} --report-only --report-json=artifacts/luxury-ux-${{ matrix.tier }}.json --report-md=artifacts/luxury-ux-${{ matrix.tier }}.md --top=20
+          node scripts/check-luxury-ux-static-gate.mjs --enforce-tier=${{ steps.tier.outputs.value }} --report-only --report-json=artifacts/luxury-ux-${{ steps.tier.outputs.value }}.json --report-md=artifacts/luxury-ux-${{ steps.tier.outputs.value }}.md --top=20
 
       - name: Publish step summary
         if: always()
         run: |
-          echo "## Luxury UX Trend (${{ matrix.tier }})" >> "$GITHUB_STEP_SUMMARY"
-          cat artifacts/luxury-ux-${{ matrix.tier }}.md >> "$GITHUB_STEP_SUMMARY"
+          echo "## Luxury UX Trend (${{ steps.tier.outputs.value }})" >> "$GITHUB_STEP_SUMMARY"
+          cat artifacts/luxury-ux-${{ steps.tier.outputs.value }}.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload trend artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: luxury-ux-trend-${{ matrix.tier }}-${{ github.run_number }}
+          name: luxury-ux-trend-${{ steps.tier.outputs.value }}-${{ github.run_number }}
           path: artifacts/
           if-no-files-found: error

@@ -188,7 +188,7 @@ export default function CoachesGuidePage() {
               {[
                 'Your clients get a 30-day free trial, no credit card required',
                 'Active plan ($199/month) includes all AI features - prep briefs, strategy brief, advisor chat, resume tailoring',
-                'Intelligence plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
+                'Monitor plan ($49/month) for clients who primarily need signal monitoring and pipeline tracking',
                 'View access for coaches: your client controls who sees their pipeline',
                 'Partner program: apply at startingmonday.app/partners to receive your referral link, commission tracking, and partner resource kit',
               ].map((item, i) => (

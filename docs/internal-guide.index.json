@@ -7828,6 +7828,19 @@
       "lastModifiedAt": "2026-05-29T22:58:55.589Z"
     },
     {
+      "id": "code:src/lib/outreach/send-queue.side-effects.ts",
+      "title": "Code src/lib/outreach/send-queue.side-effects.ts",
+      "body": "export async function insertFailedOutreachLogEffect(",
+      "type": "code",
+      "ref": "src/lib/outreach/send-queue.side-effects.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-18T04:41:32.141Z"
+    },
+    {
       "id": "code:src/lib/outreach/send-queue.test.ts",
       "title": "Code src/lib/outreach/send-queue.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -8961,7 +8974,7 @@
     {
       "id": "code:src/lib/telemetry.test.ts",
       "title": "Code src/lib/telemetry.test.ts",
-      "body": "import { describe, expect, it } from 'vitest'",
+      "body": "import { afterEach, describe, expect, it, vi } from 'vitest'",
       "type": "code",
       "ref": "src/lib/telemetry.test.ts",
       "tags": [
@@ -10818,6 +10831,19 @@
       "lastModifiedAt": "2026-06-10T19:09:50.081Z"
     },
     {
+      "id": "script:scripts/sync-stripe-pricing.ts",
+      "title": "Script scripts/sync-stripe-pricing.ts",
+      "body": "Block ends at closing brace",
+      "type": "script",
+      "ref": "scripts/sync-stripe-pricing.ts",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-18T04:41:23.748Z"
+    },
+    {
       "id": "script:scripts/test-briefing.mjs",
       "title": "Script scripts/test-briefing.mjs",
       "body": "End-to-end test for WBS 1.5 — Daily Briefing Engine.",
@@ -11336,6 +11362,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-05T20:01:07.901Z"
+    },
+    {
+      "id": "infra:.github/workflows/sync-stripe-pricing.yml",
+      "title": "Workflow .github/workflows/sync-stripe-pricing.yml",
+      "body": "name: Sync Stripe Pricing",
+      "type": "infra",
+      "ref": ".github/workflows/sync-stripe-pricing.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-18T04:41:23.710Z"
     },
     {
       "id": "infra:.github/workflows/watermark-audit.yml",
@@ -13966,6 +14005,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-10T19:09:49.860Z"
+    },
+    {
+      "id": "doc:docs/competitive-analysis-delta-t-exec-upgrades-2026-06-17.md",
+      "title": "Doc docs/competitive-analysis-delta-t-exec-upgrades-2026-06-17.md",
+      "body": "Competitive Analysis: Delta-T and Exec Upgrades vs Starting Monday",
+      "type": "doc",
+      "ref": "docs/competitive-analysis-delta-t-exec-upgrades-2026-06-17.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-18T04:41:32.089Z"
     },
     {
       "id": "doc:docs/confidential-search-guide.md",

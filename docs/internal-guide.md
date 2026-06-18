@@ -496,7 +496,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (210)
+## Codebase Modules (215)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -595,6 +595,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/onboarding-video-provider.ts | src/lib/onboarding-video-provider.ts | export type OnboardingVideoProviderDispatchInput = {
 - Code src/lib/onboarding-video-queue.test.ts | src/lib/onboarding-video-queue.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/onboarding-video-queue.ts | src/lib/onboarding-video-queue.ts | export type OnboardingVideoRunStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'canceled'
+- Code src/lib/onboarding-video-queue.utils.test.ts | src/lib/onboarding-video-queue.utils.test.ts | import { describe, expect, it, vi } from 'vitest'
+- Code src/lib/onboarding-video-queue.utils.ts | src/lib/onboarding-video-queue.utils.ts | export type MilestoneEventName =
 - Code src/lib/outplacement-cohort-model.test.ts | src/lib/outplacement-cohort-model.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outplacement-cohort-model.ts | src/lib/outplacement-cohort-model.ts | export type CohortMilestoneId =
 - Code src/lib/outreach/auto-remediate.test.ts | src/lib/outreach/auto-remediate.test.ts | import { describe, expect, it } from 'vitest'
@@ -605,8 +607,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/outreach/legacy-copy-guard.ts | src/lib/outreach/legacy-copy-guard.ts | export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
 - Code src/lib/outreach/reliability-metrics.test.ts | src/lib/outreach/reliability-metrics.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/reliability-metrics.ts | src/lib/outreach/reliability-metrics.ts | export type ReliabilityThresholds = {
+- Code src/lib/outreach/send-queue.side-effects.ts | src/lib/outreach/send-queue.side-effects.ts | export async function insertFailedOutreachLogEffect(
 - Code src/lib/outreach/send-queue.test.ts | src/lib/outreach/send-queue.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/send-queue.ts | src/lib/outreach/send-queue.ts | export const OUTREACH_REPLY_TO = 'richard@startingmonday.app'
+- Code src/lib/outreach/send-queue.utils.ts | src/lib/outreach/send-queue.utils.ts | export function normalizeEmail(value: unknown): string {
+- Code src/lib/outreach/send-queue.worker.ts | src/lib/outreach/send-queue.worker.ts | export async function processClaimedOutreachSendJob(
 - Code src/lib/outreach/template-draft.test.ts | src/lib/outreach/template-draft.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/template-draft.ts | src/lib/outreach/template-draft.ts | export type OutreachTemplateChannel = 'executives' | 'search_firms' | 'coaches' | 'outplacement_firms'
 - Code src/lib/outreach/template-engine.test.ts | src/lib/outreach/template-engine.test.ts | import { describe, it, expect } from 'vitest'
@@ -692,7 +697,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/supabase/database.types.ts | src/lib/supabase/database.types.ts | export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 - Code src/lib/supabase/server.test.ts | src/lib/supabase/server.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/supabase/server.ts | src/lib/supabase/server.ts | export async function createClient() {
-- Code src/lib/telemetry.test.ts | src/lib/telemetry.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/telemetry.test.ts | src/lib/telemetry.test.ts | import { afterEach, describe, expect, it, vi } from 'vitest'
 - Code src/lib/telemetry.ts | src/lib/telemetry.ts | Set once per cold start from Railway / CI environment.
 - Code src/lib/toast.test.tsx | src/lib/toast.test.tsx | import { describe, expect, it } from 'vitest'
 - Code src/lib/toast.tsx | src/lib/toast.tsx | export function ToastProvider({ children }: { children: React.ReactNode }) {
@@ -708,7 +713,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
-## Internal Scripts (136)
+## Internal Scripts (137)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -837,6 +842,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
 - Script scripts/slo-report.mjs | scripts/slo-report.mjs | ---------------------------------------------------------------------------
 - Script scripts/sync-docs-to-gdrive.mjs | scripts/sync-docs-to-gdrive.mjs | #!/usr/bin/env node
+- Script scripts/sync-stripe-pricing.ts | scripts/sync-stripe-pricing.ts | Block ends at closing brace
 - Script scripts/test-briefing.mjs | scripts/test-briefing.mjs | End-to-end test for WBS 1.5 — Daily Briefing Engine.
 - Script scripts/test-connections.mjs | scripts/test-connections.mjs | Load .env.local
 - Script scripts/test-scanner.mjs | scripts/test-scanner.mjs | Integration test — WBS 1.3.9
@@ -846,7 +852,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/verify-prep-brief-golden-set.mjs | scripts/verify-prep-brief-golden-set.mjs | #!/usr/bin/env node
 - Script scripts/weekly-unified-audit-report.mjs | scripts/weekly-unified-audit-report.mjs | #!/usr/bin/env node
 
-## Infrastructure and Workflows (38)
+## Infrastructure and Workflows (39)
 - Workflow .github/workflows/ci.yml | .github/workflows/ci.yml | Only gate on main/staging pushes that will trigger a deploy.
 - Workflow .github/workflows/data-integrity-alerts.yml | .github/workflows/data-integrity-alerts.yml | name: Data Integrity Alerts
 - Workflow .github/workflows/dependency-health.yml | .github/workflows/dependency-health.yml | Checks status pages for third-party services Starting Monday depends on.
@@ -879,6 +885,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/slack-manual-message.yml | .github/workflows/slack-manual-message.yml | name: Slack Manual Message
 - Workflow .github/workflows/slack-simulated-failure.yml | .github/workflows/slack-simulated-failure.yml | name: Slack Simulated Failure Alert
 - Workflow .github/workflows/slo-weekly-report.yml | .github/workflows/slo-weekly-report.yml | Every Monday at 09:00 UTC
+- Workflow .github/workflows/sync-stripe-pricing.yml | .github/workflows/sync-stripe-pricing.yml | name: Sync Stripe Pricing
 - Workflow .github/workflows/watermark-audit.yml | .github/workflows/watermark-audit.yml | Watermark Documentation Audit — ${TODAY}
 - Workflow .github/workflows/weekly-code-council-audit.yml | .github/workflows/weekly-code-council-audit.yml | name: Weekly Code Council Audit
 - Workflow .github/workflows/weekly-growth-metrics.yml | .github/workflows/weekly-growth-metrics.yml | name: Weekly Growth Metrics Test
@@ -1074,6 +1081,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/code-synthetic-council-audit.latest.md | docs/code-synthetic-council-audit.latest.md | Code Synthetic Council Audit
 - Doc docs/code-synthetic-council-playbook.md | docs/code-synthetic-council-playbook.md | Code Synthetic Council Playbook
 - Doc docs/code-synthetic-council-rubric.md | docs/code-synthetic-council-rubric.md | Code Synthetic Council Rubric (Full Spectrum)
+- Doc docs/competitive-analysis-delta-t-exec-upgrades-2026-06-17.md | docs/competitive-analysis-delta-t-exec-upgrades-2026-06-17.md | Competitive Analysis: Delta-T and Exec Upgrades vs Starting Monday
 - Doc docs/confidential-search-guide.md | docs/confidential-search-guide.md | The Confidential Search Guide
 - Doc docs/content/additional-future-synthetic-council-members.md | docs/content/additional-future-synthetic-council-members.md | Additional Future Synthetic Council Members
 - Doc docs/content/advertising-brand-synthetic-council.md | docs/content/advertising-brand-synthetic-council.md | Advertising & Brand Strategy Synthetic Council
@@ -1456,6 +1464,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/search-firm-landing-page-council-review.md | docs/search-firm-landing-page-council-review.md | Search Firm Landing Page Council Review
 - Doc docs/security-audit-runbook.md | docs/security-audit-runbook.md | Security Audit Runbook — Starting Monday
 - Doc docs/security-deep-dive-audit.latest.md | docs/security-deep-dive-audit.latest.md | Security Deep-Dive Audit
+- Doc docs/security-dev-vulnerability-waiver-2026-06-17.md | docs/security-dev-vulnerability-waiver-2026-06-17.md | Security Waiver: Dev-Only Vulnerability Residuals
 - Doc docs/seo-keywords.md | docs/seo-keywords.md | Starting Monday — SEO Keyword Strategy
 - Doc docs/signal-interpretation-guide.md | docs/signal-interpretation-guide.md | Signal Interpretation Guide
 - Doc docs/site-monitoring-dashboard.md | docs/site-monitoring-dashboard.md | Site Monitoring Dashboard

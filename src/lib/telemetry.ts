@@ -19,6 +19,7 @@ const DEPLOY_SHA = process.env.RAILWAY_GIT_COMMIT_SHA
   ?? 'unknown'
 
 type Tier = 'P0' | 'P1' | 'P2'
+type QueueWorkerEventName = 'queue_worker_run' | 'queue_worker_run_error'
 
 /**
  * Mirrors the tier assignment in docs/sre/slo-catalog.md (API section).
@@ -121,4 +122,53 @@ export function withApiTelemetry(path: string, handler: RouteHandler): RouteHand
 
     return response
   }
+}
+
+type QueueWorkerTelemetryInput = {
+  queue: string
+  workerId: string
+  event: QueueWorkerEventName
+  startedAtMs: number
+  processed: number
+  completed?: number
+  accepted?: number
+  failed: number
+  retried: number
+  metadata?: Record<string, unknown>
+  error?: string
+}
+
+/**
+ * Emits a structured worker run log for queue processors.
+ */
+export function logQueueWorkerRun(input: QueueWorkerTelemetryInput): void {
+  const payload: Record<string, unknown> = {
+    ts: new Date().toISOString(),
+    event: input.event,
+    queue: input.queue,
+    worker_id: input.workerId,
+    processed: input.processed,
+    completed: input.completed ?? null,
+    accepted: input.accepted ?? null,
+    failed: input.failed,
+    retried: input.retried,
+    latency_ms: Math.max(0, Date.now() - input.startedAtMs),
+    deploy_sha: DEPLOY_SHA,
+  }
+
+  if (input.metadata) {
+    payload.metadata = input.metadata
+  }
+
+  if (input.error) {
+    payload.error = input.error
+  }
+
+  const serialized = JSON.stringify(payload)
+  if (input.event === 'queue_worker_run_error') {
+    console.error(serialized)
+    return
+  }
+
+  console.log(serialized)
 }

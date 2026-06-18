@@ -1,22 +1,19 @@
 {
-  "generatedAt": "2026-06-13T13:59:14.585Z",
+  "generatedAt": "2026-06-18T04:29:22.342Z",
   "npmAudit": {
     "parseOk": true,
     "critical": 0,
-    "high": 1,
+    "high": 0,
     "moderate": 0,
     "low": 0,
     "info": 0,
-    "total": 1,
-    "exitCode": 1
+    "total": 0,
+    "exitCode": 0
   },
   "apiGuards": {
     "parseOk": true,
-    "trueGapCount": 2,
-    "trueGaps": [
-      "src/app/api/deploy-marker/route.ts",
-      "src/app/api/feedback/route.ts"
-    ],
+    "trueGapCount": 0,
+    "trueGaps": [],
     "publicPostWithoutSharedGuardCount": 0
   },
   "staticSignals": {

@@ -66,14 +66,14 @@ export default async function PlacedPage() {
                 Most executives keep one eye on the market after they land.
               </p>
               <p className="text-[13px] text-slate-400 leading-relaxed mb-4">
-                Intelligence ($49/month) keeps your target companies under surveillance without the pipeline and prep features.
-                No active search required. Just intelligence, delivered weekly.
+                Monitor ($49/month) keeps your target companies under surveillance without the pipeline and prep features.
+                No active search required. Just signal monitoring, delivered weekly.
               </p>
               <Link
                 href="/settings/billing"
                 className="inline-block bg-orange-500 text-slate-900 text-[13px] font-bold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Switch to Intelligence →
+                Switch to Monitor →
               </Link>
             </div>
           )}
@@ -85,7 +85,7 @@ export default async function PlacedPage() {
                 href="/settings/billing"
                 className="block text-center bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Stay sharp — upgrade to Intelligence ($49/mo)
+                Stay sharp — upgrade to Monitor ($49/mo)
               </Link>
             )}
             <Link

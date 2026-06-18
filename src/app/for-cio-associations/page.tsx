@@ -150,7 +150,7 @@ export default function ForCioAssociationsPage() {
                 {[
                   'Member benefit programs with dedicated referral codes and discounted access',
                   'Active plan ($199/month) includes all AI features: prep briefs, strategy brief, company intelligence',
-                  'Intelligence plan ($49/month) for members building a target list or monitoring the market passively',
+                  'Monitor plan ($49/month) for members building a target list or monitoring the market passively',
                   'Aggregated usage reporting for your association - see which benefit programs are driving activation',
                   'Research partnership available - contact us to discuss co-branded market intelligence reports',
                   'Apply to the partner program at startingmonday.app/partners to receive your referral code and partnership terms',
