@@ -63,7 +63,7 @@ export function PipelineFilter({ q, stage, stages }: Props) {
           type="text"
           defaultValue={q}
           onChange={onQueryChange}
-          placeholder="Search companies…"
+          placeholder="Search your pipeline…"
           className="flex-1 min-w-[120px] border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
         />
         <select
