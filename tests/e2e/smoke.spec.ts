@@ -275,7 +275,7 @@ test('resume upload API rejects invalid file type', async ({ page }) => {
 })
 
 test('strategy API denies unauthenticated access', async ({ browser }) => {
-  const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
+  const baseURL = (process.env.PLAYWRIGHT_BASE_URL ?? '').trim() || 'https://startingmonday.app'
   const ctx = await browser.newContext({ baseURL, storageState: { cookies: [], origins: [] } })
   const page = await ctx.newPage()
   const response = await page.request.get('/api/strategy', { failOnStatusCode: false })
@@ -285,7 +285,7 @@ test('strategy API denies unauthenticated access', async ({ browser }) => {
 
 test('prep API denies unauthenticated access', async ({ browser }) => {
   // Create context with baseURL so relative paths resolve; no auth cookies
-  const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app'
+  const baseURL = (process.env.PLAYWRIGHT_BASE_URL ?? '').trim() || 'https://startingmonday.app'
   const ctx = await browser.newContext({ baseURL, storageState: { cookies: [], origins: [] } })
   const page = await ctx.newPage()
   const response = await page.request.get(
