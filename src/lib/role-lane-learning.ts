@@ -118,7 +118,7 @@ export function getPublicRoleLaneTutorials(roleFamily: RoleFamily | null | undef
     if (asset.format === 'video') {
       return {
         ...asset,
-        ctaLabel: 'Watch tutorial',
+        ctaLabel: 'Open guide',
       }
     }
 

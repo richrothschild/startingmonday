@@ -62,13 +62,6 @@ type ExecutiveLaneBrand = {
   proofToneClass: string
 }
 
-const CHANNEL_BEST_FOR: Record<string, string> = {
-  executives: 'Best for active or near-term C-suite transitions',
-  coaches: 'Best for coach-led execution between client sessions',
-  outplacement: 'Best for cohort delivery and measurable 30-day momentum',
-  search_firms: 'Best for retained-search kickoff quality and shortlist speed',
-}
-
 const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
 
 const EXECUTIVE_LANE_BRANDS: Record<ExecutiveLaneBrand['key'], ExecutiveLaneBrand> = {
@@ -265,6 +258,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
   const isManagerToolsPage = sourcePage === '/managertools'
   const useCenteredFooter = isManagerToolsPage || isExecutivesPage
   const executiveLaneBrand = executiveLaneFromSource(sourcePage)
+  const isLeadershipLanePage = executiveLaneBrand?.key === 'leadership'
   const heroPrimaryHref = isManagerToolsPage
     ? MANAGERTOOLS_SIGNUP_URL
     : isExecutivesPage
@@ -285,9 +279,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
-            <Link href="/features" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-2" aria-label="Open docs hub">
-              Docs
-            </Link>
             {isManagerToolsPage ? (
               <>
                 <Link
@@ -336,7 +327,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
                   ))}
                 </h1>
-                {hero.bodyPreamble && (
+                {hero.bodyPreamble && !isHomePage && (
                   <p className="mt-4 max-w-3xl text-[12px] font-semibold uppercase tracking-[0.12em] text-orange-200/90 sm:text-[13px]">
                     {hero.bodyPreamble}
                   </p>
@@ -376,23 +367,25 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             )}
 
-            <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row">
-              <TrackLink
-                href={heroPrimaryHref}
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{
-                  channel: 'executives',
-                  cta_label: isManagerToolsPage ? 'hero_manager_tools_signup' : 'hero_apply_beta',
-                  source_page: sourcePage,
-                  variant_key: `landing_${experimentVariant}`,
-                  experiment_variant: experimentVariant,
-                }}
-                className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 shadow-[0_10px_30px_rgba(193,127,59,0.22)] transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
-              >
-                {heroPrimaryLabel}
-              </TrackLink>
-            </div>
+            {!isHomePage && (
+              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row">
+                <TrackLink
+                  href={heroPrimaryHref}
+                  event={EVENT_NAMES.channelEntryClicked}
+                  logToUserEvents
+                  properties={{
+                    channel: 'executives',
+                    cta_label: isManagerToolsPage ? 'hero_manager_tools_signup' : 'hero_apply_beta',
+                    source_page: sourcePage,
+                    variant_key: `landing_${experimentVariant}`,
+                    experiment_variant: experimentVariant,
+                  }}
+                  className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 shadow-[0_10px_30px_rgba(193,127,59,0.22)] transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                >
+                  {heroPrimaryLabel}
+                </TrackLink>
+              </div>
+            )}
 
             {isHomePage && (
               <section
@@ -404,14 +397,14 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   Start with the audience that matches your situation.
                 </h2>
                 <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-200/90">
-                  Executive role-specific routes live inside the executive path, so you can find your way quickly without sorting through every title first.
+                  Start with the path that matches your scope, then move into role-specific routes without sorting through every title.
                 </p>
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                <div className="space-y-4">
                   <article className="rounded-2xl border border-white/10 bg-slate-950/55 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.18)]">
                     <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">For leaders</p>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Executive Leaders</p>
+                        <p className="text-[13px] font-semibold text-white">Executive Path</p>
                         <p className="mt-1 text-[12px] leading-relaxed text-slate-300">C-suite, VP, and mandate-level transitions with high discretion requirements.</p>
                         <TrackLink
                           href="/for-executives"
@@ -424,11 +417,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                           }}
                           className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                         >
-                          Open Executive Leaders
+                          Open Executive Path
                         </TrackLink>
                       </article>
                       <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Rising Leaders</p>
+                        <p className="text-[13px] font-semibold text-white">Rising Leaders Path</p>
                         <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Directors, senior managers, and technical leads moving toward broader scope.</p>
                         <TrackLink
                           href="/for-vp-technology"
@@ -441,19 +434,17 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                           }}
                           className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                         >
-                          Open Rising Leaders
+                          Open Rising Leaders Path
                         </TrackLink>
                       </article>
                     </div>
                   </article>
 
-                  <article className="rounded-2xl border border-white/10 bg-slate-950/45 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.16)]">
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">For partners</p>
-                    <div className="space-y-2">
+                  <article className="rounded-xl border border-white/10 bg-slate-950/35 p-3 shadow-[0_12px_36px_rgba(15,23,42,0.14)]">
+                    <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-200/90">For partners</p>
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                       {CHANNEL_ROUTE_SPECS.filter((spec) => spec.channel !== 'executives').map((spec) => (
-                        <div key={`homepage_partner_${spec.channel}`} className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
-                          <p className="text-[13px] font-semibold text-white">{spec.label}</p>
-                          <p className="mt-1 text-[12px] leading-relaxed text-slate-300">{CHANNEL_BEST_FOR[spec.channel]}</p>
+                        <div key={`homepage_partner_${spec.channel}`} className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
                           <TrackLink
                             href={spec.route}
                             event={EVENT_NAMES.channelEntryClicked}
@@ -463,9 +454,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                               cta_label: 'homepage_partner_path',
                               source_page: '/',
                             }}
-                            className="mt-2 inline-flex items-center text-[12px] font-semibold text-orange-200 underline underline-offset-2 transition-colors hover:text-white"
+                            className="inline-flex items-center text-[12px] font-semibold text-orange-200 underline underline-offset-2 transition-colors hover:text-white"
                           >
-                            Open {spec.label}
+                            {spec.label}
                           </TrackLink>
                         </div>
                       ))}
@@ -477,7 +468,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {proofHighlights && proofHighlights.length > 0 && (
               <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
-                <span className="font-semibold text-orange-200">Proof:</span> Executives maintain disciplined narratives and enter conversations grounded in company context.
+                <span className="font-semibold text-orange-200">Proof:</span> {isLeadershipLanePage
+                  ? 'Leaders maintain disciplined narratives and enter conversations grounded in company context.'
+                  : 'Executives maintain disciplined narratives and enter conversations grounded in company context.'}
               </p>
             )}
 
@@ -502,7 +495,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
                 <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
-                  Build relationships during signal windows before mandate announcements concentrate competition.
+                  Build relationships during signal windows before mandate announcements.
                 </p>
                 <div className="grid grid-cols-1 gap-3">
                   <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
@@ -546,23 +539,37 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                       {executiveLaneBrand.label}
                     </span>
                   )}
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Executive platform capabilities</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leadership platform capabilities' : 'Executive platform capabilities'}</p>
                   <h2 id="executive-differentiation-title" className="text-[22px] font-bold leading-snug text-white sm:text-[24px]">
                     All essentials in one operating view.
                   </h2>
                   <p className="max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                    Starting Monday is designed for executive-transition behavior: earlier timing, sharper mandate narrative, and disciplined weekly execution.
+                    {isLeadershipLanePage
+                      ? 'Starting Monday is designed for leadership transitions that require earlier timing, sharper narrative control, and disciplined weekly execution.'
+                      : 'Starting Monday is designed for executive-transition behavior: earlier timing, sharper mandate narrative, and disciplined weekly execution.'}
                   </p>
                 </div>
 
                 <div className="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-                  {EXECUTIVE_FEATURE_MATRIX.map((item) => (
+                  {EXECUTIVE_FEATURE_MATRIX.map((item) => {
+                    const featureTitle = isLeadershipLanePage && item.feature === 'Executive signal intelligence'
+                      ? 'Leadership signal intelligence'
+                      : item.feature
+                    const whatYouGet = isLeadershipLanePage && item.feature === 'Audience-specific narrative system'
+                      ? 'One core story adapted for board members, search partners, CHROs, and leadership peers.'
+                      : item.whatYouGet
+                    const whyItMatters = isLeadershipLanePage && item.feature === 'Weekly operating cadence'
+                      ? 'Sustained momentum replaces the stop-start pattern common in ad hoc leadership searches.'
+                      : item.whyItMatters
+
+                    return (
                     <article key={item.feature} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                      <p className="mb-2 text-[13px] font-semibold text-white">{item.feature}</p>
-                      <p className="mb-2 text-[12px] leading-relaxed text-slate-200/90">{item.whatYouGet}</p>
-                      <p className="text-[12px] leading-relaxed text-emerald-100">{item.whyItMatters}</p>
+                      <p className="mb-2 text-[13px] font-semibold text-white">{featureTitle}</p>
+                      <p className="mb-2 text-[12px] leading-relaxed text-slate-200/90">{whatYouGet}</p>
+                      <p className="text-[12px] leading-relaxed text-emerald-100">{whyItMatters}</p>
                     </article>
-                  ))}
+                    )
+                  })}
                 </div>
 
                 <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
@@ -574,7 +581,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   {EXECUTIVE_DIFFERENTIATORS.map((row) => (
                     <div key={row.category} className="grid grid-cols-1 border-b border-white/10 last:border-b-0 sm:grid-cols-[1.2fr_1fr_1fr]">
                       <p className="px-4 py-3 text-[12px] font-semibold text-white">{row.category}</p>
-                      <p className="border-t border-white/10 px-4 py-3 text-[12px] leading-relaxed text-slate-200/90 sm:border-t-0 sm:border-l">{row.startingMonday}</p>
+                      <p className="border-t border-white/10 px-4 py-3 text-[12px] leading-relaxed text-slate-200/90 sm:border-t-0 sm:border-l">{isLeadershipLanePage && row.category === 'Conversation readiness' ? 'Preparation workflows for recruiter, board, and leadership dialogue.' : row.startingMonday}</p>
                       <p className="border-t border-white/10 px-4 py-3 text-[12px] leading-relaxed text-slate-400 sm:border-t-0 sm:border-l">{row.otherTools}</p>
                     </div>
                   ))}
@@ -675,7 +682,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </>
             ) : isExecutivesPage ? (
               <>
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Executive outcomes</p>
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leader outcomes' : 'Executive outcomes'}</p>
                 <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
                   Build momentum in the first 30 days.
                 </h2>
@@ -721,7 +728,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     }}
                     className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
                   >
-                    Preview executive brief
+                    {isLeadershipLanePage ? 'Preview leader brief' : 'Preview executive brief'}
                   </TrackLink>
                 </div>
               </>
@@ -729,98 +736,34 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <>
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Why it feels different</p>
                 <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
-                  A calmer, more disciplined way to run the search.
+                  Expensive spray-and-pray tools optimize for volume. Starting Monday optimizes for outcomes.
                 </h2>
                 <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                  Less list-chasing, less duplicated effort, and less public activity. Starting Monday helps you stay early, prepared, and private without turning the search into a second full-time job.
+                  Most platforms sell reach, noise, and public activity. Starting Monday is built for targeted timing, private execution, and role-specific conversations that convert.
                 </p>
                 <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Early signal</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Focus on roles before the posting window turns crowded.</p>
+                    <p className="text-[12px] font-semibold text-white">Spray-and-pray tools</p>
+                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Pay more to broadcast broadly, chase low-signal alerts, and then compete in the same crowded windows as everyone else.</p>
                   </article>
                   <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Private by default</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Keep targets, activity, and narrative work out of public view.</p>
+                    <p className="text-[12px] font-semibold text-white">Starting Monday</p>
+                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Identify signal early, focus on high-fit roles, and run a disciplined private weekly cadence tied to real decision milestones.</p>
                   </article>
                   <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">{isRisingLeadersPage ? 'Leader-ready story' : 'Executive-ready story'}</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Show up with sharper positioning for boards, recruiters, and leadership teams.</p>
+                    <p className="text-[12px] font-semibold text-white">Bottom line</p>
+                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Less spend on noisy tools, fewer dead-end conversations, and stronger positioning when real mandates open.</p>
                   </article>
                 </div>
-                {isHomePage && (
-                  <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5">
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Footer role-path grid</p>
-                    <p className="mb-3 text-[13px] leading-relaxed text-slate-200">
-                      Executive role-path links for direct route access.
-                    </p>
-                    <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                      {[
-                        { href: '/for-cio', label: 'CIO' },
-                        { href: '/for-cdo', label: 'CDO' },
-                        { href: '/for-cpo', label: 'CPO' },
-                        { href: '/for-coo', label: 'COO' },
-                        { href: '/for-vp-technology', label: 'Rising Leaders' },
-                        { href: '/for-ciso', label: 'CISO' },
-                      ].map((route) => (
-                        <TrackLink
-                          key={`homepage_role_path_${route.href}`}
-                          href={route.href}
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_role_path_footer',
-                            source_page: sourcePage,
-                            destination: route.href,
-                          }}
-                          className="inline-flex items-center justify-center rounded border border-white/15 bg-slate-950/55 px-3 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/60 hover:text-white"
-                        >
-                          {route.label}
-                        </TrackLink>
-                      ))}
-                    </div>
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Partner paths</p>
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                      {[
-                        { href: '/for-pe-partners', label: 'PE Partners' },
-                        { href: '/for-coaches', label: 'Coaches' },
-                        { href: '/for-outplacement', label: 'Outplacement' },
-                        { href: '/search-firms', label: 'Search Firms' },
-                      ].map((route) => (
-                        <TrackLink
-                          key={`homepage_partner_path_${route.href}`}
-                          href={route.href}
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_partner_path_footer',
-                            source_page: sourcePage,
-                            destination: route.href,
-                          }}
-                          className="inline-flex items-center justify-center rounded border border-white/15 bg-slate-950/55 px-3 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/60 hover:text-white"
-                        >
-                          {route.label}
-                        </TrackLink>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <div className="mb-6 rounded-2xl border border-orange-300/20 bg-orange-300/[0.05] p-4 sm:p-5">
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">What changes in practice</p>
+                  <ul className="space-y-2 text-[13px] leading-relaxed text-slate-200">
+                    <li>Start outreach earlier while role scope is still being shaped.</li>
+                    <li>Use one narrative adapted for boards, recruiters, and leadership peers.</li>
+                    <li>Track weekly execution against concrete conversion checkpoints.</li>
+                  </ul>
+                </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <TrackLink
-                    href="/concierge?program=beta&from=landing"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'next_step_start_now',
-                      source_page: sourcePage,
-                    }}
-                    className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-bold text-slate-950 shadow-[0_8px_24px_rgba(249,115,22,0.16)] transition-transform hover:-translate-y-0.5 hover:bg-orange-400"
-                  >
-                    Start Now
-                  </TrackLink>
                   <TrackLink
                     href="/for-executives"
                     event={EVENT_NAMES.channelEntryClicked}

@@ -1,6 +1,10 @@
 # Starting Monday Internal Guide
 
+<<<<<<< HEAD
 Last generated: 2026-06-19T19:09:08.431Z
+=======
+Last generated: 2026-06-19T20:54:00.848Z
+>>>>>>> origin/staging
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
