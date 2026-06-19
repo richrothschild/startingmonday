@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for COOs - Technology Executives in Operations',
+    title: 'Starting Monday for C-suite leaders moving to COO roles',
     description: 'The technology executive who can run the business is often the most valuable person in the room. Make the CIO-to-COO move deliberately.',
   },
   alternates: {

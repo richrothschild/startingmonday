@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     'how to prepare for CIO interview',
   ],
   openGraph: {
-    title: 'Starting Monday for C-suite technology searches',
+    title: 'Starting Monday for C-suite technology searches - Executive Search Campaign Infrastructure',
     description: 'Many C-suite mandates are relationship-led before posting. Campaign infrastructure for technology executives in active search.',
     url: 'https://startingmonday.app/for-cio',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for C-suite technology searches',
+    title: 'Starting Monday for C-suite technology searches - Executive Search Campaign Infrastructure',
     description: 'Many C-suite mandates are relationship-led before posting. Campaign infrastructure for technology executives in active search.',
   },
   alternates: {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T14:58:35.126Z",
+  "generatedAt": "2026-06-19T18:24:05.649Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
+      "lastModifiedAt": "2026-06-19T18:21:39.688Z"
     },
     {
       "id": "feature:/login",
@@ -1944,7 +1944,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.163Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.273Z"
     },
     {
       "id": "feature:/for-chro",
@@ -1986,7 +1986,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.165Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.272Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -2000,7 +2000,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.166Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.272Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T14:20:23.644Z"
+      "lastModifiedAt": "2026-06-19T16:59:44.915Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -2112,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.170Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.274Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -2126,7 +2126,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.172Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.273Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -2140,7 +2140,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.173Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.274Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T14:57:19.722Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.271Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2378,7 +2378,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T14:03:05.560Z"
+      "lastModifiedAt": "2026-06-19T16:59:44.915Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2392,7 +2392,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T14:10:44.087Z"
+      "lastModifiedAt": "2026-06-19T18:23:41.271Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2406,7 +2406,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T13:59:30.180Z"
+      "lastModifiedAt": "2026-06-19T16:59:44.915Z"
     },
     {
       "id": "feature:/founder-note",
@@ -2672,7 +2672,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T14:10:44.088Z"
+      "lastModifiedAt": "2026-06-19T18:23:45.776Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -7968,7 +7968,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-19T14:38:04.538Z"
+      "lastModifiedAt": "2026-06-19T16:59:44.917Z"
     },
     {
       "id": "code:src/lib/outreach/auto-remediate.test.ts",
@@ -10854,7 +10854,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T14:40:15.305Z"
+      "lastModifiedAt": "2026-06-19T16:59:44.914Z"
     },
     {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
@@ -18052,7 +18052,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
+      "lastModifiedAt": "2026-06-19T18:21:39.688Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18091,7 +18091,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
+      "lastModifiedAt": "2026-06-19T18:21:39.688Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22303,7 +22303,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:58:32.213Z"
+      "lastModifiedAt": "2026-06-19T18:24:02.727Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

@@ -24,7 +24,7 @@ type LaneConfig = {
 
 const LANE_CONFIG: Record<LaneKey, LaneConfig> = {
   leadership: {
-    title: 'Leadership Lane - Starting Monday',
+    title: 'Leadership Lane',
     description: 'Role-lane transition infrastructure for managers, directors, AVPs, and VPs moving into broader leadership mandates.',
     hero: {
       eyebrow: 'Leadership transitions reward narrative precision and timing discipline.',
@@ -75,7 +75,7 @@ const LANE_CONFIG: Record<LaneKey, LaneConfig> = {
     ],
   },
   'technical-leadership': {
-    title: 'Technical Leadership Lane - Starting Monday',
+    title: 'Technical Leadership Lane',
     description: 'Role-lane infrastructure for principals, architects, and technical leaders positioning for higher-scope mandates.',
     hero: {
       eyebrow: 'Technical depth only wins when it is translated into executive decision language.',
@@ -126,7 +126,7 @@ const LANE_CONFIG: Record<LaneKey, LaneConfig> = {
     ],
   },
   'delivery-leadership': {
-    title: 'Delivery Leadership Lane - Starting Monday',
+    title: 'Delivery Leadership Lane',
     description: 'Role-lane infrastructure for TPMs and program leaders demonstrating execution judgment in transition.',
     hero: {
       eyebrow: 'Delivery leadership wins when execution risk and stakeholder control are explicit.',
@@ -204,7 +204,7 @@ export async function generateMetadata(
   const laneKey = normalizeLane(lane)
   if (!laneKey) {
     return {
-      title: 'For Executives - Starting Monday',
+      title: 'For Executives',
       description: 'Executive transition infrastructure and role-lane guidance.',
     }
   }
@@ -213,6 +213,17 @@ export async function generateMetadata(
   return {
     title: config.title,
     description: config.description,
+    openGraph: {
+      title: config.title,
+      description: config.description,
+      url: `https://startingmonday.app/for-executives/${laneKey}`,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: config.title,
+      description: config.description,
+    },
     alternates: {
       canonical: `https://startingmonday.app/for-executives/${laneKey}`,
     },

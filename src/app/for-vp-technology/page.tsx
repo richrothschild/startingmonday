@@ -2,32 +2,29 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { ProofStrip } from '@/components/ProofStrip'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'VP Technology Search: The Right Mandate at the Right Organization - Starting Monday',
-  description: 'VP technology search infrastructure for VP and SVP Technology leaders. Track organizations building or restructuring technology leadership before roles are posted.',
+  title: 'Rising Leaders Search: The Right Mandate at the Right Organization',
+  description: 'Search infrastructure for rising technology leaders moving into broader scope. Track organizations building or restructuring technology leadership before roles are posted.',
   keywords: [
-    'VP technology job search',
-    'VP IT job search',
-    'SVP technology career',
-    'vice president technology search',
-    'VP engineering job search',
-    'senior VP technology career',
-    'VP technology career transition',
-    'technology VP job search strategy',
+    'rising technology leaders',
+    'director to vp technology',
+    'senior manager technology transition',
+    'technology leadership career move',
+    'technology mandate search',
+    'vp technology career transition',
+    'technology leadership search strategy',
   ],
   openGraph: {
-    title: 'VP Technology Search - Starting Monday',
-    description: 'Many VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
+    title: 'Rising Leaders Search - Starting Monday',
+    description: 'Rising leaders win stronger mandates by getting into the room before the role is posted.',
     url: 'https://startingmonday.app/for-vp-technology',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VP Technology Search - Starting Monday',
-    description: 'Many VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
+    title: 'Rising Leaders Search - Starting Monday',
+    description: 'Rising leaders win stronger mandates by getting into the room before the role is posted.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-vp-technology',
@@ -41,18 +38,18 @@ const SITUATIONS: SituationCard[] = [
     sub: 'The CIO seat is not opening. I need a company where the next move is real.',
   },
   {
-    id: 'best-vp',
-    headline: 'I want a better VP role, not necessarily the CIO seat.',
-    sub: 'Broader scope, better organization, more resources. The right mandate at the right level.',
+    id: 'broader-mandate',
+    headline: 'I want broader scope, not just a title change.',
+    sub: 'Better organization, stronger mandate, and real resources for the next level.',
   },
   {
     id: 'restructured',
-    headline: 'My VP mandate was reduced in a reorganization.',
+    headline: 'My mandate was reduced in a reorganization.',
     sub: 'The scope changed around me. Time to find a company where technology is taken seriously.',
   },
   {
     id: 'open-to-either',
-    headline: 'I am open to the right VP role or a step into the CIO seat.',
+    headline: 'I am open to the right broader role or first VP step-up.',
     sub: 'The title matters less than the mandate. I need to position for both conversations.',
   },
   {
@@ -69,16 +66,16 @@ const SITUATIONS: SituationCard[] = [
 
 const FAQS: FAQ[] = [
   {
-    question: 'How long does a VP Technology job search typically take?',
-    answer: 'Most VP Technology searches run four to nine months in active market. The range depends on whether you are pursuing a lateral move at a higher-caliber organization or a step up in scope, and how warm your search firm relationships are before you start. The fastest searches belong to executives who have been in contact with the right search firm partners in the last twelve months and who have a clear answer to what mandate they are built for.',
+    question: 'How long does a Rising Leaders search typically take?',
+    answer: 'Most Rising Leaders searches run four to nine months in active market. The range depends on whether you are pursuing a lateral move with broader scope or a first VP-level mandate, and how warm your search-firm relationships are before you start. The fastest searches belong to leaders who have been in contact with the right partners in the last twelve months and who can clearly define the mandate they are built for.',
   },
   {
-    question: 'Do VP Technology candidates need a formal title change to move to a better role?',
-    answer: 'Not necessarily. Many of the most valuable VP Technology moves are lateral in title and significant in scope - moving from a company where technology is treated as a cost center to one where it is a strategic priority, or from a constrained budget to a mandate with real resources. The title matters less than the mandate, the reporting line, and the organization. Starting Monday helps you identify companies that are actively building or restructuring their technology function, which is where the real scope is.',
+    question: 'Do Rising Leaders need a formal title change to make a strong move?',
+    answer: 'Not necessarily. Many of the strongest moves are lateral in title and significant in scope - moving from a company where technology is treated as a cost center to one where it is a strategic priority, or from constrained budget authority to a mandate with real resources. The title matters less than the mandate, the reporting line, and the organization. Starting Monday helps you identify companies actively building or restructuring technology leadership, where real scope opens first.',
   },
   {
-    question: 'How do executive search firms evaluate VP Technology candidates?',
-    answer: 'Search firms filling VP Technology mandates are looking for candidates who can answer one question: what did the technology function look like before you got there, and what was measurably different after? They are not looking for a list of systems implemented or teams managed. They want a clean narrative of scope, constraint, and outcome. Candidates who lead with their team size or their stack do not make short lists. Candidates who lead with the business problem and the measurable result do.',
+    question: 'How do search firms evaluate Rising Leaders candidates?',
+    answer: 'Search firms evaluate Rising Leaders on one core question: what did the technology function look like before you arrived, and what was measurably different after? They are not looking for a list of systems implemented or team size alone. They want a clean narrative of scope, constraints, and outcomes. Candidates who lead with business impact and operating results make short lists faster.',
   },
 ]
 
@@ -87,8 +84,8 @@ const jsonLd = {
   '@type': 'WebPage',
   '@id': 'https://startingmonday.app/for-vp-technology/#webpage',
   url: 'https://startingmonday.app/for-vp-technology',
-  name: 'Starting Monday for VP Technology - The Right Mandate at the Right Organization',
-  description: 'Campaign infrastructure for VP and SVP Technology leaders in active search. Track organizations building or restructuring their technology function before roles are posted.',
+  name: 'Starting Monday for Rising Leaders - The Right Mandate at the Right Organization',
+  description: 'Campaign infrastructure for rising technology leaders in active search. Track organizations building or restructuring their technology function before roles are posted.',
   isPartOf: {
     '@type': 'WebSite',
     url: 'https://startingmonday.app',
@@ -100,7 +97,7 @@ const jsonLd = {
     applicationCategory: 'BusinessApplication',
     audience: {
       '@type': 'Audience',
-      audienceType: 'VP Technology, SVP Technology, VP IT, VP Engineering, Vice President Technology',
+      audienceType: 'Rising technology leaders, directors, senior managers, technical leads, first-time VP candidates',
     },
   },
 }
@@ -109,27 +106,23 @@ export default function ForVpTechnologyPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <h1 className="sr-only">Starting Monday for VP Technology searches</h1>
-      <ProofStrip
-        metric="81%"
-        label="of pilot executives reached first interview inside 30 days"
-        source="27 executives in the Jan–May 2026 cohort"
-      />
+      <h1 className="sr-only">Starting Monday for Rising Leaders searches</h1>
       <LandingPage
         hero={{
-          eyebrow: 'Many VP Technology roles go to candidates already in the room.',
+          eyebrow: 'For Rising Leaders moving into broader technology scope.',
           h1Lines: ['The right mandate', 'at the right', 'organization.'],
-          body: 'The senior technology leader at VP level faces a search that rewards preparation over application. The best roles are filled through referral networks and search firms who already have you in mind - not through job boards you checked last Tuesday. The VP who lands well is not the one who applies fastest. It is the one who has been watching their target organizations before the headcount was approved, and who walks in already knowing the context.',
+          body: 'Rising Leaders win stronger mandates by preparing before they apply. The best roles are filled through trusted relationships and search-firm networks, not reactive job-board volume. The leaders who move well are not first to apply; they are first to see context, timing, and fit.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [
-            'Track organizations where VP Technology roles open at the right scope - companies building out or restructuring their technology function, PE-backed companies adding leadership depth, and growth-stage companies formalizing their first senior technology hire',
-            'Build the search firm relationships that place VP technology leaders before the role is posted publicly - most searches at this level are filled from the firm\'s existing candidate relationships, not from inbound applications',
-            'Prepare the brief that works for both conversations: VP lateral at a higher-caliber organization, and the first CIO step-up where the timing and company are right',
+            'Track organizations where leadership scope is expanding before openings are broadly visible',
+            'Build search-firm and operator relationships early, while mandate definitions are still forming',
+            'Carry one clear story that supports both a broader lateral move and a first VP mandate',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}
+        sourcePage="/for-vp-technology"
       />
     </>
   )

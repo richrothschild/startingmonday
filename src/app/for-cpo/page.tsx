@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     'product leader career transition',
   ],
   openGraph: {
-    title: 'Starting Monday for CPOs - Chief Product Officer Search',
+    title: 'Starting Monday for CPOs - Chief Product Officer Search Campaign Infrastructure',
     description: 'Find the company where product is the strategy, not a function. Campaign infrastructure for product executives.',
     url: 'https://startingmonday.app/for-cpo',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CPOs - Chief Product Officer Search',
+    title: 'Starting Monday for CPOs - Chief Product Officer Search Campaign Infrastructure',
     description: 'Find the company where product is the strategy, not a function. Campaign infrastructure for product executives.',
   },
   alternates: {

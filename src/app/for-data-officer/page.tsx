@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     'data leader career transition',
   ],
   openGraph: {
-    title: 'Starting Monday for Chief Data Officers',
+    title: 'Starting Monday for Chief Data Officers - Find the Companies Where Data Is Genuinely Strategic',
     description: 'Many Chief Data Officer titles are scoped below true C-suite mandate level. Campaign infrastructure to find the ones that are.',
     url: 'https://startingmonday.app/for-data-officer',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for Chief Data Officers',
+    title: 'Starting Monday for Chief Data Officers - Find the Companies Where Data Is Genuinely Strategic',
     description: 'Many Chief Data Officer titles are scoped below true C-suite mandate level. Campaign infrastructure to find the ones that are.',
   },
   alternates: {

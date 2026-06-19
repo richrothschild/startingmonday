@@ -178,10 +178,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           h1Lines: ['You are behind on timing, narrative, and prep.'],
           claimMethodLabel: 'Method and evidence →',
           claimMethodHref: '/method-and-evidence',
-          claimEvidenceLabel: 'Evidence room →',
+                claimEvidenceLabel: 'Evidence room for executives and their partners →',
           claimEvidenceHref: '/evidence-room',
-          bodyPreamble: 'Built for C-suite executives and senior operators moving into C-level roles.',
+                bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
           body: 'Win with Starting Monday.',
+                competitiveEdge: 'Find the right roles before they open, the right people to know, and the right story to tell.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
