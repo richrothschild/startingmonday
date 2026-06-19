@@ -123,6 +123,9 @@ async function postInternal(
   request: NextRequest,
   path: string,
   payload: Record<string, unknown>,
+  diagnostics?: {
+    subcallAttempts: Array<{ path: string; url?: string; status?: number; error?: string; durationMs?: number }>
+  },
 ): Promise<{ status: number; body: any; rawBody: string }> {
   const automationToken = process.env.AUTOMATION_SERVICE_TOKEN ?? ''
   const automationUserId = process.env.AUTOMATION_SERVICE_USER_ID ?? ''
@@ -130,27 +133,47 @@ async function postInternal(
     throw new Error('Automation service identity is not configured')
   }
 
-  const importer = routeImporters[path]
-  if (importer) {
-    const mod = await importer()
-    const syntheticRequest = new NextRequest(new URL(path, request.url), {
+  const startMs = Date.now()
+  const attempt: { path: string; url?: string; status?: number; error?: string; durationMs?: number } = { path }
+
+  try {
+    const importer = routeImporters[path]
+    if (importer) {
+      const mod = await importer()
+      const syntheticRequest = new NextRequest(new URL(path, request.url), {
+        method: 'POST',
+        headers: buildAutomationHeaders(automationToken, automationUserId),
+        body: JSON.stringify(payload),
+      })
+      const response = await mod.POST(syntheticRequest)
+      const result = await parseRouteResponse(response)
+      attempt.status = result.status
+      attempt.durationMs = Date.now() - startMs
+      if (diagnostics) diagnostics.subcallAttempts.push(attempt)
+      return result
+    }
+
+    const baseUrl = internalBaseUrl(request)
+    const url = `${baseUrl}${path}`
+    attempt.url = url
+    const res = await fetch(url, {
       method: 'POST',
       headers: buildAutomationHeaders(automationToken, automationUserId),
       body: JSON.stringify(payload),
+      cache: 'no-store',
     })
-    const response = await mod.POST(syntheticRequest)
-    return parseRouteResponse(response)
+
+    const result = await parseRouteResponse(res)
+    attempt.status = result.status
+    attempt.durationMs = Date.now() - startMs
+    if (diagnostics) diagnostics.subcallAttempts.push(attempt)
+    return result
+  } catch (error) {
+    attempt.error = error instanceof Error ? error.message : String(error)
+    attempt.durationMs = Date.now() - startMs
+    if (diagnostics) diagnostics.subcallAttempts.push(attempt)
+    throw error
   }
-
-  const url = `${internalBaseUrl(request)}${path}`
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: buildAutomationHeaders(automationToken, automationUserId),
-    body: JSON.stringify(payload),
-    cache: 'no-store',
-  })
-
-  return parseRouteResponse(res)
 }
 
 function unauthorizedResponse(): NextResponse {
@@ -158,12 +181,28 @@ function unauthorizedResponse(): NextResponse {
 }
 
 export async function POST(request: NextRequest) {
+  const diagnostics = {
+    requestHeaders: {
+      'x-forwarded-host': request.headers.get('x-forwarded-host'),
+      'x-forwarded-proto': request.headers.get('x-forwarded-proto'),
+      'host': request.headers.get('host'),
+    },
+    resolvedBaseUrl: '',
+    subcallAttempts: [] as Array<{
+      path: string
+      url?: string
+      status?: number
+      error?: string
+      durationMs?: number
+    }>,
+  }
+
   const ip = getClientIp(request)
   const rateKey = `emi_smoke_token:${ip}`
   const rate = await checkRateLimit(rateKey, EMI_SMOKE_RATE_LIMIT, EMI_SMOKE_WINDOW_MS)
   if (!rate.allowed) {
     return NextResponse.json(
-      { error: 'Rate limit exceeded' },
+      { error: 'Rate limit exceeded', diagnostics },
       {
         status: 429,
         headers: rate.retryAfter ? { 'Retry-After': String(rate.retryAfter) } : undefined,
@@ -176,6 +215,9 @@ export async function POST(request: NextRequest) {
   if (!tokensMatch(providedToken, expectedToken)) {
     return unauthorizedResponse()
   }
+
+  diagnostics.resolvedBaseUrl = internalBaseUrl(request)
+
 
   const body = await request.json().catch(() => ({})) as EmiSmokeBody
   const sharedPayload: Record<string, unknown> = {}
@@ -191,56 +233,67 @@ export async function POST(request: NextRequest) {
       request,
       '/api/admin/automation/reporting/weekly-kpi-summaries',
       sharedPayload,
+      diagnostics,
     )
     const validation = await postInternal(
       request,
       '/api/admin/automation/reporting/emi-validation-reruns',
       sharedPayload,
+      diagnostics,
     )
     const proofPublisher = await postInternal(
       request,
       '/api/admin/automation/reporting/proof-asset-publisher',
       {},
+      diagnostics,
     )
     const claimAudit = await postInternal(
       request,
       '/api/admin/automation/reporting/tier1-claim-compliance-audit',
       {},
+      diagnostics,
     )
     const sprint5Exit = await postInternal(
       request,
       '/api/admin/automation/reporting/sprint-5-exit-metrics',
       sharedPayload,
+      diagnostics,
     )
     const gtmProofSequence = await postInternal(
       request,
       '/api/admin/automation/reporting/gtm-proof-sequence',
       sharedPayload,
+      diagnostics,
     )
     const q4Cadence = await postInternal(
       request,
       '/api/admin/automation/reporting/q4-cadence-automation',
       {},
+      diagnostics,
     )
     const capstoneReport = await postInternal(
       request,
       '/api/admin/automation/reporting/capstone-report-generation',
       sharedPayload,
+      diagnostics,
     )
     const successCriteriaAudit = await postInternal(
       request,
       '/api/admin/automation/reporting/success-criteria-audit-automation',
       sharedPayload,
+      diagnostics,
     )
     const objectionDashboard = await postInternal(
       request,
       '/api/admin/automation/reporting/top10-objection-kpi-dashboard',
       sharedPayload,
+      diagnostics,
     )
     const sloMonitoring = await postInternal(
       request,
       '/api/admin/automation/reporting/emi-slo-monitoring-alerts',
       sharedPayload,
+      diagnostics,
     )
 
     const failures: string[] = []
@@ -299,6 +352,7 @@ export async function POST(request: NextRequest) {
       mismatchCount: validation.body?.mismatchCount ?? null,
       nullStreakCount: validation.body?.nullStreakCount ?? null,
       failures,
+      diagnostics,
       checks: {
         weekly,
         validation,
@@ -321,6 +375,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result, { status: 502 })
   } catch (error) {
     console.error('[internal.automation.emi-smoke] request failed', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Internal server error', diagnostics }, { status: 500 })
   }
 }
