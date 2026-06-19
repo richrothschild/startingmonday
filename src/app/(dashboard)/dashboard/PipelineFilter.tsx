@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useTransition } from 'react'
 
 interface Props {
   q: string
@@ -11,6 +11,7 @@ interface Props {
 
 export function PipelineFilter({ q, stage, stages }: Props) {
   const router = useRouter()
+  const [, startTransition] = useTransition()
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const qRef = useRef(q)
   const stageRef = useRef(stage)
@@ -31,8 +32,11 @@ export function PipelineFilter({ q, stage, stages }: Props) {
     if (newStage) params.set('stage', newStage)
     params.set('page', '0')
     const qs = params.toString()
-    // scroll: false prevents the page from jumping to the top on each keystroke
-    router.push(`/dashboard${qs ? '?' + qs : ''}`, { scroll: false })
+    // startTransition keeps current content visible while the server re-renders,
+    // preventing the loading skeleton from flashing and wiping focus.
+    startTransition(() => {
+      router.push(`/dashboard${qs ? '?' + qs : ''}`, { scroll: false })
+    })
   }
 
   function onQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
