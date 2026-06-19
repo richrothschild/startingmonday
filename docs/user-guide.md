@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-19T04:04:39.367Z
+Last generated: 2026-06-19T14:18:10.622Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -207,7 +207,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (282)
+## API and Automation (285)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -395,6 +395,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/demo-brief/tailored](/api/demo-brief/tailored) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/demo-email](/api/demo-email) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/deploy-marker](/api/deploy-marker) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/discover/recommendations/[id]/save](/api/discover/recommendations/[id]/save) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/discover](/api/discover) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/drip/unsubscribe](/api/drip/unsubscribe) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/events/channel-funnel](/api/events/channel-funnel) - Programmatic endpoint available for platform behavior or integrations.
@@ -469,7 +470,9 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/readiness](/api/readiness) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/relationships/notes](/api/relationships/notes) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/relationships/recommendations](/api/relationships/recommendations) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/relationships/touchpoints](/api/relationships/touchpoints) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/role-lane/tutorials](/api/role-lane/tutorials) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
