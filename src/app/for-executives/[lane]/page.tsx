@@ -193,7 +193,7 @@ function laneToRoleFamily(lane: LaneKey): RoleFamily {
 
 function tutorialFormatLabel(asset: PublicTutorialAsset): string {
   if (asset.format === 'chat_prompt') return 'Guided chat prompt'
-  if (asset.format === 'video') return 'Video tutorial'
+  if (asset.format === 'video') return 'Focused guide'
   return 'Article guide'
 }
 
@@ -255,10 +255,10 @@ export default async function ExecutiveLanePage(
 
       <section className="bg-slate-950 px-4 pb-14 sm:px-6 sm:pb-16">
         <div className="mx-auto max-w-5xl rounded-[1.5rem] border border-white/12 bg-slate-900/55 p-5 shadow-[0_22px_72px_rgba(15,23,42,0.24)] sm:p-6">
-          <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.14em] text-orange-200">Tutorial MVP set</p>
-          <h2 className="text-[22px] font-bold leading-snug text-white">Lane curriculum: video, article, and chat coach prompt</h2>
+          <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.14em] text-orange-200">Lane curriculum set</p>
+          <h2 className="text-[22px] font-bold leading-snug text-white">Lane curriculum: focused guide, article, and chat coach prompt</h2>
           <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">
-            Start with one fast guide, one focused tutorial, and one guided chat sequence tailored to this role lane.
+            Start with one fast article, one focused guide, and one guided chat sequence tailored to this role lane.
           </p>
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
