@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T14:18:28.867Z",
+  "generatedAt": "2026-06-19T14:42:27.655Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T14:10:44.072Z"
+      "lastModifiedAt": "2026-06-19T14:42:16.179Z"
     },
     {
       "id": "feature:/login",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T13:59:29.826Z"
+      "lastModifiedAt": "2026-06-19T14:20:23.644Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -7958,6 +7958,19 @@
       "lastModifiedAt": "2026-06-16T22:55:22.424Z"
     },
     {
+      "id": "code:src/lib/outreach-rhythm.ts",
+      "title": "Code src/lib/outreach-rhythm.ts",
+      "body": "export type OutreachStage = 'watching' | 'researching' | 'applied' | 'interviewing' | 'offer' | 'unknown'",
+      "type": "code",
+      "ref": "src/lib/outreach-rhythm.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-19T14:38:04.538Z"
+    },
+    {
       "id": "code:src/lib/outreach/auto-remediate.test.ts",
       "title": "Code src/lib/outreach/auto-remediate.test.ts",
       "body": "import { describe, expect, it } from 'vitest'",
@@ -10841,7 +10854,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T13:46:14.700Z"
+      "lastModifiedAt": "2026-06-19T14:40:15.305Z"
     },
     {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
@@ -18039,7 +18052,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:10:44.071Z"
+      "lastModifiedAt": "2026-06-19T14:42:16.179Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18078,7 +18091,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:10:44.072Z"
+      "lastModifiedAt": "2026-06-19T14:42:16.179Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22290,7 +22303,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T14:18:10.626Z"
+      "lastModifiedAt": "2026-06-19T14:20:45.393Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

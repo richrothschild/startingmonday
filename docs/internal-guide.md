@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-19T14:18:28.867Z
+Last generated: 2026-06-19T14:42:27.655Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -512,7 +512,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (225)
+## Codebase Modules (226)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -615,6 +615,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/onboarding-video-queue.utils.ts | src/lib/onboarding-video-queue.utils.ts | export type MilestoneEventName =
 - Code src/lib/outplacement-cohort-model.test.ts | src/lib/outplacement-cohort-model.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outplacement-cohort-model.ts | src/lib/outplacement-cohort-model.ts | export type CohortMilestoneId =
+- Code src/lib/outreach-rhythm.ts | src/lib/outreach-rhythm.ts | export type OutreachStage = 'watching' | 'researching' | 'applied' | 'interviewing' | 'offer' | 'unknown'
 - Code src/lib/outreach/auto-remediate.test.ts | src/lib/outreach/auto-remediate.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/auto-remediate.ts | src/lib/outreach/auto-remediate.ts | export function firstNameFromRecipient(name: string | null | undefined): string {
 - Code src/lib/outreach/human-tone-guard.test.ts | src/lib/outreach/human-tone-guard.test.ts | import { describe, expect, it } from 'vitest'
