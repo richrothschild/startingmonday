@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Relocation Firms - Partner Guide',
@@ -37,6 +38,24 @@ const FEATURES = [
     name: 'Trailing Executive Career Services',
     forFirm: 'Many corporate relocations involve a dual-career couple. When one executive moves for their employer, their spouse or partner often needs to find a new role in the destination city. Starting Monday gives trailing executives the same search infrastructure: target list, pipeline, prep briefs, daily briefing. No separate enrollment process.',
     outcome: 'Your relocation program solves the dual-career problem with a concrete tool, not just a list of local recruiters. That is a meaningful differentiator for corporate clients evaluating relocation providers.',
+  },
+]
+
+const RELOCATION_PROOF_STORIES = [
+  {
+    title: 'First-30-day market entry',
+    role: 'Relocated technology leader',
+    outcome: 'Reached relevant local conversations earlier by prioritizing signal-backed target companies.',
+  },
+  {
+    title: 'Dual-career support case',
+    role: 'Relocation program lead',
+    outcome: 'Program retained momentum by supporting both relocated executive and partner transition workflows.',
+  },
+  {
+    title: 'Counselor handoff quality',
+    role: 'Relocation advisor',
+    outcome: 'Shared operating context reduced repeated onboarding friction in early weeks post-move.',
   },
 ]
 
@@ -78,8 +97,26 @@ export default function ForRelocationPage() {
             <p className="text-[16px] text-slate-200 leading-relaxed">
               You know the moment an executive lands in a new market. That window is brief. Starting Monday gives them the search infrastructure to act on it.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">The first month after relocation shapes search momentum. Waiting until the market is familiar usually means missing the highest-leverage openings.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Build a destination-city target list with 10 to 15 companies.</li>
+                <li>2. Trigger one signal-based outreach action per active participant.</li>
+                <li>3. Review dual-career risk and intervention priorities in one weekly check-in.</li>
+              </ol>
+            </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes for relocation programs"
+          stories={RELOCATION_PROOF_STORIES}
+          sourceNote="Directional outcomes from relocation-aligned use cases; validate in your own cohort baseline."
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
@@ -112,7 +149,7 @@ export default function ForRelocationPage() {
             <section id="relocation-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered job search platform built for senior executives.
+                Starting Monday is an AI-powered job search platform built for leadership-level transitions.
                 It gives them the intelligence infrastructure that senior searches require: monitoring of
                 target companies for pre-search signals, AI-generated prep briefs for every interview,
                 a structured pipeline for tracking relationships and conversations, and a daily briefing

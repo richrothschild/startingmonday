@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Retained Search Firms - Partner Guide',
@@ -37,6 +38,24 @@ const FEATURES = [
     name: 'Search Strategy Brief',
     forFirm: 'The strategy brief is an AI synthesis of your candidate\'s background, positioning strengths, narrative gaps, and recommended outreach sequence. Generated from their resume and target list. It is the document you would spend two sessions building manually - available before your first call.',
     outcome: 'You arrive at session one with a clear view of where the candidate is competitive, where the narrative needs work, and what the search should look like. Less briefing. More placing.',
+  },
+]
+
+const SEARCH_FIRM_PROOF_STORIES = [
+  {
+    title: 'Partner pilot, technology practice',
+    role: 'Retained search partner',
+    outcome: 'Candidate prep quality improved enough to reduce first-round resets in the pilot window.',
+  },
+  {
+    title: 'CIO shortlist run',
+    role: 'Candidate in active process',
+    outcome: 'Entered interviews with cleaner role context and moved faster to committee-ready conversations.',
+  },
+  {
+    title: 'Weekly recruiter cadence',
+    role: 'Search consultant',
+    outcome: 'Less call time spent rebuilding context and more time spent on strategic positioning decisions.',
   },
 ]
 
@@ -79,8 +98,26 @@ export default function ForSearchFirmsPage() {
             <p className="text-[16px] text-slate-200 leading-relaxed">
               Your candidates' performance directly reflects your firm's positioning and capability with clients. Starting Monday gives them the preparation depth that makes the first round count.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">Search timelines get expensive when candidates enter first rounds underprepared. Fixing prep discipline before interviews start is the fastest leverage point.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Pick one active candidate and baseline first-round risk.</li>
+                <li>2. Run one prep brief before the next interview loop.</li>
+                <li>3. Review whether conversion quality improves in partner check-in.</li>
+              </ol>
+            </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes from search-firm use"
+          stories={SEARCH_FIRM_PROOF_STORIES}
+          sourceNote="Directional pilot stories used for decision support; combine with your own candidate scorecard outcomes."
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
@@ -90,7 +127,7 @@ export default function ForSearchFirmsPage() {
             <section id="firm-fit" className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
               <h2 className="text-[22px] font-bold text-white">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered search platform built for VP and C-suite executives.
+                 Starting Monday is an AI-powered search platform built for leadership-level transitions.
                 It gives them the intelligence infrastructure that senior searches require: monitoring of
                 target companies for pre-search signals, AI-generated prep briefs for every interview,
                 a structured pipeline for tracking relationships and conversations, and a daily briefing

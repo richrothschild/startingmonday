@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Outplacement Partner Preview | Starting Monday',
@@ -204,6 +205,24 @@ const OBJECTIONS = [
   },
 ]
 
+const OUTPLACEMENT_PROOF_STORIES = [
+  {
+    title: 'Cohort activation lift',
+    role: 'Program operator',
+    outcome: 'Week-2 action consistency improved when participants followed daily signal-driven prompts.',
+  },
+  {
+    title: 'Counselor prep efficiency',
+    role: 'Counselor lead',
+    outcome: 'Session time shifted toward strategy as context rebuild requirements decreased.',
+  },
+  {
+    title: 'Sponsor confidence signal',
+    role: 'Program sponsor audience',
+    outcome: 'Weekly scorecard visibility made intervention decisions faster and more objective.',
+  },
+]
+
 export default function ForOutplacementPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
@@ -255,6 +274,18 @@ export default function ForOutplacementPage() {
             <p className="text-[13px] text-slate-200 leading-relaxed mt-3 max-w-xl">
               Pilot is for evidence and decision, not long-term lock-in.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">Outplacement outcomes are judged quickly. Programs that create consistent week-1 and week-2 motion outperform programs that rely on workshop-only momentum.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Set baseline activation and signal-response targets for one cohort.</li>
+                <li>2. Run counselor prep with what-changed summaries before sessions.</li>
+                <li>3. Review cohort risks in a weekly operating meeting with clear ownership.</li>
+              </ol>
+            </div>
             <div className="border border-white/10 rounded-2xl p-4 bg-slate-950/60 mt-6 backdrop-blur-sm">
               <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-orange-200 mb-2">You might be thinking</p>
               <div className="space-y-1.5 text-[13px] text-slate-200 leading-relaxed">
@@ -271,6 +302,12 @@ export default function ForOutplacementPage() {
             </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes for outplacement operations"
+          stories={OUTPLACEMENT_PROOF_STORIES}
+          sourceNote="Directional pilot outcomes; pair with your own day-30 scorecard for expansion decisions."
+        />
 
         <CompactTimelineModule
           channel="outplacement"
@@ -302,7 +339,7 @@ export default function ForOutplacementPage() {
             <section className="space-y-4 text-[15px] text-slate-200 leading-relaxed">
               <h2 className="text-[22px] font-bold text-white">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered search platform built for VP and C-suite executives
+                Starting Monday is an AI-powered search platform built for leadership-level transitions
                 in active career transition. Pipeline tracking, company intelligence scanning, AI
                 interview prep briefs, daily briefing, and a strategy brief built from their background
                 and target list.
