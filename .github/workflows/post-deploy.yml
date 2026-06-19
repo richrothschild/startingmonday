@@ -21,7 +21,7 @@ jobs:
   canary-gate:
     name: Canary gate
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v5
@@ -34,8 +34,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
       - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install chromium --with-deps
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
 
       - name: Wait for production canary to stabilize (20s)
         run: |
@@ -99,12 +111,12 @@ jobs:
           }" "$SLACK_WEBHOOK_URL"
 
   post-deploy-synthetics:
-    # Only run when a deployment to production succeeds
+    # Only run when a deployment to production succeeds.
+    # Railway sends environment as 'ample-blessing / production' — use contains() to match.
     if: >
       (github.event_name == 'workflow_dispatch') ||
       (github.event.deployment_status.state == 'success' &&
-       (github.event.deployment.environment == 'production' ||
-        github.event.deployment.environment == 'Production'))
+       contains(github.event.deployment.environment, 'production'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [canary-gate]
@@ -322,3 +334,43 @@ jobs:
             post-deploy-synthetic-results.json
             emi-postdeploy-smoke.json
           retention-days: 30
+
+  production-deploy-playwright:
+    name: Playwright E2E (production post-deploy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [canary-gate]
+    # Run after a successful Railway production deployment, once the canary is green.
+    # Railway sends environment as 'ample-blessing / production' — use contains() to match.
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      contains(github.event.deployment.environment, 'production')
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Playwright E2E against production
+        run: npm run test:e2e:auth-ux && npm run test:e2e:luxury
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: production-playwright-report
+          path: playwright-report/
+          retention-days: 7
