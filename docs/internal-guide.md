@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-19T04:04:42.395Z
+Last generated: 2026-06-19T14:18:28.867Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -225,7 +225,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (282)
+## API Surface (285)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -413,6 +413,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/demo-brief/tailored | src/app/api/demo-brief/tailored/route.ts | export async function POST(request: NextRequest) {
 - API /api/demo-email | src/app/api/demo-email/route.ts | export async function POST(request: NextRequest) {
 - API /api/deploy-marker | src/app/api/deploy-marker/route.ts | export const dynamic = 'force-dynamic'
+- API /api/discover/recommendations/[id]/save | src/app/api/discover/recommendations/[id]/save/route.ts | export async function POST(
 - API /api/discover | src/app/api/discover/route.ts | export type DiscoveryCompany = {
 - API /api/drip/unsubscribe | src/app/api/drip/unsubscribe/route.ts | export async function GET(request: NextRequest) {
 - API /api/events/channel-funnel | src/app/api/events/channel-funnel/route.ts | export async function POST(request: NextRequest) {
@@ -487,7 +488,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/profile/upload-linkedin | src/app/api/profile/upload-linkedin/route.ts | export async function POST(request: NextRequest) {
 - API /api/profile/upload-resume | src/app/api/profile/upload-resume/route.ts | export async function POST(request: NextRequest) {
 - API /api/readiness | src/app/api/readiness/route.ts | export const dynamic = 'force-dynamic'
+- API /api/relationships/notes | src/app/api/relationships/notes/route.ts | Graceful fallback before migration rollout: append into contacts.notes.
 - API /api/relationships/recommendations | src/app/api/relationships/recommendations/route.ts | export async function GET(request: NextRequest) {
+- API /api/relationships/touchpoints | src/app/api/relationships/touchpoints/route.ts | Graceful fallback before migration rollout.
 - API /api/role-lane/tutorials | src/app/api/role-lane/tutorials/route.ts | export async function GET(request: NextRequest) {
 - API /api/salary-intelligence | src/app/api/salary-intelligence/route.ts | export async function POST(request: NextRequest) {
 - API /api/search | src/app/api/search/route.ts | export async function GET(req: NextRequest) {
@@ -509,7 +512,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (224)
+## Codebase Modules (225)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -674,6 +677,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function __resetRateLimitBucketsForTests() {
 - Code src/lib/relationship-infrastructure.test.ts | src/lib/relationship-infrastructure.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-infrastructure.ts | src/lib/relationship-infrastructure.ts | export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'
+- Code src/lib/relationship-kpi-scripts.test.ts | src/lib/relationship-kpi-scripts.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-targeting.test.ts | src/lib/relationship-targeting.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-targeting.ts | src/lib/relationship-targeting.ts | export type RelationshipScoreResult = {
 - Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
@@ -735,7 +739,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
-## Internal Scripts (140)
+## Internal Scripts (143)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -792,13 +796,14 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
 - Script scripts/check-ux-ui-rubric-pages.mjs | scripts/check-ux-ui-rubric-pages.mjs | #!/usr/bin/env node
 - Script scripts/check-variant-null-rate-alerts.mjs | scripts/check-variant-null-rate-alerts.mjs | #!/usr/bin/env node
+- Script scripts/cleanup-relationship-kpi-chain-seed.mjs | scripts/cleanup-relationship-kpi-chain-seed.mjs | export function parseArgs(argv) {
 - Script scripts/closeout-prep-brief-evals.mjs | scripts/closeout-prep-brief-evals.mjs | #!/usr/bin/env node
 - Script scripts/code-synthetic-council-audit.mjs | scripts/code-synthetic-council-audit.mjs | #!/usr/bin/env node
 - Script scripts/dedupe-outreach-logs.mjs | scripts/dedupe-outreach-logs.mjs | import 'dotenv/config'
 - Script scripts/deep-dive-technical-debt-audit.mjs | scripts/deep-dive-technical-debt-audit.mjs | #!/usr/bin/env node
 - Script scripts/depitch-queued-outreach.mjs | scripts/depitch-queued-outreach.mjs | Load env files in Next.js-like precedence for local script runs.
 - Script scripts/email-council-weekly-report.mjs | scripts/email-council-weekly-report.mjs | #!/usr/bin/env node
-- Script scripts/emi-postdeploy-smoke.mjs | scripts/emi-postdeploy-smoke.mjs | #!/usr/bin/env node
+- Script scripts/emi-postdeploy-smoke.mjs | scripts/emi-postdeploy-smoke.mjs | eslint-disable-next-line no-await-in-loop
 - Script scripts/eval-guide-retrieval.ts | scripts/eval-guide-retrieval.ts | import { promises as fs } from 'fs'
 - Script scripts/evals-ci-check.mjs | scripts/evals-ci-check.mjs | #!/usr/bin/env node
 - Script scripts/evals-doctor.mjs | scripts/evals-doctor.mjs | #!/usr/bin/env node
@@ -806,6 +811,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/export-growth-weekly-metrics.mjs | scripts/export-growth-weekly-metrics.mjs | #!/usr/bin/env node
 - Script scripts/export-pmf-daily-dashboard.mjs | scripts/export-pmf-daily-dashboard.mjs | #!/usr/bin/env node
 - Script scripts/export-prep-brief-golden-set.mjs | scripts/export-prep-brief-golden-set.mjs | #!/usr/bin/env node
+- Script scripts/export-relationship-kpi-chain.mjs | scripts/export-relationship-kpi-chain.mjs | export function safeRate(numerator, denominator) {
 - Script scripts/export-report-pdfs.mjs | scripts/export-report-pdfs.mjs | Branded full-fidelity PDF for downloads.
 - Script scripts/export-weekly-route-variant-readout.mjs | scripts/export-weekly-route-variant-readout.mjs | #!/usr/bin/env node
 - Script scripts/fix-billing-placeholder-sql.mjs | scripts/fix-billing-placeholder-sql.mjs | #!/usr/bin/env node
@@ -862,6 +868,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/seed-demo.ts | scripts/seed-demo.ts | Create or find the demo user
 - Script scripts/seed-events-dc.mjs | scripts/seed-events-dc.mjs | One-time seed: Events DC company + Carmen Rodgers contact + follow-up reminder
 - Script scripts/seed-prep-brief-eval-traces.mjs | scripts/seed-prep-brief-eval-traces.mjs | #!/usr/bin/env node
+- Script scripts/seed-relationship-kpi-chain.mjs | scripts/seed-relationship-kpi-chain.mjs | #!/usr/bin/env node
 - Script scripts/seed-social-calendar.ts | scripts/seed-social-calendar.ts | Replace future unposted queue so /social reflects the new multi-audience calendar.
 - Script scripts/send-liz-linkedin-company-launch-email.mjs | scripts/send-liz-linkedin-company-launch-email.mjs | import { config } from 'dotenv'
 - Script scripts/set-railway-vars.mjs | scripts/set-railway-vars.mjs | Reads .env.local and sets each non-empty var on the linked Railway service.
@@ -918,7 +925,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (151)
+## Data and Migrations (152)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -1070,8 +1077,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
+- Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
 
-## Documentation (643)
+## Documentation (645)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1386,6 +1394,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
 - Doc docs/jira/luxury-modern-sitewide-elevation-import-README.md | docs/jira/luxury-modern-sitewide-elevation-import-README.md | Luxury-Modern Sitewide Elevation Jira Import (Ready)
+- Doc docs/jira/non-executive-landing-remediation-import-2026-06-19-README.md | docs/jira/non-executive-landing-remediation-import-2026-06-19-README.md | Non-Executive Landing Remediation Jira Import (2026-06-19)
 - Doc docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | docs/jira/white-label-transition-mvp-import-2026-06-16-README.md | White-Label Transition MVP Jira Import (Ready)
 - Doc docs/knowledge/first-principles-repository.md | docs/knowledge/first-principles-repository.md | First Principles Repository
 - Doc docs/knowledge/mental-models-top-300.md | docs/knowledge/mental-models-top-300.md | Top 300 Mental Models Repository
@@ -1406,6 +1415,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/mobile-ui-remediation-spec.md | docs/mobile-ui-remediation-spec.md | Mobile UI Remediation Spec (Sprint 1)
 - Doc docs/mobile-ui-rubric.md | docs/mobile-ui-rubric.md | Mobile UI Rubric and Required Tests
 - Doc docs/mobile-ux-contract.md | docs/mobile-ux-contract.md | Mobile UX Contract
+- Doc docs/non-executive-landing-remediation-backlog.md | docs/non-executive-landing-remediation-backlog.md | Non-Executive Landing Remediation Backlog
 - Doc docs/nyt-submission-template.md | docs/nyt-submission-template.md | NYT Submission Template
 - Doc docs/offer-negotiation-guide.md | docs/offer-negotiation-guide.md | The Offer Negotiation Guide
 - Doc docs/onboarding-guide.md | docs/onboarding-guide.md | Starting Monday — Onboarding Guide
