@@ -1,5 +1,5 @@
 import { timingSafeEqual } from 'crypto'
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { checkRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
@@ -77,6 +77,48 @@ function tokensMatch(actual: string, expected: string): boolean {
   }
 }
 
+type AutomationRouteModule = {
+  POST: (request: NextRequest) => Promise<Response>
+}
+
+const routeImporters: Record<string, () => Promise<AutomationRouteModule>> = {
+  '/api/admin/automation/reporting/weekly-kpi-summaries': () => import('@/app/api/admin/automation/reporting/weekly-kpi-summaries/route'),
+  '/api/admin/automation/reporting/emi-validation-reruns': () => import('@/app/api/admin/automation/reporting/emi-validation-reruns/route'),
+  '/api/admin/automation/reporting/proof-asset-publisher': () => import('@/app/api/admin/automation/reporting/proof-asset-publisher/route'),
+  '/api/admin/automation/reporting/tier1-claim-compliance-audit': () => import('@/app/api/admin/automation/reporting/tier1-claim-compliance-audit/route'),
+  '/api/admin/automation/reporting/sprint-5-exit-metrics': () => import('@/app/api/admin/automation/reporting/sprint-5-exit-metrics/route'),
+  '/api/admin/automation/reporting/gtm-proof-sequence': () => import('@/app/api/admin/automation/reporting/gtm-proof-sequence/route'),
+  '/api/admin/automation/reporting/q4-cadence-automation': () => import('@/app/api/admin/automation/reporting/q4-cadence-automation/route'),
+  '/api/admin/automation/reporting/capstone-report-generation': () => import('@/app/api/admin/automation/reporting/capstone-report-generation/route'),
+  '/api/admin/automation/reporting/success-criteria-audit-automation': () => import('@/app/api/admin/automation/reporting/success-criteria-audit-automation/route'),
+  '/api/admin/automation/reporting/top10-objection-kpi-dashboard': () => import('@/app/api/admin/automation/reporting/top10-objection-kpi-dashboard/route'),
+  '/api/admin/automation/reporting/emi-slo-monitoring-alerts': () => import('@/app/api/admin/automation/reporting/emi-slo-monitoring-alerts/route'),
+}
+
+function buildAutomationHeaders(automationToken: string, automationUserId: string): HeadersInit {
+  return {
+    'content-type': 'application/json',
+    authorization: `Bearer ${automationToken}`,
+    'x-automation-service-token': automationToken,
+    'x-automation-user-id': automationUserId,
+  }
+}
+
+async function parseRouteResponse(response: Response): Promise<{ status: number; body: any; rawBody: string }> {
+  const rawBody = await response.text()
+  let parsed: any = null
+  try {
+    parsed = JSON.parse(rawBody)
+  } catch {
+    parsed = null
+  }
+  return {
+    status: response.status,
+    body: parsed,
+    rawBody: rawBody.slice(0, 500),
+  }
+}
+
 async function postInternal(
   request: NextRequest,
   path: string,
@@ -88,28 +130,27 @@ async function postInternal(
     throw new Error('Automation service identity is not configured')
   }
 
+  const importer = routeImporters[path]
+  if (importer) {
+    const mod = await importer()
+    const syntheticRequest = new NextRequest(new URL(path, request.url), {
+      method: 'POST',
+      headers: buildAutomationHeaders(automationToken, automationUserId),
+      body: JSON.stringify(payload),
+    })
+    const response = await mod.POST(syntheticRequest)
+    return parseRouteResponse(response)
+  }
+
   const url = `${internalBaseUrl(request)}${path}`
   const res = await fetch(url, {
     method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      authorization: `Bearer ${automationToken}`,
-      'x-automation-service-token': automationToken,
-      'x-automation-user-id': automationUserId,
-    },
+    headers: buildAutomationHeaders(automationToken, automationUserId),
     body: JSON.stringify(payload),
     cache: 'no-store',
   })
 
-  const rawBody = await res.text()
-  let parsed: any = null
-  try {
-    parsed = JSON.parse(rawBody)
-  } catch {
-    parsed = null
-  }
-
-  return { status: res.status, body: parsed, rawBody: rawBody.slice(0, 500) }
+  return parseRouteResponse(res)
 }
 
 function unauthorizedResponse(): NextResponse {
