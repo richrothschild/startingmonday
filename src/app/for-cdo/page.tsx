@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     'chief digital officer search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search',
+    title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search Campaign Infrastructure',
     description: 'Digital transformation mandates are being absorbed, restructured, and redefined. The CDO who wins knows exactly which mandate they are walking into.',
     url: 'https://startingmonday.app/for-cdo',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CDOs - Chief Digital Officer Search',
+    title: 'Starting Monday for C-suite digital leaders - Chief Digital Officer Search Campaign Infrastructure',
     description: 'Digital transformation mandates are being absorbed, restructured, and redefined. Know the mandate before the first conversation.',
   },
   alternates: {

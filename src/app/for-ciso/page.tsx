@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     'CISO search strategy',
   ],
   openGraph: {
-    title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
+    title: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
     description: 'Many CISO mandates open after a wake-up call. Be in position before the search is authorized.',
     url: 'https://startingmonday.app/for-ciso',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
+    title: 'Starting Monday for CISOs - Chief Information Security Officer Search Infrastructure',
     description: 'Many CISO mandates open after a wake-up call. Be in position before the search is authorized.',
   },
   alternates: {
