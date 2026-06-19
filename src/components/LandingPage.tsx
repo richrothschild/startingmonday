@@ -405,6 +405,39 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </TrackLink>
             </div>
 
+            {isHomePage && homepageRolePathLinks.length > 0 && (
+              <section
+                className="mb-8 rounded-[1.5rem] border border-white/12 bg-white/[0.05] p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)]"
+                aria-labelledby="homepage-leadership-roles-title"
+              >
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">New leadership role paths</p>
+                <h2 id="homepage-leadership-roles-title" className="mb-2 text-[20px] font-bold leading-snug text-white sm:text-[22px]">
+                  Go directly to the role path that matches your next move.
+                </h2>
+                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-200/90">
+                  We now have dedicated paths for CIO/CTO, VP Technology, CISO, Chief Data Officer, Chief Product Officer, and COO transitions.
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {homepageRolePathLinks.map((item) => (
+                    <TrackLink
+                      key={item.ctaKey}
+                      href={item.href}
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: item.channel,
+                        cta_label: `hero_role_path_${item.ctaKey}`,
+                        source_page: '/',
+                      }}
+                      className="inline-flex min-h-[44px] items-center rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/60 hover:text-white"
+                    >
+                      {item.label}
+                    </TrackLink>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {proofHighlights && proofHighlights.length > 0 && (
               <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
                 <span className="font-semibold text-orange-200">Proof:</span> Executives maintain disciplined narratives and enter conversations grounded in company context.

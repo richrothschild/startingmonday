@@ -368,7 +368,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(result, { status: 200 })
     }
 
-    return NextResponse.json(result, { status: 502 })
+    console.warn('[internal.automation.emi-smoke] validation failed', {
+      failureCount: failures.length,
+      failures,
+    })
+
+    // Keep response JSON parseable through edge/CDN layers so CI can report exact failing checks.
+    return NextResponse.json(result, { status: 200 })
   } catch (error) {
     console.error('[internal.automation.emi-smoke] request failed', error)
     return NextResponse.json({ error: 'Internal server error', diagnostics }, { status: 500 })

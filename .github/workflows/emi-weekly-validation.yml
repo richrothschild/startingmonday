@@ -52,7 +52,7 @@ jobs:
         if: always()
         run: |
           if [ -f emi-weekly-validation.json ]; then
-            node -e "
+            node <<'NODE'
             const fs = require('fs')
             const data = JSON.parse(fs.readFileSync('emi-weekly-validation.json', 'utf8'))
             const lines = [
@@ -77,7 +77,7 @@ jobs:
               `| nullStreakCount | ${String(data.nullStreakCount ?? 'n/a')} |`,
             ]
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n')
-            "
+            NODE
           else
             echo "No validation artifact produced" >> "$GITHUB_STEP_SUMMARY"
           fi
