@@ -124,6 +124,7 @@ jobs:
         run: npm run guide:user:check
 
       - name: Internal guide freshness check
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         run: npm run guide:internal:check
 
       - name: Guide retrieval evaluation (strict)

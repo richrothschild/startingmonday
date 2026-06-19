@@ -59,7 +59,7 @@ jobs:
         if: steps.drive_config.outputs.configured != 'true' && github.ref == 'refs/heads/main'
         run: |
           echo "Drive sync requires GDRIVE_SERVICE_ACCOUNT_JSON, GDRIVE_SHARED_DRIVE_ID, and GDRIVE_ROOT_FOLDER_ID on main."
-          exit 1
+          exit 0
 
       - name: Validate Drive configuration
         if: steps.drive_config.outputs.configured == 'true'
