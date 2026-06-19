@@ -1,6 +1,6 @@
 ﻿import { type NextRequest, NextResponse } from 'next/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
-import { timingSafeEqual } from 'crypto'
+import { Webhook } from 'svix'
 import { updateOutreachJobStateFromWebhook } from '@/lib/outreach/send-queue'
 
 type WebhookPayload = {
@@ -37,13 +37,6 @@ function normalizeEmail(email: string | undefined | null): string {
   return (email ?? '').trim().toLowerCase()
 }
 
-function safeJson(body: string): WebhookPayload | null {
-  try {
-    return JSON.parse(body) as WebhookPayload
-  } catch {
-    return null
-  }
-}
 
 function isBounceType(eventType: string): boolean {
   return eventType === 'email.bounced' || eventType === 'email.complained'
@@ -57,26 +50,26 @@ function isUnsubscribeType(eventType: string): boolean {
   return eventType === 'email.unsubscribed' || eventType === 'unsubscribe.created'
 }
 
-function secretsMatch(actual: string, expected: string): boolean {
-  try {
-    const left = Buffer.from(actual)
-    const right = Buffer.from(expected)
-    if (left.length !== right.length) return false
-    return timingSafeEqual(left, right)
-  } catch {
-    return false
-  }
-}
-
 export async function POST(request: NextRequest) {
-  const secret = request.headers.get('x-webhook-secret') ?? ''
-  const expected = process.env.RESEND_WEBHOOK_SECRET ?? ''
-  if (!expected || !secret || !secretsMatch(secret, expected)) {
-    return NextResponse.json({ error: 'Invalid webhook secret' }, { status: 401 })
+  const webhookSecret = process.env.RESEND_WEBHOOK_SECRET ?? ''
+  if (!webhookSecret) {
+    return NextResponse.json({ error: 'Webhook secret not configured' }, { status: 500 })
   }
 
   const rawBody = await request.text()
-  const payload = safeJson(rawBody)
+
+  let payload: WebhookPayload
+  try {
+    const wh = new Webhook(webhookSecret)
+    payload = wh.verify(rawBody, {
+      'svix-id': request.headers.get('svix-id') ?? '',
+      'svix-timestamp': request.headers.get('svix-timestamp') ?? '',
+      'svix-signature': request.headers.get('svix-signature') ?? '',
+    }) as WebhookPayload
+  } catch {
+    return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 401 })
+  }
+
   if (!payload?.type) {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 })
   }

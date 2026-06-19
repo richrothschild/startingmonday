@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T22:17:53.717Z",
+  "generatedAt": "2026-06-19T23:00:38.498Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T22:06:52.889Z"
+      "lastModifiedAt": "2026-06-19T22:59:28.770Z"
     },
     {
       "id": "feature:/login",
@@ -6616,7 +6616,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-10T19:09:50.196Z"
+      "lastModifiedAt": "2026-06-19T22:59:00.197Z"
     },
     {
       "id": "api:/api/webhooks/stripe",
@@ -9931,7 +9931,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T04:20:25.282Z"
+      "lastModifiedAt": "2026-06-19T23:00:04.763Z"
     },
     {
       "id": "script:scripts/check-key-funnel-visual-darkness-gate.mjs",
@@ -10282,7 +10282,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T22:06:52.899Z"
+      "lastModifiedAt": "2026-06-19T22:59:00.195Z"
     },
     {
       "id": "script:scripts/check-variant-null-rate-alerts.mjs",
@@ -18052,7 +18052,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T22:06:52.889Z"
+      "lastModifiedAt": "2026-06-19T22:59:28.770Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18091,7 +18091,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T22:06:52.889Z"
+      "lastModifiedAt": "2026-06-19T22:59:28.770Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22290,7 +22290,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T22:06:52.896Z"
+      "lastModifiedAt": "2026-06-19T22:59:26.481Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

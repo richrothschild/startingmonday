@@ -45,8 +45,8 @@ const SPECS = [
 			},
 			{
 				id: 'conversion-primary-cta',
-				description: 'Primary homepage CTA remains Start Now.',
-				matcher: /<TrackLink[\s\S]*?>[\s\S]*Start Now[\s\S]*<\/TrackLink>/,
+				description: 'Homepage shows audience path-selection section.',
+				matcher: 'homepage-path-title',
 			},
 			{
 				id: 'content-economy-chart-title',
@@ -65,18 +65,18 @@ const SPECS = [
 			},
 			{
 				id: 'discoverability-footer-role-path-grid',
-				description: 'Homepage preserves footer role-path grid heading.',
-				matcher: 'Footer role-path grid',
+				description: 'Homepage exposes path-selection entry for leaders.',
+				matcher: 'For leaders',
 			},
 			{
 				id: 'discoverability-executive-role-path-links',
-				description: 'Homepage footer exposes key executive role-path links.',
-				matcher: /\/for-cio[\s\S]*\/for-vp-technology[\s\S]*\/for-ciso/,
+				description: 'Homepage exposes executive and rising-leaders paths.',
+				matcher: /\/for-executives[\s\S]*\/for-vp-technology/,
 			},
 			{
 				id: 'discoverability-partner-role-path-links',
-				description: 'Homepage footer exposes partner path links.',
-				matcher: /\/for-pe-partners[\s\S]*\/search-firms/,
+				description: 'Homepage exposes partner-channel paths.',
+				matcher: 'homepage_partner_path',
 			},
 		],
 	},
