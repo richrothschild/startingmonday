@@ -658,15 +658,17 @@ test('Synthetic-10: signup to first-value flow reaches prep generation path', as
   await page.goto('/signup', { waitUntil: 'load' })
   await page.locator('#email').fill(String(email))
   await page.locator('#password').fill(String(password))
-  const termsCheckbox = page.getByRole('checkbox', { name: /terms and conditions/i })
+  const termsCheckbox = page.locator('label:has-text("Terms and Conditions") input[type="checkbox"]').first()
   if (await termsCheckbox.count()) {
     await termsCheckbox.check()
   }
-  const privacyCheckbox = page.getByRole('checkbox', { name: /privacy policy/i })
+  const privacyCheckbox = page.locator('label:has-text("Privacy Policy") input[type="checkbox"]').first()
   if (await privacyCheckbox.count()) {
     await privacyCheckbox.check()
   }
-  await page.getByRole('button', { name: /Get started|Create account/i }).click()
+  const signupButton = page.getByRole('button', { name: /Get started|Create account/i })
+  await expect(signupButton, 'Synthetic-10 signup button remained disabled; required consent controls may not be satisfied.').toBeEnabled({ timeout: 10_000 })
+  await signupButton.click()
 
   // Two acceptable auth outcomes in this environment:
   // 1) session established immediately -> onboarding/dashboard

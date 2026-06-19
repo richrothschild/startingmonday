@@ -380,7 +380,11 @@ jobs:
           if [ "${{ github.head_ref }}" = "staging" ] || [ "${{ github.ref }}" = "refs/heads/staging" ]; then
             echo "playwright_base_url=https://starting-monday-staging.up.railway.app" >> "$GITHUB_OUTPUT"
           else
-            echo "playwright_base_url=${{ secrets.PLAYWRIGHT_BASE_URL }}" >> "$GITHUB_OUTPUT"
+            resolved_base_url="${{ secrets.PLAYWRIGHT_BASE_URL }}"
+            if [ -z "$resolved_base_url" ]; then
+              resolved_base_url="https://starting-monday-staging.up.railway.app"
+            fi
+            echo "playwright_base_url=$resolved_base_url" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build changed-files matrix

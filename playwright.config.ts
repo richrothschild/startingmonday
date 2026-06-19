@@ -4,6 +4,8 @@ import path from 'path'
 
 dotenv.config({ path: path.resolve(__dirname, '.env.local') })
 
+const configuredBaseURL = (process.env.PLAYWRIGHT_BASE_URL ?? '').trim()
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 45_000,
@@ -12,7 +14,7 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   snapshotPathTemplate: 'tests/e2e/__screenshots__/{arg}{ext}',
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'https://startingmonday.app',
+    baseURL: configuredBaseURL || 'https://startingmonday.app',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

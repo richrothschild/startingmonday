@@ -36,6 +36,17 @@
       "rollbackPath": "Revert PR #128 to restore previous pricing and for-coaches pages",
       "killSwitch": "Revert src/lib/pricing.ts to previous plan names and values",
       "startedAt": "2026-06-18"
+    },
+    {
+      "id": "ci-playwright-hardening-2026-06",
+      "description": "Harden Playwright base URL fallback and deterministic signup consent in CI synthetic tests",
+      "paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert the ci.yml, playwright.config.ts, and synthetics.spec.ts changes from PR #137",
+      "killSwitch": "Revert .github/workflows/ci.yml to the previous Playwright base URL configuration",
+      "startedAt": "2026-06-19"
     }
   ]
 }
