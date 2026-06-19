@@ -29,6 +29,10 @@
 .DS_Store
 *.pem
 
+# Office temp lock files and local working docs
+~$*
+docs/development/Build-fixes.xlsx
+
 # debug
 npm-debug.log*
 yarn-debug.log*
