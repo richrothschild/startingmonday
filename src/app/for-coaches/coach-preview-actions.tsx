@@ -22,7 +22,7 @@ export function CoachPreviewActions() {
         properties={EVENT_PROPERTIES}
         className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
       >
-        Start a 30-day coach pilot
+        Request the coach preview
       </TrackLink>
       <TrackLink
         href="/demo?full=1"
