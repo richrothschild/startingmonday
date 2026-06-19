@@ -184,6 +184,16 @@ export async function POST(request: NextRequest) {
       '/api/admin/automation/reporting/success-criteria-audit-automation',
       sharedPayload,
     )
+    const objectionDashboard = await postInternal(
+      request,
+      '/api/admin/automation/reporting/top10-objection-kpi-dashboard',
+      sharedPayload,
+    )
+    const sloMonitoring = await postInternal(
+      request,
+      '/api/admin/automation/reporting/emi-slo-monitoring-alerts',
+      sharedPayload,
+    )
 
     const failures: string[] = []
     if (weekly.status !== 200 || weekly.body?.ok !== true) {
@@ -217,6 +227,12 @@ export async function POST(request: NextRequest) {
     if (successCriteriaAudit.status !== 200 || successCriteriaAudit.body?.ok !== true) {
       failures.push(`success-criteria-audit-automation failed status=${successCriteriaAudit.status} body=${successCriteriaAudit.rawBody}`)
     }
+    if (objectionDashboard.status !== 200 || objectionDashboard.body?.ok !== true) {
+      failures.push(`top10-objection-kpi-dashboard failed status=${objectionDashboard.status} body=${objectionDashboard.rawBody}`)
+    }
+    if (sloMonitoring.status !== 200 || sloMonitoring.body?.ok !== true) {
+      failures.push(`emi-slo-monitoring-alerts failed status=${sloMonitoring.status} body=${sloMonitoring.rawBody}`)
+    }
 
     const result = {
       ok: failures.length === 0,
@@ -229,6 +245,8 @@ export async function POST(request: NextRequest) {
       q4CadenceRunId: q4Cadence.body?.runId ?? null,
       capstoneReportRunId: capstoneReport.body?.runId ?? null,
       successCriteriaAuditRunId: successCriteriaAudit.body?.runId ?? null,
+      objectionDashboardRunId: objectionDashboard.body?.runId ?? null,
+      sloMonitoringRunId: sloMonitoring.body?.runId ?? null,
       validationStatus: validation.body?.status ?? null,
       mismatchCount: validation.body?.mismatchCount ?? null,
       nullStreakCount: validation.body?.nullStreakCount ?? null,
@@ -243,6 +261,8 @@ export async function POST(request: NextRequest) {
         q4Cadence,
         capstoneReport,
         successCriteriaAudit,
+        objectionDashboard,
+        sloMonitoring,
       },
     }
 

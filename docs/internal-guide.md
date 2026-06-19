@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-19T00:55:12.157Z
+Last generated: 2026-06-19T01:33:07.412Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -225,7 +225,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (280)
+## API Surface (282)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -276,6 +276,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/reporting/cohort-roster-model | src/app/api/admin/automation/reporting/cohort-roster-model/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/council-review-prep | src/app/api/admin/automation/reporting/council-review-prep/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/daily-operating-snapshots | src/app/api/admin/automation/reporting/daily-operating-snapshots/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/emi-slo-monitoring-alerts | src/app/api/admin/automation/reporting/emi-slo-monitoring-alerts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/emi-validation-reruns | src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts | Updated to the latest published production baseline set used for EMI rerun drift checks.
 - API /api/admin/automation/reporting/exception-lists | src/app/api/admin/automation/reporting/exception-lists/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/gtm-proof-sequence | src/app/api/admin/automation/reporting/gtm-proof-sequence/route.ts | export async function POST(request: NextRequest) {
@@ -304,6 +305,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/reporting/success-criteria-audit-automation | src/app/api/admin/automation/reporting/success-criteria-audit-automation/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/template-adoption-scorecard | src/app/api/admin/automation/reporting/template-adoption-scorecard/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/tier1-claim-compliance-audit | src/app/api/admin/automation/reporting/tier1-claim-compliance-audit/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/top10-objection-kpi-dashboard | src/app/api/admin/automation/reporting/top10-objection-kpi-dashboard/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/trend-reports | src/app/api/admin/automation/reporting/trend-reports/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/value-lane-pricing-entitlements | src/app/api/admin/automation/reporting/value-lane-pricing-entitlements/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/weekly-kpi-summaries | src/app/api/admin/automation/reporting/weekly-kpi-summaries/route.ts | export async function POST(request: NextRequest) {

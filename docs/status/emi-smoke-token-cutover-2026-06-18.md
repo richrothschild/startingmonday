@@ -26,6 +26,8 @@ Ticket: docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md
    - `/api/admin/automation/reporting/tier1-claim-compliance-audit`
    - `/api/admin/automation/reporting/sprint-5-exit-metrics`
    - `/api/admin/automation/reporting/gtm-proof-sequence`
+   - `/api/admin/automation/reporting/top10-objection-kpi-dashboard`
+   - `/api/admin/automation/reporting/emi-slo-monitoring-alerts`
    - `/api/admin/automation/reporting/q4-cadence-automation`
    - `/api/admin/automation/reporting/capstone-report-generation`
    - `/api/admin/automation/reporting/success-criteria-audit-automation`

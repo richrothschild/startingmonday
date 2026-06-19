@@ -70,6 +70,8 @@ jobs:
               `| Q4 cadence run id | ${data.q4CadenceRunId ?? 'n/a'} |`,
               `| Capstone run id | ${data.capstoneReportRunId ?? 'n/a'} |`,
               `| Success criteria audit run id | ${data.successCriteriaAuditRunId ?? 'n/a'} |`,
+              `| Objection dashboard run id | ${data.objectionDashboardRunId ?? 'n/a'} |`,
+              `| SLO monitoring run id | ${data.sloMonitoringRunId ?? 'n/a'} |`,
               `| Validation status | ${data.validationStatus ?? 'n/a'} |`,
               `| mismatchCount | ${String(data.mismatchCount ?? 'n/a')} |`,
               `| nullStreakCount | ${String(data.nullStreakCount ?? 'n/a')} |`,

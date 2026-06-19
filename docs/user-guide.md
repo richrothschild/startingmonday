@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-19T00:55:09.375Z
+Last generated: 2026-06-19T01:33:04.251Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -207,7 +207,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (280)
+## API and Automation (282)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -258,6 +258,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/reporting/cohort-roster-model](/api/admin/automation/reporting/cohort-roster-model) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/council-review-prep](/api/admin/automation/reporting/council-review-prep) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/daily-operating-snapshots](/api/admin/automation/reporting/daily-operating-snapshots) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/emi-slo-monitoring-alerts](/api/admin/automation/reporting/emi-slo-monitoring-alerts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/emi-validation-reruns](/api/admin/automation/reporting/emi-validation-reruns) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/exception-lists](/api/admin/automation/reporting/exception-lists) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/gtm-proof-sequence](/api/admin/automation/reporting/gtm-proof-sequence) - Programmatic endpoint available for platform behavior or integrations.
@@ -286,6 +287,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/reporting/success-criteria-audit-automation](/api/admin/automation/reporting/success-criteria-audit-automation) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/template-adoption-scorecard](/api/admin/automation/reporting/template-adoption-scorecard) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/tier1-claim-compliance-audit](/api/admin/automation/reporting/tier1-claim-compliance-audit) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/top10-objection-kpi-dashboard](/api/admin/automation/reporting/top10-objection-kpi-dashboard) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/trend-reports](/api/admin/automation/reporting/trend-reports) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/value-lane-pricing-entitlements](/api/admin/automation/reporting/value-lane-pricing-entitlements) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/weekly-kpi-summaries](/api/admin/automation/reporting/weekly-kpi-summaries) - Programmatic endpoint available for platform behavior or integrations.

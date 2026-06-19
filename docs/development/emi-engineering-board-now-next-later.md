@@ -10,6 +10,12 @@ One-week pull plan:
 
 This board converts the EMI development ticket register into execution lanes with sequencing constraints and balanced owner workload.
 
+Current status snapshot:
+
+1. Completed named work: DEV-EMI-407, DEV-EMI-409, DEV-EMI-501, DEV-EMI-502, DEV-EMI-503, DEV-EMI-504, DEV-EMI-505, DEV-EMI-410, DEV-EMI-601, DEV-EMI-602, DEV-EMI-603, DEV-EMI-604, DEV-EMI-605, DEV-EMI-606.
+2. Remaining named work: none in the current EMI closure set.
+3. Everything else in the current series is complete; any new work belongs to later-cycle backlog or a new execution series.
+
 Effort points used for balancing:
 
 1. XS = 1

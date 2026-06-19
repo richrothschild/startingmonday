@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T00:55:12.157Z",
+  "generatedAt": "2026-06-19T01:33:07.412Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T00:50:19.253Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.070Z"
     },
     {
       "id": "feature:/login",
@@ -40,7 +40,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T21:53:12.373Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.092Z"
     },
     {
       "id": "feature:/dashboard/admin/b2b/new",
@@ -348,7 +348,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.510Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.094Z"
     },
     {
       "id": "feature:/dashboard/admin/product/catalog",
@@ -824,7 +824,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:11:44.687Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.096Z"
     },
     {
       "id": "feature:/dashboard",
@@ -992,7 +992,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T21:53:12.375Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.098Z"
     },
     {
       "id": "feature:/dashboard/strategy",
@@ -1076,7 +1076,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.505Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.099Z"
     },
     {
       "id": "feature:/annual-report-2026/executive-search-ai-confidentiality",
@@ -1636,7 +1636,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.509Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.159Z"
     },
     {
       "id": "feature:/concierge",
@@ -1706,7 +1706,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.509Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.160Z"
     },
     {
       "id": "feature:/demo/executive-brief",
@@ -1902,7 +1902,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.506Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.162Z"
     },
     {
       "id": "feature:/features",
@@ -1944,7 +1944,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:45:58.926Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.163Z"
     },
     {
       "id": "feature:/for-chro",
@@ -1986,7 +1986,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:45:47.360Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.165Z"
     },
     {
       "id": "feature:/for-ciso",
@@ -2000,7 +2000,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:46:02.716Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.166Z"
     },
     {
       "id": "feature:/for-coaches/coach-prep-worksheet",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:43:56.665Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.168Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -2098,7 +2098,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:55:03.440Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.169Z"
     },
     {
       "id": "feature:/for-coo",
@@ -2112,7 +2112,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:46:09.571Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.170Z"
     },
     {
       "id": "feature:/for-cpo",
@@ -2126,7 +2126,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:46:05.646Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.172Z"
     },
     {
       "id": "feature:/for-data-officer",
@@ -2140,7 +2140,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:45:56.294Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.173Z"
     },
     {
       "id": "feature:/for-executives",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.508Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.175Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2322,7 +2322,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:55:06.962Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.177Z"
     },
     {
       "id": "feature:/for-pe-partners",
@@ -2392,7 +2392,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:45:51.130Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.178Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2644,7 +2644,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.505Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.181Z"
     },
     {
       "id": "feature:/outplacement/personas",
@@ -2756,7 +2756,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T21:53:12.375Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.182Z"
     },
     {
       "id": "feature:/proof/roi-calculator",
@@ -2882,7 +2882,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.506Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.184Z"
     },
     {
       "id": "feature:/terms",
@@ -2896,7 +2896,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T21:53:12.374Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.185Z"
     },
     {
       "id": "feature:/terry-anderson-review",
@@ -2910,7 +2910,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T22:26:22.507Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.186Z"
     },
     {
       "id": "feature:/unsubscribe/confirmed",
@@ -3392,7 +3392,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T20:41:07.102Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.100Z"
     },
     {
       "id": "api:/api/admin/automation/outreach/book-from-replies",
@@ -3535,7 +3535,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.747Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.103Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/cohort-roster-model",
@@ -3577,6 +3577,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.539Z"
     },
     {
+      "id": "api:/api/admin/automation/reporting/emi-slo-monitoring-alerts",
+      "title": "API /api/admin/automation/reporting/emi-slo-monitoring-alerts",
+      "body": "export async function POST(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/automation/reporting/emi-slo-monitoring-alerts/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-19T01:31:40.369Z"
+    },
+    {
       "id": "api:/api/admin/automation/reporting/emi-validation-reruns",
       "title": "API /api/admin/automation/reporting/emi-validation-reruns",
       "body": "Updated to the latest published production baseline set used for EMI rerun drift checks.",
@@ -3587,7 +3600,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:08:42.408Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.105Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/exception-lists",
@@ -3613,7 +3626,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.746Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.107Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/intelligence-qa-scorecard",
@@ -3795,7 +3808,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.744Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.127Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/provisioning-sla-qa",
@@ -3821,7 +3834,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.747Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.129Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/seat-lifecycle-automation",
@@ -3899,7 +3912,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.748Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.131Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/success-criteria-audit-automation",
@@ -3912,7 +3925,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.747Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.133Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/template-adoption-scorecard",
@@ -3938,7 +3951,20 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.746Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.135Z"
+    },
+    {
+      "id": "api:/api/admin/automation/reporting/top10-objection-kpi-dashboard",
+      "title": "API /api/admin/automation/reporting/top10-objection-kpi-dashboard",
+      "body": "export async function POST(request: NextRequest) {",
+      "type": "api",
+      "ref": "src/app/api/admin/automation/reporting/top10-objection-kpi-dashboard/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-19T01:31:40.368Z"
     },
     {
       "id": "api:/api/admin/automation/reporting/trend-reports",
@@ -4068,7 +4094,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T20:41:07.104Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.137Z"
     },
     {
       "id": "api:/api/admin/b2b/material",
@@ -4991,7 +5017,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T20:41:07.104Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.139Z"
     },
     {
       "id": "api:/api/cron/edgar-watchdog",
@@ -5680,7 +5706,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.743Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.369Z"
     },
     {
       "id": "api:/api/invite",
@@ -5823,7 +5849,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:08:42.409Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.142Z"
     },
     {
       "id": "api:/api/onboarding/intel",
@@ -5888,7 +5914,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T22:26:22.510Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.144Z"
     },
     {
       "id": "api:/api/outreach/send/batch-status",
@@ -5914,7 +5940,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T22:11:44.684Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.145Z"
     },
     {
       "id": "api:/api/outreach/status",
@@ -5927,7 +5953,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T22:11:44.688Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.146Z"
     },
     {
       "id": "api:/api/outreach/suppression",
@@ -6304,7 +6330,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T21:53:12.370Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.147Z"
     },
     {
       "id": "api:/api/role-lane/tutorials",
@@ -6317,7 +6343,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T21:53:12.375Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.149Z"
     },
     {
       "id": "api:/api/salary-intelligence",
@@ -6356,7 +6382,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T20:41:07.102Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.151Z"
     },
     {
       "id": "api:/api/strategy/followup",
@@ -7344,7 +7370,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T21:53:12.370Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.188Z"
     },
     {
       "id": "code:src/lib/executive-brief-knowledge.ts",
@@ -7578,7 +7604,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:41:07.102Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.189Z"
     },
     {
       "id": "code:src/lib/intelligence.test.ts",
@@ -7955,7 +7981,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T22:26:22.510Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.190Z"
     },
     {
       "id": "code:src/lib/outreach/legacy-copy-guard.test.ts",
@@ -8345,7 +8371,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T21:53:12.373Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.191Z"
     },
     {
       "id": "code:src/lib/post-search-relationship-loop.test.ts",
@@ -8709,7 +8735,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T21:53:12.370Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.191Z"
     },
     {
       "id": "code:src/lib/relationship-targeting.ts",
@@ -8722,7 +8748,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:42:11.446Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.192Z"
     },
     {
       "id": "code:src/lib/require-auth.test.ts",
@@ -8839,7 +8865,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T22:11:44.686Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.193Z"
     },
     {
       "id": "code:src/lib/role-lane-learning.ts",
@@ -8852,7 +8878,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T22:11:44.686Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.194Z"
     },
     {
       "id": "code:src/lib/role-path-priority.test.ts",
@@ -8891,7 +8917,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:41:07.102Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.194Z"
     },
     {
       "id": "code:src/lib/role-taxonomy.ts",
@@ -8904,7 +8930,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:41:07.099Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.195Z"
     },
     {
       "id": "code:src/lib/schemas.test.ts",
@@ -8943,7 +8969,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:42:11.446Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.196Z"
     },
     {
       "id": "code:src/lib/slack.test.ts",
@@ -9255,7 +9281,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-18T20:41:07.098Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.197Z"
     },
     {
       "id": "code:src/lib/supabase/server.test.ts",
@@ -9723,7 +9749,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T22:43:56.665Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.084Z"
     },
     {
       "id": "script:scripts/check-data-integrity.mjs",
@@ -9827,7 +9853,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T23:01:19.866Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.085Z"
     },
     {
       "id": "script:scripts/check-key-funnel-copy-cta-drift.mjs",
@@ -9918,7 +9944,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T22:55:10.145Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.086Z"
     },
     {
       "id": "script:scripts/check-migration-rollback-readiness.mjs",
@@ -10165,7 +10191,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T23:38:04.723Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.087Z"
     },
     {
       "id": "script:scripts/check-untracked-tests.mjs",
@@ -10191,7 +10217,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T22:51:31.251Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.089Z"
     },
     {
       "id": "script:scripts/check-variant-null-rate-alerts.mjs",
@@ -10295,7 +10321,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T00:35:49.744Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.366Z"
     },
     {
       "id": "script:scripts/eval-guide-retrieval.ts",
@@ -11309,7 +11335,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T22:43:56.665Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.047Z"
     },
     {
       "id": "infra:.github/workflows/data-integrity-alerts.yml",
@@ -11387,7 +11413,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T00:35:49.744Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.367Z"
     },
     {
       "id": "infra:.github/workflows/executive-research-weekly.yml",
@@ -11556,7 +11582,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T23:38:04.725Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.048Z"
     },
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
@@ -11595,7 +11621,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T23:38:04.723Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.049Z"
     },
     {
       "id": "infra:.github/workflows/production-synthetics.yml",
@@ -11764,7 +11790,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-18T23:38:04.723Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.050Z"
     },
     {
       "id": "infra:.github/workflows/weekly-mobile-ux.yml",
@@ -13693,7 +13719,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T20:41:07.102Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.199Z"
     },
     {
       "id": "data:supabase/migrations/131_discovery_recommendation_runs.sql",
@@ -13721,7 +13747,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T20:41:07.104Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.199Z"
     },
     {
       "id": "data:supabase/migrations/132_monitoring_alert_state.sql",
@@ -13749,7 +13775,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-18T21:53:12.370Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.200Z"
     },
     {
       "id": "data:supabase/migrations/133_recommendation_ranking_metadata.sql",
@@ -13917,7 +13943,7 @@
         "supabase"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T00:37:38.243Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.201Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -15282,7 +15308,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T23:38:04.723Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.056Z"
     },
     {
       "id": "doc:docs/content/release-note-2026-06-14-pr117-production.md",
@@ -15373,7 +15399,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:35:49.743Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.057Z"
     },
     {
       "id": "doc:docs/content/software-sre-synthetic-council.md",
@@ -16335,7 +16361,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:35:49.744Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.367Z"
     },
     {
       "id": "doc:docs/development/emi-daily-standup-companion-2026-05-25.md",
@@ -16374,7 +16400,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-06T16:52:14.995Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.368Z"
     },
     {
       "id": "doc:docs/development/emi-now-lane-one-week-pull-plan-2026-05-25.md",
@@ -16725,7 +16751,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:08:42.407Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.058Z"
     },
     {
       "id": "doc:docs/diagrams/authentication.md",
@@ -16933,7 +16959,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T22:47:21.118Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.059Z"
     },
     {
       "id": "doc:docs/epic-online-guide-and-chat-2026-05-30.md",
@@ -17778,7 +17804,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T23:01:28.402Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.060Z"
     },
     {
       "id": "doc:docs/growth/weekly-operating-template.md",
@@ -17804,7 +17830,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T23:01:28.402Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.060Z"
     },
     {
       "id": "doc:docs/growth/weekly-readout.latest.md",
@@ -17817,7 +17843,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T23:01:56.533Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.061Z"
     },
     {
       "id": "doc:docs/guide-retrieval-eval.latest.md",
@@ -17908,7 +17934,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:50:19.253Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.069Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17947,7 +17973,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:50:19.253Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.070Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19325,7 +19351,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T21:53:12.375Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.072Z"
     },
     {
       "id": "doc:docs/sales-marketing-plan.md",
@@ -20118,7 +20144,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:35:49.744Z"
+      "lastModifiedAt": "2026-06-19T01:31:40.412Z"
     },
     {
       "id": "doc:docs/status/epic-b-handoff-readme-for-chris-2026-05-30.md",
@@ -20183,7 +20209,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T22:47:17.284Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.075Z"
     },
     {
       "id": "doc:docs/status/monitoring-coverage-matrix.latest.md",
@@ -20573,7 +20599,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-18T23:38:04.725Z"
+      "lastModifiedAt": "2026-06-19T00:56:18.076Z"
     },
     {
       "id": "doc:docs/strategy/emi-sprints/artifacts/sprint-1-content-a-plus-rubric-sheet-2026-05-25.md",
@@ -22133,7 +22159,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T00:55:09.380Z"
+      "lastModifiedAt": "2026-06-19T01:33:04.256Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

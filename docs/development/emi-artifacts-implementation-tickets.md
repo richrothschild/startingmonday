@@ -349,3 +349,22 @@ Estimate legend:
 	- Capstone report generation automation is implemented via `src/app/api/admin/automation/reporting/capstone-report-generation/route.ts` with route tests.
 12. DEV-EMI-505: Completed in repo.
 	- Success criteria audit automation is implemented via `src/app/api/admin/automation/reporting/success-criteria-audit-automation/route.ts` with route tests and threshold scoring.
+13. DEV-EMI-501: Completed in repo.
+	- Top-10 objection KPI dashboard automation is implemented via `src/app/api/admin/automation/reporting/top10-objection-kpi-dashboard/route.ts` with route tests and owner-level alert fan-out.
+14. DEV-EMI-502: Completed in repo.
+	- EMI SLO monitoring and alert routing is implemented via `src/app/api/admin/automation/reporting/emi-slo-monitoring-alerts/route.ts` with route tests and scheduler integration.
+
+## Roadmap Status Snapshot
+
+### Completed named EMI work
+
+1. DEV-EMI-407, DEV-EMI-409, DEV-EMI-501, DEV-EMI-502, DEV-EMI-503, DEV-EMI-504, DEV-EMI-505.
+2. DEV-EMI-410, DEV-EMI-601, DEV-EMI-602, DEV-EMI-603, DEV-EMI-604, DEV-EMI-605, DEV-EMI-606.
+
+### Remaining named EMI work
+
+1. None in the current named EMI roadmap.
+
+### Tracking note
+
+1. The broader EMI roadmap is complete for the current named series; any additional work is later-cycle backlog outside the named closure set.

@@ -72,6 +72,8 @@ function emitSummary(summary) {
   console.log(`q4 cadence run: ${summary.q4CadenceRunId ?? 'n/a'}`)
   console.log(`capstone report run: ${summary.capstoneReportRunId ?? 'n/a'}`)
   console.log(`success criteria audit run: ${summary.successCriteriaAuditRunId ?? 'n/a'}`)
+  console.log(`objection dashboard run: ${summary.objectionDashboardRunId ?? 'n/a'}`)
+  console.log(`slo monitoring run: ${summary.sloMonitoringRunId ?? 'n/a'}`)
   console.log(`validation status=${summary.validationStatus ?? 'n/a'} mismatchCount=${String(summary.mismatchCount)} nullStreakCount=${String(summary.nullStreakCount)}`)
   if (summary.failures?.length) {
     console.log('failures:')
@@ -114,6 +116,15 @@ async function main() {
     baseUrl: BASE_URL,
     weeklyRunId: responseBody.weeklyRunId ?? null,
     validationRunId: responseBody.validationRunId ?? null,
+    proofPublisherRunId: responseBody.proofPublisherRunId ?? null,
+    claimAuditRunId: responseBody.claimAuditRunId ?? null,
+    sprint5ExitRunId: responseBody.sprint5ExitRunId ?? null,
+    gtmProofSequenceRunId: responseBody.gtmProofSequenceRunId ?? null,
+    q4CadenceRunId: responseBody.q4CadenceRunId ?? null,
+    capstoneReportRunId: responseBody.capstoneReportRunId ?? null,
+    successCriteriaAuditRunId: responseBody.successCriteriaAuditRunId ?? null,
+    objectionDashboardRunId: responseBody.objectionDashboardRunId ?? null,
+    sloMonitoringRunId: responseBody.sloMonitoringRunId ?? null,
     validationStatus: responseBody.validationStatus ?? null,
     mismatchCount: responseBody.mismatchCount ?? null,
     nullStreakCount: responseBody.nullStreakCount ?? null,
