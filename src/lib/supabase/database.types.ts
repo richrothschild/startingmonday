@@ -572,6 +572,10 @@ export type Database = {
           momentum_computed_at: string | null
           briefing_email: string | null
           role_type: string | null
+          role_family: string | null
+          role_title: string | null
+          role_seniority: string | null
+          workflow_variant: string | null
           search_persona: string | null
           career_history_json: Json | null
           role_context: Json | null

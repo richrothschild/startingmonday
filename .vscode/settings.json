@@ -1,16 +1,23 @@
 {
 	"files.associations": {
-		".github/workflows/*.yml": "yaml",
-		".github/workflows/*.yaml": "yaml"
+		"**/.github/workflows/*.yml": "yaml",
+		"**/.github/workflows/*.yaml": "yaml"
 	},
 	"yaml.schemas": {
-		"https://json.schemastore.org/github-workflow.json": ".github/workflows/*"
+		"https://json.schemastore.org/github-workflow.json": [
+			".github/workflows/luxury-ux-tiered.yml"
+		]
 	},
+	"mssql.intelliSense.enableErrorChecking": false,
 	"markdownlint.run": "onSave",
 	"markdownlint.lintWorkspaceGlobs": [
 		"**/*.{md,markdown}",
 		"!**/node_modules/**",
 		"!docs/internal-guide.md",
-		"!docs/user-guide.md"
+		"!docs/user-guide.md",
+		"!docs/**/*.latest.md",
+		"!docs/**/*audit*.md",
+		"!docs/**/*waiver*.md",
+		"!docs/strategy/**"
 	]
 }

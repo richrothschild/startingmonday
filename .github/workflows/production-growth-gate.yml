@@ -40,6 +40,9 @@ jobs:
       - name: Growth strict metrics gate
         run: npm run growth:metrics:strict
 
+      - name: Sitewide release-note artifact check
+        run: npm run release:sitewide-note:strict
+
       - name: Typecheck
         run: npm run typecheck
 
@@ -75,6 +78,9 @@ jobs:
 
       - name: Growth strict metrics gate
         run: npm run growth:metrics:strict
+
+      - name: Sitewide release-note artifact check
+        run: npm run release:sitewide-note:strict
 
       - name: Typecheck
         run: npm run typecheck

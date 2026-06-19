@@ -86,8 +86,8 @@ Status legend: Planned, In Progress, Deployed, Verified Live, Blocked
 | Lane 0 | Landing baseline and Momentum Signal updates | WBS-0.1 to WBS-0.4 | 9782125, d2ad84c, b512f71, 9e2e3a8, 2b0be51, 781abb8, 156ad49, f7752c8 | dba6eb5d-d47a-48be-82cd-f0b15844b447 | Verified Live | Main landing confirms reduced text, CTA clarity, and balanced role-path block | Product + Eng |
 | Lane 1 | Mark pages revamp (first ship lane) | WBS-1.1 to WBS-1.5 | e268a32, e5e8887, a6f5d36 | 50745548-c9cc-40b8-abac-3972b7ab059c | Verified Live | Mark brief and summary deployed; tracker and lane status synced | Product Marketing + Design + Eng |
 | Lane 2 | Main funnel continuity | WBS-2.1 to WBS-2.4 | fe242ff, 0e403b0 | c8e884cd-e126-4353-85e4-ed90b68cede2, 74479d1d-ed22-4cce-a926-4f7f139eeda8 | Verified Live | Source-aware handoff continuity live across landing, pricing, concierge, signup, and demo | Product Marketing + Eng |
-| Lane 3 | Persona and partner standardization | WBS-3.1 to WBS-3.4 | 8f26468 | a43f8907-9376-492f-ab8a-e193c20bc63b | In Progress | Awaiting latest deployment SUCCESS, then live verification for /for-vp, /for-cio, /for-ciso, /for-pe-partners, /for-search-firms | Design + Eng |
-| Lane 4 | Trust/governance visibility | WBS-4.1 to WBS-4.3 | 8f26468 + release note artifact | a43f8907-9376-492f-ab8a-e193c20bc63b | In Progress | Security and governance posture published; release artifact created in docs/content/release-note-2026-05-26-sitewide-execution-epic.md | Growth + Eng |
+| Lane 3 | Persona and partner standardization | WBS-3.1 to WBS-3.4 | 8f26468 (+ WBS-3.4 enforceability follow-ups) | a43f8907-9376-492f-ab8a-e193c20bc63b, 403a1065-a084-4246-969b-9d648e2ecd46 | Verified Live | Live-route verification recorded for /for-vp, /for-cio, /for-ciso, /for-pe-partners, and /search-firms with footer-path discoverability checks in production | Design + Eng |
+| Lane 4 | Trust/governance visibility | WBS-4.1 to WBS-4.3 | 8f26468 + release note artifact + gate-enforcement follow-ups | a43f8907-9376-492f-ab8a-e193c20bc63b, 403a1065-a084-4246-969b-9d648e2ecd46 | Verified Live | Governance/trust copy paths and strict release-note linkage verified live in production across security/trust surfaces and enforced in strict gate bundle | Growth + Eng |
 
 ## Required Batch Gate (No Exceptions)
 Before any production-bound push in this epic:
@@ -97,6 +97,37 @@ Before any production-bound push in this epic:
 4. Instrumentation smoke checks pass for touched conversion events.
 5. Deployment reaches Railway SUCCESS.
 6. Live-page verification is recorded in this tracker.
+
+## Latest verification note (2026-06-18)
+
+1. WBS-3.4 is now enforced in code, not just visually reviewed.
+2. Homepage footer role-path grid now exposes direct discoverability links for /for-cio, /for-vp-technology, /for-ciso, /for-pe-partners, and /search-firms.
+3. Regression coverage added to `npm run ux:rubric:pages` so landing/footer discoverability failures block the homepage contract check.
+4. WBS-4.1 now enforces governance-path consistency across public trust surfaces.
+5. `npm run marketing:trust-proof:gate` now checks the shared security page plus coach and outplacement trust packs for required governance and security markers.
+6. WBS-4.2 now enforces weekly growth artifact freshness and decision-log linkage.
+7. `npm run growth:weekly-outputs:strict` verifies the latest metrics export is fresh, the weekly readout matches the current reporting week, and the readout and decision log explicitly link to each other.
+8. WBS-4.3 now enforces a current release-note artifact with required sections for what changed, expected KPI impact, and rollback triggers.
+9. `npm run release:sitewide-note:strict` now blocks when the sitewide release note is missing, stale, structurally incomplete, or not referenced in the tracker.
+
+### Gate verification snapshot (2026-06-18)
+
+Latest consolidated run status:
+1. PASS - `npm run growth:council:strict`
+2. PASS - `npm run growth:metrics:strict`
+3. PASS - `npm run growth:weekly-outputs:strict`
+4. PASS - `npm run release:sitewide-note:strict` (after restoring explicit tracker reference to `docs/content/release-note-2026-05-26-sitewide-execution-epic.md`)
+5. PASS - `npm run marketing:trust-proof:gate`
+6. PASS - `npm run ux:rubric:pages`
+7. PASS - `npm run ux:quality:all-pages`
+8. PASS - `npm run typecheck`
+
+Notes:
+1. `ux:quality:all-pages` passed end-to-end.
+2. Cognitive findings remain reported in monitor mode within that bundle and are tracked as backlog, not current-blocking failures.
+3. Lane 3 and Lane 4 are now closed as Verified Live after explicit route checks on production and latest deployment success recording.
+4. Live-route verification evidence captured for Lane 3 routes (`/for-vp`, `/for-cio`, `/for-ciso`, `/for-pe-partners`, `/search-firms`) and Lane 4 trust/governance surfaces (`/security`, `/for-coaches/trust-pack`, `/for-outplacement/trust-pack`).
+5. Weekly operating-cadence guardrail cycle rerun on 2026-06-18 passed for `growth:council:strict`, `growth:metrics:strict`, `growth:weekly-outputs:strict`, `release:sitewide-note:strict`, and `marketing:trust-proof:gate`.
 
 ## Weekly Operating Rhythm For This Epic
 1. Monday: pick top two WBS items by impact and meeting urgency.

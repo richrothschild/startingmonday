@@ -1,5 +1,16 @@
 // Inserts a signal into company_signals. Skips if source_url already exists for this company.
 // Tries to persist enrichment metadata when available; falls back gracefully if columns are not deployed yet.
+
+const VALID_SIGNAL_TYPES = [
+  'funding', 'exec_departure', 'exec_hire', 'acquisition',
+  'expansion', 'layoffs', 'ipo', 'new_product', 'award',
+  'pattern_alert', 'filing_trend',
+  'breach_disclosure', 'regulatory_change',
+  'data_platform', 'ai_investment',
+  'board_change', 'transformation_budget',
+  'activist_entry', 'insider_sale', 'partnership'
+]
+
 export async function writeSignal(supabase, {
   companyId,
   userId,
@@ -16,6 +27,11 @@ export async function writeSignal(supabase, {
   filingItems = [],
   partnerEntities = [],
 }) {
+  // Validate signal type
+  if (!signalType || !VALID_SIGNAL_TYPES.includes(signalType)) {
+    throw new Error(`writeSignal: invalid signal_type "${signalType}". Must be one of: ${VALID_SIGNAL_TYPES.join(', ')}`)
+  }
+
   if (sourceUrl) {
     const { data: existing } = await supabase
       .from('company_signals')

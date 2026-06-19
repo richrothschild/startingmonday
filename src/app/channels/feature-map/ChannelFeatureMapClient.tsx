@@ -246,7 +246,7 @@ const CHANNEL_MAPS: Record<ChannelKey, ChannelMap> = {
     border: 'border-violet-400/35',
     glow: 'shadow-[0_24px_90px_rgba(139,92,246,0.16)]',
     intro:
-      'Executive transition flow: identify signals early, manage communications, and act before shortlist closure.',
+      'Executive transition flow across leadership, technical leadership, and delivery leadership lanes: identify signals early, manage communications, and act before shortlist closure.',
     status: 'ready',
     stages: [
       {

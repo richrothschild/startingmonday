@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-18T04:41:54.131Z
+Last generated: 2026-06-19T00:55:12.157Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -225,7 +225,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (269)
+## API Surface (280)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -272,11 +272,13 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/outreach/stalled-nudges | src/app/api/admin/automation/outreach/stalled-nudges/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/arpu-conversion-dashboard | src/app/api/admin/automation/reporting/arpu-conversion-dashboard/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/benchmark-pipeline-run-logs | src/app/api/admin/automation/reporting/benchmark-pipeline-run-logs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/capstone-report-generation | src/app/api/admin/automation/reporting/capstone-report-generation/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/cohort-roster-model | src/app/api/admin/automation/reporting/cohort-roster-model/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/council-review-prep | src/app/api/admin/automation/reporting/council-review-prep/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/daily-operating-snapshots | src/app/api/admin/automation/reporting/daily-operating-snapshots/route.ts | export async function POST(request: NextRequest) {
-- API /api/admin/automation/reporting/emi-validation-reruns | src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/emi-validation-reruns | src/app/api/admin/automation/reporting/emi-validation-reruns/route.ts | Updated to the latest published production baseline set used for EMI rerun drift checks.
 - API /api/admin/automation/reporting/exception-lists | src/app/api/admin/automation/reporting/exception-lists/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/gtm-proof-sequence | src/app/api/admin/automation/reporting/gtm-proof-sequence/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/intelligence-qa-scorecard | src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/migration-playbook-comms | src/app/api/admin/automation/reporting/migration-playbook-comms/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/monthly-business-review-packs | src/app/api/admin/automation/reporting/monthly-business-review-packs/route.ts | export async function POST(request: NextRequest) {
@@ -290,14 +292,18 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/reporting/prep-provenance-coverage | src/app/api/admin/automation/reporting/prep-provenance-coverage/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/program-template-governance | src/app/api/admin/automation/reporting/program-template-governance/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/program-template-packs | src/app/api/admin/automation/reporting/program-template-packs/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/proof-asset-publisher | src/app/api/admin/automation/reporting/proof-asset-publisher/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/provisioning-sla-qa | src/app/api/admin/automation/reporting/provisioning-sla-qa/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/q4-cadence-automation | src/app/api/admin/automation/reporting/q4-cadence-automation/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/seat-lifecycle-automation | src/app/api/admin/automation/reporting/seat-lifecycle-automation/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/session-closure-monitor | src/app/api/admin/automation/reporting/session-closure-monitor/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/sponsor-export-dispatch | src/app/api/admin/automation/reporting/sponsor-export-dispatch/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/sponsor-export-pipeline | src/app/api/admin/automation/reporting/sponsor-export-pipeline/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/sponsor-snapshot-cadence | src/app/api/admin/automation/reporting/sponsor-snapshot-cadence/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/automation/reporting/sprint-5-exit-metrics | src/app/api/admin/automation/reporting/sprint-5-exit-metrics/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/reporting/success-criteria-audit-automation | src/app/api/admin/automation/reporting/success-criteria-audit-automation/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/template-adoption-scorecard | src/app/api/admin/automation/reporting/template-adoption-scorecard/route.ts | export async function GET(request: NextRequest) {
+- API /api/admin/automation/reporting/tier1-claim-compliance-audit | src/app/api/admin/automation/reporting/tier1-claim-compliance-audit/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/trend-reports | src/app/api/admin/automation/reporting/trend-reports/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/value-lane-pricing-entitlements | src/app/api/admin/automation/reporting/value-lane-pricing-entitlements/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/reporting/weekly-kpi-summaries | src/app/api/admin/automation/reporting/weekly-kpi-summaries/route.ts | export async function POST(request: NextRequest) {
@@ -307,6 +313,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/admin/automation/revenue-ops/payout-matching | src/app/api/admin/automation/revenue-ops/payout-matching/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/revenue-ops/revenue-classification | src/app/api/admin/automation/revenue-ops/revenue-classification/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/revenue-ops/stripe-supabase-accounting-sync | src/app/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync/route.ts | export async function POST(request: NextRequest) {
+- API /api/admin/automation/signals/source-catalog | src/app/api/admin/automation/signals/source-catalog/route.ts | export async function GET(request: NextRequest) {
 - API /api/admin/b2b/material | src/app/api/admin/b2b/material/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/contacts/enrich | src/app/api/admin/contacts/enrich/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/edgar-status | src/app/api/admin/edgar-status/route.ts | export async function GET(request: NextRequest) {
@@ -430,6 +437,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/intelligence/companies | src/app/api/intelligence/companies/route.ts | export async function GET() {
 - API /api/intelligence/radar | src/app/api/intelligence/radar/route.ts | export async function GET(request: NextRequest) {
 - API /api/intelligence/token | src/app/api/intelligence/token/route.ts | export async function POST(req: NextRequest) {
+- API /api/internal/automation/emi-smoke | src/app/api/internal/automation/emi-smoke/route.ts | export const runtime = 'nodejs'
 - API /api/invite | src/app/api/invite/route.ts | export async function GET(request: NextRequest) {
 - API /api/linkedin-import/audit | src/app/api/linkedin-import/audit/route.ts | export async function GET(request: NextRequest) {
 - API /api/linkedin-import/consent | src/app/api/linkedin-import/consent/route.ts | LinkedIn export header: First Name,Last Name,URL,Email Address,Company,Position,Connected On
@@ -445,6 +453,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/optimize | src/app/api/optimize/route.ts | This endpoint is intentionally unauthenticated. It powers the landing page
 - API /api/outreach/current-status | src/app/api/outreach/current-status/route.ts | export async function POST(request: NextRequest) {
 - API /api/outreach/draft | src/app/api/outreach/draft/route.ts | export async function POST(request: NextRequest) {
+- API /api/outreach/kpi-chain | src/app/api/outreach/kpi-chain/route.ts | export async function GET(request: NextRequest) {
 - API /api/outreach/send/batch-status | src/app/api/outreach/send/batch-status/route.ts | export async function GET(request: NextRequest) {
 - API /api/outreach/send | src/app/api/outreach/send/route.ts | export async function POST(request: NextRequest) {
 - API /api/outreach/status | src/app/api/outreach/status/route.ts | export async function POST(request: NextRequest) {
@@ -476,6 +485,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/profile/upload-linkedin | src/app/api/profile/upload-linkedin/route.ts | export async function POST(request: NextRequest) {
 - API /api/profile/upload-resume | src/app/api/profile/upload-resume/route.ts | export async function POST(request: NextRequest) {
 - API /api/readiness | src/app/api/readiness/route.ts | export const dynamic = 'force-dynamic'
+- API /api/relationships/recommendations | src/app/api/relationships/recommendations/route.ts | export async function GET(request: NextRequest) {
+- API /api/role-lane/tutorials | src/app/api/role-lane/tutorials/route.ts | export async function GET(request: NextRequest) {
 - API /api/salary-intelligence | src/app/api/salary-intelligence/route.ts | export async function POST(request: NextRequest) {
 - API /api/search | src/app/api/search/route.ts | export async function GET(req: NextRequest) {
 - API /api/signals/classify | src/app/api/signals/classify/route.ts | export async function POST(request: NextRequest) {
@@ -496,7 +507,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/webhooks/resend | src/app/api/webhooks/resend/route.ts | export async function POST(request: NextRequest) {
 - API /api/webhooks/stripe | src/app/api/webhooks/stripe/route.ts | current_period_end is present on Stripe.Subscription at runtime but not typed
 
-## Codebase Modules (215)
+## Codebase Modules (224)
 - Code src/lib/__tests__/prep-context.test.ts | src/lib/__tests__/prep-context.test.ts | import { describe, it, expect } from 'vitest'
 - Code src/lib/__tests__/require-feature-access.test.ts | src/lib/__tests__/require-feature-access.test.ts | import { describe, it, expect, vi, beforeEach } from 'vitest'
 - Code src/lib/__tests__/stream-error.test.ts | src/lib/__tests__/stream-error.test.ts | import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
@@ -603,6 +614,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/outreach/auto-remediate.ts | src/lib/outreach/auto-remediate.ts | export function firstNameFromRecipient(name: string | null | undefined): string {
 - Code src/lib/outreach/human-tone-guard.test.ts | src/lib/outreach/human-tone-guard.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/human-tone-guard.ts | src/lib/outreach/human-tone-guard.ts | export type HumanToneGuardInput = {
+- Code src/lib/outreach/kpi-chain.ts | src/lib/outreach/kpi-chain.ts | export async function computeOutreachKPIChain(params: {
 - Code src/lib/outreach/legacy-copy-guard.test.ts | src/lib/outreach/legacy-copy-guard.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/outreach/legacy-copy-guard.ts | src/lib/outreach/legacy-copy-guard.ts | export function detectLegacyTemplateCopy(subject: string, body: string): string[] {
 - Code src/lib/outreach/reliability-metrics.test.ts | src/lib/outreach/reliability-metrics.test.ts | import { describe, expect, it } from 'vitest'
@@ -632,6 +644,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/plans.ts | src/lib/plans.ts | export const PLANS = {
 - Code src/lib/pmf-event-taxonomy.test.ts | src/lib/pmf-event-taxonomy.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/pmf-event-taxonomy.ts | src/lib/pmf-event-taxonomy.ts | export const PMF_EVENT_VERSION = 1
+- Code src/lib/policy-versions.ts | src/lib/policy-versions.ts | export const TERMS_VERSION = '2026-06-role-expansion-v1'
 - Code src/lib/post-search-relationship-loop.test.ts | src/lib/post-search-relationship-loop.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/post-search-relationship-loop.ts | src/lib/post-search-relationship-loop.ts | export type RelationshipAction = {
 - Code src/lib/posthog-server.test.ts | src/lib/posthog-server.test.ts | import { describe, expect, it } from 'vitest'
@@ -659,6 +672,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/rate-limit.ts | src/lib/rate-limit.ts | export function __resetRateLimitBucketsForTests() {
 - Code src/lib/relationship-infrastructure.test.ts | src/lib/relationship-infrastructure.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/relationship-infrastructure.ts | src/lib/relationship-infrastructure.ts | export type ContactType = 'recruiter' | 'hiring_manager' | 'peer' | 'coach' | 'board'
+- Code src/lib/relationship-targeting.test.ts | src/lib/relationship-targeting.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/relationship-targeting.ts | src/lib/relationship-targeting.ts | export type RelationshipScoreResult = {
 - Code src/lib/require-auth.test.ts | src/lib/require-auth.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/require-auth.ts | src/lib/require-auth.ts | export type AuthResult =
 - Code src/lib/require-feature-access.test.ts | src/lib/require-feature-access.test.ts | import { describe, expect, it } from 'vitest'
@@ -667,10 +682,15 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/require-prep-access.ts | src/lib/require-prep-access.ts | Single guard used by all /api/prep/[id]/* routes.
 - Code src/lib/resources.test.ts | src/lib/resources.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/resources.ts | src/lib/resources.ts | Curated external resources surfaced contextually in prep briefs.
+- Code src/lib/role-lane-learning.test.ts | src/lib/role-lane-learning.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/role-lane-learning.ts | src/lib/role-lane-learning.ts | export type TutorialAsset = {
 - Code src/lib/role-path-priority.test.ts | src/lib/role-path-priority.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/role-path-priority.ts | src/lib/role-path-priority.ts | export async function getRolePathPriorityByCtaKey(): Promise<Record<string, number>> {
+- Code src/lib/role-taxonomy.test.ts | src/lib/role-taxonomy.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/role-taxonomy.ts | src/lib/role-taxonomy.ts | export type RoleFamily = 'leadership' | 'technical_leadership' | 'delivery_leadership'
 - Code src/lib/schemas.test.ts | src/lib/schemas.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/schemas.ts | src/lib/schemas.ts | Shared message type for chat and conversation routes
+- Code src/lib/signal-source-catalog.ts | src/lib/signal-source-catalog.ts | export type SignalSourceStatus = 'active' | 'pilot' | 'deprecated'
 - Code src/lib/slack.test.ts | src/lib/slack.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/slack.ts | src/lib/slack.ts | export async function sendSlackMessage(input: SendSlackMessageInput): Promise<{ ok: true } | { ok: false; error: string }> {
 - Code src/lib/social-council-check.test.ts | src/lib/social-council-check.test.ts | import { describe, expect, it } from 'vitest'
@@ -713,7 +733,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
-## Internal Scripts (137)
+## Internal Scripts (140)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -732,6 +752,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-auth.mjs | scripts/check-auth.mjs | import fs from 'node:fs'
 - Script scripts/check-billing-readiness.mjs | scripts/check-billing-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-clean-worktree-for-push.mjs | scripts/check-clean-worktree-for-push.mjs | #!/usr/bin/env node
+- Script scripts/check-cognitive-load-all-pages.mjs | scripts/check-cognitive-load-all-pages.mjs | #!/usr/bin/env node
 - Script scripts/check-data-integrity.mjs | scripts/check-data-integrity.mjs | ---------------------------------------------------------------------------
 - Script scripts/check-dead-letter-coverage.mjs | scripts/check-dead-letter-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-dependency-policy.mjs | scripts/check-dependency-policy.mjs | Stable release is greater than prerelease for same major/minor/patch.
@@ -739,6 +760,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-email-council-gate.ts | scripts/check-email-council-gate.ts | import { readFile } from 'node:fs/promises'
 - Script scripts/check-executive-fit-criteria.mjs | scripts/check-executive-fit-criteria.mjs | import { readFile } from 'node:fs/promises'
 - Script scripts/check-growth-metrics-gate.mjs | scripts/check-growth-metrics-gate.mjs | #!/usr/bin/env node
+- Script scripts/check-growth-weekly-outputs.mjs | scripts/check-growth-weekly-outputs.mjs | #!/usr/bin/env node
 - Script scripts/check-key-funnel-copy-cta-drift.mjs | scripts/check-key-funnel-copy-cta-drift.mjs | #!/usr/bin/env node
 - Script scripts/check-key-funnel-visual-darkness-gate.mjs | scripts/check-key-funnel-visual-darkness-gate.mjs | #!/usr/bin/env node
 - Script scripts/check-lighthouse-budget-config.mjs | scripts/check-lighthouse-budget-config.mjs | #!/usr/bin/env node
@@ -764,6 +786,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-prep-role-mode-qa.mjs | scripts/check-prep-role-mode-qa.mjs | #!/usr/bin/env node
 - Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
+- Script scripts/check-sitewide-release-note-artifact.mjs | scripts/check-sitewide-release-note-artifact.mjs | #!/usr/bin/env node
 - Script scripts/check-untracked-tests.mjs | scripts/check-untracked-tests.mjs | #!/usr/bin/env node
 - Script scripts/check-ux-ui-rubric-pages.mjs | scripts/check-ux-ui-rubric-pages.mjs | #!/usr/bin/env node
 - Script scripts/check-variant-null-rate-alerts.mjs | scripts/check-variant-null-rate-alerts.mjs | #!/usr/bin/env node
@@ -893,7 +916,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (147)
+## Data and Migrations (151)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -1028,8 +1051,11 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/129_add_competitive_context_to_companies.sql | supabase/migrations/129_add_competitive_context_to_companies.sql | -- Ensure production schemas include the competitive field expected by dashboard + prep flows.
 - Migration supabase/migrations/129_fix_rls_initplan.sql | supabase/migrations/129_fix_rls_initplan.sql | -- Migration 129: Fix auth_rls_initplan warnings
 - Migration supabase/migrations/130_executive_brief_grill_me_protocol.sql | supabase/migrations/130_executive_brief_grill_me_protocol.sql | -- Executive Brief: full Grill Me protocol sessions, artifacts, and transcription consent/integration placeholders.
+- Migration supabase/migrations/130_role_profile_taxonomy.sql | supabase/migrations/130_role_profile_taxonomy.sql | -- Role-aware onboarding profile fields for leadership, technical leadership, and delivery leadership.
 - Migration supabase/migrations/131_discovery_recommendation_runs.sql | supabase/migrations/131_discovery_recommendation_runs.sql | -- Persist discovery recommendation runs and item narratives for linked detail views.
+- Migration supabase/migrations/131_signal_source_registry.sql | supabase/migrations/131_signal_source_registry.sql | -- Signal source registry for monthly discovery and governance reviews.
 - Migration supabase/migrations/132_monitoring_alert_state.sql | supabase/migrations/132_monitoring_alert_state.sql | create table if not exists public.monitoring_alert_state (
+- Migration supabase/migrations/132_relationship_targeting_review_queue.sql | supabase/migrations/132_relationship_targeting_review_queue.sql | -- Queue for low-confidence relationship recommendations requiring human review.
 - Migration supabase/migrations/133_recommendation_ranking_metadata.sql | supabase/migrations/133_recommendation_ranking_metadata.sql | alter table if exists public.company_recommendations
 - Migration supabase/migrations/134_contact_enrichment_governance.sql | supabase/migrations/134_contact_enrichment_governance.sql | alter table if exists public.contacts
 - Migration supabase/migrations/135_feedback_items_select_policy.sql | supabase/migrations/135_feedback_items_select_policy.sql | -- Add SELECT policy to feedback_items so authenticated users can read items.
@@ -1041,8 +1067,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/141_partner_programs_and_cohorts.sql | supabase/migrations/141_partner_programs_and_cohorts.sql | -- Partner programs and cohorts
 - Migration supabase/migrations/142_partner_outcome_events.sql | supabase/migrations/142_partner_outcome_events.sql | -- Canonical outcome event schema for white-label partner KPI tracking.
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
+- Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 
-## Documentation (640)
+## Documentation (643)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1458,6 +1485,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/release-ux-signoff-checklist.md | docs/release-ux-signoff-checklist.md | Release UX Sign-off Checklist
 - Doc docs/research/executive-search-ai-confidentiality-annual-report-2026-public-edition.md | docs/research/executive-search-ai-confidentiality-annual-report-2026-public-edition.md | Starting Monday Public Edition
 - Doc docs/research/executive-search-ai-confidentiality-annual-report-2026.md | docs/research/executive-search-ai-confidentiality-annual-report-2026.md | Annual Report 2026: Executive Search, AI, and Confidentiality (With Less Fluff and More Results)
+- Doc docs/role-expansion-beta-launch-checklist-2026-06-18.md | docs/role-expansion-beta-launch-checklist-2026-06-18.md | Role Expansion Beta Launch Checklist
 - Doc docs/sales-marketing-plan.md | docs/sales-marketing-plan.md | Sales & Marketing Plan — Starting Monday
 - Doc docs/salesnavigator.md | docs/salesnavigator.md | Sales Navigator Playbook — Starting Monday
 - Doc docs/scan-mode.md | docs/scan-mode.md | JD Scan Mode
@@ -1518,10 +1546,12 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/startingmonday_business_analysis.md | docs/startingmonday_business_analysis.md | Starting Monday — Business Analysis
 - Doc docs/startingmonday_friction_revenue_analysis.md | docs/startingmonday_friction_revenue_analysis.md | Starting Monday — Friction, Gaps, and Revenue Analysis
 - Doc docs/startingmonday_sprint_plan.md | docs/startingmonday_sprint_plan.md | Starting Monday — Sprint Plan
+- Doc docs/status/emi-smoke-token-cutover-2026-06-18.md | docs/status/emi-smoke-token-cutover-2026-06-18.md | EMI Smoke Token Cutover - 2026-06-18
 - Doc docs/status/epic-b-handoff-readme-for-chris-2026-05-30.md | docs/status/epic-b-handoff-readme-for-chris-2026-05-30.md | Epic B Handoff README for Chris
 - Doc docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | docs/status/epic-b-handoff-summary-for-chris-2026-05-30.md | Epic B Handoff Summary for Chris
 - Doc docs/status/epic-b-phase1-closeout.latest.md | docs/status/epic-b-phase1-closeout.latest.md | Epic B Phase 1 Closeout
 - Doc docs/status/epic-b-phase2-closeout.latest.md | docs/status/epic-b-phase2-closeout.latest.md | Epic B Phase 2 Closeout
+- Doc docs/status/exux-304-closure-audit-2026-06-18.md | docs/status/exux-304-closure-audit-2026-06-18.md | EXUX-304 Closure Audit and Sign-off
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
 - Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness

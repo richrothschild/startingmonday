@@ -131,10 +131,9 @@ jobs:
       - name: Verify EMI smoke credentials are configured
         id: emi_creds
         env:
-          EMI_AUTOMATION_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
-          EMI_AUTOMATION_SERVICE_USER_ID: ${{ secrets['EMI_AUTOMATION_SERVICE_USER_ID'] }}
+          EMI_SMOKE_TOKEN: ${{ secrets.EMI_SMOKE_TOKEN }}
         run: |
-          if [ -z "$EMI_AUTOMATION_SERVICE_TOKEN" ] || [ -z "$EMI_AUTOMATION_SERVICE_USER_ID" ]; then
+          if [ -z "$EMI_SMOKE_TOKEN" ]; then
             if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
               echo "EMI credentials missing on workflow_dispatch; continuing with EMI smoke skipped."
               echo "ready=false" >> "$GITHUB_OUTPUT"
@@ -142,12 +141,8 @@ jobs:
             fi
           fi
 
-          if [ -z "$EMI_AUTOMATION_SERVICE_TOKEN" ]; then
-            echo "Missing required secret: EMI_AUTOMATION_SERVICE_TOKEN"
-            exit 1
-          fi
-          if [ -z "$EMI_AUTOMATION_SERVICE_USER_ID" ]; then
-            echo "Missing required secret: EMI_AUTOMATION_SERVICE_USER_ID"
+          if [ -z "$EMI_SMOKE_TOKEN" ]; then
+            echo "Missing required secret: EMI_SMOKE_TOKEN"
             exit 1
           fi
 
@@ -158,8 +153,7 @@ jobs:
         if: steps.emi_creds.outputs.ready == 'true'
         env:
           EMI_SMOKE_BASE_URL: https://startingmonday.app
-          EMI_SMOKE_SERVICE_TOKEN: ${{ secrets['EMI_AUTOMATION_SERVICE_TOKEN'] }}
-          EMI_SMOKE_SERVICE_USER_ID: ${{ secrets['EMI_AUTOMATION_SERVICE_USER_ID'] }}
+          EMI_SMOKE_TOKEN: ${{ secrets.EMI_SMOKE_TOKEN }}
           EMI_SMOKE_OUTPUT_JSON: '1'
         run: |
           set -o pipefail

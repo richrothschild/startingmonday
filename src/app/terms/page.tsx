@@ -42,6 +42,25 @@ export default function TermsPage() {
           </ul>
         </div>
 
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-8 py-7 mb-10">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Outreach and Contact Intelligence</p>
+          <h2 className="text-[18px] font-bold text-slate-900 mb-3 leading-snug">Permitted use and premium module terms</h2>
+          <ul className="flex flex-col gap-2.5 text-[13px] text-slate-600">
+            {[
+              'You may use relationship targeting and recruiter recommendations only for lawful professional outreach.',
+              'You must not use Starting Monday to send spam, deceptive outreach, or unlawful bulk solicitations.',
+              'Contact Intelligence suggestions are confidence-based and may be incomplete or inaccurate.',
+              'Starting Monday does not guarantee deliverability, response rates, interviews, or offers.',
+              'Premium Contact Intelligence credits may be subject to monthly limits and fair-use controls.',
+            ].map(item => (
+              <li key={item} className="flex items-start gap-2.5">
+                <span className="text-slate-200 shrink-0 mt-0.5">-</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <script
           src="https://app.termly.io/embed-policy.min.js"
           data-auto-block="on"

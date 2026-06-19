@@ -46,14 +46,14 @@ export default function CoachDashboardDemoPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/80">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-300">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-100">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 text-[13px]">
-            <Link href="/coachos" className="text-slate-300 transition-colors hover:text-white">
+            <Link href="/coachos" className="text-slate-100 transition-colors hover:text-white">
               Back to CoachOS
             </Link>
-            <Link href="/features/executive-coaches" className="text-slate-300 transition-colors hover:text-white">
+            <Link href="/features/executive-coaches" className="text-slate-100 transition-colors hover:text-white">
               Full coach feature guide
             </Link>
           </div>
@@ -66,7 +66,7 @@ export default function CoachDashboardDemoPage() {
           <h1 className="mt-2 text-[32px] font-bold leading-tight text-white sm:text-[42px]">
             See the coach dashboard and operating layer in one place.
           </h1>
-          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-slate-300">
+          <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-slate-100">
             This page shows the coach-side surfaces that support delivery quality: portfolio visibility, prep context,
             follow-through tracking, and trust-safe access controls.
           </p>
@@ -93,12 +93,12 @@ export default function CoachDashboardDemoPage() {
             {COACH_FEATURES.map((feature) => (
               <article key={feature.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <h2 className="mb-2 text-[16px] font-semibold text-white">{feature.title}</h2>
-                <p className="text-[13px] leading-relaxed text-slate-300">{feature.detail}</p>
+                <p className="text-[13px] leading-relaxed text-slate-100">{feature.detail}</p>
               </article>
             ))}
           </div>
 
-          <div className="mt-5 text-[13px] text-slate-300">
+          <div className="mt-5 text-[13px] text-slate-100">
             Need the full spec and rollout details?{' '}
             <Link href="/features/executive-coaches" className="underline underline-offset-2 text-slate-200 hover:text-white">
               View the executive coaches feature guide

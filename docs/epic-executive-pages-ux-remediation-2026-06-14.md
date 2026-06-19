@@ -8,6 +8,13 @@ Source audit: [docs/executive-pages-ux-audit-2026-06-14.md](docs/executive-pages
 
 Fix all findings in the executive-pages UX report, reduce executive decision friction, raise trust/proof quality, and enforce luxury-grade UX measurement checks on every executive-facing page.
 
+## Execution Status (2026-06-18)
+
+- EXUX-301: complete. Executive-route luxury E2E coverage runs through `tests/e2e/luxury-public-all-pages.spec.ts` and `npm run test:e2e:luxury:public-all`.
+- EXUX-302: complete. Public-all luxury static enforcement is now a blocking CI job in `.github/workflows/ci.yml` (`luxury-static-public-all`).
+- EXUX-303: complete. Lighthouse route coverage now includes executive route set and persona detail route across `.lighthouserc.json`, `.lighthouserc.tight-850.json`, and `.lighthouserc.tight-800.json`.
+- EXUX-304: complete. Closure audit and sign-off published in `docs/status/exux-304-closure-audit-2026-06-18.md`.
+
 ## In Scope (Pages)
 
 - /for-executives

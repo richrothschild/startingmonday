@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
-    description: 'The best CISO mandates open after a wake-up call. Be in position before the search is authorized.',
+    description: 'Many CISO mandates open after a wake-up call. Be in position before the search is authorized.',
     url: 'https://startingmonday.app/for-ciso',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday for CISOs - Chief Information Security Officer Search',
-    description: 'The best CISO mandates open after a wake-up call. Be in position before the search is authorized.',
+    description: 'Many CISO mandates open after a wake-up call. Be in position before the search is authorized.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-ciso',
@@ -120,7 +120,7 @@ export default function ForCisoPage() {
       <LandingPage
         sourcePage="/for-ciso"
         hero={{
-          eyebrow: 'The best CISO mandates open after a wake-up call.',
+          eyebrow: 'Many CISO mandates open after a wake-up call.',
           h1Lines: ['Security is the', 'business risk.', 'Position yourself there.'],
           body: 'CISO searches are event-driven. A breach, an IPO, a regulatory action, an acquisition - these create the urgency that turns a budgeted headcount into an authorized search. The candidate who lands the right role is the one who has been watching those events at their target organizations and can walk in as the person who understands not just the technical problem but the board-level exposure. Starting Monday surfaces those signals before the search firm is engaged.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

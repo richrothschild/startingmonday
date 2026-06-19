@@ -44,6 +44,8 @@ export type UserEventName =
   | 'discover_recommendation_opened'
   | 'discover_recommendation_added'
   | 'discover_outreach_started'
+  | 'relationship_recommendations_generated'
+  | 'relationship_targeting_review_queued'
   | 'stall_state_detected'
   | 'outreach_review_required'
   | 'outreach_review_confirmed'

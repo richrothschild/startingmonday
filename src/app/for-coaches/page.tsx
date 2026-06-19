@@ -44,10 +44,10 @@ export default function ForCoachesPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/coaches/personas" className="text-[13px] text-slate-200 transition-colors hover:text-white">
+            <Link href="/coaches/personas" className="text-[13px] text-slate-100 transition-colors hover:text-white">
               Coach personas
             </Link>
-            <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-200 transition-colors hover:text-white">
+            <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-100 transition-colors hover:text-white">
               Trust pack
             </Link>
           </div>
@@ -63,11 +63,17 @@ export default function ForCoachesPage() {
             Sessions remain strategic.
           </h1>
           <p className="mb-2 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-            Starting Monday gives executive coaches and coaching firms one operating layer for signals and prep so sessions stay strategic.
+            Starting Monday gives coaches one operating layer for pre-session context, between-session accountability, and decision-grade prep.
           </p>
           <p className="mb-6 max-w-2xl text-[13px] leading-relaxed text-slate-200">
-            Client-controlled access. No recruiter visibility. Coaching authority intact.
+            Start with 2-3 clients for 30 days, measure outcomes, then decide. Client-controlled access and coaching authority stay intact.
           </p>
+
+          <div className="mb-6 flex flex-wrap gap-2">
+            <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase text-slate-100">Solo coaches</span>
+            <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase text-slate-100">Coach teams</span>
+            <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase text-slate-100">Cohort programs</span>
+          </div>
 
           <div className="mb-7 space-y-3">
             <CoachPreviewActions />
@@ -128,20 +134,20 @@ export default function ForCoachesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {NAMED_COACH_PROOF.filter((p) => p.tier !== 'placeholder').map((proof) => (
               <figure key={proof.name} className="rounded-2xl border border-slate-700 bg-slate-900/60 p-5">
-                <blockquote className="text-[14px] text-slate-200 leading-relaxed mb-4 italic">
+                <blockquote className="text-[14px] text-slate-100 leading-relaxed mb-4 italic">
                   &ldquo;{proof.quote}&rdquo;
                 </blockquote>
                 <figcaption>
                   <p className="text-[13px] font-semibold text-white">{proof.name}</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">{proof.descriptor}</p>
+                  <p className="text-[11px] text-slate-200 mt-0.5">{proof.descriptor}</p>
                   <p className="text-[11px] text-orange-400 mt-1">{proof.outcome}</p>
                 </figcaption>
               </figure>
             ))}
           </div>
-          <p className="mt-4 text-[11px] text-slate-500">
+          <p className="mt-4 text-[11px] text-slate-200">
             Named proof assets collected with participant permission. Additional named coach cases in progress.
-            See our <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-slate-300 transition-colors">trust pack</Link> for methodology and claims policy.
+            See our <Link href="/for-coaches/trust-pack" className="underline underline-offset-2 hover:text-white transition-colors">trust pack</Link> for methodology and claims policy.
           </p>
         </div>
       </section>
@@ -168,7 +174,7 @@ export default function ForCoachesPage() {
         </div>
       </section>
 
-      <main className="bg-transparent text-slate-100">
+      <main className="bg-slate-950/40 text-slate-100">
         <section className="px-4 py-10 sm:px-6 sm:py-12">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">How this helps</p>
@@ -210,7 +216,7 @@ export default function ForCoachesPage() {
                         <p className="text-[13px] leading-relaxed text-slate-200">{step.withoutTool}</p>
                       </div>
                       <div className="rounded-xl border border-emerald-200/30 bg-emerald-300/10 p-2.5">
-                        <p className="mb-1 text-[12px] font-semibold text-emerald-100">With Starting Monday</p>
+                        <p className="mb-1 text-[12px] font-semibold text-emerald-300">With Starting Monday</p>
                         <p className="text-[13px] leading-relaxed text-slate-100">{step.withStartingMonday}</p>
                       </div>
                     </div>
@@ -235,7 +241,7 @@ export default function ForCoachesPage() {
                           <p className="text-[13px] leading-relaxed text-slate-200">{step.withoutTool}</p>
                         </div>
                         <div className="rounded-xl border border-emerald-200/30 bg-emerald-300/10 p-2.5">
-                          <p className="mb-1 text-[12px] font-semibold text-emerald-100">With Starting Monday</p>
+                          <p className="mb-1 text-[12px] font-semibold text-emerald-300">With Starting Monday</p>
                           <p className="text-[13px] leading-relaxed text-slate-100">{step.withStartingMonday}</p>
                         </div>
                       </div>
@@ -253,7 +259,7 @@ export default function ForCoachesPage() {
                         <span className="font-semibold text-red-100">Without tool:</span> {item.withoutTool}
                       </p>
                       <p className="rounded-lg border border-emerald-200/30 bg-emerald-300/10 px-3 py-2 text-[13px] leading-relaxed text-slate-100">
-                        <span className="font-semibold text-emerald-100">With Starting Monday:</span> {item.withStartingMonday}
+                        <span className="font-semibold text-emerald-300">With Starting Monday:</span> {item.withStartingMonday}
                       </p>
                     </div>
                   </article>
@@ -279,7 +285,7 @@ export default function ForCoachesPage() {
                 <thead>
                   <tr className="bg-white/[0.04]">
                     <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">Dimension</th>
-                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-100">Starting Monday</th>
+                    <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-300">Starting Monday</th>
                     <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">coaching.com</th>
                     <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">BetterUp</th>
                     <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">DIY stack</th>
@@ -308,7 +314,7 @@ export default function ForCoachesPage() {
                   <thead>
                     <tr className="bg-white/[0.04]">
                       <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">Dimension</th>
-                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-100">Starting Monday</th>
+                      <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-emerald-300">Starting Monday</th>
                       <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">coaching.com</th>
                       <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">BetterUp</th>
                       <th scope="col" className="px-4 py-3 text-[13px] font-semibold text-slate-100">DIY stack</th>
@@ -329,7 +335,7 @@ export default function ForCoachesPage() {
               </div>
             </details>
 
-            <p className="mt-4 text-[13px] leading-relaxed text-slate-300">
+            <p className="mt-4 text-[13px] leading-relaxed text-slate-100">
               Comparison note: this is a directional summary for coach evaluation, based on each platform&apos;s typical positioning and use model.
             </p>
           </div>
@@ -418,11 +424,11 @@ export default function ForCoachesPage() {
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex flex-wrap gap-4 text-[12px] text-slate-200">
-            <Link href="/coaches/personas" className="transition-colors hover:text-slate-200">Coach personas</Link>
-            <Link href="/for-coaches/trust-pack" className="transition-colors hover:text-slate-200">Trust pack</Link>
-            <Link href="/for-coaches/economics" className="transition-colors hover:text-slate-200">Economics</Link>
-            <Link href="/for-coaches/faq" className="transition-colors hover:text-slate-200">FAQ</Link>
+          <div className="flex flex-wrap gap-4 text-[12px] text-slate-100">
+            <Link href="/coaches/personas" className="transition-colors hover:text-white">Coach personas</Link>
+            <Link href="/for-coaches/trust-pack" className="transition-colors hover:text-white">Trust pack</Link>
+            <Link href="/for-coaches/economics" className="transition-colors hover:text-white">Economics</Link>
+            <Link href="/for-coaches/faq" className="transition-colors hover:text-white">FAQ</Link>
           </div>
         </div>
       </footer>

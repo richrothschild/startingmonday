@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-18",
+  "reviewCadenceDays": 30,
+  "sources": [
+    {
+      "key": "company_press_releases",
+      "name": "Company press releases",
+      "category": "announcements",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "lastReviewedAt": "2026-06-18",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "sec_filings_8k_10k_10q",
+      "name": "SEC filings",
+      "category": "filings",
+      "accessMethod": "api",
+      "rightsStatus": "public",
+      "status": "active",
+      "lastReviewedAt": "2026-06-18",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "earnings_call_transcripts",
+      "name": "Earnings call transcripts",
+      "category": "financial_calls",
+      "accessMethod": "licensed_feed",
+      "rightsStatus": "licensed",
+      "status": "pilot",
+      "lastReviewedAt": "2026-06-10",
+      "roleFamilies": ["leadership", "delivery_leadership"]
+    },
+    {
+      "key": "engineering_blog_posts",
+      "name": "Engineering blog posts",
+      "category": "technical_updates",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "lastReviewedAt": "2026-06-18",
+      "roleFamilies": ["technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "job_posting_velocity",
+      "name": "Job posting velocity",
+      "category": "hiring_signals",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "lastReviewedAt": "2026-06-18",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "leadership_changes",
+      "name": "Leadership changes",
+      "category": "org_changes",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "lastReviewedAt": "2026-06-17",
+      "roleFamilies": ["leadership", "delivery_leadership"]
+    },
+    {
+      "key": "incident_postmortems",
+      "name": "Incident postmortems",
+      "category": "reliability",
+      "accessMethod": "web",
+      "rightsStatus": "public",
+      "status": "pilot",
+      "lastReviewedAt": "2026-06-09",
+      "roleFamilies": ["technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "open_source_activity",
+      "name": "Open-source activity",
+      "category": "technical_updates",
+      "accessMethod": "api",
+      "rightsStatus": "public",
+      "status": "pilot",
+      "lastReviewedAt": "2026-06-08",
+      "roleFamilies": ["technical_leadership"]
+    }
+  ]
+}

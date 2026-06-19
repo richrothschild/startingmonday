@@ -21,6 +21,7 @@
         "http://127.0.0.1:3000/executives/active",
         "http://127.0.0.1:3000/executives/passive",
         "http://127.0.0.1:3000/executives/personas",
+        "http://127.0.0.1:3000/executives/personas/cio-cto-transition",
         "http://127.0.0.1:3000/career-tools"
       ],
       "numberOfRuns": 3,

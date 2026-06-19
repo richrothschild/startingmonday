@@ -3,6 +3,11 @@
 ## Week
 - ISO week:
 - Reporting window:
+- Decision log: [docs/growth/weekly-decision-log.md](docs/growth/weekly-decision-log.md#yyyy-w##)
+
+## Artifact status
+- Refreshed from latest metrics export on:
+- Linked decision log entry:
 
 ## KPI Snapshot
 - Qualified signup rate:

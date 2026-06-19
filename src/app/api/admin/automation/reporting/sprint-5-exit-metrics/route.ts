@@ -262,9 +262,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to persist sprint export' }, { status: 500 })
     }
 
+    const status = metrics.every((metric) => metric.metric_status === 'ok') ? 'ok' : 'late'
+    const { data: observabilityRun } = await sb
+      .from('scheduled_job_observability_runs')
+      .insert({
+        user_id: userId,
+        job_name: 'emi-sprint-5-exit-metrics-export',
+        status,
+        details: {
+          sprint_key: SPRINT_KEY,
+          metric_count: metrics.length,
+          ok_metric_count: metrics.filter((metric) => metric.metric_status === 'ok').length,
+          run_id: data?.id ?? null,
+        },
+      })
+      .select('id')
+      .single()
+
     return NextResponse.json({
       ok: true,
       runId: data?.id,
+      observabilityRunId: observabilityRun?.id ?? null,
       sprintKey: SPRINT_KEY,
       exportPayload,
     })

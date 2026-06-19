@@ -35,9 +35,9 @@ describe('emi validation reruns reporting route', () => {
     state.from.mockImplementation((table: string) => {
       if (table === 'emi_kpi_snapshots') {
         const rows = [
-          { metric_name: 'emi_language_adoption_percent', metric_value: 100, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
+          { metric_name: 'emi_language_adoption_percent', metric_value: 33.33, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
           { metric_name: 'assessment_completion_percent', metric_value: 100, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'onboarding_qa_weekly_scorecards', source_notes: '' },
-          { metric_name: 'day7_return_percent', metric_value: 100, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
+          { metric_name: 'day7_return_percent', metric_value: 8.33, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
           { metric_name: 'proof_assets_published_count', metric_value: 3, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'proof_assets', source_notes: '' },
           { metric_name: 'b2b_pilot_conversion_percent', metric_value: 28.57, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'b2b_prospects', source_notes: '' },
           { metric_name: 'tier1_claim_compliance_percent', metric_value: 100, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'tier1_claims', source_notes: '' },
@@ -89,6 +89,58 @@ describe('emi validation reruns reporting route', () => {
       user_id: 'user_1',
       job_name: 'emi-production-validation-rerun',
       status: 'ok',
+    })
+  })
+
+  it('does not fail when a metric is null for only one week', async () => {
+    state.from.mockImplementation((table: string) => {
+      if (table === 'emi_kpi_snapshots') {
+        const rows = [
+          { metric_name: 'emi_language_adoption_percent', metric_value: 33.33, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
+          { metric_name: 'assessment_completion_percent', metric_value: null, metric_status: 'no_data', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'onboarding_qa_weekly_scorecards', source_notes: '' },
+          { metric_name: 'day7_return_percent', metric_value: 8.33, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'user_events', source_notes: '' },
+          { metric_name: 'proof_assets_published_count', metric_value: 3, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'proof_assets', source_notes: '' },
+          { metric_name: 'b2b_pilot_conversion_percent', metric_value: 28.57, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'b2b_prospects', source_notes: '' },
+          { metric_name: 'tier1_claim_compliance_percent', metric_value: 100, metric_status: 'ok', week_start: '2026-05-19', week_end: '2026-05-25', generated_at: '2026-05-25T01:00:00.000Z', source_table: 'tier1_claims', source_notes: '' },
+        ]
+
+        const chain = {
+          select: vi.fn(() => chain),
+          gte: vi.fn(() => chain),
+          order: vi.fn(() => chain),
+          limit: vi.fn(async () => ({ data: rows, error: null })),
+        }
+        return chain
+      }
+
+      if (table === 'scheduled_job_observability_runs') {
+        const chain = {
+          insert: vi.fn((payload: Record<string, unknown>) => {
+            state.insertedRow = payload
+            return chain
+          }),
+          select: vi.fn(() => chain),
+          single: vi.fn(async () => ({ data: { id: 'run_3' }, error: null })),
+        }
+        return chain
+      }
+
+      throw new Error(`Unexpected table: ${table}`)
+    })
+
+    const response = await POST(new NextRequest('https://startingmonday.app/api/admin/automation/reporting/emi-validation-reruns', {
+      method: 'POST',
+      body: JSON.stringify({ tolerancePoints: 0 }),
+      headers: { 'Content-Type': 'application/json' },
+    }))
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toMatchObject({
+      ok: true,
+      runId: 'run_3',
+      status: 'ok',
+      mismatchCount: 0,
+      nullStreakCount: 0,
     })
   })
 })

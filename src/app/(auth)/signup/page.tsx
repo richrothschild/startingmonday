@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { usePostHog } from 'posthog-js/react'
 import TurnstileWidget from '@/components/turnstile-widget'
+import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/policy-versions'
 
 const TURNSTILE_ENABLED = process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === '1'
 
@@ -144,8 +145,16 @@ export default function SignupPage() {
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [agreeTerms, setAgreeTerms] = useState(false)
+  const [agreePrivacy, setAgreePrivacy] = useState(false)
 
   const authBusy = googleLoading || appleLoading || loading
+
+  function ensurePolicyConsent(): boolean {
+    if (agreeTerms && agreePrivacy) return true
+    setError('You must agree to the Terms and Privacy Policy to create an account.')
+    return false
+  }
 
   function getSelfReportedSource(): string | null {
     if (!heardAbout) return null
@@ -174,6 +183,7 @@ export default function SignupPage() {
   }
 
   async function handleGoogle() {
+    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setGoogleLoading(true)
@@ -188,6 +198,9 @@ export default function SignupPage() {
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
+    callbackUrl.searchParams.set('accepted_terms_version', TERMS_VERSION)
+    callbackUrl.searchParams.set('accepted_privacy_version', PRIVACY_VERSION)
+    callbackUrl.searchParams.set('policy_accepted_at', new Date().toISOString())
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
@@ -217,6 +230,7 @@ export default function SignupPage() {
   }
 
   async function handleApple() {
+    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setAppleLoading(true)
@@ -231,6 +245,9 @@ export default function SignupPage() {
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
+    callbackUrl.searchParams.set('accepted_terms_version', TERMS_VERSION)
+    callbackUrl.searchParams.set('accepted_privacy_version', PRIVACY_VERSION)
+    callbackUrl.searchParams.set('policy_accepted_at', new Date().toISOString())
     try {
       const response = await fetch('/api/auth/verify-and-oauth', {
         method: 'POST',
@@ -261,6 +278,7 @@ export default function SignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setLoading(true)
@@ -303,19 +321,21 @@ export default function SignupPage() {
         const selfReportedSource = getSelfReportedSource()
         const signupSource = selfReportedSource ?? utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
         const managerToolsSource = isManagerToolsSource(signupSource)
+        const acceptedAt = new Date().toISOString()
         await Promise.all([
           supabase.from('user_profiles').upsert(
             { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
             { onConflict: 'user_id' }
           ),
-          signupSource
-            ? supabase.from('users').update({
-                signup_source: signupSource,
-                acquisition_channel: utmMedium ?? (ref ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
-                referral_source: utmCampaign ?? utmSource ?? ref ?? selfReportedSource ?? null,
-                ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt() } : {}),
-              }).eq('id', data.user.id)
-            : Promise.resolve(),
+          supabase.from('users').update({
+            signup_source: signupSource,
+            acquisition_channel: utmMedium ?? (ref ? 'referral' : (selfReportedSource ? 'self_reported' : null)),
+            referral_source: utmCampaign ?? utmSource ?? ref ?? selfReportedSource ?? null,
+            accepted_terms_version: TERMS_VERSION,
+            accepted_privacy_version: PRIVACY_VERSION,
+            policy_accepted_at: acceptedAt,
+            ...(managerToolsSource ? { trial_ends_at: managerToolsTrialEndsAt() } : {}),
+          }).eq('id', data.user.id),
           ref
             ? fetch('/api/partners/attribute', {
                 method: 'POST',
@@ -532,11 +552,36 @@ export default function SignupPage() {
 
                   {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
 
+                  <div className="rounded border border-slate-200 bg-slate-50 p-3">
+                    <label className="flex items-start gap-2 text-[13px] text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={agreeTerms}
+                        onChange={(e) => setAgreeTerms(e.target.checked)}
+                        className="mt-0.5"
+                      />
+                      <span>
+                        I agree to the <Link href="/terms" className="underline hover:text-slate-900">Terms and Conditions</Link>.
+                      </span>
+                    </label>
+                    <label className="mt-2 flex items-start gap-2 text-[13px] text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={agreePrivacy}
+                        onChange={(e) => setAgreePrivacy(e.target.checked)}
+                        className="mt-0.5"
+                      />
+                      <span>
+                        I agree to the <Link href="/privacy" className="underline hover:text-slate-900">Privacy Policy</Link>.
+                      </span>
+                    </label>
+                  </div>
+
 
 
                   <button
                     type="submit"
-                    disabled={loading}
+                    disabled={loading || !agreeTerms || !agreePrivacy}
                     className="w-full flex items-center justify-center bg-slate-900 text-white text-[14px] font-semibold min-h-[44px] rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}

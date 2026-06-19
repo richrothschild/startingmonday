@@ -6,6 +6,7 @@ const state = vi.hoisted(() => ({
   parseAutomationBody: vi.fn(),
   from: vi.fn(),
   insertedRow: null as Record<string, unknown> | null,
+  observabilityRow: null as Record<string, unknown> | null,
 }))
 
 vi.mock('@/lib/admin-automation-route', () => ({
@@ -20,6 +21,7 @@ describe('sprint 5 exit metrics reporting route', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     state.insertedRow = null
+    state.observabilityRow = null
 
     state.requireAutomationAccess.mockResolvedValue({
       ok: true,
@@ -54,7 +56,12 @@ describe('sprint 5 exit metrics reporting route', () => {
 
       if (table === 'scheduled_job_observability_runs') {
         const chain = {
+          insert: vi.fn((payload: Record<string, unknown>) => {
+            state.observabilityRow = payload
+            return chain
+          }),
           select: vi.fn(() => chain),
+          single: vi.fn(async () => ({ data: { id: 'obs_1' }, error: null })),
           eq: vi.fn(() => chain),
           gte: vi.fn(() => chain),
           lte: vi.fn(() => chain),
@@ -149,6 +156,7 @@ describe('sprint 5 exit metrics reporting route', () => {
     await expect(response.json()).resolves.toMatchObject({
       ok: true,
       runId: 'run_1',
+      observabilityRunId: 'obs_1',
       sprintKey: 'sprint_5_benchmark_and_proof_system',
       exportPayload: {
         values: {
@@ -163,6 +171,12 @@ describe('sprint 5 exit metrics reporting route', () => {
     expect(state.insertedRow).toMatchObject({
       user_id: 'user_1',
       sprint_key: 'sprint_5_benchmark_and_proof_system',
+    })
+
+    expect(state.observabilityRow).toMatchObject({
+      user_id: 'user_1',
+      job_name: 'emi-sprint-5-exit-metrics-export',
+      status: 'ok',
     })
 
     expect((state.insertedRow as { export_payload: { metrics: Array<{ metric_name: string; metric_status: string }> } }).export_payload.metrics).toEqual([

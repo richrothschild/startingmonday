@@ -6,6 +6,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { autoRefineEmailDraft } from '@/lib/email-council'
 import { reviewEmail } from '@/lib/email-quality'
 import { logEvent } from '@/lib/events'
+import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 import { getStaffMember } from '@/lib/staff'
 import { detectLegacyTemplateCopy } from '@/lib/outreach/legacy-copy-guard'
 import { buildOutreachTemplateDraft } from '@/lib/outreach/template-draft'
@@ -171,6 +172,53 @@ function evaluateGuardrails(input: {
   }
 
   return { violations, warnings }
+}
+
+function hoursSinceSignalDate(signalDate: string): number | null {
+  const parsed = Date.parse(`${signalDate}T12:00:00Z`)
+  if (Number.isNaN(parsed)) return null
+  const deltaHours = (Date.now() - parsed) / 3_600_000
+  if (!Number.isFinite(deltaHours)) return null
+  return Math.max(0, Number(deltaHours.toFixed(2)))
+}
+
+async function resolveSignalAttribution(params: {
+  supabase: Awaited<ReturnType<typeof createClient>>
+  userId: string
+  companyName: string
+}): Promise<{ companyId: string | null; signalId: string | null; hoursSinceSignal: number | null }> {
+  const companyName = params.companyName.trim()
+  if (!companyName) {
+    return { companyId: null, signalId: null, hoursSinceSignal: null }
+  }
+
+  const { data: companyRow } = await params.supabase
+    .from('companies')
+    .select('id')
+    .eq('user_id', params.userId)
+    .ilike('name', companyName)
+    .limit(1)
+    .maybeSingle()
+
+  const companyId = companyRow?.id ?? null
+  if (!companyId) {
+    return { companyId: null, signalId: null, hoursSinceSignal: null }
+  }
+
+  const { data: latestSignal } = await params.supabase
+    .from('company_signals')
+    .select('id, signal_date')
+    .eq('user_id', params.userId)
+    .eq('company_id', companyId)
+    .order('signal_date', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  return {
+    companyId,
+    signalId: latestSignal?.id ?? null,
+    hoursSinceSignal: latestSignal?.signal_date ? hoursSinceSignalDate(latestSignal.signal_date) : null,
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -510,6 +558,38 @@ export async function POST(request: NextRequest) {
       reviewed_by: reviewedBy || authData.user?.email || null,
       reviewed_at: reviewedAt || new Date().toISOString(),
     })
+
+    await logEvent(userId, 'pipeline_stage_changed', {
+      stage: statusAfter,
+      source: 'outreach_send_route',
+      company: company || null,
+      template_step: templateStep || null,
+      campaign_step: campaignStep || null,
+    })
+
+    const attribution = await resolveSignalAttribution({
+      supabase,
+      userId,
+      companyName: company,
+    })
+
+    if (attribution.companyId || attribution.signalId) {
+      await admin.from('signal_action_events').insert({
+        user_id: userId,
+        signal_id: attribution.signalId,
+        company_id: attribution.companyId,
+        action_type: 'outreach_sent',
+        hours_since_signal: attribution.hoursSinceSignal,
+      })
+    }
+
+    if (attribution.companyId) {
+      await logEvent(userId, PMF_EVENTS.cadence.follow_up_logged, {
+        company_id: attribution.companyId,
+        source: 'outreach_send_route',
+        action_context: 'outreach_sent',
+      })
+    }
   }
 
   if (!skipWorkerKickoff) {

@@ -8,7 +8,21 @@
         "http://127.0.0.1:3000/pricing",
         "http://127.0.0.1:3000/about",
         "http://127.0.0.1:3000/for-coaches",
-        "http://127.0.0.1:3000/annual-report-2026"
+        "http://127.0.0.1:3000/annual-report-2026",
+        "http://127.0.0.1:3000/for-executives",
+        "http://127.0.0.1:3000/for-cio",
+        "http://127.0.0.1:3000/for-vp-technology",
+        "http://127.0.0.1:3000/for-data-officer",
+        "http://127.0.0.1:3000/for-cdo",
+        "http://127.0.0.1:3000/for-ciso",
+        "http://127.0.0.1:3000/for-cpo",
+        "http://127.0.0.1:3000/for-coo",
+        "http://127.0.0.1:3000/executives",
+        "http://127.0.0.1:3000/executives/active",
+        "http://127.0.0.1:3000/executives/passive",
+        "http://127.0.0.1:3000/executives/personas",
+        "http://127.0.0.1:3000/executives/personas/cio-cto-transition",
+        "http://127.0.0.1:3000/career-tools"
       ],
       "numberOfRuns": 3,
       "settings": {

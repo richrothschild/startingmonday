@@ -102,14 +102,14 @@ const COACH_QUICK_PROOF = {
 
 export default function StuartMeyerReviewPage() {
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-slate-950 font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/for-coaches" className="text-[13px] text-slate-300 hover:text-white transition-colors">
+            <Link href="/for-coaches" className="text-[13px] text-slate-100 hover:text-white transition-colors">
               Coach page
             </Link>
             <TrackedCtaLink
@@ -130,7 +130,7 @@ export default function StuartMeyerReviewPage() {
           <h1 className="text-[30px] sm:text-[40px] font-bold text-white leading-[1.12] tracking-tight mb-5">
             What Starting Monday does for your coaching practice
           </h1>
-          <p className="text-[16px] text-slate-300 leading-relaxed max-w-3xl">
+          <p className="text-[16px] text-slate-100 leading-relaxed max-w-3xl">
             You get one operating layer that helps your executives move with better timing, stronger prep, and consistent follow-through.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

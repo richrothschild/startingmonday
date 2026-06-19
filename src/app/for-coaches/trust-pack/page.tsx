@@ -108,6 +108,9 @@ export default function CoachTrustPackPage() {
               <li key={point}>• {point}</li>
             ))}
           </ul>
+          <p className="text-[13px] text-slate-700 leading-relaxed mt-3">
+            Governance path: start with the shared <Link href="/security" className="underline underline-offset-2 hover:text-slate-900">security overview</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-slate-900">privacy policy</Link>, then use this coach trust pack for permission-model and workflow-specific review.
+          </p>
           <p className="text-[13px] text-slate-700 leading-relaxed mt-3">Outcome metric: permission and logging controls reduce avoidable trust friction during coach-led client reviews.</p>
         </section>
 
@@ -115,6 +118,9 @@ export default function CoachTrustPackPage() {
           <h2 className="sr-only">Coach next step</h2>
           <Link href="/for-coaches/faq#security" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
             Read full security FAQ
+          </Link>
+          <Link href="/security" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
+            Open shared security overview
           </Link>
           <Link href="/for-coaches" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">
             Back to coach preview

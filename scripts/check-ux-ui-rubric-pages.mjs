@@ -63,6 +63,21 @@ const SPECS = [
 				description: 'Role probability chart has side legend labels.',
 				matcher: /With SM|Typical/,
 			},
+			{
+				id: 'discoverability-footer-role-path-grid',
+				description: 'Homepage preserves footer role-path grid heading.',
+				matcher: 'Footer role-path grid',
+			},
+			{
+				id: 'discoverability-executive-role-path-links',
+				description: 'Homepage footer exposes key executive role-path links.',
+				matcher: /\/for-cio[\s\S]*\/for-vp-technology[\s\S]*\/for-ciso/,
+			},
+			{
+				id: 'discoverability-partner-role-path-links',
+				description: 'Homepage footer exposes partner path links.',
+				matcher: /\/for-pe-partners[\s\S]*\/search-firms/,
+			},
 		],
 	},
 	{

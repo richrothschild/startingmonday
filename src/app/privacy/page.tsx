@@ -115,6 +115,24 @@ export default function PrivacyPage() {
           </p>
         </section>
 
+        <section className="mb-12 pb-12 border-b border-slate-200">
+          <h2 className="text-[17px] font-bold text-slate-900 mb-3">Role-aware signals and relationship data</h2>
+          <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
+            To support new leadership, technical leadership, and delivery leadership workflows, Starting Monday stores role-profile fields,
+            company signal metadata, relationship-targeting scores, and outreach recommendations.
+          </p>
+          <ul className="list-disc pl-5 mb-4 space-y-1.5 text-[14px] text-slate-600">
+            <li>Role profile fields include role family, role title, seniority level, and workflow variant.</li>
+            <li>Signal metadata may include company announcements, filings, hiring trends, and source confidence details.</li>
+            <li>Relationship targeting metadata may include recruiter flags, warm-path indicators, and recommendation confidence tiers.</li>
+            <li>When premium contact intelligence is enabled, business email suggestions are shown with confidence bands and usage limits.</li>
+          </ul>
+          <p className="text-[14px] text-slate-600 leading-relaxed">
+            We retain this data only to operate and improve recommendation quality, enforce safety controls, and provide auditability.
+            We do not sell these data categories to recruiters, employers, or data brokers.
+          </p>
+        </section>
+
         <script
           src="https://app.termly.io/embed-policy.min.js"
           data-auto-block="on"

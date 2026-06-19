@@ -29,6 +29,18 @@ const checks = [
     file: 'src/app/demo/page.tsx',
     allOf: ['Source note', 'pilot cohorts'],
   },
+  {
+    file: 'src/app/security/page.tsx',
+    allOf: ['AI governance and regulatory compliance', 'Incident response'],
+  },
+  {
+    file: 'src/app/for-coaches/trust-pack/page.tsx',
+    allOf: ['Trust and confidentiality:', 'Governance path:', '/security'],
+  },
+  {
+    file: 'src/app/for-outplacement/trust-pack/page.tsx',
+    allOf: ['Board-safe claims policy', 'Governance path:', '/security'],
+  },
 ]
 
 const failures = []

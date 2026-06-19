@@ -25,7 +25,6 @@ jobs:
 
       - name: Export weekly metrics from PostHog
         env:
-          POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
           POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
           POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
         run: npm run growth:metrics:export:strict
@@ -36,11 +35,18 @@ jobs:
       - name: Run weekly strict metrics test
         run: npm run growth:metrics:strict
 
+      - name: Run weekly outputs freshness and decision-log linkage check
+        run: npm run growth:weekly-outputs:strict
+
+      - name: Run sitewide release-note artifact check
+        run: npm run release:sitewide-note:strict
+
       - name: Generate markdown artifacts
         if: always()
         run: |
           npm run growth:council
           npm run growth:metrics:gate
+          npm run growth:weekly-outputs:check
 
       - name: Upload growth artifacts
         if: always()
@@ -53,3 +59,5 @@ jobs:
             docs/growth-synthetic-council.latest.md
             docs/growth-metrics-gate.latest.json
             docs/growth-metrics-gate.latest.md
+            docs/growth-weekly-outputs.latest.json
+            docs/growth-weekly-outputs.latest.md

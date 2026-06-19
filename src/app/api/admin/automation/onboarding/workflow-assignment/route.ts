@@ -5,12 +5,30 @@ import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
 
 function pickWorkflow(input: {
   roleType: string | null
+  roleFamily: string | null
+  roleTitle: string | null
+  workflowVariant: string | null
   subscriptionTier: string | null
   companyCount: number
   contactCount: number
 }): { key: string; reason: string } {
+  if ((input.workflowVariant ?? '').length > 0) {
+    return {
+      key: input.workflowVariant ?? 'momentum_execution',
+      reason: 'Workflow variant selected from role-aware onboarding profile.',
+    }
+  }
   if ((input.subscriptionTier ?? '') === 'executive') {
     return { key: 'executive_concierge', reason: 'Executive tier users get concierge workflow by default.' }
+  }
+  if ((input.roleFamily ?? '') === 'technical_leadership') {
+    return { key: 'technical_leadership_transition', reason: 'Technical leadership profile selected.' }
+  }
+  if ((input.roleFamily ?? '') === 'delivery_leadership') {
+    return { key: 'delivery_leadership_transition', reason: 'Delivery leadership profile selected.' }
+  }
+  if ((input.roleTitle ?? '').toLowerCase() === 'executive') {
+    return { key: 'executive_transition', reason: 'Leadership executive profile selected.' }
   }
   if ((input.roleType ?? '').toLowerCase().includes('board')) {
     return { key: 'board_transition', reason: 'Role type indicates board/advisory path.' }
@@ -35,7 +53,7 @@ export async function POST(request: NextRequest) {
   const sb = supabase as any
 
   const [{ data: profile }, { data: userRow }, { count: companyCount }, { count: contactCount }] = await Promise.all([
-    supabase.from('user_profiles').select('role_type').eq('user_id', userId).maybeSingle(),
+    supabase.from('user_profiles').select('role_type, role_family, role_title, workflow_variant').eq('user_id', userId).maybeSingle(),
     supabase.from('users').select('subscription_tier').eq('id', userId).maybeSingle(),
     supabase.from('companies').select('id', { count: 'exact', head: true }).eq('user_id', userId).is('archived_at', null),
     supabase.from('contacts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('status', 'active'),
@@ -43,6 +61,9 @@ export async function POST(request: NextRequest) {
 
   const workflow = pickWorkflow({
     roleType: profile?.role_type ?? null,
+    roleFamily: profile?.role_family ?? null,
+    roleTitle: profile?.role_title ?? null,
+    workflowVariant: profile?.workflow_variant ?? null,
     subscriptionTier: userRow?.subscription_tier ?? null,
     companyCount: companyCount ?? 0,
     contactCount: contactCount ?? 0,

@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-18T04:41:51.348Z
+Last generated: 2026-06-19T00:55:09.375Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -207,7 +207,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Pricing and billing guide](/guide) - Billing automation supports: - Invoice and receipt run generation records. - Renewal reminder scheduling and send logging. - Failed payment detection and optional retry orchestration. - Plan and subscription status trans
 - [Revenue and finance guide](/guide) - Revenue operations support: - Revenue recognition input preparation. - Stripe/Supabase/accounting sync run snapshots. - Revenue classification by tier/segment payloads. - Payout matching summaries and exception report ge
 
-## API and Automation (269)
+## API and Automation (280)
 - [/api/admin/automation/billing/failed-payment-retries](/api/admin/automation/billing/failed-payment-retries) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/invoices-receipts](/api/admin/automation/billing/invoices-receipts) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/billing/payment-reconciliation-checks](/api/admin/automation/billing/payment-reconciliation-checks) - Programmatic endpoint available for platform behavior or integrations.
@@ -254,11 +254,13 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/outreach/stalled-nudges](/api/admin/automation/outreach/stalled-nudges) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/arpu-conversion-dashboard](/api/admin/automation/reporting/arpu-conversion-dashboard) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/benchmark-pipeline-run-logs](/api/admin/automation/reporting/benchmark-pipeline-run-logs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/capstone-report-generation](/api/admin/automation/reporting/capstone-report-generation) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/cohort-roster-model](/api/admin/automation/reporting/cohort-roster-model) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/council-review-prep](/api/admin/automation/reporting/council-review-prep) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/daily-operating-snapshots](/api/admin/automation/reporting/daily-operating-snapshots) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/emi-validation-reruns](/api/admin/automation/reporting/emi-validation-reruns) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/exception-lists](/api/admin/automation/reporting/exception-lists) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/gtm-proof-sequence](/api/admin/automation/reporting/gtm-proof-sequence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/intelligence-qa-scorecard](/api/admin/automation/reporting/intelligence-qa-scorecard) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/migration-playbook-comms](/api/admin/automation/reporting/migration-playbook-comms) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/monthly-business-review-packs](/api/admin/automation/reporting/monthly-business-review-packs) - Programmatic endpoint available for platform behavior or integrations.
@@ -272,14 +274,18 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/reporting/prep-provenance-coverage](/api/admin/automation/reporting/prep-provenance-coverage) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/program-template-governance](/api/admin/automation/reporting/program-template-governance) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/program-template-packs](/api/admin/automation/reporting/program-template-packs) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/proof-asset-publisher](/api/admin/automation/reporting/proof-asset-publisher) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/provisioning-sla-qa](/api/admin/automation/reporting/provisioning-sla-qa) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/q4-cadence-automation](/api/admin/automation/reporting/q4-cadence-automation) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/seat-lifecycle-automation](/api/admin/automation/reporting/seat-lifecycle-automation) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/session-closure-monitor](/api/admin/automation/reporting/session-closure-monitor) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/sponsor-export-dispatch](/api/admin/automation/reporting/sponsor-export-dispatch) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/sponsor-export-pipeline](/api/admin/automation/reporting/sponsor-export-pipeline) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/sponsor-snapshot-cadence](/api/admin/automation/reporting/sponsor-snapshot-cadence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/sprint-5-exit-metrics](/api/admin/automation/reporting/sprint-5-exit-metrics) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/success-criteria-audit-automation](/api/admin/automation/reporting/success-criteria-audit-automation) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/template-adoption-scorecard](/api/admin/automation/reporting/template-adoption-scorecard) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/reporting/tier1-claim-compliance-audit](/api/admin/automation/reporting/tier1-claim-compliance-audit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/trend-reports](/api/admin/automation/reporting/trend-reports) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/value-lane-pricing-entitlements](/api/admin/automation/reporting/value-lane-pricing-entitlements) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/reporting/weekly-kpi-summaries](/api/admin/automation/reporting/weekly-kpi-summaries) - Programmatic endpoint available for platform behavior or integrations.
@@ -289,6 +295,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/admin/automation/revenue-ops/payout-matching](/api/admin/automation/revenue-ops/payout-matching) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/revenue-ops/revenue-classification](/api/admin/automation/revenue-ops/revenue-classification) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync](/api/admin/automation/revenue-ops/stripe-supabase-accounting-sync) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/admin/automation/signals/source-catalog](/api/admin/automation/signals/source-catalog) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/b2b/material](/api/admin/b2b/material) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/contacts/enrich](/api/admin/contacts/enrich) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/admin/edgar-status](/api/admin/edgar-status) - Programmatic endpoint available for platform behavior or integrations.
@@ -412,6 +419,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/intelligence/companies](/api/intelligence/companies) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/intelligence/radar](/api/intelligence/radar) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/intelligence/token](/api/intelligence/token) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/internal/automation/emi-smoke](/api/internal/automation/emi-smoke) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/invite](/api/invite) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/linkedin-import/audit](/api/linkedin-import/audit) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/linkedin-import/consent](/api/linkedin-import/consent) - Programmatic endpoint available for platform behavior or integrations.
@@ -427,6 +435,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/optimize](/api/optimize) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/current-status](/api/outreach/current-status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/draft](/api/outreach/draft) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/outreach/kpi-chain](/api/outreach/kpi-chain) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/send/batch-status](/api/outreach/send/batch-status) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/send](/api/outreach/send) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/outreach/status](/api/outreach/status) - Programmatic endpoint available for platform behavior or integrations.
@@ -458,6 +467,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [/api/profile/upload-linkedin](/api/profile/upload-linkedin) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/profile/upload-resume](/api/profile/upload-resume) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/readiness](/api/readiness) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/relationships/recommendations](/api/relationships/recommendations) - Programmatic endpoint available for platform behavior or integrations.
+- [/api/role-lane/tutorials](/api/role-lane/tutorials) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/salary-intelligence](/api/salary-intelligence) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/search](/api/search) - Programmatic endpoint available for platform behavior or integrations.
 - [/api/signals/classify](/api/signals/classify) - Programmatic endpoint available for platform behavior or integrations.

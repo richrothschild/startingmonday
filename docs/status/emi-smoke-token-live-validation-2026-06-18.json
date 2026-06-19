@@ -1,0 +1,231 @@
+﻿{
+    "ts":  "2026-06-19T00:02:40.278Z",
+    "baseUrl":  "https://startingmonday.app",
+    "weeklyRunId":  "292fd0aa-238b-407a-986d-5206bc7e560c",
+    "validationRunId":  "27febb82-c98d-4fac-826a-aabebb7bbda5",
+    "validationStatus":  "ok",
+    "mismatchCount":  0,
+    "nullStreakCount":  0,
+    "passed":  true,
+    "failures":  [
+
+                 ],
+    "checks":  {
+                   "emiSmoke":  {
+                                    "path":  "/api/internal/automation/emi-smoke",
+                                    "status":  200,
+                                    "durationMs":  1266,
+                                    "body":  {
+                                                 "ok":  true,
+                                                 "weeklyRunId":  "292fd0aa-238b-407a-986d-5206bc7e560c",
+                                                 "validationRunId":  "27febb82-c98d-4fac-826a-aabebb7bbda5",
+                                                 "validationStatus":  "ok",
+                                                 "mismatchCount":  0,
+                                                 "nullStreakCount":  0,
+                                                 "failures":  [
+
+                                                              ],
+                                                 "checks":  {
+                                                                "weekly":  {
+                                                                               "status":  200,
+                                                                               "body":  {
+                                                                                            "ok":  true,
+                                                                                            "runId":  "292fd0aa-238b-407a-986d-5206bc7e560c",
+                                                                                            "weekStart":  "2026-06-15",
+                                                                                            "weekEnd":  "2026-06-21",
+                                                                                            "summaryPayload":  {
+                                                                                                                   "generated_at":  "2026-06-19T00:02:40.926Z",
+                                                                                                                   "contacts_active":  3,
+                                                                                                                   "followups_week":  0,
+                                                                                                                   "signals_week":  0,
+                                                                                                                   "emi_metrics":  {
+                                                                                                                                       "emi_language_adoption_percent":  {
+                                                                                                                                                                             "value":  33.33,
+                                                                                                                                                                             "status":  "ok",
+                                                                                                                                                                             "source":  "user_events",
+                                                                                                                                                                             "notes":  "baseline_users=3;adoption_users=1"
+                                                                                                                                                                         },
+                                                                                                                                       "assessment_completion_percent":  {
+                                                                                                                                                                             "value":  null,
+                                                                                                                                                                             "status":  "no_data",
+                                                                                                                                                                             "source":  "onboarding_qa_weekly_scorecards",
+                                                                                                                                                                             "notes":  "started=0;completed=0"
+                                                                                                                                                                         },
+                                                                                                                                       "day7_return_percent":  {
+                                                                                                                                                                   "value":  8.33,
+                                                                                                                                                                   "status":  "ok",
+                                                                                                                                                                   "source":  "user_events",
+                                                                                                                                                                   "notes":  "activated=12;returned=1"
+                                                                                                                                                               },
+                                                                                                                                       "proof_assets_published_count":  {
+                                                                                                                                                                            "value":  3,
+                                                                                                                                                                            "status":  "ok",
+                                                                                                                                                                            "source":  "proof_assets",
+                                                                                                                                                                            "notes":  "published_assets=3"
+                                                                                                                                                                        },
+                                                                                                                                       "b2b_pilot_conversion_percent":  {
+                                                                                                                                                                            "value":  28.57,
+                                                                                                                                                                            "status":  "ok",
+                                                                                                                                                                            "source":  "b2b_prospects",
+                                                                                                                                                                            "notes":  "denominator=14;numerator=4"
+                                                                                                                                                                        },
+                                                                                                                                       "tier1_claim_compliance_percent":  {
+                                                                                                                                                                              "value":  100,
+                                                                                                                                                                              "status":  "ok",
+                                                                                                                                                                              "source":  "tier1_claims",
+                                                                                                                                                                              "notes":  "active_claims=12;compliant_claims=12"
+                                                                                                                                                                          }
+                                                                                                                                   },
+                                                                                                                   "emi_language_adoption_percent":  33.33,
+                                                                                                                   "assessment_completion_percent":  null,
+                                                                                                                   "day7_return_percent":  8.33,
+                                                                                                                   "proof_assets_published_count":  3,
+                                                                                                                   "b2b_pilot_conversion_percent":  28.57,
+                                                                                                                   "tier1_claim_compliance_percent":  100
+                                                                                                               },
+                                                                                            "snapshots":  [
+                                                                                                              {
+                                                                                                                  "metric_name":  "emi_language_adoption_percent",
+                                                                                                                  "metric_value":  33.33,
+                                                                                                                  "metric_status":  "ok",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "user_events",
+                                                                                                                  "source_notes":  "baseline_users=3;adoption_users=1"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "metric_name":  "assessment_completion_percent",
+                                                                                                                  "metric_value":  null,
+                                                                                                                  "metric_status":  "no_data",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "onboarding_qa_weekly_scorecards",
+                                                                                                                  "source_notes":  "started=0;completed=0"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "metric_name":  "day7_return_percent",
+                                                                                                                  "metric_value":  8.33,
+                                                                                                                  "metric_status":  "ok",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "user_events",
+                                                                                                                  "source_notes":  "activated=12;returned=1"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "metric_name":  "proof_assets_published_count",
+                                                                                                                  "metric_value":  3,
+                                                                                                                  "metric_status":  "ok",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "proof_assets",
+                                                                                                                  "source_notes":  "published_assets=3"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "metric_name":  "b2b_pilot_conversion_percent",
+                                                                                                                  "metric_value":  28.57,
+                                                                                                                  "metric_status":  "ok",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "b2b_prospects",
+                                                                                                                  "source_notes":  "denominator=14;numerator=4"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "metric_name":  "tier1_claim_compliance_percent",
+                                                                                                                  "metric_value":  100,
+                                                                                                                  "metric_status":  "ok",
+                                                                                                                  "week_start":  "2026-06-15",
+                                                                                                                  "week_end":  "2026-06-21",
+                                                                                                                  "source_table":  "tier1_claims",
+                                                                                                                  "source_notes":  "active_claims=12;compliant_claims=12"
+                                                                                                              }
+                                                                                                          ],
+                                                                                            "snapshotWriteError":  null
+                                                                                        },
+                                                                               "rawBody":  "{\"ok\":true,\"runId\":\"292fd0aa-238b-407a-986d-5206bc7e560c\",\"weekStart\":\"2026-06-15\",\"weekEnd\":\"2026-06-21\",\"summaryPayload\":{\"generated_at\":\"2026-06-19T00:02:40.926Z\",\"contacts_active\":3,\"followups_week\":0,\"signals_week\":0,\"emi_metrics\":{\"emi_language_adoption_percent\":{\"value\":33.33,\"status\":\"ok\",\"source\":\"user_events\",\"notes\":\"baseline_users=3;adoption_users=1\"},\"assessment_completion_percent\":{\"value\":null,\"status\":\"no_data\",\"source\":\"onboarding_qa_weekly_scorecards\",\"notes\":\"started=0;complet"
+                                                                           },
+                                                                "validation":  {
+                                                                                   "status":  200,
+                                                                                   "body":  {
+                                                                                                "ok":  true,
+                                                                                                "runId":  "27febb82-c98d-4fac-826a-aabebb7bbda5",
+                                                                                                "jobName":  "emi-production-validation-rerun",
+                                                                                                "status":  "ok",
+                                                                                                "mismatchCount":  0,
+                                                                                                "nullStreakCount":  0,
+                                                                                                "driftResults":  [
+                                                                                                                     {
+                                                                                                                         "metricName":  "emi_language_adoption_percent",
+                                                                                                                         "publishedValue":  33.33,
+                                                                                                                         "currentValue":  33.33,
+                                                                                                                         "metricStatus":  "ok",
+                                                                                                                         "driftStatus":  "match",
+                                                                                                                         "absoluteDiff":  0,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  0,
+                                                                                                                         "sourceTable":  "user_events"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "metricName":  "assessment_completion_percent",
+                                                                                                                         "publishedValue":  100,
+                                                                                                                         "currentValue":  null,
+                                                                                                                         "metricStatus":  "no_data",
+                                                                                                                         "driftStatus":  "null_or_missing",
+                                                                                                                         "absoluteDiff":  null,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  1,
+                                                                                                                         "sourceTable":  "onboarding_qa_weekly_scorecards"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "metricName":  "day7_return_percent",
+                                                                                                                         "publishedValue":  8.33,
+                                                                                                                         "currentValue":  8.33,
+                                                                                                                         "metricStatus":  "ok",
+                                                                                                                         "driftStatus":  "match",
+                                                                                                                         "absoluteDiff":  0,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  0,
+                                                                                                                         "sourceTable":  "user_events"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "metricName":  "proof_assets_published_count",
+                                                                                                                         "publishedValue":  3,
+                                                                                                                         "currentValue":  3,
+                                                                                                                         "metricStatus":  "ok",
+                                                                                                                         "driftStatus":  "match",
+                                                                                                                         "absoluteDiff":  0,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  0,
+                                                                                                                         "sourceTable":  "proof_assets"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "metricName":  "b2b_pilot_conversion_percent",
+                                                                                                                         "publishedValue":  28.57,
+                                                                                                                         "currentValue":  28.57,
+                                                                                                                         "metricStatus":  "ok",
+                                                                                                                         "driftStatus":  "match",
+                                                                                                                         "absoluteDiff":  0,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  0,
+                                                                                                                         "sourceTable":  "b2b_prospects"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "metricName":  "tier1_claim_compliance_percent",
+                                                                                                                         "publishedValue":  100,
+                                                                                                                         "currentValue":  100,
+                                                                                                                         "metricStatus":  "ok",
+                                                                                                                         "driftStatus":  "match",
+                                                                                                                         "absoluteDiff":  0,
+                                                                                                                         "latestWeekEnd":  "2026-06-21",
+                                                                                                                         "consecutiveNullWeeks":  0,
+                                                                                                                         "sourceTable":  "tier1_claims"
+                                                                                                                     }
+                                                                                                                 ]
+                                                                                            },
+                                                                                   "rawBody":  "{\"ok\":true,\"runId\":\"27febb82-c98d-4fac-826a-aabebb7bbda5\",\"jobName\":\"emi-production-validation-rerun\",\"status\":\"ok\",\"mismatchCount\":0,\"nullStreakCount\":0,\"driftResults\":[{\"metricName\":\"emi_language_adoption_percent\",\"publishedValue\":33.33,\"currentValue\":33.33,\"metricStatus\":\"ok\",\"driftStatus\":\"match\",\"absoluteDiff\":0,\"latestWeekEnd\":\"2026-06-21\",\"consecutiveNullWeeks\":0,\"sourceTable\":\"user_events\"},{\"metricName\":\"assessment_completion_percent\",\"publishedValue\":100,\"currentValue\":null,\"metricStat"
+                                                                               }
+                                                            }
+                                             },
+                                    "rawBody":  "{\"ok\":true,\"weeklyRunId\":\"292fd0aa-238b-407a-986d-5206bc7e560c\",\"validationRunId\":\"27febb82-c98d-4fac-826a-aabebb7bbda5\",\"validationStatus\":\"ok\",\"mismatchCount\":0,\"nullStreakCount\":0,\"failures\":[],\"checks\":{\"weekly\":{\"status\":200,\"body\":{\"ok\":true,\"runId\":\"292fd0aa-238b-407a-986d-5206bc7e560c\",\"weekStart\":\"2026-06-15\",\"weekEnd\":\"2026-06-21\",\"summaryPayload\":{\"generated_at\":\"2026-06-19T00:02:40.926Z\",\"contacts_active\":3,\"followups_week\":0,\"signals_week\":0,\"emi_metrics\":{\"emi_language_adoption_per"
+                                }
+               }
+}

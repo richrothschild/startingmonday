@@ -406,7 +406,13 @@ export default function OutplacementTrustPackPage() {
           <p className="text-[14px] text-slate-600 leading-relaxed mb-5">
             If this trust model fits your standards, move to pilot planning and set explicit pass/fail criteria before kickoff.
           </p>
+          <p className="text-[13px] text-slate-600 leading-relaxed mb-5">
+            Governance path: review the shared <Link href="/security" className="underline underline-offset-2 hover:text-slate-900 transition-colors">security overview</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-slate-900 transition-colors">privacy policy</Link> first, then use this pack for partner-specific procurement, claims, and pilot-governance review.
+          </p>
           <div className="flex flex-wrap gap-4 text-[13px]">
+            <Link href="/security" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
+              Open shared security overview
+            </Link>
             <Link href="/partners#apply" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">
               Apply to partner program
             </Link>

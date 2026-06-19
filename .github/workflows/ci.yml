@@ -51,6 +51,26 @@ jobs:
       - name: Run UX/UI rubric page contract
         run: npm run ux:rubric:pages
 
+  luxury-static-public-all:
+    name: Luxury static gate (public-all)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run luxury static gate at public-all enforcement tier
+        run: npm run ux:luxury:static:public-all
+
   predeploy-gates:
     name: Predeploy gates (lint, typecheck, build, smoke)
     runs-on: ubuntu-latest

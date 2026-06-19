@@ -1,6 +1,6 @@
 # Release Note - Sitewide Execution Epic Rollout
 
-Date: 2026-05-26
+Date: 2026-06-18
 Epic: docs/content/sitewide-execution-epic-wbs-and-deployment-tracker-2026-05-26.md
 Owner: Product Marketing + Design + Engineering + Growth
 
@@ -9,6 +9,25 @@ Owner: Product Marketing + Design + Engineering + Growth
 2. Lane 2: Main-funnel continuity added across landing, pricing, concierge, signup, and demo via source-aware handoff context.
 3. Lane 3: Primary persona and partner pages standardized for confidentiality language, CTA handoff consistency, and cross-path discoverability.
 4. Lane 4: Security and governance posture publicly documented, including AI governance and incident response commitments.
+
+## Batch update (2026-06-18)
+
+### What changed
+1. Homepage role-path discoverability checks were enforced in code and in the UX rubric gate.
+2. Public trust-pack routes were aligned to the canonical shared security posture and trust/proof gate enforcement was expanded.
+3. Weekly growth output freshness and readout-to-decision-log linkage checks were automated and set to strict mode in workflow.
+4. Sitewide release-note artifact structure and freshness now run as a strict CI gate.
+
+### Expected KPI impact
+1. Lower persona-route bounce risk through stronger cross-link discoverability from homepage/footer role paths.
+2. Higher enterprise trust confidence from consistent security/governance pathing across trust-pack surfaces.
+3. More stable weekly decision quality by preventing stale readouts or disconnected decision logs.
+4. Faster rollback decisions with explicit artifact coverage for what changed and expected impact.
+
+### Rollback trigger (batch)
+1. Role-path click-through to persona pages drops by more than 15% week-over-week.
+2. Trust-surface engagement depth drops by more than 12% week-over-week.
+3. Any strict weekly output or release-note artifact gate fails for a production-bound change.
 
 ## Commits in rollout
 1. e268a32 - Execute Lane 1 Mark-page revamp with KPI block and tracking

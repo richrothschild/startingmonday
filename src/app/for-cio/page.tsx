@@ -26,14 +26,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday for C-suite technology searches',
-    description: 'The best C-suite mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
+    description: 'Many C-suite mandates are relationship-led before posting. Campaign infrastructure for technology executives in active search.',
     url: 'https://startingmonday.app/for-cio',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday for C-suite technology searches',
-    description: 'The best C-suite mandates are created, not posted. Campaign infrastructure for technology executives in active search.',
+    description: 'Many C-suite mandates are relationship-led before posting. Campaign infrastructure for technology executives in active search.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-cio',
@@ -176,7 +176,7 @@ export default function ForCioPage() {
       </section>
       <LandingPage
         hero={{
-          eyebrow: 'The best C-suite mandates are created, not posted.',
+          eyebrow: 'Many C-suite mandates are shaped through relationships before they are posted.',
           h1Lines: ["Your next mandate", "won't be", "announced."],
           body: "The best opportunities at your level surface through relationships and reputation, not job boards. The process is quiet, the timeline is compressed, and the candidate who walks in most prepared wins. Starting Monday is the campaign infrastructure for a search that needs to stay invisible until it is done.",
           note: 'Import your profile during setup. Operational in minutes.',

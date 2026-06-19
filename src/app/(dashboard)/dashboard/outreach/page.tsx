@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OutreachHubClient } from './outreach-hub-client'
 import { getStaffMember } from '@/lib/staff'
+import { getRecruiterMessagePacks, getRecruiterToolkit } from '@/lib/role-lane-learning'
 import {
   buildExecutiveCompanySizeLookup,
   buildExecutiveFitLookup,
@@ -45,6 +46,38 @@ export default async function OutreachHubPage() {
     ?? 'local').slice(0, 8)
   const staff = await getStaffMember(user.email ?? '')
   if (!staff) notFound()
+
+  const { data: roleProfile } = await supabase
+    .from('user_profiles')
+    .select('role_family, role_title')
+    .eq('user_id', user.id)
+    .single()
+
+  const roleFamily = (roleProfile?.role_family as 'leadership' | 'technical_leadership' | 'delivery_leadership' | null | undefined) ?? null
+  const roleTitle = (roleProfile?.role_title as
+    | 'manager'
+    | 'senior_manager'
+    | 'director'
+    | 'senior_director'
+    | 'avp'
+    | 'vp'
+    | 'executive'
+    | 'technical_lead'
+    | 'senior_technical_lead'
+    | 'principal'
+    | 'senior_principal'
+    | 'architect'
+    | 'senior_architect'
+    | 'project_manager'
+    | 'senior_project_manager'
+    | 'program_manager'
+    | 'senior_program_manager'
+    | 'tpm'
+    | 'senior_tpm'
+    | null
+    | undefined) ?? null
+  const recruiterToolkit = getRecruiterToolkit(roleFamily, roleTitle)
+  const recruiterMessagePacks = getRecruiterMessagePacks(roleFamily, roleTitle)
 
   const [executiveRaw, executiveStrict100, executiveStrict50, executiveStrict31, executiveStrict21, executiveBatch1, executiveBatch1Strict, executiveBatch2Strict, executiveBatch3Personalized, executiveBatch4Personalized, apolloSendReady, apolloFollowups, executiveTargetSlate, firstTouch, searchFirmRaw, coachRaw, outplacementRaw, searchFirmCurated, coachCurated, day1CoachTargetList, rawContactStatuses, rawLiveSentLogs] = await Promise.all([
     readOutreachCsv('executives_prospecting_midmarket_strong_medium.csv'),
@@ -350,6 +383,49 @@ export default async function OutreachHubPage() {
             </a>
             <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
               View Cadence Checklist
+            </a>
+          </div>
+        </section>
+
+        <section className="bg-white border border-slate-200 rounded p-5">
+          <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Role-family recruiter toolkit</p>
+          <h2 className="text-[18px] font-bold text-slate-900 leading-tight">{recruiterToolkit.lane}</h2>
+          <p className="text-[13px] text-slate-600 mt-2 max-w-3xl">
+            Ship role-specific recruiter and hiring-manager messaging packs with a strict cadence that prioritizes quality over volume.
+          </p>
+
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+            {recruiterMessagePacks.map((pack) => (
+              <article key={pack.audience} className="border border-slate-200 rounded p-4 bg-slate-50">
+                <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">
+                  {pack.audience === 'recruiter' ? 'Recruiter pack' : 'Hiring manager pack'}
+                </p>
+                <p className="text-[13px] font-semibold text-slate-900 mb-1">Subject: {pack.subject}</p>
+                <p className="text-[13px] text-slate-700 leading-relaxed mb-2">{pack.opening}</p>
+                <ul className="space-y-1">
+                  {pack.proofPoints.map((point) => (
+                    <li key={point} className="text-[12px] text-slate-600">- {point}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-4 rounded border border-slate-200 bg-slate-50 px-4 py-3">
+            <p className="text-[12px] font-semibold text-slate-800 mb-1">Cadence guide</p>
+            <ol className="list-decimal ml-4 space-y-1 text-[12px] text-slate-600">
+              {recruiterToolkit.cadence.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a href="#outreach-workbench" className="inline-flex items-center bg-slate-900 text-white text-[13px] font-semibold px-3 py-2 rounded hover:bg-slate-700 transition-colors">
+              Open Workbench with pack guidance
+            </a>
+            <a href="#outreach-cadence" className="inline-flex items-center border border-slate-300 text-slate-700 text-[13px] font-semibold px-3 py-2 rounded hover:border-slate-500 transition-colors">
+              Review cadence checklist
             </a>
           </div>
         </section>

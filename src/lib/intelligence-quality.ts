@@ -1,6 +1,8 @@
 export type SignalProfileContext = {
   roleType?: string | null
   searchPersona?: string | null
+  roleFamily?: string | null
+  roleTitle?: string | null
 }
 
 export type RankedSignalInput = {
@@ -105,6 +107,48 @@ const SIGNAL_PERSONA_WEIGHTS: Record<string, Record<string, number>> = {
     transformation_budget: 10,
     filing_trend: 8,
   },
+  leadership: {
+    funding: 10,
+    exec_departure: 14,
+    exec_hire: 11,
+    acquisition: 12,
+    expansion: 13,
+    layoffs: 11,
+    ipo: 10,
+    new_product: 8,
+    award: 4,
+    board_change: 11,
+    transformation_budget: 13,
+    filing_trend: 10,
+  },
+  technical_leadership: {
+    funding: 9,
+    exec_departure: 9,
+    exec_hire: 10,
+    acquisition: 10,
+    expansion: 12,
+    layoffs: 10,
+    ipo: 8,
+    new_product: 14,
+    award: 6,
+    board_change: 7,
+    transformation_budget: 14,
+    filing_trend: 13,
+  },
+  delivery_leadership: {
+    funding: 8,
+    exec_departure: 10,
+    exec_hire: 9,
+    acquisition: 12,
+    expansion: 14,
+    layoffs: 12,
+    ipo: 8,
+    new_product: 11,
+    award: 5,
+    board_change: 8,
+    transformation_budget: 15,
+    filing_trend: 11,
+  },
 }
 
 const SOURCE_KIND_BASE_CONFIDENCE: Record<string, number> = {
@@ -131,11 +175,15 @@ function inferChannel(roleType: string | null | undefined, searchPersona: string
 
 function inferPersonaGroup(context: SignalProfileContext): keyof typeof SIGNAL_PERSONA_WEIGHTS {
   const role = (context.roleType ?? '').toLowerCase()
+  const roleFamily = (context.roleFamily ?? '').toLowerCase()
   const persona = (context.searchPersona ?? '').toLowerCase()
 
   if (role === 'coach' || persona.includes('coach')) return 'coach'
   if (role === 'outplacement' || persona.includes('outplacement')) return 'outplacement'
   if (role === 'search_firm' || persona.includes('search')) return 'search_firm'
+  if (roleFamily === 'technical_leadership') return 'technical_leadership'
+  if (roleFamily === 'delivery_leadership') return 'delivery_leadership'
+  if (roleFamily === 'leadership') return 'leadership'
   if (persona.includes('passive') || persona.includes('optionality') || persona.includes('nurture')) return 'passive'
   return 'active'
 }

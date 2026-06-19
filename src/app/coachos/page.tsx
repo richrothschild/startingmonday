@@ -124,8 +124,8 @@ export default function CoachOSPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/demo" className="text-[13px] text-slate-200 transition-colors hover:text-white">See a demo</Link>
-            <Link href="/for-coaches" className="text-[13px] text-slate-200 transition-colors hover:text-white">For coaches</Link>
+            <Link href="/demo" className="text-[13px] text-slate-100 transition-colors hover:text-white">See a demo</Link>
+            <Link href="/for-coaches" className="text-[13px] text-slate-100 transition-colors hover:text-white">For coaches</Link>
             <Link href="/partners" className="inline-flex min-h-[40px] items-center rounded bg-orange-500 px-4 text-[13px] font-semibold text-slate-900 transition-colors hover:bg-orange-600">
               Partner with us
             </Link>
@@ -140,7 +140,7 @@ export default function CoachOSPage() {
           <h1 className="mb-5 max-w-4xl text-[32px] font-bold leading-[1.06] tracking-tight text-white sm:text-[48px]">
             For relationship-first career transition coaches who want clients to execute between sessions.
           </h1>
-          <p className="mb-8 max-w-3xl text-[16px] leading-relaxed text-slate-200">
+          <p className="mb-8 max-w-3xl text-[16px] leading-relaxed text-slate-100">
             If your coaching strengths are trust, positioning, and network strategy, CoachOS gives your clients the daily operating rhythm that keeps progress moving between calls — without you having to build or manage any software.
           </p>
 
@@ -162,7 +162,7 @@ export default function CoachOSPage() {
               {URGENCY_REASONS.map((item) => (
                 <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                   <h3 className="mb-2 text-[15px] font-semibold text-orange-100">{item.title}</h3>
-                  <p className="text-[13px] leading-relaxed text-slate-200">{item.detail}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-100">{item.detail}</p>
                 </article>
               ))}
             </div>
@@ -171,7 +171,7 @@ export default function CoachOSPage() {
           <section className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-300">See it in action - no signup required</p>
             <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">Live examples using a real client profile</h2>
-            <p className="mb-6 text-[14px] leading-relaxed text-slate-300">
+            <p className="mb-6 text-[14px] leading-relaxed text-slate-100">
               Michael Torres is a VP-level technology executive in active transition. Click any link to walk through what your clients and you would see inside CoachOS.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
@@ -182,7 +182,7 @@ export default function CoachOSPage() {
                   className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-orange-400/40 hover:bg-orange-400/5"
                 >
                   <p className="mb-1 text-[12px] font-semibold tracking-[0.08em] text-orange-300">{link.label}</p>
-                  <p className="mb-3 text-[13px] leading-relaxed text-slate-300">{link.description}</p>
+                  <p className="mb-3 text-[13px] leading-relaxed text-slate-100">{link.description}</p>
                   <p className="text-[13px] font-semibold text-orange-400 group-hover:text-orange-300">{link.cta}</p>
                 </Link>
               ))}
@@ -192,10 +192,10 @@ export default function CoachOSPage() {
           <section className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-300">What CoachOS does</p>
             <h2 className="mb-1 text-[24px] font-bold leading-snug text-white">Execution infrastructure for coaching practices</h2>
-            <p className="text-[13px] text-slate-400">Works for both executive and professional transition clients - no separate system required.</p>
-            <p className="mb-5 mt-2 text-[13px] text-slate-300">
+            <p className="text-[13px] text-slate-200">Works for both executive and professional transition clients - no separate system required.</p>
+            <p className="mb-5 mt-2 text-[13px] text-slate-100">
               CoachOS also gives your team a coach layer: a clear dashboard, weekly reporting, and cohort-level visibility so delivery stays consistent.{' '}
-              <Link href="/demo/coach-dashboard" className="underline underline-offset-2 text-slate-200 transition-colors hover:text-white">
+              <Link href="/demo/coach-dashboard" className="underline underline-offset-2 text-slate-100 transition-colors hover:text-white">
                 See coach dashboard demo and coach features
               </Link>
               .
@@ -204,7 +204,7 @@ export default function CoachOSPage() {
               {CORE_CAPABILITIES.map((item) => (
                 <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                   <h3 className="mb-2 text-[15px] font-semibold text-white">{item.title}</h3>
-                  <p className="text-[13px] leading-relaxed text-slate-200">{item.detail}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-100">{item.detail}</p>
                 </article>
               ))}
             </div>
@@ -217,7 +217,7 @@ export default function CoachOSPage() {
               {OBJECTIONS.map((item) => (
                 <article key={item.objection} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                   <p className="mb-2 text-[14px] font-semibold text-white">{item.objection}</p>
-                  <p className="text-[13px] leading-relaxed text-slate-200">{item.response}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-100">{item.response}</p>
                 </article>
               ))}
             </div>
@@ -226,18 +226,18 @@ export default function CoachOSPage() {
           <section className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-300">Pricing</p>
             <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">Pilot pricing for coaching practices</h2>
-            <p className="mb-6 text-[14px] leading-relaxed text-slate-300">Begin with an 8-week pilot. Continue only if the workflow fits your clients and your team.</p>
+            <p className="mb-6 text-[14px] leading-relaxed text-slate-100">Begin with an 8-week pilot. Continue only if the workflow fits your clients and your team.</p>
             <div className="grid gap-4 md:grid-cols-2">
               {PRICING.map((tier) => (
                 <article key={tier.tier} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-5">
-                  <p className="mb-1 text-[12px] font-semibold tracking-[0.02em] text-slate-300">{tier.tier}</p>
+                  <p className="mb-1 text-[12px] font-semibold tracking-[0.02em] text-slate-100">{tier.tier}</p>
                   <p className="mb-1 text-[30px] font-bold tracking-tight text-white">{tier.price}</p>
-                  <p className="mb-1 text-[13px] text-slate-400">{tier.seats}</p>
-                  <p className="mb-3 text-[13px] text-slate-300 leading-relaxed">{tier.bestFor}</p>
-                  <p className="mb-2 text-[12px] tracking-[0.02em] text-slate-400">Includes</p>
+                  <p className="mb-1 text-[13px] text-slate-200">{tier.seats}</p>
+                  <p className="mb-3 text-[13px] text-slate-100 leading-relaxed">{tier.bestFor}</p>
+                  <p className="mb-2 text-[12px] tracking-[0.02em] text-slate-200">Includes</p>
                   <ul className="space-y-2">
                     {tier.includes.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-[12px] text-slate-300">
+                      <li key={item} className="flex items-center gap-2 text-[12px] text-slate-100">
                         <span className="h-1 w-1 rounded-full bg-orange-300/80" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
@@ -246,12 +246,12 @@ export default function CoachOSPage() {
                 </article>
               ))}
             </div>
-            <p className="mt-4 text-[12px] text-slate-500">Annual prepay discount: 12%. Larger programs priced on request.</p>
+            <p className="mt-4 text-[12px] text-slate-200">Annual prepay discount: 12%. Larger programs priced on request.</p>
           </section>
 
           <section className="rounded-[2rem] border border-orange-300/20 bg-orange-400/5 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">If this fits your practice, start with a quiet pilot</h2>
-            <p className="mb-6 text-[14px] leading-relaxed text-slate-300">
+            <p className="mb-6 text-[14px] leading-relaxed text-slate-100">
               Configure your brand, invite a small cohort, and decide by day 30 using real activation and momentum data.
             </p>
             <div className="flex flex-wrap items-center gap-3">
@@ -264,7 +264,7 @@ export default function CoachOSPage() {
               <Link href="/demo" className="inline-flex min-h-[44px] items-center rounded-full border border-white/25 px-6 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/45">
                 Walk through the demo first
               </Link>
-              <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-200 underline underline-offset-2 transition-colors hover:text-white">
+              <Link href="/for-coaches/trust-pack" className="text-[13px] text-slate-100 underline underline-offset-2 transition-colors hover:text-white">
                 Review trust and data policy
               </Link>
             </div>
@@ -273,13 +273,13 @@ export default function CoachOSPage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/10 px-4 py-8 text-[12px] text-slate-300 sm:px-6">
+      <footer className="border-t border-white/10 px-4 py-8 text-[12px] text-slate-100 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p>Starting Monday CoachOS - execution infrastructure for relationship-first career transition coaching.</p>
           <div className="flex gap-5">
-            <Link href="/demo" className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white">Live demo</Link>
-            <Link href="/partners" className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white">Partner program</Link>
-            <Link href="/" className="text-slate-200 underline underline-offset-2 transition-colors hover:text-white">Starting Monday</Link>
+            <Link href="/demo" className="text-slate-100 underline underline-offset-2 transition-colors hover:text-white">Live demo</Link>
+            <Link href="/partners" className="text-slate-100 underline underline-offset-2 transition-colors hover:text-white">Partner program</Link>
+            <Link href="/" className="text-slate-100 underline underline-offset-2 transition-colors hover:text-white">Starting Monday</Link>
           </div>
         </div>
       </footer>

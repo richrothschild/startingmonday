@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday for Chief Data Officers',
-    description: 'Most Chief Data Officer titles are not C-suite mandates. Campaign infrastructure to find the ones that are.',
+    description: 'Many Chief Data Officer titles are scoped below true C-suite mandate level. Campaign infrastructure to find the ones that are.',
     url: 'https://startingmonday.app/for-data-officer',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday for Chief Data Officers',
-    description: 'Most Chief Data Officer titles are not C-suite mandates. Campaign infrastructure to find the ones that are.',
+    description: 'Many Chief Data Officer titles are scoped below true C-suite mandate level. Campaign infrastructure to find the ones that are.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-data-officer',
@@ -119,7 +119,7 @@ export default function ForDataOfficerPage() {
       />
       <LandingPage
         hero={{
-          eyebrow: 'Most Chief Data Officer titles are not C-suite mandates. Find the ones that are.',
+          eyebrow: 'Many Chief Data Officer titles are scoped below true C-suite mandates. Find the ones that are.',
           h1Lines: ['Data is the', 'strategy.', 'Own the seat.'],
           body: 'The Chief Data Officer title is one of the most inconsistently defined in the C-suite. At some organizations it is a genuine board-level mandate: data as competitive advantage, AI strategy, governance, and privacy at enterprise scale with direct CEO access. At others it is a senior data engineering director with an impressive title and no seat at the table. In our Jan–May 2026 pilot cohort, executives who filtered organizations by reporting-line and governance investment reached first-round interviews an average of 40% faster than those who responded to posted roles. The executive who builds a career at the right altitude knows the difference before the first conversation.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

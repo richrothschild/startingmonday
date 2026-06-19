@@ -75,14 +75,14 @@ export default defineConfig({
     },
     {
       name: 'luxury-desktop',
-      testMatch: /luxury-ux\.spec\.ts/,
+      testMatch: /luxury-(ux|public-all-pages)\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
       },
     },
     {
       name: 'luxury-mobile',
-      testMatch: /luxury-ux\.spec\.ts/,
+      testMatch: /luxury-(ux|public-all-pages)\.spec\.ts/,
       use: {
         browserName: 'chromium',
         viewport: { width: 390, height: 844 },

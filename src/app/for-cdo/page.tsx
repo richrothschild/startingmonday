@@ -119,7 +119,7 @@ export default function ForCdoPage() {
         sourcePage="/for-cdo"
         hero={{
           eyebrow: 'Digital transformation mandates are being absorbed, restructured, and redefined.',
-          h1Lines: ['Your mandate', 'is real.', 'Own the narrative.'],
+          h1Lines: ['Clarify the mandate,', 'then own', 'the narrative.'],
           body: 'The Chief Digital Officer search is harder than the CIO search because the mandate varies wildly by organization. At some companies, CDO owns customer-facing digital and the CIO owns infrastructure. At others, CDO is the CIO with a modern title. At others still, it is a transitional role already being absorbed. The candidate who wins is the one who can read which mandate they are walking into and position themselves precisely for it before the first conversation.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',
           steps: [

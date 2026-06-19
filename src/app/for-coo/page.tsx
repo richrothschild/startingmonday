@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Starting Monday for C-suite leaders moving to COO roles',
-    description: 'The technology executive who can run the business is the most valuable person in the room. Make the CIO-to-COO move deliberately.',
+    description: 'The technology executive who can run the business is often the most valuable person in the room. Make the CIO-to-COO move deliberately.',
     url: 'https://startingmonday.app/for-coo',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Starting Monday for COOs - Technology Executives in Operations',
-    description: 'The technology executive who can run the business is the most valuable person in the room. Make the CIO-to-COO move deliberately.',
+    description: 'The technology executive who can run the business is often the most valuable person in the room. Make the CIO-to-COO move deliberately.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-coo',
@@ -118,7 +118,7 @@ export default function ForCooPage() {
       />
       <LandingPage
         hero={{
-          eyebrow: 'The technology executive who can run the business is among the rarest people in the room.',
+          eyebrow: 'A technology executive who can run the business is rare and highly valued.',
           h1Lines: ['Operations is', 'the next', 'mandate.'],
           body: 'The path from CIO or CTO into the COO seat is one of the most valuable transitions in the current market. Digital-native companies scaling past the point where the CEO can run everything need someone who understands the technology foundation and can manage the business built on top of it. PE-backed companies driving operational improvement need executives who can deliver efficiency without breaking the digital advantage. The candidate who makes this move deliberately, with a clear operational narrative, is rare enough to command the room.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

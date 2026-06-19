@@ -117,7 +117,7 @@ export default function ForCpoPage() {
       <LandingPage
         sourcePage="/for-cpo"
         hero={{
-          eyebrow: 'The best CPO mandates are at companies where product is the strategy, not a function.',
+          eyebrow: 'The strongest CPO mandates are at companies where product is the strategy, not a function.',
           h1Lines: ['Find the company', 'that needs', 'what you build.'],
           body: 'The Chief Product Officer search is about fit at a level that most hiring processes cannot surface. Not just industry or stage - the alignment between how a company thinks about product and how you have built it. The CPO who lands the right role does not scan job boards. They identify organizations where product is a board-level investment, where the CEO came up through product or has made it central to strategy, and where their specific record maps directly to what the company needs to build next.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

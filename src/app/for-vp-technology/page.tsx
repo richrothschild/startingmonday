@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'VP Technology Search - Starting Monday',
-    description: 'The best VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
+    description: 'Many VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
     url: 'https://startingmonday.app/for-vp-technology',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'VP Technology Search - Starting Monday',
-    description: 'The best VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
+    description: 'Many VP Technology roles go to candidates already in the room. Find the right mandate before the role is posted.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-vp-technology',
@@ -117,7 +117,7 @@ export default function ForVpTechnologyPage() {
       />
       <LandingPage
         hero={{
-          eyebrow: 'The best VP Technology roles go to the candidates already in the room.',
+          eyebrow: 'Many VP Technology roles go to candidates already in the room.',
           h1Lines: ['The right mandate', 'at the right', 'organization.'],
           body: 'The senior technology leader at VP level faces a search that rewards preparation over application. The best roles are filled through referral networks and search firms who already have you in mind - not through job boards you checked last Tuesday. The VP who lands well is not the one who applies fastest. It is the one who has been watching their target organizations before the headcount was approved, and who walks in already knowing the context.',
           note: 'Import your LinkedIn profile during setup. Operational in minutes.',

@@ -10,6 +10,7 @@ import {
   estimateManualFieldReduction,
   isTransitionFirstCohort,
 } from '@/lib/onboarding-speed'
+import { type RoleFamily, type RoleTitle } from '@/lib/role-taxonomy'
 
 type ImportResult = {
   full_name?: string | null
@@ -21,11 +22,25 @@ type ImportResult = {
   target_titles?: string | null
 }
 
-const PERSONA_OPTIONS: { value: SearchPersona; label: string; sub: string }[] = [
-  { value: 'csuite',   label: 'C-Suite',         sub: 'CEO, CFO, CTO, COO, CIO, CHRO' },
-  { value: 'vp',       label: 'VP / SVP',         sub: 'Targeting C-suite or a larger VP role' },
-  { value: 'director', label: 'Director',          sub: 'Targeting VP or above' },
-  { value: 'board',    label: 'Board / Advisor',  sub: 'Board seat or advisory role' },
+type RoleTrackOption = {
+  value: RoleTitle
+  roleFamily: RoleFamily
+  persona: SearchPersona
+  label: string
+  sub: string
+}
+
+const ROLE_TRACK_OPTIONS: RoleTrackOption[] = [
+  { value: 'manager', roleFamily: 'leadership', persona: 'director', label: 'Manager', sub: 'Leadership track for first-line managers' },
+  { value: 'senior_director', roleFamily: 'leadership', persona: 'director', label: 'Senior Director', sub: 'Leadership track for org-level scope' },
+  { value: 'avp', roleFamily: 'leadership', persona: 'vp', label: 'AVP / VP', sub: 'Leadership track with broad business ownership' },
+  { value: 'executive', roleFamily: 'leadership', persona: 'csuite', label: 'Executive', sub: 'C-suite and enterprise leadership path' },
+  { value: 'principal', roleFamily: 'technical_leadership', persona: 'director', label: 'Principal', sub: 'Technical leadership without direct org management' },
+  { value: 'architect', roleFamily: 'technical_leadership', persona: 'director', label: 'Architect', sub: 'Architecture and platform strategy path' },
+  { value: 'technical_lead', roleFamily: 'technical_leadership', persona: 'director', label: 'Technical Lead', sub: 'Hands-on technical leadership track' },
+  { value: 'program_manager', roleFamily: 'delivery_leadership', persona: 'director', label: 'Program Manager', sub: 'Cross-functional delivery leadership path' },
+  { value: 'tpm', roleFamily: 'delivery_leadership', persona: 'director', label: 'Technical Program Manager', sub: 'Technical delivery and execution path' },
+  { value: 'project_manager', roleFamily: 'delivery_leadership', persona: 'director', label: 'Project Manager', sub: 'Execution-focused delivery leadership path' },
 ]
 
 const STEP_COUNT = 7
@@ -60,6 +75,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   const [fullName, setFullName]               = useState(profile?.full_name ?? '')
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
+  const [roleFamily, setRoleFamily]           = useState<RoleFamily | ''>('')
+  const [roleTitle, setRoleTitle]             = useState<RoleTitle | ''>('')
   const [employmentStatus, setEmploymentStatus] = useState('')
   const [searchTimeline, setSearchTimeline]   = useState('')
   const [searchDriver, setSearchDriver]       = useState('')
@@ -291,6 +308,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   function quickStart() {
     if (!searchPersona) setSearchPersona('csuite')
+    if (!roleFamily) setRoleFamily('leadership')
+    if (!roleTitle) setRoleTitle('executive')
     if (!companyNames.some(n => n.trim())) {
       const seeded = seededCompaniesFor(searchPersona || 'csuite')
       setCompanyNames([...seeded, ''])
@@ -389,6 +408,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       <form id="onboarding-form" action={completeOnboarding} className="hidden">
         <input type="hidden" name="full_name"           value={fullName} />
         <input type="hidden" name="search_persona"      value={searchPersona} />
+        <input type="hidden" name="role_family"         value={roleFamily} />
+        <input type="hidden" name="role_title"          value={roleTitle} />
         <input type="hidden" name="onboarding_channel"  value={onboardingChannel} />
         <input type="hidden" name="onboarding_low_energy" value={lowEnergyMode ? 'true' : 'false'} />
         <input type="hidden" name="onboarding_started_at" value={onboardingStartedAt} />
@@ -435,8 +456,13 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
           {step === 1 && (
             <StepLevel
-              value={searchPersona}
-              onSelect={v => { setSearchPersona(v); setTimeout(advance, 220) }}
+              roleTitle={roleTitle}
+              onSelect={(selection) => {
+                setRoleTitle(selection.value)
+                setRoleFamily(selection.roleFamily)
+                setSearchPersona(selection.persona)
+                setTimeout(advance, 220)
+              }}
             />
           )}
 
@@ -563,7 +589,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 <button
                   type="button"
                   onClick={() => { setAdvancedSetup(false); advance() }}
-                  disabled={!searchPersona}
+                  disabled={!roleTitle}
                   className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
                 >
                   Continue to watchlist
@@ -1051,44 +1077,44 @@ function StepName({
 }
 
 function StepLevel({
-  value,
+  roleTitle,
   onSelect,
 }: {
-  value: SearchPersona | ''
-  onSelect: (v: SearchPersona) => void
+  roleTitle: RoleTitle | ''
+  onSelect: (v: RoleTrackOption) => void
 }) {
   return (
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
-          What level are you targeting?
+          Which role lane are you targeting?
         </h1>
         <p className="text-[15px] text-slate-500">
-          This shapes how every brief and signal is written for you.
+          This sets your workflow, messaging, and signal prioritization.
         </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        {PERSONA_OPTIONS.map(opt => (
+        {ROLE_TRACK_OPTIONS.map(opt => (
           <button
             key={opt.value}
             type="button"
-            onClick={() => onSelect(opt.value)}
+            onClick={() => onSelect(opt)}
             className={[
               'text-left border rounded-lg px-5 py-4 flex items-center justify-between transition-all cursor-pointer',
-              value === opt.value
+              roleTitle === opt.value
                 ? 'border-slate-900 bg-slate-900 text-white'
                 : 'border-slate-200 bg-white hover:border-slate-400',
             ].join(' ')}
           >
             <div>
-              <div className={['text-[15px] font-semibold', value === opt.value ? 'text-white' : 'text-slate-900'].join(' ')}>
+              <div className={['text-[15px] font-semibold', roleTitle === opt.value ? 'text-white' : 'text-slate-900'].join(' ')}>
                 {opt.label}
               </div>
-              <div className={['text-[13px] mt-0.5', value === opt.value ? 'text-slate-300' : 'text-slate-400'].join(' ')}>
+              <div className={['text-[13px] mt-0.5', roleTitle === opt.value ? 'text-slate-300' : 'text-slate-400'].join(' ')}>
                 {opt.sub}
               </div>
             </div>
-            {value === opt.value && (
+            {roleTitle === opt.value && (
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 ml-4">
                 <circle cx="9" cy="9" r="9" fill="white" fillOpacity="0.2" />
                 <path d="M5 9l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

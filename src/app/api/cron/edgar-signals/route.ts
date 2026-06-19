@@ -55,6 +55,8 @@ type UserProfile = {
   user_id: string
   role_type: string | null
   search_persona: string | null
+  role_family: string | null
+  role_title: string | null
 }
 
 export async function GET(request: NextRequest) {
@@ -142,7 +144,7 @@ export async function GET(request: NextRequest) {
   const userIds = [...new Set(companies.map((c) => c.user_id))]
   const { data: rawProfiles } = await admin
     .from('user_profiles')
-    .select('user_id, role_type, search_persona')
+    .select('user_id, role_type, search_persona, role_family, role_title')
     .in('user_id', userIds)
   const profileByUserId = new Map<string, UserProfile>()
   for (const profile of (rawProfiles ?? []) as unknown as UserProfile[]) {
@@ -170,10 +172,14 @@ export async function GET(request: NextRequest) {
       const profileContext = enrichSignalProfileContext({
         roleType: profile?.role_type,
         searchPersona: profile?.search_persona,
+        roleFamily: profile?.role_family,
+        roleTitle: profile?.role_title,
       })
       const relevance = computePersonaRelevance('exec_departure', {
         roleType: profile?.role_type,
         searchPersona: profile?.search_persona,
+        roleFamily: profile?.role_family,
+        roleTitle: profile?.role_title,
       })
       const confidence = computeSignalConfidence({
         signalType: 'exec_departure',

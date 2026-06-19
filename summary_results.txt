@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-14T02:22:07.251Z",
-  "totalPublicPages": 126,
+  "generatedAt": "2026-06-18T22:26:26.315Z",
+  "totalPublicPages": 136,
   "worst10": [
     {
       "route": "/",
@@ -511,6 +511,17 @@
       "hasStrongPremiumBase": true
     },
     {
+      "route": "/channels/feature-map",
+      "file": "C:/Users/roths/startingmonday/src/app/channels/feature-map/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
       "route": "/coaches",
       "file": "C:/Users/roths/startingmonday/src/app/coaches/page.tsx",
       "score": 98,
@@ -577,6 +588,17 @@
       "hasStrongPremiumBase": true
     },
     {
+      "route": "/coachos",
+      "file": "C:/Users/roths/startingmonday/src/app/coachos/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
       "route": "/concierge",
       "file": "C:/Users/roths/startingmonday/src/app/concierge/page.tsx",
       "score": 98,
@@ -630,6 +652,17 @@
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": false
+    },
+    {
+      "route": "/demo/coach-dashboard",
+      "file": "C:/Users/roths/startingmonday/src/app/demo/coach-dashboard/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": true,
+      "hasStrongPremiumBase": true
     },
     {
       "route": "/demo/executive-brief",
@@ -767,7 +800,7 @@
       "route": "/executives/personas",
       "file": "C:/Users/roths/startingmonday/src/app/executives/personas/page.tsx",
       "score": 98,
-      "contrastRiskCount": 2,
+      "contrastRiskCount": 0,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
@@ -779,6 +812,28 @@
       "file": "C:/Users/roths/startingmonday/src/app/executives/personas/[slug]/page.tsx",
       "score": 98,
       "contrastRiskCount": 1,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
+      "route": "/features",
+      "file": "C:/Users/roths/startingmonday/src/app/features/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": false
+    },
+    {
+      "route": "/features/[slug]",
+      "file": "C:/Users/roths/startingmonday/src/app/features/[slug]/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 3,
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
@@ -806,6 +861,17 @@
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
       "hasStrongPremiumBase": false
+    },
+    {
+      "route": "/for-chro",
+      "file": "C:/Users/roths/startingmonday/src/app/for-chro/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 2,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
     },
     {
       "route": "/for-cio",
@@ -848,7 +914,7 @@
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
+      "mixedExtremeSurfaces": true,
       "hasStrongPremiumBase": true
     },
     {
@@ -907,6 +973,17 @@
       "hasStrongPremiumBase": true
     },
     {
+      "route": "/for-coaches/search-affiliate",
+      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/search-affiliate/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 3,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
       "route": "/for-coaches/trust-pack",
       "file": "C:/Users/roths/startingmonday/src/app/for-coaches/trust-pack/page.tsx",
       "score": 98,
@@ -958,8 +1035,19 @@
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
+      "mixedExtremeSurfaces": true,
+      "hasStrongPremiumBase": true
+    },
+    {
+      "route": "/for-executives/[lane]",
+      "file": "C:/Users/roths/startingmonday/src/app/for-executives/[lane]/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": true,
+      "hasStrongPremiumBase": true
     },
     {
       "route": "/for-financial-advisors",
@@ -1002,7 +1090,7 @@
       "pastelRiskCount": 0,
       "transparentRoot": false,
       "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
+      "mixedExtremeSurfaces": true,
       "hasStrongPremiumBase": true
     },
     {
@@ -1274,7 +1362,7 @@
       "file": "C:/Users/roths/startingmonday/src/app/outplacement/page.tsx",
       "score": 98,
       "contrastRiskCount": 0,
-      "pastelRiskCount": 1,
+      "pastelRiskCount": 2,
       "transparentRoot": false,
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
@@ -1457,6 +1545,17 @@
       "hasStrongPremiumBase": true
     },
     {
+      "route": "/stuart-meyer-review",
+      "file": "C:/Users/roths/startingmonday/src/app/stuart-meyer-review/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": true,
+      "hasStrongPremiumBase": true
+    },
+    {
       "route": "/team/join/[token]",
       "file": "C:/Users/roths/startingmonday/src/app/team/join/[token]/page.tsx",
       "score": 98,
@@ -1476,6 +1575,17 @@
       "transparentRoot": false,
       "gradientToTransparent": false,
       "mixedExtremeSurfaces": false,
+      "hasStrongPremiumBase": true
+    },
+    {
+      "route": "/terry-anderson-review",
+      "file": "C:/Users/roths/startingmonday/src/app/terry-anderson-review/page.tsx",
+      "score": 98,
+      "contrastRiskCount": 0,
+      "pastelRiskCount": 0,
+      "transparentRoot": false,
+      "gradientToTransparent": false,
+      "mixedExtremeSurfaces": true,
       "hasStrongPremiumBase": true
     },
     {

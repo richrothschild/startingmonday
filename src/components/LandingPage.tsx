@@ -53,6 +53,15 @@ export interface LandingPageProps {
   experimentVariant?: 'control' | 'proof_first'
 }
 
+type ExecutiveLaneBrand = {
+  key: 'leadership' | 'technical-leadership' | 'delivery-leadership'
+  label: string
+  badgeClass: string
+  borderClass: string
+  panelClass: string
+  proofToneClass: string
+}
+
 const CHANNEL_BEST_FOR: Record<string, string> = {
   executives: 'Best for active or near-term C-suite transitions',
   coaches: 'Best for coach-led execution between client sessions',
@@ -61,6 +70,45 @@ const CHANNEL_BEST_FOR: Record<string, string> = {
 }
 
 const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
+
+const EXECUTIVE_LANE_BRANDS: Record<ExecutiveLaneBrand['key'], ExecutiveLaneBrand> = {
+  leadership: {
+    key: 'leadership',
+    label: 'Leadership lane',
+    badgeClass: 'bg-amber-300/20 text-amber-100 border-amber-300/40',
+    borderClass: 'border-amber-300/35',
+    panelClass: 'bg-amber-300/10',
+    proofToneClass: 'text-amber-100',
+  },
+  'technical-leadership': {
+    key: 'technical-leadership',
+    label: 'Technical leadership lane',
+    badgeClass: 'bg-cyan-300/20 text-cyan-100 border-cyan-300/40',
+    borderClass: 'border-cyan-300/35',
+    panelClass: 'bg-cyan-300/10',
+    proofToneClass: 'text-cyan-100',
+  },
+  'delivery-leadership': {
+    key: 'delivery-leadership',
+    label: 'Delivery leadership lane',
+    badgeClass: 'bg-emerald-300/20 text-emerald-100 border-emerald-300/40',
+    borderClass: 'border-emerald-300/35',
+    panelClass: 'bg-emerald-300/10',
+    proofToneClass: 'text-emerald-100',
+  },
+}
+
+function executiveLaneFromSource(sourcePage: string): ExecutiveLaneBrand | null {
+  const lane = sourcePage.startsWith('/for-executives/')
+    ? sourcePage.replace('/for-executives/', '')
+    : null
+
+  if (!lane) return null
+  if (lane === 'leadership' || lane === 'technical-leadership' || lane === 'delivery-leadership') {
+    return EXECUTIVE_LANE_BRANDS[lane]
+  }
+  return null
+}
 
 const EXECUTIVE_FEATURE_MATRIX = [
   {
@@ -107,6 +155,20 @@ const EXECUTIVE_DIFFERENTIATORS = [
     otherTools: 'Generic interview tips that rarely map to executive mandate discussions.',
   },
 ]
+
+const HOMEPAGE_ROLE_PATH_LINKS = [
+  { ctaKey: 'cio_cto_transition', href: '/for-cio', label: 'CIO / CTO path', channel: 'executives' as const },
+  { ctaKey: 'vp_technology', href: '/for-vp-technology', label: 'VP Technology path', channel: 'executives' as const },
+  { ctaKey: 'chief_information_security_officer', href: '/for-ciso', label: 'CISO path', channel: 'executives' as const },
+  { ctaKey: 'chief_data_officer', href: '/for-data-officer', label: 'Chief Data Officer path', channel: 'executives' as const },
+  { ctaKey: 'chief_product_officer', href: '/for-cpo', label: 'Chief Product Officer path', channel: 'executives' as const },
+  { ctaKey: 'chief_operating_officer', href: '/for-coo', label: 'COO path', channel: 'executives' as const },
+] as const
+
+const HOMEPAGE_PARTNER_PATH_LINKS = [
+  { href: '/for-pe-partners', label: 'PE Partners' },
+  { href: '/search-firms', label: 'Search Firms' },
+] as const
 
 function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
@@ -212,9 +274,10 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
-  const isExecutivesPage = sourcePage === '/for-executives'
+  const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
   const isManagerToolsPage = sourcePage === '/managertools'
   const useCenteredFooter = isManagerToolsPage || isExecutivesPage
+  const executiveLaneBrand = executiveLaneFromSource(sourcePage)
   const heroPrimaryHref = isManagerToolsPage
     ? MANAGERTOOLS_SIGNUP_URL
     : isExecutivesPage
@@ -225,7 +288,14 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
     : isExecutivesPage
       ? 'Start your free trial'
       : 'Start Now'
-  void rolePathPriorityByCtaKey
+  const homepageRolePathLinks = isHomePage
+    ? [...HOMEPAGE_ROLE_PATH_LINKS].sort((left, right) => {
+        const leftRank = rolePathPriorityByCtaKey?.[left.ctaKey] ?? Number.MAX_SAFE_INTEGER
+        const rightRank = rolePathPriorityByCtaKey?.[right.ctaKey] ?? Number.MAX_SAFE_INTEGER
+        if (leftRank !== rightRank) return leftRank - rightRank
+        return left.label.localeCompare(right.label)
+      })
+    : []
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
@@ -399,6 +469,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             {isExecutivesPage && (
               <section className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md sm:p-6" aria-labelledby="executive-differentiation-title">
                 <div className="flex flex-col gap-2 mb-5">
+                  {executiveLaneBrand && (
+                    <span className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${executiveLaneBrand.badgeClass}`}>
+                      {executiveLaneBrand.label}
+                    </span>
+                  )}
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Executive platform capabilities</p>
                   <h2 id="executive-differentiation-title" className="text-[22px] font-bold leading-snug text-white sm:text-[24px]">
                     All essentials in one operating view.
@@ -432,6 +507,34 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     </div>
                   ))}
                 </div>
+
+                {executiveLaneBrand && (
+                  <div className={`mt-5 rounded-2xl border ${executiveLaneBrand.borderClass} ${executiveLaneBrand.panelClass} p-4 sm:p-5`}>
+                    <p className={`text-[11px] font-bold uppercase tracking-[0.16em] ${executiveLaneBrand.proofToneClass} mb-2`}>
+                      Trust and proof guardrails
+                    </p>
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                      <article className="rounded-xl border border-white/15 bg-slate-950/55 p-3">
+                        <p className="text-[12px] font-semibold text-white mb-1">Confidential by design</p>
+                        <p className="text-[12px] leading-relaxed text-slate-300">Your identity, targets, and activity are not shared with employers or recruiters.</p>
+                      </article>
+                      <article className="rounded-xl border border-white/15 bg-slate-950/55 p-3">
+                        <p className="text-[12px] font-semibold text-white mb-1">Claim discipline</p>
+                        <p className="text-[12px] leading-relaxed text-slate-300">Numeric statements are denominator-aware and directional unless explicitly audited.</p>
+                      </article>
+                      <article className="rounded-xl border border-white/15 bg-slate-950/55 p-3">
+                        <p className="text-[12px] font-semibold text-white mb-1">Evidence path</p>
+                        <p className="text-[12px] leading-relaxed text-slate-300">Review method, references, and source notes before any decision gate.</p>
+                      </article>
+                    </div>
+                    <p className="mt-3 text-[12px] leading-relaxed text-slate-200">
+                      Source: Jan-May 2026 pilot cohorts with denominator and timeframe controls.{' '}
+                      <Link href="/method-and-evidence" className="underline underline-offset-2 hover:text-white">Method and evidence</Link>
+                      {' · '}
+                      <Link href="/evidence-room" className="underline underline-offset-2 hover:text-white">Evidence room</Link>
+                    </p>
+                  </div>
+                )}
               </section>
             )}
 
@@ -651,6 +754,43 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
         <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
           <div className="max-w-5xl mx-auto">
+            {isHomePage && (
+              <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5" aria-labelledby="footer-role-path-grid-heading">
+                <p id="footer-role-path-grid-heading" className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">
+                  Footer role-path grid
+                </p>
+                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-300">
+                  Jump directly into the route that matches your transition, or move into partner-specific paths without searching through the site.
+                </p>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                  {homepageRolePathLinks.map((item) => (
+                    <TrackLink
+                      key={item.ctaKey}
+                      href={item.href}
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: item.channel,
+                        cta_label: `footer_role_path_${item.ctaKey}`,
+                        source_page: '/',
+                      }}
+                      className="inline-flex min-h-[44px] items-center rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/60 hover:text-white"
+                    >
+                      {item.label}
+                    </TrackLink>
+                  ))}
+                  {HOMEPAGE_PARTNER_PATH_LINKS.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="inline-flex min-h-[44px] items-center rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/60 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
             <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
               <span className={useCenteredFooter ? 'text-[12px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>

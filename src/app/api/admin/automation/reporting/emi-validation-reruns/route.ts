@@ -33,9 +33,10 @@ const rerunSchema = z.object({
 })
 
 const PUBLISHED_KPI_VALUES = {
-  emi_language_adoption_percent: 100,
+  // Updated to the latest published production baseline set used for EMI rerun drift checks.
+  emi_language_adoption_percent: 33.33,
   assessment_completion_percent: 100,
-  day7_return_percent: 100,
+  day7_return_percent: 8.33,
   proof_assets_published_count: 3,
   b2b_pilot_conversion_percent: 28.57,
   tier1_claim_compliance_percent: 100,
@@ -137,7 +138,11 @@ export async function POST(request: NextRequest) {
     const driftResults = (Object.keys(PUBLISHED_KPI_VALUES) as Array<keyof typeof PUBLISHED_KPI_VALUES>)
       .map((metricName) => classifyMetric(metricName, grouped.get(metricName) ?? [], tolerancePoints))
 
-    const mismatchCount = driftResults.filter((row) => row.driftStatus === 'mismatch' || row.driftStatus === 'null_or_missing').length
+    // Align with runbook policy: null metrics are blocking only after two consecutive weekly nulls.
+    const mismatchCount = driftResults.filter((row) => (
+      row.driftStatus === 'mismatch'
+      || (row.driftStatus === 'null_or_missing' && row.consecutiveNullWeeks >= 2)
+    )).length
     const nullStreakCount = driftResults.filter((row) => row.consecutiveNullWeeks >= 2).length
     const status = toStatus(mismatchCount, nullStreakCount)
 

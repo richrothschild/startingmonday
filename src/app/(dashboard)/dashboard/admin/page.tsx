@@ -7,6 +7,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
 import { getStripe } from '@/lib/stripe'
 import { getRolePathPriorityDebugRows } from '@/lib/role-path-priority'
+import { computeOutreachKPIChain } from '@/lib/outreach/kpi-chain'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
 import { INTERNAL_APIS, PAGE_GROUPS, STEP_LABELS } from './admin-page-config'
 
@@ -415,6 +416,12 @@ export default async function AdminPage() {
       acted: counts.acted,
       rate: counts.total > 0 ? Math.round((counts.acted / counts.total) * 100) : 0,
     }))
+
+  const kpiChain = await computeOutreachKPIChain({
+    supabase: adminClient,
+    userId: user.id,
+    windowDays: 30,
+  })
 
   // Brief quality
   const logs = qualityLogs ?? []
@@ -1076,6 +1083,73 @@ export default async function AdminPage() {
         <section id="active-trials" className="bg-white border border-slate-200 rounded p-5 mb-6">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
           <p className="text-[13px] text-slate-600">Active trials: {trialUsers.length}</p>
+        </section>
+
+        <section id="signal-kpi-chain" className="bg-white border border-slate-200 rounded p-6 mb-6">
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal KPI Chain</h2>
+          <p className="text-[13px] text-slate-400 mb-5">Signal to relationship to interview conversion ({kpiChain.ok ? `${kpiChain.payload.windowDays}d` : '30d'} window).</p>
+
+          {!kpiChain.ok ? (
+            <p className="text-[13px] text-red-600">KPI chain unavailable: {kpiChain.error}</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
+                {[
+                  { label: 'Signals', value: kpiChain.payload.counts.signals },
+                  { label: 'Relationship actions', value: kpiChain.payload.counts.relationship_actions },
+                  { label: 'Interviews logged', value: kpiChain.payload.counts.interviews },
+                  { label: 'Relationship companies', value: kpiChain.payload.counts.relationship_companies },
+                ].map((card) => (
+                  <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
+                    <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                    <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="border border-slate-200 rounded p-4">
+                  <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Chain conversion rates</p>
+                  <div className="space-y-2 text-[13px]">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-slate-600">Signal to relationship action</span>
+                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.signal_to_relationship_action_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_relationship_action_pct}%`}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-slate-600">Signal to interview</span>
+                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.signal_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_interview_pct}%`}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-slate-600">Relationship action to interview</span>
+                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.relationship_action_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_action_to_interview_pct}%`}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-slate-600">Relationship company to interview company</span>
+                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.relationship_company_to_interview_company_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_company_to_interview_company_pct}%`}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border border-slate-200 rounded p-4">
+                  <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Action mix</p>
+                  {Object.keys(kpiChain.payload.action_breakdown).length === 0 ? (
+                    <p className="text-[13px] text-slate-500">No relationship actions recorded in window.</p>
+                  ) : (
+                    <div className="space-y-2 text-[13px]">
+                      {Object.entries(kpiChain.payload.action_breakdown)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([type, count]) => (
+                          <div key={type} className="flex items-center justify-between gap-3">
+                            <span className="text-slate-600 font-mono">{type}</span>
+                            <span className="font-semibold text-slate-900">{count}</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </section>
 
         {/* Signal to action rate */}

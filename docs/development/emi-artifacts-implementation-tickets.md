@@ -322,3 +322,30 @@ Estimate legend:
 1. Prioritize tickets DEV-EMI-401, DEV-EMI-402, DEV-EMI-408, DEV-EMI-502 for production trust and reliability.
 2. Pair DEV-EMI-103, DEV-EMI-204, DEV-EMI-409, and DEV-EMI-505 under one analytics owner for consistency.
 3. Treat all XS/S automation tickets as immediate follow-ups in the next two development cycles.
+
+## Execution Progress Update (2026-06-19)
+
+1. DEV-EMI-410: Completed.
+	- Live smoke pass captured in production with `validationStatus=ok`, `mismatchCount=0`, `nullStreakCount=0`.
+2. DEV-EMI-601: Completed in repo.
+	- Canonical `emi_kpi_snapshots` table and write policy migrations are present and active in reporting routes.
+3. DEV-EMI-602: Completed in repo.
+	- Canonical event fan-out now guarantees `emi_assessment_started`, `emi_onboarding_started`, and `emi_assessment_completed` population from onboarding flows.
+4. DEV-EMI-603: Completed in repo.
+	- `proof_assets` is canonical source for proof KPI in weekly snapshots, with publisher workflow route `src/app/api/admin/automation/reporting/proof-asset-publisher/route.ts` and tests in `src/app/api/admin/automation/reporting/proof-asset-publisher/route.test.ts`.
+5. DEV-EMI-604: Completed in repo.
+	- `qualified_at` / `pilot_approved_at` fields are present on `b2b_prospects` for normalized pilot conversion modeling.
+6. DEV-EMI-605: Completed in repo.
+	- `tier1_claims` is canonical source for compliance KPI, with audit workflow route `src/app/api/admin/automation/reporting/tier1-claim-compliance-audit/route.ts` and tests in `src/app/api/admin/automation/reporting/tier1-claim-compliance-audit/route.test.ts`.
+7. DEV-EMI-606: Completed in repo.
+	- Weekly validation rerun route and observability-run logging are implemented for automated drift tracking.
+8. DEV-EMI-407: Completed in repo.
+	- GTM proof sequence integration is implemented via `src/app/api/admin/automation/reporting/gtm-proof-sequence/route.ts` with coverage in `src/app/api/admin/automation/reporting/gtm-proof-sequence/route.test.ts`.
+9. DEV-EMI-409: Completed in repo.
+	- Sprint 5 exit metrics export includes observability logging and automated run IDs through `src/app/api/admin/automation/reporting/sprint-5-exit-metrics/route.ts`.
+10. DEV-EMI-503: Completed in repo.
+	- Q4 cadence automation is implemented via `src/app/api/admin/automation/reporting/q4-cadence-automation/route.ts` with route tests.
+11. DEV-EMI-504: Completed in repo.
+	- Capstone report generation automation is implemented via `src/app/api/admin/automation/reporting/capstone-report-generation/route.ts` with route tests.
+12. DEV-EMI-505: Completed in repo.
+	- Success criteria audit automation is implemented via `src/app/api/admin/automation/reporting/success-criteria-audit-automation/route.ts` with route tests and threshold scoring.

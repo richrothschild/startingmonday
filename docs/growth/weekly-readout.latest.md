@@ -1,8 +1,13 @@
 # Weekly Conversion Readout
 
 ## Week
-- ISO week: 2026-W21
-- Reporting window: 2026-05-18 to 2026-05-24
+- Decision log: [docs/growth/weekly-decision-log.md](docs/growth/weekly-decision-log.md#2026-w24)
+- ISO week: 2026-W24
+- Reporting window: 2026-06-02 to 2026-06-08
+
+## Artifact status
+- Refreshed from latest metrics export on 2026-06-18 using the 2026-06-02 to 2026-06-08 reporting window.
+- Linked decision log entry: 2026-W24.
 
 ## KPI Snapshot
 - Qualified signup rate: 7.4%
@@ -56,6 +61,8 @@
 1. Ship five-section landing architecture.
 2. Iterate instrumentation analysis after one full weekly cycle.
 3. Ship strict production growth gate.
+4. Ship cross-path footer role-path discoverability enforcement on the homepage.
+5. Ship trust-pack governance-path enforcement through the marketing trust/proof gate.
 
 ## Execution Lanes (2026-05-26)
 ### Lane 1 - Mark pages
@@ -75,5 +82,5 @@
 
 ### Lane 4 - Trust and governance visibility
 - Scope: release artifact published and security/governance posture surfaced with rollback triggers.
-- Decision: Ship pending latest deployment completion.
-- Verification status: in-flight deployment check required before final close.
+- Decision: Ship.
+- Verification status: governance posture is public and trust/proof enforcement is active in CI.

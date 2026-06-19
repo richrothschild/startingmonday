@@ -62,5 +62,9 @@ export async function POST(request: Request) {
     ])
   }
 
+  if (eventName === 'onboarding_first_value_ready') {
+    await logEvent(user.id, 'emi_assessment_completed', body.properties ?? {})
+  }
+
   return NextResponse.json({ ok: true })
 }

@@ -7,6 +7,7 @@ import { logEvent } from '@/lib/events'
 import { computeElapsedSeconds, isTransitionFirstCohort, normalizeOnboardingChannel } from '@/lib/onboarding-speed'
 import { sendEmail } from '@/lib/email'
 import { getNotifyEmails } from '@/lib/owner-email'
+import { resolveRoleProfile } from '@/lib/role-taxonomy'
 
 function parseCsv(raw: string) {
   return raw.split(',').map(s => s.trim()).filter(Boolean)
@@ -68,6 +69,14 @@ export async function completeOnboarding(formData: FormData) {
 
   if (resumeText && resumeText.length > 100_000) redirect('/onboarding?error=resume_too_long')
 
+  const resolvedRole = resolveRoleProfile({
+    roleFamily: (formData.get('role_family') as string) || null,
+    roleTitle: (formData.get('role_title') as string) || null,
+    currentTitle,
+    targetTitles,
+    searchPersona: (searchPersona as 'csuite' | 'vp' | 'director' | 'board' | null),
+  })
+
   const searchPath =
     (employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic') ? 'watcher' :
     (employmentStatus === 'between_roles' && searchTimeline === 'immediately') ? 'nurture' :
@@ -80,7 +89,12 @@ export async function completeOnboarding(formData: FormData) {
   await supabase.from('user_profiles').upsert(
     {
       user_id:                  user.id,
-      search_persona:           searchPersona,
+      search_persona:           resolvedRole.searchPersonaLegacy,
+      role_type:                resolvedRole.roleTypeLegacy,
+      role_family:              resolvedRole.roleFamily,
+      role_title:               resolvedRole.roleTitle,
+      role_seniority:           resolvedRole.roleSeniority,
+      workflow_variant:         resolvedRole.workflowVariant,
       full_name:                fullName,
       current_title:            currentTitle,
       current_company:          currentCompany,
@@ -132,6 +146,10 @@ export async function completeOnboarding(formData: FormData) {
     onboarding_elapsed_seconds: elapsedSeconds,
     onboarding_under_ten_minutes: underTenMinutes,
     transition_first: transitionFirst,
+    role_family: resolvedRole.roleFamily,
+    role_title: resolvedRole.roleTitle,
+    role_seniority: resolvedRole.roleSeniority,
+    workflow_variant: resolvedRole.workflowVariant,
     manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
     manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
     manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
@@ -146,6 +164,10 @@ export async function completeOnboarding(formData: FormData) {
     onboarding_elapsed_seconds: elapsedSeconds,
     onboarding_under_ten_minutes: underTenMinutes,
     transition_first: transitionFirst,
+    role_family: resolvedRole.roleFamily,
+    role_title: resolvedRole.roleTitle,
+    role_seniority: resolvedRole.roleSeniority,
+    workflow_variant: resolvedRole.workflowVariant,
     manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
     manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
     manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,
@@ -160,6 +182,10 @@ export async function completeOnboarding(formData: FormData) {
     onboarding_elapsed_seconds: elapsedSeconds,
     onboarding_under_ten_minutes: underTenMinutes,
     transition_first: transitionFirst,
+    role_family: resolvedRole.roleFamily,
+    role_title: resolvedRole.roleTitle,
+    role_seniority: resolvedRole.roleSeniority,
+    workflow_variant: resolvedRole.workflowVariant,
     manual_fields_baseline: Number.isFinite(manualFieldsBaseline) ? manualFieldsBaseline : null,
     manual_fields_required: Number.isFinite(manualFieldsRequired) ? manualFieldsRequired : null,
     manual_fields_reduction_rate: Number.isFinite(manualFieldsReductionRate) ? manualFieldsReductionRate : null,

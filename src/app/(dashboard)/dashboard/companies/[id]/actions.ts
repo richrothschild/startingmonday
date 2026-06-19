@@ -15,6 +15,38 @@ function normalizeUrl(raw: string | null): string | null {
   return /^https?:\/\//i.test(t) ? t : `https://${t}`
 }
 
+function hoursSinceSignalDate(signalDate: string): number | null {
+  const parsed = Date.parse(`${signalDate}T12:00:00Z`)
+  if (Number.isNaN(parsed)) return null
+  const deltaHours = (Date.now() - parsed) / 3_600_000
+  if (!Number.isFinite(deltaHours)) return null
+  return Math.max(0, Number(deltaHours.toFixed(2)))
+}
+
+async function recordSignalAction(params: {
+  supabase: Awaited<ReturnType<typeof createClient>>
+  userId: string
+  companyId: string
+  actionType: 'outreach_sent' | 'contact_added' | 'brief_generated'
+}) {
+  const { data: latestSignal } = await params.supabase
+    .from('company_signals')
+    .select('id, signal_date')
+    .eq('user_id', params.userId)
+    .eq('company_id', params.companyId)
+    .order('signal_date', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  await params.supabase.from('signal_action_events').insert({
+    user_id: params.userId,
+    signal_id: latestSignal?.id ?? null,
+    company_id: params.companyId,
+    action_type: params.actionType,
+    hours_since_signal: latestSignal?.signal_date ? hoursSinceSignalDate(latestSignal.signal_date) : null,
+  })
+}
+
 export async function updateCompany(id: string, formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -183,6 +215,13 @@ export async function addContact(companyId: string, formData: FormData) {
     status: 'active',
   })
 
+  await recordSignalAction({
+    supabase,
+    userId: user.id,
+    companyId,
+    actionType: 'contact_added',
+  })
+
   revalidatePath(`/dashboard/companies/${companyId}`)
   redirect(`/dashboard/companies/${companyId}`)
 }
@@ -266,6 +305,18 @@ export async function addInterviewLog(companyId: string, formData: FormData) {
   })
   captureServerEvent(user.id, PMF_EVENTS.cadence.weekly_session_completed, {
     company_id: companyId,
+    interview_stage: interviewStage,
+  })
+  await logEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, {
+    company_id: companyId,
+    source: 'interview_log',
+    action_context: 'interview_logged',
+    interview_stage: interviewStage,
+  })
+  captureServerEvent(user.id, PMF_EVENTS.outcomes.first_interview_reached, {
+    company_id: companyId,
+    source: 'interview_log',
+    action_context: 'interview_logged',
     interview_stage: interviewStage,
   })
 

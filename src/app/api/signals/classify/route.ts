@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('role_type, search_persona')
+    .select('role_type, search_persona, role_family, role_title')
     .eq('user_id', userId)
     .single()
 
@@ -96,11 +96,15 @@ Extract the following as valid JSON with no markdown fences:
   const profileContext = enrichSignalProfileContext({
     roleType: profile?.role_type,
     searchPersona: profile?.search_persona,
+    roleFamily: profile?.role_family,
+    roleTitle: profile?.role_title,
   })
 
   const relevance = computePersonaRelevance(parsed.signal_type, {
     roleType: profile?.role_type,
     searchPersona: profile?.search_persona,
+    roleFamily: profile?.role_family,
+    roleTitle: profile?.role_title,
   })
 
   const confidence = computeSignalConfidence({

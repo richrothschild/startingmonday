@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
+import { getManagerToolsBridge, getRecruiterToolkit, getRoleLaneTutorials } from '@/lib/role-lane-learning'
 
 export const metadata = {
   title: 'Get Started - Starting Monday',
@@ -14,7 +15,7 @@ export default async function StartPage() {
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, resume_text, positioning_summary, briefing_time, briefing_timezone, onboarding_completed_at')
+    .select('full_name, resume_text, positioning_summary, briefing_time, briefing_timezone, onboarding_completed_at, role_family, role_title')
     .eq('user_id', user.id)
     .single()
 
@@ -129,6 +130,54 @@ export default async function StartPage() {
 
   const briefingDisplay = formatBriefingTime(profile?.briefing_time)
   const tz = profile?.briefing_timezone ?? null
+  const tutorials = getRoleLaneTutorials((profile?.role_family as 'leadership' | 'technical_leadership' | 'delivery_leadership' | null | undefined) ?? null)
+  const managerToolsBridge = getManagerToolsBridge((profile?.role_title as
+    | 'manager'
+    | 'senior_manager'
+    | 'director'
+    | 'senior_director'
+    | 'avp'
+    | 'vp'
+    | 'executive'
+    | 'technical_lead'
+    | 'senior_technical_lead'
+    | 'principal'
+    | 'senior_principal'
+    | 'architect'
+    | 'senior_architect'
+    | 'project_manager'
+    | 'senior_project_manager'
+    | 'program_manager'
+    | 'senior_program_manager'
+    | 'tpm'
+    | 'senior_tpm'
+    | null
+    | undefined) ?? null)
+  const recruiterToolkit = getRecruiterToolkit(
+    (profile?.role_family as 'leadership' | 'technical_leadership' | 'delivery_leadership' | null | undefined) ?? null,
+    (profile?.role_title as
+      | 'manager'
+      | 'senior_manager'
+      | 'director'
+      | 'senior_director'
+      | 'avp'
+      | 'vp'
+      | 'executive'
+      | 'technical_lead'
+      | 'senior_technical_lead'
+      | 'principal'
+      | 'senior_principal'
+      | 'architect'
+      | 'senior_architect'
+      | 'project_manager'
+      | 'senior_project_manager'
+      | 'program_manager'
+      | 'senior_program_manager'
+      | 'tpm'
+      | 'senior_tpm'
+      | null
+      | undefined) ?? null,
+  )
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -259,6 +308,55 @@ export default async function StartPage() {
         </div>
 
         {/* CTA */}
+        <div className="mt-10 mb-8 grid grid-cols-1 gap-4">
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Role lane tutorials</p>
+            <p className="text-[13px] text-slate-600 mb-4">Fast training assets tailored to your current role lane.</p>
+            <div className="space-y-3">
+              {tutorials.map((asset) => (
+                <Link key={asset.title} href={asset.href} className="block rounded border border-slate-200 px-3 py-2 hover:border-slate-300 transition-colors">
+                  <p className="text-[13px] font-semibold text-slate-900">{asset.title}</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">{asset.format.replace('_', ' ')} • {asset.description}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Recruiter outreach toolkit</p>
+            <p className="text-[13px] text-slate-600 mb-2">{recruiterToolkit.lane}</p>
+            <p className="text-[13px] text-slate-600 mb-3">Use this role-lane toolkit to run targeted recruiter and hiring manager outreach.</p>
+            <div className="space-y-3 mb-4">
+              {recruiterToolkit.assets.map((asset) => (
+                <Link key={asset.title} href={asset.href} className="block rounded border border-slate-200 px-3 py-2 hover:border-slate-300 transition-colors">
+                  <p className="text-[13px] font-semibold text-slate-900">{asset.title}</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">{asset.type.replace('_', ' ')} • {asset.description}</p>
+                </Link>
+              ))}
+            </div>
+            <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
+              <p className="text-[11px] font-semibold text-slate-700 mb-1">Suggested cadence</p>
+              <ul className="space-y-1">
+                {recruiterToolkit.cadence.map((step) => (
+                  <li key={step} className="text-[11px] text-slate-500">• {step}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded p-5">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Manager tools bridge</p>
+            <p className="text-[13px] text-slate-600 mb-3">Need deeper management systems? Use these keyword starters on Manager Tools.</p>
+            <p className="text-[12px] text-slate-500 mb-4">Keywords: {managerToolsBridge.keywords.join(', ')}</p>
+            <Link
+              href={managerToolsBridge.href}
+              className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+            >
+              Open Manager Tools resources &rarr;
+            </Link>
+          </div>
+        </div>
+
         <div className="text-center">
           <Link
             href="/dashboard"
