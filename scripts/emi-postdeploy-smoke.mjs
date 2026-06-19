@@ -128,9 +128,23 @@ async function main() {
     validationStatus: responseBody.validationStatus ?? null,
     mismatchCount: responseBody.mismatchCount ?? null,
     nullStreakCount: responseBody.nullStreakCount ?? null,
+    diagnostics: responseBody.diagnostics ?? null,
     passed,
     failures: passed ? [] : failures,
-    checks: { emiSmoke },
+    checks: {
+      emiSmoke,
+      weekly: responseBody.checks?.weekly ?? null,
+      validation: responseBody.checks?.validation ?? null,
+      proofPublisher: responseBody.checks?.proofPublisher ?? null,
+      claimAudit: responseBody.checks?.claimAudit ?? null,
+      sprint5Exit: responseBody.checks?.sprint5Exit ?? null,
+      gtmProofSequence: responseBody.checks?.gtmProofSequence ?? null,
+      q4Cadence: responseBody.checks?.q4Cadence ?? null,
+      capstoneReport: responseBody.checks?.capstoneReport ?? null,
+      successCriteriaAudit: responseBody.checks?.successCriteriaAudit ?? null,
+      objectionDashboard: responseBody.checks?.objectionDashboard ?? null,
+      sloMonitoring: responseBody.checks?.sloMonitoring ?? null,
+    },
   }
 
   emitSummary(summary)

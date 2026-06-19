@@ -30,31 +30,8 @@ function internalBaseUrl(request: NextRequest): string {
   const explicit = process.env.INTERNAL_API_BASE_URL?.trim()
   if (explicit) return trimSlash(explicit)
 
-  const forwardedHost = request.headers.get('x-forwarded-host')?.trim()
-  const forwardedProto = request.headers.get('x-forwarded-proto')?.trim() || 'https'
-  if (forwardedHost) {
-    return `${forwardedProto}://${forwardedHost}`
-  }
-
   const port = process.env.PORT?.trim() || '3000'
-  const localhostUrl = `http://127.0.0.1:${port}`
-
-  const host = request.headers.get('host')?.trim()
-  if (!host) return localhostUrl
-
-  // Prefer direct in-process HTTP calls when host is private/internal to avoid TLS mismatch.
-  if (
-    host.startsWith('localhost')
-    || host.startsWith('127.0.0.1')
-    || host.startsWith('10.')
-    || host.startsWith('192.168.')
-    || host.startsWith('172.')
-  ) {
-    return `http://${host}`
-  }
-
-  const hostProto = request.nextUrl.protocol?.replace(':', '') || 'https'
-  return `${hostProto}://${host}`
+  return `http://127.0.0.1:${port}`
 }
 
 function getClientIp(request: NextRequest): string {
@@ -144,9 +121,10 @@ async function postInternal(
 
   const startMs = Date.now()
   const attempt: { path: string; url?: string; status?: number; error?: string; durationMs?: number } = { path }
+  const useInProcess = process.env.EMI_SMOKE_USE_IN_PROCESS === '1'
 
   try {
-    const importer = routeImporters[path]
+    const importer = useInProcess ? routeImporters[path] : undefined
     if (importer) {
       const mod = await importer()
       const syntheticRequest = new NextRequest(new URL(path, request.url), {
