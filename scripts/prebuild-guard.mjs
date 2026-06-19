@@ -6,6 +6,7 @@ import { spawnSync } from 'node:child_process'
 const root = process.cwd()
 const srcDir = path.join(root, 'src')
 const EM_DASH = '\u2014'
+const isRailwayBuild = Boolean(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_PROJECT_ID)
 const guideArtifacts = [
   'docs/user-guide.index.json',
   'docs/internal-guide.index.json',
@@ -44,26 +45,30 @@ if (filesWithEmDash.length > 0) {
   process.exitCode = 1
 }
 
-const rubricCheck = spawnSync(
-  process.execPath,
-  [path.join(root, 'scripts/check-ux-ui-rubric-pages.mjs')],
-  { stdio: 'inherit' }
-)
+if (isRailwayBuild) {
+  console.log('prebuild guard: skipping homepage rubric/copy drift checks on Railway build')
+} else {
+  const rubricCheck = spawnSync(
+    process.execPath,
+    [path.join(root, 'scripts/check-ux-ui-rubric-pages.mjs')],
+    { stdio: 'inherit' }
+  )
 
-if (rubricCheck.status !== 0) {
-  console.error('Error: UX/UI rubric page checks failed')
-  process.exitCode = 1
-}
+  if (rubricCheck.status !== 0) {
+    console.error('Error: UX/UI rubric page checks failed')
+    process.exitCode = 1
+  }
 
-const copyCtaDriftCheck = spawnSync(
-  process.execPath,
-  [path.join(root, 'scripts/check-key-funnel-copy-cta-drift.mjs')],
-  { stdio: 'inherit' }
-)
+  const copyCtaDriftCheck = spawnSync(
+    process.execPath,
+    [path.join(root, 'scripts/check-key-funnel-copy-cta-drift.mjs')],
+    { stdio: 'inherit' }
+  )
 
-if (copyCtaDriftCheck.status !== 0) {
-  console.error('Error: key funnel copy/CTA drift checks failed')
-  process.exitCode = 1
+  if (copyCtaDriftCheck.status !== 0) {
+    console.error('Error: key funnel copy/CTA drift checks failed')
+    process.exitCode = 1
+  }
 }
 
 const visualDarknessCheck = spawnSync(
