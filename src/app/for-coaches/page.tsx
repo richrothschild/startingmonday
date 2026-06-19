@@ -70,12 +70,12 @@ export default function ForCoachesPage() {
           </p>
 
           <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">Why now</p>
             <p className="text-[13px] leading-relaxed text-slate-200">Coaching value drops when sessions start with status reconstruction. A lightweight operating layer protects strategic session time immediately.</p>
           </div>
 
           <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">This week</p>
             <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
               <li>1. Select 2 to 3 active clients for a 30-day pilot.</li>
               <li>2. Run one pre-session what-changed review per client.</li>
