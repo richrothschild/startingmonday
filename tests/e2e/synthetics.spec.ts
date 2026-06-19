@@ -658,6 +658,14 @@ test('Synthetic-10: signup to first-value flow reaches prep generation path', as
   await page.goto('/signup', { waitUntil: 'load' })
   await page.locator('#email').fill(String(email))
   await page.locator('#password').fill(String(password))
+  const termsCheckbox = page.getByRole('checkbox', { name: /terms and conditions/i })
+  if (await termsCheckbox.count()) {
+    await termsCheckbox.check()
+  }
+  const privacyCheckbox = page.getByRole('checkbox', { name: /privacy policy/i })
+  if (await privacyCheckbox.count()) {
+    await privacyCheckbox.check()
+  }
   await page.getByRole('button', { name: /Get started|Create account/i }).click()
 
   // Two acceptable auth outcomes in this environment:

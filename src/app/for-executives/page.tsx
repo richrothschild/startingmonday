@@ -100,6 +100,7 @@ const ROLE_LANE_SEGMENTS = [
   {
     key: 'leadership',
     label: 'Leadership lane',
+    ctaLabel: 'Open leadership lane',
     audience: 'Managers, directors, AVPs, and VPs preparing for broader leadership scope.',
     outcome: 'Strengthen mandate framing and recruiter narrative quality for leadership transitions.',
     focus: 'Board-ready story, sponsor alignment, and weekly operating cadence.',
@@ -107,6 +108,7 @@ const ROLE_LANE_SEGMENTS = [
   {
     key: 'technical-leadership',
     label: 'Technical leadership lane',
+    ctaLabel: 'Open technical lane',
     audience: 'Technical leads, principals, architects, and senior technical operators.',
     outcome: 'Translate architecture depth into executive-ready positioning that recruiters can act on.',
     focus: 'Technical tradeoff narrative, role-fit proof, and interview drill precision.',
@@ -114,6 +116,7 @@ const ROLE_LANE_SEGMENTS = [
   {
     key: 'delivery-leadership',
     label: 'Delivery leadership lane',
+    ctaLabel: 'Open delivery lane',
     audience: 'Program managers, TPMs, and delivery leaders stepping into higher-scope roles.',
     outcome: 'Show execution judgment and stakeholder control in high-stakes hiring cycles.',
     focus: 'Execution rhythm, dependency-risk narrative, and high-quality follow-up flow.',
@@ -194,7 +197,7 @@ export default async function ForExecutivesPage({ searchParams }: ForExecutivesP
                     }}
                     className="inline-flex items-center rounded bg-orange-400 px-3 py-2 text-[12px] font-semibold text-slate-950 hover:bg-orange-300 transition-colors"
                   >
-                    Open lane page
+                    {lane.ctaLabel}
                   </TrackLink>
                 </article>
               ))}

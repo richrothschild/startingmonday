@@ -69,6 +69,20 @@ export default function ForCoachesPage() {
             Start with 2-3 clients for 30 days, measure outcomes, then decide. Client-controlled access and coaching authority stay intact.
           </p>
 
+          <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">Why now</p>
+            <p className="text-[13px] leading-relaxed text-slate-200">Coaching value drops when sessions start with status reconstruction. A lightweight operating layer protects strategic session time immediately.</p>
+          </div>
+
+          <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <p className="mb-2 text-[12px] font-semibold text-orange-200">This week</p>
+            <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+              <li>1. Select 2 to 3 active clients for a 30-day pilot.</li>
+              <li>2. Run one pre-session what-changed review per client.</li>
+              <li>3. Measure strategy time and between-session momentum by day 7.</li>
+            </ol>
+          </div>
+
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase text-slate-100">Solo coaches</span>
             <span className="rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase text-slate-100">Coach teams</span>

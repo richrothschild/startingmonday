@@ -22,7 +22,7 @@ const SIGNAL_LABELS = {
 
 export function renderBriefingEmail(context, briefing) {
   const { userName, totalCompanies, newMatches, followUps, signals = [], patternAlerts = [], outreachThisWeek = 0, todayStr, isPlaced = false, coachBrand = null, stalledLanes = [] } = context
-  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [], sectorPulse = [] } = briefing
+  const { intro = '', signalAlerts = [], matchInsights = [], followUpSuggestions = [], closing = '', relationshipNudges = [], relationshipActionsToday = [], workflowSnapshot = null, stakeholderBrief = [], sectorPulse = [] } = briefing
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
   const firstName = userName.split(' ')[0]
@@ -83,6 +83,42 @@ export function renderBriefingEmail(context, briefing) {
           <div style="font-weight: 600; font-size: 14px; color: #0f172a; margin-bottom: 4px;">${esc(n.name)} <span style="font-size: 12px; font-weight: 400; color: #64748b;">${esc(n.context ?? '')}</span></div>
           <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px;">Last contact: ${esc(n.lastContact ?? 'unknown')}</div>
           <div style="font-size: 13px; color: #475569; line-height: 1.6;">${esc(n.suggestion)}</div>
+        </div>`).join('')}
+      </td></tr>` : ''
+
+  const relationshipActionsSection = relationshipActionsToday.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0f766e; padding-bottom: 12px; border-bottom: 1px solid #99f6e4; margin-bottom: 18px;">Relationship Actions Today</div>
+        ${relationshipActionsToday.map(a => `
+        <div style="margin-bottom: 10px; padding: 16px 20px; background: #f0fdfa; border: 1px solid #99f6e4; border-left: 3px solid #0f766e; border-radius: 0 4px 4px 0;">
+          <div style="font-weight: 600; font-size: 14px; color: #0f172a; margin-bottom: 4px;">${esc(a.actor)}</div>
+          <div style="font-size: 13px; color: #134e4a; line-height: 1.6;">${esc(a.action)}</div>
+          ${a.impact ? `<div style="font-size: 12px; color: #0f766e; margin-top: 6px;">${esc(a.impact)}</div>` : ''}
+        </div>`).join('')}
+      </td></tr>` : ''
+
+  const workflowSnapshotSection = workflowSnapshot ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1d4ed8; padding-bottom: 12px; border-bottom: 1px solid #bfdbfe; margin-bottom: 18px;">Workflow Snapshot</div>
+        <div style="padding: 16px 20px; background: #eff6ff; border: 1px solid #bfdbfe; border-left: 3px solid #1d4ed8; border-radius: 0 4px 4px 0;">
+          <div style="font-size: 13px; color: #1e3a8a; line-height: 1.6; margin-bottom: 8px;">${esc(workflowSnapshot.path ?? 'recommendation -> relationship action -> interview progression')}</div>
+          <div style="font-size: 13px; color: #0f172a; line-height: 1.6;">
+            Recommendations: <strong>${esc(workflowSnapshot.recommendationAccepted ?? 0)}</strong>
+            &nbsp;|&nbsp; Relationship actions: <strong>${esc(workflowSnapshot.relationshipActions ?? 0)}</strong>
+            &nbsp;|&nbsp; Interview progressions: <strong>${esc(workflowSnapshot.interviewProgressions ?? 0)}</strong>
+          </div>
+          ${workflowSnapshot.interpretation ? `<div style="font-size: 12px; color: #1e40af; margin-top: 6px;">${esc(workflowSnapshot.interpretation)}</div>` : ''}
+        </div>
+      </td></tr>` : ''
+
+  const stakeholderBriefSection = stakeholderBrief.length ? `
+      <tr><td style="padding: 0 0 32px 0;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7c2d12; padding-bottom: 12px; border-bottom: 1px solid #fed7aa; margin-bottom: 18px;">Likely Stakeholders</div>
+        ${stakeholderBrief.map((item) => `
+        <div style="margin-bottom: 10px; padding: 16px 20px; background: #fff7ed; border: 1px solid #fed7aa; border-left: 3px solid #c2410c; border-radius: 0 4px 4px 0;">
+          <div style="font-weight: 600; font-size: 14px; color: #0f172a; margin-bottom: 4px;">${esc(item.name)}</div>
+          <div style="font-size: 12px; color: #9a3412; margin-bottom: 5px;">${esc(item.role)}</div>
+          <div style="font-size: 13px; color: #7c2d12; line-height: 1.6;">${esc(item.whyNow)}</div>
         </div>`).join('')}
       </td></tr>` : ''
 
@@ -171,6 +207,9 @@ export function renderBriefingEmail(context, briefing) {
           ${signalSection}
           ${matchSection}
           ${relationshipSection}
+          ${relationshipActionsSection}
+          ${workflowSnapshotSection}
+          ${stakeholderBriefSection}
           ${followUpSection}
 
           <!-- Closing + CTA -->

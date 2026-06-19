@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { addContact, archiveContact } from './actions'
+import { addContact, archiveContact, logRelationshipTouchpoint, addRelationshipQuickNote } from './actions'
 import { CHANNEL, OUTREACH_STATUS } from './company-detail-constants'
 
 type ContactRow = {
@@ -56,6 +56,22 @@ export function ContactsPanel(props: Props) {
                   </p>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
+                  <form action={logRelationshipTouchpoint.bind(null, ct.id, companyId)}>
+                    <button
+                      type="submit"
+                      className="text-[11px] text-teal-600 hover:text-teal-700 font-medium cursor-pointer bg-transparent border-0 p-0"
+                    >
+                      Log touch
+                    </button>
+                  </form>
+                  <form action={addRelationshipQuickNote.bind(null, ct.id, companyId)}>
+                    <button
+                      type="submit"
+                      className="text-[11px] text-sky-600 hover:text-sky-700 font-medium cursor-pointer bg-transparent border-0 p-0"
+                    >
+                      Add note
+                    </button>
+                  </form>
                   <Link href={`/dashboard/contacts/${ct.id}/outreach`} className="text-[11px] text-slate-400 hover:text-slate-700 font-medium">
                     Draft
                   </Link>

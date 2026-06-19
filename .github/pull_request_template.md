@@ -47,3 +47,11 @@ List each affected route and the viewport coverage you verified.
 - [ ] Absolute claims ("best", "most valuable", "always") are either removed or replaced with attributed/bounded forms.
 - [ ] New or changed CTA labels describe the destination or action — not vague navigation (e.g. not "Open executive journey").
 - [ ] Undefined technical or strategic terms are defined inline where first used.
+
+## Non-Executive Landing Clarity (required when changing non-exec /for-* routes)
+
+- [ ] Above the fold clearly states who this is for, what they get, and why now.
+- [ ] A "This week" action block is present with 3 concrete first actions.
+- [ ] Copy uses role-appropriate language and avoids executive-only framing on non-exec pages.
+- [ ] Section count is constrained (no unnecessary long-form duplication or repeated proof blocks).
+- [ ] At least one role-specific proof story is included with directional/source context.

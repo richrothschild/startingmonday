@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Executive Financial Advisors - Partner Guide',
-  description: 'How executive financial advisors use Starting Monday to help clients execute a career transition with the same discipline they bring to financial planning.',
+  description: 'How financial advisors help clients execute leadership transitions with clearer timing, prep discipline, and search visibility.',
   alternates: { canonical: 'https://startingmonday.app/for-financial-advisors' },
   openGraph: {
     title: 'Starting Monday for Executive Financial Advisors',
@@ -37,6 +38,24 @@ const FEATURES = [
     name: 'Pipeline Visibility',
     forAdvisor: 'If your client shares pipeline view access with you, you see exactly where the search stands: which companies are in process, which conversations are active, which follow-ups are overdue. You know whether the search is moving before your client tells you it is stalled. That is context for every financial planning conversation during transition.',
     outcome: 'Your conversations during the search are grounded in actual search activity, not self-reported impressions. You can give better advice about runway, spending discipline, and timing.',
+  },
+]
+
+const FINANCIAL_ADVISOR_PROOF_STORIES = [
+  {
+    title: 'Runway risk reduction',
+    role: 'Advisor with active transition client',
+    outcome: 'Earlier signal-based outreach helped reduce search delay risk in runway planning scenarios.',
+  },
+  {
+    title: 'Comp planning clarity',
+    role: 'Client entering VP-level process',
+    outcome: 'Role and comp expectations were aligned earlier, reducing late-stage negotiation surprises.',
+  },
+  {
+    title: 'Shared operating context',
+    role: 'Advisor-client pair',
+    outcome: 'Pipeline visibility improved quality of planning calls during the transition period.',
   },
 ]
 
@@ -78,8 +97,26 @@ export default function ForFinancialAdvisorsPage() {
             <p className="text-[16px] text-slate-200 leading-relaxed">
               Your client is about to start a search. You know the timeline, the runway, and the compensation target. Starting Monday gives them the infrastructure to execute it.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">Search delays and weak first rounds directly change runway math. Better prep and timing improve financial outcomes, not just career outcomes.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Pick one transition client and set a 30-day operating baseline.</li>
+                <li>2. Align role target and comp expectation before active interview loops.</li>
+                <li>3. Review weekly motion with shared pipeline context, not anecdotal updates.</li>
+              </ol>
+            </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes for advisor-led transitions"
+          stories={FINANCIAL_ADVISOR_PROOF_STORIES}
+          sourceNote="Directional partner stories; validate with your own client baseline and 30-day review."
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
@@ -112,7 +149,7 @@ export default function ForFinancialAdvisorsPage() {
             <section id="advisor-fit" className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered job search platform built for VP and C-suite executives.
+                Starting Monday is an AI-powered job search platform built for leadership-level transitions.
                 It gives them the intelligence infrastructure that senior searches require: monitoring of
                 target companies for pre-search signals, AI-generated prep briefs for every interview,
                 a structured pipeline for tracking relationships and conversations, and a daily briefing

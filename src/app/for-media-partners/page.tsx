@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Podcast Hosts and Newsletter Writers - Media Partner Guide',
-  description: 'How podcast hosts and newsletter writers partner with Starting Monday to create original content on senior executive career strategy, job market intelligence, and the search tools that actually work at the VP and C-suite level.',
+  description: 'How podcast hosts and newsletter writers partner with Starting Monday to create original content on leadership-transition strategy and job-market intelligence.',
   alternates: { canonical: 'https://startingmonday.app/for-media-partners' },
   openGraph: {
     title: 'Starting Monday for Podcast Hosts and Newsletter Writers',
@@ -45,6 +46,24 @@ const CO_CREATION_FORMATS = [
   },
 ]
 
+const MEDIA_PARTNER_PROOF_STORIES = [
+  {
+    title: 'Newsletter intelligence issue',
+    role: 'Career-focused writer',
+    outcome: 'Original transition data outperformed generic sponsor copy on engagement and replies.',
+  },
+  {
+    title: 'Podcast expert segment',
+    role: 'Host for leadership audience',
+    outcome: 'Audience response improved when content was framed around real transition decisions and timing.',
+  },
+  {
+    title: 'Co-branded report pilot',
+    role: 'Media partner team',
+    outcome: 'Quarterly evidence content created repeatable authority assets beyond one-off promotions.',
+  },
+]
+
 export default function ForMediaPartnersPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -82,8 +101,26 @@ export default function ForMediaPartnersPage() {
             <p className="text-[16px] text-slate-200 leading-relaxed">
               Original data, practitioner expertise, and an audience your listeners and readers are already becoming.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">AI-heavy content is crowded. Original, role-transition evidence is what earns trust and repeat audience attention.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Choose one narrow transition topic tied to your audience.</li>
+                <li>2. Publish one evidence-backed piece with method/source clarity.</li>
+                <li>3. Compare response against your standard sponsored format.</li>
+              </ol>
+            </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes from media partnerships"
+          stories={MEDIA_PARTNER_PROOF_STORIES}
+          sourceNote="Directional outcomes from partner trials; validate against your own audience baseline."
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
@@ -116,8 +153,8 @@ export default function ForMediaPartnersPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered job search platform built specifically for VP and
-                C-suite technology executives. It gives them the intelligence infrastructure that
+                Starting Monday is an AI-powered job search platform built for leadership-transition
+                candidates. It gives them the intelligence infrastructure that
                 senior searches require: monitoring of target companies for pre-search signals,
                 AI-generated prep briefs for every interview, a structured pipeline for tracking
                 relationships and conversations, and a daily briefing that keeps the search moving.

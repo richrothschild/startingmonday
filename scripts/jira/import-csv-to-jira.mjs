@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs'
+import { randomBytes } from 'node:crypto'
 
 function parseCsv(text) {
   const rows = []
@@ -97,6 +98,24 @@ function splitDependencyList(value) {
     .filter(Boolean)
 }
 
+function getAuthHeaders(email, apiToken) {
+  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64')
+  return {
+    Authorization: `Basic ${auth}`,
+    Accept: 'application/json',
+  }
+}
+
+function parseBoolean(value) {
+  if (!value) return false
+  const normalized = String(value).trim().toLowerCase()
+  return normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'y'
+}
+
+function escapeJql(value) {
+  return String(value || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+}
+
 function formatJiraError(response, text, projectKey) {
   let details = text.trim()
 
@@ -128,18 +147,88 @@ function formatJiraError(response, text, projectKey) {
 }
 
 async function ensureProjectAccess({ baseUrl, email, apiToken, projectKey }) {
-  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64')
+  const headers = getAuthHeaders(email, apiToken)
   const response = await fetch(`${baseUrl}/rest/api/3/project/${encodeURIComponent(projectKey)}`, {
     method: 'GET',
-    headers: {
-      Authorization: `Basic ${auth}`,
-      Accept: 'application/json',
-    },
+    headers,
   })
 
   const text = await response.text()
   if (!response.ok) {
     throw new Error(formatJiraError(response, text, projectKey))
+  }
+}
+
+async function findExistingIssueBySummaryAndLabel({ baseUrl, email, apiToken, projectKey, summary, labels }) {
+  if (!summary || !labels || labels.length === 0) return null
+
+  const headers = getAuthHeaders(email, apiToken)
+
+  for (const label of labels) {
+    const jql = `project = "${escapeJql(projectKey)}" AND labels = "${escapeJql(label)}" ORDER BY created DESC`
+    const response = await fetch(
+      `${baseUrl}/rest/api/3/search?jql=${encodeURIComponent(jql)}&fields=summary&maxResults=100`,
+      {
+        method: 'GET',
+        headers,
+      },
+    )
+
+    const text = await response.text()
+    if (!response.ok) {
+      throw new Error(formatJiraError(response, text, projectKey))
+    }
+
+    const data = JSON.parse(text)
+    const match = (data.issues || []).find((issue) =>
+      String(issue?.fields?.summary || '').trim().toLowerCase() === String(summary).trim().toLowerCase(),
+    )
+
+    if (match?.key) return match.key
+  }
+
+  return null
+}
+
+async function transitionIssueToStatus({ baseUrl, email, apiToken, issueKey, statusName, projectKey, dryRun }) {
+  if (!statusName) return
+  if (dryRun) {
+    console.log(`Would transition ${issueKey} -> ${statusName}`)
+    return
+  }
+
+  const headers = getAuthHeaders(email, apiToken)
+  const transitionsResponse = await fetch(`${baseUrl}/rest/api/3/issue/${encodeURIComponent(issueKey)}/transitions`, {
+    method: 'GET',
+    headers,
+  })
+  const transitionsText = await transitionsResponse.text()
+  if (!transitionsResponse.ok) {
+    throw new Error(`Transition lookup failed for ${issueKey}: ${formatJiraError(transitionsResponse, transitionsText, projectKey)}`)
+  }
+
+  const transitions = JSON.parse(transitionsText).transitions || []
+  const target = transitions.find((t) =>
+    String(t?.name || '').trim().toLowerCase() === String(statusName).trim().toLowerCase(),
+  )
+
+  if (!target?.id) {
+    const available = transitions.map((t) => t.name).join(', ') || 'none'
+    throw new Error(`Transition \"${statusName}\" is not available for ${issueKey}. Available transitions: ${available}`)
+  }
+
+  const transitionResponse = await fetch(`${baseUrl}/rest/api/3/issue/${encodeURIComponent(issueKey)}/transitions`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ transition: { id: target.id } }),
+  })
+
+  if (!transitionResponse.ok) {
+    const transitionError = await transitionResponse.text()
+    throw new Error(`Transition failed for ${issueKey}: ${formatJiraError(transitionResponse, transitionError, projectKey)}`)
   }
 }
 
@@ -184,16 +273,31 @@ async function createIssue({ baseUrl, email, apiToken, projectKey, issue, parent
     }
   }
 
+  const shouldDeduplicate = parseBoolean(issue.Deduplicate)
+
+  if (shouldDeduplicate && !dryRun) {
+    const existingKey = await findExistingIssueBySummaryAndLabel({
+      baseUrl,
+      email,
+      apiToken,
+      projectKey,
+      summary: issue.Summary,
+      labels,
+    })
+    if (existingKey) {
+      return { key: existingKey, existed: true }
+    }
+  }
+
   if (dryRun) {
     return { key: `DRY-${Math.random().toString(36).slice(2, 8).toUpperCase()}` }
   }
 
-  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64')
+  const headers = getAuthHeaders(email, apiToken)
   const response = await fetch(`${baseUrl}/rest/api/3/issue`, {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${auth}`,
-      Accept: 'application/json',
+      ...headers,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ fields }),
@@ -204,7 +308,7 @@ async function createIssue({ baseUrl, email, apiToken, projectKey, issue, parent
     throw new Error(`Create failed for "${issue.Summary}": ${formatJiraError(response, text, projectKey)}`)
   }
 
-  return JSON.parse(text)
+  return { ...JSON.parse(text), existed: false }
 }
 
 function usage() {
@@ -257,7 +361,8 @@ async function main() {
 
   if (!dryRun) {
     await ensureProjectAccess({ baseUrl, email, apiToken, projectKey })
-  }
+    const dryToken = randomBytes(4).toString('hex').toUpperCase()
+    return { key: `DRY-${dryToken}` }
 
   const epics = rows.filter((r) => (r['Issue Type'] || '').toLowerCase() === 'epic')
   const nonEpics = rows.filter((r) => (r['Issue Type'] || '').toLowerCase() !== 'epic')
@@ -280,7 +385,17 @@ async function main() {
     })
     const epicName = epic['Epic Name'] || epic.Summary
     epicKeyByName.set(epicName, result.key)
-    console.log(`Created epic ${result.key}: ${epic.Summary}`)
+    const statusTarget = (epic.Status || '').trim()
+    await transitionIssueToStatus({
+      baseUrl,
+      email,
+      apiToken,
+      issueKey: result.key,
+      statusName: statusTarget,
+      projectKey,
+      dryRun,
+    })
+    console.log(`${result.existed ? 'Reused' : 'Created'} epic ${result.key}: ${epic.Summary}`)
   }
 
   for (const item of nonEpics) {
@@ -299,7 +414,17 @@ async function main() {
     })
 
     const parentInfo = parentKey ? ` (parent ${parentKey})` : ''
-    console.log(`Created ${result.key}: ${item.Summary}${parentInfo}`)
+    const statusTarget = (item.Status || '').trim()
+    await transitionIssueToStatus({
+      baseUrl,
+      email,
+      apiToken,
+      issueKey: result.key,
+      statusName: statusTarget,
+      projectKey,
+      dryRun,
+    })
+    console.log(`${result.existed ? 'Reused' : 'Created'} ${result.key}: ${item.Summary}${parentInfo}`)
   }
 
   console.log('Import complete.')

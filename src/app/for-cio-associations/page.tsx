@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ProofStoriesModule } from '@/components/channel/ProofStoriesModule'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for C-suite and Technology Associations - Partner Guide',
-  description: 'How C-suite and technology associations offer Starting Monday as a member benefit that gives technology executives a genuine search advantage when they need it most.',
+  description: 'How leadership and technology associations offer Starting Monday as a member benefit during role transitions.',
   alternates: { canonical: 'https://startingmonday.app/for-cio-associations' },
   openGraph: {
     title: 'Starting Monday for C-suite and Technology Associations',
@@ -32,6 +33,24 @@ const FEATURES = [
     name: 'Transition Support Program',
     forAssociation: 'When a member enters transition, they often disengage from professional associations - the dues feel less justified when they are not being paid by an employer. A Starting Monday partnership gives you something concrete to offer at that exact moment: a search platform built for executives at their level, available at member rates or through a sponsorship. The moment of transition is when association support matters most.',
     outcome: 'Members in transition stay engaged. They renew because the association delivered value when it mattered. That is the retention metric that compounds.',
+  },
+]
+
+const ASSOCIATION_PROOF_STORIES = [
+  {
+    title: 'Member transition support',
+    role: 'Association program owner',
+    outcome: 'Members in transition stayed engaged longer when given an operating tool, not just directory access.',
+  },
+  {
+    title: 'Benefit activation pilot',
+    role: 'Chapter operations lead',
+    outcome: 'Discounted benefit activation produced clearer program value than generic career content offers.',
+  },
+  {
+    title: 'Research co-brand launch',
+    role: 'Association content team',
+    outcome: 'Original signal-based reports increased member interest in transition-focused programming.',
   },
 ]
 
@@ -72,8 +91,26 @@ export default function ForCioAssociationsPage() {
             <p className="text-[16px] text-slate-200 leading-relaxed">
               Give your members a search advantage in transition - not just access to a directory.
             </p>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Why now</p>
+              <p className="text-[13px] leading-relaxed text-slate-200">Members evaluate value most intensely during transition windows. Practical operating support outperforms static member benefits in that moment.</p>
+            </div>
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">This week</p>
+              <ol className="space-y-1 text-[13px] leading-relaxed text-slate-200">
+                <li>1. Select one member segment in active transition.</li>
+                <li>2. Launch a 30-day benefit pilot with activation baseline.</li>
+                <li>3. Review member engagement and retention signals at day 30.</li>
+              </ol>
+            </div>
           </div>
         </header>
+
+        <ProofStoriesModule
+          title="Role-specific outcomes for association programs"
+          stories={ASSOCIATION_PROOF_STORIES}
+          sourceNote="Directional partner outcomes used for pilot decisions; validate against your own member baseline."
+        />
 
         {/* Body */}
         <div className="px-4 sm:px-6 py-12 sm:py-16">
@@ -83,7 +120,7 @@ export default function ForCioAssociationsPage() {
             <section className="space-y-4 text-[15px] text-slate-700 leading-relaxed">
               <h2 className="text-[22px] font-bold text-slate-900">What Starting Monday is</h2>
               <p>
-                Starting Monday is an AI-powered search platform built for VP and C-suite technology
+                Starting Monday is an AI-powered search platform built for leadership-transition technology
                 executives. It gives them the intelligence infrastructure that senior searches require:
                 monitoring of target companies for pre-search signals, AI-generated prep briefs for
                 every interview, structured pipeline tracking, and a daily briefing that keeps the

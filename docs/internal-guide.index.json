@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T04:04:42.395Z",
+  "generatedAt": "2026-06-19T14:58:35.126Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T03:56:41.573Z"
+      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
     },
     {
       "id": "feature:/login",
@@ -1972,7 +1972,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T04:41:23.769Z"
+      "lastModifiedAt": "2026-06-19T13:59:29.825Z"
     },
     {
       "id": "feature:/for-cio",
@@ -2070,7 +2070,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.168Z"
+      "lastModifiedAt": "2026-06-19T14:20:23.644Z"
     },
     {
       "id": "feature:/for-coaches/search-affiliate",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.175Z"
+      "lastModifiedAt": "2026-06-19T14:57:19.722Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2168,7 +2168,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.945Z"
+      "lastModifiedAt": "2026-06-19T13:59:29.825Z"
     },
     {
       "id": "feature:/for-fractional-executives",
@@ -2196,7 +2196,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-14T00:24:20.936Z"
+      "lastModifiedAt": "2026-06-19T13:59:29.825Z"
     },
     {
       "id": "feature:/for-outplacement/economics",
@@ -2280,7 +2280,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-17T14:33:26.226Z"
+      "lastModifiedAt": "2026-06-19T13:59:29.826Z"
     },
     {
       "id": "feature:/for-outplacement/runbook",
@@ -2364,7 +2364,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T04:41:23.781Z"
+      "lastModifiedAt": "2026-06-19T13:59:29.825Z"
     },
     {
       "id": "feature:/for-search-firms",
@@ -2378,7 +2378,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-18T04:41:23.782Z"
+      "lastModifiedAt": "2026-06-19T14:03:05.560Z"
     },
     {
       "id": "feature:/for-vp-technology",
@@ -2392,7 +2392,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T00:56:18.178Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.087Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2406,7 +2406,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-06T16:52:15.797Z"
+      "lastModifiedAt": "2026-06-19T13:59:30.180Z"
     },
     {
       "id": "feature:/founder-note",
@@ -2672,7 +2672,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-13T23:04:10.025Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.088Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -5358,6 +5358,19 @@
       "lastModifiedAt": "2026-06-13T15:13:05.014Z"
     },
     {
+      "id": "api:/api/discover/recommendations/[id]/save",
+      "title": "API /api/discover/recommendations/[id]/save",
+      "body": "export async function POST(",
+      "type": "api",
+      "ref": "src/app/api/discover/recommendations/[id]/save/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-19T13:06:32.417Z"
+    },
+    {
       "id": "api:/api/discover",
       "title": "API /api/discover",
       "body": "export type DiscoveryCompany = {",
@@ -5368,7 +5381,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-13T15:13:05.015Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.085Z"
     },
     {
       "id": "api:/api/drip/unsubscribe",
@@ -5706,7 +5719,7 @@
         "route-handler"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T04:04:23.024Z"
+      "lastModifiedAt": "2026-06-19T13:46:14.699Z"
     },
     {
       "id": "api:/api/invite",
@@ -6320,6 +6333,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.709Z"
     },
     {
+      "id": "api:/api/relationships/notes",
+      "title": "API /api/relationships/notes",
+      "body": "Graceful fallback before migration rollout: append into contacts.notes.",
+      "type": "api",
+      "ref": "src/app/api/relationships/notes/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-19T13:59:28.533Z"
+    },
+    {
       "id": "api:/api/relationships/recommendations",
       "title": "API /api/relationships/recommendations",
       "body": "export async function GET(request: NextRequest) {",
@@ -6331,6 +6357,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-19T00:56:18.147Z"
+    },
+    {
+      "id": "api:/api/relationships/touchpoints",
+      "title": "API /api/relationships/touchpoints",
+      "body": "Graceful fallback before migration rollout.",
+      "type": "api",
+      "ref": "src/app/api/relationships/touchpoints/route.ts",
+      "tags": [
+        "api",
+        "route-handler"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-19T13:59:28.537Z"
     },
     {
       "id": "api:/api/role-lane/tutorials",
@@ -7318,7 +7357,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.090Z"
     },
     {
       "id": "code:src/lib/enrichment/index.ts",
@@ -7331,7 +7370,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.091Z"
     },
     {
       "id": "code:src/lib/enrichment/types.ts",
@@ -7344,7 +7383,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-08T01:48:54.179Z"
+      "lastModifiedAt": "2026-06-19T14:10:44.092Z"
     },
     {
       "id": "code:src/lib/events.test.ts",
@@ -7917,6 +7956,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-16T22:55:22.424Z"
+    },
+    {
+      "id": "code:src/lib/outreach-rhythm.ts",
+      "title": "Code src/lib/outreach-rhythm.ts",
+      "body": "export type OutreachStage = 'watching' | 'researching' | 'applied' | 'interviewing' | 'offer' | 'unknown'",
+      "type": "code",
+      "ref": "src/lib/outreach-rhythm.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-19T14:38:04.538Z"
     },
     {
       "id": "code:src/lib/outreach/auto-remediate.test.ts",
@@ -8723,6 +8775,19 @@
       ],
       "qualityWeight": 1,
       "lastModifiedAt": "2026-06-06T16:52:16.076Z"
+    },
+    {
+      "id": "code:src/lib/relationship-kpi-scripts.test.ts",
+      "title": "Code src/lib/relationship-kpi-scripts.test.ts",
+      "body": "import { describe, expect, it } from 'vitest'",
+      "type": "code",
+      "ref": "src/lib/relationship-kpi-scripts.test.ts",
+      "tags": [
+        "code",
+        "library"
+      ],
+      "qualityWeight": 1,
+      "lastModifiedAt": "2026-06-19T13:59:28.539Z"
     },
     {
       "id": "code:src/lib/relationship-targeting.test.ts",
@@ -10233,6 +10298,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.333Z"
     },
     {
+      "id": "script:scripts/cleanup-relationship-kpi-chain-seed.mjs",
+      "title": "Script scripts/cleanup-relationship-kpi-chain-seed.mjs",
+      "body": "export function parseArgs(argv) {",
+      "type": "script",
+      "ref": "scripts/cleanup-relationship-kpi-chain-seed.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-19T13:59:28.538Z"
+    },
+    {
       "id": "script:scripts/closeout-prep-brief-evals.mjs",
       "title": "Script scripts/closeout-prep-brief-evals.mjs",
       "body": "#!/usr/bin/env node",
@@ -10313,7 +10391,7 @@
     {
       "id": "script:scripts/emi-postdeploy-smoke.mjs",
       "title": "Script scripts/emi-postdeploy-smoke.mjs",
-      "body": "#!/usr/bin/env node",
+      "body": "eslint-disable-next-line no-await-in-loop",
       "type": "script",
       "ref": "scripts/emi-postdeploy-smoke.mjs",
       "tags": [
@@ -10321,7 +10399,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-19T04:03:40.848Z"
+      "lastModifiedAt": "2026-06-19T13:46:14.699Z"
     },
     {
       "id": "script:scripts/eval-guide-retrieval.ts",
@@ -10413,6 +10491,19 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-06T16:52:15.341Z"
+    },
+    {
+      "id": "script:scripts/export-relationship-kpi-chain.mjs",
+      "title": "Script scripts/export-relationship-kpi-chain.mjs",
+      "body": "export function safeRate(numerator, denominator) {",
+      "type": "script",
+      "ref": "scripts/export-relationship-kpi-chain.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-19T13:59:28.538Z"
     },
     {
       "id": "script:scripts/export-report-pdfs.mjs",
@@ -10763,7 +10854,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-13T23:12:19.714Z"
+      "lastModifiedAt": "2026-06-19T14:40:15.305Z"
     },
     {
       "id": "script:scripts/lib/mobile-route-inventory.mjs",
@@ -11143,6 +11234,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.366Z"
     },
     {
+      "id": "script:scripts/seed-relationship-kpi-chain.mjs",
+      "title": "Script scripts/seed-relationship-kpi-chain.mjs",
+      "body": "#!/usr/bin/env node",
+      "type": "script",
+      "ref": "scripts/seed-relationship-kpi-chain.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-19T13:45:23.773Z"
+    },
+    {
       "id": "script:scripts/seed-social-calendar.ts",
       "title": "Script scripts/seed-social-calendar.ts",
       "body": "Replace future unposted queue so /social reflects the new multi-audience calendar.",
@@ -11413,7 +11517,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T01:31:40.367Z"
+      "lastModifiedAt": "2026-06-19T13:46:14.698Z"
     },
     {
       "id": "infra:.github/workflows/executive-research-weekly.yml",
@@ -13944,6 +14048,20 @@
       ],
       "qualityWeight": 0.95,
       "lastModifiedAt": "2026-06-19T00:56:18.201Z"
+    },
+    {
+      "id": "data:supabase/migrations/145_relationship_intelligence_foundation.sql",
+      "title": "Migration supabase/migrations/145_relationship_intelligence_foundation.sql",
+      "body": "-- Relationship intelligence foundation: shared public people layer + user-private relationship layer.",
+      "type": "data",
+      "ref": "supabase/migrations/145_relationship_intelligence_foundation.sql",
+      "tags": [
+        "data",
+        "migration",
+        "supabase"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-19T04:52:27.408Z"
     },
     {
       "id": "doc:docs/7-layer-summary-for-chris-and-team-2026-05-29.md",
@@ -17934,7 +18052,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T03:56:41.573Z"
+      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -17973,7 +18091,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T03:56:41.573Z"
+      "lastModifiedAt": "2026-06-19T14:42:27.672Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -18026,6 +18144,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-13T23:12:19.713Z"
+    },
+    {
+      "id": "doc:docs/jira/non-executive-landing-remediation-import-2026-06-19-README.md",
+      "title": "Doc docs/jira/non-executive-landing-remediation-import-2026-06-19-README.md",
+      "body": "Non-Executive Landing Remediation Jira Import (2026-06-19)",
+      "type": "doc",
+      "ref": "docs/jira/non-executive-landing-remediation-import-2026-06-19-README.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-19T13:46:14.701Z"
     },
     {
       "id": "doc:docs/jira/white-label-transition-mvp-import-2026-06-16-README.md",
@@ -18286,6 +18417,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-07T13:53:40.792Z"
+    },
+    {
+      "id": "doc:docs/non-executive-landing-remediation-backlog.md",
+      "title": "Doc docs/non-executive-landing-remediation-backlog.md",
+      "body": "Non-Executive Landing Remediation Backlog",
+      "type": "doc",
+      "ref": "docs/non-executive-landing-remediation-backlog.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-19T13:46:14.699Z"
     },
     {
       "id": "doc:docs/nyt-submission-template.md",
@@ -22159,7 +22303,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T04:04:39.372Z"
+      "lastModifiedAt": "2026-06-19T14:58:32.213Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
