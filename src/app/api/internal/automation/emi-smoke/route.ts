@@ -21,6 +21,12 @@ function internalBaseUrl(request: NextRequest): string {
   const explicit = process.env.INTERNAL_API_BASE_URL?.trim()
   if (explicit) return trimSlash(explicit)
 
+  const forwardedHost = request.headers.get('x-forwarded-host')?.trim()
+  const forwardedProto = request.headers.get('x-forwarded-proto')?.trim() || 'https'
+  if (forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`
+  }
+
   const port = process.env.PORT?.trim() || '3000'
   const localhostUrl = `http://127.0.0.1:${port}`
 
@@ -38,7 +44,8 @@ function internalBaseUrl(request: NextRequest): string {
     return `http://${host}`
   }
 
-  return localhostUrl
+  const hostProto = request.nextUrl.protocol?.replace(':', '') || 'https'
+  return `${hostProto}://${host}`
 }
 
 function getClientIp(request: NextRequest): string {
