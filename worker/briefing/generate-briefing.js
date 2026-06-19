@@ -52,7 +52,7 @@ function getRoleFrame(roleType) {
 // Calls Claude to produce structured briefing content from assembled context.
 // Returns { subject, intro, matchInsights, followUpSuggestions, closing }
 export async function generateBriefing(context) {
-  const { userName, targetTitles, roleType, totalCompanies, newMatches, followUps, signals = [], todayStr, relationshipNudges = [], networkHealth = null, isPlaced = false, industryPulse = null } = context
+  const { userName, targetTitles, roleType, totalCompanies, newMatches, followUps, signals = [], todayStr, relationshipNudges = [], relationshipActionsToday = [], chainSnapshotToday = null, likelyStakeholders = [], networkHealth = null, isPlaced = false, industryPulse = null } = context
   const frame = getRoleFrame(roleType)
 
   const matchesText = newMatches.length
@@ -83,6 +83,22 @@ Summary: ${m.aiSummary}`
       }).join('\n')
     : 'No stale relationships.'
 
+  const relationshipActionsText = relationshipActionsToday.length
+    ? relationshipActionsToday
+      .map((action) => `${action.actor}: ${action.detail}`)
+      .join('\n')
+    : 'No relationship actions logged today.'
+
+  const workflowSnapshotText = chainSnapshotToday
+    ? `recommendations accepted: ${chainSnapshotToday.recommendationAccepted}, relationship actions: ${chainSnapshotToday.relationshipActions}, interview progressions: ${chainSnapshotToday.interviewProgressions}`
+    : 'No workflow snapshot available.'
+
+  const stakeholderText = likelyStakeholders.length
+    ? likelyStakeholders
+      .map((stakeholder) => `${stakeholder.name}${stakeholder.title ? ` (${stakeholder.title})` : ''}${stakeholder.companyName ? ` at ${stakeholder.companyName}` : ''} [${stakeholder.roleCluster}]`)
+      .join('\n')
+    : 'No stakeholder candidates identified yet.'
+
   const networkNote = networkHealth
     ? `${networkHealth.companiesWithContacts} of ${networkHealth.totalCompanies} companies have a contact (${networkHealth.coveragePct}% coverage)`
     : ''
@@ -100,10 +116,22 @@ They are not in active search. Focus entirely on relationship maintenance — no
 RELATIONSHIP MAINTENANCE (contacts overdue for contact):
 ${nudgesText}
 
+RELATIONSHIP ACTIONS COMPLETED TODAY:
+${relationshipActionsText}
+
+WORKFLOW SNAPSHOT (today):
+${workflowSnapshotText}
+
+LIKELY STAKEHOLDERS TO PRIORITIZE:
+${stakeholderText}
+
 Write a weekly digest as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Start with "Your weekly career intelligence". Mention specific names if nudges exist.
 - "intro": 1-2 sentences. Welcome them to the week, note the relationship landscape briefly.
 - "relationshipNudges": array of { name, context (their role/firm), lastContact (days dormant or "never"), suggestion (one concrete sentence — who to reach out to and why now) } — only if there are stale contacts.
+- "relationshipActionsToday": array of { actor, action, impact } summarizing actions completed today that improved relationship momentum.
+- "workflowSnapshot": object with { path, recommendationAccepted, relationshipActions, interviewProgressions, interpretation } for executive clarity.
+- "stakeholderBrief": array of { name, role, whyNow } for the top stakeholder opportunities to engage this week.
 - "followUpSuggestions": array of { person, action, suggestion } — only if there are overdue follow-ups.
 - "closing": 1 sentence. Calm observation about staying networked between roles. No motivational cliches.
 - "signalAlerts": []
@@ -130,6 +158,15 @@ ${followUpsText}
 
 ${relationshipNudges.length ? `RELATIONSHIP MAINTENANCE (contacts overdue for outreach):\n${nudgesText}` : ''}
 
+RELATIONSHIP ACTIONS COMPLETED TODAY:
+${relationshipActionsText}
+
+WORKFLOW SNAPSHOT (today):
+${workflowSnapshotText}
+
+LIKELY STAKEHOLDERS TO PRIORITIZE:
+${stakeholderText}
+
 ${pulseText ? `SECTOR INTELLIGENCE (recent ${frame.title} movement in the market):\n${pulseText}` : ''}
 
 Write a morning briefing as JSON with exactly these keys:
@@ -139,6 +176,9 @@ Write a morning briefing as JSON with exactly these keys:
 - "matchInsights": array of { company, roles (string[]), insight (1-2 sentences, specific to this role and this person's background) } — only for companies with matches.
 - "followUpSuggestions": array of { person, action, suggestion (one concrete sentence — what to do and how) } — only if there are follow-ups.
 - "relationshipNudges": array of { name, context (their role/firm), lastContact (days dormant or "never"), suggestion (one concrete sentence) } — only if there are stale relationships.
+- "relationshipActionsToday": array of { actor, action, impact } summarizing completed relationship actions today (touchpoints, notes, saved recommendations).
+- "workflowSnapshot": object with { path, recommendationAccepted, relationshipActions, interviewProgressions, interpretation }.
+- "stakeholderBrief": array of { name, role, whyNow } from likely stakeholders tied to tracked companies.
 - "sectorPulse": array of 1-3 short strings summarizing what the sector intelligence means for this candidate's search specifically — only if sector intelligence was provided above. If no sector intelligence, return [].
 - "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational cliches.
 
@@ -185,6 +225,23 @@ Output valid JSON only, no markdown fences.`
         context: [n.title, n.firm].filter(Boolean).join(' at ') || 'Contact',
         lastContact: n.daysSince === null ? 'never' : `${n.daysSince} days ago`,
         suggestion: `Re-engage ${n.name} to keep this relationship warm.`,
+      })),
+      relationshipActionsToday: relationshipActionsToday.slice(0, 3).map(a => ({
+        actor: a.actor,
+        action: a.detail,
+        impact: 'Maintains relationship momentum and keeps follow-up loops active.',
+      })),
+      workflowSnapshot: {
+        path: chainSnapshotToday?.path ?? 'recommendation -> relationship action -> interview progression',
+        recommendationAccepted: chainSnapshotToday?.recommendationAccepted ?? 0,
+        relationshipActions: chainSnapshotToday?.relationshipActions ?? 0,
+        interviewProgressions: chainSnapshotToday?.interviewProgressions ?? 0,
+        interpretation: 'Use this chain to validate that recommendations are converting into relationship momentum.',
+      },
+      stakeholderBrief: likelyStakeholders.slice(0, 3).map((stakeholder) => ({
+        name: stakeholder.name,
+        role: [stakeholder.title, stakeholder.companyName].filter(Boolean).join(' at ') || stakeholder.roleCluster,
+        whyNow: 'Likely participant in upcoming interview loops; keep outreach context current.',
       })),
       sectorPulse: [],
       closing: `You have ${totalCompanies} companies being tracked. Every day of consistent outreach compounds.`,

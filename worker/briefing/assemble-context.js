@@ -42,7 +42,7 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   const since7dISO = since7d.toISOString()
   const isPlaced = searchStatus === 'complete'
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult, signalHealthResult, briefsResult, pipelineEventsResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, patternAlertsResult, outreachResult, signalHealthResult, briefsResult, pipelineEventsResult, touchpointsTodayResult, notesTodayResult, recommendationAddsResult, interviewProgressTodayResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles, role_type, search_persona')
@@ -110,6 +110,35 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
       .eq('user_id', userId)
       .gte('created_at', since7d.toISOString())
       .in('event_name', ['company_added', 'pipeline_stage_changed']),
+    supabase
+      .from('relationship_touchpoints')
+      .select('id, touch_type, created_at, contact_id')
+      .eq('user_id', userId)
+      .gte('created_at', since24h.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(8),
+    supabase
+      .from('contact_notes')
+      .select('id, note_type, created_at, contact_id')
+      .eq('user_id', userId)
+      .gte('created_at', since24h.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(8),
+    supabase
+      .from('user_events')
+      .select('id, created_at, properties')
+      .eq('user_id', userId)
+      .eq('event_name', 'discover_recommendation_added')
+      .gte('created_at', since24h.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(8),
+    supabase
+      .from('company_interview_logs')
+      .select('id, created_at')
+      .eq('user_id', userId)
+      .gte('created_at', since24h.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(8),
   ])
 
   if (profileResult.error) {
@@ -126,6 +155,10 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   const signalHealthRows = signalHealthResult.data ?? []
   const briefs = briefsResult.data ?? []
   const pipelineEvents = pipelineEventsResult.data ?? []
+  const touchpointsToday = touchpointsTodayResult.data ?? []
+  const notesToday = notesTodayResult.data ?? []
+  const recommendationAdds = recommendationAddsResult.data ?? []
+  const interviewProgressToday = interviewProgressTodayResult.data ?? []
 
   const companyById = Object.fromEntries(companies.map(c => [c.id, c]))
 
@@ -141,14 +174,59 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     .filter(m => m.matchingRoles.length > 0)
 
   // Fetch contact names for any follow-ups that have a contact_id
-  const contactIds = rawFollowUps.filter(f => f.contact_id).map(f => f.contact_id)
+  const contactIds = [
+    ...rawFollowUps.filter(f => f.contact_id).map(f => f.contact_id),
+    ...touchpointsToday.filter(t => t.contact_id).map(t => t.contact_id),
+    ...notesToday.filter(n => n.contact_id).map(n => n.contact_id),
+  ]
+  const uniqueContactIds = [...new Set(contactIds)]
   let contactById = {}
-  if (contactIds.length) {
+  if (uniqueContactIds.length) {
     const { data: contacts } = await supabase
       .from('contacts')
       .select('id, name, title')
-      .in('id', contactIds)
+      .in('id', uniqueContactIds)
     if (contacts) contactById = Object.fromEntries(contacts.map(c => [c.id, c]))
+  }
+
+  const relationshipActionsToday = [
+    ...touchpointsToday.map((row) => {
+      const contact = row.contact_id ? contactById[row.contact_id] : null
+      return {
+        kind: 'touchpoint',
+        actor: contact?.name ?? 'Contact',
+        detail: row.touch_type ? String(row.touch_type).replace(/_/g, ' ') : 'relationship touchpoint logged',
+        createdAt: row.created_at,
+      }
+    }),
+    ...notesToday.map((row) => {
+      const contact = row.contact_id ? contactById[row.contact_id] : null
+      return {
+        kind: 'note',
+        actor: contact?.name ?? 'Contact',
+        detail: row.note_type ? `note added (${String(row.note_type).replace(/_/g, ' ')})` : 'relationship note added',
+        createdAt: row.created_at,
+      }
+    }),
+    ...recommendationAdds.map((row) => {
+      const props = row.properties && typeof row.properties === 'object' ? row.properties : {}
+      const contactName = typeof props.contact_name === 'string' ? props.contact_name : null
+      return {
+        kind: 'recommendation_saved',
+        actor: contactName ?? 'Saved recommendation',
+        detail: 'recommendation converted to relationship contact',
+        createdAt: row.created_at,
+      }
+    }),
+  ]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 6)
+
+  const chainSnapshotToday = {
+    recommendationAccepted: recommendationAdds.length,
+    relationshipActions: relationshipActionsToday.length,
+    interviewProgressions: interviewProgressToday.length,
+    path: 'recommendation -> relationship action -> interview progression',
   }
 
   // Relationship cadence nudges: contacts that haven't been touched in threshold days
@@ -249,6 +327,43 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     ? pulseRow.bullets
     : null
 
+  const companyIds = companies.map((company) => company.id)
+  let likelyStakeholders = []
+  if (companyIds.length) {
+    const { data: candidateRows } = await supabase
+      .from('company_people_candidates' as never)
+      .select('company_id, person_id, role_cluster, score, status' as never)
+      .eq('user_id', userId)
+      .in('status', ['suggested', 'saved'])
+      .in('company_id', companyIds)
+      .order('score', { ascending: false })
+      .limit(20)
+
+    const personIds = [...new Set((candidateRows ?? []).map((row) => row.person_id).filter(Boolean))]
+    let peopleById = {}
+    if (personIds.length) {
+      const { data: peopleRows } = await supabase
+        .from('people' as never)
+        .select('id, full_name, current_title, current_company' as never)
+        .in('id', personIds)
+      peopleById = Object.fromEntries((peopleRows ?? []).map((row) => [row.id, row]))
+    }
+
+    likelyStakeholders = (candidateRows ?? [])
+      .map((row) => {
+        const person = peopleById[row.person_id]
+        return {
+          name: person?.full_name ?? 'Stakeholder',
+          title: person?.current_title ?? null,
+          companyName: companyById[row.company_id]?.name ?? person?.current_company ?? null,
+          roleCluster: row.role_cluster ?? 'other',
+          score: typeof row.score === 'number' ? Number(row.score.toFixed(2)) : null,
+        }
+      })
+      .filter((row) => Boolean(row.name))
+      .slice(0, 5)
+  }
+
   const activePipelineCount = companies.filter(c => ['applied', 'interviewing', 'offer'].includes(c.stage)).length
   const lastSignalDays = signalHealthRows.length > 0
     ? Math.ceil((Date.now() - new Date(signalHealthRows[0].signal_date).getTime()) / (1000 * 60 * 60 * 24))
@@ -291,6 +406,9 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     todayStr,
     relationshipNudges: topNudges,
     networkHealth,
+    relationshipActionsToday,
+    chainSnapshotToday,
+    likelyStakeholders,
     isPlaced,
     industryPulse,
     stalledLanes,

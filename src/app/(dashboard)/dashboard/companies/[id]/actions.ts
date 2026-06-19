@@ -240,6 +240,114 @@ export async function archiveContact(contactId: string, companyId: string) {
   revalidatePath(`/dashboard/companies/${companyId}`)
 }
 
+export async function logRelationshipTouchpoint(contactId: string, companyId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const nowIso = new Date().toISOString()
+
+  const { data: contact } = await supabase
+    .from('contacts')
+    .select('id, company_id')
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  if (!contact) return
+
+  const { error: insertError } = await supabase
+    .from('relationship_touchpoints' as never)
+    .insert({
+      user_id: user.id,
+      contact_id: contactId,
+      company_id: contact.company_id,
+      touch_type: 'other',
+      direction: 'outbound',
+      summary: 'Quick touchpoint logged from company contact panel.',
+      occurred_at: nowIso,
+    } as never)
+
+  if ((insertError as { code?: string } | null)?.code === '42P01') {
+    await supabase
+      .from('contacts')
+      .update({ contacted_at: nowIso })
+      .eq('id', contactId)
+      .eq('user_id', user.id)
+  }
+
+  await logEvent(user.id, 'briefing_action_clicked', {
+    contact_id: contactId,
+    company_id: contact.company_id ?? null,
+    source: insertError ? 'company_panel_touchpoint_fallback' : 'company_panel_touchpoint',
+    chain_stage: 'relationship_action',
+  })
+  captureServerEvent(user.id, 'briefing_action_clicked', {
+    contact_id: contactId,
+    company_id: contact.company_id ?? null,
+    source: insertError ? 'company_panel_touchpoint_fallback' : 'company_panel_touchpoint',
+    chain_stage: 'relationship_action',
+  })
+
+  revalidatePath(`/dashboard/companies/${companyId}`)
+}
+
+export async function addRelationshipQuickNote(contactId: string, companyId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const noteBody = 'Quick relationship check-in logged from company panel.'
+
+  const { data: contact } = await supabase
+    .from('contacts')
+    .select('id, notes, company_id')
+    .eq('id', contactId)
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  if (!contact) return
+
+  const { error: insertError } = await supabase
+    .from('contact_notes' as never)
+    .insert({
+      user_id: user.id,
+      contact_id: contactId,
+      note_type: 'general',
+      body: noteBody,
+      source: 'user',
+      pinned: false,
+    } as never)
+
+  if ((insertError as { code?: string } | null)?.code === '42P01') {
+    const stamp = new Date().toISOString().slice(0, 10)
+    const existing = typeof contact.notes === 'string' ? contact.notes.trim() : ''
+    const block = `[${stamp}] (general) ${noteBody}`
+    const merged = existing ? `${existing}\n${block}` : block
+
+    await supabase
+      .from('contacts')
+      .update({ notes: merged })
+      .eq('id', contactId)
+      .eq('user_id', user.id)
+  }
+
+  await logEvent(user.id, 'briefing_action_clicked', {
+    contact_id: contactId,
+    company_id: contact.company_id ?? null,
+    source: insertError ? 'company_panel_note_fallback' : 'company_panel_note',
+    chain_stage: 'relationship_action',
+  })
+  captureServerEvent(user.id, 'briefing_action_clicked', {
+    contact_id: contactId,
+    company_id: contact.company_id ?? null,
+    source: insertError ? 'company_panel_note_fallback' : 'company_panel_note',
+    chain_stage: 'relationship_action',
+  })
+
+  revalidatePath(`/dashboard/companies/${companyId}`)
+}
+
 export async function markFollowUpDone(followUpId: string, companyId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
