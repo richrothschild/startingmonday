@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "generatedAt": "2026-06-19T19:09:08.431Z",
-=======
-  "generatedAt": "2026-06-19T20:54:00.848Z",
->>>>>>> origin/staging
+  "generatedAt": "2026-06-19T20:56:40.082Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -15,12 +11,7 @@
         "architecture",
         "platform"
       ],
-<<<<<<< HEAD
       "qualityWeight": 1.4
-=======
-      "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-19T18:24:05.666Z"
->>>>>>> origin/staging
     },
     {
       "id": "feature:/login",
@@ -8951,11 +8942,7 @@
         "library"
       ],
       "qualityWeight": 1,
-<<<<<<< HEAD
-      "lastModifiedAt": "2026-06-19T19:07:23.652Z"
-=======
-      "lastModifiedAt": "2026-06-19T20:15:52.139Z"
->>>>>>> origin/staging
+      "lastModifiedAt": "2026-06-19T20:54:46.920Z"
     },
     {
       "id": "code:src/lib/role-path-priority.test.ts",
@@ -18051,24 +18038,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-<<<<<<< HEAD
       "lastModifiedAt": "2026-06-13T19:17:50.888Z"
-=======
-      "lastModifiedAt": "2026-06-06T19:57:44.619Z"
-    },
-    {
-      "id": "doc:docs/internal-guide.md",
-      "title": "Doc docs/internal-guide.md",
-      "body": "Starting Monday Internal Guide",
-      "type": "doc",
-      "ref": "docs/internal-guide.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T18:24:05.666Z"
->>>>>>> origin/staging
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18094,24 +18064,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-<<<<<<< HEAD
       "lastModifiedAt": "2026-06-13T19:17:50.894Z"
-=======
-      "lastModifiedAt": "2026-06-07T13:53:40.773Z"
-    },
-    {
-      "id": "doc:docs/internal-system-summary.md",
-      "title": "Doc docs/internal-system-summary.md",
-      "body": "Starting Monday Internal System Summary",
-      "type": "doc",
-      "ref": "docs/internal-system-summary.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-19T18:24:05.666Z"
->>>>>>> origin/staging
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22310,11 +22263,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-<<<<<<< HEAD
-      "lastModifiedAt": "2026-06-19T19:07:24.340Z"
-=======
-      "lastModifiedAt": "2026-06-19T20:53:58.340Z"
->>>>>>> origin/staging
+      "lastModifiedAt": "2026-06-19T20:54:46.917Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

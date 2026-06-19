@@ -1,10 +1,6 @@
 # Starting Monday Internal System Summary
 
-<<<<<<< HEAD
-Generated at: 2026-06-19T19:09:08.431Z
-=======
-Generated at: 2026-06-19T20:54:00.848Z
->>>>>>> origin/staging
+Generated at: 2026-06-19T20:56:40.082Z
 
 ## What exists
 - Feature pages: 208
