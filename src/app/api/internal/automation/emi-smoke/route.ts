@@ -2,6 +2,15 @@ import { timingSafeEqual } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { checkRateLimit } from '@/lib/rate-limit'
 
+function timeoutPromise<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${timeoutMs}ms`)), timeoutMs)
+    ),
+  ])
+}
+
 export const runtime = 'nodejs'
 
 const EMI_SMOKE_TOKEN_HEADER = 'x-emi-smoke-token'
@@ -199,7 +208,16 @@ export async function POST(request: NextRequest) {
 
   const ip = getClientIp(request)
   const rateKey = `emi_smoke_token:${ip}`
-  const rate = await checkRateLimit(rateKey, EMI_SMOKE_RATE_LIMIT, EMI_SMOKE_WINDOW_MS)
+    let rate: Awaited<ReturnType<typeof checkRateLimit>>
+    try {
+      rate = await timeoutPromise(
+        checkRateLimit(rateKey, EMI_SMOKE_RATE_LIMIT, EMI_SMOKE_WINDOW_MS),
+        5000
+      )
+    } catch (error) {
+      console.warn('[emi-smoke] rate limit check timeout, allowing request', error)
+      rate = { allowed: true }
+    }
   if (!rate.allowed) {
     return NextResponse.json(
       { error: 'Rate limit exceeded', diagnostics },
