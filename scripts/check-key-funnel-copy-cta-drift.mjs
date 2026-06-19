@@ -45,8 +45,8 @@ const SPECS = [
       },
       {
         id: 'home-primary-cta',
-        description: 'Homepage primary CTA remains Start Now.',
-        matcher: /<TrackLink[\s\S]*?>[\s\S]*Start Now[\s\S]*<\/TrackLink>/,
+        description: 'Homepage shows audience path-selection section.',
+        matcher: 'homepage-path-title',
       },
     ],
   },
