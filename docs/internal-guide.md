@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-19T20:56:40.082Z
+Last generated: 2026-06-19T22:17:53.717Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -1080,7 +1080,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 - Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
 
-## Documentation (642)
+## Documentation (644)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1387,8 +1387,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/how-to-build-a-great-prep-brief.md | docs/how-to-build-a-great-prep-brief.md | How to Build a Great Prep Brief
 - Doc docs/intelligence-roadmap.md | docs/intelligence-roadmap.md | Starting Monday — Intelligence Scanner Roadmap
 - Doc docs/internal-explore-playbook.md | docs/internal-explore-playbook.md | Internal Explore Playbook
+- Doc docs/internal-guide.md | docs/internal-guide.md | Starting Monday Internal Guide
 - Doc docs/internal-onboarding-readme.md | docs/internal-onboarding-readme.md | Internal Onboarding README (Engineer)
 - Doc docs/internal-pages-ia-redesign.md | docs/internal-pages-ia-redesign.md | Internal Pages IA Redesign (Scale + Cognitive Load)
+- Doc docs/internal-system-summary.md | docs/internal-system-summary.md | Starting Monday Internal System Summary
 - Doc docs/interview-day-cheat-sheet.md | docs/interview-day-cheat-sheet.md | Interview Day Cheat Sheet
 - Doc docs/investor-brief.md | docs/investor-brief.md | Starting Monday — Investor Brief
 - Doc docs/jira/four-channel-customer-journey-import-README.md | docs/jira/four-channel-customer-journey-import-README.md | Four-Channel Jira Import (Ready)
