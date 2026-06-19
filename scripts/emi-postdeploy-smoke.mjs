@@ -4,6 +4,7 @@ const BASE_URL = process.env.EMI_SMOKE_BASE_URL ?? 'https://startingmonday.app'
 const SMOKE_TOKEN = process.env.EMI_SMOKE_TOKEN ?? ''
 const OUTPUT_JSON = process.env.EMI_SMOKE_OUTPUT_JSON === '1' || process.argv.includes('--json')
 const TIMEOUT_MS = 20000
+const MAX_RETRIES = Number(process.env.EMI_SMOKE_RETRIES ?? '2')
 
 function trimSlash(url) {
   return url.endsWith('/') ? url.slice(0, -1) : url
@@ -56,6 +57,26 @@ async function postJson(path, body, token) {
   }
 }
 
+function shouldRetry(result) {
+  if (!result) return true
+  if (result.status === 0) return true
+  return result.status >= 500 && result.status <= 504
+}
+
+async function postJsonWithRetry(path, body, token) {
+  let lastResult = null
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    lastResult = await postJson(path, body, token)
+    if (!shouldRetry(lastResult) || attempt === MAX_RETRIES) {
+      return lastResult
+    }
+  }
+
+  return lastResult
+}
+
 function emitSummary(summary) {
   if (OUTPUT_JSON) {
     console.log(JSON.stringify(summary, null, 2))
@@ -103,7 +124,7 @@ async function main() {
     return
   }
 
-  const emiSmoke = await postJson('/api/internal/automation/emi-smoke', {}, SMOKE_TOKEN)
+  const emiSmoke = await postJsonWithRetry('/api/internal/automation/emi-smoke', {}, SMOKE_TOKEN)
   const responseBody = emiSmoke.body ?? {}
   const failures = Array.isArray(responseBody.failures)
     ? responseBody.failures.map((item) => String(item))
