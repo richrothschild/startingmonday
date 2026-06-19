@@ -361,8 +361,7 @@ async function main() {
 
   if (!dryRun) {
     await ensureProjectAccess({ baseUrl, email, apiToken, projectKey })
-    const dryToken = randomBytes(4).toString('hex').toUpperCase()
-    return { key: `DRY-${dryToken}` }
+  }
 
   const epics = rows.filter((r) => (r['Issue Type'] || '').toLowerCase() === 'epic')
   const nonEpics = rows.filter((r) => (r['Issue Type'] || '').toLowerCase() !== 'epic')
