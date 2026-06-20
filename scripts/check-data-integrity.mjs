@@ -231,7 +231,7 @@ async function checkResendWebhookBacklog() {
     }
   })
 
-  return { name: 'webhook_backlog_resend', count: affected.length, affected }
+  return { name: 'webhook_backlog_resend', count: affected.length, affected, advisory: true }
 }
 
 async function checkStripeWebhookBacklog() {
