@@ -83,7 +83,8 @@ test('add company appears in pipeline then can be archived', async ({ page }) =>
   }
 
   // Verify company appears in pipeline table and target detail links explicitly.
-  const companyLink = page.locator('a[href*="/dashboard/companies/"]').filter({ hasText: name }).first()
+  // Exclude /new hrefs: the "no results" state renders a matching fallback CTA at /dashboard/companies/new?name=...
+  const companyLink = page.locator('a[href*="/dashboard/companies/"]:not([href*="/companies/new"])').filter({ hasText: name }).first()
   try {
     await expect(companyLink).toBeVisible({ timeout: 20_000 })
   } catch {
