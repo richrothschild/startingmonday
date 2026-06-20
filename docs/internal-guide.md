@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-21T18:26:40.705Z
+Last generated: 2026-06-20T00:56:22.371Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (211)
+## Features (208)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -190,8 +190,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Founder note | /founder-note | User-facing page route /founder-note.
 - Feature Guide | /guide | User-facing page route /guide.
 - Feature Ideas | /ideas | User-facing page route /ideas.
-- Feature Individuals | /individuals | User-facing page route /individuals.
-- Feature Learn more | /learn-more | User-facing page route /learn-more.
 - Feature Managertools | /managertools | User-facing page route /managertools.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Mark review / Appendix | /mark-review/appendix | User-facing page route /mark-review/appendix.
@@ -208,7 +206,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Outplacement | /outplacement | User-facing page route /outplacement.
 - Feature Outplacement / Personas | /outplacement/personas | User-facing page route /outplacement/personas.
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
-- Feature Partner firm | /partner-firm | User-facing page route /partner-firm.
 - Feature Partners / Mauricio kickoff | /partners/mauricio-kickoff | User-facing page route /partners/mauricio-kickoff.
 - Feature Partners | /partners | User-facing page route /partners.
 - Feature Partners / Reporting | /partners/reporting | User-facing page route /partners/reporting.
@@ -717,7 +714,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/stripe-status.ts | src/lib/stripe-status.ts | export type AppSubscriptionStatus =
 - Code src/lib/stripe.test.ts | src/lib/stripe.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/stripe.ts | src/lib/stripe.ts | export function getStripe(): Stripe {
-- Code src/lib/subscription.test.ts | src/lib/subscription.test.ts | import { describe, expect, it } from 'vitest'
+- Code src/lib/subscription.test.ts | src/lib/subscription.test.ts | import { describe, expect, it, vi } from 'vitest'
 - Code src/lib/subscription.ts | src/lib/subscription.ts | export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
 - Code src/lib/supabase/admin.test.ts | src/lib/supabase/admin.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/supabase/admin.ts | src/lib/supabase/admin.ts | export function createAdminClient() {
@@ -743,7 +740,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/white-label.test.ts | src/lib/white-label.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/white-label.ts | src/lib/white-label.ts | export type WhiteLabelTrackId = 'executive_transition' | 'professional_transition'
 
-## Internal Scripts (144)
+## Internal Scripts (143)
 - Script scripts/admin-seed-user.mjs | scripts/admin-seed-user.mjs | WBS 1.6 — Admin Tooling: seed a beta user with profile + company watchlist.
 - Script scripts/analyze-coach-contacts.mjs | scripts/analyze-coach-contacts.mjs | Minimal RFC-4180 CSV parser (no external deps)
 - Script scripts/apply-latest-coach-email-format.mjs | scripts/apply-latest-coach-email-format.mjs | import { readdir, readFile } from 'node:fs/promises'
@@ -794,7 +791,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-prep-confidence-calibration.mjs | scripts/check-prep-confidence-calibration.mjs | #!/usr/bin/env node
 - Script scripts/check-prep-provenance-coverage.mjs | scripts/check-prep-provenance-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-prep-role-mode-qa.mjs | scripts/check-prep-role-mode-qa.mjs | #!/usr/bin/env node
-- Script scripts/check-public-asset-tracking.mjs | scripts/check-public-asset-tracking.mjs | #!/usr/bin/env node
 - Script scripts/check-release-ux-checklist.mjs | scripts/check-release-ux-checklist.mjs | #!/usr/bin/env node
 - Script scripts/check-site-monitoring-readiness.mjs | scripts/check-site-monitoring-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-sitewide-release-note-artifact.mjs | scripts/check-sitewide-release-note-artifact.mjs | #!/usr/bin/env node
@@ -1084,7 +1080,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 - Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
 
-## Documentation (649)
+## Documentation (644)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1288,11 +1284,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/125_admin_shared_workspaces.md | docs/development/migration-rollbacks/125_admin_shared_workspaces.md | 125_admin_shared_workspaces rollback
 - Doc docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | docs/development/migration-rollbacks/126_scan_failures_dead_letter.md | 126_scan_failures_dead_letter rollback
 - Doc docs/development/migration-rollbacks/127_stripe_webhook_events.md | docs/development/migration-rollbacks/127_stripe_webhook_events.md | 127_stripe_webhook_events rollback
-- Doc docs/development/migration-rollbacks/130_role_profile_taxonomy.md | docs/development/migration-rollbacks/130_role_profile_taxonomy.md | 130_role_profile_taxonomy rollback
 - Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | docs/development/migration-rollbacks/131_discovery_recommendation_runs.md | 131_discovery_recommendation_runs rollback
-- Doc docs/development/migration-rollbacks/131_signal_source_registry.md | docs/development/migration-rollbacks/131_signal_source_registry.md | 131_signal_source_registry rollback
 - Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md | docs/development/migration-rollbacks/132_monitoring_alert_state.md | 132_monitoring_alert_state rollback
-- Doc docs/development/migration-rollbacks/132_relationship_targeting_review_queue.md | docs/development/migration-rollbacks/132_relationship_targeting_review_queue.md | 132_relationship_targeting_review_queue rollback
 - Doc docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md | 133_recommendation_ranking_metadata rollback
 - Doc docs/development/migration-rollbacks/134_contact_enrichment_governance.md | docs/development/migration-rollbacks/134_contact_enrichment_governance.md | 134_contact_enrichment_governance rollback
 - Doc docs/development/migration-rollbacks/136_brief_lifecycle_state.md | docs/development/migration-rollbacks/136_brief_lifecycle_state.md | 136_brief_lifecycle_state rollback
@@ -1302,8 +1295,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | docs/development/migration-rollbacks/141_partner_programs_and_cohorts.md | 141_partner_programs_and_cohorts rollback
 - Doc docs/development/migration-rollbacks/142_partner_outcome_events.md | docs/development/migration-rollbacks/142_partner_outcome_events.md | 142_partner_outcome_events rollback
 - Doc docs/development/migration-rollbacks/143_partner_weekly_loop.md | docs/development/migration-rollbacks/143_partner_weekly_loop.md | 143_partner_weekly_loop rollback
-- Doc docs/development/migration-rollbacks/144_add_partnership_signal_type.md | docs/development/migration-rollbacks/144_add_partnership_signal_type.md | 144_add_partnership_signal_type rollback
-- Doc docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md | docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md | 145_relationship_intelligence_foundation rollback
 - Doc docs/development/migration-rollbacks/README.md | docs/development/migration-rollbacks/README.md | Migration rollback playbooks
 - Doc docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | docs/development/tickets/DEV-EMI-410-service-token-smoke-auth.md | DEV-EMI-410: Replace Cookie-Based EMI Smoke Auth with Service Token
 - Doc docs/diagrams/authentication.md | docs/diagrams/authentication.md | Authentication
