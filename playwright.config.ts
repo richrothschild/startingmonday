@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 import dotenv from 'dotenv'
 import path from 'path'
 
-dotenv.config({ path: path.resolve(__dirname, '.env.local') })
+dotenv.config({ path: path.resolve(__dirname, '.env.local'), quiet: true })
 
 const configuredBaseURL = (process.env.PLAYWRIGHT_BASE_URL ?? '').trim()
 
