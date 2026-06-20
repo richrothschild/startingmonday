@@ -1,6 +1,6 @@
 # Performance Release Scorecard
 
-Generated: 2026-06-13T23:07:39.155Z
+Generated: 2026-06-20T00:14:50.981Z
 Base URL: https://startingmonday.app
 Verdict: PASS
 
