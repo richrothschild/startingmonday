@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-20T00:56:22.371Z",
+  "generatedAt": "2026-06-20T06:26:51.840Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-20T00:55:50.519Z"
+      "lastModifiedAt": "2026-06-20T00:56:22.389Z"
     },
     {
       "id": "feature:/login",
@@ -16703,6 +16703,19 @@
       "lastModifiedAt": "2026-06-05T20:01:07.922Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/130_role_profile_taxonomy.md",
+      "title": "Doc docs/development/migration-rollbacks/130_role_profile_taxonomy.md",
+      "body": "130_role_profile_taxonomy rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/130_role_profile_taxonomy.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-20T06:25:50.464Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
       "title": "Doc docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
       "body": "131_discovery_recommendation_runs rollback",
@@ -16716,6 +16729,19 @@
       "lastModifiedAt": "2026-06-10T19:09:49.885Z"
     },
     {
+      "id": "doc:docs/development/migration-rollbacks/131_signal_source_registry.md",
+      "title": "Doc docs/development/migration-rollbacks/131_signal_source_registry.md",
+      "body": "131_signal_source_registry rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/131_signal_source_registry.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-20T06:25:59.045Z"
+    },
+    {
       "id": "doc:docs/development/migration-rollbacks/132_monitoring_alert_state.md",
       "title": "Doc docs/development/migration-rollbacks/132_monitoring_alert_state.md",
       "body": "132_monitoring_alert_state rollback",
@@ -16727,6 +16753,19 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-10T19:09:49.886Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/132_relationship_targeting_review_queue.md",
+      "title": "Doc docs/development/migration-rollbacks/132_relationship_targeting_review_queue.md",
+      "body": "132_relationship_targeting_review_queue rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/132_relationship_targeting_review_queue.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-20T06:26:09.555Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md",
@@ -16844,6 +16883,32 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-18T04:20:25.196Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/144_add_partnership_signal_type.md",
+      "title": "Doc docs/development/migration-rollbacks/144_add_partnership_signal_type.md",
+      "body": "144_add_partnership_signal_type rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/144_add_partnership_signal_type.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-20T06:26:23.440Z"
+    },
+    {
+      "id": "doc:docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md",
+      "title": "Doc docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md",
+      "body": "145_relationship_intelligence_foundation rollback",
+      "type": "doc",
+      "ref": "docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md",
+      "tags": [
+        "doc",
+        "knowledge"
+      ],
+      "qualityWeight": 1.1,
+      "lastModifiedAt": "2026-06-20T06:26:37.369Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -18052,7 +18117,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-20T00:55:50.519Z"
+      "lastModifiedAt": "2026-06-20T00:56:22.389Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18091,7 +18156,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-20T00:55:50.519Z"
+      "lastModifiedAt": "2026-06-20T00:56:22.389Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
