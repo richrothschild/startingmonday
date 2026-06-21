@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-19T22:59:26.482Z
+Last generated: 2026-06-21T14:05:59.556Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (178)
+## Features (181)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -157,6 +157,8 @@ This guide is generated from product routes, APIs, and published articles.
 - [Founder note](/founder-note) - Open /founder-note to use this feature area and related workflows.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
+- [Individuals](/individuals) - Open /individuals to use this feature area and related workflows.
+- [Learn more](/learn-more) - Open /learn-more to use this feature area and related workflows.
 - [Managertools](/managertools) - Open /managertools to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.
 - [Mark review / Appendix](/mark-review/appendix) - Open /mark-review/appendix to use this feature area and related workflows.
@@ -172,6 +174,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Optimize](/optimize) - Open /optimize to use this feature area and related workflows.
 - [Outplacement](/outplacement) - Open /outplacement to use this feature area and related workflows.
 - [Outplacement / Personas](/outplacement/personas) - Open /outplacement/personas to use this feature area and related workflows.
+- [Partner firm](/partner-firm) - Open /partner-firm to use this feature area and related workflows.
 - [Partners / Mauricio kickoff](/partners/mauricio-kickoff) - Open /partners/mauricio-kickoff to use this feature area and related workflows.
 - [Partners](/partners) - Open /partners to use this feature area and related workflows.
 - [Partners / Reporting](/partners/reporting) - Open /partners/reporting to use this feature area and related workflows.
