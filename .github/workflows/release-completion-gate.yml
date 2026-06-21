@@ -1,0 +1,84 @@
+name: Release Completion Gate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-completion-gate:
+    name: release-completion-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify production deploy SHA + hero smoke
+        env:
+          RELEASE_MONITOR_BASE_URL: https://startingmonday.app
+          RELEASE_EXPECTED_SHA: ${{ github.sha }}
+          RELEASE_EXPECTED_HERO_PRIMARY: The shortlist is defined before the role is public.
+          RELEASE_EXPECTED_HERO_SECONDARY: Be the shortlist.
+          RELEASE_TIMEOUT_SECONDS: '900'
+          RELEASE_INTERVAL_SECONDS: '20'
+          RELEASE_OUTPUT_JSON: '1'
+        run: |
+          set -o pipefail
+          npm run monitor:release:parity:json | tee release-completion-gate.json
+
+      - name: Publish release completion summary
+        if: always()
+        run: |
+          if [ ! -f release-completion-gate.json ]; then
+            echo "## Release Completion Gate" >> "$GITHUB_STEP_SUMMARY"
+            echo "No release-completion-gate.json artifact found." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          node <<'NODE'
+          const fs = require('fs')
+          const payload = JSON.parse(fs.readFileSync('release-completion-gate.json', 'utf8'))
+          const attempts = payload.attempts || []
+          const last = attempts[attempts.length - 1] || { marker: {}, homepage: {} }
+          const heroFailures = (last.homepage.heroChecks || []).filter((item) => !item.matched).map((item) => item.expected)
+
+          const rows = [
+            ['Status', payload.ok ? 'PASS' : 'FAIL'],
+            ['Expected SHA', payload.expectedSha || '(missing)'],
+            ['Observed SHA', last.marker.deploySha || '(missing)'],
+            ['Attempts', String(attempts.length)],
+            ['Elapsed (seconds)', String(payload.elapsedSeconds || 0)],
+            ['Marker status', String(last.marker.status || 0)],
+            ['Homepage status', String(last.homepage.status || 0)],
+          ]
+
+          let summary = '## Release Completion Gate\n\n| Metric | Value |\n|---|---|\n'
+          for (const [key, value] of rows) {
+            summary += '| ' + key + ' | ' + value + ' |\n'
+          }
+          if (heroFailures.length) {
+            summary += '\nMissing hero assertions: ' + heroFailures.join(' | ') + '\n'
+          }
+
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary)
+          NODE
+
+      - name: Upload release completion artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-completion-gate
+          path: release-completion-gate.json
+          retention-days: 14

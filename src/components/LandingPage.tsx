@@ -253,8 +253,10 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
+  const isPrimaryExecutivesPage = sourcePage === '/for-executives'
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
   const isRisingLeadersPage = sourcePage === '/for-vp-technology'
+  const isSecondaryLanePage = sourcePage === '/for-vp-technology' || sourcePage === '/individuals' || sourcePage === '/partner-firm'
   const isManagerToolsPage = sourcePage === '/managertools'
   const useCenteredFooter = isManagerToolsPage || isExecutivesPage
   const executiveLaneBrand = executiveLaneFromSource(sourcePage)
@@ -263,12 +265,46 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
     ? MANAGERTOOLS_SIGNUP_URL
     : isExecutivesPage
       ? '/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page'
-      : '/concierge?program=beta&from=landing'
+      : isSecondaryLanePage
+        ? '/signup'
+        : '/concierge?program=beta&from=landing'
   const heroPrimaryLabel = isManagerToolsPage
     ? 'Start 90-day free access'
-    : isExecutivesPage
+    : isExecutivesPage || isSecondaryLanePage
       ? 'Start your free trial'
       : 'Start Now'
+
+  const secondaryNextStep = sourcePage === '/individuals'
+    ? {
+      title: 'Choose a lane, then start your first week.',
+      body: 'Select executive or rising-leader path first. Then use the same disciplined weekly rhythm shown on home.',
+      href: '/for-executives',
+      ctaLabel: 'Open executive lane',
+      channel: 'individuals',
+    }
+    : sourcePage === '/partner-firm'
+      ? {
+        title: 'Pick your delivery model and move fast.',
+        body: 'Start in the lane that matches your partner workflow, then standardize timing, briefs, and momentum tracking.',
+        href: '/for-coaches',
+        ctaLabel: 'Open partner lanes',
+        channel: 'partner_firm',
+      }
+      : sourcePage === '/for-vp-technology'
+        ? {
+          title: 'Run this as a weekly operating cadence.',
+          body: 'Use this structure every week: prioritize targets, prepare role-fit narrative, and convert conversations into concrete steps.',
+          href: '/individuals',
+          ctaLabel: 'Back to lane selector',
+          channel: 'vp_technology',
+        }
+        : {
+          title: 'Start with the feeling, then read the detail.',
+          body: 'The homepage now leads with a clearer path and a lighter hand. If someone wants the operating detail, the next page carries it.',
+          href: '/method-and-evidence',
+          ctaLabel: 'Learn more',
+          channel: 'executives',
+        }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
@@ -459,7 +495,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </section>
             )}
 
-            {proofHighlights && proofHighlights.length > 0 && !isHomePage && (
+            {proofHighlights && proofHighlights.length > 0 && !isHomePage && !isPrimaryExecutivesPage && (
               <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
                 <span className="font-semibold text-orange-200">Proof:</span> {isLeadershipLanePage
                   ? 'Leaders maintain disciplined narratives and enter conversations grounded in company context.'
@@ -467,7 +503,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </p>
             )}
 
-            {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && !isHomePage && (
+            {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && !isHomePage && !isPrimaryExecutivesPage && (
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
                   <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
@@ -478,13 +514,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             )}
 
-            {proofHighlights && proofHighlights.length > 0 && !isHomePage && (
+            {proofHighlights && proofHighlights.length > 0 && !isHomePage && !isPrimaryExecutivesPage && (
               <p className="mb-6 text-[12px] leading-relaxed text-slate-200">
                 Source: Jan-May 2026 pilot cohorts with published method notes and attribution controls.
               </p>
             )}
 
-            {isExecutivesPage && (
+            {isExecutivesPage && !isPrimaryExecutivesPage && (
               <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
                 <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
@@ -524,7 +560,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             )}
 
-            {isExecutivesPage && (
+            {isExecutivesPage && !isPrimaryExecutivesPage && (
               <section className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md sm:p-6" aria-labelledby="executive-differentiation-title">
                 <div className="flex flex-col gap-2 mb-5">
                   {executiveLaneBrand && (
@@ -620,7 +656,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </div>
         </section>
 
-        {!isHomePage && (
+        {!isHomePage && !isPrimaryExecutivesPage && (
           <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
             <div className="max-w-5xl mx-auto">
             {isManagerToolsPage ? (
@@ -730,24 +766,24 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <>
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Learn more</p>
                 <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
-                  Start with the feeling, then read the detail.
+                  {secondaryNextStep.title}
                 </h2>
                 <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                  The homepage now leads with a clearer path and a lighter hand. If someone wants the operating detail, the next page carries it.
+                  {secondaryNextStep.body}
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <TrackLink
-                    href="/method-and-evidence"
+                    href={secondaryNextStep.href}
                     event={EVENT_NAMES.channelEntryClicked}
                     logToUserEvents
                     properties={{
-                      channel: 'executives',
+                      channel: secondaryNextStep.channel,
                       cta_label: 'next_step_learn_more',
                       source_page: sourcePage,
                     }}
                     className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
                   >
-                    Learn more
+                    {secondaryNextStep.ctaLabel}
                   </TrackLink>
                 </div>
               </>
@@ -757,7 +793,115 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </section>
         )}
 
-        {faqs && faqs.length > 0 && !isHomePage && (
+        {isPrimaryExecutivesPage && (
+          <>
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6">
+              <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">The Starting Monday difference</p>
+                  <h2 className="mt-3 max-w-2xl text-[28px] font-semibold leading-[1.1] text-white sm:text-[36px]">
+                    A calmer executive search feels better and performs better.
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200/90">
+                    You deserve a process that is private, composed, and easier to manage. We keep relationship management visible, reduce cognitive load, and make the next move feel obvious.
+                  </p>
+
+                  <div className="mt-8 border-y border-white/10 text-[13px] leading-relaxed text-slate-200/90">
+                    <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-4 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      <span>Area</span>
+                      <span>Starting Monday</span>
+                      <span>Typical search</span>
+                    </div>
+                    {[
+                      ['Role timing', 'Start before the role is public.', 'React after demand is already crowded.'],
+                      ['Narrative', 'Keep one clear story for boards, partners, and recruiters.', 'Rewrite the pitch for every conversation.'],
+                      ['Relationship management', 'See who matters, who is warming, and what to do next.', 'Track contacts without a clear operating rhythm.'],
+                      ['Feeling', 'Composed, private, and easier to keep moving.', 'Noisy, urgent, and mentally expensive.'],
+                    ].map(([label, withUs, typical]) => (
+                      <div key={label} className="grid grid-cols-[1.2fr_1fr_1fr] gap-4 border-t border-white/10 py-4">
+                        <span className="font-semibold text-white">{label}</span>
+                        <span>{withUs}</span>
+                        <span className="text-slate-300">{typical}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="lg:pt-2">
+                  <figure className="mx-auto w-[66%] max-w-[320px] rounded-[18px] border border-[#d9ccbc]/70 bg-[#f4ede2] p-1.5 shadow-[0_16px_30px_rgba(15,23,42,0.14)] sm:w-[58%] sm:max-w-[340px] lg:mr-0 lg:ml-auto lg:w-[52%] lg:max-w-[360px]">
+                    <img
+                      src="/executive-reference.png"
+                      alt="Executive seated at a desk reviewing documents in a refined home office"
+                      className="block w-full rounded-[14px]"
+                      loading="eager"
+                    />
+                  </figure>
+                </div>
+              </div>
+            </section>
+
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6">
+              <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Starting Monday difference</p>
+                  <h2 className="mt-3 max-w-2xl text-[28px] font-semibold leading-[1.1] text-white sm:text-[34px]">
+                    Click into the briefs that reduce the work, not the signal.
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200/90">
+                    Open the parts that matter most: the brief, the onboarding flow, the relationship momentum layer, and the weekly operating rhythm.
+                  </p>
+                  <div className="mt-8">
+                    <TrackLink
+                      href="/learn-more"
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'executive_learn_more',
+                        source_page: sourcePage,
+                      }}
+                      className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                    >
+                      Learn more
+                    </TrackLink>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {[
+                    {
+                      title: 'Executive brief',
+                      body: 'A concise view of timing, role clarity, and the first conversation shape.',
+                    },
+                    {
+                      title: 'Onboarding ease',
+                      body: 'See how the first setup step stays short so you can move without friction.',
+                    },
+                    {
+                      title: 'Relationship momentum',
+                      body: 'Track the people, touches, and next steps that keep the search warm.',
+                    },
+                    {
+                      title: 'Weekly cadence',
+                      body: 'Review the rhythm that keeps the process calm enough to sustain.',
+                    },
+                  ].map((item) => (
+                    <details key={item.title} className="group border-b border-white/10 pb-4 pt-4">
+                      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-semibold text-white">
+                        <span>{item.title}</span>
+                        <span className="mt-0.5 shrink-0 text-slate-400 transition-transform group-open:rotate-180">▾</span>
+                      </summary>
+                      <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-200/90">
+                        {item.body}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
+        )}
+
+        {faqs && faqs.length > 0 && !isHomePage && !isPrimaryExecutivesPage && (
           <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6" aria-labelledby="faq-heading">
             <div className="max-w-5xl mx-auto">
               <h2 id="faq-heading" className="text-[22px] font-bold text-white mb-6">Common questions</h2>
@@ -771,6 +915,32 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     <p className="mt-3 text-[13px] leading-relaxed text-slate-200 [text-wrap:pretty]">{f.answer}</p>
                   </details>
                 ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {isPrimaryExecutivesPage && (
+          <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Common questions</p>
+              <h2 className="mt-3 max-w-2xl text-[24px] font-semibold leading-[1.12] text-white sm:text-[28px]">
+                If you want the details, start with Learn more.
+              </h2>
+              <div className="mt-6">
+                <TrackLink
+                  href="/learn-more"
+                  event={EVENT_NAMES.channelEntryClicked}
+                  logToUserEvents
+                  properties={{
+                    channel: 'executives',
+                    cta_label: 'executive_common_questions_learn_more',
+                    source_page: sourcePage,
+                  }}
+                  className="inline-flex items-center justify-center rounded-full border border-white/16 px-5 py-2.5 text-[13px] font-semibold tracking-[0.01em] text-slate-100 transition-colors hover:border-orange-300/60 hover:bg-orange-400/10 hover:text-white"
+                >
+                  Learn more
+                </TrackLink>
               </div>
             </div>
           </section>

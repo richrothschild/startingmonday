@@ -1,127 +1,32 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { LandingPage } from '@/components/LandingPage'
-import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
-import { TrackLink } from '@/components/TrackLink'
-import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Executives - Move into C-suite and board-caliber roles',
-  description: 'Executive search infrastructure for VP-to-C-suite transitions. Get earlier signals, stronger narrative control, and board-ready preparation with a disciplined operating cadence.',
+  title: 'Starting Monday for Executives - Move into board-caliber roles',
+  description: 'Executive search infrastructure for leaders moving into board-caliber roles. Get earlier signals, stronger narrative control, and calm weekly execution.',
   keywords: [
     'executive transition infrastructure',
-    'VP to C-suite',
-    'CIO transition strategy',
+    'executive role transition',
+    'board-caliber leadership',
     'board-ready executive positioning',
     'executive search signal intelligence',
   ],
   openGraph: {
-    title: 'Starting Monday for Executives - Move into C-suite and board-caliber roles',
-    description: 'For leaders who need C-suite and board-level readiness before opportunities become obvious.',
+    title: 'Starting Monday for Executives - Move into board-caliber roles',
+    description: 'For leaders who need board-level readiness before opportunities become obvious.',
     url: 'https://startingmonday.app/for-executives',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for Executives - Move into C-suite and board-caliber roles',
-    description: 'Build the timing, narrative, and execution discipline expected for C-suite and board-level opportunities.',
+    title: 'Starting Monday for Executives - Move into board-caliber roles',
+    description: 'Build the timing, narrative, and execution discipline expected for board-level opportunities.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-executives',
   },
 }
-
-const SITUATIONS: SituationCard[] = [
-  {
-    id: 'vp-up',
-    headline: "I'm ready for the next seat.",
-    sub: 'VP to C-suite with deliberate positioning and timing.',
-  },
-  {
-    id: 'executive',
-    headline: 'I know my target mandate.',
-    sub: 'I need stronger timing and cleaner execution.',
-  },
-  {
-    id: 'restructured',
-    headline: 'My role changed under me.',
-    sub: 'I want to land at the right altitude, not just the next title.',
-  },
-  {
-    id: 'urgent',
-    headline: 'My role was eliminated.',
-    sub: 'I need to move fast without sacrificing fit or quality.',
-  },
-  {
-    id: 'passive',
-    headline: "I'm not officially searching yet.",
-    sub: 'I want signal visibility before urgency forces bad decisions.',
-  },
-  {
-    id: 'returning',
-    headline: 'I am not repeating last search mistakes.',
-    sub: 'This time I want structure, cadence, and decision discipline.',
-  },
-]
-
-const FAQS: FAQ[] = [
-  {
-    question: 'What differentiates this from generic executive job-search tools?',
-    answer: 'It is built for executive transition behavior, not job-board activity. You get earlier signal timing, audience-specific narrative control, and an operating cadence designed for C-suite conversations.',
-  },
-  {
-    question: 'How does this help with board and search firm conversations?',
-    answer: 'It helps you frame mandate-level narratives, rehearse likely objections, and arrive with company-specific context before the conversation starts.',
-  },
-  {
-    question: 'Do I need a current C-suite title for this to work?',
-    answer: 'No. The key is demonstrating C-suite scope and decision quality with clear evidence and timing discipline before opportunities are publicly obvious.',
-  },
-]
-
-const PROOF_HIGHLIGHTS = [
-  {
-    metric: 'First interviews in 30 days for 81% of pilot users',
-    detail: 'Pilot window measured across Jan-May 2026 cohorts.',
-  },
-  {
-    metric: 'Earlier outreach timing relative to typical reactive candidate timelines; detailed methodology available in our pilot report (pilot-2026-q2.md).',
-    detail: 'Compared with typical reactive outreach timing in similar executive searches.',
-  },
-  {
-    metric: 'Faster signal-to-action with structured daily briefings',
-    detail: 'Daily briefing users converted signal changes into outreach faster than ad hoc workflows.',
-  },
-]
-
-const ROLE_LANE_SEGMENTS = [
-  {
-    key: 'leadership',
-    label: 'Leadership lane',
-    ctaLabel: 'Open leadership lane',
-    audience: 'Executive leaders targeting C-suite or business-unit leadership mandates.',
-    outcome: 'Strengthen board-facing narrative quality and search-partner calibration for executive transitions.',
-    focus: 'Mandate framing, sponsor alignment, and weekly executive operating cadence.',
-  },
-  {
-    key: 'technical-leadership',
-    label: 'Technical leadership lane',
-    ctaLabel: 'Open technical lane',
-    audience: 'CTO-track and senior technology executives translating technical depth into enterprise scope.',
-    outcome: 'Translate architecture depth into executive-ready positioning that recruiters and boards can act on.',
-    focus: 'Technical tradeoff narrative, role-fit proof, and interview drill precision.',
-  },
-  {
-    key: 'delivery-leadership',
-    label: 'Delivery leadership lane',
-    ctaLabel: 'Open delivery lane',
-    audience: 'Senior operators moving into enterprise-scale COO, transformation, or GM-style mandates.',
-    outcome: 'Show execution judgment and stakeholder control in enterprise hiring cycles.',
-    focus: 'Execution rhythm, dependency-risk narrative, and high-quality follow-up flow.',
-  },
-] as const
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -137,95 +42,145 @@ const jsonLd = {
   },
 }
 
-type ForExecutivesPageProps = {
-  searchParams?: Promise<Record<string, string | string[] | undefined>>
-}
-
-export default async function ForExecutivesPage({ searchParams }: ForExecutivesPageProps) {
-  const resolvedSearchParams = searchParams ? await searchParams : {}
-  const variantParam = Array.isArray(resolvedSearchParams?.lp_variant)
-    ? resolvedSearchParams.lp_variant[0]
-    : resolvedSearchParams?.lp_variant
-  const experimentVariant = variantParam === 'proof_first' ? 'proof_first' : 'control'
-
+export default async function ForExecutivesPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <h1 className="sr-only">Starting Monday for executives pursuing C-suite and board-level roles</h1>
-      <LandingPage
-        hero={{
-          eyebrow: 'Position yourself as the executive the mandate is designed to accommodate.',
-          h1Lines: ['Lead at executive altitude', 'before the shortlist hardens.'],
-          body: 'Starting Monday gives you a repeatable operating system to win stronger executive conversations, protect role-fit quality, and shorten time to the right mandate.',
-          steps: [
-            'Define a mandate-level narrative that makes your next seat obvious to decision-makers.',
-            'Prioritize the right companies and relationships before the process becomes crowded.',
-            'Run disciplined weekly execution that converts conversations into concrete next steps.',
-          ],
-          trialNote: 'Free for 30 days. No credit card. No employer visibility.',
-        }}
-        situations={SITUATIONS}
-        faqs={FAQS}
-        proofHighlights={PROOF_HIGHLIGHTS}
-        sourcePage="/for-executives"
-        experimentVariant={experimentVariant}
-      />
-      <div className="bg-slate-950 pb-12 sm:pb-14">
-        <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-8">
-          <div className="rounded-[1.5rem] border border-white/12 bg-slate-900/55 p-5 sm:p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200 mb-2">Role-lane paths</p>
-            <h2 className="text-[22px] font-bold leading-snug text-white mb-2">Pick the lane that matches your transition.</h2>
-            <p className="text-[14px] leading-relaxed text-slate-200/90 mb-5">
-              Each lane has tailored messaging and flow guidance for leadership, technical leadership, and delivery leadership transitions.
-            </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {ROLE_LANE_SEGMENTS.map((lane) => (
-                <article key={lane.key} className="rounded-2xl border border-white/10 bg-white/[0.05] p-4">
-                  <p className="text-[12px] font-semibold text-white mb-1">{lane.label}</p>
-                  <p className="text-[12px] leading-relaxed text-slate-100 mb-2">{lane.audience}</p>
-                  <p className="text-[12px] leading-relaxed text-emerald-300 mb-2">{lane.outcome}</p>
-                  <p className="text-[12px] leading-relaxed text-slate-200 mb-3">Focus: {lane.focus}</p>
-                  <TrackLink
-                    href={`/for-executives/${lane.key}`}
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'role_lane_page_open',
-                      source_page: '/for-executives',
-                      lane: lane.key,
-                    }}
-                    className="inline-flex items-center rounded bg-orange-400 px-3 py-2 text-[12px] font-semibold text-slate-950 hover:bg-orange-300 transition-colors"
-                  >
-                    {lane.ctaLabel}
-                  </TrackLink>
-                </article>
-              ))}
+      <h1 className="sr-only">Starting Monday for executives pursuing board-level roles</h1>
+      <main className="min-h-screen bg-slate-950 text-slate-100">
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
+        <section className="border-b border-white/10 px-6 py-18 sm:px-10 sm:py-24">
+          <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">For executives</p>
+              <h2 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
+                Create your next role before someone else does.
+              </h2>
+              <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate-200/90">
+                Find the role first. Talk to the right people. Follow a clear plan.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page"
+                  className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+                >
+                  Start your free trial
+                </Link>
+                <Link
+                  href="/demo/executive-brief"
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
+                >
+                  Preview executive brief
+                </Link>
+              </div>
+              <p className="mt-4 text-[12px] tracking-[0.01em] text-slate-300">Confidential by design. No employer visibility. No outbound exposure.</p>
+            </div>
+
+            <figure className="mx-auto w-[58%] max-w-[340px] rounded-[18px] border border-white/12 bg-slate-900/55 p-1.5 shadow-[0_24px_52px_rgba(2,6,23,0.4)] lg:mr-0 lg:ml-auto lg:w-[58%] lg:max-w-[380px]">
+              <img
+                src="/executive-reference.png"
+                alt="Executive seated at a desk reviewing documents in a refined home office"
+                className="block w-full rounded-[14px]"
+                loading="eager"
+              />
+            </figure>
+          </div>
+        </section>
+
+        <section className="border-b border-white/10 px-6 py-12 sm:px-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl">
+            <div className="max-w-2xl">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">What Executives say they need.</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-slate-200/80">
+                  Executives want to be the shortlist, meet the right people, and have a system to manage the process.
+              </p>
+            </div>
+            <div className="mt-7 grid gap-4 md:grid-cols-3">
+              <article className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-6 shadow-[0_18px_48px_rgba(15,23,42,0.22)]">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-300 via-orange-200 to-transparent" />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">01</p>
+                <p className="mt-3 text-[15px] font-semibold text-white">Timing intelligence</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Starting Monday uses a proprietary system to find roles for you before they are posted.</p>
+              </article>
+              <article className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-6 shadow-[0_18px_48px_rgba(15,23,42,0.22)]">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-white/70 via-orange-200 to-transparent" />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">02</p>
+                  <p className="mt-3 text-[15px] font-semibold text-white">Talk to the right people</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Starting Monday finds the decision-makers for your role. We help you connect with them.</p>
+              </article>
+              <article className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-6 shadow-[0_18px_48px_rgba(15,23,42,0.22)]">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-200 via-white/70 to-transparent" />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">03</p>
+                  <p className="mt-3 text-[15px] font-semibold text-white">Clear Plan</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Stay on top of everything in one place.</p>
+              </article>
             </div>
           </div>
         </section>
 
-        <CompactTimelineModule
-          channel="executives"
-          sourcePage="/for-executives"
-          eyebrow="Mini timeline"
-          title="See the executive transition flow in 3 phases"
-          summary="A quick sequence of how executive features support mandate timing, narrative quality, and shortlist momentum."
-          steps={[
-            { phase: 'Discover', focus: 'Spot role-shaping signals before mandate visibility peaks', visual: 'Signal timing line' },
-            { phase: 'Activate', focus: 'Convert target context into audience-specific positioning', visual: 'Narrative cue cards' },
-            { phase: 'Operate', focus: 'Run weekly outreach and prep cadence with accountability', visual: 'Cadence board and progress strip' },
-          ]}
-        />
-        <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6">
-          <Link
-            href="/features/executives"
-            className="inline-flex items-center rounded border border-slate-700 bg-slate-900 px-4 py-2 text-[13px] font-semibold text-slate-200 hover:border-slate-500 hover:text-white"
-          >
-            Read the full executive feature guide
-          </Link>
-        </div>
-      </div>
+        <section className="border-b border-white/10 px-6 py-14 sm:px-10 sm:py-16">
+          <div className="mx-auto w-full max-w-6xl">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Starting Monday vs. other services</h3>
+            <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-slate-200/90 lg:max-w-none">
+              Most alternatives make you do the coordination, absorb the reputational risk, and manage a fragmented process yourself.
+            </p>
+            <div className="mt-6 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.05]">
+              <table className="w-full border-collapse table-fixed">
+                <colgroup>
+                  <col className="w-[22%]" />
+                  <col className="w-[39%]" />
+                  <col className="w-[39%]" />
+                </colgroup>
+                <thead>
+                  <tr className="border-b border-white/10 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300">
+                    <th className="px-5 py-3">Key aspect</th>
+                    <th className="px-5 py-3 text-slate-400">Other products and services</th>
+                    <th className="px-5 py-3 text-orange-100">Starting Monday</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Approach', 'Spray and pray outreach that can put your reputation at risk.', 'Targeted, reputation-aware search management.'],
+                    ['Workload', 'Manual work by you and by them across scattered tools and messages.', 'Structured system support with one operating view.'],
+                    ['Process control', 'No organized process for you to manage or measure.', 'One organized process you can see and manage weekly.'],
+                    ['Relationship management', 'No relationship management layer to protect key conversations.', 'Clear visibility into who matters, who is warming, and what to do next.'],
+                  ].map(([area, typical, ours]) => (
+                    <tr key={area} className="border-b border-white/10 last:border-b-0 align-top">
+                      <th className="px-5 py-4 text-left text-[14px] font-semibold leading-relaxed text-white">{area}</th>
+                      <td className="px-5 py-4 text-[14px] leading-relaxed text-slate-400">{typical}</td>
+                      <td className="px-5 py-4 text-[14px] leading-relaxed text-slate-200/90">{ours}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 py-16 sm:px-10 sm:py-20">
+          <div className="mx-auto w-full max-w-4xl rounded-3xl border border-white/12 bg-white/[0.06] px-6 py-10 text-center shadow-[0_24px_62px_rgba(2,6,23,0.34)] sm:px-10">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Next step</p>
+            <h3 className="mt-3 text-[30px] font-semibold leading-tight text-white sm:text-[38px]">Start with one decisive week.</h3>
+            <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200/90">
+              Build your role map, tighten your narrative, and enter priority conversations fully prepared.
+            </p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link
+                href="/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page"
+                className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+              >
+                Start your free trial
+              </Link>
+              <Link
+                href="/learn-more"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
+              >
+                Learn more
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   )
 }

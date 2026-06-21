@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T17:05:20.414Z",
+  "generatedAt": "2026-06-21T23:39:48.171Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T15:34:20.512Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.724Z"
     },
     {
       "id": "feature:/login",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T18:23:41.271Z"
+      "lastModifiedAt": "2026-06-21T23:38:14.779Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2392,7 +2392,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-19T18:23:41.271Z"
+      "lastModifiedAt": "2026-06-21T20:48:38.649Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2462,7 +2462,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T14:09:49.323Z"
+      "lastModifiedAt": "2026-06-21T20:48:38.649Z"
     },
     {
       "id": "feature:/learn-more",
@@ -2714,7 +2714,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T14:09:49.327Z"
+      "lastModifiedAt": "2026-06-21T20:48:38.650Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -9289,7 +9289,7 @@
     {
       "id": "code:src/lib/subscription.test.ts",
       "title": "Code src/lib/subscription.test.ts",
-      "body": "import { describe, expect, it, vi } from 'vitest'",
+      "body": "import { describe, expect, it } from 'vitest'",
       "type": "code",
       "ref": "src/lib/subscription.test.ts",
       "tags": [
@@ -9297,7 +9297,7 @@
         "library"
       ],
       "qualityWeight": 1,
-      "lastModifiedAt": "2026-06-06T16:52:16.089Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.157Z"
     },
     {
       "id": "code:src/lib/subscription.ts",
@@ -9869,7 +9869,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T14:09:49.238Z"
+      "lastModifiedAt": "2026-06-21T20:05:52.293Z"
     },
     {
       "id": "script:scripts/check-dead-letter-coverage.mjs",
@@ -9973,7 +9973,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T16:48:54.106Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.213Z"
     },
     {
       "id": "script:scripts/check-key-funnel-visual-darkness-gate.mjs",
@@ -10262,6 +10262,19 @@
       "lastModifiedAt": "2026-06-06T16:52:15.330Z"
     },
     {
+      "id": "script:scripts/check-production-release-parity.mjs",
+      "title": "Script scripts/check-production-release-parity.mjs",
+      "body": "Wait for deployment propagation before checking again.",
+      "type": "script",
+      "ref": "scripts/check-production-release-parity.mjs",
+      "tags": [
+        "script",
+        "operations"
+      ],
+      "qualityWeight": 0.95,
+      "lastModifiedAt": "2026-06-21T20:06:08.107Z"
+    },
+    {
       "id": "script:scripts/check-public-asset-tracking.mjs",
       "title": "Script scripts/check-public-asset-tracking.mjs",
       "body": "#!/usr/bin/env node",
@@ -10272,7 +10285,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T15:48:27.765Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.781Z"
     },
     {
       "id": "script:scripts/check-release-ux-checklist.mjs",
@@ -10337,7 +10350,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T16:48:57.536Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.214Z"
     },
     {
       "id": "script:scripts/check-variant-null-rate-alerts.mjs",
@@ -11065,7 +11078,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T15:48:27.805Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.581Z"
     },
     {
       "id": "script:scripts/precommit-guide-freshness.mjs",
@@ -11741,7 +11754,7 @@
         "github-actions"
       ],
       "qualityWeight": 1.2,
-      "lastModifiedAt": "2026-06-19T01:38:19.753Z"
+      "lastModifiedAt": "2026-06-21T20:06:08.020Z"
     },
     {
       "id": "infra:.github/workflows/pr-autofix.yml",
@@ -11807,6 +11820,19 @@
       ],
       "qualityWeight": 1.2,
       "lastModifiedAt": "2026-06-13T15:23:48.907Z"
+    },
+    {
+      "id": "infra:.github/workflows/release-completion-gate.yml",
+      "title": "Workflow .github/workflows/release-completion-gate.yml",
+      "body": "name: Release Completion Gate",
+      "type": "infra",
+      "ref": ".github/workflows/release-completion-gate.yml",
+      "tags": [
+        "infra",
+        "github-actions"
+      ],
+      "qualityWeight": 1.2,
+      "lastModifiedAt": "2026-06-21T20:06:08.107Z"
     },
     {
       "id": "infra:.github/workflows/security-weekly.yml",
@@ -16768,7 +16794,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.225Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.411Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/131_discovery_recommendation_runs.md",
@@ -16794,7 +16820,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.226Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.412Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/132_monitoring_alert_state.md",
@@ -16820,7 +16846,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.226Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.413Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/133_recommendation_ranking_metadata.md",
@@ -16950,7 +16976,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.226Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.413Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/145_relationship_intelligence_foundation.md",
@@ -16963,7 +16989,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.227Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.414Z"
     },
     {
       "id": "doc:docs/development/migration-rollbacks/README.md",
@@ -18172,7 +18198,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T15:34:20.512Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.723Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18211,7 +18237,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T15:34:20.512Z"
+      "lastModifiedAt": "2026-06-21T20:06:01.724Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -19329,7 +19355,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.234Z"
+      "lastModifiedAt": "2026-06-21T20:06:00.335Z"
     },
     {
       "id": "doc:docs/performance-release-scorecard.template.md",
@@ -20619,56 +20645,56 @@
       "lastModifiedAt": "2026-06-06T16:52:15.146Z"
     },
     {
-      "id": "doc:docs/strategy/archetype-business-strategy-world-class-2026-06-20.md",
-      "title": "Doc docs/strategy/archetype-business-strategy-world-class-2026-06-20.md",
-      "body": "Archetype 2: World-Class Business Strategy Leader for Starting Monday",
+      "id": "doc:docs/strategy/archetypes/branding-archetype.md",
+      "title": "Doc docs/strategy/archetypes/branding-archetype.md",
+      "body": "Branding Archetype",
       "type": "doc",
-      "ref": "docs/strategy/archetype-business-strategy-world-class-2026-06-20.md",
+      "ref": "docs/strategy/archetypes/branding-archetype.md",
       "tags": [
         "doc",
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.158Z"
+      "lastModifiedAt": "2026-06-21T22:42:29.647Z"
     },
     {
-      "id": "doc:docs/strategy/archetype-evaluation-matrix-2026-06-20.md",
-      "title": "Doc docs/strategy/archetype-evaluation-matrix-2026-06-20.md",
-      "body": "Archetype Evaluation Matrix: Three Strategies x Three Archetypes",
+      "id": "doc:docs/strategy/archetypes/luxury-brand-archetype.md",
+      "title": "Doc docs/strategy/archetypes/luxury-brand-archetype.md",
+      "body": "Luxury Brand Archetype",
       "type": "doc",
-      "ref": "docs/strategy/archetype-evaluation-matrix-2026-06-20.md",
+      "ref": "docs/strategy/archetypes/luxury-brand-archetype.md",
       "tags": [
         "doc",
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.159Z"
+      "lastModifiedAt": "2026-06-21T22:42:29.727Z"
     },
     {
-      "id": "doc:docs/strategy/archetype-operations-world-class-2026-06-20.md",
-      "title": "Doc docs/strategy/archetype-operations-world-class-2026-06-20.md",
-      "body": "Archetype 3: World-Class Development and Product Support Operations Leader",
+      "id": "doc:docs/strategy/archetypes/product-archetype.md",
+      "title": "Doc docs/strategy/archetypes/product-archetype.md",
+      "body": "Product Archetype",
       "type": "doc",
-      "ref": "docs/strategy/archetype-operations-world-class-2026-06-20.md",
+      "ref": "docs/strategy/archetypes/product-archetype.md",
       "tags": [
         "doc",
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.159Z"
+      "lastModifiedAt": "2026-06-21T22:42:29.509Z"
     },
     {
-      "id": "doc:docs/strategy/archetype-product-strategy-world-class-2026-06-20.md",
-      "title": "Doc docs/strategy/archetype-product-strategy-world-class-2026-06-20.md",
-      "body": "Archetype 1: World-Class Product Strategy Leader for Starting Monday",
+      "id": "doc:docs/strategy/archetypes/ui-ux-archetype.md",
+      "title": "Doc docs/strategy/archetypes/ui-ux-archetype.md",
+      "body": "UI/UX Archetype",
       "type": "doc",
-      "ref": "docs/strategy/archetype-product-strategy-world-class-2026-06-20.md",
+      "ref": "docs/strategy/archetypes/ui-ux-archetype.md",
       "tags": [
         "doc",
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.164Z"
+      "lastModifiedAt": "2026-06-21T22:42:29.702Z"
     },
     {
       "id": "doc:docs/strategy/b2b-strategy.md",
@@ -20682,19 +20708,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-14T03:41:30.262Z"
-    },
-    {
-      "id": "doc:docs/strategy/business-strategy-profit-over-time-2026-06-20.md",
-      "title": "Doc docs/strategy/business-strategy-profit-over-time-2026-06-20.md",
-      "body": "Business Strategy (12 Months): Profit Over Time",
-      "type": "doc",
-      "ref": "docs/strategy/business-strategy-profit-over-time-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.164Z"
     },
     {
       "id": "doc:docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
@@ -21529,19 +21542,6 @@
       "lastModifiedAt": "2026-06-06T16:52:15.178Z"
     },
     {
-      "id": "doc:docs/strategy/execution-workbook-90-day-scorecards-workpackages-2026-06-20.md",
-      "title": "Doc docs/strategy/execution-workbook-90-day-scorecards-workpackages-2026-06-20.md",
-      "body": "Execution Workbook: 90-Day Roadmap, Weekly Scorecards, and Work Packages",
-      "type": "doc",
-      "ref": "docs/strategy/execution-workbook-90-day-scorecards-workpackages-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.165Z"
-    },
-    {
       "id": "doc:docs/strategy/executive-career-os-epic.md",
       "title": "Doc docs/strategy/executive-career-os-epic.md",
       "body": "Executive Career OS — Epic",
@@ -21607,58 +21607,6 @@
       "lastModifiedAt": "2026-06-06T16:52:15.180Z"
     },
     {
-      "id": "doc:docs/strategy/feature-audit-round-2-excluding-items-2026-06-20.md",
-      "title": "Doc docs/strategy/feature-audit-round-2-excluding-items-2026-06-20.md",
-      "body": "Feature Remediation - Round 2 (Excluding F039, F020, F068)",
-      "type": "doc",
-      "ref": "docs/strategy/feature-audit-round-2-excluding-items-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.165Z"
-    },
-    {
-      "id": "doc:docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md",
-      "title": "Doc docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md",
-      "body": "Starting Monday Feature Inventory by Persona and Channel",
-      "type": "doc",
-      "ref": "docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.166Z"
-    },
-    {
-      "id": "doc:docs/strategy/feature-map-channel-stack-2026-06-20.md",
-      "title": "Doc docs/strategy/feature-map-channel-stack-2026-06-20.md",
-      "body": "Visual Feature Map: Channel Stack (Coaches, Outplacement, Search Firms)",
-      "type": "doc",
-      "ref": "docs/strategy/feature-map-channel-stack-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.166Z"
-    },
-    {
-      "id": "doc:docs/strategy/feature-map-main-personas-2026-06-20.md",
-      "title": "Doc docs/strategy/feature-map-main-personas-2026-06-20.md",
-      "body": "Visual Feature Map: Main Personas to Feature Domains",
-      "type": "doc",
-      "ref": "docs/strategy/feature-map-main-personas-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.166Z"
-    },
-    {
       "id": "doc:docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
       "title": "Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
       "body": "Four-Channel Customer Journey Implementation Backlog",
@@ -21709,32 +21657,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.180Z"
-    },
-    {
-      "id": "doc:docs/strategy/landing-page-restructure-plan-paradigm-shift-2026-06-20.md",
-      "title": "Doc docs/strategy/landing-page-restructure-plan-paradigm-shift-2026-06-20.md",
-      "body": "Landing Page Restructure Plan: \"Paradigm Shift\" Architecture",
-      "type": "doc",
-      "ref": "docs/strategy/landing-page-restructure-plan-paradigm-shift-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.174Z"
-    },
-    {
-      "id": "doc:docs/strategy/landing-page-wireframes-detailed-2026-06-20.md",
-      "title": "Doc docs/strategy/landing-page-wireframes-detailed-2026-06-20.md",
-      "body": "Landing Page Wireframes: Paradigm Shift Architecture",
-      "type": "doc",
-      "ref": "docs/strategy/landing-page-wireframes-detailed-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.175Z"
     },
     {
       "id": "doc:docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md",
@@ -21919,19 +21841,6 @@
       "lastModifiedAt": "2026-06-06T16:52:15.181Z"
     },
     {
-      "id": "doc:docs/strategy/page-audit-round-2-filtered-2026-06-20.md",
-      "title": "Doc docs/strategy/page-audit-round-2-filtered-2026-06-20.md",
-      "body": "Strategic Page Audit - Round 2 (Post-Personal-Pages Filter)",
-      "type": "doc",
-      "ref": "docs/strategy/page-audit-round-2-filtered-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.177Z"
-    },
-    {
       "id": "doc:docs/strategy/persona-council-effectiveness-audit-2026-05-26.md",
       "title": "Doc docs/strategy/persona-council-effectiveness-audit-2026-05-26.md",
       "body": "Persona Council Effectiveness Audit - 2026-05-26",
@@ -22008,32 +21917,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-14T03:41:30.261Z"
-    },
-    {
-      "id": "doc:docs/strategy/product-strategy-profit-over-time-2026-06-20.md",
-      "title": "Doc docs/strategy/product-strategy-profit-over-time-2026-06-20.md",
-      "body": "Product Strategy (12 Months): Profit Over Time",
-      "type": "doc",
-      "ref": "docs/strategy/product-strategy-profit-over-time-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.178Z"
-    },
-    {
-      "id": "doc:docs/strategy/route-redirect-retire-patch-list-2026-06-20.md",
-      "title": "Doc docs/strategy/route-redirect-retire-patch-list-2026-06-20.md",
-      "body": "Route Redirect and Retire Patch List",
-      "type": "doc",
-      "ref": "docs/strategy/route-redirect-retire-patch-list-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.178Z"
     },
     {
       "id": "doc:docs/strategy/selected-ideas-implementation-plan-2026-06-13.md",
@@ -22114,32 +21997,6 @@
       "lastModifiedAt": "2026-06-14T15:15:06.291Z"
     },
     {
-      "id": "doc:docs/strategy/strategy-decomposition-product-business-operations-2026-06-20.md",
-      "title": "Doc docs/strategy/strategy-decomposition-product-business-operations-2026-06-20.md",
-      "body": "Starting Monday Strategy Decomposition",
-      "type": "doc",
-      "ref": "docs/strategy/strategy-decomposition-product-business-operations-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.179Z"
-    },
-    {
-      "id": "doc:docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md",
-      "title": "Doc docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md",
-      "body": "Strategy Governance and Full Page/Feature Audit",
-      "type": "doc",
-      "ref": "docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.179Z"
-    },
-    {
       "id": "doc:docs/strategy/tam-financial-model.md",
       "title": "Doc docs/strategy/tam-financial-model.md",
       "body": "TAM + Financial Model",
@@ -22164,19 +22021,6 @@
       ],
       "qualityWeight": 1.1,
       "lastModifiedAt": "2026-06-06T16:52:15.183Z"
-    },
-    {
-      "id": "doc:docs/strategy/virtual-organization-operating-system-2026-06-20.md",
-      "title": "Doc docs/strategy/virtual-organization-operating-system-2026-06-20.md",
-      "body": "Virtual Organization Operating System: Profit Over Time",
-      "type": "doc",
-      "ref": "docs/strategy/virtual-organization-operating-system-2026-06-20.md",
-      "tags": [
-        "doc",
-        "knowledge"
-      ],
-      "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T16:11:41.180Z"
     },
     {
       "id": "doc:docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md",
@@ -22657,7 +22501,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:09:49.449Z"
+      "lastModifiedAt": "2026-06-21T23:39:45.640Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

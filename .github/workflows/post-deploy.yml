@@ -140,6 +140,20 @@ jobs:
           echo "Waiting 30s for production to stabilize after deploy..."
           sleep 30
 
+      - name: Verify deploy SHA parity and homepage hero
+        id: release_parity
+        env:
+          RELEASE_MONITOR_BASE_URL: https://startingmonday.app
+          RELEASE_EXPECTED_SHA: ${{ github.event.deployment.sha || github.sha }}
+          RELEASE_EXPECTED_HERO_PRIMARY: The shortlist is defined before the role is public.
+          RELEASE_EXPECTED_HERO_SECONDARY: Be the shortlist.
+          RELEASE_TIMEOUT_SECONDS: '900'
+          RELEASE_INTERVAL_SECONDS: '20'
+          RELEASE_OUTPUT_JSON: '1'
+        run: |
+          set -o pipefail
+          npm run monitor:release:parity:json | tee release-completion-gate.json
+
       - name: Verify EMI smoke credentials are configured
         id: emi_creds
         env:
@@ -248,6 +262,7 @@ jobs:
           SHA="${{ github.sha }}"
           ENV="${{ github.event.deployment.environment || 'production' }}"
           EMI_STATUS="${{ steps.emi_smoke.outcome || 'unknown' }}"
+          RELEASE_PARITY_STATUS="${{ steps.release_parity.outcome || 'unknown' }}"
           EMI_FAILURES=""
 
           if [ -f emi-postdeploy-smoke.json ]; then
@@ -265,6 +280,7 @@ jobs:
           |---|---|
           | Environment | ${ENV} |
           | Deploy SHA | ${SHA:0:8} |
+          | Deploy parity gate | ${RELEASE_PARITY_STATUS} |
           | Synthetics passed | ${PASSED} |
           | Synthetics failed | ${FAILED} |
           | EMI smoke gate | ${EMI_STATUS} |
