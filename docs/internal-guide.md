@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-21T15:34:20.495Z
+Last generated: 2026-06-21T17:15:13.638Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -717,7 +717,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Code src/lib/stripe-status.ts | src/lib/stripe-status.ts | export type AppSubscriptionStatus =
 - Code src/lib/stripe.test.ts | src/lib/stripe.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/stripe.ts | src/lib/stripe.ts | export function getStripe(): Stripe {
-- Code src/lib/subscription.test.ts | src/lib/subscription.test.ts | import { describe, expect, it, vi } from 'vitest'
+- Code src/lib/subscription.test.ts | src/lib/subscription.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/subscription.ts | src/lib/subscription.ts | export type SubscriptionStatus = 'inactive' | 'trialing' | 'active' | 'paused' | 'past_due' | 'canceled'
 - Code src/lib/supabase/admin.test.ts | src/lib/supabase/admin.test.ts | import { describe, expect, it } from 'vitest'
 - Code src/lib/supabase/admin.ts | src/lib/supabase/admin.ts | export function createAdminClient() {
@@ -1084,7 +1084,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 - Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
 
-## Documentation (668)
+## Documentation (649)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1576,7 +1576,6 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/exux-304-closure-audit-2026-06-18.md | docs/status/exux-304-closure-audit-2026-06-18.md | EXUX-304 Closure Audit and Sign-off
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
-- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
 - Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
 - Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
@@ -1585,12 +1584,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/agent-graph-design-spec-2026-06-13.md | docs/strategy/agent-graph-design-spec-2026-06-13.md | Agent Graph Design Spec
 - Doc docs/strategy/agent-graph-implementation-tickets-2026-06-13.md | docs/strategy/agent-graph-implementation-tickets-2026-06-13.md | Agent Graph Implementation Tickets
 - Doc docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | docs/strategy/anne-applebaum-email-template-review-2026-05-26.md | Anne Applebaum Review of Email Templates
-- Doc docs/strategy/archetype-business-strategy-world-class-2026-06-20.md | docs/strategy/archetype-business-strategy-world-class-2026-06-20.md | Archetype 2: World-Class Business Strategy Leader for Starting Monday
-- Doc docs/strategy/archetype-evaluation-matrix-2026-06-20.md | docs/strategy/archetype-evaluation-matrix-2026-06-20.md | Archetype Evaluation Matrix: Three Strategies x Three Archetypes
-- Doc docs/strategy/archetype-operations-world-class-2026-06-20.md | docs/strategy/archetype-operations-world-class-2026-06-20.md | Archetype 3: World-Class Development and Product Support Operations Leader
-- Doc docs/strategy/archetype-product-strategy-world-class-2026-06-20.md | docs/strategy/archetype-product-strategy-world-class-2026-06-20.md | Archetype 1: World-Class Product Strategy Leader for Starting Monday
 - Doc docs/strategy/b2b-strategy.md | docs/strategy/b2b-strategy.md | B2B Strategy
-- Doc docs/strategy/business-strategy-profit-over-time-2026-06-20.md | docs/strategy/business-strategy-profit-over-time-2026-06-20.md | Business Strategy (12 Months): Profit Over Time
 - Doc docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md | Starting Monday Fast-Close Roadmap Summary for Chris (US Focus)
 - Doc docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | docs/strategy/chris-next-work-and-last-day-summary-2026-06-05.md | Chris Brief: What Is Next + Last 24 Hours Summary
 - Doc docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | docs/strategy/chris-prioritized-work-fast-close-2026-06-04.md | Chris Priority Plan from Fast-Close Jira Backlog
@@ -1655,22 +1649,15 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/emi-sprints/sprint-5-benchmark-and-proof-system.md | docs/strategy/emi-sprints/sprint-5-benchmark-and-proof-system.md | Sprint 5: Benchmark and Proof System
 - Doc docs/strategy/emi-sprints/sprint-6-scale-tune-and-lock.md | docs/strategy/emi-sprints/sprint-6-scale-tune-and-lock.md | Sprint 6: Scale, Tune, and Lock
 - Doc docs/strategy/emi-weekly-operating-cadence-log.md | docs/strategy/emi-weekly-operating-cadence-log.md | EMI Weekly Operating Cadence Log
-- Doc docs/strategy/execution-workbook-90-day-scorecards-workpackages-2026-06-20.md | docs/strategy/execution-workbook-90-day-scorecards-workpackages-2026-06-20.md | Execution Workbook: 90-Day Roadmap, Weekly Scorecards, and Work Packages
 - Doc docs/strategy/executive-career-os-epic.md | docs/strategy/executive-career-os-epic.md | Executive Career OS — Epic
 - Doc docs/strategy/executive-momentum-intelligence-backlog.md | docs/strategy/executive-momentum-intelligence-backlog.md | Executive Momentum Intelligence Backlog
 - Doc docs/strategy/executive-momentum-intelligence-epic.md | docs/strategy/executive-momentum-intelligence-epic.md | Epic: Executive Momentum Intelligence (EMI) Category Launch
 - Doc docs/strategy/executive-momentum-intelligence-executive-brief.md | docs/strategy/executive-momentum-intelligence-executive-brief.md | Executive Brief: EMI 90-Day Execution
 - Doc docs/strategy/executive-momentum-intelligence-scorecard.md | docs/strategy/executive-momentum-intelligence-scorecard.md | EMI Weekly Scorecard Template
-- Doc docs/strategy/feature-audit-round-2-excluding-items-2026-06-20.md | docs/strategy/feature-audit-round-2-excluding-items-2026-06-20.md | Feature Remediation - Round 2 (Excluding F039, F020, F068)
-- Doc docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md | docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md | Starting Monday Feature Inventory by Persona and Channel
-- Doc docs/strategy/feature-map-channel-stack-2026-06-20.md | docs/strategy/feature-map-channel-stack-2026-06-20.md | Visual Feature Map: Channel Stack (Coaches, Outplacement, Search Firms)
-- Doc docs/strategy/feature-map-main-personas-2026-06-20.md | docs/strategy/feature-map-main-personas-2026-06-20.md | Visual Feature Map: Main Personas to Feature Domains
 - Doc docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md | Four-Channel Customer Journey Implementation Backlog
 - Doc docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | docs/strategy/four-channel-now-tranche-kickoff-2026-06-08.md | Four-Channel Now Tranche Kickoff
 - Doc docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md | docs/strategy/integrated-transition-system-gap-closure-plan-2026-06-15.md | Integrated Transition System Gap Closure Plan (2026-06-15)
 - Doc docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | docs/strategy/jira-vscode-api-setup-checklist-2026-06-04.md | Jira + VS Code Integration Checklist (Concrete Setup)
-- Doc docs/strategy/landing-page-restructure-plan-paradigm-shift-2026-06-20.md | docs/strategy/landing-page-restructure-plan-paradigm-shift-2026-06-20.md | Landing Page Restructure Plan: "Paradigm Shift" Architecture
-- Doc docs/strategy/landing-page-wireframes-detailed-2026-06-20.md | docs/strategy/landing-page-wireframes-detailed-2026-06-20.md | Landing Page Wireframes: Paradigm Shift Architecture
 - Doc docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md | GitHub Actions Snippet: Lighthouse to Slack (Pass/Fail)
 - Doc docs/strategy/linkedin-content-system.md | docs/strategy/linkedin-content-system.md | LinkedIn Content System
 - Doc docs/strategy/luxury-95-minimal-drift-epic-2026-06-13.md | docs/strategy/luxury-95-minimal-drift-epic-2026-06-13.md | Epic: Luxury 95 With Minimal Drift
@@ -1685,26 +1672,20 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/strategy/luxury-reference-benchmark-snapshot-2026-06-13.md | docs/strategy/luxury-reference-benchmark-snapshot-2026-06-13.md | Luxury Reference Benchmark Snapshot (Notion, Lucid, Atlassian, Slack)
 - Doc docs/strategy/mark-horstman-review.md | docs/strategy/mark-horstman-review.md | Mark Horstman Product Review
 - Doc docs/strategy/outreach-email-synthetic-council-2026-05-27.md | docs/strategy/outreach-email-synthetic-council-2026-05-27.md | Outreach Email Synthetic Council - 2026-05-27
-- Doc docs/strategy/page-audit-round-2-filtered-2026-06-20.md | docs/strategy/page-audit-round-2-filtered-2026-06-20.md | Strategic Page Audit - Round 2 (Post-Personal-Pages Filter)
 - Doc docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | docs/strategy/persona-council-effectiveness-audit-2026-05-26.md | Persona Council Effectiveness Audit - 2026-05-26
 - Doc docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | docs/strategy/persona-council-ejes-micro-pass-2026-05-26.md | Persona Council EJES Micro-Pass - 2026-05-26
 - Doc docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | docs/strategy/persona-council-ejes-second-pass-2026-05-26.md | Persona Council EJES Second Pass - 2026-05-26
 - Doc docs/strategy/pricing-coaches-sprint-backlog-2026-06-13.md | docs/strategy/pricing-coaches-sprint-backlog-2026-06-13.md | Pricing + Coaches Sprint Backlog
 - Doc docs/strategy/pricing-strategy.md | docs/strategy/pricing-strategy.md | Pricing Strategy
 - Doc docs/strategy/product-fit-gaps.md | docs/strategy/product-fit-gaps.md | Product Fit Gaps by Persona
-- Doc docs/strategy/product-strategy-profit-over-time-2026-06-20.md | docs/strategy/product-strategy-profit-over-time-2026-06-20.md | Product Strategy (12 Months): Profit Over Time
-- Doc docs/strategy/route-redirect-retire-patch-list-2026-06-20.md | docs/strategy/route-redirect-retire-patch-list-2026-06-20.md | Route Redirect and Retire Patch List
 - Doc docs/strategy/selected-ideas-implementation-plan-2026-06-13.md | docs/strategy/selected-ideas-implementation-plan-2026-06-13.md | Selected Ideas Implementation Plan
 - Doc docs/strategy/slack-channel-naming-pack-2026-06-04.md | docs/strategy/slack-channel-naming-pack-2026-06-04.md | Slack Channel Naming and Description Pack
 - Doc docs/strategy/slack-notification-policy-ui-2026-06-04.md | docs/strategy/slack-notification-policy-ui-2026-06-04.md | Slack Notification Policy for UI Delivery
 - Doc docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | docs/strategy/sprint-7-carry-forward-shortlist-2026-05-31.md | Sprint 7 Carry-Forward Shortlist (2026-05-31)
 - Doc docs/strategy/sprint-plan.md | docs/strategy/sprint-plan.md | Sprint Plan
 - Doc docs/strategy/starting-monday-vs-top-10-luxury-sites-2026-06-13.md | docs/strategy/starting-monday-vs-top-10-luxury-sites-2026-06-13.md | Starting Monday vs Top 10 Luxury Brand Sites (Luxury Feel)
-- Doc docs/strategy/strategy-decomposition-product-business-operations-2026-06-20.md | docs/strategy/strategy-decomposition-product-business-operations-2026-06-20.md | Starting Monday Strategy Decomposition
-- Doc docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md | docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md | Strategy Governance and Full Page/Feature Audit
 - Doc docs/strategy/tam-financial-model.md | docs/strategy/tam-financial-model.md | TAM + Financial Model
 - Doc docs/strategy/ui-review-plan-from-notes-2026-06-04.md | docs/strategy/ui-review-plan-from-notes-2026-06-04.md | UI Review Plan from Notes (Plan-Mode Draft)
-- Doc docs/strategy/virtual-organization-operating-system-2026-06-20.md | docs/strategy/virtual-organization-operating-system-2026-06-20.md | Virtual Organization Operating System: Profit Over Time
 - Doc docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md | Week 2 Telemetry Schema and Route Coverage
 - Doc docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | docs/strategy/week2/w2-05-mobile-first-qa-pass-2026-06-04.md | Week 2 Mobile-First Conversion QA Pass
 - Doc docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | docs/strategy/week2/w2-06-release-package-and-decision-memo-2026-06-04.md | Week 2 Release Package and Decision Memo
