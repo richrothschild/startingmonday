@@ -93,21 +93,6 @@ const FAQS: FAQ[] = [
   },
 ]
 
-const PROOF_HIGHLIGHTS = [
-  {
-    metric: '81% reached first interview within 30 days',
-    detail: 'Pilot cohort benchmark measured across Jan-May 2026 operating windows.',
-  },
-  {
-    metric: '9-day median to first qualified outreach',
-    detail: 'Measured from setup completion to first qualified, tracked outreach action.',
-  },
-  {
-    metric: '4.2 weeks earlier outreach versus typical timing',
-    detail: 'Compared against typical reactive outreach timing in matched executive transitions.',
-  },
-]
-
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -192,7 +177,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         }}
         situations={SITUATIONS}
         faqs={FAQS}
-        proofHighlights={PROOF_HIGHLIGHTS}
         showPersonaSelector
         rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
         experimentVariant={experimentVariant}
