@@ -323,12 +323,21 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300/90">Starting Monday</p>
                     <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-300/95 sm:text-[14px]">
-                      The executive search operating system for confidential C-suite and VP transitions.
+                      The private operating system for executive and leadership moves.
                     </p>
                     <h1 className="mt-4 max-w-4xl font-serif text-[2.6rem] font-medium leading-[0.97] tracking-[-0.02em] text-white sm:text-[3.2rem] lg:text-[4.35rem]">
-                      Roles are shaped before they turn public.
+                      The shortlist is defined before the role is public.
                       <br />
-                      <span className="mt-2 block text-orange-200 sm:mt-3">Top the shortlist.</span>
+                      <span className="mt-2 block text-orange-200 sm:mt-3">
+                        Be the shortlist.
+                        <a
+                          href="#citation-1"
+                          aria-label="Jump to citation 1"
+                          className="ml-1 align-super text-[0.5em] font-semibold text-orange-100/90 hover:text-white"
+                        >
+                          <sup>1</sup>
+                        </a>
+                      </span>
                     </h1>
                     <div className="mt-5 h-[2px] w-16 rounded-full bg-orange-300/65" />
                     <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-200/92 sm:text-[16px]">
@@ -446,16 +455,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   >
                     Learn more
                   </TrackLink>
-                </div>
-
-                <div className="mt-8 border-t border-white/10 pt-6">
-                  <p className="mb-3 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">
-                    <span className="block h-px w-7 bg-orange-200/60" />
-                    Signal Briefing Preview
-                  </p>
-                  <p className="max-w-2xl text-[13px] leading-relaxed text-slate-200/90 sm:text-[14px]">
-                    After lane selection, we show a live signal demo, a brief demo, and relationship momentum at your target company.
-                  </p>
                 </div>
               </section>
             )}
@@ -787,6 +786,27 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
           }} />
+        )}
+
+        {isHomePage && (
+          <section aria-label="Homepage citation" className="border-t border-white/10 bg-slate-950/80 px-4 py-6 sm:px-6">
+            <div className="mx-auto max-w-5xl">
+              <p id="citation-1" className="scroll-mt-24 text-[11px] leading-relaxed text-slate-300/85 sm:text-[12px]">
+                <span className="font-semibold text-slate-100">1.</span>{' '}
+                Burks SV, Cowgill B, Hoffman M, Housman M.{' '}
+                <em>The Value of Hiring through Employee Referrals.</em>{' '}
+                <span className="text-slate-400">The Quarterly Journal of Economics</span>, 2015;130(2):805-839. DOI:{' '}
+                <a
+                  href="https://doi.org/10.1093/qje/qjv010"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-white"
+                >
+                  10.1093/qje/qjv010
+                </a>
+              </p>
+            </div>
+          </section>
         )}
 
         <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
