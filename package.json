@@ -62,6 +62,7 @@
         "guard:copy-cta-drift:json": "node scripts/check-key-funnel-copy-cta-drift.mjs --json",
         "guard:visual-darkness": "node scripts/check-key-funnel-visual-darkness-gate.mjs",
         "guard:visual-darkness:json": "node scripts/check-key-funnel-visual-darkness-gate.mjs --json",
+        "guard:public-assets": "node scripts/check-public-asset-tracking.mjs",
         "guard:push-clean-worktree": "node scripts/check-clean-worktree-for-push.mjs",
         "guard:push:playwright": "npm run test:e2e:auth-ux && npm run test:e2e:luxury",
         "guard:push:env": "npm run integrity:check && npm run billing:readiness:strict",

@@ -81,6 +81,14 @@ tmp-weekly-audit-*-logs.zip
 *.jpg
 *.jpeg
 *.png
+!public/**/*.jpg
+!public/**/*.jpeg
+!public/**/*.png
+!public/**/*.webp
+!public/**/*.gif
+!public/**/*.svg
+!public/**/*.ico
+!public/**/*.avif
 !tests/e2e/__screenshots__/
 !tests/e2e/__screenshots__/*.png
 !public/reports/executive-search-ai-confidentiality-annual-report-2026.pdf

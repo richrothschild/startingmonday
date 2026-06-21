@@ -82,6 +82,17 @@ if (visualDarknessCheck.status !== 0) {
   process.exitCode = 1
 }
 
+const publicAssetCheck = spawnSync(
+  process.execPath,
+  [path.join(root, 'scripts/check-public-asset-tracking.mjs')],
+  { stdio: 'inherit' }
+)
+
+if (publicAssetCheck.status !== 0) {
+  console.error('Error: public asset tracking checks failed')
+  process.exitCode = 1
+}
+
 if (process.env.MOBILE_ELITE_GATE_STRICT === '1') {
   const eliteMobileCheck = spawnSync(
     process.execPath,

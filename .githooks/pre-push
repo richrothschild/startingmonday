@@ -46,6 +46,9 @@ npm run growth:metrics:strict
 echo "ux/ui rubric page gate..."
 npm run ux:rubric:pages
 
+echo "public asset tracking guard..."
+npm run guard:public-assets
+
 echo "push environment-sensitive guard..."
 if [ -n "${NEXT_PUBLIC_SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
 	npm run guard:push:env
