@@ -34,19 +34,24 @@ const SPECS = [
     files: ['src/app/page.tsx', 'src/components/LandingPage.tsx'],
     rules: [
       {
-        id: 'home-target-audience',
-        description: 'Homepage keeps target audience copy for senior executive users.',
-        matcher: /C-suite executives and senior operators/i,
+        id: 'home-operating-system-frame',
+        description: 'Homepage keeps executive operating-system framing copy.',
+        matcher: 'The executive search operating system for confidential C-suite and VP transitions.',
       },
       {
         id: 'home-hero-claim',
-        description: 'Homepage hero keeps the approved action frame claim.',
-        matcher: 'Win with Starting Monday.',
+        description: 'Homepage hero keeps shortlist outcome claim.',
+        matcher: 'Top the shortlist.',
       },
       {
-        id: 'home-primary-cta',
-        description: 'Homepage shows audience path-selection section.',
-        matcher: 'homepage-path-title',
+        id: 'home-primary-path-ctas',
+        description: 'Homepage primary CTAs are Individuals and Partner / Firm path buttons.',
+        matcher: /Individuals[\s\S]*Partner \/ Firm/,
+      },
+      {
+        id: 'home-learn-more-route',
+        description: 'Homepage Learn more points to dedicated learn-more page.',
+        matcher: 'href="/learn-more"',
       },
     ],
   },

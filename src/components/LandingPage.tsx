@@ -316,30 +316,35 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
       <main className="relative">
         <section id="core-clarity" data-emi-section="clarity_block" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-6xl">
             {isHomePage ? (
-              <div className="mb-8 rounded-[2rem] border border-white/12 bg-slate-950/82 p-6 shadow-[0_38px_130px_rgba(15,23,42,0.3)] backdrop-blur-xl sm:p-8 lg:p-10">
-                <p className="max-w-3xl text-[1.15rem] font-semibold leading-[1.18] tracking-tight text-orange-200/90 sm:text-[1.35rem] lg:text-[1.55rem]">
-                  {hero.eyebrow}
-                </p>
-                <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
-                  {hero.h1Lines.map((line, i) => (
-                    <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
-                  ))}
-                </h1>
-                {hero.bodyPreamble && !isHomePage && (
-                  <p className="mt-4 max-w-3xl text-[12px] font-semibold uppercase tracking-[0.12em] text-orange-200/90 sm:text-[13px]">
-                    {hero.bodyPreamble}
-                  </p>
-                )}
-                <p className="mt-5 max-w-4xl text-[1.35rem] font-semibold leading-[1.12] tracking-tight text-slate-100/95 sm:text-[1.7rem] lg:text-[2.24rem]">
-                  {hero.body}
-                </p>
-                {hero.competitiveEdge && (
-                  <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300/90 sm:text-[15px] [text-wrap:pretty]">
-                    {hero.competitiveEdge}
-                  </p>
-                )}
+              <div className="mb-10 py-2">
+                <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.82fr)] lg:gap-12">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300/90">Starting Monday</p>
+                    <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-300/95 sm:text-[14px]">
+                      The executive search operating system for confidential C-suite and VP transitions.
+                    </p>
+                    <h1 className="mt-4 max-w-4xl font-serif text-[2.6rem] font-medium leading-[0.97] tracking-[-0.02em] text-white sm:text-[3.2rem] lg:text-[4.35rem]">
+                      Roles are shaped before they turn public.
+                      <br />
+                      <span className="mt-2 block text-orange-200 sm:mt-3">Top the shortlist.</span>
+                    </h1>
+                    <div className="mt-5 h-[2px] w-16 rounded-full bg-orange-300/65" />
+                    <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-200/92 sm:text-[16px]">
+                      Spot signal early, prioritize the right conversations, and run a disciplined cadence.
+                    </p>
+
+                  </div>
+
+                  <div className="mx-auto w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
+                    <img
+                      src="/hero-previews/hero-final-locked.png"
+                      alt="Stylized executive sketch visual"
+                      className="h-[480px] w-full object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
               <>
@@ -389,84 +394,73 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <section
-                className="mb-8 rounded-[1.5rem] border border-white/12 bg-white/[0.05] p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)]"
+                className="mb-8 border-t border-white/10 pt-8"
                 aria-labelledby="homepage-path-title"
               >
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-2 text-[20px] font-bold leading-snug text-white sm:text-[22px]">
-                  Start with the audience that matches your situation.
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Choose your path</p>
+                <h2 id="homepage-path-title" className="mb-3 max-w-3xl text-[22px] font-semibold leading-[1.14] tracking-tight text-white sm:text-[25px]">
+                  Start with the lane that matches your moment.
                 </h2>
-                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-200/90">
-                  Start with the path that matches your scope, then move into role-specific routes without sorting through every title.
+                <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90 sm:text-[15px]">
+                  Pick your lane first. Then see the exact signal and briefing experience.
                 </p>
-                <div className="space-y-4">
-                  <article className="rounded-2xl border border-white/10 bg-slate-950/55 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.18)]">
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">For leaders</p>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Executive Path</p>
-                        <p className="mt-1 text-[12px] leading-relaxed text-slate-300">C-suite, VP, and mandate-level transitions with high discretion requirements.</p>
-                        <TrackLink
-                          href="/for-executives"
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_executive_leaders',
-                            source_page: '/',
-                          }}
-                          className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                        >
-                          Open Executive Path
-                        </TrackLink>
-                      </article>
-                      <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Rising Leaders Path</p>
-                        <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Directors, senior managers, and technical leads moving toward broader scope.</p>
-                        <TrackLink
-                          href="/for-vp-technology"
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_rising_leaders',
-                            source_page: '/',
-                          }}
-                          className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                        >
-                          Open Rising Leaders Path
-                        </TrackLink>
-                      </article>
-                    </div>
-                  </article>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <TrackLink
+                    href="/individuals"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_individuals_path',
+                      source_page: '/',
+                    }}
+                    className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-[0_10px_24px_rgba(234,146,71,0.24)] transition-colors hover:bg-orange-300"
+                  >
+                    Individuals
+                  </TrackLink>
+                  <TrackLink
+                    href="/partner-firm"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_partner_firm_path',
+                      source_page: '/',
+                    }}
+                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
+                  >
+                    Partner / Firm
+                  </TrackLink>
+                </div>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <TrackLink
+                    href="/learn-more"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_learn_more',
+                      source_page: '/',
+                    }}
+                    className="inline-flex items-center justify-center rounded-full border border-white/16 px-5 py-2.5 text-[13px] font-semibold tracking-[0.01em] text-slate-100 transition-colors hover:border-orange-300/60 hover:bg-orange-400/10 hover:text-white"
+                  >
+                    Learn more
+                  </TrackLink>
+                </div>
 
-                  <article className="rounded-xl border border-white/10 bg-slate-950/35 p-3 shadow-[0_12px_36px_rgba(15,23,42,0.14)]">
-                    <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-200/90">For partners</p>
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                      {CHANNEL_ROUTE_SPECS.filter((spec) => spec.channel !== 'executives').map((spec) => (
-                        <div key={`homepage_partner_${spec.channel}`} className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                          <TrackLink
-                            href={spec.route}
-                            event={EVENT_NAMES.channelEntryClicked}
-                            logToUserEvents
-                            properties={{
-                              channel: spec.channel,
-                              cta_label: 'homepage_partner_path',
-                              source_page: '/',
-                            }}
-                            className="inline-flex items-center text-[12px] font-semibold text-orange-200 underline underline-offset-2 transition-colors hover:text-white"
-                          >
-                            {spec.label}
-                          </TrackLink>
-                        </div>
-                      ))}
-                    </div>
-                  </article>
+                <div className="mt-8 border-t border-white/10 pt-6">
+                  <p className="mb-3 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">
+                    <span className="block h-px w-7 bg-orange-200/60" />
+                    Signal Briefing Preview
+                  </p>
+                  <p className="max-w-2xl text-[13px] leading-relaxed text-slate-200/90 sm:text-[14px]">
+                    After lane selection, we show a live signal demo, a brief demo, and relationship momentum at your target company.
+                  </p>
                 </div>
               </section>
             )}
 
-            {proofHighlights && proofHighlights.length > 0 && (
+            {proofHighlights && proofHighlights.length > 0 && !isHomePage && (
               <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
                 <span className="font-semibold text-orange-200">Proof:</span> {isLeadershipLanePage
                   ? 'Leaders maintain disciplined narratives and enter conversations grounded in company context.'
@@ -474,7 +468,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </p>
             )}
 
-            {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && (
+            {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && !isHomePage && (
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
                   <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
@@ -485,13 +479,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             )}
 
-            {proofHighlights && proofHighlights.length > 0 && (
+            {proofHighlights && proofHighlights.length > 0 && !isHomePage && (
               <p className="mb-6 text-[12px] leading-relaxed text-slate-200">
                 Source: Jan-May 2026 pilot cohorts with published method notes and attribution controls.
               </p>
             )}
 
-            {(isHomePage || isExecutivesPage) && (
+            {isExecutivesPage && (
               <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
                 <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
@@ -621,14 +615,15 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
               Private by default
             </p>
-            <p className="mb-2 text-sm leading-relaxed text-slate-300/85 [text-wrap:pretty]">
-              Your search stays private. We never share your identity, targets, or activity with employers or recruiters.
+            <p className="mb-2 max-w-3xl text-sm leading-relaxed text-slate-300/85 [text-wrap:pretty]">
+              Your search stays private by design. We never share your identity, targets, or activity with employers or recruiters, and your outreach planning remains visible only to you and explicitly invited collaborators.
             </p>
           </div>
         </section>
 
-        <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
-          <div className="max-w-5xl mx-auto">
+        {!isHomePage && (
+          <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+            <div className="max-w-5xl mx-auto">
             {isManagerToolsPage ? (
               <>
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Manager Tools next step</p>
@@ -734,57 +729,36 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </>
             ) : (
               <>
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Why it feels different</p>
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Learn more</p>
                 <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
-                  Expensive spray-and-pray tools optimize for volume. Starting Monday optimizes for outcomes.
+                  Start with the feeling, then read the detail.
                 </h2>
                 <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                  Most platforms sell reach, noise, and public activity. Starting Monday is built for targeted timing, private execution, and role-specific conversations that convert.
+                  The homepage now leads with a clearer path and a lighter hand. If someone wants the operating detail, the next page carries it.
                 </p>
-                <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Spray-and-pray tools</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Pay more to broadcast broadly, chase low-signal alerts, and then compete in the same crowded windows as everyone else.</p>
-                  </article>
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Starting Monday</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Identify signal early, focus on high-fit roles, and run a disciplined private weekly cadence tied to real decision milestones.</p>
-                  </article>
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Bottom line</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Less spend on noisy tools, fewer dead-end conversations, and stronger positioning when real mandates open.</p>
-                  </article>
-                </div>
-                <div className="mb-6 rounded-2xl border border-orange-300/20 bg-orange-300/[0.05] p-4 sm:p-5">
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">What changes in practice</p>
-                  <ul className="space-y-2 text-[13px] leading-relaxed text-slate-200">
-                    <li>Start outreach earlier while role scope is still being shaped.</li>
-                    <li>Use one narrative adapted for boards, recruiters, and leadership peers.</li>
-                    <li>Track weekly execution against concrete conversion checkpoints.</li>
-                  </ul>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row">
                   <TrackLink
-                    href="/for-executives"
+                    href="/method-and-evidence"
                     event={EVENT_NAMES.channelEntryClicked}
                     logToUserEvents
                     properties={{
                       channel: 'executives',
-                      cta_label: 'next_step_executive_path',
+                      cta_label: 'next_step_learn_more',
                       source_page: sourcePage,
                     }}
                     className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
                   >
-                    {isRisingLeadersPage ? 'Explore Leaders path' : 'Explore executive path'}
+                    Learn more
                   </TrackLink>
                 </div>
               </>
             )}
-            <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
-          </div>
-        </section>
+              <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
+            </div>
+          </section>
+        )}
 
-        {faqs && faqs.length > 0 && (
+        {faqs && faqs.length > 0 && !isHomePage && (
           <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6" aria-labelledby="faq-heading">
             <div className="max-w-5xl mx-auto">
               <h2 id="faq-heading" className="text-[22px] font-bold text-white mb-6">Common questions</h2>
@@ -803,7 +777,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </section>
         )}
 
-        {faqs && faqs.length > 0 && (
+        {faqs && faqs.length > 0 && !isHomePage && (
           <JsonLd data={{
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
