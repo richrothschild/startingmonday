@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-20T06:26:51.840Z
+Last generated: 2026-06-21T14:10:13.946Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (208)
+## Features (211)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -190,6 +190,8 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Founder note | /founder-note | User-facing page route /founder-note.
 - Feature Guide | /guide | User-facing page route /guide.
 - Feature Ideas | /ideas | User-facing page route /ideas.
+- Feature Individuals | /individuals | User-facing page route /individuals.
+- Feature Learn more | /learn-more | User-facing page route /learn-more.
 - Feature Managertools | /managertools | User-facing page route /managertools.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
 - Feature Mark review / Appendix | /mark-review/appendix | User-facing page route /mark-review/appendix.
@@ -206,6 +208,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Outplacement | /outplacement | User-facing page route /outplacement.
 - Feature Outplacement / Personas | /outplacement/personas | User-facing page route /outplacement/personas.
 - Feature Page.tsx | /page.tsx | User-facing page route /page.tsx.
+- Feature Partner firm | /partner-firm | User-facing page route /partner-firm.
 - Feature Partners / Mauricio kickoff | /partners/mauricio-kickoff | User-facing page route /partners/mauricio-kickoff.
 - Feature Partners | /partners | User-facing page route /partners.
 - Feature Partners / Reporting | /partners/reporting | User-facing page route /partners/reporting.
@@ -1080,7 +1083,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 - Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
 
-## Documentation (649)
+## Documentation (650)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1572,6 +1575,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/status/exux-304-closure-audit-2026-06-18.md | docs/status/exux-304-closure-audit-2026-06-18.md | EXUX-304 Closure Audit and Sign-off
 - Doc docs/status/monitoring-coverage-matrix.latest.md | docs/status/monitoring-coverage-matrix.latest.md | Monitoring Coverage Matrix
 - Doc docs/status/pre-scale-weekly-operator-scorecard.md | docs/status/pre-scale-weekly-operator-scorecard.md | Pre-Scale Weekly Operator Scorecard
+- Doc docs/status/prep-brief-evals-readiness.md | docs/status/prep-brief-evals-readiness.md | Prep Brief Evals Readiness
 - Doc docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | docs/status/synthetic-monitoring-post-for-chris-goodwin-2026-06-13.md | Copy-Ready Post: Synthetic Monitoring Rollout
 - Doc docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | docs/status/synthetic-monitoring-rollout-summary-2026-06-13.md | Synthetic Monitoring Rollout Summary (2026-06-13)
 - Doc docs/status/synthetic-remediation-tracker-2026-06-13.md | docs/status/synthetic-remediation-tracker-2026-06-13.md | Synthetic Remediation Tracker (2026-06-13)
