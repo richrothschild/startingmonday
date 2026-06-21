@@ -4,6 +4,7 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const root = process.cwd()
+const isRailwayBuild = Boolean(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_PROJECT_ID)
 const sourceDirs = ['src']
 const sourceExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mdx'])
 const publicAssetRefRegex = /["'`]\/(?!\/)([^"'`?#]+\.(?:png|jpe?g|webp|gif|svg|ico|avif))(?:\?[^"'`]*)?(?:#[^"'`]*)?["'`]/gi
@@ -14,6 +15,14 @@ const referencedAssetPaths = new Set()
 const missingAssets = []
 /** @type {string[]} */
 const untrackedAssets = []
+
+function hasGitIndex() {
+  const result = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
+    cwd: root,
+    stdio: 'ignore',
+  })
+  return result.status === 0
+}
 
 function toPosix(relativePath) {
   return relativePath.replace(/\\/g, '/')
@@ -49,6 +58,8 @@ function isTracked(relativePath) {
   return result.status === 0
 }
 
+const canVerifyGitTracking = hasGitIndex()
+
 for (const dir of sourceDirs) {
   walk(path.join(root, dir))
 }
@@ -62,7 +73,7 @@ for (const assetPath of [...referencedAssetPaths].sort()) {
     continue
   }
 
-  if (!isTracked(relativePublicPath)) {
+  if (canVerifyGitTracking && !isTracked(relativePublicPath)) {
     untrackedAssets.push(relativePublicPath)
   }
 }
@@ -87,5 +98,8 @@ if (missingAssets.length > 0 || untrackedAssets.length > 0) {
   console.error('Fix: add the files to git (and update .gitignore exceptions if needed).')
   process.exitCode = 1
 } else {
+  if (!canVerifyGitTracking && isRailwayBuild) {
+    console.log('Public asset tracking guard: git index unavailable on Railway build, ran existence-only checks.')
+  }
   console.log('Public asset tracking guard: pass')
 }

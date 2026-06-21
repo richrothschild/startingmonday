@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T15:20:31.308Z",
+  "generatedAt": "2026-06-21T15:34:20.495Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T14:10:13.963Z"
+      "lastModifiedAt": "2026-06-21T15:20:31.325Z"
     },
     {
       "id": "feature:/login",
@@ -10272,7 +10272,7 @@
         "operations"
       ],
       "qualityWeight": 0.95,
-      "lastModifiedAt": "2026-06-21T15:20:07.893Z"
+      "lastModifiedAt": "2026-06-21T15:34:06.890Z"
     },
     {
       "id": "script:scripts/check-release-ux-checklist.mjs",
@@ -18172,7 +18172,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:10:13.963Z"
+      "lastModifiedAt": "2026-06-21T15:20:31.325Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18211,7 +18211,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:10:13.963Z"
+      "lastModifiedAt": "2026-06-21T15:20:31.325Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20629,7 +20629,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.136Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.026Z"
     },
     {
       "id": "doc:docs/strategy/archetype-evaluation-matrix-2026-06-20.md",
@@ -20642,7 +20642,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.136Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.026Z"
     },
     {
       "id": "doc:docs/strategy/archetype-operations-world-class-2026-06-20.md",
@@ -20655,7 +20655,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.137Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.027Z"
     },
     {
       "id": "doc:docs/strategy/archetype-product-strategy-world-class-2026-06-20.md",
@@ -20668,7 +20668,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.142Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.032Z"
     },
     {
       "id": "doc:docs/strategy/b2b-strategy.md",
@@ -20694,7 +20694,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.142Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.032Z"
     },
     {
       "id": "doc:docs/strategy/chris-fast-close-roadmap-summary-2026-06-04.md",
@@ -21539,7 +21539,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.143Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.033Z"
     },
     {
       "id": "doc:docs/strategy/executive-career-os-epic.md",
@@ -21617,7 +21617,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.143Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.033Z"
     },
     {
       "id": "doc:docs/strategy/feature-inventory-by-persona-and-channel-2026-06-20.md",
@@ -21630,7 +21630,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.144Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.034Z"
     },
     {
       "id": "doc:docs/strategy/feature-map-channel-stack-2026-06-20.md",
@@ -21643,7 +21643,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.144Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.034Z"
     },
     {
       "id": "doc:docs/strategy/feature-map-main-personas-2026-06-20.md",
@@ -21656,7 +21656,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.145Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.035Z"
     },
     {
       "id": "doc:docs/strategy/four-channel-customer-journey-implementation-backlog-2026-06-08.md",
@@ -21721,7 +21721,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.152Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.042Z"
     },
     {
       "id": "doc:docs/strategy/landing-page-wireframes-detailed-2026-06-20.md",
@@ -21734,7 +21734,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.153Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.042Z"
     },
     {
       "id": "doc:docs/strategy/lighthouse-slack-github-actions-snippet-2026-06-04.md",
@@ -21929,7 +21929,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.156Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.045Z"
     },
     {
       "id": "doc:docs/strategy/persona-council-effectiveness-audit-2026-05-26.md",
@@ -22020,7 +22020,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.156Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.045Z"
     },
     {
       "id": "doc:docs/strategy/route-redirect-retire-patch-list-2026-06-20.md",
@@ -22033,7 +22033,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.157Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.046Z"
     },
     {
       "id": "doc:docs/strategy/selected-ideas-implementation-plan-2026-06-13.md",
@@ -22124,7 +22124,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.157Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.046Z"
     },
     {
       "id": "doc:docs/strategy/strategy-governance-and-full-page-feature-audit-2026-06-20.md",
@@ -22137,7 +22137,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.158Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.047Z"
     },
     {
       "id": "doc:docs/strategy/tam-financial-model.md",
@@ -22176,7 +22176,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T14:11:50.158Z"
+      "lastModifiedAt": "2026-06-21T15:27:09.047Z"
     },
     {
       "id": "doc:docs/strategy/week2/w2-04-telemetry-schema-and-route-coverage-2026-06-04.md",
