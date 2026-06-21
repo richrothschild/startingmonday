@@ -321,7 +321,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="mb-10 py-2">
                 <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.82fr)] lg:gap-12">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300/90">Starting Monday</p>
+                    <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-slate-300/90 sm:text-[14px]">Starting Monday</p>
                     <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-300/95 sm:text-[14px]">
                       The private operating system for executive and leadership moves.
                     </p>
@@ -341,7 +341,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     </h1>
                     <div className="mt-5 h-[2px] w-16 rounded-full bg-orange-300/65" />
                     <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-200/92 sm:text-[16px]">
-                      Spot signal early, prioritize the right conversations, and run a disciplined cadence.
+                      Find roles first. Talk to the right people. Follow a clear plan.
                     </p>
 
                   </div>
@@ -834,10 +834,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
               </p>
             ) : (
-              <>
-                <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
-                <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
-              </>
+              <div className="mt-5 flex items-center justify-between gap-4 text-[11px] text-slate-500">
+                <p>Privacy-first by design. No sale of user data, ever.</p>
+                <p className="text-right">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+              </div>
             )}
           </div>
         </footer>
