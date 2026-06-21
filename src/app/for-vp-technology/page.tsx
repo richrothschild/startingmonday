@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for VP Technology | Move into broader scope roles',
@@ -155,6 +156,7 @@ export default function ForVpTechnologyPage() {
         faqs={FAQS}
         proofHighlights={PROOF_HIGHLIGHTS}
         sourcePage="/for-vp-technology"
+        showFooter={false}
       />
 
       <div className="bg-slate-950 pb-12 sm:pb-14">
@@ -184,6 +186,7 @@ export default function ForVpTechnologyPage() {
           </Link>
         </div>
       </div>
+      <SiteFooter />
     </>
   )
 }

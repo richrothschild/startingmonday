@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { FAQ, SituationCard } from '@/components/LandingPage'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Partner / Firm | Starting Monday',
@@ -82,6 +83,7 @@ export default function PartnerFirmPage() {
         situations={SITUATIONS}
         faqs={FAQS}
         sourcePage="/partner-firm"
+        showFooter={false}
       />
 
       <div className="bg-slate-950 pb-12 sm:pb-14">
@@ -133,6 +135,7 @@ export default function PartnerFirmPage() {
           </div>
         </section>
       </div>
+      <SiteFooter />
     </>
   )
 }

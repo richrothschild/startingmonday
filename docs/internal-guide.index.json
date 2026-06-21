@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T23:39:48.171Z",
+  "generatedAt": "2026-06-21T23:50:08.857Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T20:06:01.724Z"
+      "lastModifiedAt": "2026-06-21T23:41:06.609Z"
     },
     {
       "id": "feature:/login",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:38:14.779Z"
+      "lastModifiedAt": "2026-06-21T23:47:25.142Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2392,7 +2392,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T20:48:38.649Z"
+      "lastModifiedAt": "2026-06-21T23:49:06.002Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2462,7 +2462,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T20:48:38.649Z"
+      "lastModifiedAt": "2026-06-21T23:49:05.976Z"
     },
     {
       "id": "feature:/learn-more",
@@ -2714,7 +2714,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T20:48:38.650Z"
+      "lastModifiedAt": "2026-06-21T23:49:05.995Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -18198,7 +18198,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T20:06:01.723Z"
+      "lastModifiedAt": "2026-06-21T23:41:06.608Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18237,7 +18237,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T20:06:01.724Z"
+      "lastModifiedAt": "2026-06-21T23:41:06.609Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -20655,7 +20655,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T22:42:29.647Z"
+      "lastModifiedAt": "2026-06-21T23:47:25.149Z"
     },
     {
       "id": "doc:docs/strategy/archetypes/luxury-brand-archetype.md",
@@ -20668,7 +20668,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T22:42:29.727Z"
+      "lastModifiedAt": "2026-06-21T23:47:25.157Z"
     },
     {
       "id": "doc:docs/strategy/archetypes/product-archetype.md",
@@ -20681,7 +20681,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T22:42:29.509Z"
+      "lastModifiedAt": "2026-06-21T23:47:25.146Z"
     },
     {
       "id": "doc:docs/strategy/archetypes/ui-ux-archetype.md",
@@ -20694,7 +20694,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T22:42:29.702Z"
+      "lastModifiedAt": "2026-06-21T23:47:25.155Z"
     },
     {
       "id": "doc:docs/strategy/b2b-strategy.md",
@@ -22501,7 +22501,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:39:45.640Z"
+      "lastModifiedAt": "2026-06-21T23:50:06.110Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

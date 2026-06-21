@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { LandingPage } from '@/components/LandingPage'
 import type { FAQ, SituationCard } from '@/components/LandingPage'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Individuals | Starting Monday',
@@ -98,6 +99,7 @@ export default function IndividualsPage() {
         situations={SITUATIONS}
         faqs={FAQS}
         sourcePage="/individuals"
+        showFooter={false}
       />
 
       <div className="bg-slate-950 pb-12 sm:pb-14">
@@ -158,6 +160,7 @@ export default function IndividualsPage() {
           </div>
         </section>
       </div>
+      <SiteFooter />
     </>
   )
 }

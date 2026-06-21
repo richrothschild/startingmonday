@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
+import { SiteFooter } from '@/components/SiteFooter'
 import { TrackLink } from '@/components/TrackLink'
 import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowStartingMondayHelpsModal'
 import { ChartZoomModal } from '@/components/home/ChartZoomModal'
@@ -47,6 +48,7 @@ export interface LandingPageProps {
   situations: SituationCard[]
   faqs?: FAQ[]
   showPersonaSelector?: boolean
+  showFooter?: boolean
   rolePathPriorityByCtaKey?: Record<string, number>
   proofHighlights?: ProofHighlight[]
   sourcePage?: string
@@ -251,7 +253,7 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
   )
 }
 
-export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
+export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
   const isPrimaryExecutivesPage = sourcePage === '/for-executives'
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
@@ -979,38 +981,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </section>
         )}
 
-        <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
-              <span className={useCenteredFooter ? 'text-[12px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
-                <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
-              </span>
-              <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
-                <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors py-2.5">Method and evidence</Link>
-                <Link href="/evidence-room" className="hover:text-slate-300 transition-colors py-2.5">Evidence room</Link>
-                <Link href="/pricing" className="hover:text-slate-300 transition-colors py-2.5">Pricing</Link>
-                <Link href="/blog" className="hover:text-slate-300 transition-colors py-2.5">Blog</Link>
-                <Link href="/about" className="hover:text-slate-300 transition-colors py-2.5">About</Link>
-                <Link href="/optimize" className="hover:text-slate-300 transition-colors py-2.5">Free Profile Grade</Link>
-                <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors py-2.5">LinkedIn</a>
-                <Link href="/security" className="hover:text-slate-300 transition-colors py-2.5">Security</Link>
-                <Link href="/privacy" className="hover:text-slate-300 transition-colors py-2.5">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-slate-300 transition-colors py-2.5">Terms</Link>
-              </div>
-            </div>
-
-            {useCenteredFooter ? (
-              <p className="text-[11px] text-slate-500 mt-5 text-center">
-                Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
-              </p>
-            ) : (
-              <div className="mt-5 flex items-center justify-between gap-4 text-[11px] text-slate-500">
-                <p>Privacy-first by design. No sale of user data, ever.</p>
-                <p className="text-right">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
-              </div>
-            )}
-          </div>
-        </footer>
+        {showFooter && <SiteFooter centered={useCenteredFooter} />}
       </main>
     </div>
   )
