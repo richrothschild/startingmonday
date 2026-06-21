@@ -36,12 +36,17 @@ const SPECS = [
 			{
 				id: 'clarity-operating-system',
 				description: 'Above-fold copy frames Starting Monday as an executive operating system.',
-				matcher: 'The executive search operating system for confidential C-suite and VP transitions.',
+				matcher: 'The private operating system for executive and leadership moves.',
 			},
 			{
 				id: 'clarity-shortlist-frame',
 				description: 'Hero action frame emphasizes shortlist outcome.',
-				matcher: 'Top the shortlist.',
+				matcher: 'Be the shortlist.',
+			},
+			{
+				id: 'clarity-opening-line',
+				description: 'Hero opening line keeps concise editorial framing.',
+				matcher: 'The shortlist is defined before the role is public.',
 			},
 			{
 				id: 'conversion-path-buttons',
@@ -49,9 +54,9 @@ const SPECS = [
 				matcher: /Individuals[\s\S]*Partner \/ Firm/,
 			},
 			{
-				id: 'content-economy-signal-preview-after-path',
-				description: 'Signal briefing is presented as a post-path preview.',
-				matcher: /Signal Briefing Preview[\s\S]*After lane selection/,
+				id: 'content-economy-no-signal-preview-block',
+				description: 'Signal preview teaser block remains removed from homepage.',
+				matcher: /Signal Briefing Preview|After lane selection/i,
 			},
 			{
 				id: 'content-economy-no-key-takeaway-prefix',
@@ -277,6 +282,7 @@ for (const spec of SPECS) {
 		const matchedIn = resolvedFiles.find((entry) => has(entry.content, rule.matcher))
 
 		const isNegativeRule =
+			rule.id.includes('no-signal-preview-block') ||
 			rule.id.includes('no-key-takeaway-prefix') ||
 			rule.id.includes('jump-box-removed') ||
 			rule.id.includes('no-helper-copy-drift')
