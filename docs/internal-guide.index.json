@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T23:50:08.857Z",
+  "generatedAt": "2026-06-21T23:58:51.710Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T23:41:06.609Z"
+      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
     },
     {
       "id": "feature:/login",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:47:25.142Z"
+      "lastModifiedAt": "2026-06-21T23:58:37.041Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -18198,7 +18198,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:41:06.608Z"
+      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18237,7 +18237,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:41:06.609Z"
+      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22501,7 +22501,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:50:06.110Z"
+      "lastModifiedAt": "2026-06-21T23:58:49.255Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

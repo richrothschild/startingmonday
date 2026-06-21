@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '@/components/JsonLd'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Starting Monday for Executives - Move into board-caliber roles',
@@ -47,6 +49,7 @@ export default async function ForExecutivesPage() {
     <>
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for executives pursuing board-level roles</h1>
+      <SiteHeader />
       <main className="min-h-screen bg-slate-950 text-slate-100">
         <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
         <section className="border-b border-white/10 px-6 py-18 sm:px-10 sm:py-24">
@@ -181,6 +184,7 @@ export default async function ForExecutivesPage() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </>
   )
 }
