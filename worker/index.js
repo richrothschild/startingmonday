@@ -55,6 +55,7 @@ Sentry.init({
 // ── Health server bootstrap (bind early) ────────────────────────────────────
 
 const PORT = process.env.PORT ?? 3010
+const HOST = process.env.HOST ?? '0.0.0.0'
 let bootPhase = 'starting'
 const bootStartedAt = Date.now()
 const jobStatus = {}
@@ -62,7 +63,8 @@ const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
 const lastFailureNotifyAt = new Map()
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/health' && (req.method === 'GET' || req.method === 'HEAD')) {
+  const isHealthPath = req.url === '/health' || req.url === '/api/health' || req.url === '/'
+  if (isHealthPath && (req.method === 'GET' || req.method === 'HEAD')) {
     if (req.method === 'HEAD') {
       res.writeHead(200)
       res.end()
@@ -174,8 +176,14 @@ const server = http.createServer((req, res) => {
   res.end()
 })
 
-server.listen(PORT, () => {
-  logger.info(`worker: health endpoint listening on :${PORT}`)
+server.listen(Number(PORT), HOST, () => {
+  logger.info(`worker: health endpoint listening on ${HOST}:${PORT}`)
+})
+
+server.on('error', (err) => {
+  logger.error('worker: server failed to bind', { error: err.message, stack: err.stack })
+  Sentry.captureException(err)
+  Sentry.flush(2000).finally(() => process.exit(1))
 })
 
 // ── Crash handlers ────────────────────────────────────────────────────────────

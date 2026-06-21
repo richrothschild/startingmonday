@@ -3,7 +3,7 @@ builder = "nixpacks"
 buildCommand = "echo 'no build step'"
 
 [deploy]
-startCommand = "sh -lc 'NODE_OPTIONS=--max-old-space-size=1536 node index.js'"
+startCommand = "sh -lc 'NODE_OPTIONS=--max-old-space-size=1536 node index.js || NODE_OPTIONS=--max-old-space-size=1536 node worker/index.js'"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
