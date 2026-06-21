@@ -331,8 +331,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
   let likelyStakeholders = []
   if (companyIds.length) {
     const { data: candidateRows } = await supabase
-      .from('company_people_candidates' as never)
-      .select('company_id, person_id, role_cluster, score, status' as never)
+      .from('company_people_candidates')
+      .select('company_id, person_id, role_cluster, score, status')
       .eq('user_id', userId)
       .in('status', ['suggested', 'saved'])
       .in('company_id', companyIds)
@@ -343,8 +343,8 @@ export async function assembleContext(supabase, userId, userEmail, tz = 'UTC', s
     let peopleById = {}
     if (personIds.length) {
       const { data: peopleRows } = await supabase
-        .from('people' as never)
-        .select('id, full_name, current_title, current_company' as never)
+        .from('people')
+        .select('id, full_name, current_title, current_company')
         .in('id', personIds)
       peopleById = Object.fromEntries((peopleRows ?? []).map((row) => [row.id, row]))
     }
