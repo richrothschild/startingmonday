@@ -62,7 +62,12 @@ const FAILURE_NOTIFY_COOLDOWN_MS = 60 * 60 * 1000
 const lastFailureNotifyAt = new Map()
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/health' && req.method === 'GET') {
+  if (req.url === '/health' && (req.method === 'GET' || req.method === 'HEAD')) {
+    if (req.method === 'HEAD') {
+      res.writeHead(200)
+      res.end()
+      return
+    }
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({
       status: 'ok',
