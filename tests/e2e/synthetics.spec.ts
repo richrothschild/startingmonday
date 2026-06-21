@@ -26,7 +26,7 @@
  *   Synthetic-09: <= 5000ms per route
  */
 
-import { test, expect, type APIRequestContext, type Page } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -60,11 +60,6 @@ async function requireAuthSessionOrSkip(page: Page) {
     !authenticated,
     'Skipping synthetic: auth session unavailable (dashboard redirected to login). Check PLAYWRIGHT_TEST_EMAIL / PLAYWRIGHT_TEST_PASSWORD.'
   )
-}
-
-async function skipIfApiAuthUnavailable(request: APIRequestContext, baseURL: string) {
-  const healthRes = await request.get(`${baseURL}/api/health`, { failOnStatusCode: false })
-  test.skip(healthRes.status() !== 200, `Skipping synthetic: health check returned ${healthRes.status()}`)
 }
 
 // ---------------------------------------------------------------------------
@@ -431,7 +426,7 @@ test('Synthetic-06: follow-up lifecycle completes correctly within budget', asyn
   console.log(`Synthetic-06: created contact id=${contactId}`)
 
   // Step 2: Create 2 pending follow_ups
-  let followUpIds: string[] = []
+  const followUpIds: string[] = []
   for (let i = 0; i < 2; i++) {
     const fuRes = await page.request.post('/api/follow-ups', {
       data: { contact_id: contactId, note: `Synthetic follow-up ${i + 1}`, status: 'pending' },
