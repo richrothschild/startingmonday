@@ -164,7 +164,7 @@ async function main() {
   const results = []
 
   for (const route of routesToCheck) {
-    // eslint-disable-next-line no-await-in-loop
+     
     results.push(await runRouteCheck(route))
   }
 

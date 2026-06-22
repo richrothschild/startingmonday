@@ -67,7 +67,7 @@ async function postJsonWithRetry(path, body, token) {
   let lastResult = null
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
-    // eslint-disable-next-line no-await-in-loop
+     
     lastResult = await postJson(path, body, token)
     if (!shouldRetry(lastResult) || attempt === MAX_RETRIES) {
       return lastResult

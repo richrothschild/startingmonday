@@ -126,6 +126,7 @@ export default function SignupPage() {
   const [heardAboutOther, setHeardAboutOther] = useState('')
   const [heardAboutLocked, setHeardAboutLocked] = useState(false)
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const from = params.get('from')

@@ -39,11 +39,9 @@ function classifyContact(row) {
   const company = (row['Company Name'] || '').toLowerCase()
   const industry = (row['Industry'] || '').toLowerCase()
   const keywords = (row['Keywords'] || '').toLowerCase()
-  const dept = (row['Departments'] || '').toLowerCase()
   const subdept = (row['Sub Departments'] || '').toLowerCase()
   const seniority = (row['Seniority'] || '').toLowerCase()
   const emailStatus = (row['Email Status'] || '').toLowerCase()
-  const catchAll = (row['Primary Email Catch-all Status'] || '').toLowerCase()
   const emailConf = parseFloat(row['Email Confidence'] || '1')
   const qualifyField = (row['Qualify Contact'] || '').toLowerCase()
 

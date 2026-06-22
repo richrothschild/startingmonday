@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-22T14:10:18.586Z
+Last generated: 2026-06-22T14:19:04.885Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -787,7 +787,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/check-migration-rollback-readiness.mjs | scripts/check-migration-rollback-readiness.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-banned-patterns.mjs | scripts/check-mobile-banned-patterns.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-elite-visual-gate.mjs | scripts/check-mobile-elite-visual-gate.mjs | #!/usr/bin/env node
-- Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | eslint-disable-next-line no-await-in-loop
+- Script scripts/check-mobile-production-thresholds.mjs | scripts/check-mobile-production-thresholds.mjs | #!/usr/bin/env node
 - Script scripts/check-mobile-ui-contract.mjs | scripts/check-mobile-ui-contract.mjs | Quick actions layout contract: two-column mobile and six-column desktop utility grid.
 - Script scripts/check-monitoring-coverage.mjs | scripts/check-monitoring-coverage.mjs | #!/usr/bin/env node
 - Script scripts/check-observability-import-guard.mjs | scripts/check-observability-import-guard.mjs | #!/usr/bin/env node
@@ -815,7 +815,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/deep-dive-technical-debt-audit.mjs | scripts/deep-dive-technical-debt-audit.mjs | #!/usr/bin/env node
 - Script scripts/depitch-queued-outreach.mjs | scripts/depitch-queued-outreach.mjs | Load env files in Next.js-like precedence for local script runs.
 - Script scripts/email-council-weekly-report.mjs | scripts/email-council-weekly-report.mjs | #!/usr/bin/env node
-- Script scripts/emi-postdeploy-smoke.mjs | scripts/emi-postdeploy-smoke.mjs | eslint-disable-next-line no-await-in-loop
+- Script scripts/emi-postdeploy-smoke.mjs | scripts/emi-postdeploy-smoke.mjs | #!/usr/bin/env node
 - Script scripts/eval-guide-retrieval.ts | scripts/eval-guide-retrieval.ts | import { promises as fs } from 'fs'
 - Script scripts/evals-ci-check.mjs | scripts/evals-ci-check.mjs | #!/usr/bin/env node
 - Script scripts/evals-doctor.mjs | scripts/evals-doctor.mjs | #!/usr/bin/env node
@@ -866,7 +866,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Script scripts/precommit-guide-freshness.mjs | scripts/precommit-guide-freshness.mjs | #!/usr/bin/env node
 - Script scripts/precommit-mobile-ui-gate.mjs | scripts/precommit-mobile-ui-gate.mjs | #!/usr/bin/env node
 - Script scripts/precommit-outreach-lint.mjs | scripts/precommit-outreach-lint.mjs | Only run outreach lint if any docs/outreach/*.csv file is staged
-- Script scripts/production-smoke-check.mjs | scripts/production-smoke-check.mjs | eslint-disable-next-line no-await-in-loop
+- Script scripts/production-smoke-check.mjs | scripts/production-smoke-check.mjs | Only fail the smoke check on core availability regressions.
 - Script scripts/refine-outreach-templates-by-council.mjs | scripts/refine-outreach-templates-by-council.mjs | The file is outplacement-focused; keep broad update anyway.
 - Script scripts/refresh-coach-outreach-queue.mjs | scripts/refresh-coach-outreach-queue.mjs | import { config as loadEnv } from 'dotenv'
 - Script scripts/remediate-outreach-csv-tone.mjs | scripts/remediate-outreach-csv-tone.mjs | Rebuild global entries from updated in-memory file rows for next pass score.

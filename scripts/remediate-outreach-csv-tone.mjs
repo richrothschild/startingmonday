@@ -245,7 +245,7 @@ function normalizeSubject(subject, channel) {
   const raw = (subject ?? '').toString().trim()
   if (!raw) return fallback
 
-  let next = raw
+  const next = raw
     .replace(/^Bad idea to send\s*/i, 'Quick question on ')
     .replace(/[!?]+\s*$/, '')
     .replace(/\s{2,}/g, ' ')

@@ -146,7 +146,7 @@ async function evaluate() {
     }
 
     // Wait for deployment propagation before checking again.
-    // eslint-disable-next-line no-await-in-loop
+     
     await sleep(INTERVAL_SECONDS * 1000)
   }
 

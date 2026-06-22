@@ -38,6 +38,7 @@ export default function LoginPage() {
     return error || 'Sign-in failed'
   }
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const nextPath = params.get('next')?.trim() || '/dashboard/briefing'
