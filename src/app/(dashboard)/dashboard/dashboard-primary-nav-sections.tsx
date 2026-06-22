@@ -53,7 +53,7 @@ export function DashboardPrimaryNavSections({
         </details>
       </section>
 
-      <section id="quick-access" className="mb-6 rounded-2xl border border-slate-900 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.16),_transparent_32%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
+      <section id="quick-access" className="mb-6 rounded-2xl border border-slate-900 bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)] px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
         <div>
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-1">{isExecutiveMode ? 'What matters now' : 'Quick access'}</h2>
           <p className="text-[13px] text-slate-200">
