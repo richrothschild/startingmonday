@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { SiteFooter } from '@/components/SiteFooter'
 import { TrackLink } from '@/components/TrackLink'
