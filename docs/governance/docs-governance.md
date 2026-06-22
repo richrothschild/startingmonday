@@ -137,6 +137,10 @@ Copy this into PRs that touch `docs/`:
 - [ ] Deprecated docs marked or archived when replaced
 ```
 
+For dashboard UI work, also include:
+
+1. `docs/governance/dashboard-pr-checklist.md`
+
 ## Fast Start Workflow
 
 1. Create from `docs/templates/doc-template.md`.

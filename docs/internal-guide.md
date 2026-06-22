@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-22T14:51:04.780Z
+Last generated: 2026-06-22T17:55:55.456Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -234,7 +234,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Terry anderson review | /terry-anderson-review | User-facing page route /terry-anderson-review.
 - Feature Unsubscribe / Confirmed | /unsubscribe/confirmed | User-facing page route /unsubscribe/confirmed.
 
-## API Surface (285)
+## API Surface (286)
 - API /api/admin/automation/billing/failed-payment-retries | src/app/api/admin/automation/billing/failed-payment-retries/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/invoices-receipts | src/app/api/admin/automation/billing/invoices-receipts/route.ts | export async function POST(request: NextRequest) {
 - API /api/admin/automation/billing/payment-reconciliation-checks | src/app/api/admin/automation/billing/payment-reconciliation-checks/route.ts | export async function POST(request: NextRequest) {
@@ -363,6 +363,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - API /api/billing/pause | src/app/api/billing/pause/route.ts | export async function POST(request: NextRequest) {
 - API /api/billing/portal | src/app/api/billing/portal/route.ts | export async function POST(request: NextRequest) {
 - API /api/billing/resume | src/app/api/billing/resume/route.ts | export async function POST(request: NextRequest) {
+- API /api/briefing/pulse-events | src/app/api/briefing/pulse-events/route.ts | export async function POST(request: NextRequest) {
 - API /api/briefing/send | src/app/api/briefing/send/route.ts | Retired: the worker (worker/jobs/briefing-job.js) is the active briefing sender.
 - API /api/briefs/[id]/lifecycle | src/app/api/briefs/[id]/lifecycle/route.ts | export async function PATCH(
 - API /api/briefs/[id]/rate | src/app/api/briefs/[id]/rate/route.ts | export async function PATCH(
@@ -938,7 +939,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Workflow .github/workflows/weekly-pr-churn-slo.yml | .github/workflows/weekly-pr-churn-slo.yml | name: Weekly PR Churn SLO
 - Workflow .github/workflows/weekly-unified-audit.yml | .github/workflows/weekly-unified-audit.yml | name: Weekly Unified Audit
 
-## Data and Migrations (152)
+## Data and Migrations (153)
 - Migration supabase/migrations/001_initial_schema.sql | supabase/migrations/001_initial_schema.sql | -- Starting Monday — Initial Schema
 - Migration supabase/migrations/002_companies_unique_name.sql | supabase/migrations/002_companies_unique_name.sql | -- Prevent duplicate active company names per user.
 - Migration supabase/migrations/003_briefing_tracking.sql | supabase/migrations/003_briefing_tracking.sql | -- Track when each user's last briefing was sent to prevent duplicate sends.
@@ -1091,8 +1092,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Migration supabase/migrations/143_partner_weekly_loop.sql | supabase/migrations/143_partner_weekly_loop.sql | -- Weekly loop tracking for partner participants.
 - Migration supabase/migrations/144_add_partnership_signal_type.sql | supabase/migrations/144_add_partnership_signal_type.sql | -- Add partnership as a valid signal type to fix constraint violation
 - Migration supabase/migrations/145_relationship_intelligence_foundation.sql | supabase/migrations/145_relationship_intelligence_foundation.sql | -- Relationship intelligence foundation: shared public people layer + user-private relationship layer.
+- Migration supabase/migrations/146_briefing_daily_notes.sql | supabase/migrations/146_briefing_daily_notes.sql | -- Add a lightweight daily-note destination for briefing support actions.
 
-## Documentation (654)
+## Documentation (660)
 - Doc docs/7-layer-summary-for-chris-and-team-2026-05-29.md | docs/7-layer-summary-for-chris-and-team-2026-05-29.md | Starting Monday 7-Layer Operating Model (Luxury Hotel Analogy)
 - Doc docs/7-layer-weekly-operating-artifact.md | docs/7-layer-weekly-operating-artifact.md | 7-Layer Weekly Operating Artifact
 - Doc docs/90-day-campaign-plan.md | docs/90-day-campaign-plan.md | The 90-Day Campaign Plan
@@ -1277,6 +1279,10 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | docs/council-roadmap-memos/shreyas-doshi-roadmap-memo.md | Roadmap Vision Memo - Shreyas Doshi
 - Doc docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | docs/council-roadmap-memos/warren-buffett-roadmap-memo.md | Roadmap Vision Memo - Warren Buffett
 - Doc docs/daily-change-summary-2026-06-13.md | docs/daily-change-summary-2026-06-13.md | Daily Change Summary - 2026-06-13
+- Doc docs/dashboard-copy-and-tone-standard.md | docs/dashboard-copy-and-tone-standard.md | Dashboard Copy And Tone Standard
+- Doc docs/dashboard-instrumentation-standard.md | docs/dashboard-instrumentation-standard.md | Dashboard Instrumentation Standard
+- Doc docs/dashboard-modernization-plan.md | docs/dashboard-modernization-plan.md | Dashboard Modernization Plan
+- Doc docs/dashboard-page-architecture-standard.md | docs/dashboard-page-architecture-standard.md | Dashboard Page Architecture Standard
 - Doc docs/decision-log.md | docs/decision-log.md | Starting Monday — Decision Log
 - Doc docs/development/emi-artifacts-implementation-tickets.md | docs/development/emi-artifacts-implementation-tickets.md | Development Tickets: EMI Artifact Implementation
 - Doc docs/development/emi-daily-standup-companion-2026-05-25.md | docs/development/emi-daily-standup-companion-2026-05-25.md | EMI Daily Standup Companion
@@ -1388,6 +1394,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/forbes-coaches-council-coauthor-targets.md | docs/forbes-coaches-council-coauthor-targets.md | Forbes Coaches Council: Top 10 Co-Author Targets
 - Doc docs/fractional-bd-hiring-scorecard-and-interview-script.md | docs/fractional-bd-hiring-scorecard-and-interview-script.md | Fractional BD Hiring Scorecard and Interview Script
 - Doc docs/google-calendar-integration-plan.md | docs/google-calendar-integration-plan.md | Google Calendar Integration Plan
+- Doc docs/governance/dashboard-pr-checklist.md | docs/governance/dashboard-pr-checklist.md | Dashboard PR Checklist
 - Doc docs/governance/docs-governance.md | docs/governance/docs-governance.md | Documentation Governance
 - Doc docs/governance/no-drift-protected-route-matrix-2026-06-07.md | docs/governance/no-drift-protected-route-matrix-2026-06-07.md | No-Drift Protected Route Matrix
 - Doc docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | docs/governance/target-company-intelligence-governance-signoff-2026-06-07.md | Target Company Intelligence Governance Signoff
@@ -1719,6 +1726,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Doc docs/technical-debt-execution-backlog-2026-05-19.md | docs/technical-debt-execution-backlog-2026-05-19.md | Technical Debt Execution Backlog (May 19, 2026)
 - Doc docs/technical-reference.md | docs/technical-reference.md | Technical Reference — Starting Monday
 - Doc docs/templates/archive-note-template.md | docs/templates/archive-note-template.md | ## Archive note
+- Doc docs/templates/dashboard-page-template.md | docs/templates/dashboard-page-template.md | Dashboard Page Template
 - Doc docs/templates/decision-record-template.md | docs/templates/decision-record-template.md | Decision Record: <short decision title>
 - Doc docs/templates/doc-template.md | docs/templates/doc-template.md | <Document title>
 - Doc docs/terry-coach-forward-email.md | docs/terry-coach-forward-email.md | Coach Forward Email

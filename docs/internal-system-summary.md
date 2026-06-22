@@ -1,15 +1,15 @@
 # Starting Monday Internal System Summary
 
-Generated at: 2026-06-22T14:51:04.780Z
+Generated at: 2026-06-22T17:55:55.456Z
 
 ## What exists
 - Feature pages: 217
-- API routes: 285
+- API routes: 286
 - Library modules: 226
 - Operational scripts: 145
 - Infra workflows: 40
-- Migrations/data artifacts: 152
-- Internal docs: 654
+- Migrations/data artifacts: 153
+- Internal docs: 660
 
 ## How it integrates
 - App routes render product/admin surfaces and call route handlers for actions and data flows.
