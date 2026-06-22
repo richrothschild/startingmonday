@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-22T01:20:49.449Z
+Last generated: 2026-06-22T02:02:52.938Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (182)
+## Features (184)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -106,6 +106,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Demo / Coach dashboard](/demo/coach-dashboard) - Open /demo/coach-dashboard to use this feature area and related workflows.
 - [Demo / Executive brief](/demo/executive-brief) - Open /demo/executive-brief to use this feature area and related workflows.
 - [Demo / Executive dashboard](/demo/executive-dashboard) - Open /demo/executive-dashboard to use this feature area and related workflows.
+- [Demo / Leader brief](/demo/leader-brief) - Open /demo/leader-brief to use this feature area and related workflows.
 - [Demo / Manager tools](/demo/manager-tools) - Open /demo/manager-tools to use this feature area and related workflows.
 - [Demo / Michael dashboard](/demo/michael-dashboard) - Open /demo/michael-dashboard to use this feature area and related workflows.
 - [Demo / Michael strategy brief](/demo/michael-strategy-brief) - Open /demo/michael-strategy-brief to use this feature area and related workflows.
@@ -139,6 +140,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [For financial advisors](/for-financial-advisors) - Open /for-financial-advisors to use this feature area and related workflows.
 - [For fractional executives](/for-fractional-executives) - Open /for-fractional-executives to use this feature area and related workflows.
 - [For individuals](/for-individuals) - Open /for-individuals to use this feature area and related workflows.
+- [For leaders](/for-leaders) - Open /for-leaders to use this feature area and related workflows.
 - [For media partners](/for-media-partners) - Open /for-media-partners to use this feature area and related workflows.
 - [For outplacement / Economics](/for-outplacement/economics) - Open /for-outplacement/economics to use this feature area and related workflows.
 - [For outplacement / Executive summary](/for-outplacement/executive-summary) - Open /for-outplacement/executive-summary to use this feature area and related workflows.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T01:20:52.002Z",
+  "generatedAt": "2026-06-22T02:02:55.561Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
+      "lastModifiedAt": "2026-06-22T01:20:52.017Z"
     },
     {
       "id": "feature:/login",
@@ -1737,6 +1737,20 @@
       "lastModifiedAt": "2026-06-14T00:24:20.940Z"
     },
     {
+      "id": "feature:/demo/leader-brief",
+      "title": "Feature Demo / Leader brief",
+      "body": "User-facing page route /demo/leader-brief.",
+      "type": "feature",
+      "ref": "/demo/leader-brief",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T01:58:19.738Z"
+    },
+    {
       "id": "feature:/demo/manager-tools",
       "title": "Feature Demo / Manager tools",
       "body": "User-facing page route /demo/manager-tools.",
@@ -2196,7 +2210,21 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-22T01:18:04.496Z"
+      "lastModifiedAt": "2026-06-22T02:02:29.140Z"
+    },
+    {
+      "id": "feature:/for-leaders",
+      "title": "Feature For leaders",
+      "body": "User-facing page route /for-leaders.",
+      "type": "feature",
+      "ref": "/for-leaders",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T01:58:06.174Z"
     },
     {
       "id": "feature:/for-media-partners",
@@ -18212,7 +18240,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
+      "lastModifiedAt": "2026-06-22T01:20:52.017Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18251,7 +18279,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
+      "lastModifiedAt": "2026-06-22T01:20:52.017Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22515,7 +22543,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-22T01:20:49.452Z"
+      "lastModifiedAt": "2026-06-22T02:02:52.943Z"
     },
     {
       "id": "doc:docs/user-success-template.md",
