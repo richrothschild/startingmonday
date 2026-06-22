@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Learn More | Starting Monday',
@@ -56,7 +57,25 @@ const FAQS = [
 export default function LearnMorePage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/95 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="text-[12px] font-bold uppercase tracking-[0.16em] text-slate-300 hover:text-white">
+            Starting Monday
+          </Link>
+          <nav className="flex items-center gap-4 text-[12px] font-medium text-slate-300">
+            <Link href="/" className="hover:text-white">Home</Link>
+            <Link href="/pricing" className="hover:text-white">Pricing</Link>
+          </nav>
+        </div>
+      </header>
+
       <main className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
+        <Link
+          href="/"
+          className="inline-flex items-center rounded-full border border-white/15 px-3 py-1.5 text-[12px] font-semibold text-slate-200 hover:border-white/25 hover:text-white"
+        >
+          ← Back
+        </Link>
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Learn more</p>
         <h1 className="mt-3 max-w-4xl font-serif text-[2.2rem] leading-[1.03] tracking-tight text-white sm:text-[3rem]">
           Why Starting Monday is different.
@@ -104,6 +123,17 @@ export default function LearnMorePage() {
           </div>
         </section>
       </main>
+
+      <footer className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-[12px] text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p>© {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-slate-200">Privacy</Link>
+            <Link href="/terms" className="hover:text-slate-200">Terms</Link>
+            <Link href="/security" className="hover:text-slate-200">Security</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
