@@ -70,7 +70,7 @@ export default async function ForIndividualsPage() {
                   Executives
                 </Link>
                 <Link
-                  href="/for-vp-technology"
+                  href="/for-leaders"
                   className="inline-flex items-center justify-center rounded-full border border-[#c8ccd5]/60 bg-[linear-gradient(135deg,rgba(231,235,244,0.1),rgba(173,180,196,0.08))] px-6 py-2.5 text-[13px] font-semibold tracking-[0.02em] text-[#e4e8f1] shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_10px_24px_rgba(137,145,162,0.18)] transition-all hover:-translate-y-[1px] hover:border-[#d7dce7] hover:bg-[linear-gradient(135deg,rgba(235,239,247,0.15),rgba(182,188,202,0.1))] hover:text-white"
                 >
                   Leaders

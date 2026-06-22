@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-22T01:20:52.002Z
+Last generated: 2026-06-22T02:02:55.561Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (212)
+## Features (214)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -139,6 +139,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Demo / Coach dashboard | /demo/coach-dashboard | User-facing page route /demo/coach-dashboard.
 - Feature Demo / Executive brief | /demo/executive-brief | User-facing page route /demo/executive-brief.
 - Feature Demo / Executive dashboard | /demo/executive-dashboard | User-facing page route /demo/executive-dashboard.
+- Feature Demo / Leader brief | /demo/leader-brief | User-facing page route /demo/leader-brief.
 - Feature Demo / Manager tools | /demo/manager-tools | User-facing page route /demo/manager-tools.
 - Feature Demo / Michael dashboard | /demo/michael-dashboard | User-facing page route /demo/michael-dashboard.
 - Feature Demo / Michael strategy brief | /demo/michael-strategy-brief | User-facing page route /demo/michael-strategy-brief.
@@ -172,6 +173,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature For financial advisors | /for-financial-advisors | User-facing page route /for-financial-advisors.
 - Feature For fractional executives | /for-fractional-executives | User-facing page route /for-fractional-executives.
 - Feature For individuals | /for-individuals | User-facing page route /for-individuals.
+- Feature For leaders | /for-leaders | User-facing page route /for-leaders.
 - Feature For media partners | /for-media-partners | User-facing page route /for-media-partners.
 - Feature For outplacement / Economics | /for-outplacement/economics | User-facing page route /for-outplacement/economics.
 - Feature For outplacement / Executive summary | /for-outplacement/executive-summary | User-facing page route /for-outplacement/executive-summary.
