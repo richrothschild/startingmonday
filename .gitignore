@@ -82,6 +82,7 @@ tmp-weekly-audit-*-logs.zip
 *.jpeg
 *.png
 !public/hero-previews/hero-final-locked.png
+!public/woman-at-two-doors.png
 !tests/e2e/__screenshots__/
 !tests/e2e/__screenshots__/*.png
 !public/reports/executive-search-ai-confidentiality-annual-report-2026.pdf

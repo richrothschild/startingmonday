@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-21T23:58:49.250Z
+Last generated: 2026-06-22T01:20:49.449Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (181)
+## Features (182)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -138,6 +138,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [For executives](/for-executives) - Open /for-executives to use this feature area and related workflows.
 - [For financial advisors](/for-financial-advisors) - Open /for-financial-advisors to use this feature area and related workflows.
 - [For fractional executives](/for-fractional-executives) - Open /for-fractional-executives to use this feature area and related workflows.
+- [For individuals](/for-individuals) - Open /for-individuals to use this feature area and related workflows.
 - [For media partners](/for-media-partners) - Open /for-media-partners to use this feature area and related workflows.
 - [For outplacement / Economics](/for-outplacement/economics) - Open /for-outplacement/economics to use this feature area and related workflows.
 - [For outplacement / Executive summary](/for-outplacement/executive-summary) - Open /for-outplacement/executive-summary to use this feature area and related workflows.

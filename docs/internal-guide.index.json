@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T23:58:51.710Z",
+  "generatedAt": "2026-06-22T01:20:52.002Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
+      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
     },
     {
       "id": "feature:/login",
@@ -2154,7 +2154,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:58:37.041Z"
+      "lastModifiedAt": "2026-06-22T00:21:19.562Z"
     },
     {
       "id": "feature:/for-financial-advisors",
@@ -2183,6 +2183,20 @@
       ],
       "qualityWeight": 1.25,
       "lastModifiedAt": "2026-06-14T00:24:20.946Z"
+    },
+    {
+      "id": "feature:/for-individuals",
+      "title": "Feature For individuals",
+      "body": "User-facing page route /for-individuals.",
+      "type": "feature",
+      "ref": "/for-individuals",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T01:18:04.496Z"
     },
     {
       "id": "feature:/for-media-partners",
@@ -2392,7 +2406,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:49:06.002Z"
+      "lastModifiedAt": "2026-06-22T00:21:19.570Z"
     },
     {
       "id": "feature:/for-vp",
@@ -2462,7 +2476,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:49:05.976Z"
+      "lastModifiedAt": "2026-06-22T01:18:04.493Z"
     },
     {
       "id": "feature:/learn-more",
@@ -2714,7 +2728,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-21T23:49:05.995Z"
+      "lastModifiedAt": "2026-06-22T00:21:19.584Z"
     },
     {
       "id": "feature:/partners/mauricio-kickoff",
@@ -18198,7 +18212,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
+      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18237,7 +18251,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:50:08.872Z"
+      "lastModifiedAt": "2026-06-21T23:58:51.726Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22501,7 +22515,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-21T23:58:49.255Z"
+      "lastModifiedAt": "2026-06-22T01:20:49.452Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

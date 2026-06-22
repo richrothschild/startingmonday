@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-21T23:58:51.710Z
+Last generated: 2026-06-22T01:20:52.002Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (211)
+## Features (212)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -171,6 +171,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature For executives | /for-executives | User-facing page route /for-executives.
 - Feature For financial advisors | /for-financial-advisors | User-facing page route /for-financial-advisors.
 - Feature For fractional executives | /for-fractional-executives | User-facing page route /for-fractional-executives.
+- Feature For individuals | /for-individuals | User-facing page route /for-individuals.
 - Feature For media partners | /for-media-partners | User-facing page route /for-media-partners.
 - Feature For outplacement / Economics | /for-outplacement/economics | User-facing page route /for-outplacement/economics.
 - Feature For outplacement / Executive summary | /for-outplacement/executive-summary | User-facing page route /for-outplacement/executive-summary.
