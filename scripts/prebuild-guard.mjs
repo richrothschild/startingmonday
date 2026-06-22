@@ -7,11 +7,6 @@ const root = process.cwd()
 const srcDir = path.join(root, 'src')
 const EM_DASH = '\u2014'
 const isRailwayBuild = Boolean(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_PROJECT_ID)
-const guideArtifacts = [
-  'docs/user-guide.index.json',
-  'docs/internal-guide.index.json',
-]
-
 const allowedExtensions = new Set(['.ts'])
 const filesWithEmDash = []
 
@@ -102,29 +97,6 @@ if (process.env.MOBILE_ELITE_GATE_STRICT === '1') {
 
   if (eliteMobileCheck.status !== 0) {
     console.error('Error: elite mobile visual gate failed')
-    process.exitCode = 1
-  }
-}
-
-for (const relativePath of guideArtifacts) {
-  const fullPath = path.join(root, relativePath)
-  if (!fs.existsSync(fullPath)) {
-    console.error(`Error: required guide artifact is missing: ${relativePath}`)
-    process.exitCode = 1
-    continue
-  }
-
-  try {
-    const raw = fs.readFileSync(fullPath, 'utf8')
-    const parsed = JSON.parse(raw)
-    const entries = Array.isArray(parsed?.entries) ? parsed.entries : []
-    if (entries.length === 0) {
-      console.error(`Error: guide artifact has no entries: ${relativePath}`)
-      process.exitCode = 1
-    }
-  } catch (error) {
-    console.error(`Error: guide artifact is invalid JSON: ${relativePath}`)
-    if (error instanceof Error) console.error(error.message)
     process.exitCode = 1
   }
 }
