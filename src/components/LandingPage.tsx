@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { SiteFooter } from '@/components/SiteFooter'
 import { TrackLink } from '@/components/TrackLink'
@@ -385,16 +384,6 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
 
                   </div>
 
-                  <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
-                    <Image
-                      src="/hero-previews/hero-final-locked.png"
-                      alt="Stylized executive sketch visual"
-                      fill
-                      sizes="(max-width: 640px) 92vw, 390px"
-                      priority
-                      className="object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
-                    />
-                  </div>
                 </div>
               </div>
             ) : (
