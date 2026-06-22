@@ -10,6 +10,7 @@ import { logBriefingAction, saveBriefingDailyNote } from './actions'
 import { LogoutButton } from '../logout-button'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { BriefingPulseSupport } from './BriefingPulseSupport'
+import { BriefingHeader } from './BriefingHeader'
 
 export const metadata = {
   title: 'Daily Briefing - Starting Monday',
@@ -449,18 +450,18 @@ async function BriefingBody({
   const stalledLanes = context.stalledLanes ?? []
 
   return (
-    <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
+    <div className="bg-white border border-slate-200 border-t-0 rounded-b-lg px-5 sm:px-8 py-8 sm:py-10">
       {!context.hasContent ? (
-        <div className="text-center py-8">
-          <p className="text-[15px] font-semibold text-slate-900 mb-2">Nothing to brief today.</p>
-          <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-            No new job matches, overdue follow-ups, or company signals in the last 7 days.
+        <div className="text-center py-12">
+          <p className="text-[16px] sm:text-[18px] font-semibold text-slate-900 mb-3">Nothing urgent is pulling at the search today.</p>
+          <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed mb-8 max-w-md mx-auto">
+            No new matches, relationship follow-through, or company signals need attention right now.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/dashboard/companies/new" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded hover:bg-slate-700 transition-colors">
+            <Link href="/dashboard/companies/new" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-slate-800 transition-colors">
               Add a company
             </Link>
-            <Link href="/dashboard" className="inline-block border border-slate-200 text-slate-700 text-[13px] font-semibold px-5 py-2.5 rounded hover:border-slate-400 transition-colors">
+            <Link href="/dashboard" className="inline-block border border-slate-300 text-slate-700 text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-colors">
               Back to dashboard
             </Link>
           </div>
@@ -468,18 +469,18 @@ async function BriefingBody({
       ) : (
         <>
           {usedFallback && (
-            <div className="mb-6 rounded border border-amber-200 bg-amber-50 p-4">
-              <p className="text-[12px] font-semibold text-amber-900 mb-1">Briefing generated in safe mode</p>
+            <div className="mb-8 rounded-lg border border-amber-200/60 bg-gradient-to-br from-amber-50/80 to-amber-50 p-5">
+              <p className="text-[12px] font-semibold text-amber-900 mb-1.5">Briefing generated in safe mode</p>
               <p className="text-[13px] text-amber-800 leading-relaxed">
                 We had a temporary formatting issue while building your AI summary. The actions below are still valid from your live data.
               </p>
             </div>
           )}
 
-          <section id="briefing-accountability" className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">What matters now</h2>
-            <p className="text-[14px] text-slate-700 leading-relaxed">
-              Stay early on timing, move one relationship forward, and keep the week easy to manage. The goal is not more activity. The goal is better positioning.
+          <section id="briefing-advisory" className="mb-8 rounded-lg border border-slate-200/60 bg-slate-50/40 p-5 sm:p-6">
+            <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 mb-3">Strategic framing</h2>
+            <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">
+              Stay ahead of timing. Deepen one relationship. Keep momentum steady. Success is measured by position, not activity. Focus beats urgency.
             </p>
           </section>
 
@@ -487,124 +488,156 @@ async function BriefingBody({
             <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
           )}
 
-          {stalledLanes.length > 0 && (
-            <section id="recovery-flags" className="mb-8">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Keep Momentum
-              </h2>
-              <div className="flex flex-col gap-3">
-                {stalledLanes.map((lane, index) => (
-                  <div
-                    key={`${lane.lane}-${index}`}
-                    className={`p-4 border rounded-r border-l-[3px] ${lane.state === 'stalled' ? 'bg-amber-50/70 border-amber-200 border-l-amber-500' : 'bg-amber-50 border-amber-200 border-l-amber-400'}`}
-                  >
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <span className="font-bold text-[15px] text-slate-900 capitalize">{lane.lane}</span>
-                      <span className={`text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${lane.state === 'stalled' ? 'bg-amber-100 text-amber-900' : 'bg-amber-100 text-amber-800'}`}>
-                        {lane.state}
-                      </span>
-                    </div>
-                    <p className="text-[14px] text-slate-700 leading-relaxed">{lane.reason}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
+          {/* TENET 1: FIND ROLES FIRST */}
           {signalAlerts.length > 0 && (
-            <section id="overnight-changes" className="mb-8">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Signals To Review
-              </h2>
-              <div className="flex flex-col gap-3">
-                {signalAlerts.map((s, i) => (
-                  <div key={i} className="p-4 bg-amber-50 border border-amber-200 border-l-[3px] border-l-amber-500 rounded-r">
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <span className="font-bold text-[15px] text-slate-900">{s.company}</span>
-                      <span className="text-[10px] font-bold tracking-[0.08em] uppercase bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
-                        {SIGNAL_LABELS[s.signalType] ?? s.signalType}
-                      </span>
+            <section id="tenet-find-roles" className="mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1.5 h-7 bg-orange-500 rounded-full" />
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                  Find Roles First
+                </h2>
+              </div>
+
+              <section id="overnight-changes" className="mb-6">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                  Position watch this week
+                </h3>
+                <div className="flex flex-col gap-3">
+                  {signalAlerts.map((s, i) => (
+                    <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-amber-50/80 to-amber-50 border border-amber-200/60 border-l-[4px] border-l-orange-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <span className="font-bold text-[16px] sm:text-[17px] text-slate-900">{s.company}</span>
+                        <span className="text-[10px] font-semibold tracking-[0.08em] uppercase bg-orange-100/80 text-orange-800 px-2.5 py-0.5 rounded-md">
+                          {SIGNAL_LABELS[s.signalType] ?? s.signalType}
+                        </span>
+                      </div>
+                      <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed mb-2">{s.summary}</p>
+                      {s.angle && (
+                        <p className="text-[14px] text-slate-600 italic leading-relaxed">{s.angle}</p>
+                      )}
                     </div>
-                    <p className="text-[14px] text-slate-700 leading-relaxed mb-1.5">{s.summary}</p>
-                    {s.angle && (
-                      <p className="text-[13px] text-slate-500 italic leading-relaxed">{s.angle}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4">
-                <form action={logBriefingAction}>
-                  <input type="hidden" name="section" value="overnight_changes" />
-                  <input type="hidden" name="target" value="/dashboard/signals" />
-                  <button
-                    type="submit"
-                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
-                  >
-                    Open signals and choose a follow-up &rarr;
-                  </button>
-                </form>
-              </div>
+                  ))}
+                </div>
+                <div className="mt-5">
+                  <form action={logBriefingAction}>
+                    <input type="hidden" name="section" value="overnight_changes" />
+                    <input type="hidden" name="target" value="/dashboard/signals" />
+                    <button
+                      type="submit"
+                      className="inline-block text-[12px] font-semibold text-orange-700 border border-orange-300 rounded-lg px-5 py-2.5 hover:bg-orange-50 hover:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                    >
+                      Stay ahead on timing &rarr;
+                    </button>
+                  </form>
+                </div>
+              </section>
             </section>
           )}
 
+          {/* TENET 2: TALK TO THE RIGHT PEOPLE */}
           {matchInsights.length > 0 && (
-            <section id="people-to-reach" className="mb-8">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                People To Reach
-              </h2>
-              <div className="flex flex-col gap-3">
-                {matchInsights.map((m, i) => (
-                  <div key={i} className="p-4 bg-white border border-slate-200 border-l-[3px] border-l-slate-900 rounded-r">
-                    <div className="font-bold text-[15px] text-slate-900 mb-1">{m.company}</div>
-                    <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-400 mb-2">
-                      {(m.roles ?? []).join(' · ')}
+            <section id="tenet-talk-to-people" className="mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1.5 h-7 bg-emerald-500 rounded-full" />
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                  Talk to the Right People
+                </h2>
+              </div>
+
+              <section id="people-to-reach" className="mb-6">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                  Aligned contacts ready
+                </h3>
+                <div className="flex flex-col gap-3">
+                  {matchInsights.map((m, i) => (
+                    <div key={i} className="p-4 sm:p-5 bg-white border border-slate-200/80 border-l-[4px] border-l-slate-900 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                      <div className="font-bold text-[16px] sm:text-[17px] text-slate-900 mb-2">{m.company}</div>
+                      <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                        {(m.roles ?? []).join(' · ')}
+                      </div>
+                      <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">{m.insight}</p>
                     </div>
-                    <p className="text-[14px] text-slate-700 leading-relaxed">{m.insight}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4">
-                <form action={logBriefingAction}>
-                  <input type="hidden" name="section" value="people_to_reach" />
-                  <input type="hidden" name="target" value="/dashboard" />
-                  <button
-                    type="submit"
-                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
-                  >
-                    Open companies and run next outreach step &rarr;
-                  </button>
-                </form>
-              </div>
+                  ))}
+                </div>
+                <div className="mt-5">
+                  <form action={logBriefingAction}>
+                    <input type="hidden" name="section" value="people_to_reach" />
+                    <input type="hidden" name="target" value="/dashboard" />
+                    <button
+                      type="submit"
+                      className="inline-block text-[12px] font-semibold text-emerald-700 border border-emerald-300 rounded-lg px-5 py-2.5 hover:bg-emerald-50 hover:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                    >
+                      Move one relationship forward &rarr;
+                    </button>
+                  </form>
+                </div>
+              </section>
             </section>
           )}
 
-          {followUpItems.length > 0 && (
-            <section id="today-actions" className="mb-8">
-              <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Best Next Moves
-              </h2>
-              <div className="flex flex-col gap-2">
-                {followUpItems.map((f, i) => (
-                  <div key={i} className="p-4 bg-slate-50 border border-slate-200 border-l-[3px] border-l-slate-400 rounded-r">
-                    <div className="font-semibold text-[14px] text-slate-900 mb-1">
-                      {f.person} &mdash; {f.action}
-                    </div>
-                    <p className="text-[13px] text-slate-500 leading-relaxed">{f.suggestion}</p>
+          {/* TENET 3: FOLLOW A CLEAR PLAN */}
+          {(followUpItems.length > 0 || stalledLanes.length > 0) && (
+            <section id="tenet-clear-plan" className="mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1.5 h-7 bg-blue-500 rounded-full" />
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                  Follow a Clear Plan
+                </h2>
+              </div>
+
+              {stalledLanes.length > 0 && (
+                <section id="recovery-flags" className="mb-6">
+                  <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                    Relationship velocity watch
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    {stalledLanes.map((lane, index) => (
+                      <div
+                        key={`${lane.lane}-${index}`}
+                        className={`p-4 sm:p-5 border rounded-lg border-l-[4px] shadow-sm transition-shadow hover:shadow-md ${lane.state === 'stalled' ? 'bg-gradient-to-br from-amber-50/80 to-amber-50 border-amber-200/60 border-l-amber-600' : 'bg-gradient-to-br from-amber-50/40 to-amber-50 border-amber-200/40 border-l-amber-400'}`}
+                      >
+                        <div className="flex items-center gap-2 flex-wrap mb-2">
+                          <span className="font-bold text-[16px] sm:text-[17px] text-slate-900 capitalize">{lane.lane}</span>
+                          <span className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-2.5 py-0.5 rounded-md ${lane.state === 'stalled' ? 'bg-amber-200/60 text-amber-900' : 'bg-amber-100/60 text-amber-800'}`}>
+                            {lane.state}
+                          </span>
+                        </div>
+                        <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">{lane.reason}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="mt-4">
-                <form action={logBriefingAction}>
-                  <input type="hidden" name="section" value="today_do_this" />
-                  <input type="hidden" name="target" value="/dashboard/calendar" />
-                  <button
-                    type="submit"
-                    className="inline-block text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors cursor-pointer bg-white"
-                  >
-                    Open calendar and complete today&apos;s actions &rarr;
-                  </button>
-                </form>
-              </div>
+                </section>
+              )}
+
+              {followUpItems.length > 0 && (
+                <section id="today-actions" className="mb-0">
+                  <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                    Next moves this week
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    {followUpItems.map((f, i) => (
+                      <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-slate-50/80 to-slate-50 border border-slate-200/60 border-l-[4px] border-l-blue-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div className="font-semibold text-[15px] sm:text-[16px] text-slate-900 mb-1">
+                          {f.person} <span className="font-normal text-slate-500">·</span> {f.action}
+                        </div>
+                        <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">{f.suggestion}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5">
+                    <form action={logBriefingAction}>
+                      <input type="hidden" name="section" value="today_do_this" />
+                      <input type="hidden" name="target" value="/dashboard/calendar" />
+                      <button
+                        type="submit"
+                        className="inline-block text-[12px] font-semibold text-blue-700 border border-blue-300 rounded-lg px-5 py-2.5 hover:bg-blue-50 hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                      >
+                        Map your week &rarr;
+                      </button>
+                    </form>
+                  </div>
+                </section>
+              )}
             </section>
           )}
 
@@ -708,56 +741,52 @@ export default async function BriefingPage({
           </section>
         )}
 
-        <details className="mb-4 rounded border border-slate-200 bg-slate-50 px-4 py-3">
+        <details className="mb-6 rounded-lg border border-slate-200 bg-slate-50/50 px-4 py-3">
           <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 text-[12px] font-semibold text-slate-700">
-            Page map
-            <span className="text-slate-500">Show sections</span>
+            <span>Show sections</span>
+            <span className="inline-flex h-5 w-5 items-center justify-center text-[11px] text-slate-500 transition group-open:rotate-180">v</span>
           </summary>
-          <div className="mt-2 flex flex-wrap gap-2 text-[12px]">
-            <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Weekly pulse</a>
-            <a href="#briefing-metrics" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Metrics</a>
-            <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">What matters now</a>
-            <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Best next moves</a>
+          <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
+            <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">This week&apos;s position</a>
+            <a href="#tenet-find-roles" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Find roles first</a>
+            <a href="#tenet-talk-to-people" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Talk to people</a>
+            <a href="#tenet-clear-plan" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Clear plan</a>
           </div>
         </details>
 
-        {/* Header - streams immediately after DB queries */}
-        <section id="briefing-header" className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
-          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 mb-4">
-            Starting Monday
-          </div>
-          <h1 className="text-[24px] font-bold text-white leading-tight mb-2">
-            Good morning, {firstName}.
-          </h1>
-          <p className="text-[13px] text-slate-500">{todayLabel}</p>
-          <p className="text-[13px] text-slate-300 mt-3 leading-relaxed">
-            {pulse.headline}
-          </p>
-        </section>
+        {/* Header - Phase 1a redesign with primary stat card */}
+        <BriefingHeader
+          firstName={firstName}
+          todayLabel={todayLabel}
+          totalCompanies={context.totalCompanies}
+          signalCount={context.signals.length}
+          matchCount={context.newMatches.length}
+          movesReadyCount={context.followUps.length}
+        />
 
-        <section id="weekly-pulse" className="border-x border-b border-slate-200 bg-white px-5 py-5 sm:px-8 sm:py-6">
-          <div className="rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.12),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] p-5 shadow-[0_18px_42px_rgba(15,23,42,0.14)]">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+        <section id="weekly-pulse" className="border-x border-b border-slate-200 bg-white px-5 py-6 sm:px-8 sm:py-8">
+          <div className="rounded-2xl border border-slate-200/80 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.08),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] p-6 sm:p-8 shadow-[0_20px_48px_rgba(15,23,42,0.16)]">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-200">This week&apos;s position</p>
-                <div className="mt-2 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/90">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200/90">This week&apos;s position</p>
+                <div className="mt-3 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] font-semibold text-white/95">
                   {pulse.label}
                 </div>
               </div>
-              <div className="w-full max-w-[180px]">
-                <div className="h-1.5 rounded-full bg-white/10">
+              <div className="w-full max-w-[200px]">
+                <div className="h-2 rounded-full bg-white/10">
                   <div
-                    className={`h-1.5 rounded-full ${pulse.meterWidthClass} ${pulse.state === 'watch' ? 'bg-amber-300' : pulse.state === 'steady' ? 'bg-slate-300' : 'bg-orange-300'}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${pulse.meterWidthClass} ${pulse.state === 'watch' ? 'bg-amber-300' : pulse.state === 'steady' ? 'bg-slate-300' : 'bg-orange-300'}`}
                   />
                 </div>
               </div>
             </div>
 
-            <p className="mt-4 text-[18px] font-semibold leading-tight text-white sm:text-[20px]">
+            <p className="text-[18px] sm:text-[20px] font-semibold leading-tight text-white mb-6">
               {pulse.support}
             </p>
 
-            <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <form action={logBriefingAction}>
                 <input type="hidden" name="section" value="weekly_pulse_primary" />
                 <input type="hidden" name="action" value="primary_move_clicked" />
@@ -765,7 +794,7 @@ export default async function BriefingPage({
                 <input type="hidden" name="pulse_state" value={pulse.state} />
                 <button
                   type="submit"
-                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-md bg-orange-400 px-4 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300 sm:w-auto"
+                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-orange-400 px-5 py-3 text-[12px] font-semibold text-slate-950 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2 active:scale-95 transition-all hover:bg-orange-300 hover:shadow-lg duration-200 sm:w-auto"
                 >
                   {pulse.ctaLabel}
                 </button>
@@ -783,7 +812,7 @@ export default async function BriefingPage({
                 <input type="hidden" name="pulse_state" value={pulse.state} />
                 <button
                   type="submit"
-                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-md border border-white/12 px-4 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:text-white sm:w-auto"
+                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border border-white/15 px-5 py-3 text-[12px] font-semibold text-slate-100 hover:border-white/30 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-95 transition-all duration-200 sm:w-auto"
                 >
                   Save as today&apos;s note
                 </button>
@@ -792,22 +821,7 @@ export default async function BriefingPage({
           </div>
         </section>
 
-        {/* Stats bar - streams immediately after DB queries */}
-        <section id="briefing-metrics" className="bg-slate-50 border-x border-slate-200 grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-200 border-b border-slate-200">
-          {[
-            { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
-            { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
-            { value: context.newMatches.length, label: 'Matches', amber: false, red: false },
-            { value: context.followUps.length, label: 'Priority Moves', amber: false, red: context.followUps.length > 0 },
-          ].map(({ value, label, amber, red }) => (
-            <div key={label} className="py-4 px-3 text-center">
-              <div className={`text-[22px] font-bold leading-none ${red ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
-                {value}
-              </div>
-              <div className="text-[9px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{label}</div>
-            </div>
-          ))}
-        </section>
+
 
         <section id="briefing-mode" className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
           <h2 className="text-[11px] font-semibold text-slate-500">View:</h2>
