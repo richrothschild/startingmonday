@@ -120,12 +120,8 @@ jobs:
           STRIPE_PRICE_PARTNER_ACTIVE: ${{ secrets.STRIPE_PRICE_PARTNER_ACTIVE }}
         run: npm run billing:readiness:strict
 
-      - name: Guide freshness check
-        run: npm run guide:user:check
-
-      - name: Internal guide freshness check
-        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
-        run: npm run guide:internal:check
+      - name: Generate guide artifacts
+        run: npm run guide:user:sync && npm run guide:internal:sync
 
       - name: Guide retrieval evaluation (strict)
         run: npm run guide:retrieval:eval:strict

@@ -62,8 +62,17 @@ function main() {
   run('npm', ['run', 'guide:user:sync'])
   run('npm', ['run', 'guide:internal:sync'])
 
-  console.log('guide freshness pre-commit... staging guide artifacts')
-  run('git', ['add', ...GENERATED_GUIDE_FILES])
+  const tracked = GENERATED_GUIDE_FILES.filter((f) => {
+    const r = spawnSync('git', ['check-ignore', '-q', f], { stdio: 'ignore' })
+    return r.status !== 0
+  })
+
+  if (tracked.length > 0) {
+    console.log('guide freshness pre-commit... staging guide artifacts')
+    run('git', ['add', ...tracked])
+  } else {
+    console.log('guide freshness pre-commit... guide artifacts are gitignored, skipping stage')
+  }
 
   console.log('guide freshness pre-commit... ok')
 }
