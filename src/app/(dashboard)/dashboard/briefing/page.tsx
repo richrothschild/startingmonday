@@ -6,9 +6,10 @@ import { classifyGraphStalls } from '@/lib/action-scores'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
-import { logBriefingAction } from './actions'
+import { logBriefingAction, saveBriefingDailyNote } from './actions'
 import { LogoutButton } from '../logout-button'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
+import { BriefingPulseSupport } from './BriefingPulseSupport'
 
 export const metadata = {
   title: 'Daily Briefing - Starting Monday',
@@ -46,6 +47,18 @@ type GeneratedBriefing = {
   usedFallback: boolean
 }
 
+type WeeklyPulse = {
+  state: 'building' | 'steady' | 'watch'
+  label: string
+  headline: string
+  support: string
+  whyNow: string
+  ctaTarget: '/dashboard' | '/dashboard/signals' | '/dashboard/calendar'
+  ctaLabel: string
+  meterWidthClass: string
+  mailtoHref: string
+}
+
 const BRIEFING_SIGNAL_LIMIT = 5
 const BRIEFING_MATCH_LIMIT = 3
 const BRIEFING_FOLLOW_UP_LIMIT = 3
@@ -56,6 +69,109 @@ function trimBriefingText(value: string | null | undefined, maxLength = BRIEFING
   if (!text) return ''
   if (text.length <= maxLength) return text
   return `${text.slice(0, maxLength - 1).trimEnd()}...`
+}
+
+function buildWeeklyPulse(
+  context: Awaited<ReturnType<typeof assembleBriefing>>,
+  firstName: string,
+  todayLabel: string,
+): WeeklyPulse {
+  const hasSignals = context.signals.length > 0
+  const hasMatches = context.newMatches.length > 0
+  const hasFollowUps = context.followUps.length > 0
+  const stalledLane = context.stalledLanes.find((lane) => lane.state === 'stalled')
+  const watchLane = context.stalledLanes.find((lane) => lane.state === 'watch')
+
+  let state: WeeklyPulse['state'] = 'steady'
+  if (stalledLane || (!hasSignals && !hasMatches && context.followUps.length >= 3)) {
+    state = 'watch'
+  } else if ((hasSignals && (hasMatches || hasFollowUps)) || context.signals.length >= 2 || context.newMatches.length > 0) {
+    state = 'building'
+  }
+
+  let headline = 'Your search is holding a good line this week.'
+  let support = 'One deliberate move today keeps the week composed and moving in the right direction.'
+  let whyNow = 'A short, well-timed follow-through usually compounds better than a wider push. The goal today is position, not volume.'
+  let ctaTarget: WeeklyPulse['ctaTarget'] = '/dashboard'
+  let ctaLabel = 'Open the next move'
+
+  if (state === 'building') {
+    if (hasFollowUps) {
+      const nextPerson = context.followUps[0]?.contact?.name ?? 'your next contact'
+      headline = `${firstName}, your search is in a strong position this week.`
+      support = `A timely follow-through with ${nextPerson} keeps the relationship side of the search moving without adding noise.`
+      whyNow = 'You already have context and timing on your side. Acting while the signal is fresh improves recall and makes the outreach feel easier to place.'
+      ctaTarget = '/dashboard/calendar'
+      ctaLabel = 'Open the next move'
+    } else if (hasSignals) {
+      const company = context.signals[0]?.companyName ?? 'a target company'
+      headline = `${company} moved. Your timing improved.`
+      support = 'Review the opening now, then decide whether it belongs in this week\'s outreach mix.'
+      whyNow = 'Fresh signals matter because they sharpen timing. You do not need a large push. You need one informed move while the window is still clear.'
+      ctaTarget = '/dashboard/signals'
+      ctaLabel = 'Review the signal'
+    } else if (hasMatches) {
+      const company = context.newMatches[0]?.companyName ?? 'a target company'
+      headline = `${company} is worth a closer look today.`
+      support = 'You have at least one role that looks directionally right. A quick review now protects momentum later in the week.'
+      whyNow = 'A match is most useful when it turns into a decision quickly: pursue, hold, or ignore. Fast clarity lowers cognitive drag.'
+      ctaTarget = '/dashboard'
+      ctaLabel = 'Open the company view'
+    }
+  }
+
+  if (state === 'steady') {
+    if (hasFollowUps) {
+      const nextPerson = context.followUps[0]?.contact?.name ?? 'one relationship'
+      headline = 'Your search is steady. Keep it easy to keep moving.'
+      support = `One clean follow-through with ${nextPerson} is enough to keep the week pointed forward.`
+      whyNow = 'When the search is steady, the best move is usually the simplest one already in front of you. Do the known next step and keep the week light.'
+      ctaTarget = '/dashboard/calendar'
+      ctaLabel = 'Keep momentum moving'
+    } else if (hasSignals || hasMatches) {
+      headline = 'You have enough movement to stay well-positioned.'
+      support = 'Review one new development now so the rest of the week stays easier to manage.'
+      whyNow = 'A small review step now prevents the search from feeling heavier later. The product should help you stay early and calm, not busy.'
+      ctaTarget = hasSignals ? '/dashboard/signals' : '/dashboard'
+      ctaLabel = hasSignals ? 'Review the signal' : 'Open the company view'
+    }
+  }
+
+  if (state === 'watch') {
+    headline = 'This week needs one corrective move, not a bigger push.'
+    support = stalledLane?.reason ?? watchLane?.reason ?? 'A small, well-chosen action today is enough to settle the search back into rhythm.'
+    whyNow = 'Watch states should narrow the field, not create pressure. One corrective move is usually more effective than trying to catch up everywhere at once.'
+
+    if (hasFollowUps) {
+      ctaTarget = '/dashboard/calendar'
+      ctaLabel = 'Handle the top follow-through'
+    } else if (hasSignals) {
+      ctaTarget = '/dashboard/signals'
+      ctaLabel = 'Review the freshest signal'
+    } else {
+      ctaTarget = '/dashboard'
+      ctaLabel = 'Open the dashboard view'
+    }
+  }
+
+  const label = state === 'building' ? 'Building' : state === 'steady' ? 'Steady' : 'Watch'
+  const meterWidthClass = state === 'building' ? 'w-4/5' : state === 'steady' ? 'w-3/5' : 'w-2/5'
+  const emailSubject = encodeURIComponent(`Starting Monday plan for ${todayLabel}`)
+  const emailBody = encodeURIComponent(
+    `${headline}\n\n${support}\n\nWhy this matters now: ${whyNow}\n\nNext step: ${ctaLabel}`,
+  )
+
+  return {
+    state,
+    label,
+    headline,
+    support,
+    whyNow,
+    ctaTarget,
+    ctaLabel,
+    meterWidthClass,
+    mailtoHref: `mailto:?subject=${emailSubject}&body=${emailBody}`,
+  }
 }
 
 async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, tz: string) {
@@ -361,9 +477,9 @@ async function BriefingBody({
           )}
 
           <section id="briefing-accountability" className="mb-6 rounded border border-slate-200 bg-slate-50 p-4">
-            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Accountability</h2>
+            <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">What matters now</h2>
             <p className="text-[14px] text-slate-700 leading-relaxed">
-              Overnight changes show you what shifted. Today's actions show you who to contact first and what to do before the day gets away from you.
+              Stay early on timing, move one relationship forward, and keep the week easy to manage. The goal is not more activity. The goal is better positioning.
             </p>
           </section>
 
@@ -374,17 +490,17 @@ async function BriefingBody({
           {stalledLanes.length > 0 && (
             <section id="recovery-flags" className="mb-8">
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Recovery Flags
+                Keep Momentum
               </h2>
               <div className="flex flex-col gap-3">
                 {stalledLanes.map((lane, index) => (
                   <div
                     key={`${lane.lane}-${index}`}
-                    className={`p-4 border rounded-r border-l-[3px] ${lane.state === 'stalled' ? 'bg-red-50 border-red-200 border-l-red-500' : 'bg-amber-50 border-amber-200 border-l-amber-500'}`}
+                    className={`p-4 border rounded-r border-l-[3px] ${lane.state === 'stalled' ? 'bg-amber-50/70 border-amber-200 border-l-amber-500' : 'bg-amber-50 border-amber-200 border-l-amber-400'}`}
                   >
                     <div className="flex items-center gap-2 flex-wrap mb-2">
                       <span className="font-bold text-[15px] text-slate-900 capitalize">{lane.lane}</span>
-                      <span className={`text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${lane.state === 'stalled' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'}`}>
+                      <span className={`text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${lane.state === 'stalled' ? 'bg-amber-100 text-amber-900' : 'bg-amber-100 text-amber-800'}`}>
                         {lane.state}
                       </span>
                     </div>
@@ -398,7 +514,7 @@ async function BriefingBody({
           {signalAlerts.length > 0 && (
             <section id="overnight-changes" className="mb-8">
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Overnight Changes
+                Signals To Review
               </h2>
               <div className="flex flex-col gap-3">
                 {signalAlerts.map((s, i) => (
@@ -465,7 +581,7 @@ async function BriefingBody({
           {followUpItems.length > 0 && (
             <section id="today-actions" className="mb-8">
               <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 pb-3 border-b border-slate-100 mb-4">
-                Today, Do This
+                Best Next Moves
               </h2>
               <div className="flex flex-col gap-2">
                 {followUpItems.map((f, i) => (
@@ -517,9 +633,9 @@ async function BriefingBody({
 export default async function BriefingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ mode?: string }>
+  searchParams: Promise<{ mode?: string; note_saved?: string; error?: string }>
 }) {
-  const { mode: rawMode } = await searchParams
+  const { mode: rawMode, note_saved: noteSaved, error: errorCode } = await searchParams
   const mode: 'focused' | 'full' = rawMode === 'focused' ? 'focused' : 'full'
 
   const supabase = await createClient()
@@ -548,6 +664,7 @@ export default async function BriefingPage({
   const todayLabel = new Date(context.todayStr + 'T12:00:00Z').toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
   })
+  const pulse = buildWeeklyPulse(context, firstName, todayLabel)
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -577,17 +694,32 @@ export default async function BriefingPage({
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-<section className="mb-4 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-2 text-[12px]">
-            <a href="#briefing-header" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Briefing header</a>
+        {noteSaved === '1' && (
+          <section className="mb-4 rounded border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <p className="text-[12px] font-semibold text-emerald-900">Today&apos;s note saved.</p>
+            <p className="text-[12px] text-emerald-800">Your weekly pulse plan is now captured in your daily notes.</p>
+          </section>
+        )}
+
+        {errorCode === 'note-save-failed' && (
+          <section className="mb-4 rounded border border-amber-200 bg-amber-50 px-4 py-3">
+            <p className="text-[12px] font-semibold text-amber-900">We could not save that note right now.</p>
+            <p className="text-[12px] text-amber-800">Please try again in a moment. Your plan is still visible on this page.</p>
+          </section>
+        )}
+
+        <details className="mb-4 rounded border border-slate-200 bg-slate-50 px-4 py-3">
+          <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 text-[12px] font-semibold text-slate-700">
+            Page map
+            <span className="text-slate-500">Show sections</span>
+          </summary>
+          <div className="mt-2 flex flex-wrap gap-2 text-[12px]">
+            <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Weekly pulse</a>
             <a href="#briefing-metrics" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Metrics</a>
-            <a href="#briefing-mode" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">View mode</a>
-            <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Accountability</a>
-            <a href="#recovery-flags" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Recovery flags</a>
-            <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Today actions</a>
+            <a href="#briefing-accountability" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">What matters now</a>
+            <a href="#today-actions" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Best next moves</a>
           </div>
-        </section>
+        </details>
 
         {/* Header - streams immediately after DB queries */}
         <section id="briefing-header" className="bg-slate-900 rounded-t px-5 sm:px-8 py-7">
@@ -599,8 +731,65 @@ export default async function BriefingPage({
           </h1>
           <p className="text-[13px] text-slate-500">{todayLabel}</p>
           <p className="text-[13px] text-slate-300 mt-3 leading-relaxed">
-            Here is what changed overnight and what to act on first today.
+            {pulse.headline}
           </p>
+        </section>
+
+        <section id="weekly-pulse" className="border-x border-b border-slate-200 bg-white px-5 py-5 sm:px-8 sm:py-6">
+          <div className="rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.12),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] p-5 shadow-[0_18px_42px_rgba(15,23,42,0.14)]">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange-200">This week&apos;s position</p>
+                <div className="mt-2 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/90">
+                  {pulse.label}
+                </div>
+              </div>
+              <div className="w-full max-w-[180px]">
+                <div className="h-1.5 rounded-full bg-white/10">
+                  <div
+                    className={`h-1.5 rounded-full ${pulse.meterWidthClass} ${pulse.state === 'watch' ? 'bg-amber-300' : pulse.state === 'steady' ? 'bg-slate-300' : 'bg-orange-300'}`}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-4 text-[18px] font-semibold leading-tight text-white sm:text-[20px]">
+              {pulse.support}
+            </p>
+
+            <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <form action={logBriefingAction}>
+                <input type="hidden" name="section" value="weekly_pulse_primary" />
+                <input type="hidden" name="action" value="primary_move_clicked" />
+                <input type="hidden" name="target" value={pulse.ctaTarget} />
+                <input type="hidden" name="pulse_state" value={pulse.state} />
+                <button
+                  type="submit"
+                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-md bg-orange-400 px-4 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-300 sm:w-auto"
+                >
+                  {pulse.ctaLabel}
+                </button>
+              </form>
+
+              <BriefingPulseSupport state={pulse.state} whyNow={pulse.whyNow} mailtoHref={pulse.mailtoHref} />
+
+              <form action={saveBriefingDailyNote} className="sm:ml-auto">
+                <input type="hidden" name="title" value={`Starting Monday plan for ${todayLabel}`} />
+                <input
+                  type="hidden"
+                  name="body"
+                  value={`${pulse.headline}\n\n${pulse.support}\n\nWhy this matters now: ${pulse.whyNow}\n\nNext step: ${pulse.ctaLabel}`}
+                />
+                <input type="hidden" name="pulse_state" value={pulse.state} />
+                <button
+                  type="submit"
+                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-md border border-white/12 px-4 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:text-white sm:w-auto"
+                >
+                  Save as today&apos;s note
+                </button>
+              </form>
+            </div>
+          </div>
         </section>
 
         {/* Stats bar - streams immediately after DB queries */}
@@ -609,7 +798,7 @@ export default async function BriefingPage({
             { value: context.totalCompanies, label: 'Companies', amber: false, red: false },
             { value: context.signals.length, label: 'Signals', amber: context.signals.length > 0, red: false },
             { value: context.newMatches.length, label: 'Matches', amber: false, red: false },
-            { value: context.followUps.length, label: 'Due Today', amber: false, red: context.followUps.length > 0 },
+            { value: context.followUps.length, label: 'Priority Moves', amber: false, red: context.followUps.length > 0 },
           ].map(({ value, label, amber, red }) => (
             <div key={label} className="py-4 px-3 text-center">
               <div className={`text-[22px] font-bold leading-none ${red ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>

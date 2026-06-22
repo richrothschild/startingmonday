@@ -647,6 +647,50 @@ export type Database = {
         }
         Relationships: []
       }
+      briefing_daily_notes: {
+        Row: {
+          id: string
+          user_id: string
+          note_date: string
+          source: string
+          title: string | null
+          body: string
+          metadata: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          note_date: string
+          source?: string
+          title?: string | null
+          body: string
+          metadata?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          note_date?: string
+          source?: string
+          title?: string | null
+          body?: string
+          metadata?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'briefing_daily_notes_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       drip_sends: {
         Row: {
           id: string
