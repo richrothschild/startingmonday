@@ -1,8 +1,6 @@
 name: Guide Sync
 
 on:
-  schedule:
-    - cron: '15 8 * * 1'
   workflow_dispatch:
 
 permissions:
