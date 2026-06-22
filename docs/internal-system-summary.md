@@ -9,7 +9,7 @@ Generated at: 2026-06-22T03:30:20.445Z
 - Operational scripts: 145
 - Infra workflows: 40
 - Migrations/data artifacts: 152
-- Internal docs: 654
+- Internal docs: 653
 
 ## How it integrates
 - App routes render product/admin surfaces and call route handlers for actions and data flows.
