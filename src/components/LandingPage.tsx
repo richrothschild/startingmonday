@@ -375,17 +375,6 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                           className="ml-1 align-super text-[0.5em] font-semibold text-orange-100/90 hover:text-white"
                         >
                           <sup>1</sup>
-
-                                          <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
-                                            <Image
-                                              src="/hero-previews/hero-final-locked.png"
-                                              alt="Stylized executive sketch visual"
-                                              fill
-                                              sizes="(max-width: 640px) 92vw, 390px"
-                                              priority
-                                              className="object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
-                                            />
-                                          </div>
                         </a>
                       </span>
                     </h1>
@@ -395,7 +384,16 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                     </p>
 
                   </div>
-
+                  <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
+                    <Image
+                      src="/hero-previews/hero-final-locked.png"
+                      alt="Stylized executive sketch visual"
+                      fill
+                      sizes="(max-width: 640px) 92vw, 390px"
+                      priority
+                      className="object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -445,46 +443,8 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
             )}
 
             {isHomePage && (
-              <section
-                className="mb-8 border-t border-white/10 pt-8"
-                aria-labelledby="homepage-path-title"
-              >
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-3 max-w-3xl text-[22px] font-semibold leading-[1.14] tracking-tight text-white sm:text-[25px]">
-                  Start with the lane that matches your moment.
-                </h2>
-                <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90 sm:text-[15px]">
-                  Pick your lane first. Then see the exact signal and briefing experience.
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <TrackLink
-                    href="/individuals"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'homepage_individuals_path',
-                      source_page: '/',
-                    }}
-                    className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-[0_10px_24px_rgba(234,146,71,0.24)] transition-colors hover:bg-orange-300"
-                  >
-                    Individuals
-                  </TrackLink>
-                  <TrackLink
-                    href="/partner-firm"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'homepage_partner_firm_path',
-                      source_page: '/',
-                    }}
-                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
-                  >
-                    Partner / Firm
-                  </TrackLink>
-                </div>
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <>
+                <div className="mb-8 flex flex-col gap-3 sm:flex-row">
                   <TrackLink
                     href="/learn-more"
                     event={EVENT_NAMES.channelEntryClicked}
@@ -499,7 +459,47 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                     Learn more
                   </TrackLink>
                 </div>
-              </section>
+                <section
+                  className="mb-8 border-t border-white/10 pt-8"
+                  aria-labelledby="homepage-path-title"
+                >
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Choose your path</p>
+                  <h2 id="homepage-path-title" className="mb-3 max-w-3xl text-[22px] font-semibold leading-[1.14] tracking-tight text-white sm:text-[25px]">
+                    Start with the lane that matches your moment.
+                  </h2>
+                  <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90 sm:text-[15px]">
+                    Pick your lane first. Then see the exact signal and briefing experience.
+                  </p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <TrackLink
+                      href="/individuals"
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'homepage_individuals_path',
+                        source_page: '/',
+                      }}
+                      className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-[0_10px_24px_rgba(234,146,71,0.24)] transition-colors hover:bg-orange-300"
+                    >
+                      Individuals
+                    </TrackLink>
+                    <TrackLink
+                      href="/partner-firm"
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'homepage_partner_firm_path',
+                        source_page: '/',
+                      }}
+                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
+                    >
+                      Partner / Firm
+                    </TrackLink>
+                  </div>
+                </section>
+              </>
             )}
 
             {proofHighlights && proofHighlights.length > 0 && !isHomePage && !isPrimaryExecutivesPage && (
