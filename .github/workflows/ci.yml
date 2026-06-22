@@ -645,6 +645,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate guide artifacts
+        run: npm run guide:user:sync && npm run guide:internal:sync
+
       - name: Build app
         run: npm run build
 
