@@ -6,8 +6,8 @@
  *
  * Required env vars (set via Doppler or GitHub secrets):
  *   STRIPE_SECRET_KEY
- *   STRIPE_PRICE_PASSIVE          (monthly Monitor price ID)
- *   STRIPE_PRICE_PASSIVE_ANNUAL   (annual Monitor price ID)
+ *   STRIPE_PRICE_MONITOR          (monthly Monitor price ID)
+ *   STRIPE_PRICE_MONITOR_ANNUAL   (annual Monitor price ID)
  *   STRIPE_PRICE_ACTIVE           (monthly Active price ID)
  *   STRIPE_PRICE_ACTIVE_ANNUAL    (annual Active price ID)
  *   STRIPE_PRICE_EXECUTIVE        (monthly Executive price ID)
@@ -21,8 +21,8 @@ import * as path from 'path'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-05-27.dahlia' })
 
 const PRICE_CONFIGS = [
-  { env: 'STRIPE_PRICE_PASSIVE',          plan: 'passive',    interval: 'monthly' },
-  { env: 'STRIPE_PRICE_PASSIVE_ANNUAL',   plan: 'passive',    interval: 'annual'  },
+  { env: 'STRIPE_PRICE_MONITOR',          plan: 'passive',    interval: 'monthly' },
+  { env: 'STRIPE_PRICE_MONITOR_ANNUAL',   plan: 'passive',    interval: 'annual'  },
   { env: 'STRIPE_PRICE_ACTIVE',           plan: 'active',     interval: 'monthly' },
   { env: 'STRIPE_PRICE_ACTIVE_ANNUAL',    plan: 'active',     interval: 'annual'  },
   { env: 'STRIPE_PRICE_EXECUTIVE',        plan: 'executive',  interval: 'monthly' },

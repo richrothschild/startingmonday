@@ -38,6 +38,17 @@
       "startedAt": "2026-06-18"
     },
     {
+      "id": "stripe-price-monitor-rename-2026-06",
+      "description": "Rename STRIPE_PRICE_PASSIVE to STRIPE_PRICE_MONITOR in ci.yml billing readiness gate (SMK-310)",
+      "paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert PR #146 to restore STRIPE_PRICE_PASSIVE env var name in ci.yml",
+      "killSwitch": "Set STRIPE_PRICE_PASSIVE GitHub Actions secret to the Monitor price ID as a bridge",
+      "startedAt": "2026-06-22"
+    },
+    {
       "id": "ci-guide-artifact-untracking-2026-06",
       "description": "Untrack CI-generated files and guide artifacts from git; generate guide artifacts before Lighthouse build in CI (SMK-318, SMK-319)",
       "paths": [
