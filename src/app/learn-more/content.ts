@@ -77,7 +77,7 @@ export const BLUF_POINTS: LearnMoreCard[] = [
   },
   {
     title: 'Why it matters',
-    body: 'Senior searches are won in the period when mandate scope is still moving and relationship paths are still warm. Entering during that window changes the conversation quality and the shortlist math.',
+    body: 'Senior searches are won in the period when the role is still taking shape and relationship paths are still warm. Entering during that window changes the conversation quality and the shortlist outcome.',
     citations: [3, 5, 7],
   },
   {
@@ -97,13 +97,13 @@ export const COMPARISON_ROWS = [
   {
     area: 'Narrative',
     typical: 'Polishes a resume and profile for broad applicant visibility.',
-    startingMonday: 'Builds a mandate-specific narrative for board, PE, search-firm, and executive audiences.',
+    startingMonday: 'Builds a role-specific story for board, PE, search-firm, and executive audiences.',
     citations: [4, 5],
   },
   {
     area: 'Targeted relationships',
     typical: 'Treats networking like generalized volume.',
-    startingMonday: 'Prioritizes the small set of people who can shape access, context, or timing for the mandate.',
+    startingMonday: 'Focuses on the small group of people who can shape access, context, or timing for a given role.',
     citations: [5, 8],
   },
   {
@@ -115,7 +115,7 @@ export const COMPARISON_ROWS = [
   {
     area: 'Preparation',
     typical: 'Prepares late and generically.',
-    startingMonday: 'Builds role-aware briefs, likely objections, and peer-level questions before each high-stakes conversation.',
+    startingMonday: 'Builds role-specific briefs, likely objections, and peer-level questions before each high-stakes conversation.',
     citations: [1, 4, 6],
   },
 ]
@@ -128,7 +128,7 @@ export const TARGETED_RELATIONSHIP_CARDS: LearnMoreCard[] = [
   },
   {
     title: 'Board, PE, and operating-partner paths',
-    body: 'We help the user target the people who can validate mandate fit, not just the people who can forward a resume.',
+    body: 'We help the user reach the people who can assess role fit, not just the people who can pass along a resume.',
     citations: [4, 5],
   },
   {
@@ -146,7 +146,7 @@ export const SYSTEM_ARTICLE_SECTIONS: LearnMoreCard[] = [
   },
   {
     title: 'Proprietary pattern-recognition engine',
-    body: 'The engine does not treat each signal as a disconnected alert. It looks for combinations that imply urgency, leadership transition, budget movement, or mandate expansion so attention goes to the patterns that matter.',
+    body: 'The engine does not treat each signal as a disconnected alert. It looks for combinations that suggest urgency, leadership change, budget movement, or role expansion so attention goes to the patterns that matter.',
     citations: [3, 7],
   },
   {
@@ -160,8 +160,8 @@ export const SYSTEM_ARTICLE_SECTIONS: LearnMoreCard[] = [
     citations: [4, 5, 8],
   },
   {
-    title: 'Mandate-specific narrative system',
-    body: 'We help the user sound precise for each audience without drifting into different stories for recruiters, board members, operators, or hiring executives.',
+    title: 'Role-specific narrative system',
+    body: 'We help the user stay precise for each audience without drifting into different stories for recruiters, board members, operators, or hiring executives.',
     citations: [4, 5],
   },
   {
@@ -237,7 +237,7 @@ export const COMMON_QUESTIONS: LearnMoreQuestion[] = [
   },
   {
     question: 'What exactly is in a brief?',
-    answer: 'A good brief includes mandate context, likely objections, questions to ask, and the positioning angle that should lead the conversation.',
+    answer: 'A good brief includes role context, likely objections, questions to ask, and the positioning angle that should open the conversation.',
     citations: [1, 4],
   },
   {
@@ -257,7 +257,7 @@ export const COMMON_QUESTIONS: LearnMoreQuestion[] = [
   },
   {
     question: 'What kinds of signals are most valuable?',
-    answer: 'Signals that imply mandate change, leadership transition, operating urgency, or a need for new executive capability.',
+    answer: 'Signals that suggest a role is changing, a leader is leaving, budget is moving, or a new executive capability is needed.',
     citations: [3, 7],
   },
   {
@@ -282,7 +282,7 @@ export const COMMON_QUESTIONS: LearnMoreQuestion[] = [
   },
   {
     question: 'How is the narrative system different from resume tuning?',
-    answer: 'It is built for decision-makers and mandate context, not just for applicant-document polish.',
+    answer: 'It is built for decision-makers and role context, not just for applicant-document polish.',
     citations: [4, 5],
   },
   {

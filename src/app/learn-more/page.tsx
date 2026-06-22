@@ -27,7 +27,7 @@ export default function LearnMorePage() {
           Why Starting Monday is different.
         </h1>
         <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-          Bottom line up front: Starting Monday matters because executive transitions are usually won before the opportunity is obvious. The product helps a leader see movement earlier, shape the right story, and sustain the right relationship actions while the market is still quiet.
+          Executive transitions are usually won before the opportunity is obvious. Starting Monday helps a leader see movement earlier, shape the right story, and keep the right relationships moving while the market is still quiet.
           <CitationSup numbers={[3, 4, 5, 7, 8]} />
         </p>
       </section>

@@ -21,7 +21,7 @@ export default function LearnMoreInsideTheSystemPage() {
           Inside the system that makes Starting Monday different.
         </h1>
         <p className="mt-4 text-[16px] leading-relaxed text-slate-200">
-          Starting Monday is built on the idea that senior transitions are not won by doing more. They are won by noticing the right change sooner, building the right story faster, and taking the next relationship step with discipline.
+          Senior transitions are not won by doing more. They are won by noticing the right change sooner, building the right story faster, and taking the next relationship step with discipline.
           <CitationSup numbers={[3, 4, 5, 7, 8]} />
         </p>
         <p className="mt-3 text-[15px] leading-relaxed text-slate-300">
