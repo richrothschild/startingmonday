@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-18",
+  "updatedAt": "2026-06-22",
   "owner": "engineering",
   "riskyPaths": [
     "src/app/(auth)/**",
@@ -36,6 +36,17 @@
       "rollbackPath": "Revert PR #128 to restore previous pricing and for-coaches pages",
       "killSwitch": "Revert src/lib/pricing.ts to previous plan names and values",
       "startedAt": "2026-06-18"
+    },
+    {
+      "id": "ci-guide-artifact-untracking-2026-06",
+      "description": "Untrack CI-generated files and guide artifacts from git; generate guide artifacts before Lighthouse build in CI (SMK-318, SMK-319)",
+      "paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert PRs #148 and #149 to restore guide artifacts and CI-generated files to git tracking",
+      "killSwitch": "Re-add guide artifact generation to .gitignore exclusion list and revert ci.yml Lighthouse job change",
+      "startedAt": "2026-06-22"
     },
     {
       "id": "ci-playwright-hardening-2026-06",
