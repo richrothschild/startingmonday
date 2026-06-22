@@ -18,16 +18,35 @@ export function DashboardPrimaryNavSections({
   return (
     <>
       {!isExecutiveMode && (
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
-            <a href="#quick-access" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Quick access</a>
-            <a href="#start-here" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Start here</a>
-            <a href="#momentum-overview" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Momentum</a>
-            <a href="?focus=advanced#pipeline-pulse" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Pipeline</a>
-            <a href="?focus=profile#profile-modules" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Profile modules</a>
-            <a href="?focus=advanced#advanced-modules" className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Advanced modules</a>
-          </div>
+        <section className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3">
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-slate-700 marker:content-none">
+              <span className="text-slate-500">Show sections</span>
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 text-[11px] text-slate-500 transition group-open:rotate-180">
+                v
+              </span>
+            </summary>
+            <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
+              <a href="#quick-access" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Quick access
+              </a>
+              <a href="#start-here" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Start here
+              </a>
+              <a href="#momentum-overview" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Momentum
+              </a>
+              <a href="?focus=advanced#pipeline-pulse" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Pipeline
+              </a>
+              <a href="?focus=profile#profile-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Profile modules
+              </a>
+              <a href="?focus=advanced#advanced-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                Advanced modules
+              </a>
+            </div>
+          </details>
         </section>
       )}
 
