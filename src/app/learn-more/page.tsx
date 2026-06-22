@@ -1,139 +1,145 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import {
+  BLUF_POINTS,
+  COMPARISON_ROWS,
+  TARGETED_RELATIONSHIP_CARDS,
+  TOP_COMMON_QUESTIONS,
+  TOP_OBJECTIONS,
+} from './content'
+import { CitationSup, LearnMorePageShell, ProofAndCitationsSection } from './shared'
+
 export const metadata: Metadata = {
   title: 'Learn More | Starting Monday',
   description: 'Why Starting Monday is different: comparison, objections, and common questions.',
+  alternates: {
+    canonical: 'https://startingmonday.app/learn-more',
+  },
 }
-
-const COMPARISON_ROWS = [
-  {
-    area: 'Timing',
-    typical: 'Enters after posting and competes in crowded windows.',
-    startingMonday: 'Enters while role scope is still being shaped.',
-  },
-  {
-    area: 'Narrative',
-    typical: 'Generic profile optimization and resume tuning.',
-    startingMonday: 'Mandate-specific narrative built for decision-makers.',
-  },
-  {
-    area: 'Execution',
-    typical: 'Spray-and-pray outreach volume.',
-    startingMonday: 'Disciplined weekly cadence tied to conversion milestones.',
-  },
-]
-
-const OBJECTIONS = [
-  {
-    title: 'Is this just another jobs tool?',
-    answer: 'No. It is an operating system for timing, narrative, and relationship momentum before public posting windows.',
-  },
-  {
-    title: 'Will this add complexity?',
-    answer: 'It reduces complexity by replacing scattered tools with one decision rhythm: signal, brief, relationship action.',
-  },
-  {
-    title: 'Is my search visible to employers?',
-    answer: 'No. Search activity remains private by default and visible only to explicitly invited collaborators.',
-  },
-]
-
-const FAQS = [
-  {
-    q: 'How quickly can I see useful signals?',
-    a: 'Most users see meaningful signal patterns within the first week after target setup.',
-  },
-  {
-    q: 'What does the brief include?',
-    a: 'A role-aware narrative angle, likely objections, and conversation prompts mapped to the mandate context.',
-  },
-  {
-    q: 'Who is this best for?',
-    a: 'Individuals in confidential leadership transitions and partners/firms guiding those transitions.',
-  },
-]
 
 export default function LearnMorePage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="border-b border-white/10 bg-slate-950/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[12px] font-bold uppercase tracking-[0.16em] text-slate-300 hover:text-white">
-            Starting Monday
-          </Link>
-          <nav className="flex items-center gap-4 text-[12px] font-medium text-slate-300">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <Link href="/pricing" className="hover:text-white">Pricing</Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
-        <Link
-          href="/"
-          className="inline-flex items-center rounded-full border border-white/15 px-3 py-1.5 text-[12px] font-semibold text-slate-200 hover:border-white/25 hover:text-white"
-        >
-          ← Back
-        </Link>
+    <LearnMorePageShell backHref="/">
+      <section className="max-w-5xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Learn more</p>
         <h1 className="mt-3 max-w-4xl font-serif text-[2.2rem] leading-[1.03] tracking-tight text-white sm:text-[3rem]">
           Why Starting Monday is different.
         </h1>
+        <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-slate-200">
+          Bottom line up front: Starting Monday matters because executive transitions are usually won before the opportunity is obvious. The product helps a leader see movement earlier, shape the right story, and sustain the right relationship actions while the market is still quiet.
+          <CitationSup numbers={[3, 4, 5, 7, 8]} />
+        </p>
+      </section>
 
-        <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Comparison chart</p>
-          <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
-            <div className="grid grid-cols-1 bg-slate-900/35 text-[12px] font-semibold uppercase tracking-[0.08em] sm:grid-cols-[1fr_1.2fr_1.2fr]">
-              <p className="px-4 py-3 text-slate-300">Decision area</p>
-              <p className="border-t border-white/10 px-4 py-3 text-slate-300 sm:border-l sm:border-t-0">Typical spray-and-pray</p>
-              <p className="border-t border-white/10 px-4 py-3 text-orange-100 sm:border-l sm:border-t-0">Starting Monday</p>
-            </div>
-            {COMPARISON_ROWS.map((row) => (
-              <div key={row.area} className="grid grid-cols-1 border-t border-white/10 sm:grid-cols-[1fr_1.2fr_1.2fr]">
-                <p className="px-4 py-3 text-[13px] font-semibold text-white">{row.area}</p>
-                <p className="border-t border-white/10 px-4 py-3 text-[13px] text-slate-300 sm:border-l sm:border-t-0">{row.typical}</p>
-                <p className="border-t border-white/10 px-4 py-3 text-[13px] text-slate-100 sm:border-l sm:border-t-0">{row.startingMonday}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-8">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Objections</p>
-          <div className="mt-3 space-y-3">
-            {OBJECTIONS.map((item) => (
-              <article key={item.title} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <p className="text-[14px] font-semibold text-white">{item.title}</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-slate-300">{item.answer}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-8">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Common questions</p>
-          <div className="mt-3 space-y-3">
-            {FAQS.map((item) => (
-              <details key={item.q} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                <summary className="cursor-pointer list-none text-[14px] font-semibold text-white">{item.q}</summary>
-                <p className="mt-2 text-[13px] leading-relaxed text-slate-300">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-[12px] text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>© {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-slate-200">Privacy</Link>
-            <Link href="/terms" className="hover:text-slate-200">Terms</Link>
-            <Link href="/security" className="hover:text-slate-200">Security</Link>
-          </div>
+      <section className="mt-8 rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-5 shadow-[0_20px_70px_rgba(2,6,23,0.28)] sm:p-6">
+        <div className="max-w-4xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">Overview</p>
+          <h2 className="mt-3 text-[1.5rem] font-serif leading-tight text-white sm:text-[1.9rem]">The short answer before the long explanation.</h2>
         </div>
-      </footer>
-    </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {BLUF_POINTS.map((point) => (
+            <article key={point.title} className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+              <p className="text-[14px] font-semibold text-white">{point.title}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-slate-300">
+                {point.body}
+                <CitationSup numbers={point.citations} />
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
+        <div className="max-w-4xl">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Comparison chart</p>
+          <h2 className="mt-3 text-[1.6rem] font-serif leading-tight text-white sm:text-[2rem]">The system is built for timing, relationships, and disciplined execution.</h2>
+          <p className="mt-3 text-[14px] leading-relaxed text-slate-300">
+            Typical executive-search tools optimize for visibility after a role is public. Starting Monday is built for the quieter phase when position, context, and access still move materially.
+            <CitationSup numbers={[3, 5, 7, 8]} />
+          </p>
+        </div>
+
+        <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
+          <div className="grid grid-cols-1 bg-slate-900/35 text-[12px] font-semibold uppercase tracking-[0.08em] sm:grid-cols-[1fr_1.2fr_1.2fr]">
+            <p className="px-4 py-3 text-slate-300">Decision area</p>
+            <p className="border-t border-white/10 px-4 py-3 text-slate-300 sm:border-l sm:border-t-0">Typical spray-and-pray</p>
+            <p className="border-t border-white/10 px-4 py-3 text-orange-100 sm:border-l sm:border-t-0">Starting Monday</p>
+          </div>
+          {COMPARISON_ROWS.map((row) => (
+            <div key={row.area} className="grid grid-cols-1 border-t border-white/10 sm:grid-cols-[1fr_1.2fr_1.2fr]">
+              <p className="px-4 py-3 text-[13px] font-semibold text-white">{row.area}</p>
+              <p className="border-t border-white/10 px-4 py-3 text-[13px] text-slate-300 sm:border-l sm:border-t-0">{row.typical}</p>
+              <p className="border-t border-white/10 px-4 py-3 text-[13px] text-slate-100 sm:border-l sm:border-t-0">
+                {row.startingMonday}
+                <CitationSup numbers={row.citations} />
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {TARGETED_RELATIONSHIP_CARDS.map((card) => (
+            <article key={card.title} className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+              <p className="text-[14px] font-semibold text-white">{card.title}</p>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-300">
+                {card.body}
+                <CitationSup numbers={card.citations} />
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <Link href="/learn-more/inside-the-system" className="inline-flex items-center rounded-full bg-orange-500 px-4 py-2 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600">
+            Learn more about the system
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Objections</p>
+        <h2 className="mt-3 text-[1.6rem] font-serif leading-tight text-white sm:text-[2rem]">The top objections, answered directly.</h2>
+        <div className="mt-3 space-y-3">
+          {TOP_OBJECTIONS.map((item) => (
+            <article key={item.question} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-[14px] font-semibold text-white">{item.question}</p>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-300">
+                {item.answer}
+                <CitationSup numbers={item.citations} />
+              </p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-5">
+          <Link href="/learn-more/objections" className="inline-flex items-center rounded-full border border-white/15 px-4 py-2 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/25 hover:text-white">
+            Learn more about objections
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-orange-200">Common questions</p>
+        <h2 className="mt-3 text-[1.6rem] font-serif leading-tight text-white sm:text-[2rem]">The questions people usually ask before they commit.</h2>
+        <div className="mt-3 space-y-3">
+          {TOP_COMMON_QUESTIONS.map((item) => (
+            <details key={item.question} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <summary className="cursor-pointer list-none text-[14px] font-semibold text-white">{item.question}</summary>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-300">
+                {item.answer}
+                <CitationSup numbers={item.citations} />
+              </p>
+            </details>
+          ))}
+        </div>
+        <div className="mt-5">
+          <Link href="/learn-more/common-questions" className="inline-flex items-center rounded-full border border-white/15 px-4 py-2 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/25 hover:text-white">
+            Learn more questions
+          </Link>
+        </div>
+      </section>
+
+      <ProofAndCitationsSection />
+    </LearnMorePageShell>
   )
 }

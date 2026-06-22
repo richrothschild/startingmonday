@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T04:10:15.520Z",
+  "generatedAt": "2026-06-22T14:10:18.586Z",
   "entries": [
     {
       "id": "architecture:platform",
@@ -12,7 +12,7 @@
         "platform"
       ],
       "qualityWeight": 1.4,
-      "lastModifiedAt": "2026-06-22T03:43:08.739Z"
+      "lastModifiedAt": "2026-06-22T04:10:15.540Z"
     },
     {
       "id": "feature:/login",
@@ -2507,6 +2507,48 @@
       "lastModifiedAt": "2026-06-22T01:18:04.493Z"
     },
     {
+      "id": "feature:/learn-more/common-questions",
+      "title": "Feature Learn more / Common questions",
+      "body": "User-facing page route /learn-more/common-questions.",
+      "type": "feature",
+      "ref": "/learn-more/common-questions",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T13:45:40.465Z"
+    },
+    {
+      "id": "feature:/learn-more/inside-the-system",
+      "title": "Feature Learn more / Inside the system",
+      "body": "User-facing page route /learn-more/inside-the-system.",
+      "type": "feature",
+      "ref": "/learn-more/inside-the-system",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T13:45:40.465Z"
+    },
+    {
+      "id": "feature:/learn-more/objections",
+      "title": "Feature Learn more / Objections",
+      "body": "User-facing page route /learn-more/objections.",
+      "type": "feature",
+      "ref": "/learn-more/objections",
+      "tags": [
+        "feature",
+        "route",
+        "app-router"
+      ],
+      "qualityWeight": 1.25,
+      "lastModifiedAt": "2026-06-22T13:45:40.465Z"
+    },
+    {
       "id": "feature:/learn-more",
       "title": "Feature Learn more",
       "body": "User-facing page route /learn-more.",
@@ -2518,7 +2560,7 @@
         "app-router"
       ],
       "qualityWeight": 1.25,
-      "lastModifiedAt": "2026-06-22T03:29:38.350Z"
+      "lastModifiedAt": "2026-06-22T13:45:40.465Z"
     },
     {
       "id": "feature:/managertools",
@@ -18240,7 +18282,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-22T03:43:08.738Z"
+      "lastModifiedAt": "2026-06-22T04:10:15.540Z"
     },
     {
       "id": "doc:docs/internal-onboarding-readme.md",
@@ -18279,7 +18321,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-22T03:43:08.739Z"
+      "lastModifiedAt": "2026-06-22T04:10:15.540Z"
     },
     {
       "id": "doc:docs/interview-day-cheat-sheet.md",
@@ -22543,7 +22585,7 @@
         "knowledge"
       ],
       "qualityWeight": 1.1,
-      "lastModifiedAt": "2026-06-22T04:10:12.068Z"
+      "lastModifiedAt": "2026-06-22T14:10:15.894Z"
     },
     {
       "id": "doc:docs/user-success-template.md",

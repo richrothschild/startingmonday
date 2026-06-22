@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-22T04:10:12.063Z
+Last generated: 2026-06-22T14:10:15.891Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (184)
+## Features (187)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -161,6 +161,9 @@ This guide is generated from product routes, APIs, and published articles.
 - [Guide](/guide) - Open /guide to use this feature area and related workflows.
 - [Ideas](/ideas) - Open /ideas to use this feature area and related workflows.
 - [Individuals](/individuals) - Open /individuals to use this feature area and related workflows.
+- [Learn more / Common questions](/learn-more/common-questions) - Open /learn-more/common-questions to use this feature area and related workflows.
+- [Learn more / Inside the system](/learn-more/inside-the-system) - Open /learn-more/inside-the-system to use this feature area and related workflows.
+- [Learn more / Objections](/learn-more/objections) - Open /learn-more/objections to use this feature area and related workflows.
 - [Learn more](/learn-more) - Open /learn-more to use this feature area and related workflows.
 - [Managertools](/managertools) - Open /managertools to use this feature area and related workflows.
 - [Mark demo](/mark-demo) - Open /mark-demo to use this feature area and related workflows.

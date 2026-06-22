@@ -24,6 +24,10 @@ const PUBLIC_ROUTES = [
   '/method-and-evidence',
   '/references',
   '/evidence-room',
+  '/learn-more',
+  '/learn-more/inside-the-system',
+  '/learn-more/objections',
+  '/learn-more/common-questions',
   '/blog',
   '/blog/how-we-estimate-early-role-signals',
   '/outplacement',
@@ -84,7 +88,7 @@ test.describe('Luxury + cognitive baseline for public pages @luxury', () => {
       expect(metrics.hasInternalLeak, `${route}: no internal path leakage in marketing copy`).toBeFalsy()
 
       // High-content routes should expose at least one progressive disclosure control.
-      if (route === '/for-coaches' || route === '/for-executives') {
+      if (route === '/for-coaches' || route === '/for-executives' || route === '/learn-more' || route === '/learn-more/common-questions') {
         expect(metrics.supportsDisclosure, `${route}: should include at least one details/summary disclosure`).toBeGreaterThanOrEqual(1)
       }
     })

@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-22T04:10:15.520Z
+Last generated: 2026-06-22T14:10:18.586Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (214)
+## Features (217)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -194,6 +194,9 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Guide | /guide | User-facing page route /guide.
 - Feature Ideas | /ideas | User-facing page route /ideas.
 - Feature Individuals | /individuals | User-facing page route /individuals.
+- Feature Learn more / Common questions | /learn-more/common-questions | User-facing page route /learn-more/common-questions.
+- Feature Learn more / Inside the system | /learn-more/inside-the-system | User-facing page route /learn-more/inside-the-system.
+- Feature Learn more / Objections | /learn-more/objections | User-facing page route /learn-more/objections.
 - Feature Learn more | /learn-more | User-facing page route /learn-more.
 - Feature Managertools | /managertools | User-facing page route /managertools.
 - Feature Mark demo | /mark-demo | User-facing page route /mark-demo.
