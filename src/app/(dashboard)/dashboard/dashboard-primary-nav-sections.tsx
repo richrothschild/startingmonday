@@ -17,71 +17,74 @@ export function DashboardPrimaryNavSections({
 }: DashboardPrimaryNavSectionsProps) {
   return (
     <>
-      {!isExecutiveMode && (
-        <section className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3">
-          <details className="group">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-slate-700 marker:content-none">
-              <span className="text-slate-500">Show sections</span>
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 text-[11px] text-slate-500 transition group-open:rotate-180">
-                v
-              </span>
-            </summary>
-            <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
-              <a href="#quick-access" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Quick access
-              </a>
-              <a href="#start-here" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Start here
-              </a>
-              <a href="#momentum-overview" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Momentum
-              </a>
-              <a href="?focus=advanced#pipeline-pulse" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Pipeline
-              </a>
-              <a href="?focus=profile#profile-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Profile modules
-              </a>
-              <a href="?focus=advanced#advanced-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
-                Advanced modules
-              </a>
-            </div>
-          </details>
-        </section>
-      )}
+      <section className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3">
+        <h2 className="text-[12px] font-semibold text-slate-700 mb-2">Jump to section</h2>
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-slate-600 marker:content-none">
+            <span>Show sections</span>
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 text-[11px] text-slate-500 transition group-open:rotate-180">
+              v
+            </span>
+          </summary>
+          <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
+            <a href="#quick-access" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+              What matters now
+            </a>
+            <a href="/dashboard/briefing#tenet-find-roles" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+              Signals to review
+            </a>
+            <a href="/dashboard/briefing#tenet-talk-to-people" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+              People to reach
+            </a>
+            <a href="#daily-momentum-plan" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+              Keep momentum
+            </a>
+            {!isExecutiveMode && (
+              <>
+                <a href="?focus=profile#profile-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                  Profile modules
+                </a>
+                <a href="?focus=advanced#advanced-modules" className="rounded-full border border-slate-300 px-3 py-1.5 text-slate-600 hover:border-slate-400 hover:text-slate-800">
+                  Advanced modules
+                </a>
+              </>
+            )}
+          </div>
+        </details>
+      </section>
 
-      <section id="quick-access" className="mb-6 bg-slate-900 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <section id="quick-access" className="mb-6 rounded-2xl border border-slate-900 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.16),_transparent_32%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
         <div>
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-400 mb-1">{isExecutiveMode ? 'Today' : 'Quick access'}</h2>
-          <p className="text-[13px] text-slate-300">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-1">{isExecutiveMode ? 'What matters now' : 'Quick access'}</h2>
+          <p className="text-[13px] text-slate-200">
             {isExecutiveMode
-              ? `${signalCount} new signals, ${overdueCount} due today. Choose the next move without opening more tabs.`
-              : 'Jump to the places you use most.'}
+              ? 'Use one high-leverage move to keep position and timing on your side.'
+              : `${signalCount} signals and ${overdueCount} follow-through moves are ready for review.`}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+          <Link href="/dashboard/briefing" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
             {isExecutiveMode ? 'Open briefing' : 'Briefing'}
           </Link>
-          <Link href="/dashboard/executive-brief" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+          <Link href="/dashboard/executive-brief" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
             {isExecutiveMode ? 'Executive brief' : 'Brief hub'}
           </Link>
           {isExecutiveMode ? (
             <>
-              <Link href="/dashboard/calendar" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              <Link href="/dashboard/calendar" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
                 View due today
               </Link>
-              <Link href="/dashboard/contacts" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+              <Link href="/dashboard/contacts" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
                 Sponsor map
               </Link>
             </>
           ) : canUseOutreachHub ? (
-            <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+            <Link href="/dashboard/outreach" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
               Outreach
             </Link>
           ) : null}
           {isRothschildAdmin && (
-            <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-200 hover:text-white border border-orange-500/40 bg-orange-500/15 px-3.5 py-2 rounded-full shadow-sm">
+            <Link href="/dashboard/admin" className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-orange-100 hover:text-white border border-orange-300/40 bg-orange-500/20 px-3.5 py-2 rounded-full shadow-sm">
               Admin
             </Link>
           )}

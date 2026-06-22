@@ -98,15 +98,16 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
         </section>
       )}
 
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-[22px] sm:text-[26px] font-bold text-slate-900 leading-tight">
+      <section className="mb-6 sm:mb-8 rounded-2xl border border-slate-900 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.14),_transparent_36%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] px-5 py-5 sm:px-6 sm:py-6 shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
+        <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">This week&apos;s operating rhythm</p>
+        <h1 className="text-[26px] sm:text-[32px] font-bold text-white leading-tight">
           {props.greeting}, {props.firstName}.
         </h1>
-        <p className="text-[13px] text-slate-600 mt-1.5">{props.today}</p>
-        <p className="text-[13px] text-slate-500 mt-2 leading-relaxed sm:whitespace-nowrap">
-          Start with the briefing, then work the next relationship and the next action.
+        <p className="text-[13px] text-slate-300 mt-1.5">{props.today}</p>
+        <p className="text-[14px] text-slate-200 mt-3 leading-relaxed max-w-3xl">
+          Your position is built one clear move at a time. Start with the briefing, move one relationship, then protect follow-through.
         </p>
-      </div>
+      </section>
 
       <DashboardPrimaryNavSections
         signalCount={props.signalCount}
