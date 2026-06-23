@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
 import Link from 'next/link'
 
@@ -34,8 +34,8 @@ export default function AnnualReport2026Page() {
       cta={{
         headline: 'See how the observations shape the product.',
         body: 'The annual report is meant to support the Evidence Hub and the method page, not replace them.',
-        label: 'Open the Evidence Hub →',
-        href: '/evidence-room',
+        label: 'Open the Evidence Hub â†’',
+        href: '/evidence-hub',
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
@@ -103,7 +103,7 @@ export default function AnnualReport2026Page() {
             If you want the supporting methods and references, use the Evidence Hub as the primary source.
           </p>
           <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the Evidence Hub and applying the measurement model to your own campaign.</p>
-          <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+          <Link href="/evidence-hub" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
             Open Evidence Hub
           </Link>
         </section>
@@ -111,3 +111,4 @@ export default function AnnualReport2026Page() {
     </BlogPost>
   )
 }
+

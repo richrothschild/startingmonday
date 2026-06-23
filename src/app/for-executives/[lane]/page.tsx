@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { LandingPage } from '@/components/LandingPage'
@@ -284,7 +284,7 @@ export default async function ExecutiveLanePage(
               Source path: in-product lane tutorial set ({inAppTutorials.length} assets) plus method controls.
             </p>
             <p className="mt-2 text-[13px] text-slate-100">
-              <Link href="/evidence-room" className="underline underline-offset-2 hover:text-white">Evidence Hub</Link>
+              <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-white">Evidence Hub</Link>
             </p>
           </div>
         </div>
@@ -292,3 +292,4 @@ export default async function ExecutiveLanePage(
     </>
   )
 }
+

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
@@ -163,8 +163,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           h1Lines: ['You are behind on timing, narrative, and prep.'],
               claimMethodLabel: '',
               claimMethodHref: '',
-                claimEvidenceLabel: 'Evidence Hub for executives and their partners →',
-          claimEvidenceHref: '/evidence-room',
+                claimEvidenceLabel: 'Evidence Hub for executives and their partners â†’',
+          claimEvidenceHref: '/evidence-hub',
                 bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
           body: 'Win with Starting Monday.',
                 competitiveEdge: 'Find the right roles before they open, the right people to know, and the right story to tell.',
@@ -184,3 +184,4 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     </>
   )
 }
+

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
@@ -119,7 +119,7 @@ export default function ForCioPage() {
       <ProofStrip
         metric="81%"
         label="reached first interview inside 30 days"
-        source="27 executives in the Jan–May 2026 pilot cohort"
+        source="27 executives in the Janâ€“May 2026 pilot cohort"
       />
       <h1 className="sr-only">Starting Monday for C-suite technology searches</h1>
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
@@ -140,7 +140,7 @@ export default function ForCioPage() {
                 <p className="text-[13px] text-slate-200">Median time to first qualified outreach</p>
               </div>
             </div>
-            <p className="text-[13px] text-slate-200">Based on 27 executives in the Jan–May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
+            <p className="text-[13px] text-slate-200">Based on 27 executives in the Janâ€“May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
           </div>
           <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40 flex flex-col justify-between">
             <div className="space-y-2 mb-4">
@@ -154,7 +154,7 @@ export default function ForCioPage() {
                 Start 30-day trial
               </TrackLink>
               <TrackLink
-                href="/evidence-room"
+                href="/evidence-hub"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}
@@ -166,9 +166,9 @@ export default function ForCioPage() {
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="border border-slate-700 rounded-lg p-3">
               <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-200">Have questions first?</summary>
               <ul className="mt-2 space-y-1 text-[13px] text-slate-200">
-                <li>• Confidential by default — your activity is never shared with employers.</li>
-                <li>• Works alongside your existing recruiter relationships, not against them.</li>
-                <li>• Optionality mode available if you are not ready to go active yet.</li>
+                <li>â€¢ Confidential by default â€” your activity is never shared with employers.</li>
+                <li>â€¢ Works alongside your existing recruiter relationships, not against them.</li>
+                <li>â€¢ Optionality mode available if you are not ready to go active yet.</li>
               </ul>
             </details>
           </div>
@@ -193,4 +193,5 @@ export default function ForCioPage() {
     </>
   )
 }
+
 

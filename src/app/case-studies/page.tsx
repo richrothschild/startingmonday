@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function CaseStudiesPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence Hub</Link>
+            <Link href="/evidence-hub" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence Hub</Link>
             <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
           </div>
         </div>
@@ -93,3 +93,4 @@ export default function CaseStudiesPage() {
     </div>
   )
 }
+

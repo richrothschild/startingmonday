@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -688,7 +688,7 @@ export function ExecutiveBriefHub({
                       <p className="text-[12px] font-semibold text-slate-900 uppercase tracking-[0.06em]">{brief.type}</p>
                       <p className="text-[11px] text-slate-500">{new Date(brief.createdAt).toLocaleDateString()}</p>
                     </div>
-                    <p className="text-[12px] text-slate-600 mb-1">{brief.companyName ?? 'General context'}{brief.sectionName ? ` · ${brief.sectionName}` : ''}</p>
+                    <p className="text-[12px] text-slate-600 mb-1">{brief.companyName ?? 'General context'}{brief.sectionName ? ` Â· ${brief.sectionName}` : ''}</p>
                     <p className="text-[13px] text-slate-700 leading-relaxed">{brief.preview}</p>
                     <p className="text-[11px] font-semibold text-slate-500 mt-2">{selectedBrief?.id === brief.id ? 'Full brief expanded below' : 'Click to expand full brief'}</p>
                   </button>
@@ -712,7 +712,7 @@ export function ExecutiveBriefHub({
               {contactReachOut.slice(0, 16).map(person => (
                 <article key={person.id} className="rounded-lg border border-slate-200 bg-white p-3">
                   <p className="text-[13px] font-semibold text-slate-900">{person.name}</p>
-                  <p className="text-[12px] text-slate-600">{person.title ?? 'Role not captured'}{person.companyName ? ` · ${person.companyName}` : ''}</p>
+                  <p className="text-[12px] text-slate-600">{person.title ?? 'Role not captured'}{person.companyName ? ` Â· ${person.companyName}` : ''}</p>
                   <p className="text-[12px] text-slate-500 mt-1">{person.rationale}</p>
                 </article>
               ))}
@@ -723,7 +723,7 @@ export function ExecutiveBriefHub({
               {suggestedReachOut.slice(0, 12).map(person => (
                 <article key={person.id} className="rounded-lg border border-dashed border-slate-300 bg-white p-3">
                   <p className="text-[13px] font-semibold text-slate-900">{person.name}</p>
-                  <p className="text-[12px] text-slate-600">{person.title ?? 'Role suggestion'}{person.companyName ? ` · ${person.companyName}` : ''}</p>
+                  <p className="text-[12px] text-slate-600">{person.title ?? 'Role suggestion'}{person.companyName ? ` Â· ${person.companyName}` : ''}</p>
                   <p className="text-[12px] text-slate-500 mt-1">{person.rationale}</p>
                 </article>
               ))}
@@ -757,7 +757,7 @@ export function ExecutiveBriefHub({
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {protocolProgress.map(step => (
                   <div key={step.label} className={`rounded border px-2.5 py-2 text-[11px] ${step.done ? 'border-emerald-300 bg-emerald-50 text-emerald-800' : 'border-slate-200 bg-white text-slate-600'}`}>
-                    {step.done ? '✓' : '○'} {step.label}
+                    {step.done ? 'âœ“' : 'â—‹'} {step.label}
                   </div>
                 ))}
               </div>
@@ -875,7 +875,7 @@ export function ExecutiveBriefHub({
               <div className="mt-5 space-y-4">
                 <article className="rounded border border-slate-200 bg-slate-50 p-3">
                   <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-1">Current Protocol Question</p>
-                  <p className="text-[12px] text-slate-500 mb-1">{protocolSession.current_question_id} · entries {protocolSession.entries_count} · open flags {protocolSession.open_flags_count}</p>
+                  <p className="text-[12px] text-slate-500 mb-1">{protocolSession.current_question_id} Â· entries {protocolSession.entries_count} Â· open flags {protocolSession.open_flags_count}</p>
                   <p className="text-[14px] font-semibold text-slate-900">{protocolSession.current_question}</p>
                 </article>
 
@@ -921,7 +921,7 @@ export function ExecutiveBriefHub({
               {displayedSignals.slice(0, 14).map(signal => (
                 <article key={signal.id} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
                   <p className="text-[12px] font-semibold text-slate-900">{signal.companyName}</p>
-                  <p className="text-[11px] text-slate-500">{new Date(signal.date).toLocaleDateString()} {signal.stage ? `· ${signal.stage}` : ''}</p>
+                  <p className="text-[11px] text-slate-500">{new Date(signal.date).toLocaleDateString()} {signal.stage ? `Â· ${signal.stage}` : ''}</p>
                   {signal.whatSurprised && <p className="text-[12px] text-slate-700 mt-1"><span className="font-semibold">Surprise:</span> {signal.whatSurprised}</p>}
                   {signal.followUpNeeded && <p className="text-[12px] text-slate-700 mt-1"><span className="font-semibold">Follow-up:</span> {signal.followUpNeeded}</p>}
                 </article>
@@ -1064,7 +1064,7 @@ export function ExecutiveBriefHub({
                 {providerConnections.length > 0 && (
                   <div className="mt-3 space-y-1">
                     {providerConnections.slice(0, 5).map(connection => (
-                      <p key={connection.id} className="text-[11px] text-slate-600">{connection.provider} · {connection.connection_label ?? 'No label'} · {connection.status}</p>
+                      <p key={connection.id} className="text-[11px] text-slate-600">{connection.provider} Â· {connection.connection_label ?? 'No label'} Â· {connection.status}</p>
                     ))}
                   </div>
                 )}
@@ -1118,8 +1118,8 @@ export function ExecutiveBriefHub({
                 {transcriptAnalysis && (
                   <div className="mt-3 space-y-2 rounded border border-slate-200 bg-white p-3">
                     <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-500">Transcript Analysis</p>
-                    <p className="text-[11px] text-slate-600">Signals: {transcriptAnalysis.keySignals.length} · Follow-ups: {transcriptAnalysis.followUps.length} · Questions: {transcriptAnalysis.potentialQuestions.length}</p>
-                    <p className="text-[11px] text-slate-700">Risk language: {transcriptAnalysis.summary.hasRiskLanguage ? 'yes' : 'no'} · Decision language: {transcriptAnalysis.summary.hasDecisionLanguage ? 'yes' : 'no'} · Timeline language: {transcriptAnalysis.summary.hasTimelineLanguage ? 'yes' : 'no'}</p>
+                    <p className="text-[11px] text-slate-600">Signals: {transcriptAnalysis.keySignals.length} Â· Follow-ups: {transcriptAnalysis.followUps.length} Â· Questions: {transcriptAnalysis.potentialQuestions.length}</p>
+                    <p className="text-[11px] text-slate-700">Risk language: {transcriptAnalysis.summary.hasRiskLanguage ? 'yes' : 'no'} Â· Decision language: {transcriptAnalysis.summary.hasDecisionLanguage ? 'yes' : 'no'} Â· Timeline language: {transcriptAnalysis.summary.hasTimelineLanguage ? 'yes' : 'no'}</p>
                   </div>
                 )}
               </div>
@@ -1146,7 +1146,7 @@ export function ExecutiveBriefHub({
                   className="w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 text-left hover:border-slate-300"
                 >
                   <p className="text-[12px] font-semibold text-slate-900">{session.topic}</p>
-                  <p className="text-[11px] text-slate-600">{session.current_question_id} · entries {session.entries_count} · open flags {session.open_flags_count}</p>
+                  <p className="text-[11px] text-slate-600">{session.current_question_id} Â· entries {session.entries_count} Â· open flags {session.open_flags_count}</p>
                 </button>
               ))}
             </div>
@@ -1160,15 +1160,16 @@ export function ExecutiveBriefHub({
             </p>
             <div className="flex flex-wrap gap-4 text-[12px]">
               <Link href="/privacy" className="text-slate-400 hover:text-white">Privacy policy</Link>
-              <Link href="/evidence-room" className="text-slate-400 hover:text-white">Evidence Hub</Link>
+              <Link href="/evidence-hub" className="text-slate-400 hover:text-white">Evidence Hub</Link>
               <Link href="/dashboard" className="text-slate-400 hover:text-white">Dashboard</Link>
               <Link href="/login" className="text-slate-400 hover:text-white">Sign in</Link>
             </div>
           </div>
           <p className="text-[12px] text-slate-400">Private by default. Built for disciplined executive search execution with early signal and low-noise workflows.</p>
-          <p className="text-[12px] text-slate-500 mt-2">© 2026 Starting Monday. All rights reserved.</p>
+          <p className="text-[12px] text-slate-500 mt-2">Â© 2026 Starting Monday. All rights reserved.</p>
         </footer>
       </main>
     </div>
   )
 }
+
