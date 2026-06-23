@@ -237,8 +237,7 @@ export default function CoachesChannelPage() {
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
-              <Link href="/method-and-evidence" className="hover:text-slate-200 transition-colors">Method and evidence</Link>
-              <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence room</Link>
+              <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
 
               <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
               <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>

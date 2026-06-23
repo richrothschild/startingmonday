@@ -345,7 +345,7 @@ export function ConciergeWaitlist() {
           <div className={`rounded-2xl p-5 mb-12 ${premiumEnabled ? 'border border-white/12 bg-slate-950/64 shadow-[0_20px_62px_rgba(15,23,42,0.2)] backdrop-blur-md' : 'border border-slate-200 bg-slate-50'}`}>
             <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-2 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Trust and source note</p>
             <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
-              Confidential intake details are used only for founder review and fit decisions. Outcome expectations on this page are informed by the pilot evidence room and source-linked methodology pages.
+              Confidential intake details are used only for founder review and fit decisions. Outcome expectations on this page are informed by the pilot Evidence Hub and source-linked methodology pages.
             </p>
           </div>
 

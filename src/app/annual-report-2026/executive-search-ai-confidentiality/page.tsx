@@ -110,8 +110,7 @@ export default function ExecutiveSearchAiConfidentialityReportPage() {
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Related pages</h2>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px]">
             <Link href="/annual-report-2026" className="underline underline-offset-2 hover:text-slate-900">2026 annual report overview</Link>
-            <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-900">Evidence room</Link>
-            <Link href="/method-and-evidence" className="underline underline-offset-2 hover:text-slate-900">Method and evidence</Link>
+            <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-900">Evidence Hub</Link>
           </div>
         </section>
       </div>

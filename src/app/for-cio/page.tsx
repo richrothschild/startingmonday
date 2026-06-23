@@ -154,13 +154,13 @@ export default function ForCioPage() {
                 Start 30-day trial
               </TrackLink>
               <TrackLink
-                href="/method-and-evidence"
+                href="/evidence-room"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}
                 className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
               >
-                How it works
+                Evidence Hub
               </TrackLink>
             </div>
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="border border-slate-700 rounded-lg p-3">

@@ -210,7 +210,7 @@ export function DemoContent({
         <div className="max-w-3xl mx-auto rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_16px_52px_rgba(15,23,42,0.16)]">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Source note</p>
           <p className="text-[12px] text-slate-200 leading-relaxed">
-            Demo claims reflect observed prep-brief behavior in pilot cohorts and are linked to source-backed methodology in the evidence room.
+            Demo claims reflect observed prep-brief behavior in pilot cohorts and are linked to source-backed methodology in the Evidence Hub.
           </p>
         </div>
       </section>
