@@ -114,7 +114,7 @@ const SPECS = [
       {
         id: 'method-dig-deeper-links',
         description: 'Method and evidence page keeps references/evidence/timing links.',
-        matcher: /href="\/references"[\s\S]*href="\/evidence-room"[\s\S]*href="\/blog\/how-we-estimate-early-role-signals"/,
+        matcher: /href="\/references"[\s\S]*href="\/evidence-hub"[\s\S]*href="\/blog\/how-we-estimate-early-role-signals"/,
       },
     ],
   },
