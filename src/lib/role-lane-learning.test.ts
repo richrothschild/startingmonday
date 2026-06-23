@@ -78,7 +78,7 @@ describe('getPublicRoleLaneTutorials', () => {
     expect(article?.href).toContain('/blog/')
     expect(article?.ctaLabel).toBe('Read guide')
     expect(video?.href).toContain('/blog/')
-    expect(video?.ctaLabel).toBe('Watch tutorial')
+    expect(video?.ctaLabel).toBe('Open guide')
   })
 })
 

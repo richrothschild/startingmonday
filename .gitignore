@@ -59,6 +59,20 @@ CLAUDE.md
 # Local dev scripts
 StartingMonday-Dev.bat
 
+# CI-generated artifacts (uploaded as workflow artifacts, not committed)
+tests/e2e/generated/
+docs/status/monitoring-coverage-matrix.latest.json
+docs/status/monitoring-coverage-matrix.latest.md
+
+# Guide artifacts (generated locally and in CI — not committed to avoid constant conflicts)
+docs/user-guide.md
+docs/user-guide.index.json
+docs/user-guide.manifest.json
+docs/internal-guide.md
+docs/internal-guide.index.json
+docs/internal-guide.manifest.json
+docs/internal-system-summary.md
+
 # local dev artifacts
 .briefing-preview.html
 docs/status/prep-brief-evals-readiness.md
