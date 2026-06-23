@@ -340,6 +340,8 @@ export async function POST(request: NextRequest) {
 
   let body: {
     match_id?: string
+    confirm?: boolean
+    profile_url_correction?: string
     imported_conn_id?: string
     company_id?: string
     consent_id?: string
@@ -354,6 +356,12 @@ export async function POST(request: NextRequest) {
   const supabase = await createClient()
 
   if (body.match_id) {
+    if (body.confirm !== true) {
+      return Response.json({ error: 'Explicit confirmation is required to add a relationship.' }, { status: 400 })
+    }
+
+    const correctedProfileUrl = body.profile_url_correction?.trim() || null
+
     const { data: matchRow } = await supabase
       .from('company_people_connection_matches' as never)
       .select('id, company_id, export_connection_id')
@@ -363,6 +371,16 @@ export async function POST(request: NextRequest) {
 
     if (!matchRow) {
       return Response.json({ error: 'Match not found.' }, { status: 404 })
+    }
+
+    if (correctedProfileUrl) {
+      await supabase
+        .from('linkedin_export_connections' as never)
+        .update({
+          profile_url: correctedProfileUrl,
+        } as never)
+        .eq('id', (matchRow as { export_connection_id: string }).export_connection_id)
+        .eq('user_id', userId)
     }
 
     const { data: connection } = await supabase
@@ -385,7 +403,7 @@ export async function POST(request: NextRequest) {
         title: (connection as { position: string | null }).position,
         firm: (connection as { company: string | null }).company,
         email: (connection as { email: string | null }).email,
-        linkedin_url: (connection as { profile_url: string | null }).profile_url,
+        linkedin_url: correctedProfileUrl ?? (connection as { profile_url: string | null }).profile_url,
         channel: 'linkedin',
         status: 'active',
       })
@@ -401,6 +419,8 @@ export async function POST(request: NextRequest) {
       .update({
         user_confirmed: true,
         user_confirmed_at: new Date().toISOString(),
+        user_rejected: false,
+        user_rejected_at: null,
       } as never)
       .eq('id', body.match_id)
       .eq('user_id', userId)
@@ -469,6 +489,7 @@ export async function PATCH(request: NextRequest) {
 
   let body: {
     match_id?: string
+    profile_url_correction?: string
     imported_conn_id?: string
     company_id?: string
     consent_id?: string
@@ -483,11 +504,36 @@ export async function PATCH(request: NextRequest) {
   const supabase = await createClient()
 
   if (body.match_id) {
+    const correctedProfileUrl = body.profile_url_correction?.trim() || null
+
+    const { data: matchRow } = await supabase
+      .from('company_people_connection_matches' as never)
+      .select('id, export_connection_id')
+      .eq('id', body.match_id)
+      .eq('user_id', userId)
+      .maybeSingle()
+
+    if (!matchRow) {
+      return Response.json({ error: 'Match not found.' }, { status: 404 })
+    }
+
+    if (correctedProfileUrl) {
+      await supabase
+        .from('linkedin_export_connections' as never)
+        .update({
+          profile_url: correctedProfileUrl,
+        } as never)
+        .eq('id', (matchRow as { export_connection_id: string }).export_connection_id)
+        .eq('user_id', userId)
+    }
+
     await supabase
       .from('company_people_connection_matches' as never)
       .update({
         user_rejected: true,
         user_rejected_at: new Date().toISOString(),
+        user_confirmed: false,
+        user_confirmed_at: null,
       } as never)
       .eq('id', body.match_id)
       .eq('user_id', userId)

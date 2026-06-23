@@ -77,7 +77,7 @@ export function DashboardPrimaryNavSections({
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-orange-200">Follow a clear plan</p>
             <p className="mt-1 text-[14px] font-semibold text-white">Protect weekly momentum</p>
             <p className="mt-1 text-[12px] text-slate-300">Close one follow-through and keep cadence steady.</p>
-            <Link href="/dashboard/calendar" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[12px] font-semibold text-slate-100 hover:border-white/35">
+            <Link href="/dashboard/plan" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[12px] font-semibold text-slate-100 hover:border-white/35">
               Open plan
             </Link>
           </article>
