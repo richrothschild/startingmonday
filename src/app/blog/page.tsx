@@ -83,9 +83,7 @@ export default function BlogIndexPage() {
             <Link href="/demo" className="inline-block bg-orange-500 hover:bg-orange-600 text-slate-900 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors">
               See a live prep brief &rarr;
             </Link>
-            <Link href="/pricing" className="inline-block border border-slate-700 hover:border-slate-500 text-slate-200 text-[13px] px-5 py-2.5 rounded transition-colors">
-              Review pricing &rarr;
-            </Link>
+
           </div>
         </div>
       </header>

@@ -239,7 +239,7 @@ export default function CoachesChannelPage() {
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
               <Link href="/method-and-evidence" className="hover:text-slate-200 transition-colors">Method and evidence</Link>
               <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence room</Link>
-              <Link href="/pricing" className="hover:text-slate-200 transition-colors">Pricing</Link>
+
               <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
               <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
               <Link href="/for-coaches/trust-pack" className="hover:text-slate-200 transition-colors">Trust pack</Link>

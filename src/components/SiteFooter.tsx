@@ -16,7 +16,6 @@ export function SiteFooter({ centered = false, className = '' }: SiteFooterProps
           <div className={centered ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
             <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors">Method and evidence</Link>
             <Link href="/evidence-room" className="hover:text-slate-300 transition-colors">Evidence room</Link>
-            <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
             <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
             <Link href="/optimize" className="hover:text-slate-300 transition-colors">Free Profile Grade</Link>

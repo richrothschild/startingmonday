@@ -92,12 +92,7 @@ export default function EvaluatePage() {
           <Link href="/" className="text-sm font-semibold text-slate-900 underline underline-offset-4">
             Homepage
           </Link>
-          <Link
-            href="/pricing"
-            className="text-sm font-semibold text-slate-900 underline underline-offset-4"
-          >
-            Pricing
-          </Link>
+
           <Link href="/demo" className="text-sm font-semibold text-slate-900 underline underline-offset-4">
             Demo
           </Link>

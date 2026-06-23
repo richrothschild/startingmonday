@@ -169,12 +169,6 @@ export default function AboutPage() {
                 Run the live demo
               </Link>
               <Link
-                href="/pricing"
-                className="text-[13px] font-semibold text-slate-100 border border-white/35 hover:border-white/60 px-4 py-2 rounded transition-colors"
-              >
-                Review pricing
-              </Link>
-              <Link
                 href="/signup"
                 className="text-[13px] font-semibold text-slate-950 bg-orange-500 hover:bg-orange-400 px-4 py-2 rounded transition-colors"
               >

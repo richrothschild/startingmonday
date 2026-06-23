@@ -495,7 +495,7 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                       }}
                       className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
                     >
-                      Partner / Firm
+                      Partners / Firms
                     </TrackLink>
                   </div>
                 </section>

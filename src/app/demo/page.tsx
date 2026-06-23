@@ -307,7 +307,7 @@ export function DemoContent({
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-5 flex-wrap justify-center">
-            <Link href="/pricing" className="text-[12px] text-slate-500 hover:text-slate-200 transition-colors">Pricing</Link>
+
             <Link href="/privacy" className="text-[12px] text-slate-500 hover:text-slate-200 transition-colors">Privacy</Link>
             <Link href="/signup?from=demo" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Start free trial →</Link>
           </div>

@@ -168,12 +168,7 @@ export function BlogPost({ title, description, date, readTime, url, slug, cta, c
             >
               Run the live demo
             </Link>
-            <Link
-              href="/pricing"
-              className="inline-block border border-slate-600 text-slate-200 text-[14px] font-semibold px-7 py-3.5 rounded hover:border-slate-400 transition-colors text-center"
-            >
-              Compare tiers
-            </Link>
+
           </div>
           <p className="text-[12px] text-slate-400 mt-3">
             Start with demo if you want proof, pricing if you want to choose a tier, or trial if you are ready to move.

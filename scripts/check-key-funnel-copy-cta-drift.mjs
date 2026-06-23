@@ -45,8 +45,8 @@ const SPECS = [
       },
       {
         id: 'home-primary-path-ctas',
-        description: 'Homepage primary CTAs are Individuals and Partner / Firm path buttons.',
-        matcher: /Individuals[\s\S]*Partner \/ Firm/,
+        description: 'Homepage primary CTAs are Individuals and Partners / Firms path buttons.',
+        matcher: /Individuals[\s\S]*Partners \/ Firms/,
       },
       {
         id: 'home-learn-more-route',
@@ -98,11 +98,6 @@ const SPECS = [
         id: 'blog-demo-cta',
         description: 'Blog index keeps demo CTA copy.',
         matcher: 'See a live prep brief',
-      },
-      {
-        id: 'blog-pricing-cta',
-        description: 'Blog index keeps pricing CTA copy.',
-        matcher: 'Review pricing',
       },
     ],
   },

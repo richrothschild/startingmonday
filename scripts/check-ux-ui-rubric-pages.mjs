@@ -51,7 +51,7 @@ const SPECS = [
 			{
 				id: 'conversion-path-buttons',
 				description: 'Homepage exposes the two top-level path buttons.',
-				matcher: /Individuals[\s\S]*Partner \/ Firm/,
+				matcher: /Individuals[\s\S]*Partners \/ Firms/,
 			},
 			{
 				id: 'content-economy-no-signal-preview-block',

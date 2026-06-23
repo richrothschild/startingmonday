@@ -82,7 +82,7 @@ export default function PartnersPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/pricing" className="text-[13px] text-slate-200 hover:text-white transition-colors">Pricing</Link>
+
             <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">Log in</Link>
           </div>
         </div>
