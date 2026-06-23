@@ -1,6 +1,13 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  ADMIN_DARK_FIELD_MD,
+  ADMIN_DARK_FIELD_SM,
+  ADMIN_DARK_SECTION_CARD,
+  ADMIN_DARK_SUB_CARD,
+  ADMIN_DARK_TABLE_PANEL,
+} from '../admin-dark-theme'
 
 type DeliveryModel = 'agency' | 'freelancer' | 'hybrid'
 type OptionStatus = 'active' | 'hold' | 'pass' | 'new'
@@ -262,9 +269,15 @@ export function SalesEnablementWorkspace() {
     saveState === 'read-only' ? 'Read-only access (viewer role)' :
     'Save failed. Check auth or retry.'
 
+  const fieldMdClass = ADMIN_DARK_FIELD_MD
+  const fieldSmClass = ADMIN_DARK_FIELD_SM
+  const sectionCardClass = ADMIN_DARK_SECTION_CARD.replace(' mb-6', '')
+  const tablePanelClass = ADMIN_DARK_TABLE_PANEL.replace(' mb-6', '')
+  const subCardClass = ADMIN_DARK_SUB_CARD
+
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+      <section className={sectionCardClass}>
         <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Decision Inputs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px]">
           <label className="flex flex-col gap-1.5">
@@ -273,7 +286,7 @@ export function SalesEnablementWorkspace() {
               value={state.objective}
               onChange={(event) => setState((prev) => ({ ...prev, objective: event.target.value }))}
               disabled={!canEdit}
-              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={fieldMdClass}
             />
           </label>
 
@@ -285,7 +298,7 @@ export function SalesEnablementWorkspace() {
               value={state.budgetCeiling}
               onChange={(event) => setState((prev) => ({ ...prev, budgetCeiling: Number(event.target.value || 0) }))}
               disabled={!canEdit}
-              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={fieldMdClass}
             />
           </label>
 
@@ -295,7 +308,7 @@ export function SalesEnablementWorkspace() {
               value={state.primaryModel}
               onChange={(event) => setState((prev) => ({ ...prev, primaryModel: event.target.value as WorkspaceState['primaryModel'] }))}
               disabled={!canEdit}
-              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={fieldMdClass}
             >
               <option value="done-for-you">Done-for-you</option>
               <option value="done-with-you">Done-with-you</option>
@@ -309,7 +322,7 @@ export function SalesEnablementWorkspace() {
               value={state.checkpointWindow}
               onChange={(event) => setState((prev) => ({ ...prev, checkpointWindow: event.target.value as WorkspaceState['checkpointWindow'] }))}
               disabled={!canEdit}
-              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={fieldMdClass}
             >
               <option value="day-14">Day 14</option>
               <option value="day-30">Day 30</option>
@@ -324,12 +337,12 @@ export function SalesEnablementWorkspace() {
             value={state.qualifiedMeetingDefinition}
             onChange={(event) => setState((prev) => ({ ...prev, qualifiedMeetingDefinition: event.target.value }))}
             disabled={!canEdit}
-            className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2 min-h-[88px]"
+            className={`${fieldMdClass} w-full min-h-[88px]`}
           />
         </label>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+      <section className={tablePanelClass}>
         <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-3">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Option Scorecard</h2>
           <p className="text-[12px] text-slate-300">Weighted score = Fit 40% + Commercial 35% + Execution 25%</p>
@@ -363,7 +376,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-name`}
                         title="Option name"
                         disabled={!canEdit}
-                        className="w-[170px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[170px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -373,7 +386,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-model`}
                         title="Delivery model"
                         disabled={!canEdit}
-                        className="border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={fieldSmClass}
                       >
                         <option value="freelancer">Freelancer</option>
                         <option value="agency">Agency</option>
@@ -389,7 +402,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-monthly-cost`}
                         title="Monthly cost"
                         disabled={!canEdit}
-                        className="w-[110px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[110px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -399,7 +412,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-status`}
                         title="Evaluation status"
                         disabled={!canEdit}
-                        className="border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={fieldSmClass}
                       >
                         <option value="active">Active</option>
                         <option value="hold">Hold</option>
@@ -418,7 +431,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-strategic-fit`}
                         title="Strategic fit score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[68px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -432,7 +445,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-commercial-score`}
                         title="Commercial score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[68px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -446,7 +459,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-execution-confidence`}
                         title="Execution confidence score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[68px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -456,7 +469,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-day14-target`}
                         title="Day 14 target"
                         disabled={!canEdit}
-                        className="w-[230px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[230px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -466,7 +479,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-day30-target`}
                         title="Day 30 target"
                         disabled={!canEdit}
-                        className="w-[230px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
+                        className={`${fieldSmClass} w-[230px]`}
                       />
                     </td>
                     <td className="px-4 py-2 align-top text-right">
@@ -483,11 +496,11 @@ export function SalesEnablementWorkspace() {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+        <div className={sectionCardClass}>
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Live Ranking</h2>
           <div className="space-y-2">
             {ranked.map(({ option, score }, index) => (
-              <div key={option.id} className="border border-white/10 bg-slate-950/60 rounded px-3 py-2.5 flex items-center justify-between gap-3">
+              <div key={option.id} className={`${subCardClass} px-3 py-2.5 flex items-center justify-between gap-3`}>
                 <div>
                   <p className="text-[13px] font-semibold text-white">{index + 1}. {option.name}</p>
                   <p className="text-[12px] text-slate-300">{option.model} • ${option.monthlyCost.toLocaleString()} / mo • {option.status}</p>
@@ -500,7 +513,7 @@ export function SalesEnablementWorkspace() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md space-y-4">
+        <div className={`${sectionCardClass} space-y-4`}>
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Decision Summary</h2>
           <label className="block text-[13px]">
             <span className="text-slate-300 block mb-1.5">Top choice today</span>
@@ -508,7 +521,7 @@ export function SalesEnablementWorkspace() {
               value={state.todayTopChoice}
               onChange={(event) => setState((prev) => ({ ...prev, todayTopChoice: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={`${fieldMdClass} w-full`}
             />
           </label>
 
@@ -518,7 +531,7 @@ export function SalesEnablementWorkspace() {
               value={state.backupChoice}
               onChange={(event) => setState((prev) => ({ ...prev, backupChoice: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2"
+              className={`${fieldMdClass} w-full`}
             />
           </label>
 
@@ -528,7 +541,7 @@ export function SalesEnablementWorkspace() {
               value={state.nextActions}
               onChange={(event) => setState((prev) => ({ ...prev, nextActions: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2 min-h-[110px]"
+              className={`${fieldMdClass} w-full min-h-[110px]`}
             />
           </label>
 
@@ -546,14 +559,14 @@ export function SalesEnablementWorkspace() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+      <section className={sectionCardClass}>
         <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Agency vs Freelancer guardrails</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[12px] text-slate-300">
-          <div className="border border-white/10 bg-slate-950/60 rounded p-4">
+          <div className={`${subCardClass} p-4`}>
             <p className="text-[12px] font-semibold text-slate-100 mb-1.5">When agency is better</p>
             <p>Use when you need immediate multi-channel coverage, specialist bandwidth, and redundancy if one operator is unavailable.</p>
           </div>
-          <div className="border border-white/10 bg-slate-950/60 rounded p-4">
+          <div className={`${subCardClass} p-4`}>
             <p className="text-[12px] font-semibold text-slate-100 mb-1.5">When freelancer is better</p>
             <p>Use when you need fast iteration, direct operator access, tighter budget control, and high accountability to one owner metric.</p>
           </div>

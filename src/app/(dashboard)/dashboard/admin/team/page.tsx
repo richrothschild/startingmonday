@@ -3,7 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, getAllStaff } from '@/lib/staff'
 import { TeamClient } from './team-client'
-import { ADMIN_DARK_PAGE_BG } from '../admin-dark-theme'
+import { ADMIN_DARK_PAGE_BG, ADMIN_DARK_SECTION_CARD, adminRoleBadgeClass } from '../admin-dark-theme'
 
 export default async function TeamPage() {
   const supabase = await createClient()
@@ -31,16 +31,12 @@ export default async function TeamPage() {
           <h1 className="text-[26px] font-bold text-white leading-tight">Team Management</h1>
           <p className="text-[13px] text-slate-300 mt-1.5">
             Signed in as <span className="font-semibold text-slate-100">{user.email}</span>
-            <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${
-              staff.role === 'owner' ? 'bg-amber-500/15 text-amber-100 border border-amber-300/25' :
-              staff.role === 'admin' ? 'bg-sky-500/15 text-sky-100 border border-sky-300/25' :
-              'bg-white/10 text-slate-300 border border-white/10'
-            }`}>{staff.role}</span>
+            <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded ${adminRoleBadgeClass(staff.role)}`}>{staff.role}</span>
           </p>
         </div>
 
         {staff.role === 'viewer' && (
-          <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+          <div className={`${ADMIN_DARK_SECTION_CARD} px-5 py-4`}>
             <p className="text-[13px] text-slate-300">You have view-only access. Contact the owner to make changes.</p>
           </div>
         )}
