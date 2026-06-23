@@ -20,6 +20,7 @@ import { type NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { createHash } from 'crypto'
+import { parseLinkedInExportCsv } from '@/lib/enrichment/linkedin-export-parser'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 
@@ -96,6 +97,10 @@ function parseLinkedInConnectionsCsv(text: string): ParsedConnection[] {
   return results
 }
 
+type HybridUploadRecord = {
+  id: string
+}
+
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
@@ -132,6 +137,7 @@ export async function POST(request: NextRequest) {
 
   const text = await file.text()
   const connections = parseLinkedInConnectionsCsv(text)
+  const hybridRows = parseLinkedInExportCsv(text)
 
   if (connections.length === 0) {
     return Response.json({
@@ -143,8 +149,29 @@ export async function POST(request: NextRequest) {
   const ua = request.headers.get('user-agent') ?? ''
   const ipHash = createHash('sha256').update(ip).digest('hex')
   const uaHash = createHash('sha256').update(ua).digest('hex')
+  const fileSha256 = createHash('sha256').update(text).digest('hex')
 
   const supabase = await createClient()
+
+  let hybridUploadId: string | null = null
+  if (hybridRows.length > 0) {
+    const { data: upload, error: uploadError } = await supabase
+      .from('linkedin_connection_uploads' as never)
+      .insert({
+        user_id: userId,
+        source: 'linkedin_export_csv',
+        source_file_name: file.name,
+        source_file_sha256: fileSha256,
+        row_count: hybridRows.length,
+        status: 'processing',
+      } as never)
+      .select('id')
+      .single()
+
+    if (!uploadError && upload) {
+      hybridUploadId = (upload as unknown as HybridUploadRecord).id
+    }
+  }
 
   // Record consent
   const { data: consent, error: consentError } = await supabase
@@ -197,7 +224,55 @@ export async function POST(request: NextRequest) {
       if (insertError) throw insertError
       insertedCount += batch.length
     }
+
+    if (hybridUploadId && hybridRows.length > 0) {
+      for (let i = 0; i < hybridRows.length; i += batchSize) {
+        const batch = hybridRows.slice(i, i + batchSize).map((row) => ({
+          user_id: userId,
+          upload_id: hybridUploadId,
+          first_name: row.firstName,
+          last_name: row.lastName,
+          full_name: row.fullName,
+          email: row.email,
+          company: row.company,
+          position: row.position,
+          connected_on: row.connectedOn,
+          profile_url: row.profileUrl,
+          normalized_full_name: row.normalizedFullName,
+          normalized_company: row.normalizedCompany || null,
+          company_domain: null,
+        }))
+
+        const { error: hybridInsertError } = await supabase
+          .from('linkedin_export_connections' as never)
+          .insert(batch as never)
+
+        if (hybridInsertError) throw hybridInsertError
+      }
+
+      await supabase
+        .from('linkedin_connection_uploads' as never)
+        .update({
+          processed_count: hybridRows.length,
+          status: 'processed',
+          processed_at: new Date().toISOString(),
+        } as never)
+        .eq('id', hybridUploadId)
+        .eq('user_id', userId)
+    }
   } catch {
+    if (hybridUploadId) {
+      await supabase
+        .from('linkedin_connection_uploads' as never)
+        .update({
+          status: 'failed',
+          failure_reason: 'Import batch insert failed',
+          processed_at: new Date().toISOString(),
+        } as never)
+        .eq('id', hybridUploadId)
+        .eq('user_id', userId)
+    }
+
     await supabase.from('linkedin_import_audit_events').insert({
       user_id: userId,
       consent_id: consent.id,
@@ -223,6 +298,7 @@ export async function POST(request: NextRequest) {
 
   return Response.json({
     consent_id: consent.id,
+    upload_id: hybridUploadId,
     connection_count: insertedCount,
     preview,
   })
