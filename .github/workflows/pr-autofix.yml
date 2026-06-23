@@ -125,8 +125,8 @@ jobs:
               .map((c) => c.name)
 
             if (target === 'mobile-visual') {
-              const hasMobileFailure = failedCheckNames.some((n) => /Mobile visual regression/i.test(n))
-              if (!hasMobileFailure) return stop('No failing Mobile visual regression check found on PR head SHA')
+              const hasMobileFailure = failedCheckNames.some((n) => /Mobile visual (regression|smoke)/i.test(n))
+              if (!hasMobileFailure) return stop('No failing Mobile visual check found on PR head SHA')
             }
 
             if (target === 'elite-visual') {
