@@ -6,12 +6,12 @@ import { archiveContactSilent, toggleContactPriority } from '@/app/(dashboard)/d
 import { STATUS_STEPS, STATUS_CLS } from '@/components/ContactStatusStepper'
 
 const CHANNEL: Record<string, { label: string; cls: string }> = {
-  linkedin:  { label: 'LinkedIn',  cls: 'bg-blue-50 text-blue-700' },
-  referral:  { label: 'Referral',  cls: 'bg-green-50 text-green-700' },
-  cold:      { label: 'Cold',      cls: 'bg-slate-100 text-slate-500' },
-  inbound:   { label: 'Inbound',   cls: 'bg-indigo-50 text-indigo-700' },
-  event:     { label: 'Event',     cls: 'bg-amber-50 text-amber-700' },
-  recruiter: { label: 'Recruiter', cls: 'bg-purple-50 text-purple-700' },
+  linkedin:  { label: 'LinkedIn',  cls: 'border border-blue-300/20 bg-blue-500/10 text-blue-100' },
+  referral:  { label: 'Referral',  cls: 'border border-emerald-300/20 bg-emerald-500/10 text-emerald-100' },
+  cold:      { label: 'Cold',      cls: 'border border-white/10 bg-white/5 text-slate-300' },
+  inbound:   { label: 'Inbound',   cls: 'border border-indigo-300/20 bg-indigo-500/10 text-indigo-100' },
+  event:     { label: 'Event',     cls: 'border border-amber-300/20 bg-amber-500/10 text-amber-100' },
+  recruiter: { label: 'Recruiter', cls: 'border border-purple-300/20 bg-purple-500/10 text-purple-100' },
 }
 
 const STATUS_LABELS: Record<string, string> = Object.fromEntries(
@@ -147,20 +147,20 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
 
   if (contacts.length === 0) {
     return (
-      <div className="bg-white border border-slate-200 rounded overflow-hidden">
-        <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">All contacts</span>
+      <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+        <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
+          <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300">All contacts</span>
           <span className="text-[12px] text-slate-400">0 contacts</span>
         </div>
         <div className="px-6 py-12 text-center">
-          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+          <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-3">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <circle cx="10" cy="7" r="4" stroke="#94a3b8" strokeWidth="1.5"/>
               <path d="M3 18c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#94a3b8" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
-          <p className="text-[14px] font-semibold text-slate-900 mb-1">No contacts yet</p>
-          <p className="text-[13px] text-slate-500 max-w-xs mx-auto">Add recruiters, hiring managers, and warm connections. Roles at this level fill through relationships.</p>
+          <p className="text-[14px] font-semibold text-white mb-1">No contacts yet</p>
+          <p className="text-[13px] text-slate-300 max-w-xs mx-auto">Add recruiters, hiring managers, and warm connections. Roles at this level fill through relationships.</p>
         </div>
       </div>
     )
@@ -184,20 +184,20 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
           : 'Schedule next follow-up'
 
     return (
-      <div className="px-6 py-4 flex items-start gap-3">
+      <div className="px-6 py-4 flex items-start gap-3 bg-slate-950/10 hover:bg-white/[0.03] transition-colors">
         {isExecutive && (
           <button
             type="button"
             title={isPriority ? 'Remove priority' : 'Mark as priority'}
             onClick={() => togglePriority(ct)}
-            className={`shrink-0 mt-0.5 text-[16px] leading-none cursor-pointer bg-transparent border-0 p-0 transition-opacity ${isPriority ? 'opacity-100' : 'opacity-20 hover:opacity-60'}`}
+            className={`shrink-0 mt-0.5 text-[16px] leading-none cursor-pointer bg-transparent border-0 p-0 transition-opacity ${isPriority ? 'text-orange-300 opacity-100' : 'text-slate-500 opacity-30 hover:opacity-70'}`}
           >
             ★
           </button>
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
+            <Link href={`/dashboard/contacts/${ct.id}`} className="text-[14px] font-semibold text-white hover:text-orange-200">
               {ct.name}
             </Link>
             {ch && (
@@ -206,7 +206,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
               </span>
             )}
             {relationshipType && (
-              <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] bg-orange-50 text-orange-700">
+              <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.04em] border border-orange-300/20 bg-orange-500/10 text-orange-100">
                 {relationshipType}
               </span>
             )}
@@ -215,26 +215,26 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
             </span>
           </div>
           {subtitle && (
-            <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
+            <p className="text-[13px] text-slate-300 mt-0.5">{subtitle}</p>
           )}
           {ct.last_role_discussed && (
-            <p className="text-[12px] text-slate-500 mt-0.5">Last role discussed: {ct.last_role_discussed}</p>
+            <p className="text-[12px] text-slate-400 mt-0.5">Last role discussed: {ct.last_role_discussed}</p>
           )}
-          <div className="text-[11px] text-slate-500 mt-1.5 flex items-center gap-2 flex-wrap">
+          <div className="text-[11px] text-slate-400 mt-1.5 flex items-center gap-2 flex-wrap">
             {ct.companies?.id && (
-              <Link href={`/dashboard/companies/${ct.companies.id}`} className="font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+              <Link href={`/dashboard/companies/${ct.companies.id}`} className="font-semibold text-slate-200 hover:text-white transition-colors">
                 {ct.companies.name}
               </Link>
             )}
             <span>
-              Next: <span className="font-semibold text-slate-700">{nextAction}</span>
+              Next: <span className="font-semibold text-slate-100">{nextAction}</span>
             </span>
           </div>
         </div>
         <div className="flex items-center gap-3 shrink-0 mt-0.5">
           <Link
             href={`/dashboard/contacts/${ct.id}/outreach`}
-            className="text-[11px] text-slate-400 hover:text-slate-700 font-medium"
+            className="text-[11px] text-slate-300 hover:text-white font-medium"
           >
             Draft
           </Link>
@@ -247,7 +247,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
                 router.refresh()
               })
             }}
-            className="text-[11px] text-slate-300 hover:text-red-500 cursor-pointer bg-transparent border-0 p-0 min-h-[32px] min-w-[44px]"
+            className="text-[11px] text-slate-400 hover:text-red-200 cursor-pointer bg-transparent border-0 p-0 min-h-[32px] min-w-[44px]"
           >
             Remove
           </button>
@@ -257,15 +257,15 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
   }
 
   return (
-    <div className="bg-white border border-slate-200 rounded overflow-hidden">
-      <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-        <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">All contacts</span>
+    <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+      <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
+        <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300">All contacts</span>
         <div className="flex items-center gap-3">
           {isExecutive && filtered.length > 0 && (
             <button
               type="button"
               onClick={() => exportContactsCsv(filtered)}
-              className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 cursor-pointer bg-transparent border-0 p-0"
+              className="text-[11px] font-semibold text-slate-300 hover:text-white cursor-pointer bg-transparent border-0 p-0"
             >
               Export CSV
             </button>
@@ -279,25 +279,25 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
       </div>
 
       {/* Search */}
-      <div className="px-6 py-3 border-b border-slate-100">
+      <div className="px-6 py-3 border-b border-white/10 bg-slate-950/20">
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search by name, title, or company..."
-          className="w-full text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none bg-transparent"
+          className="w-full text-[13px] text-slate-100 placeholder:text-slate-500 focus:outline-none bg-transparent"
         />
       </div>
 
       {/* Channel filter */}
       {activeChannelFilters.length > 1 && (
-        <div className="px-6 py-2.5 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto">
+        <div className="px-6 py-2.5 border-b border-white/10 flex items-center gap-1.5 overflow-x-auto bg-slate-950/20">
           <button
             type="button"
             onClick={() => setChannelFilter('')}
             className={[
               'text-[11px] font-semibold px-2.5 py-1 rounded-full shrink-0 cursor-pointer border-0 transition-colors',
-              !channelFilter ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200',
+              !channelFilter ? 'bg-orange-500 text-slate-950' : 'bg-white/5 text-slate-300 hover:bg-white/10',
             ].join(' ')}
           >
             All
@@ -311,7 +311,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
                 onClick={() => setChannelFilter(channelFilter === v ? '' : v)}
                 className={[
                   'text-[11px] font-semibold px-2.5 py-1 rounded-full shrink-0 cursor-pointer border-0 transition-colors',
-                  channelFilter === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200',
+                  channelFilter === v ? 'bg-orange-500 text-slate-950' : 'bg-white/5 text-slate-300 hover:bg-white/10',
                 ].join(' ')}
               >
                 {ch?.label ?? v}
@@ -323,18 +323,18 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
 
       {/* Rows */}
       {filtered.length === 0 ? (
-        <div className="px-6 py-8 text-center text-[13px] text-slate-400">
+        <div className="px-6 py-8 text-center text-[13px] text-slate-300">
           No contacts match that filter.
         </div>
       ) : (
-        <div className="divide-y divide-slate-50">
+        <div className="divide-y divide-white/10">
 
           {/* Executive: firm-grouped recruiters first */}
           {isExecutive && grouped && Object.entries(grouped).sort(([,a],[,b]) => b.length - a.length).map(([firm, cts]) => (
             <div key={firm}>
-              <div className="px-6 py-2 bg-purple-50 border-b border-purple-100 flex items-center gap-2">
-                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-purple-600">{firm}</span>
-                <span className="text-[10px] text-purple-400">{cts.length} {cts.length === 1 ? 'contact' : 'contacts'}</span>
+              <div className="px-6 py-2 bg-purple-500/10 border-b border-white/10 flex items-center gap-2">
+                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-purple-100">{firm}</span>
+                <span className="text-[10px] text-purple-200/70">{cts.length} {cts.length === 1 ? 'contact' : 'contacts'}</span>
               </div>
               {cts.map(ct => <ContactRow key={ct.id} ct={ct} />)}
             </div>
