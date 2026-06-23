@@ -159,11 +159,11 @@ export default async function ChannelBenchmarksPage() {
   const qaPass = qaRows.every((row) => row.missingRate < 0.02)
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
-            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            <span className="text-white">Starting </span><span className="text-orange-300">Monday</span>
           </span>
           <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
             ← Admin
@@ -172,32 +172,32 @@ export default async function ChannelBenchmarksPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-<h1 className="text-[26px] font-bold text-slate-900 leading-tight">Channel Benchmarks (30d)</h1>
-        <p className="text-[13px] text-slate-500 mt-1.5 max-w-2xl">
+<h1 className="text-[26px] font-bold text-white leading-tight">Channel Benchmarks (30d)</h1>
+        <p className="text-[13px] text-slate-300 mt-1.5 max-w-2xl">
           Authenticated cohort benchmark for Sprint 2 and Sprint 3 funnel telemetry. Use this to track channel entry volume, persona-route pull-through, source segmentation, and A/B variant distribution.
         </p>
 
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-6">
-          <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Entry clicks</p>
-            <p className="text-[22px] font-bold text-slate-900 mt-1">{totalEntry}</p>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300">Entry clicks</p>
+            <p className="text-[22px] font-bold text-white mt-1">{totalEntry}</p>
           </div>
-          <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona selections</p>
-            <p className="text-[22px] font-bold text-slate-900 mt-1">{totalPersona}</p>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300">Persona selections</p>
+            <p className="text-[22px] font-bold text-white mt-1">{totalPersona}</p>
           </div>
-          <div className="bg-white border border-slate-200 rounded p-4">
-            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500">Persona per entry</p>
-            <p className="text-[22px] font-bold text-slate-900 mt-1">{pct(totalPersona, totalEntry)}</p>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300">Persona per entry</p>
+            <p className="text-[22px] font-bold text-white mt-1">{pct(totalPersona, totalEntry)}</p>
           </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-5 py-3 border-b border-slate-100">
-            <h2 className="text-[13px] font-semibold text-slate-900">Channel funnel benchmark</h2>
+        <section className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+          <div className="px-5 py-3 border-b border-white/10">
+            <h2 className="text-[13px] font-semibold text-white">Channel funnel benchmark</h2>
           </div>
           <table className="w-full text-[13px]">
-            <thead className="bg-slate-50 border-b border-slate-100 text-slate-500">
+            <thead className="bg-white/5 border-b border-white/10 text-slate-300">
               <tr>
                 <th className="px-5 py-2 text-left">Channel</th>
                 <th className="px-4 py-2 text-right">Entry clicks</th>
@@ -207,11 +207,11 @@ export default async function ChannelBenchmarksPage() {
             </thead>
             <tbody>
               {benchmarkRows.map((row) => (
-                <tr key={row.channel} className="border-t border-slate-100">
-                  <td className="px-5 py-2 font-semibold text-slate-800">{row.channel}</td>
-                  <td className="px-4 py-2 text-right text-slate-700">{row.entryClicks}</td>
-                  <td className="px-4 py-2 text-right text-slate-700">{row.personaSelections}</td>
-                  <td className="px-5 py-2 text-right text-slate-700">{pct(row.personaSelections, row.entryClicks)}</td>
+                <tr key={row.channel} className="border-t border-white/10">
+                  <td className="px-5 py-2 font-semibold text-slate-100">{row.channel}</td>
+                  <td className="px-4 py-2 text-right text-slate-200">{row.entryClicks}</td>
+                  <td className="px-4 py-2 text-right text-slate-200">{row.personaSelections}</td>
+                  <td className="px-5 py-2 text-right text-slate-200">{pct(row.personaSelections, row.entryClicks)}</td>
                 </tr>
               ))}
             </tbody>
@@ -219,27 +219,27 @@ export default async function ChannelBenchmarksPage() {
         </section>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Source page segments</h2>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <h2 className="text-[13px] font-semibold text-white mb-3">Source page segments</h2>
             <div className="space-y-2 text-[13px]">
-              {sourceRows.length === 0 && <p className="text-slate-500">No events yet.</p>}
+              {sourceRows.length === 0 && <p className="text-slate-300">No events yet.</p>}
               {sourceRows.map(([source, count]) => (
-                <div key={source} className="flex items-center justify-between border-b border-slate-100 pb-1">
-                  <span className="text-slate-700">{source}</span>
-                  <span className="font-semibold text-slate-900">{count}</span>
+                <div key={source} className="flex items-center justify-between border-b border-white/10 pb-1">
+                  <span className="text-slate-200">{source}</span>
+                  <span className="font-semibold text-white">{count}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">A/B variant segments</h2>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <h2 className="text-[13px] font-semibold text-white mb-3">A/B variant segments</h2>
             <div className="space-y-2 text-[13px]">
-              {variantRows.length === 0 && <p className="text-slate-500">No events yet.</p>}
+              {variantRows.length === 0 && <p className="text-slate-300">No events yet.</p>}
               {variantRows.map(([variant, count]) => (
-                <div key={variant} className="flex items-center justify-between border-b border-slate-100 pb-1">
-                  <span className="text-slate-700">{variant}</span>
-                  <span className="font-semibold text-slate-900">{count}</span>
+                <div key={variant} className="flex items-center justify-between border-b border-white/10 pb-1">
+                  <span className="text-slate-200">{variant}</span>
+                  <span className="font-semibold text-white">{count}</span>
                 </div>
               ))}
             </div>
@@ -247,31 +247,31 @@ export default async function ChannelBenchmarksPage() {
         </section>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <div className="bg-white border border-slate-200 rounded p-5">
-            <h2 className="text-[13px] font-semibold text-slate-900 mb-3">Persona segment distribution</h2>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+            <h2 className="text-[13px] font-semibold text-white mb-3">Persona segment distribution</h2>
             <div className="space-y-2 text-[13px]">
-              {personaRows.length === 0 && <p className="text-slate-500">No persona events yet.</p>}
+              {personaRows.length === 0 && <p className="text-slate-300">No persona events yet.</p>}
               {personaRows.map(([persona, count]) => (
-                <div key={persona} className="flex items-center justify-between border-b border-slate-100 pb-1">
-                  <span className="text-slate-700">{persona}</span>
-                  <span className="font-semibold text-slate-900">{count}</span>
+                <div key={persona} className="flex items-center justify-between border-b border-white/10 pb-1">
+                  <span className="text-slate-200">{persona}</span>
+                  <span className="font-semibold text-white">{count}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded p-5">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[13px] font-semibold text-slate-900">Telemetry QA</h2>
+              <h2 className="text-[13px] font-semibold text-white">Telemetry QA</h2>
               <span className={`text-[13px] font-semibold px-2 py-1 rounded ${qaPass ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                 {qaPass ? 'PASS' : 'FAIL'}
               </span>
             </div>
-            <p className="text-[13px] text-slate-500 mb-3">Target: less than 2% missing required telemetry fields.</p>
+            <p className="text-[13px] text-slate-300 mb-3">Target: less than 2% missing required telemetry fields.</p>
             <div className="space-y-2 text-[13px]">
               {qaRows.map((row) => (
-                <div key={row.label} className="flex items-center justify-between border-b border-slate-100 pb-1">
-                  <span className="text-slate-700">{row.label}</span>
+                <div key={row.label} className="flex items-center justify-between border-b border-white/10 pb-1">
+                  <span className="text-slate-200">{row.label}</span>
                   <span className={`font-semibold ${row.missingRate < 0.02 ? 'text-green-700' : 'text-red-700'}`}>
                     {(row.missingRate * 100).toFixed(1)}%
                   </span>
@@ -284,3 +284,4 @@ export default async function ChannelBenchmarksPage() {
     </div>
   )
 }
+

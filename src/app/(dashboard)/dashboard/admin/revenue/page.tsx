@@ -3,6 +3,13 @@ import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
+import {
+  ADMIN_DARK_ACTION_CARD,
+  ADMIN_DARK_PAGE_BG,
+  ADMIN_DARK_SECTION_CARD,
+  ADMIN_DARK_STAT_CARD,
+  ADMIN_DARK_TABLE_PANEL,
+} from '../admin-dark-theme'
 
 const REVENUE_ALERT_SOURCES = [
   'plan_change_requests',
@@ -19,9 +26,9 @@ function daysAgoIso(days: number): string {
 }
 
 function roleBadge(role: string): string {
-  if (role === 'owner') return 'bg-amber-50 text-amber-700'
-  if (role === 'admin') return 'bg-blue-50 text-blue-700'
-  return 'bg-slate-100 text-slate-500'
+  if (role === 'owner') return 'bg-amber-500/15 text-amber-100 border border-amber-300/25'
+  if (role === 'admin') return 'bg-sky-500/15 text-sky-100 border border-sky-300/25'
+  return 'bg-white/10 text-slate-300 border border-white/10'
 }
 
 export default async function AdminRevenuePage() {
@@ -61,7 +68,7 @@ export default async function AdminRevenuePage() {
       ]
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className={ADMIN_DARK_PAGE_BG}>
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
@@ -75,10 +82,10 @@ export default async function AdminRevenuePage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 <div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Revenue Hub</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">Revenue operations, customer conversion, and billing risk control.</p>
-          <p className="text-[13px] text-slate-500 mt-1">
-            Signed in as <span className="font-semibold text-slate-700">{user.email}</span>
+          <h1 className="text-[26px] font-bold text-white leading-tight">Revenue Hub</h1>
+          <p className="text-[13px] text-slate-300 mt-1.5">Revenue operations, customer conversion, and billing risk control.</p>
+          <p className="text-[13px] text-slate-300 mt-1">
+            Signed in as <span className="font-semibold text-slate-100">{user.email}</span>
             <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
           </p>
         </div>
@@ -90,40 +97,40 @@ export default async function AdminRevenuePage() {
             { label: 'Revenue mismatches (30d)', value: mismatches30d ?? 0 },
             { label: 'Queued refunds (30d)', value: pendingRefunds ?? 0 },
           ].map((card) => (
-            <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
-              <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
-              <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
+            <div key={card.label} className={ADMIN_DARK_STAT_CARD}>
+              <div className="text-[24px] font-bold text-white leading-none">{card.value}</div>
+              <div className="text-[13px] text-slate-300 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <div className={ADMIN_DARK_SECTION_CARD}>
           <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Role-based quick actions</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {quickActions.map((action) => (
-              <Link key={action.href} href={action.href} className="block border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">
-                <p className="text-[13px] font-semibold text-slate-900">{action.label}</p>
-                <p className="text-[13px] text-slate-500 mt-1.5 leading-relaxed">{action.description}</p>
+              <Link key={action.href} href={action.href} className={ADMIN_DARK_ACTION_CARD}>
+                <p className="text-[13px] font-semibold text-white">{action.label}</p>
+                <p className="text-[13px] text-slate-300 mt-1.5 leading-relaxed">{action.description}</p>
               </Link>
             ))}
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div className={ADMIN_DARK_TABLE_PANEL}>
+          <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
             <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Revenue alert panel</p>
-            <Link href="/guide" className="text-[13px] text-slate-500 hover:text-slate-700">Runbook →</Link>
+            <Link href="/guide" className="text-[13px] text-slate-300 hover:text-white">Runbook →</Link>
           </div>
           {(recentAlerts ?? []).length === 0 ? (
-            <p className="px-5 py-4 text-[13px] text-slate-500">No open revenue alerts.</p>
+            <p className="px-5 py-4 text-[13px] text-slate-300">No open revenue alerts.</p>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-white/10">
               {(recentAlerts ?? []).map((alert: { id: string; source_table: string; severity: string; message: string; created_at: string }) => (
                 <div key={alert.id} className="px-5 py-3">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-[13px] font-semibold text-slate-900">{alert.message}</p>
+                    <p className="text-[13px] font-semibold text-white">{alert.message}</p>
                     <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
-                      alert.severity === 'high' ? 'bg-red-50 text-red-700' : alert.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-500'
+                      alert.severity === 'high' ? 'bg-red-500/15 text-red-100 border border-red-300/25' : alert.severity === 'medium' ? 'bg-amber-500/15 text-amber-100 border border-amber-300/25' : 'bg-white/10 text-slate-300 border border-white/10'
                     }`}>{alert.severity}</span>
                   </div>
                   <p className="text-[13px] text-slate-400 mt-1 font-mono">{alert.source_table} • {new Date(alert.created_at).toLocaleString()}</p>
