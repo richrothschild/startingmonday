@@ -80,11 +80,13 @@ export default async function ForExecutivesPage() {
 
             <figure className="mx-auto w-[58%] max-w-[340px] rounded-[18px] border border-white/12 bg-slate-900/55 p-1.5 shadow-[0_24px_52px_rgba(2,6,23,0.4)] lg:mr-0 lg:ml-auto lg:w-[58%] lg:max-w-[380px]">
               <img
-                src="/executive-reference.png"
+                src="/executive-reference.webp"
                 alt="Executive seated at a desk reviewing documents in a refined home office"
                 className="block w-full rounded-[14px]"
                 loading="eager"
                 fetchPriority="high"
+                width={1414}
+                height={2000}
               />
             </figure>
           </div>
