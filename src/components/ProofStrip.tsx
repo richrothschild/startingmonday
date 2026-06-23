@@ -1,5 +1,5 @@
 ﻿/**
- * ProofStrip â€” reusable executive-page proof attribution block.
+ * ProofStrip - reusable executive-page proof attribution block.
  *
  * Renders a compact trust strip with denominator, window, and a link to the
  * Evidence Hub. Used across all /for-* executive role pages as
@@ -12,7 +12,7 @@ interface ProofStripProps {
   metric: string
   /** One-line explanation of what the metric measures */
   label: string
-  /** Source window and denominator, e.g. "27 executives Â· Janâ€“May 2026" */
+  /** Source window and denominator, e.g. "27 executives - Jan-May 2026" */
   source: string
   /** Optional note about variability */
   caveat?: string

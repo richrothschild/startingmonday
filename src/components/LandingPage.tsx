@@ -893,7 +893,7 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                     <details key={item.title} className="group border-b border-white/10 pb-4 pt-4">
                       <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-semibold text-white">
                         <span>{item.title}</span>
-                        <span className="mt-0.5 shrink-0 text-slate-400 transition-transform group-open:rotate-180">â–¾</span>
+                        <span className="mt-0.5 shrink-0 text-slate-400 transition-transform group-open:rotate-180">v</span>
                       </summary>
                       <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-200/90">
                         {item.body}
@@ -915,7 +915,7 @@ export function LandingPage({ hero, faqs, showFooter = true, rolePathPriorityByC
                   <details key={f.question} className="rounded-xl border border-white/10 bg-white/5 px-5 py-4 group">
                     <summary className="list-none cursor-pointer text-[14px] font-semibold text-white flex justify-between items-start gap-3">
                       <span>{f.question}</span>
-                      <span className="mt-0.5 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">â–¾</span>
+                      <span className="mt-0.5 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">v</span>
                     </summary>
                     <p className="mt-3 text-[13px] leading-relaxed text-slate-200 [text-wrap:pretty]">{f.answer}</p>
                   </details>
