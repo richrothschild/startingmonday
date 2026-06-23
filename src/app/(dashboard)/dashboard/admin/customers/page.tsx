@@ -189,11 +189,11 @@ export default async function CustomersPage({
   const sendEmailAction = sendWelcomeEmail.bind(null)
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
-            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            <span className="text-white">Starting </span><span className="text-orange-300">Monday</span>
           </span>
           <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
             Admin
@@ -203,40 +203,40 @@ export default async function CustomersPage({
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 <div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Customers</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">Trial and paid subscriber overview.</p>
+          <h1 className="text-[26px] font-bold text-white leading-tight">Customers</h1>
+          <p className="text-[13px] text-slate-300 mt-1.5">Trial and paid subscriber overview.</p>
         </div>
 
         {/* Conversion stats */}
-        <div className="bg-white border border-slate-200 rounded-lg p-6 mb-6">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
             <div>
-              <p className="text-[28px] font-bold text-slate-900 leading-none">{trialing}</p>
+              <p className="text-[28px] font-bold text-white leading-none">{trialing}</p>
               <p className="text-[13px] text-slate-400 mt-1">Active trials</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold text-orange-500 leading-none">{converted}</p>
+              <p className="text-[28px] font-bold text-orange-300 leading-none">{converted}</p>
               <p className="text-[13px] text-slate-400 mt-1">Converted</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold text-slate-900 leading-none">{lapsed}</p>
+              <p className="text-[28px] font-bold text-white leading-none">{lapsed}</p>
               <p className="text-[13px] text-slate-400 mt-1">Lapsed</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold text-slate-900 leading-none">{convRate}%</p>
+              <p className="text-[28px] font-bold text-white leading-none">{convRate}%</p>
               <p className="text-[13px] text-slate-400 mt-1">Conv. rate</p>
               <p className="text-[13px] text-slate-300 mt-0.5">of closed trials</p>
             </div>
           </div>
 
           {/* Channel attribution */}
-          <div className="border-t border-slate-100 pt-5">
+          <div className="border-t border-white/10 pt-5">
             <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Signups by source</p>
             <div className="flex flex-wrap gap-2">
               {topSources.map(([src, count]) => (
-                <span key={src} className="inline-flex items-center gap-1.5 text-[13px] bg-slate-50 border border-slate-200 rounded px-3 py-1.5">
-                  <span className="font-semibold text-slate-700">{src}</span>
+                <span key={src} className="inline-flex items-center gap-1.5 text-[13px] bg-white/5 border border-white/10 rounded px-3 py-1.5">
+                  <span className="font-semibold text-slate-200">{src}</span>
                   <span className="text-slate-400">{count}</span>
                 </span>
               ))}
@@ -252,12 +252,12 @@ export default async function CustomersPage({
               href={`/dashboard/admin/customers?filter=${card.filter}`}
               className={`rounded p-5 border transition-colors ${
                 filter === card.filter
-                  ? 'bg-slate-900 border-slate-900 text-white'
-                  : 'bg-white border-slate-200 hover:border-slate-400'
+                  ? 'bg-orange-400 border-orange-300/30 text-slate-950'
+                  : 'bg-white/5 border-white/10 hover:border-white/30'
               }`}
             >
               <div className={`text-[30px] font-bold leading-none ${
-                filter === card.filter ? 'text-white' : card.accent ? 'text-orange-500' : 'text-slate-900'
+                filter === card.filter ? 'text-white' : card.accent ? 'text-orange-300' : 'text-white'
               }`}>
                 {card.label}
               </div>
@@ -269,8 +269,8 @@ export default async function CustomersPage({
         </div>
 
         {/* Table */}
-        <div className="bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200">
+        <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <div className="px-6 py-[18px] border-b border-white/10">
             <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               {FILTER_LABELS[filter]} ({filteredUsers.length})
             </span>
@@ -282,7 +282,7 @@ export default async function CustomersPage({
             <div className="overflow-x-auto">
               <table className="w-full text-[13px]">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100 text-left">
+                  <tr className="bg-white/5 border-b border-white/10 text-left">
                     <th className="px-6 py-2.5 font-semibold text-slate-400">Email</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400">Plan</th>
                     <th className="px-4 py-2.5 font-semibold text-slate-400">Status</th>
@@ -297,15 +297,15 @@ export default async function CustomersPage({
                     <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Welcome</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-white/10">
                   {filteredUsers.map(u => {
                     const wasSent = sent === u.id
                     return (
                       <tr key={u.id} className={wasSent ? 'bg-green-50' : undefined}>
-                        <td className="px-6 py-3 font-semibold text-slate-900 max-w-[180px] truncate">
+                        <td className="px-6 py-3 font-semibold text-white max-w-[180px] truncate">
                           {u.email}
                         </td>
-                        <td className="px-4 py-3 text-slate-600">
+                        <td className="px-4 py-3 text-slate-300">
                           {TIER_NAMES[u.subscription_tier ?? 'free'] ?? 'Free'}
                         </td>
                         <td className="px-4 py-3">
@@ -313,7 +313,7 @@ export default async function CustomersPage({
                             {u.subscription_status.charAt(0).toUpperCase() + u.subscription_status.slice(1)}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
+                        <td className="px-4 py-3 text-slate-300 whitespace-nowrap">
                           {new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </td>
                         <td className="px-4 py-3 text-center hidden sm:table-cell">
@@ -323,7 +323,7 @@ export default async function CustomersPage({
                             return <span className={`font-bold ${color}`}>{score}/6</span>
                           })()}
                         </td>
-                        <td className="px-4 py-3 text-slate-500 hidden md:table-cell whitespace-nowrap">
+                        <td className="px-4 py-3 text-slate-300 hidden md:table-cell whitespace-nowrap">
                           {daysAgo(lastActiveMap[u.id])}
                         </td>
                         <td className="px-4 py-3 text-slate-400 font-mono text-[13px] hidden lg:table-cell">
@@ -339,10 +339,10 @@ export default async function CustomersPage({
                             ? <span className="text-green-600 font-bold">&#10003;</span>
                             : <span className="text-slate-200">--</span>}
                         </td>
-                        <td className="px-4 py-3 text-slate-500 hidden sm:table-cell whitespace-nowrap">
+                        <td className="px-4 py-3 text-slate-300 hidden sm:table-cell whitespace-nowrap">
                           {u.subscription_status === 'trialing' ? daysLeft(u.trial_ends_at) : '--'}
                         </td>
-                        <td className="px-4 py-3 text-right text-slate-700 tabular-nums font-semibold hidden sm:table-cell">
+                        <td className="px-4 py-3 text-right text-slate-200 tabular-nums font-semibold hidden sm:table-cell">
                           {outreachByUser[u.id] ?? 0}
                         </td>
                         <td className="px-4 py-3 text-right">
@@ -352,7 +352,7 @@ export default async function CustomersPage({
                             <form action={sendEmailAction.bind(null, u.id, filter)}>
                               <button
                                 type="submit"
-                                className="text-[13px] font-semibold text-slate-500 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
+                                className="text-[13px] font-semibold text-slate-300 border border-white/10 rounded px-2.5 py-1 hover:border-white/30 hover:text-slate-200 bg-transparent cursor-pointer transition-colors whitespace-nowrap"
                               >
                                 Send welcome
                               </button>
@@ -372,3 +372,4 @@ export default async function CustomersPage({
     </div>
   )
 }
+

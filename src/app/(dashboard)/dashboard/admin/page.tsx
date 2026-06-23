@@ -254,10 +254,10 @@ export default async function AdminPage() {
 
   type ScoreStatus = 'green' | 'yellow' | 'red' | 'gray'
   function statusClass(status: ScoreStatus): string {
-    if (status === 'green') return 'text-green-700 bg-green-50 border-green-200'
-    if (status === 'yellow') return 'text-amber-700 bg-amber-50 border-amber-200'
-    if (status === 'red') return 'text-red-700 bg-red-50 border-red-200'
-    return 'text-slate-500 bg-slate-50 border-slate-200'
+    if (status === 'green') return 'text-green-100 bg-green-500/15 border-green-300/20'
+    if (status === 'yellow') return 'text-amber-100 bg-amber-500/15 border-amber-300/20'
+    if (status === 'red') return 'text-red-100 bg-red-500/15 border-red-300/20'
+    return 'text-slate-300 bg-white/10 border-white/10'
   }
 
   const scoreRows: { label: string; threshold: string; value: string; status: ScoreStatus; note?: string }[] = [
@@ -437,9 +437,9 @@ export default async function AdminPage() {
     : null
 
   const roleBadge = (role: string) =>
-    role === 'owner' ? 'bg-amber-50 text-amber-700' :
-    role === 'admin' ? 'bg-blue-50 text-blue-700' :
-    'bg-slate-100 text-slate-500'
+    role === 'owner' ? 'bg-amber-500/15 text-amber-100 border border-amber-300/20' :
+    role === 'admin' ? 'bg-blue-500/15 text-blue-100 border border-blue-300/20' :
+    'bg-white/10 text-slate-300 border border-white/10'
 
   // Email council quality telemetry from local score log
   const emailCouncilLogPath = path.join(process.cwd(), '.logs', 'email-council-scores.jsonl')
@@ -532,10 +532,10 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-300">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors">Sales enablement</Link>
             <Link href="/dashboard/admin/revenue" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
@@ -554,56 +554,56 @@ export default async function AdminPage() {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Admin</h1>
-            <p className="text-[13px] text-slate-500 mt-1.5">
+            <h1 className="text-[26px] font-bold text-white leading-tight">Admin</h1>
+            <p className="text-[13px] text-slate-300 mt-1.5">
               Signed in as <span className="font-semibold">{user.email}</span>
               <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-white bg-slate-900 border border-slate-900 hover:bg-slate-800 px-4 py-2 rounded transition-colors shrink-0">
+            <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-slate-950 bg-orange-400 border border-orange-300/40 hover:bg-orange-300 px-4 py-2 rounded transition-colors shrink-0">
               Open sales enablement
             </Link>
             {staff.role === 'owner' && (
-              <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors shrink-0">
+              <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-200 bg-white/5 border border-white/15 hover:border-white/30 px-4 py-2 rounded transition-colors shrink-0">
                 Manage team
               </Link>
             )}
           </div>
         </div>
 
-        <section className="mb-8 bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+        <section className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-2">Jump to section</h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#control-rooms" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Control rooms</a>
-            <a href="#subscriber-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
-            <a href="#email-council-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Email council</a>
-            <a href="#system-health" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">System health</a>
-            <a href="#role-path-ranking" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Role-path ranking</a>
-            <a href="#internal-pages" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Internal pages</a>
-            <a href="#partners" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Partners</a>
+            <a href="#control-rooms" className="text-slate-300 hover:text-white underline underline-offset-2">Control rooms</a>
+            <a href="#subscriber-summary" className="text-slate-300 hover:text-white underline underline-offset-2">Subscribers</a>
+            <a href="#email-council-health" className="text-slate-300 hover:text-white underline underline-offset-2">Email council</a>
+            <a href="#system-health" className="text-slate-300 hover:text-white underline underline-offset-2">System health</a>
+            <a href="#role-path-ranking" className="text-slate-300 hover:text-white underline underline-offset-2">Role-path ranking</a>
+            <a href="#internal-pages" className="text-slate-300 hover:text-white underline underline-offset-2">Internal pages</a>
+            <a href="#partners" className="text-slate-300 hover:text-white underline underline-offset-2">Partners</a>
           </div>
         </section>
 
-        <section id="control-rooms" className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="control-rooms" className="rounded-2xl border border-white/10 bg-white/5 p-5 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Control rooms</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px]">
-            <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
-              <p className="font-semibold text-slate-900">Sales enablement</p>
-              <p className="text-[13px] text-slate-500 mt-1">Compare proposals, checkpoints, and weighted scorecards.</p>
+            <Link href="/dashboard/admin/sales-enablement" className="border border-white/10 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-white">Sales enablement</p>
+              <p className="text-[13px] text-slate-300 mt-1">Compare proposals, checkpoints, and weighted scorecards.</p>
             </Link>
-            <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
-              <p className="font-semibold text-slate-900">Revenue</p>
-              <p className="text-[13px] text-slate-500 mt-1">Conversion, trial health, and paid growth diagnostics.</p>
+            <Link href="/dashboard/admin/revenue" className="border border-white/10 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-white">Revenue</p>
+              <p className="text-[13px] text-slate-300 mt-1">Conversion, trial health, and paid growth diagnostics.</p>
             </Link>
-            <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-4 py-3 hover:border-slate-400 transition-colors">
-              <p className="font-semibold text-slate-900">Operations</p>
-              <p className="text-[13px] text-slate-500 mt-1">Reliability, release quality, and monitoring alerts.</p>
+            <Link href="/dashboard/admin/operations" className="border border-white/10 rounded px-4 py-3 hover:border-slate-400 transition-colors">
+              <p className="font-semibold text-white">Operations</p>
+              <p className="text-[13px] text-slate-300 mt-1">Reliability, release quality, and monitoring alerts.</p>
             </Link>
           </div>
         </section>
 
-        <section id="email-council-health" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="email-council-health" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Email Council Health (Daily)</h2>
           <p className="text-[13px] text-slate-400 mb-5">Blocked sends, top blockers, and 7-day EJES trend.</p>
 
@@ -621,40 +621,40 @@ export default async function AdminPage() {
               label: 'Avg EJES (24h)',
               value: avgEjes24h ?? 'N/A',
             }].map((card) => (
-              <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
-                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+              <div key={card.label} className="bg-white/5 border border-white/10 rounded p-4">
+                <div className="text-[24px] font-bold text-white leading-none">{card.value}</div>
                 <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="border border-slate-200 rounded p-4">
+            <div className="border border-white/10 rounded p-4 bg-white/5">
               <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Top blockers (24h)</p>
               {topBlockers.length === 0 ? (
-                <p className="text-[13px] text-slate-500">No blockers logged in the last 24 hours.</p>
+                <p className="text-[13px] text-slate-300">No blockers logged in the last 24 hours.</p>
               ) : (
                 <ul className="space-y-2">
                   {topBlockers.map(([blocker, count]) => (
-                    <li key={blocker} className="text-[13px] text-slate-700 flex items-start justify-between gap-3">
+                    <li key={blocker} className="text-[13px] text-slate-200 flex items-start justify-between gap-3">
                       <span className="leading-relaxed">{blocker}</span>
-                      <span className="text-[13px] font-bold text-slate-500">{count}</span>
+                      <span className="text-[13px] font-bold text-slate-300">{count}</span>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
 
-            <div className="border border-slate-200 rounded p-4">
+            <div className="border border-white/10 rounded p-4 bg-white/5">
               <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Channel EJES trend (7d)</p>
               {channelEjesTrend.length === 0 ? (
-                <p className="text-[13px] text-slate-500">No channel score data yet.</p>
+                <p className="text-[13px] text-slate-300">No channel score data yet.</p>
               ) : (
                 <div className="space-y-2">
                   {channelEjesTrend.map((row) => (
                     <div key={row.channel} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 text-[13px]">
-                      <span className="text-slate-700">{row.channel}</span>
-                      <span className="text-slate-500">EJES {row.avgEjes}</span>
+                      <span className="text-slate-200">{row.channel}</span>
+                      <span className="text-slate-300">EJES {row.avgEjes}</span>
                       <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${row.blockedRate === 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
                         blocked {row.blockedRate}%
                       </span>
@@ -673,12 +673,12 @@ export default async function AdminPage() {
               const corePages = group.pages.filter((page) => page.priority === 'core')
               const advancedCount = group.pages.filter((page) => page.priority === 'advanced').length
               return (
-                <div key={group.id} className="bg-white border border-slate-200 rounded p-4">
-                  <p className="text-[14px] font-bold text-slate-900">{group.label}</p>
-                  <p className="text-[13px] text-slate-500 mt-1 leading-relaxed">{group.purpose}</p>
+                <div key={group.id} className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+                  <p className="text-[14px] font-bold text-white">{group.label}</p>
+                  <p className="text-[13px] text-slate-300 mt-1 leading-relaxed">{group.purpose}</p>
                   <div className="mt-3 space-y-1.5">
                     {corePages.map((page) => (
-                      <Link key={page.path} href={page.path} className="block text-[13px] font-semibold text-slate-700 hover:text-slate-900 hover:underline">
+                      <Link key={page.path} href={page.path} className="block text-[13px] font-semibold text-slate-200 hover:text-white hover:underline">
                         {page.label}
                       </Link>
                     ))}
@@ -702,15 +702,15 @@ export default async function AdminPage() {
               { label: 'Set follow-up', value: usersWithFollowUp24h },
               { label: 'Viewed briefing', value: usersWithBriefingView24h },
             ].map((card) => (
-              <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
-                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+              <div key={card.label} className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+                <div className="text-[24px] font-bold text-white leading-none">{card.value}</div>
                 <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
           <div className="mt-3">
-            <Link href="/guide" className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-              Automation alerts: <span className="text-slate-900">{openAutomationAlerts ?? 0}</span> - view runbooks
+            <Link href="/guide" className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
+              Automation alerts: <span className="text-white">{openAutomationAlerts ?? 0}</span> - view runbooks
             </Link>
           </div>
         </div>
@@ -724,13 +724,13 @@ export default async function AdminPage() {
               { label: 'Net paused', value: netPaused7d },
               { label: 'Pause/Resume ratio', value: pauseResumeRatio7d ?? 'N/A' },
             ].map((card) => (
-              <div key={card.label} className="bg-white border border-slate-200 rounded p-4">
-                <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+              <div key={card.label} className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+                <div className="text-[24px] font-bold text-white leading-none">{card.value}</div>
                 <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
               </div>
             ))}
           </div>
-          <div className="mt-4 bg-white border border-slate-200 rounded p-4">
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
             <div className="flex items-center justify-between gap-3 mb-3">
               <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Daily trend</p>
               <span
@@ -745,14 +745,14 @@ export default async function AdminPage() {
                 {telemetryAlertLevel === 'risk' ? 'At risk' : telemetryAlertLevel === 'watch' ? 'Watch' : 'Healthy'}
               </span>
             </div>
-            <p className="text-[13px] text-slate-500 mb-3">
-              Last 3d net: <span className="font-semibold text-slate-700">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
+            <p className="text-[13px] text-slate-300 mb-3">
+              Last 3d net: <span className="font-semibold text-slate-200">{netPausedLast3d > 0 ? `+${netPausedLast3d}` : netPausedLast3d}</span>
               {' '}({positiveNetDaysLast3d}/3 days positive)
             </p>
             <div className="space-y-2">
               {pauseResumeTrend7d.map((row) => (
                 <div key={row.dayKey} className="grid grid-cols-[84px_1fr_44px] items-center gap-3 text-[13px]">
-                  <span className="text-slate-500">{row.label}</span>
+                  <span className="text-slate-300">{row.label}</span>
                   <div className="grid grid-cols-2 gap-2">
                     <progress
                       max={trendPeak}
@@ -767,7 +767,7 @@ export default async function AdminPage() {
                       className="w-full h-2 [&::-webkit-progress-bar]:bg-slate-100 [&::-webkit-progress-value]:bg-emerald-500 [&::-moz-progress-bar]:bg-emerald-500"
                     />
                   </div>
-                  <span className={`text-right font-semibold ${row.net > 0 ? 'text-amber-700' : row.net < 0 ? 'text-emerald-700' : 'text-slate-500'}`}>
+                  <span className={`text-right font-semibold ${row.net > 0 ? 'text-amber-700' : row.net < 0 ? 'text-emerald-700' : 'text-slate-300'}`}>
                     {row.net > 0 ? `+${row.net}` : row.net}
                   </span>
                 </div>
@@ -781,11 +781,11 @@ export default async function AdminPage() {
           </div>
         </div>
 
-        <section id="role-path-ranking" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="role-path-ranking" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Role Path Ranking Debug</h2>
           <p className="text-[13px] text-slate-400 mb-4">Live homepage order inputs from click volume and conversion behavior (90d window).</p>
           {rolePathPriorityDebug.length === 0 ? (
-            <p className="text-[13px] text-slate-500">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
+            <p className="text-[13px] text-slate-300">No role-path ranking data yet. Confirm footer click traffic and analytics credentials.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-[13px] min-w-[760px]">
@@ -800,16 +800,16 @@ export default async function AdminPage() {
                     <th className="py-2 font-semibold text-right">Score</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-white/10">
                   {rolePathPriorityDebug.map((row) => (
                     <tr key={row.ctaKey}>
-                      <td className="py-2 pr-3 font-semibold text-slate-900">#{row.rank}</td>
-                      <td className="py-2 pr-3 text-slate-700">{row.ctaKey}</td>
+                      <td className="py-2 pr-3 font-semibold text-white">#{row.rank}</td>
+                      <td className="py-2 pr-3 text-slate-200">{row.ctaKey}</td>
                       <td className="py-2 pr-3 text-right text-slate-800">{row.clicks}</td>
-                      <td className="py-2 pr-3 text-right text-slate-500">{row.anonymousClickEstimate}</td>
+                      <td className="py-2 pr-3 text-right text-slate-300">{row.anonymousClickEstimate}</td>
                       <td className="py-2 pr-3 text-right text-slate-800">{row.conversionUsers}</td>
                       <td className="py-2 pr-3 text-right text-slate-800">{(row.conversionRate * 100).toFixed(1)}%</td>
-                      <td className="py-2 text-right text-slate-900 font-semibold">{row.score.toFixed(4)}</td>
+                      <td className="py-2 text-right text-white font-semibold">{row.score.toFixed(4)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -818,7 +818,7 @@ export default async function AdminPage() {
           )}
         </section>
 
-        <section id="go-no-go" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="go-no-go" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div>
               <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Go/No-Go Scorecard</h2>
@@ -828,18 +828,18 @@ export default async function AdminPage() {
               {decision.label}
             </div>
           </div>
-          <p className="text-[13px] text-slate-600 mb-4">{decision.reason}</p>
+          <p className="text-[13px] text-slate-300 mb-4">{decision.reason}</p>
           <div className="space-y-2">
             {scoreRows.map((row) => (
-              <div key={row.label} className="border border-slate-200 rounded px-4 py-3">
+              <div key={row.label} className="border border-white/10 rounded px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-slate-900 truncate">{row.label}</p>
+                    <p className="text-[13px] font-semibold text-white truncate">{row.label}</p>
                     <p className="text-[13px] text-slate-400">Threshold: {row.threshold}</p>
                   </div>
                   <span className={`text-[13px] font-bold px-2.5 py-1 rounded border shrink-0 ${statusClass(row.status)}`}>{row.value}</span>
                 </div>
-                {row.note && <p className="text-[13px] text-slate-500 mt-1.5">{row.note}</p>}
+                {row.note && <p className="text-[13px] text-slate-300 mt-1.5">{row.note}</p>}
               </div>
             ))}
           </div>
@@ -855,19 +855,19 @@ export default async function AdminPage() {
             { label: 'New (7d)',       value: String(signups7d),          highlight: false },
             { label: 'Stripe MRR',    value: stripeMrr !== null ? `$${stripeMrr.toLocaleString()}` : '--', highlight: true },
           ].map(({ label, value, highlight }) => (
-            <div key={label} className="bg-white border border-slate-200 rounded p-5">
-              <div className={`text-[28px] font-bold ${highlight ? 'text-orange-500' : 'text-slate-900'}`}>{value}</div>
+            <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+              <div className={`text-[28px] font-bold ${highlight ? 'text-orange-300' : 'text-white'}`}>{value}</div>
               <div className="text-[13px] text-slate-400 mt-1">{label}</div>
             </div>
           ))}
         </section>
 
         {/* System health */}
-        <section id="system-health" className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="system-health" className="rounded-2xl border border-white/10 bg-white/5 p-5 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">System Health</div>
           <div className="flex items-center gap-3 mb-3">
             <span className={`w-2 h-2 rounded-full flex-shrink-0 ${briefingStale ? 'bg-red-500' : briefingConfiguredProfiles.length === 0 ? 'bg-slate-300' : 'bg-green-500'}`} />
-            <span className="text-[13px] text-slate-700">
+            <span className="text-[13px] text-slate-200">
               Briefing worker{' '}
               {briefingConfiguredProfiles.length === 0
                 ? '-- no users configured'
@@ -889,7 +889,7 @@ export default async function AdminPage() {
                     ? 'bg-amber-500'
                     : 'bg-slate-300'
             }`} />
-            <span className="text-[13px] text-slate-700">
+            <span className="text-[13px] text-slate-200">
               Executive research refresh{' '}
               {latestExecutiveResearchRun
                 ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago • checked ${latestExecutiveResearchRun.checked_count ?? 0} • changed ${latestExecutiveResearchRun.changed_count ?? 0}`
@@ -902,59 +902,59 @@ export default async function AdminPage() {
                   ? 'text-red-700 bg-red-50'
                   : executiveResearchStatus === 'stale'
                     ? 'text-amber-700 bg-amber-50'
-                    : 'text-slate-500 bg-slate-100'
+                    : 'text-slate-300 bg-slate-100'
             }`}>
               {executiveResearchStatus.toUpperCase()}
             </span>
-            <span className="text-[13px] text-slate-500">
+            <span className="text-[13px] text-slate-300">
               Sources: {executiveResearchSourceCount ?? 0} • Failures: {executiveResearchFailureCount ?? 0}
             </span>
           </div>
-          <p className="text-[13px] text-slate-500 mt-2">
+          <p className="text-[13px] text-slate-300 mt-2">
             API: <span className="font-mono">/api/admin/executive-research/health</span>
           </p>
         </section>
 
         {/* Team summary */}
-        <section id="team-summary" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <section id="team-summary" className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+          <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Team</h2>
-            <Link href="/dashboard/admin/team" className="text-[13px] text-slate-500 hover:text-slate-700">Manage Team</Link>
+            <Link href="/dashboard/admin/team" className="text-[13px] text-slate-300 hover:text-slate-200">Manage Team</Link>
           </div>
-          <div className="divide-y divide-slate-50">
+          <div className="divide-y divide-white/10">
             {teamMembers.map(m => (
               <div key={m.id} className="px-6 py-3 flex items-center justify-between">
-                <span className="text-[13px] text-slate-900">{m.email}</span>
+                <span className="text-[13px] text-white">{m.email}</span>
                 <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(m.role)}`}>{m.role}</span>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="internal-pages" className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="internal-pages" className="rounded-2xl border border-white/10 bg-white/5 p-5 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Internal navigation</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-[13px]">
-            <div className="border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Go to market</p>
+            <div className="border border-white/10 rounded p-4 bg-white/5">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-2">Go to market</p>
               <div className="grid grid-cols-1 gap-2">
-                <Link href="/dashboard/admin/sales-enablement" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Sales enablement control room</Link>
-                <Link href="/dashboard/admin/revenue" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
-                <Link href="/dashboard/admin/product" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Product ops</Link>
+                <Link href="/dashboard/admin/sales-enablement" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Sales enablement control room</Link>
+                <Link href="/dashboard/admin/revenue" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Revenue and conversion</Link>
+                <Link href="/dashboard/admin/product" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Product ops</Link>
               </div>
             </div>
-            <div className="border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Platform operations</p>
+            <div className="border border-white/10 rounded p-4 bg-white/5">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-2">Platform operations</p>
               <div className="grid grid-cols-1 gap-2">
-                <Link href="/dashboard/admin/operations" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Operations</Link>
-                <Link href="/dashboard/admin/onboarding/video" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
-                <Link href="/dashboard/admin/team" className="border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors">Team and permissions</Link>
+                <Link href="/dashboard/admin/operations" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Operations</Link>
+                <Link href="/dashboard/admin/onboarding/video" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Onboarding video timeline</Link>
+                <Link href="/dashboard/admin/team" className="border border-white/10 rounded px-3 py-2 hover:border-slate-400 transition-colors">Team and permissions</Link>
               </div>
             </div>
           </div>
         </section>
 
         {/* Six-actions funnel */}
-        <section id="six-actions-funnel" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="six-actions-funnel" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Six-Actions Funnel</h2>
           <p className="text-[13px] text-slate-400 mb-6">Trialing + active users (n={activeUserIds.size})</p>
           <FunnelChart data={funnelData} />
@@ -966,11 +966,11 @@ export default async function AdminPage() {
                 <th className="py-1 font-semibold text-right">%</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-white/10">
               {funnelData.map(row => (
                 <tr key={row.step}>
-                  <td className="py-2 text-slate-700">{STEP_LABELS[row.step] ?? row.step}</td>
-                  <td className="py-2 text-right font-semibold text-slate-900">{row.count}</td>
+                  <td className="py-2 text-slate-200">{STEP_LABELS[row.step] ?? row.step}</td>
+                  <td className="py-2 text-right font-semibold text-white">{row.count}</td>
                   <td className="py-2 text-right text-slate-400">{Math.round((row.count / denominator) * 100)}%</td>
                 </tr>
               ))}
@@ -979,7 +979,7 @@ export default async function AdminPage() {
         </section>
 
         {/* Event volume */}
-        <section id="event-volume" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="event-volume" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Event Volume (30d)</h2>
           <p className="text-[13px] text-slate-400 mb-6">7d counts in right column</p>
           {eventVolumeData.length === 0 ? (
@@ -995,11 +995,11 @@ export default async function AdminPage() {
                     <th className="py-1 font-semibold text-right">7d</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-white/10">
                   {eventVolumeData.map(row => (
                     <tr key={row.event_name}>
-                      <td className="py-2 text-slate-700 font-mono text-[13px]">{row.event_name}</td>
-                      <td className="py-2 text-right font-semibold text-slate-900">{row.count}</td>
+                      <td className="py-2 text-slate-200 font-mono text-[13px]">{row.event_name}</td>
+                      <td className="py-2 text-right font-semibold text-white">{row.count}</td>
                       <td className="py-2 text-right text-slate-400">{eventCounts7d[row.event_name] ?? 0}</td>
                     </tr>
                   ))}
@@ -1010,21 +1010,21 @@ export default async function AdminPage() {
         </section>
 
         {/* Trial conversion */}
-        <section id="trial-conversion" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="trial-conversion" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Trial Conversion</h2>
           <p className="text-[13px] text-slate-400 mb-5">Users whose 30-day trial window has closed</p>
           <div className={`mb-5 border rounded p-4 ${linkedInAdsGatePass ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'}`}>
             <div className="flex items-center justify-between gap-3 mb-1">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-500">LinkedIn Ads Gate</p>
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300">LinkedIn Ads Gate</p>
               <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${linkedInAdsGatePass ? 'bg-green-600 text-white' : 'bg-amber-600 text-white'}`}>
                 {linkedInAdsDecision}
               </span>
             </div>
-            <p className="text-[13px] text-slate-600">
+            <p className="text-[13px] text-slate-300">
               Requires trial-to-paid conversion of at least {linkedInAdsThreshold}%. Current: {conversionRate !== null ? `${conversionRate}%` : 'N/A'}.
             </p>
             {!linkedInAdsGatePass && (
-              <p className="text-[13px] text-slate-500 mt-1">
+              <p className="text-[13px] text-slate-300 mt-1">
                 Paid ads stay deferred until this threshold is reached.
               </p>
             )}
@@ -1043,7 +1043,7 @@ export default async function AdminPage() {
                     <div className={`text-[28px] font-bold ${
                       highlight && rate !== null && rate !== undefined
                         ? rate >= 40 ? 'text-green-600' : rate >= 20 ? 'text-amber-600' : 'text-red-600'
-                        : 'text-slate-900'
+                        : 'text-white'
                     }`}>{value}</div>
                     <div className="text-[13px] text-slate-400 mt-1">{label}</div>
                   </div>
@@ -1061,12 +1061,12 @@ export default async function AdminPage() {
                         <th className="pb-2 font-semibold text-slate-400 text-right">Rate</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-50">
+                    <tbody className="divide-y divide-white/10">
                       {channelRows.map(r => (
                         <tr key={r.channel}>
-                          <td className="py-2 font-mono text-slate-600">{r.channel}</td>
-                          <td className="py-2 text-right text-slate-500">{r.ended}</td>
-                          <td className="py-2 text-right text-slate-500">{r.converted}</td>
+                          <td className="py-2 font-mono text-slate-300">{r.channel}</td>
+                          <td className="py-2 text-right text-slate-300">{r.ended}</td>
+                          <td className="py-2 text-right text-slate-300">{r.converted}</td>
                           <td className={`py-2 text-right font-semibold ${
                             r.rate >= 40 ? 'text-green-600' : r.rate >= 20 ? 'text-amber-600' : 'text-red-600'
                           }`}>{r.rate}%</td>
@@ -1080,12 +1080,12 @@ export default async function AdminPage() {
           )}
         </section>
 
-        <section id="active-trials" className="bg-white border border-slate-200 rounded p-5 mb-6">
+        <section id="active-trials" className="rounded-2xl border border-white/10 bg-white/5 p-5 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Trial watchlist</h2>
-          <p className="text-[13px] text-slate-600">Active trials: {trialUsers.length}</p>
+          <p className="text-[13px] text-slate-300">Active trials: {trialUsers.length}</p>
         </section>
 
-        <section id="signal-kpi-chain" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <section id="signal-kpi-chain" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal KPI Chain</h2>
           <p className="text-[13px] text-slate-400 mb-5">Signal to relationship to interview conversion ({kpiChain.ok ? `${kpiChain.payload.windowDays}d` : '30d'} window).</p>
 
@@ -1100,48 +1100,48 @@ export default async function AdminPage() {
                   { label: 'Interviews logged', value: kpiChain.payload.counts.interviews },
                   { label: 'Relationship companies', value: kpiChain.payload.counts.relationship_companies },
                 ].map((card) => (
-                  <div key={card.label} className="bg-slate-50 border border-slate-200 rounded p-4">
-                    <div className="text-[24px] font-bold text-slate-900 leading-none">{card.value}</div>
+                  <div key={card.label} className="bg-white/5 border border-white/10 rounded p-4">
+                    <div className="text-[24px] font-bold text-white leading-none">{card.value}</div>
                     <div className="text-[13px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{card.label}</div>
                   </div>
                 ))}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div className="border border-slate-200 rounded p-4">
+                <div className="border border-white/10 rounded p-4 bg-white/5">
                   <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Chain conversion rates</p>
                   <div className="space-y-2 text-[13px]">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-slate-600">Signal to relationship action</span>
-                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.signal_to_relationship_action_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_relationship_action_pct}%`}</span>
+                      <span className="text-slate-300">Signal to relationship action</span>
+                      <span className="font-semibold text-white">{kpiChain.payload.rates.signal_to_relationship_action_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_relationship_action_pct}%`}</span>
                     </div>
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-slate-600">Signal to interview</span>
-                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.signal_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_interview_pct}%`}</span>
+                      <span className="text-slate-300">Signal to interview</span>
+                      <span className="font-semibold text-white">{kpiChain.payload.rates.signal_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.signal_to_interview_pct}%`}</span>
                     </div>
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-slate-600">Relationship action to interview</span>
-                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.relationship_action_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_action_to_interview_pct}%`}</span>
+                      <span className="text-slate-300">Relationship action to interview</span>
+                      <span className="font-semibold text-white">{kpiChain.payload.rates.relationship_action_to_interview_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_action_to_interview_pct}%`}</span>
                     </div>
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-slate-600">Relationship company to interview company</span>
-                      <span className="font-semibold text-slate-900">{kpiChain.payload.rates.relationship_company_to_interview_company_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_company_to_interview_company_pct}%`}</span>
+                      <span className="text-slate-300">Relationship company to interview company</span>
+                      <span className="font-semibold text-white">{kpiChain.payload.rates.relationship_company_to_interview_company_pct === null ? 'N/A' : `${kpiChain.payload.rates.relationship_company_to_interview_company_pct}%`}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border border-slate-200 rounded p-4">
+                <div className="border border-white/10 rounded p-4 bg-white/5">
                   <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Action mix</p>
                   {Object.keys(kpiChain.payload.action_breakdown).length === 0 ? (
-                    <p className="text-[13px] text-slate-500">No relationship actions recorded in window.</p>
+                    <p className="text-[13px] text-slate-300">No relationship actions recorded in window.</p>
                   ) : (
                     <div className="space-y-2 text-[13px]">
                       {Object.entries(kpiChain.payload.action_breakdown)
                         .sort((a, b) => b[1] - a[1])
                         .map(([type, count]) => (
                           <div key={type} className="flex items-center justify-between gap-3">
-                            <span className="text-slate-600 font-mono">{type}</span>
-                            <span className="font-semibold text-slate-900">{count}</span>
+                            <span className="text-slate-300 font-mono">{type}</span>
+                            <span className="font-semibold text-white">{count}</span>
                           </div>
                         ))}
                     </div>
@@ -1153,7 +1153,7 @@ export default async function AdminPage() {
         </section>
 
         {/* Signal to action rate */}
-        <details id="signal-action-rate" className="bg-white border border-slate-200 rounded p-6 mb-6">
+        <details id="signal-action-rate" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <summary className="cursor-pointer text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary>
           <div className="pt-4">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal Action Rate</h2>
@@ -1170,12 +1170,12 @@ export default async function AdminPage() {
                   <th className="py-2 font-semibold text-right">Rate</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50">
+              <tbody className="divide-y divide-white/10">
                 {signalRows.map(row => (
                   <tr key={row.type}>
-                    <td className="py-2.5 text-slate-700">{row.label}</td>
+                    <td className="py-2.5 text-slate-200">{row.label}</td>
                     <td className="py-2.5 text-right text-slate-400">{row.total}</td>
-                    <td className="py-2.5 text-right font-semibold text-slate-900">{row.acted}</td>
+                    <td className="py-2.5 text-right font-semibold text-white">{row.acted}</td>
                     <td className="py-2.5 text-right">
                       <span className={`font-bold ${row.rate >= 50 ? 'text-green-600' : row.rate >= 25 ? 'text-amber-600' : 'text-slate-400'}`}>
                         {row.rate}%
@@ -1189,13 +1189,13 @@ export default async function AdminPage() {
           </div>
         </details>
 
-        <section id="partners" className="bg-white border border-slate-200 rounded p-5">
+        <section id="partners" className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">Commercial snapshot</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
-            <div className="border border-slate-200 rounded px-3 py-2">Partners: <span className="font-semibold">{partners.length}</span></div>
-            <div className="border border-slate-200 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>
-            <div className="border border-slate-200 rounded px-3 py-2">Placements: <span className="font-semibold">{placements.length}</span></div>
-            <div className="border border-slate-200 rounded px-3 py-2">Avg context: <span className="font-semibold">{avgContextScore ?? 'N/A'}</span></div>
+            <div className="border border-white/10 rounded px-3 py-2">Partners: <span className="font-semibold">{partners.length}</span></div>
+            <div className="border border-white/10 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>
+            <div className="border border-white/10 rounded px-3 py-2">Placements: <span className="font-semibold">{placements.length}</span></div>
+            <div className="border border-white/10 rounded px-3 py-2">Avg context: <span className="font-semibold">{avgContextScore ?? 'N/A'}</span></div>
           </div>
         </section>
 
@@ -1203,3 +1203,4 @@ export default async function AdminPage() {
     </div>
   )
 }
+

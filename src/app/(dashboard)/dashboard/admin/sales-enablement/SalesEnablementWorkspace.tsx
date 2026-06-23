@@ -138,9 +138,9 @@ function weightedScore(option: VendorOption): number {
 }
 
 function scoreClass(score: number): string {
-  if (score >= 80) return 'text-green-700 bg-green-50 border-green-200'
-  if (score >= 60) return 'text-amber-700 bg-amber-50 border-amber-200'
-  return 'text-slate-600 bg-slate-100 border-slate-200'
+  if (score >= 80) return 'text-green-100 bg-green-500/15 border-green-300/25'
+  if (score >= 60) return 'text-amber-100 bg-amber-500/15 border-amber-300/25'
+  return 'text-slate-300 bg-white/10 border-white/10'
 }
 
 export function SalesEnablementWorkspace() {
@@ -264,38 +264,38 @@ export function SalesEnablementWorkspace() {
 
   return (
     <div className="space-y-6">
-      <section className="bg-white border border-slate-200 rounded p-5">
+      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
         <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Decision Inputs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px]">
           <label className="flex flex-col gap-1.5">
-            <span className="text-slate-500">Primary objective</span>
+            <span className="text-slate-300">Primary objective</span>
             <input
               value={state.objective}
               onChange={(event) => setState((prev) => ({ ...prev, objective: event.target.value }))}
               disabled={!canEdit}
-              className="border border-slate-300 rounded px-3 py-2"
+              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             />
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-slate-500">Budget ceiling (monthly)</span>
+            <span className="text-slate-300">Budget ceiling (monthly)</span>
             <input
               type="number"
               min={0}
               value={state.budgetCeiling}
               onChange={(event) => setState((prev) => ({ ...prev, budgetCeiling: Number(event.target.value || 0) }))}
               disabled={!canEdit}
-              className="border border-slate-300 rounded px-3 py-2"
+              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             />
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-slate-500">Execution mode</span>
+            <span className="text-slate-300">Execution mode</span>
             <select
               value={state.primaryModel}
               onChange={(event) => setState((prev) => ({ ...prev, primaryModel: event.target.value as WorkspaceState['primaryModel'] }))}
               disabled={!canEdit}
-              className="border border-slate-300 rounded px-3 py-2"
+              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             >
               <option value="done-for-you">Done-for-you</option>
               <option value="done-with-you">Done-with-you</option>
@@ -304,12 +304,12 @@ export function SalesEnablementWorkspace() {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-slate-500">Checkpoint window</span>
+            <span className="text-slate-300">Checkpoint window</span>
             <select
               value={state.checkpointWindow}
               onChange={(event) => setState((prev) => ({ ...prev, checkpointWindow: event.target.value as WorkspaceState['checkpointWindow'] }))}
               disabled={!canEdit}
-              className="border border-slate-300 rounded px-3 py-2"
+              className="border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             >
               <option value="day-14">Day 14</option>
               <option value="day-30">Day 30</option>
@@ -319,26 +319,26 @@ export function SalesEnablementWorkspace() {
         </div>
 
         <label className="mt-4 block text-[13px]">
-          <span className="text-slate-500 block mb-1.5">Qualified meeting definition</span>
+          <span className="text-slate-300 block mb-1.5">Qualified meeting definition</span>
           <textarea
             value={state.qualifiedMeetingDefinition}
             onChange={(event) => setState((prev) => ({ ...prev, qualifiedMeetingDefinition: event.target.value }))}
             disabled={!canEdit}
-            className="w-full border border-slate-300 rounded px-3 py-2 min-h-[88px]"
+            className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2 min-h-[88px]"
           />
         </label>
       </section>
 
-      <section className="bg-white border border-slate-200 rounded overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3">
+      <section className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+        <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-3">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Option Scorecard</h2>
-          <p className="text-[12px] text-slate-500">Weighted score = Fit 40% + Commercial 35% + Execution 25%</p>
+          <p className="text-[12px] text-slate-300">Weighted score = Fit 40% + Commercial 35% + Execution 25%</p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-[12px] min-w-[1180px]">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100 text-left">
+              <tr className="bg-slate-950/60 border-b border-white/10 text-left">
                 <th className="px-4 py-2.5 font-semibold text-slate-400">Option</th>
                 <th className="px-4 py-2.5 font-semibold text-slate-400">Model</th>
                 <th className="px-4 py-2.5 font-semibold text-slate-400">Cost</th>
@@ -351,7 +351,7 @@ export function SalesEnablementWorkspace() {
                 <th className="px-4 py-2.5 font-semibold text-slate-400 text-right">Weighted</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-white/10">
               {state.options.map((option) => {
                 const total = weightedScore(option)
                 return (
@@ -363,7 +363,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-name`}
                         title="Option name"
                         disabled={!canEdit}
-                        className="w-[170px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[170px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -373,7 +373,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-model`}
                         title="Delivery model"
                         disabled={!canEdit}
-                        className="border border-slate-300 rounded px-2 py-1.5"
+                        className="border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       >
                         <option value="freelancer">Freelancer</option>
                         <option value="agency">Agency</option>
@@ -389,7 +389,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-monthly-cost`}
                         title="Monthly cost"
                         disabled={!canEdit}
-                        className="w-[110px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[110px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -399,7 +399,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-status`}
                         title="Evaluation status"
                         disabled={!canEdit}
-                        className="border border-slate-300 rounded px-2 py-1.5"
+                        className="border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       >
                         <option value="active">Active</option>
                         <option value="hold">Hold</option>
@@ -418,7 +418,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-strategic-fit`}
                         title="Strategic fit score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -432,7 +432,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-commercial-score`}
                         title="Commercial score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -446,7 +446,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-execution-confidence`}
                         title="Execution confidence score"
                         disabled={!canEdit}
-                        className="w-[68px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[68px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -456,7 +456,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-day14-target`}
                         title="Day 14 target"
                         disabled={!canEdit}
-                        className="w-[230px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[230px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top">
@@ -466,7 +466,7 @@ export function SalesEnablementWorkspace() {
                         aria-label={`${option.id}-day30-target`}
                         title="Day 30 target"
                         disabled={!canEdit}
-                        className="w-[230px] border border-slate-300 rounded px-2 py-1.5"
+                        className="w-[230px] border border-white/10 bg-slate-950/60 rounded px-2 py-1.5"
                       />
                     </td>
                     <td className="px-4 py-2 align-top text-right">
@@ -483,14 +483,14 @@ export function SalesEnablementWorkspace() {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white border border-slate-200 rounded p-5">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Live Ranking</h2>
           <div className="space-y-2">
             {ranked.map(({ option, score }, index) => (
-              <div key={option.id} className="border border-slate-200 rounded px-3 py-2.5 flex items-center justify-between gap-3">
+              <div key={option.id} className="border border-white/10 bg-slate-950/60 rounded px-3 py-2.5 flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-[13px] font-semibold text-slate-900">{index + 1}. {option.name}</p>
-                  <p className="text-[12px] text-slate-500">{option.model} • ${option.monthlyCost.toLocaleString()} / mo • {option.status}</p>
+                  <p className="text-[13px] font-semibold text-white">{index + 1}. {option.name}</p>
+                  <p className="text-[12px] text-slate-300">{option.model} • ${option.monthlyCost.toLocaleString()} / mo • {option.status}</p>
                 </div>
                 <span className={`inline-flex items-center border px-2 py-1 rounded text-[12px] font-semibold ${scoreClass(score)}`}>
                   {score}
@@ -500,35 +500,35 @@ export function SalesEnablementWorkspace() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-5 space-y-4">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md space-y-4">
           <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Decision Summary</h2>
           <label className="block text-[13px]">
-            <span className="text-slate-500 block mb-1.5">Top choice today</span>
+            <span className="text-slate-300 block mb-1.5">Top choice today</span>
             <input
               value={state.todayTopChoice}
               onChange={(event) => setState((prev) => ({ ...prev, todayTopChoice: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-slate-300 rounded px-3 py-2"
+              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             />
           </label>
 
           <label className="block text-[13px]">
-            <span className="text-slate-500 block mb-1.5">Backup choice</span>
+            <span className="text-slate-300 block mb-1.5">Backup choice</span>
             <input
               value={state.backupChoice}
               onChange={(event) => setState((prev) => ({ ...prev, backupChoice: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-slate-300 rounded px-3 py-2"
+              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2"
             />
           </label>
 
           <label className="block text-[13px]">
-            <span className="text-slate-500 block mb-1.5">Next actions</span>
+            <span className="text-slate-300 block mb-1.5">Next actions</span>
             <textarea
               value={state.nextActions}
               onChange={(event) => setState((prev) => ({ ...prev, nextActions: event.target.value }))}
               disabled={!canEdit}
-              className="w-full border border-slate-300 rounded px-3 py-2 min-h-[110px]"
+              className="w-full border border-white/10 bg-slate-950/60 rounded px-3 py-2 min-h-[110px]"
             />
           </label>
 
@@ -538,7 +538,7 @@ export function SalesEnablementWorkspace() {
               type="button"
               onClick={resetWorkspace}
               disabled={!canEdit}
-              className="text-[12px] font-semibold text-slate-600 hover:text-slate-900"
+              className="text-[12px] font-semibold text-slate-300 hover:text-white"
             >
               Reset workspace
             </button>
@@ -546,15 +546,15 @@ export function SalesEnablementWorkspace() {
         </div>
       </section>
 
-      <section className="bg-white border border-slate-200 rounded p-5">
+      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
         <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Agency vs Freelancer guardrails</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[12px] text-slate-600">
-          <div className="border border-slate-200 rounded p-4">
-            <p className="text-[12px] font-semibold text-slate-800 mb-1.5">When agency is better</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[12px] text-slate-300">
+          <div className="border border-white/10 bg-slate-950/60 rounded p-4">
+            <p className="text-[12px] font-semibold text-slate-100 mb-1.5">When agency is better</p>
             <p>Use when you need immediate multi-channel coverage, specialist bandwidth, and redundancy if one operator is unavailable.</p>
           </div>
-          <div className="border border-slate-200 rounded p-4">
-            <p className="text-[12px] font-semibold text-slate-800 mb-1.5">When freelancer is better</p>
+          <div className="border border-white/10 bg-slate-950/60 rounded p-4">
+            <p className="text-[12px] font-semibold text-slate-100 mb-1.5">When freelancer is better</p>
             <p>Use when you need fast iteration, direct operator access, tighter budget control, and high accountability to one owner metric.</p>
           </div>
         </div>
@@ -562,3 +562,4 @@ export function SalesEnablementWorkspace() {
     </div>
   )
 }
+

@@ -9,9 +9,9 @@ type Props = {
 }
 
 function roleBadge(role: string) {
-  return role === 'owner' ? 'bg-amber-50 text-amber-700'
-    : role === 'admin'    ? 'bg-blue-50 text-blue-700'
-    : 'bg-slate-100 text-slate-500'
+  return role === 'owner' ? 'bg-amber-500/15 text-amber-100 border border-amber-300/25'
+    : role === 'admin'    ? 'bg-sky-500/15 text-sky-100 border border-sky-300/25'
+    : 'bg-white/10 text-slate-300 border border-white/10'
 }
 
 function MemberRow({ member, isOwner }: { member: StaffMember; isOwner: boolean }) {
@@ -41,8 +41,8 @@ function MemberRow({ member, isOwner }: { member: StaffMember; isOwner: boolean 
   return (
     <div className="px-6 py-4 flex items-center gap-4">
       <div className="flex-1 min-w-0">
-        <p className="text-[13px] text-slate-900 truncate">{member.email}</p>
-        {rowError && <p className="text-[11px] text-red-600 mt-0.5">{rowError}</p>}
+        <p className="text-[13px] text-slate-100 truncate">{member.email}</p>
+        {rowError && <p className="text-[11px] text-red-300 mt-0.5">{rowError}</p>}
       </div>
 
       {editing && isOwner ? (
@@ -51,7 +51,9 @@ function MemberRow({ member, isOwner }: { member: StaffMember; isOwner: boolean 
             value={role}
             onChange={e => setRole(e.target.value as StaffRole)}
             disabled={member.role === 'owner' || isPending}
-            className="text-[12px] border border-slate-200 rounded px-2 py-1 focus:outline-none focus:border-slate-400 disabled:opacity-50"
+            aria-label={`Role for ${member.email}`}
+            title="Team member role"
+            className="text-[12px] border border-white/10 bg-slate-950/60 text-slate-100 rounded px-2 py-1 focus:outline-none focus:border-white/30 disabled:opacity-50"
           >
             <option value="viewer">viewer</option>
             <option value="admin">admin</option>
@@ -60,13 +62,13 @@ function MemberRow({ member, isOwner }: { member: StaffMember; isOwner: boolean 
           <button
             onClick={handleRoleChange}
             disabled={isPending}
-            className="text-[12px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-3 py-1 rounded transition-colors disabled:opacity-40 cursor-pointer border-0"
+            className="text-[12px] font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 px-3 py-1 rounded transition-colors disabled:opacity-40 cursor-pointer"
           >
             Save
           </button>
           <button
             onClick={() => { setEditing(false); setRole(member.role) }}
-            className="text-[12px] text-slate-400 hover:text-slate-700 cursor-pointer bg-transparent border-0"
+            className="text-[12px] text-slate-400 hover:text-slate-200 cursor-pointer bg-transparent border-0"
           >
             Cancel
           </button>
@@ -80,14 +82,14 @@ function MemberRow({ member, isOwner }: { member: StaffMember; isOwner: boolean 
             <>
               <button
                 onClick={() => setEditing(true)}
-                className="text-[12px] text-slate-400 hover:text-slate-700 cursor-pointer bg-transparent border-0"
+                className="text-[12px] text-slate-400 hover:text-slate-200 cursor-pointer bg-transparent border-0"
               >
                 Edit
               </button>
               <button
                 onClick={handleRemove}
                 disabled={isPending}
-                className="text-[12px] text-red-400 hover:text-red-600 cursor-pointer bg-transparent border-0 disabled:opacity-40"
+                className="text-[12px] text-red-300 hover:text-red-200 cursor-pointer bg-transparent border-0 disabled:opacity-40"
               >
                 Remove
               </button>
@@ -109,12 +111,14 @@ function AddMemberForm() {
         type="email"
         required
         placeholder="colleague@company.com"
-        className="flex-1 border border-slate-200 rounded px-3 py-2 text-[13px] placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+        className="flex-1 border border-white/10 bg-slate-950/60 text-slate-100 rounded px-3 py-2 text-[13px] placeholder:text-slate-500 focus:outline-none focus:border-white/30"
       />
       <select
         name="role"
         defaultValue="viewer"
-        className="border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-slate-400"
+        aria-label="Role for new team member"
+        title="New member role"
+        className="border border-white/10 bg-slate-950/60 text-slate-100 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-white/30"
       >
         <option value="viewer">viewer</option>
         <option value="admin">admin</option>
@@ -122,12 +126,12 @@ function AddMemberForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="text-[13px] font-semibold text-white bg-slate-900 hover:bg-slate-700 px-5 py-2 rounded transition-colors disabled:opacity-40 cursor-pointer border-0 shrink-0"
+        className="text-[13px] font-semibold text-white bg-white/10 border border-white/20 hover:bg-white/20 px-5 py-2 rounded transition-colors disabled:opacity-40 cursor-pointer shrink-0"
       >
         {isPending ? 'Adding...' : 'Add member'}
       </button>
       {state.error && (
-        <p className="text-[12px] text-red-600 self-center">{state.error}</p>
+        <p className="text-[12px] text-red-300 self-center">{state.error}</p>
       )}
     </form>
   )
@@ -138,21 +142,21 @@ export function TeamClient({ members, currentRole }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="bg-white border border-slate-200 rounded overflow-hidden">
-        <div className="px-6 py-[18px] border-b border-slate-200">
+      <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
+        <div className="px-6 py-[18px] border-b border-white/10">
           <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Team Members</span>
         </div>
-        <div className="divide-y divide-slate-50">
+        <div className="divide-y divide-white/10">
           {members.map(m => (
             <MemberRow key={m.id} member={m} isOwner={isOwner} />
           ))}
           {members.length === 0 && (
-            <p className="px-6 py-8 text-[13px] text-slate-400">No team members yet.</p>
+            <p className="px-6 py-8 text-[13px] text-slate-300">No team members yet.</p>
           )}
         </div>
         {isOwner && (
           <>
-            <div className="border-t border-slate-100 bg-slate-50 px-6 py-3">
+            <div className="border-t border-white/10 bg-slate-950/40 px-6 py-3">
               <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Add Member</span>
             </div>
             <AddMemberForm />
