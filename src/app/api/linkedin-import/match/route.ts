@@ -54,6 +54,8 @@ type MatchRow = {
   user_rejected: boolean
 }
 
+type IdRow = { id: string }
+
 async function seedApolloCandidates(params: {
   supabase: Awaited<ReturnType<typeof createClient>>
   userId: string
@@ -75,8 +77,9 @@ async function seedApolloCandidates(params: {
       .eq('current_company', companyName)
       .maybeSingle()
 
-    if (existing?.id) {
-      personId = existing.id
+    const existingId = (existing as unknown as IdRow | null)?.id ?? null
+    if (existingId) {
+      personId = existingId
     } else {
       const { data: created } = await supabase
         .from('people')
@@ -91,7 +94,7 @@ async function seedApolloCandidates(params: {
         .select('id')
         .single()
 
-      personId = created?.id ?? null
+      personId = (created as unknown as IdRow | null)?.id ?? null
     }
 
     await supabase
