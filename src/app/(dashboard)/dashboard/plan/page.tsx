@@ -1,0 +1,349 @@
+'use client'
+
+import Link from 'next/link'
+import { useEffect, useMemo, useState } from 'react'
+
+type WeeklyPlanResponse = {
+  actions?: string[]
+  completions?: boolean[]
+  reflection_notes?: string
+  momentum_score?: number | null
+  history?: Array<{
+    week_start: string
+    actions: string[]
+    completions: boolean[]
+    completed_count: number
+    reflection_notes: string
+  }>
+}
+
+function currentMondayIso(): string {
+  const now = new Date()
+  const day = now.getDay()
+  const mondayOffset = day === 0 ? -6 : 1 - day
+  now.setDate(now.getDate() + mondayOffset)
+  now.setHours(0, 0, 0, 0)
+  return now.toISOString().slice(0, 10)
+}
+
+function formatWeekLabel(isoDate: string): string {
+  const parsed = new Date(`${isoDate}T00:00:00`)
+  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+export default function DashboardPlanPage() {
+  const [weekStart, setWeekStart] = useState(currentMondayIso())
+  const [actions, setActions] = useState<string[]>(['', '', ''])
+  const [completions, setCompletions] = useState<boolean[]>([false, false, false])
+  const [reflectionNotes, setReflectionNotes] = useState('')
+  const [history, setHistory] = useState<WeeklyPlanResponse['history']>([])
+  const [momentumScore, setMomentumScore] = useState<number | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+
+  const canSave = useMemo(() => actions.length === 3 && actions.every((action) => action.trim().length > 0), [actions])
+
+  useEffect(() => {
+    let ignore = false
+
+    async function loadPlan() {
+      setLoading(true)
+      setError(null)
+      setMessage(null)
+
+      try {
+        const qs = new URLSearchParams({ week_start: weekStart })
+        const response = await fetch(`/api/plan/weekly?${qs.toString()}`)
+        const payload = (await response.json()) as WeeklyPlanResponse
+        if (!response.ok) {
+          if (!ignore) {
+            setError((payload as { error?: string })?.error ?? 'Could not load weekly plan.')
+            setActions(['', '', ''])
+            setCompletions([false, false, false])
+            setReflectionNotes('')
+            setHistory([])
+            setMomentumScore(null)
+          }
+          return
+        }
+
+        const nextActions = Array.isArray(payload?.actions) ? payload.actions : []
+        if (!ignore) {
+          setActions([
+            typeof nextActions[0] === 'string' ? nextActions[0] : '',
+            typeof nextActions[1] === 'string' ? nextActions[1] : '',
+            typeof nextActions[2] === 'string' ? nextActions[2] : '',
+          ])
+
+          const nextCompletions = Array.isArray(payload?.completions) ? payload.completions : []
+          setCompletions([
+            Boolean(nextCompletions[0]),
+            Boolean(nextCompletions[1]),
+            Boolean(nextCompletions[2]),
+          ])
+
+          setReflectionNotes(typeof payload?.reflection_notes === 'string' ? payload.reflection_notes : '')
+          setHistory(Array.isArray(payload?.history) ? payload.history : [])
+          setMomentumScore(typeof payload?.momentum_score === 'number' ? payload.momentum_score : null)
+        }
+      } catch {
+        if (!ignore) {
+          setError('Could not load weekly plan.')
+          setActions(['', '', ''])
+          setCompletions([false, false, false])
+          setReflectionNotes('')
+          setHistory([])
+          setMomentumScore(null)
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false)
+        }
+      }
+    }
+
+    void loadPlan()
+
+    return () => {
+      ignore = true
+    }
+  }, [weekStart])
+
+  async function savePlan() {
+    if (!canSave) return
+
+    setSaving(true)
+    setError(null)
+    setMessage(null)
+
+    try {
+      const response = await fetch('/api/plan/weekly', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ week_start: weekStart, actions, completions, reflection_notes: reflectionNotes }),
+      })
+      const payload = (await response.json()) as WeeklyPlanResponse
+      if (!response.ok) {
+        setError((payload as { error?: string })?.error ?? 'Could not save weekly plan.')
+        return
+      }
+
+      setMessage('Weekly plan saved.')
+      const nextActions = Array.isArray(payload?.actions) ? payload.actions : actions
+      setActions([
+        typeof nextActions[0] === 'string' ? nextActions[0] : '',
+        typeof nextActions[1] === 'string' ? nextActions[1] : '',
+        typeof nextActions[2] === 'string' ? nextActions[2] : '',
+      ])
+
+      const nextCompletions = Array.isArray(payload?.completions) ? payload.completions : completions
+      setCompletions([
+        Boolean(nextCompletions[0]),
+        Boolean(nextCompletions[1]),
+        Boolean(nextCompletions[2]),
+      ])
+      setReflectionNotes(typeof payload?.reflection_notes === 'string' ? payload.reflection_notes : reflectionNotes)
+    } catch {
+      setError('Could not save weekly plan.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function regeneratePlan(forceOverwrite = false) {
+    setSaving(true)
+    setError(null)
+    setMessage(null)
+
+    try {
+      const response = await fetch('/api/plan/weekly', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ week_start: weekStart, overwrite: forceOverwrite }),
+      })
+
+      const payload = (await response.json()) as WeeklyPlanResponse
+
+      if (response.status === 409 && (payload as { requires_overwrite?: boolean })?.requires_overwrite && !forceOverwrite) {
+        const confirmed = window.confirm('This week already has saved actions. Overwrite with regenerated suggestions?')
+        if (confirmed) {
+          await regeneratePlan(true)
+        }
+        return
+      }
+
+      if (!response.ok) {
+        setError((payload as { error?: string })?.error ?? 'Could not regenerate weekly plan.')
+        return
+      }
+
+      const nextActions = Array.isArray(payload?.actions) ? payload.actions : []
+      setActions([
+        typeof nextActions[0] === 'string' ? nextActions[0] : '',
+        typeof nextActions[1] === 'string' ? nextActions[1] : '',
+        typeof nextActions[2] === 'string' ? nextActions[2] : '',
+      ])
+      const nextCompletions = Array.isArray(payload?.completions) ? payload.completions : [false, false, false]
+      setCompletions([
+        Boolean(nextCompletions[0]),
+        Boolean(nextCompletions[1]),
+        Boolean(nextCompletions[2]),
+      ])
+      setReflectionNotes(typeof payload?.reflection_notes === 'string' ? payload.reflection_notes : '')
+
+      setMessage('Weekly plan regenerated.')
+    } catch {
+      setError('Could not regenerate weekly plan.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-100 font-sans">
+      <header className="bg-slate-900">
+        <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4 sm:h-14 sm:px-6">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+          </span>
+          <Link
+            href="/dashboard"
+            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:text-white"
+          >
+            Back to dashboard
+          </Link>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
+        <div className="mb-6 rounded border border-slate-200 bg-white p-5">
+          <p className="text-[12px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly plan</p>
+          <h1 className="mt-1 text-[26px] font-bold leading-tight text-slate-900">Editable three-action operating plan</h1>
+          <p className="mt-2 text-[13px] text-slate-600">
+            Keep one clear action for relationships, one for target companies, and one for preparation. Saved by week.
+          </p>
+          <p className="mt-2 text-[12px] text-slate-500">
+            Momentum score: {typeof momentumScore === 'number' ? momentumScore : 'not available yet'}
+          </p>
+
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+            <label className="text-[12px] text-slate-600">
+              Week start (Monday)
+              <input
+                type="date"
+                value={weekStart}
+                onChange={(event) => setWeekStart(event.target.value)}
+                className="mt-1 block min-h-[44px] w-full rounded border border-slate-200 bg-white px-3 text-[13px] text-slate-900"
+              />
+            </label>
+            <p className="text-[12px] text-slate-500">Week of {formatWeekLabel(weekStart)}</p>
+          </div>
+        </div>
+
+        {error && (
+          <p className="mb-4 rounded border border-rose-200 bg-rose-50 px-3 py-2 text-[12px] text-rose-700">{error}</p>
+        )}
+        {message && (
+          <p className="mb-4 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] text-emerald-700">{message}</p>
+        )}
+
+        <section className="rounded border border-slate-200 bg-white p-5">
+          <div className="space-y-4">
+            {[0, 1, 2].map((index) => (
+              <article key={index} className="rounded border border-slate-200 bg-slate-50/70 p-3">
+                <label htmlFor={`weekly-plan-action-${index}`} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">
+                  Action {index + 1}
+                </label>
+                <textarea
+                  id={`weekly-plan-action-${index}`}
+                  value={actions[index] ?? ''}
+                  onChange={(event) => {
+                    const next = [...actions]
+                    next[index] = event.target.value
+                    setActions(next)
+                  }}
+                  disabled={loading}
+                  className="mt-2 min-h-[96px] w-full rounded border border-slate-200 bg-white px-3 py-2 text-[13px] text-slate-900"
+                />
+                <label className="mt-2 inline-flex min-h-[36px] items-center gap-2 text-[12px] text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(completions[index])}
+                    onChange={(event) => {
+                      const next = [...completions]
+                      next[index] = event.target.checked
+                      setCompletions(next)
+                    }}
+                    disabled={loading}
+                  />
+                  Mark as completed this week
+                </label>
+              </article>
+            ))}
+
+            <div className="rounded border border-slate-200 bg-slate-50/70 p-3">
+              <label htmlFor="weekly-plan-reflection" className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">
+                Reflection notes
+              </label>
+              <textarea
+                id="weekly-plan-reflection"
+                value={reflectionNotes}
+                onChange={(event) => setReflectionNotes(event.target.value)}
+                disabled={loading}
+                className="mt-2 min-h-[96px] w-full rounded border border-slate-200 bg-white px-3 py-2 text-[13px] text-slate-900"
+              />
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={savePlan}
+              disabled={!canSave || loading || saving}
+              className="inline-flex min-h-[44px] items-center rounded border border-slate-900 bg-slate-900 px-4 text-[13px] font-semibold text-white disabled:opacity-50"
+            >
+              {saving ? 'Saving…' : 'Save weekly plan'}
+            </button>
+            <button
+              type="button"
+              onClick={() => void regeneratePlan(false)}
+              disabled={loading || saving}
+              className="inline-flex min-h-[44px] items-center rounded border border-slate-300 bg-white px-4 text-[13px] font-semibold text-slate-700 disabled:opacity-50"
+            >
+              {saving ? 'Working…' : 'Regenerate suggestions'}
+            </button>
+            <p className="text-[12px] text-slate-500">Regenerate and history actions land in the next sprint tickets.</p>
+          </div>
+        </section>
+
+        <section className="mt-6 rounded border border-slate-200 bg-white p-5">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">4-week history</p>
+          {history && history.length > 0 ? (
+            <ul className="mt-3 space-y-3">
+              {history.map((item) => (
+                <li key={item.week_start} className="rounded border border-slate-200 px-3 py-2">
+                  <p className="text-[13px] font-semibold text-slate-900">Week of {formatWeekLabel(item.week_start)}</p>
+                  <p className="mt-1 text-[12px] text-slate-600">Completed {item.completed_count}/3 actions</p>
+                  <ul className="mt-2 space-y-1">
+                    {item.actions.map((action, index) => (
+                      <li key={`${item.week_start}-${index}`} className="text-[12px] text-slate-700">
+                        {item.completions[index] ? '✓' : '•'} {action}
+                      </li>
+                    ))}
+                  </ul>
+                  {item.reflection_notes && (
+                    <p className="mt-2 text-[12px] text-slate-600">Reflection: {item.reflection_notes}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-2 text-[13px] text-slate-500">No weekly history yet.</p>
+          )}
+        </section>
+      </main>
+    </div>
+  )
+}
