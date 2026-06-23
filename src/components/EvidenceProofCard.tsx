@@ -5,6 +5,7 @@ type EvidenceProofCardProps = {
   sourceLabel: string
   sourceHref: string
   evidenceHref: string
+  evidenceLabel?: string
   disclaimer: string
   className?: string
 }
@@ -14,6 +15,7 @@ export function EvidenceProofCard({
   sourceLabel,
   sourceHref,
   evidenceHref,
+  evidenceLabel = 'Evidence Hub',
   disclaimer,
   className,
 }: EvidenceProofCardProps) {
@@ -27,7 +29,7 @@ export function EvidenceProofCard({
             {sourceLabel}
           </Link>
           <Link href={evidenceHref} className="underline underline-offset-2 text-emerald-200 hover:text-white transition-colors">
-            Evidence Hub
+            {evidenceLabel}
           </Link>
         </div>
         <p className="mt-3 text-[12px] leading-relaxed text-slate-200">{disclaimer}</p>

@@ -155,6 +155,7 @@ export default function ForCioPage() {
             sourceLabel="Pilot summary + method notes"
             sourceHref="/pilot-findings"
             evidenceHref="/evidence-hub#transition-success"
+            evidenceLabel="Source notes"
             disclaimer="Results vary by market, role level, and campaign consistency."
           />
         </div>
