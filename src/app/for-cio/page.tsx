@@ -2,7 +2,6 @@
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import Link from 'next/link'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
@@ -204,7 +203,7 @@ export default function ForCioPage() {
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}
                 className="block text-center text-[13px] font-semibold text-white border border-slate-600 px-4 py-2 rounded hover:border-slate-300 transition-colors"
               >
-                Evidence Hub
+                Research findings
               </TrackLink>
             </div>
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="border border-slate-700 rounded-lg p-3">
