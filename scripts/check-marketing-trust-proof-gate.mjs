@@ -19,7 +19,7 @@ const checks = [
   },
   {
     file: 'src/app/evidence-room/page.tsx',
-    allOf: ['Source notes and methodology', 'Source:'],
+    allOf: ['Complete source index', 'Key finding:'],
   },
   {
     file: 'src/app/concierge/concierge-waitlist.tsx',
