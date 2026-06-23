@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
 import { DashboardStatusBanners } from './dashboard-status-banners'
+import { DashboardActivitySnooze } from './dashboard-activity-snooze'
 
 type ExecutiveRiskLevel = 'low' | 'medium' | 'high'
 
@@ -109,15 +110,17 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
         </p>
       </section>
 
-      <DashboardPrimaryNavSections
-        signalCount={props.signalCount}
-        overdueCount={props.overdueCount}
-        canUseOutreachHub={props.canUseOutreachHub}
-        isRothschildAdmin={props.isRothschildAdmin}
-        isExecutiveMode={props.isExecutiveMode}
-      />
+      <DashboardActivitySnooze>
+        <DashboardPrimaryNavSections
+          signalCount={props.signalCount}
+          overdueCount={props.overdueCount}
+          canUseOutreachHub={props.canUseOutreachHub}
+          isRothschildAdmin={props.isRothschildAdmin}
+          isExecutiveMode={props.isExecutiveMode}
+        />
 
-      <DailyMomentumPlan actions={props.dailyMomentumActions} dateKey={props.todayISO} status={props.momentumStatus} />
+        <DailyMomentumPlan actions={props.dailyMomentumActions} dateKey={props.todayISO} status={props.momentumStatus} />
+      </DashboardActivitySnooze>
 
       {props.profileSaved && (
         <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">
