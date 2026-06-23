@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { JsonLd } from '@/components/JsonLd'
 import { BLOG_POSTS } from '@/lib/blog-posts'
 import { BlogChat } from './blog-chat'
 
@@ -34,12 +35,27 @@ const INTERMEDIARY_SLUGS = new Set([
   'technology-executive-transition-chro',
 ])
 
+const blogIndexJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Starting Monday Blog',
+  url: 'https://startingmonday.app/blog',
+  description: 'Practical guidance for VP and C-suite technology executives in active search.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Starting Monday',
+    url: 'https://startingmonday.app',
+  },
+  about: ['Executive search', 'C-suite transitions', 'Career strategy'],
+}
+
 export default function BlogIndexPage() {
   const executivePosts = BLOG_POSTS.filter(p => !INTERMEDIARY_SLUGS.has(p.slug))
   const intermediaryPosts = BLOG_POSTS.filter(p => INTERMEDIARY_SLUGS.has(p.slug))
 
   return (
     <div className="min-h-screen bg-white font-sans">
+      <JsonLd data={blogIndexJsonLd} />
 
               {/* Nav */}
       <nav className="bg-slate-950 sticky top-0 z-10">
