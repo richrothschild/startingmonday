@@ -108,7 +108,7 @@ export default function ResearchBriefPage() {
           <div className="border border-slate-200 rounded-lg p-5">
             <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">How to cite it</h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">Use it as a synthesis document that points readers to the references page for source-level detail.</p>
-            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open references -></Link>
+            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open references {"->"}</Link>
             <p className="text-[12px] text-slate-500 mt-2">Trust and confidentiality: cite sources directly and avoid sharing private operator details.</p>
           </div>
         </section>

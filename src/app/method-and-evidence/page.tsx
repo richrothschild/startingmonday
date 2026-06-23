@@ -151,9 +151,9 @@ export default function MethodAndEvidencePage() {
             Explore the citations, pilot data, and timing-model methodology behind every product decision.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/references" className={`inline-block text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-white text-slate-900 hover:bg-slate-100'}`}>References -></Link>
-            <Link href="/evidence-hub" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Evidence Hub -></Link>
-            <Link href="/blog/how-we-estimate-early-role-signals" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Timing model -></Link>
+            <Link href="/references" className={`inline-block text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-white text-slate-900 hover:bg-slate-100'}`}>References {"->"}</Link>
+            <Link href="/evidence-hub" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Evidence Hub {"->"}</Link>
+            <Link href="/blog/how-we-estimate-early-role-signals" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Timing model {"->"}</Link>
           </div>
         </section>
 
