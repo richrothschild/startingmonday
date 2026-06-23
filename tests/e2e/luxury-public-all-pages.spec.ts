@@ -23,7 +23,7 @@ const PUBLIC_ROUTES = [
   '/career-tools',
   '/method-and-evidence',
   '/references',
-  '/evidence-room',
+  '/evidence-hub',
   '/learn-more',
   '/learn-more/inside-the-system',
   '/learn-more/objections',
@@ -53,7 +53,7 @@ async function getBaselineMetrics(page: Page, url: string) {
 
     const links = Array.from(root.querySelectorAll('a[href]')).map((a) => (a.textContent || '').trim()).filter(Boolean)
     const ctaLabels = links.filter((label) =>
-      /(start|view|open|see|watch|learn|request|choose|try|sign up|get started|read|book|explore|review|demo|preview)/i.test(label),
+      /(\bstart\b|view|open|see|watch|learn|request|choose|try|sign up|get started|read|book|explore|review|demo|preview)/i.test(label),
     )
     const repeated = new Map<string, number>()
     for (const label of ctaLabels) repeated.set(label, (repeated.get(label) || 0) + 1)
