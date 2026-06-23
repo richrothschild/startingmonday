@@ -61,7 +61,7 @@ export function DashboardPrimaryNavSections({
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-orange-200">Find roles first</p>
             <p className="mt-1 text-[14px] font-semibold text-white">{signalCount} signals to review</p>
             <p className="mt-1 text-[12px] text-slate-300">Start with the clearest timing window.</p>
-            <Link href="/dashboard/briefing#tenet-find-roles" className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded border border-orange-300/40 bg-orange-500/20 px-3 py-2 text-[12px] font-semibold text-orange-100 hover:text-white">
+            <Link href="/dashboard/briefing#tenet-find-roles" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-orange-300/40 bg-orange-500/20 px-3 text-[12px] font-semibold text-orange-100 hover:text-white">
               Open briefing
             </Link>
           </article>
@@ -69,7 +69,7 @@ export function DashboardPrimaryNavSections({
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-orange-200">Talk to the right people</p>
             <p className="mt-1 text-[14px] font-semibold text-white">{overdueCount} relationship moves ready</p>
             <p className="mt-1 text-[12px] text-slate-300">Advance one warm path before noon.</p>
-            <Link href={canUseOutreachHub ? '/dashboard/outreach' : '/dashboard/contacts'} className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded border border-white/20 px-3 py-2 text-[12px] font-semibold text-slate-100 hover:border-white/35">
+            <Link href={canUseOutreachHub ? '/dashboard/outreach' : '/dashboard/contacts'} className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[12px] font-semibold text-slate-100 hover:border-white/35">
               Open relationships
             </Link>
           </article>
@@ -77,7 +77,7 @@ export function DashboardPrimaryNavSections({
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-orange-200">Follow a clear plan</p>
             <p className="mt-1 text-[14px] font-semibold text-white">Protect weekly momentum</p>
             <p className="mt-1 text-[12px] text-slate-300">Close one follow-through and keep cadence steady.</p>
-            <Link href="/dashboard/calendar" className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded border border-white/20 px-3 py-2 text-[12px] font-semibold text-slate-100 hover:border-white/35">
+            <Link href="/dashboard/calendar" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[12px] font-semibold text-slate-100 hover:border-white/35">
               Open plan
             </Link>
           </article>

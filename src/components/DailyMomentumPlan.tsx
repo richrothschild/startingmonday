@@ -253,7 +253,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                     </button>
                     <Link
                       href={action.href}
-                      className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-orange-500 px-4 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+                      className="inline-flex h-[44px] items-center justify-center rounded-full bg-orange-500 px-4 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
                     >
                       {action.cta}
                     </Link>
