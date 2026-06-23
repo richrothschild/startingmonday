@@ -400,29 +400,29 @@ Output valid JSON only, no markdown fences.`
 
 function BriefingBodySkeleton() {
   return (
-    <div className="bg-white border border-slate-200 border-t-0 rounded-b px-5 sm:px-8 py-6 sm:py-8">
+    <div className="rounded-b-2xl border border-white/15 border-t-0 bg-white/5 px-5 sm:px-8 py-6 sm:py-8 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-2 h-2 rounded-full bg-slate-300 animate-pulse" />
-        <p className="text-[13px] text-slate-400">Assembling your briefing...</p>
+        <div className="w-2 h-2 rounded-full bg-orange-300 animate-pulse" />
+        <p className="text-[13px] text-slate-300">Assembling your briefing...</p>
       </div>
       <div className="mb-8 space-y-2">
-        <div className="h-4 w-full bg-slate-100 rounded animate-pulse" />
-        <div className="h-4 w-4/5 bg-slate-100 rounded animate-pulse" />
+        <div className="h-4 w-full bg-white/10 rounded animate-pulse" />
+        <div className="h-4 w-4/5 bg-white/10 rounded animate-pulse" />
       </div>
       <div className="mb-8">
-        <div className="h-2 w-28 bg-slate-100 rounded animate-pulse mb-4" />
-        <div className="p-4 bg-amber-50 border border-amber-100 rounded-r space-y-2">
-          <div className="h-4 w-32 bg-amber-100 rounded animate-pulse" />
-          <div className="h-3.5 w-full bg-amber-100 rounded animate-pulse" />
-          <div className="h-3.5 w-3/4 bg-amber-100 rounded animate-pulse" />
+        <div className="h-2 w-28 bg-white/10 rounded animate-pulse mb-4" />
+        <div className="p-4 bg-amber-500/10 border border-amber-300/20 rounded-r space-y-2 backdrop-blur-md">
+          <div className="h-4 w-32 bg-amber-200/20 rounded animate-pulse" />
+          <div className="h-3.5 w-full bg-amber-200/20 rounded animate-pulse" />
+          <div className="h-3.5 w-3/4 bg-amber-200/20 rounded animate-pulse" />
         </div>
       </div>
       <div className="mb-8">
-        <div className="h-2 w-24 bg-slate-100 rounded animate-pulse mb-4" />
-        <div className="p-4 bg-white border border-slate-200 rounded-r space-y-2">
-          <div className="h-4 w-40 bg-slate-100 rounded animate-pulse" />
-          <div className="h-3.5 w-full bg-slate-100 rounded animate-pulse" />
-          <div className="h-3.5 w-2/3 bg-slate-100 rounded animate-pulse" />
+        <div className="h-2 w-24 bg-white/10 rounded animate-pulse mb-4" />
+        <div className="p-4 bg-white/5 border border-white/10 rounded-r space-y-2 backdrop-blur-md">
+          <div className="h-4 w-40 bg-white/10 rounded animate-pulse" />
+          <div className="h-3.5 w-full bg-white/10 rounded animate-pulse" />
+          <div className="h-3.5 w-2/3 bg-white/10 rounded animate-pulse" />
         </div>
       </div>
     </div>
@@ -450,18 +450,18 @@ async function BriefingBody({
   const stalledLanes = context.stalledLanes ?? []
 
   return (
-    <div className="bg-white border border-slate-200 border-t-0 rounded-b-lg px-5 sm:px-8 py-8 sm:py-10">
+    <div className="rounded-b-2xl border border-white/15 border-t-0 bg-white/5 px-5 sm:px-8 py-8 sm:py-10 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
       {!context.hasContent ? (
         <div className="text-center py-12">
-          <p className="text-[16px] sm:text-[18px] font-semibold text-slate-900 mb-3">Nothing urgent is pulling at the search today.</p>
-          <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed mb-8 max-w-md mx-auto">
+          <p className="text-[16px] sm:text-[18px] font-semibold text-white mb-3">Nothing urgent is pulling at the search today.</p>
+          <p className="text-[14px] sm:text-[15px] text-slate-300 leading-relaxed mb-8 max-w-md mx-auto">
             No new matches, relationship follow-through, or company signals need attention right now.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/dashboard/companies/new" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-slate-800 transition-colors">
+            <Link href="/dashboard/companies/new" className="inline-block bg-orange-400 text-slate-950 text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-orange-300 transition-colors">
               Add a company
             </Link>
-            <Link href="/dashboard" className="inline-block border border-slate-300 text-slate-700 text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-colors">
+            <Link href="/dashboard" className="inline-block border border-white/15 text-slate-200 text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:border-white/30 hover:bg-white/5 transition-colors">
               Back to dashboard
             </Link>
           </div>
@@ -469,52 +469,52 @@ async function BriefingBody({
       ) : (
         <>
           {usedFallback && (
-            <div className="mb-8 rounded-lg border border-amber-200/60 bg-gradient-to-br from-amber-50/80 to-amber-50 p-5">
-              <p className="text-[12px] font-semibold text-amber-900 mb-1.5">Briefing generated in safe mode</p>
-              <p className="text-[13px] text-amber-800 leading-relaxed">
+            <div className="mb-8 rounded-2xl border border-amber-300/20 bg-amber-500/10 p-5 backdrop-blur-md">
+              <p className="text-[12px] font-semibold text-amber-100 mb-1.5">Briefing generated in safe mode</p>
+              <p className="text-[13px] text-amber-100/80 leading-relaxed">
                 We had a temporary formatting issue while building your AI summary. The actions below are still valid from your live data.
               </p>
             </div>
           )}
 
-          <section id="what-matters-now" className="mb-8 rounded-lg border border-slate-200/60 bg-slate-50/40 p-5 sm:p-6">
-            <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 mb-3">Strategic framing</h2>
-            <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">
+          <section id="what-matters-now" className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-md">
+            <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-3">Strategic framing</h2>
+            <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">
               Stay ahead of timing. Deepen one relationship. Keep momentum steady. Success is measured by position, not activity. Focus beats urgency.
             </p>
           </section>
 
           {briefing?.intro && (
-            <p className="text-[15px] text-slate-700 leading-relaxed mb-8">{briefing.intro}</p>
+            <p className="text-[15px] text-slate-200 leading-relaxed mb-8">{briefing.intro}</p>
           )}
 
           {/* TENET 1: FIND ROLES FIRST */}
           <section id="tenet-find-roles" className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-1.5 h-7 bg-orange-500 rounded-full" />
-                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-white">
                   Find Roles First
                 </h2>
               </div>
 
               <section id="signals-to-review" className="mb-6">
-                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 pb-3 border-b border-white/10 mb-4">
                   Signals to review
                 </h3>
                 {signalAlerts.length > 0 ? (
                   <>
                     <div className="flex flex-col gap-3">
                       {signalAlerts.map((s, i) => (
-                        <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-amber-50/80 to-amber-50 border border-amber-200/60 border-l-[4px] border-l-orange-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-amber-500/10 to-white/5 border border-amber-300/20 border-l-[4px] border-l-orange-400 rounded-lg shadow-[0_18px_40px_rgba(15,23,42,0.12)] hover:shadow-[0_22px_54px_rgba(15,23,42,0.16)] transition-shadow backdrop-blur-md">
                           <div className="flex items-center gap-2 flex-wrap mb-2">
-                            <span className="font-bold text-[16px] sm:text-[17px] text-slate-900">{s.company}</span>
-                            <span className="text-[10px] font-semibold tracking-[0.08em] uppercase bg-orange-100/80 text-orange-800 px-2.5 py-0.5 rounded-md">
+                            <span className="font-bold text-[16px] sm:text-[17px] text-white">{s.company}</span>
+                            <span className="text-[10px] font-semibold tracking-[0.08em] uppercase bg-orange-500/15 text-orange-100 px-2.5 py-0.5 rounded-md border border-orange-300/20">
                               {SIGNAL_LABELS[s.signalType] ?? s.signalType}
                             </span>
                           </div>
-                          <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed mb-2">{s.summary}</p>
+                          <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed mb-2">{s.summary}</p>
                           {s.angle && (
-                            <p className="text-[14px] text-slate-600 italic leading-relaxed">{s.angle}</p>
+                            <p className="text-[14px] text-slate-300 italic leading-relaxed">{s.angle}</p>
                           )}
                         </div>
                       ))}
@@ -525,7 +525,7 @@ async function BriefingBody({
                         <input type="hidden" name="target" value="/dashboard/signals" />
                         <button
                           type="submit"
-                          className="inline-block text-[12px] font-semibold text-orange-700 border border-orange-300 rounded-lg px-5 py-2.5 hover:bg-orange-50 hover:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                          className="inline-block text-[12px] font-semibold text-slate-950 border border-orange-300/30 rounded-lg px-5 py-2.5 hover:bg-orange-300 hover:border-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-95 transition-all duration-200 cursor-pointer bg-orange-400"
                         >
                           Review signal and choose the next move &rarr;
                         </button>
@@ -533,8 +533,8 @@ async function BriefingBody({
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 sm:p-5">
-                    <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-md">
+                    <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed">
                       No new market signals are competing for attention right now. Keep your current follow-through moving.
                     </p>
                   </div>
@@ -546,25 +546,25 @@ async function BriefingBody({
           <section id="tenet-talk-to-people" className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-1.5 h-7 bg-emerald-500 rounded-full" />
-                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-white">
                   Talk to the Right People
                 </h2>
               </div>
 
               <section id="people-to-reach" className="mb-6">
-                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 pb-3 border-b border-white/10 mb-4">
                   People to reach
                 </h3>
                 {matchInsights.length > 0 ? (
                   <>
                     <div className="flex flex-col gap-3">
                       {matchInsights.map((m, i) => (
-                        <div key={i} className="p-4 sm:p-5 bg-white border border-slate-200/80 border-l-[4px] border-l-slate-900 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                          <div className="font-bold text-[16px] sm:text-[17px] text-slate-900 mb-2">{m.company}</div>
-                          <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                        <div key={i} className="p-4 sm:p-5 bg-white/5 border border-white/10 border-l-[4px] border-l-emerald-400 rounded-lg shadow-[0_18px_40px_rgba(15,23,42,0.12)] hover:shadow-[0_22px_54px_rgba(15,23,42,0.16)] transition-shadow backdrop-blur-md">
+                          <div className="font-bold text-[16px] sm:text-[17px] text-white mb-2">{m.company}</div>
+                          <div className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-400 mb-3">
                             {(m.roles ?? []).join(' · ')}
                           </div>
-                          <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">{m.insight}</p>
+                          <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">{m.insight}</p>
                         </div>
                       ))}
                     </div>
@@ -574,7 +574,7 @@ async function BriefingBody({
                         <input type="hidden" name="target" value="/dashboard/contacts" />
                         <button
                           type="submit"
-                          className="inline-block text-[12px] font-semibold text-emerald-700 border border-emerald-300 rounded-lg px-5 py-2.5 hover:bg-emerald-50 hover:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                          className="inline-block text-[12px] font-semibold text-slate-950 border border-emerald-300/30 rounded-lg px-5 py-2.5 hover:bg-emerald-300 hover:border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-300/50 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-95 transition-all duration-200 cursor-pointer bg-emerald-400"
                         >
                           Move one relationship forward &rarr;
                         </button>
@@ -582,8 +582,8 @@ async function BriefingBody({
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 sm:p-5">
-                    <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-md">
+                    <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed">
                       No new role-to-contact matches surfaced yet. Use one existing relationship to keep the week moving.
                     </p>
                   </div>
@@ -595,13 +595,13 @@ async function BriefingBody({
           <section id="tenet-clear-plan" className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-1.5 h-7 bg-blue-500 rounded-full" />
-                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-slate-900">
+                <h2 className="text-[18px] sm:text-[20px] font-bold tracking-[0.08em] text-white">
                   Follow a Clear Plan
                 </h2>
               </div>
 
               <section id="keep-momentum" className="mb-6">
-                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 pb-3 border-b border-white/10 mb-4">
                   Keep momentum
                 </h3>
                 {stalledLanes.length > 0 ? (
@@ -609,21 +609,21 @@ async function BriefingBody({
                     {stalledLanes.map((lane, index) => (
                       <div
                         key={`${lane.lane}-${index}`}
-                        className={`p-4 sm:p-5 border rounded-lg border-l-[4px] shadow-sm transition-shadow hover:shadow-md ${lane.state === 'stalled' ? 'bg-gradient-to-br from-amber-50/80 to-amber-50 border-amber-200/60 border-l-amber-600' : 'bg-gradient-to-br from-amber-50/40 to-amber-50 border-amber-200/40 border-l-amber-400'}`}
+                        className={`p-4 sm:p-5 border rounded-lg border-l-[4px] shadow-[0_18px_40px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_22px_54px_rgba(15,23,42,0.16)] backdrop-blur-md ${lane.state === 'stalled' ? 'bg-gradient-to-br from-amber-500/10 to-white/5 border-amber-300/20 border-l-amber-400' : 'bg-gradient-to-br from-amber-500/5 to-white/5 border-amber-300/15 border-l-amber-300'}`}
                       >
                         <div className="flex items-center gap-2 flex-wrap mb-2">
-                          <span className="font-bold text-[16px] sm:text-[17px] text-slate-900 capitalize">{lane.lane}</span>
-                          <span className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-2.5 py-0.5 rounded-md ${lane.state === 'stalled' ? 'bg-amber-200/60 text-amber-900' : 'bg-amber-100/60 text-amber-800'}`}>
+                          <span className="font-bold text-[16px] sm:text-[17px] text-white capitalize">{lane.lane}</span>
+                          <span className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-2.5 py-0.5 rounded-md border ${lane.state === 'stalled' ? 'bg-amber-500/15 text-amber-100 border-amber-300/20' : 'bg-amber-500/10 text-amber-100 border-amber-300/15'}`}>
                             {lane.state}
                           </span>
                         </div>
-                        <p className="text-[15px] sm:text-[16px] text-slate-700 leading-relaxed">{lane.reason}</p>
+                        <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">{lane.reason}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 sm:p-5">
-                    <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-md">
+                    <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed">
                       Your current cadence is steady. Keep one relationship move active and protect follow-through quality.
                     </p>
                   </div>
@@ -631,18 +631,18 @@ async function BriefingBody({
               </section>
 
               <section id="best-next-moves" className="mb-0">
-                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-600 pb-3 border-b border-slate-200 mb-4">
+                <h3 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 pb-3 border-b border-white/10 mb-4">
                   Best next moves
                 </h3>
                 {followUpItems.length > 0 ? (
                   <>
                     <div className="flex flex-col gap-2">
                       {followUpItems.map((f, i) => (
-                        <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-slate-50/80 to-slate-50 border border-slate-200/60 border-l-[4px] border-l-blue-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                          <div className="font-semibold text-[15px] sm:text-[16px] text-slate-900 mb-1">
-                            {f.person} <span className="font-normal text-slate-500">·</span> {f.action}
+                        <div key={i} className="p-4 sm:p-5 bg-gradient-to-br from-white/5 to-slate-950/30 border border-white/10 border-l-[4px] border-l-blue-400 rounded-lg shadow-[0_18px_40px_rgba(15,23,42,0.12)] hover:shadow-[0_22px_54px_rgba(15,23,42,0.16)] transition-shadow backdrop-blur-md">
+                          <div className="font-semibold text-[15px] sm:text-[16px] text-white mb-1">
+                            {f.person} <span className="font-normal text-slate-400">·</span> {f.action}
                           </div>
-                          <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">{f.suggestion}</p>
+                          <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed">{f.suggestion}</p>
                         </div>
                       ))}
                     </div>
@@ -652,7 +652,7 @@ async function BriefingBody({
                         <input type="hidden" name="target" value="/dashboard/calendar" />
                         <button
                           type="submit"
-                          className="inline-block text-[12px] font-semibold text-blue-700 border border-blue-300 rounded-lg px-5 py-2.5 hover:bg-blue-50 hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:ring-offset-2 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
+                          className="inline-block text-[12px] font-semibold text-slate-950 border border-blue-300/30 rounded-lg px-5 py-2.5 hover:bg-blue-300 hover:border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-95 transition-all duration-200 cursor-pointer bg-blue-400"
                         >
                           Map your week &rarr;
                         </button>
@@ -660,8 +660,8 @@ async function BriefingBody({
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 sm:p-5">
-                    <p className="text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-md">
+                    <p className="text-[14px] sm:text-[15px] text-slate-200 leading-relaxed">
                       Nothing urgent is due right now. Hold focus on one proactive relationship move to stay ahead of timing.
                     </p>
                   </div>
@@ -670,7 +670,7 @@ async function BriefingBody({
             </section>
 
           {briefing?.closing && (
-            <p className="text-[14px] text-slate-500 leading-relaxed border-t border-slate-100 pt-6 mb-6">
+            <p className="text-[14px] text-slate-300 leading-relaxed border-t border-white/10 pt-6 mb-6">
               {briefing.closing}
             </p>
           )}
@@ -678,7 +678,7 @@ async function BriefingBody({
           <div className="text-center">
             <Link
               href="/dashboard"
-              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
+              className="inline-block bg-orange-400 text-slate-950 text-[13px] font-semibold px-8 py-3 rounded hover:bg-orange-300 transition-colors"
             >
               Back to dashboard
             </Link>
@@ -728,9 +728,9 @@ export default async function BriefingPage({
   const pulse = buildWeeklyPulse(context, firstName, todayLabel)
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
 
-      <header className="bg-slate-900">
+      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -756,33 +756,33 @@ export default async function BriefingPage({
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         {noteSaved === '1' && (
-          <section className="mb-4 rounded border border-emerald-200 bg-emerald-50 px-4 py-3">
-            <p className="text-[12px] font-semibold text-emerald-900">Today&apos;s note saved.</p>
-            <p className="text-[12px] text-emerald-800">Your weekly pulse plan is now captured in your daily notes.</p>
+          <section className="mb-4 rounded-2xl border border-emerald-300/20 bg-emerald-500/10 px-4 py-3 backdrop-blur-md">
+            <p className="text-[12px] font-semibold text-emerald-100">Today&apos;s note saved.</p>
+            <p className="text-[12px] text-emerald-100/80">Your weekly pulse plan is now captured in your daily notes.</p>
           </section>
         )}
 
         {errorCode === 'note-save-failed' && (
-          <section className="mb-4 rounded border border-amber-200 bg-amber-50 px-4 py-3">
-            <p className="text-[12px] font-semibold text-amber-900">We could not save that note right now.</p>
-            <p className="text-[12px] text-amber-800">Please try again in a moment. Your plan is still visible on this page.</p>
+          <section className="mb-4 rounded-2xl border border-amber-300/20 bg-amber-500/10 px-4 py-3 backdrop-blur-md">
+            <p className="text-[12px] font-semibold text-amber-100">We could not save that note right now.</p>
+            <p className="text-[12px] text-amber-100/80">Please try again in a moment. Your plan is still visible on this page.</p>
           </section>
         )}
 
-        <section className="mb-6 rounded-xl border border-slate-200 bg-white px-4 py-3 sm:px-5">
-          <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
+        <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 sm:px-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-2">Jump to section</h2>
           <details className="group">
-            <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 text-[12px] font-semibold text-slate-700">
+            <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-950/30 px-3 text-[12px] font-semibold text-slate-100">
               <span>Show sections</span>
-              <span className="inline-flex h-5 w-5 items-center justify-center text-[11px] text-slate-500 transition group-open:rotate-180">v</span>
+              <span className="inline-flex h-5 w-5 items-center justify-center text-[11px] text-slate-400 transition group-open:rotate-180">v</span>
             </summary>
             <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
-              <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Weekly pulse</a>
-              <a href="#what-matters-now" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">What matters now</a>
-              <a href="#signals-to-review" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Signals to review</a>
-              <a href="#people-to-reach" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">People to reach</a>
-              <a href="#keep-momentum" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Keep momentum</a>
-              <a href="#best-next-moves" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 py-1 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300/50 transition-all duration-150">Best next moves</a>
+              <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Weekly pulse</a>
+              <a href="#what-matters-now" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">What matters now</a>
+              <a href="#signals-to-review" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Signals to review</a>
+              <a href="#people-to-reach" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">People to reach</a>
+              <a href="#keep-momentum" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Keep momentum</a>
+              <a href="#best-next-moves" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Best next moves</a>
             </div>
           </details>
         </section>
@@ -797,7 +797,7 @@ export default async function BriefingPage({
           movesReadyCount={context.followUps.length}
         />
 
-        <section id="weekly-pulse" className="border-x border-b border-slate-200 bg-white px-5 py-6 sm:px-8 sm:py-8">
+        <section id="weekly-pulse" className="rounded-2xl border border-white/15 bg-white/5 px-5 py-6 sm:px-8 sm:py-8 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <div className="rounded-2xl border border-slate-200/80 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.08),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)] p-6 sm:p-8 shadow-[0_20px_48px_rgba(15,23,42,0.16)]">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <div>
@@ -856,17 +856,17 @@ export default async function BriefingPage({
 
 
 
-        <section id="briefing-mode" className="bg-white border-x border-b border-slate-200 px-5 sm:px-8 py-3 flex items-center gap-2">
-          <h2 className="text-[11px] font-semibold text-slate-500">View:</h2>
+        <section id="briefing-mode" className="rounded-2xl border border-white/15 bg-white/5 px-5 sm:px-8 py-3 flex items-center gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[11px] font-semibold text-slate-300">View:</h2>
           <Link
             href="/dashboard/briefing?mode=focused"
-            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'focused' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'focused' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
           >
             Focused
           </Link>
           <Link
             href="/dashboard/briefing?mode=full"
-            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'full' ? 'text-white bg-slate-900 border-slate-900' : 'text-slate-600 border-slate-200 hover:border-slate-400'}`}
+            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'full' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
           >
             Full
           </Link>

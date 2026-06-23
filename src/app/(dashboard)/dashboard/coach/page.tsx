@@ -164,8 +164,8 @@ export default function CoachDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -177,73 +177,73 @@ export default function CoachDashboard() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="mb-6">
+        <div className="mb-6 rounded-2xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Coach</div>
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Portfolio Command Center</h1>
-          <p className="text-[13px] text-slate-500 mt-1">
+          <h1 className="text-[26px] font-bold text-white leading-tight">Portfolio Command Center</h1>
+          <p className="text-[13px] text-slate-200 mt-1">
             {clients.length} client{clients.length !== 1 ? 's' : ''} under your account.
           </p>
         </div>
 
         {!loading && commandCenter && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-            <div className="bg-white border border-slate-200 rounded p-3">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400">Total clients</p>
-              <p className="text-[24px] font-bold text-slate-900 mt-1 tabular-nums">{commandCenter.portfolio.total_clients}</p>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-300">Total clients</p>
+              <p className="text-[24px] font-bold text-white mt-1 tabular-nums">{commandCenter.portfolio.total_clients}</p>
             </div>
-            <div className="bg-white border border-red-200 rounded p-3">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-red-500">High risk</p>
-              <p className="text-[24px] font-bold text-red-700 mt-1 tabular-nums">{commandCenter.portfolio.urgency.high}</p>
+            <div className="rounded-2xl border border-red-300/20 bg-red-500/10 p-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-red-200">High risk</p>
+              <p className="text-[24px] font-bold text-red-100 mt-1 tabular-nums">{commandCenter.portfolio.urgency.high}</p>
             </div>
-            <div className="bg-white border border-amber-200 rounded p-3">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-amber-600">Stale data</p>
-              <p className="text-[24px] font-bold text-amber-700 mt-1 tabular-nums">{commandCenter.freshness_sla.stale_clients}</p>
+            <div className="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-amber-200">Stale data</p>
+              <p className="text-[24px] font-bold text-amber-100 mt-1 tabular-nums">{commandCenter.freshness_sla.stale_clients}</p>
             </div>
-            <div className="bg-white border border-slate-200 rounded p-3">
-              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400">Avg risk</p>
-              <p className="text-[24px] font-bold text-slate-900 mt-1 tabular-nums">{commandCenter.portfolio.average_risk_score}</p>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-300">Avg risk</p>
+              <p className="text-[24px] font-bold text-white mt-1 tabular-nums">{commandCenter.portfolio.average_risk_score}</p>
             </div>
           </div>
         )}
 
         {!loading && commandCenter?.monitoring && (
-          <div className="bg-white border border-slate-200 rounded p-4 mb-6">
-            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2">Route performance</p>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 mb-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-2">Route performance</p>
             <div className="grid sm:grid-cols-5 gap-3">
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Route fetch</p>
-                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.fetch_ms}ms</p>
+                <p className="text-[14px] font-semibold text-white tabular-nums">{commandCenter.monitoring.fetch_ms}ms</p>
               </div>
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Home load</p>
-                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{homeLoadMs ?? '-'}ms</p>
+                <p className="text-[14px] font-semibold text-white tabular-nums">{homeLoadMs ?? '-'}ms</p>
               </div>
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Budget</p>
-                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.budget_ms}ms</p>
+                <p className="text-[14px] font-semibold text-white tabular-nums">{commandCenter.monitoring.budget_ms}ms</p>
               </div>
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Client rows</p>
-                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_clients}</p>
+                <p className="text-[14px] font-semibold text-white tabular-nums">{commandCenter.monitoring.payload_clients}</p>
               </div>
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Upcoming rows</p>
-                <p className="text-[14px] font-semibold text-slate-800 tabular-nums">{commandCenter.monitoring.payload_sessions}</p>
+                <p className="text-[14px] font-semibold text-white tabular-nums">{commandCenter.monitoring.payload_sessions}</p>
               </div>
             </div>
           </div>
         )}
 
         {!loading && (atRisk.length > 0 || overdue.length > 0) && (
-          <div className="bg-amber-50 border border-amber-200 rounded p-4 mb-6">
-            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-700 mb-2">Needs Attention</p>
+          <div className="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-4 mb-6 backdrop-blur-md">
+            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-200 mb-2">Needs Attention</p>
             {atRisk.length > 0 && (
-              <p className="text-[13px] text-slate-700 mb-1">
+              <p className="text-[13px] text-slate-100 mb-1">
                 <span className="font-semibold">{atRisk.length}</span> client{atRisk.length !== 1 ? 's' : ''} in high-risk status.
               </p>
             )}
             {overdue.length > 0 && (
-              <p className="text-[13px] text-slate-700">
+              <p className="text-[13px] text-slate-100">
                 <span className="font-semibold">{overdue.length}</span> client{overdue.length !== 1 ? 's' : ''} with overdue actions.
               </p>
             )}
@@ -252,71 +252,71 @@ export default function CoachDashboard() {
 
         {!loading && commandCenter && (
           <div className="grid lg:grid-cols-3 gap-4 mb-6">
-            <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Upcoming sessions</p>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Upcoming sessions</p>
               {commandCenter.upcoming_sessions.length === 0 ? (
-                <p className="text-[13px] text-slate-500">No upcoming sessions or due touchpoints in the current window.</p>
+                <p className="text-[13px] text-slate-300">No upcoming sessions or due touchpoints in the current window.</p>
               ) : (
                 <div className="space-y-3">
                   {commandCenter.upcoming_sessions.slice(0, 6).map(session => (
-                    <div key={`${session.user_id}-${session.scheduled_for}`} className="border border-slate-100 rounded p-3">
+                    <div key={`${session.user_id}-${session.scheduled_for}`} className="border border-white/10 rounded-lg bg-slate-950/30 p-3">
                       <div className="flex items-center justify-between gap-3">
-                        <p className="text-[13px] font-semibold text-slate-900 truncate">{session.name ?? session.email ?? 'Client'}</p>
+                        <p className="text-[13px] font-semibold text-white truncate">{session.name ?? session.email ?? 'Client'}</p>
                         <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
                       </div>
-                      <p className="text-[13px] text-slate-500 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
-                      {session.action && <p className="text-[13px] text-slate-700 mt-1">{session.action}</p>}
+                      <p className="text-[13px] text-slate-300 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
+                      {session.action && <p className="text-[13px] text-slate-100 mt-1">{session.action}</p>}
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Priority action queue</p>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Priority action queue</p>
               {actionQueue.length === 0 ? (
-                <p className="text-[13px] text-slate-500">No open actions. Weekly review queue is clear.</p>
+                <p className="text-[13px] text-slate-300">No open actions. Weekly review queue is clear.</p>
               ) : (
                 <div className="space-y-3">
                   {actionQueue.map(client => (
-                    <div key={client.user_id} className="border border-slate-100 rounded p-3">
+                    <div key={client.user_id} className="border border-white/10 rounded-lg bg-slate-950/30 p-3">
                       <div className="flex items-center justify-between gap-3">
-                        <p className="text-[13px] font-semibold text-slate-900 truncate">{client.name ?? client.email ?? 'Client'}</p>
+                        <p className="text-[13px] font-semibold text-white truncate">{client.name ?? client.email ?? 'Client'}</p>
                         <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
                       </div>
-                      <p className="text-[13px] text-slate-700 mt-1">{client.next_action?.action}</p>
-                      <p className="text-[13px] text-slate-500 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
+                      <p className="text-[13px] text-slate-100 mt-1">{client.next_action?.action}</p>
+                      <p className="text-[13px] text-slate-300 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="bg-white border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Weekly review state</p>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Weekly review state</p>
               {reviewsWithState.length === 0 ? (
-                <p className="text-[13px] text-slate-500">No saved weekly reviews with state signals yet.</p>
+                <p className="text-[13px] text-slate-300">No saved weekly reviews with state signals yet.</p>
               ) : (
                 <div className="space-y-3">
                   <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
-                      <p className="text-[11px] text-slate-500">Low</p>
-                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.low}</p>
+                    <div className="rounded border border-white/10 bg-slate-950/30 px-2 py-2">
+                      <p className="text-[11px] text-slate-400">Low</p>
+                      <p className="text-[15px] font-bold text-white tabular-nums">{confidenceCounts.low}</p>
                     </div>
-                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
-                      <p className="text-[11px] text-slate-500">Steady</p>
-                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.steady}</p>
+                    <div className="rounded border border-white/10 bg-slate-950/30 px-2 py-2">
+                      <p className="text-[11px] text-slate-400">Steady</p>
+                      <p className="text-[15px] font-bold text-white tabular-nums">{confidenceCounts.steady}</p>
                     </div>
-                    <div className="rounded border border-slate-200 bg-slate-50 px-2 py-2">
-                      <p className="text-[11px] text-slate-500">Strong</p>
-                      <p className="text-[15px] font-bold text-slate-900 tabular-nums">{confidenceCounts.strong}</p>
+                    <div className="rounded border border-white/10 bg-slate-950/30 px-2 py-2">
+                      <p className="text-[11px] text-slate-400">Strong</p>
+                      <p className="text-[15px] font-bold text-white tabular-nums">{confidenceCounts.strong}</p>
                     </div>
                   </div>
-                  <p className="text-[12px] text-slate-600">
+                  <p className="text-[12px] text-slate-300">
                     Momentum: {momentumCounts.slowing} slowing, {momentumCounts.building} building, {momentumCounts.accelerating} accelerating.
                   </p>
-                  <p className="text-[12px] text-slate-600">
-                    Narrative drift flagged for <span className="font-semibold text-slate-800 tabular-nums">{narrativeDriftCount}</span> client{narrativeDriftCount !== 1 ? 's' : ''}.
+                  <p className="text-[12px] text-slate-300">
+                    Narrative drift flagged for <span className="font-semibold text-white tabular-nums">{narrativeDriftCount}</span> client{narrativeDriftCount !== 1 ? 's' : ''}.
                   </p>
                   <p className="text-[12px] text-slate-400">
                     Coverage: {reviewsWithState.length}/{clients.length} active clients.
@@ -327,59 +327,59 @@ export default function CoachDashboard() {
           </div>
         )}
 
-        <div className="bg-white border border-slate-200 rounded overflow-hidden mb-8">
+        <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden mb-8 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           {loading ? (
-            <div className="px-6 py-10 text-center text-[13px] text-slate-400">Loading clients...</div>
+            <div className="px-6 py-10 text-center text-[13px] text-slate-300">Loading clients...</div>
           ) : error ? (
-            <div className="px-6 py-10 text-center text-[13px] text-red-600">{error}</div>
+            <div className="px-6 py-10 text-center text-[13px] text-red-200">{error}</div>
           ) : clients.length === 0 ? (
             <div className="px-6 py-10 text-center">
-              <p className="text-[14px] text-slate-500 mb-1">No clients yet.</p>
+              <p className="text-[14px] text-slate-200 mb-1">No clients yet.</p>
               <p className="text-[13px] text-slate-400">Invite a client below to get started.</p>
             </div>
           ) : (
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100">
-                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Client</th>
-                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Level</th>
-                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Risk</th>
-                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Urgency</th>
-                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Overdue</th>
-                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-4 py-3">Next action + activity</th>
-                  <th className="text-right text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 px-6 py-3">Actions</th>
+                <tr className="border-b border-white/10">
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-6 py-3">Client</th>
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-4 py-3">Level</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-4 py-3">Risk</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-4 py-3">Urgency</th>
+                  <th className="text-center text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-4 py-3">Overdue</th>
+                  <th className="text-left text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-4 py-3">Next action + activity</th>
+                  <th className="text-right text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 px-6 py-3">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50">
+              <tbody className="divide-y divide-white/10">
                 {clients.map(client => (
-                  <tr key={client.user_id} className={client.urgency === 'high' || client.risk_inputs.overdue_actions > 0 ? 'bg-amber-50/40' : ''}>
+                  <tr key={client.user_id} className={client.urgency === 'high' || client.risk_inputs.overdue_actions > 0 ? 'bg-amber-500/10' : 'bg-slate-950/20'}>
                     <td className="px-6 py-4">
-                      <p className="text-[14px] font-semibold text-slate-900">{client.name ?? '(not onboarded)'}</p>
+                      <p className="text-[14px] font-semibold text-white">{client.name ?? '(not onboarded)'}</p>
                       <p className="text-[13px] text-slate-400">{client.email ?? '-'}</p>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="text-[13px] text-slate-500">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '-'}</span>
+                      <span className="text-[13px] text-slate-300">{client.persona ? (PERSONA_LABELS[client.persona] ?? client.persona) : '-'}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <span className="text-[13px] font-bold text-slate-900 tabular-nums">{client.risk_score}</span>
+                      <span className="text-[13px] font-bold text-white tabular-nums">{client.risk_score}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
                       <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
                     </td>
                     <td className="px-4 py-4 text-center">
                       {client.risk_inputs.overdue_actions > 0
-                        ? <span className="text-[13px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full tabular-nums">{client.risk_inputs.overdue_actions}</span>
+                        ? <span className="text-[13px] font-bold text-red-100 bg-red-500/10 px-2 py-0.5 rounded-full tabular-nums border border-red-300/20">{client.risk_inputs.overdue_actions}</span>
                         : <span className="text-[13px] text-slate-300">-</span>
                       }
                     </td>
                     <td className="px-4 py-4">
                       {client.next_action?.action ? (
                         <div className="space-y-0.5">
-                          <p className="text-[13px] font-semibold text-slate-800 truncate max-w-[220px]">{client.next_action.action}</p>
-                          <p className="text-[13px] text-slate-500">
+                          <p className="text-[13px] font-semibold text-white truncate max-w-[220px]">{client.next_action.action}</p>
+                          <p className="text-[13px] text-slate-300">
                             {client.next_action.owner ? `Owner: ${client.next_action.owner}` : 'Owner: unassigned'}
                           </p>
-                          <p className={`text-[13px] ${client.next_action.due_date && client.next_action.due_date < new Date().toISOString().split('T')[0] ? 'text-red-600' : 'text-slate-500'}`}>
+                          <p className={`text-[13px] ${client.next_action.due_date && client.next_action.due_date < new Date().toISOString().split('T')[0] ? 'text-red-200' : 'text-slate-300'}`}>
                             Due {client.next_action.due_date ?? 'TBD'}{client.next_action.status ? ` · ${client.next_action.status}` : ''}
                           </p>
                           <p className="text-[13px] text-slate-400">
@@ -394,7 +394,7 @@ export default function CoachDashboard() {
                       {client.user_id ? (
                         <Link
                           href={`/dashboard/coach/${client.user_id}`}
-                          className="text-[13px] font-semibold text-slate-700 hover:text-slate-900 underline underline-offset-2"
+                          className="text-[13px] font-semibold text-slate-200 hover:text-white underline underline-offset-2"
                         >
                           View Data
                         </Link>
@@ -409,8 +409,8 @@ export default function CoachDashboard() {
           )}
 
           {!loading && commandCenter?.pagination && commandCenter.pagination.total_pages > 1 && (
-            <div className="border-t border-slate-100 px-6 py-3 flex items-center justify-between">
-              <p className="text-[13px] text-slate-500">
+            <div className="border-t border-white/10 px-6 py-3 flex items-center justify-between">
+              <p className="text-[13px] text-slate-300">
                 Page {commandCenter.pagination.page} of {commandCenter.pagination.total_pages} · {commandCenter.pagination.total_clients} clients
               </p>
               <div className="flex items-center gap-2">
@@ -418,7 +418,7 @@ export default function CoachDashboard() {
                   type="button"
                   onClick={() => setPage((prev) => Math.max(1, prev - 1))}
                   disabled={!commandCenter.pagination.has_previous}
-                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-white/15 bg-white/5 text-slate-200 disabled:opacity-40"
                 >
                   Previous
                 </button>
@@ -426,7 +426,7 @@ export default function CoachDashboard() {
                   type="button"
                   onClick={() => setPage((prev) => prev + 1)}
                   disabled={!commandCenter.pagination.has_next}
-                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-slate-200 text-slate-700 disabled:opacity-40"
+                  className="text-[13px] font-semibold px-3 py-1.5 rounded border border-white/15 bg-white/5 text-slate-200 disabled:opacity-40"
                 >
                   Next
                 </button>
@@ -435,31 +435,31 @@ export default function CoachDashboard() {
           )}
         </div>
 
-        <div className="bg-white border border-slate-200 rounded p-6">
-          <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">Invite a client</p>
+        <div className="rounded-2xl border border-white/15 bg-white/5 p-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Invite a client</p>
           <form onSubmit={sendInvite} className="flex gap-3 items-start">
             <input
               type="email"
               value={inviteEmail}
               onChange={e => setInviteEmail(e.target.value)}
               placeholder="client@email.com"
-              className="flex-1 border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+              className="flex-1 border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
             />
             <button
               type="submit"
               disabled={inviting || !inviteEmail.trim()}
-              className="bg-slate-900 hover:bg-slate-700 disabled:opacity-40 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0 shrink-0"
+              className="bg-orange-500 hover:bg-orange-400 disabled:opacity-40 text-slate-950 text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0 shrink-0"
             >
               {inviting ? 'Sending...' : 'Send invite'}
             </button>
           </form>
           {inviteSent && (
-            <p className="text-[13px] text-green-700 mt-2">Invite sent to {inviteSent}.</p>
+            <p className="text-[13px] text-emerald-200 mt-2">Invite sent to {inviteSent}.</p>
           )}
           {inviteError && (
-            <p className="text-[13px] text-red-600 mt-2">{inviteError}</p>
+            <p className="text-[13px] text-red-200 mt-2">{inviteError}</p>
           )}
-          <p className="text-[13px] text-slate-400 mt-3">
+          <p className="text-[13px] text-slate-300 mt-3">
             Your client will receive an email to create their account under your coaching relationship. Up to {Math.max(0, 10 - clients.length)} seat{Math.max(0, 10 - clients.length) !== 1 ? 's' : ''} remaining.
           </p>
         </div>

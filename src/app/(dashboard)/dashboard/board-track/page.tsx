@@ -44,8 +44,8 @@ export default async function BoardGovernancePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans">
-      <header className="bg-slate-900 sticky top-0 z-10">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
+      <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -59,60 +59,60 @@ export default async function BoardGovernancePage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         {/* Header */}
-        <div className="rounded-2xl border border-slate-200 bg-white px-6 py-6">
+        <div className="rounded-2xl border border-white/15 bg-white/5 px-6 py-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">
             Board &amp; Governance Track
           </p>
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
+          <h1 className="text-[26px] font-bold text-white leading-tight">
             {firstName}&apos;s board pursuit workflow
           </h1>
-          <p className="text-[14px] text-slate-500 mt-2 max-w-xl leading-relaxed">
+          <p className="text-[14px] text-slate-200 mt-2 max-w-xl leading-relaxed">
             Board seats are built over quarters, not weeks. The goal is narrative consistency, relationship compounding, and patient signal monitoring.
           </p>
         </div>
 
         {/* Governance thesis builder */}
-        <div className="rounded-xl border border-slate-200 bg-white px-5 py-5 space-y-4">
-          <h2 className="text-[13px] font-bold text-slate-800">Governance thesis</h2>
-          <p className="text-[12px] text-slate-500">
+        <div className="rounded-xl border border-white/15 bg-white/5 px-5 py-5 space-y-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[13px] font-bold text-white">Governance thesis</h2>
+          <p className="text-[12px] text-slate-300">
             Articulate your unique value as a director — not what you have done as an operator, but what you bring to a governance context.
           </p>
           {GOVERNANCE_THESIS_PROMPTS.map(({ label, placeholder }) => (
             <div key={label}>
-              <label className="block text-[11px] font-semibold text-slate-600 mb-1">{label}</label>
+              <label className="block text-[11px] font-semibold text-slate-300 mb-1">{label}</label>
               <textarea
                 rows={2}
                 placeholder={placeholder}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-[13px] focus:outline-none focus:border-orange-400 resize-none"
+                className="w-full border border-white/15 rounded-lg px-3 py-2 text-[13px] text-slate-100 bg-slate-950/70 placeholder:text-slate-500 focus:outline-none focus:border-white/30 resize-none"
               />
             </div>
           ))}
         </div>
 
         {/* Board composition watchlist */}
-        <div className="rounded-xl border border-slate-200 bg-white px-5 py-5 space-y-3">
-          <h2 className="text-[13px] font-bold text-slate-800">Board composition watchlist</h2>
-          <p className="text-[12px] text-slate-500">
+        <div className="rounded-xl border border-white/15 bg-white/5 px-5 py-5 space-y-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[13px] font-bold text-white">Board composition watchlist</h2>
+          <p className="text-[12px] text-slate-300">
             Track target companies where the board composition is aging, lacks your functional profile, or has a term expiry coming up.
           </p>
-          <div className="rounded-lg border border-slate-200 overflow-hidden">
+          <div className="rounded-lg border border-white/10 overflow-hidden bg-slate-950/30">
             <table className="w-full text-[12px]">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-white/5 border-b border-white/10">
                 <tr>
                   {['Company', 'Board gap you fill', 'Next inflection signal', 'Relationship in', 'Warmth'].map((h) => (
-                    <th key={h} className="text-left px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">{h}</th>
+                    <th key={h} className="text-left px-3 py-2 text-[10px] font-bold text-slate-300 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/10">
                 {[...Array(4)].map((_, i) => (
-                  <tr key={i} className="bg-white">
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="Company name" /></td>
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="e.g. Technology risk" /></td>
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="e.g. IPO in 18 months" /></td>
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="e.g. via John S." /></td>
+                  <tr key={i} className="bg-slate-950/30">
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] text-slate-100 focus:outline-none placeholder-slate-500" placeholder="Company name" /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] text-slate-100 focus:outline-none placeholder-slate-500" placeholder="e.g. Technology risk" /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] text-slate-100 focus:outline-none placeholder-slate-500" placeholder="e.g. IPO in 18 months" /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] text-slate-100 focus:outline-none placeholder-slate-500" placeholder="e.g. via John S." /></td>
                     <td className="px-3 py-2">
-                      <select title="Relationship warmth" aria-label="Relationship warmth" className="border border-slate-200 rounded px-2 py-1 text-[12px] bg-white focus:outline-none">
+                      <select title="Relationship warmth" aria-label="Relationship warmth" className="border border-white/15 rounded px-2 py-1 text-[12px] bg-slate-950/70 text-slate-100 focus:outline-none focus:border-white/30">
                         <option>Cold</option>
                         <option>Warm</option>
                         <option>Hot</option>
@@ -126,17 +126,17 @@ export default async function BoardGovernancePage() {
         </div>
 
         {/* Relationship cadence tiers */}
-        <div className="rounded-xl border border-slate-200 bg-white px-5 py-5 space-y-4">
-          <h2 className="text-[13px] font-bold text-slate-800">Relationship cadence</h2>
+        <div className="rounded-xl border border-white/15 bg-white/5 px-5 py-5 space-y-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[13px] font-bold text-white">Relationship cadence</h2>
           <div className="space-y-3">
             {RELATIONSHIP_TIERS.map(({ tier, description }) => (
-              <div key={tier} className="rounded-lg border border-slate-100 bg-slate-50 px-4 py-3">
-                <p className="text-[12px] font-bold text-slate-700">{tier}</p>
-                <p className="text-[12px] text-slate-500 mt-0.5 mb-2">{description}</p>
+              <div key={tier} className="rounded-lg border border-white/10 bg-slate-950/30 px-4 py-3">
+                <p className="text-[12px] font-bold text-slate-100">{tier}</p>
+                <p className="text-[12px] text-slate-300 mt-0.5 mb-2">{description}</p>
                 <textarea
                   rows={2}
                   placeholder="List names and last-touched date..."
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[12px] focus:outline-none focus:border-orange-400 resize-none bg-white"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[12px] text-slate-100 bg-slate-950/70 placeholder:text-slate-500 focus:outline-none focus:border-white/30 resize-none"
                 />
               </div>
             ))}
@@ -144,12 +144,12 @@ export default async function BoardGovernancePage() {
         </div>
 
         {/* Session prompts */}
-        <div className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-5">
-          <h2 className="text-[13px] font-bold text-slate-700 mb-3">Coach session opening prompts</h2>
+        <div className="rounded-xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <h2 className="text-[13px] font-bold text-white mb-3">Coach session opening prompts</h2>
           <ul className="space-y-2">
             {template.sessionOpeningPrompts.map((p) => (
-              <li key={p} className="flex items-start gap-3 text-[13px] text-slate-600 italic">
-                <span className="text-slate-400 not-italic flex-shrink-0">?</span>
+              <li key={p} className="flex items-start gap-3 text-[13px] text-slate-300 italic">
+                <span className="text-slate-500 not-italic flex-shrink-0">?</span>
                 {p}
               </li>
             ))}
@@ -157,9 +157,9 @@ export default async function BoardGovernancePage() {
         </div>
 
         {/* Positioning guidance */}
-        <div className="rounded-xl border border-blue-200 bg-blue-50/30 px-5 py-4">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-2">External positioning</p>
-          <p className="text-[13px] text-blue-800 leading-relaxed">{template.positioningGuidance}</p>
+        <div className="rounded-xl border border-blue-300/20 bg-blue-500/10 px-5 py-4 backdrop-blur-md">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-blue-200 mb-2">External positioning</p>
+          <p className="text-[13px] text-blue-50 leading-relaxed">{template.positioningGuidance}</p>
         </div>
       </main>
     </div>

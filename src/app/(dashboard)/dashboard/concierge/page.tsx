@@ -41,28 +41,30 @@ export default async function ConciergeDashboardPage() {
 
   if (!profile?.is_concierge) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 sm:py-24">
-        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-3">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] px-4 py-16 sm:py-24 text-slate-100">
+        <div className="max-w-2xl mx-auto rounded-2xl border border-white/15 bg-white/5 p-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-3">
           Executive Concierge
         </p>
-        <h1 className="text-[26px] font-bold text-slate-900 mb-4 leading-tight">
+        <h1 className="text-[26px] font-bold text-white mb-4 leading-tight">
           One-to-one strategy. Every month.
         </h1>
-        <p className="text-[15px] text-slate-500 leading-relaxed mb-8 max-w-lg">
+        <p className="text-[15px] text-slate-200 leading-relaxed mb-8 max-w-lg">
           Monthly 45-minute sessions with Rich Rothschild. Starting Monday prepares the agenda from your live pipeline before every call. Notes and recommendations are stored after each session. Limited to 10 seats.
         </p>
         <a
           href="mailto:concierge@startingmonday.app?subject=Executive%20Concierge%20%E2%80%94%20Access%20Request"
-          className="inline-block bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
+          className="inline-block bg-orange-500 text-slate-950 text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-400 transition-colors"
         >
           Apply for access &rarr;
         </a>
-        <p className="text-[12px] text-slate-400 mt-3">$499/mo or $4,990/yr (2 months free). Currently accepting applications.</p>
+        <p className="text-[12px] text-slate-300 mt-3">$499/mo or $4,990/yr (2 months free). Currently accepting applications.</p>
         <p className="mt-6">
-          <Link href="/concierge" className="text-[13px] text-slate-500 hover:text-slate-700 underline transition-colors">
+          <Link href="/concierge" className="text-[13px] text-slate-300 hover:text-white underline transition-colors">
             Learn more about Executive Concierge &rarr;
           </Link>
         </p>
+        </div>
       </div>
     )
   }
@@ -90,20 +92,21 @@ export default async function ConciergeDashboardPage() {
   const pastCalls = (past ?? []) as ConciergeCall[]
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] px-4 py-10 sm:py-14 text-slate-100">
+      <div className="max-w-3xl mx-auto">
 
-      <div className="flex items-center justify-between mb-8">
+      <div className="mb-8 rounded-2xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md flex items-center justify-between">
         <div>
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-500 mb-1">
+          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-1">
             Executive Concierge
           </p>
-          <h1 className="text-[24px] font-bold text-slate-900 leading-tight">
+          <h1 className="text-[24px] font-bold text-white leading-tight">
             {profile.full_name ? `${profile.full_name.split(' ')[0]}&rsquo;s strategy hub` : 'Strategy hub'}
           </h1>
         </div>
         <a
           href="mailto:concierge@startingmonday.app?subject=Schedule%20next%20call"
-          className="text-[13px] font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+          className="text-[13px] font-semibold text-orange-200 hover:text-white transition-colors"
         >
           Schedule next call &rarr;
         </a>
@@ -112,30 +115,30 @@ export default async function ConciergeDashboardPage() {
       {/* Next call */}
       {nextCall ? (
         <section className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Upcoming call</p>
-          <div className="border border-orange-200 bg-orange-50 rounded-lg p-5 sm:p-6">
-            <p className="text-[13px] font-semibold text-slate-900 mb-1">{formatDate(nextCall.scheduled_at)}</p>
-            <p className="text-[12px] text-slate-500 mb-5">45 minutes with Rich Rothschild</p>
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-3">Upcoming call</p>
+          <div className="border border-orange-300/20 bg-orange-500/10 rounded-2xl p-5 sm:p-6 backdrop-blur-md">
+            <p className="text-[13px] font-semibold text-white mb-1">{formatDate(nextCall.scheduled_at)}</p>
+            <p className="text-[12px] text-slate-300 mb-5">45 minutes with Rich Rothschild</p>
 
             {nextCall.agenda && nextCall.agenda.length > 0 ? (
               <>
-                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-3">
                   AI-prepared agenda
                 </p>
                 <ol className="space-y-3">
                   {nextCall.agenda.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-[11px] font-bold text-orange-500 shrink-0 mt-0.5 w-4">{i + 1}</span>
+                      <span className="text-[11px] font-bold text-orange-200 shrink-0 mt-0.5 w-4">{i + 1}</span>
                       <div>
-                        <p className="text-[13px] font-semibold text-slate-800">{item.topic}</p>
-                        <p className="text-[12px] text-slate-500 leading-relaxed">{item.detail}</p>
+                        <p className="text-[13px] font-semibold text-white">{item.topic}</p>
+                        <p className="text-[12px] text-slate-300 leading-relaxed">{item.detail}</p>
                       </div>
                     </li>
                   ))}
                 </ol>
               </>
             ) : (
-              <p className="text-[13px] text-slate-500">
+              <p className="text-[13px] text-slate-300">
                 Agenda will be prepared the day before your call from your live pipeline.
               </p>
             )}
@@ -143,11 +146,11 @@ export default async function ConciergeDashboardPage() {
         </section>
       ) : (
         <section className="mb-10">
-          <div className="border border-slate-200 rounded-lg p-5 text-center">
-            <p className="text-[14px] text-slate-500 mb-3">No call scheduled yet.</p>
+          <div className="border border-white/15 rounded-2xl p-5 text-center bg-white/5 backdrop-blur-md">
+            <p className="text-[14px] text-slate-200 mb-3">No call scheduled yet.</p>
             <a
               href="mailto:concierge@startingmonday.app?subject=Schedule%20next%20call"
-              className="text-[13px] font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+              className="text-[13px] font-semibold text-orange-200 hover:text-white transition-colors"
             >
               Schedule your next session &rarr;
             </a>
@@ -158,15 +161,15 @@ export default async function ConciergeDashboardPage() {
       {/* Past calls */}
       {pastCalls.length > 0 && (
         <section>
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Past calls</p>
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-3">Past calls</p>
           <div className="space-y-4">
             {pastCalls.map(call => (
-              <div key={call.id} className="border border-slate-200 rounded-lg p-5">
-                <p className="text-[13px] font-semibold text-slate-900 mb-3">{formatDate(call.scheduled_at)}</p>
+              <div key={call.id} className="border border-white/15 rounded-2xl p-5 bg-white/5 backdrop-blur-md">
+                <p className="text-[13px] font-semibold text-white mb-3">{formatDate(call.scheduled_at)}</p>
                 {call.call_notes ? (
                   <div>
                     <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Notes</p>
-                    <p className="text-[13px] text-slate-600 leading-relaxed whitespace-pre-line">{call.call_notes}</p>
+                    <p className="text-[13px] text-slate-200 leading-relaxed whitespace-pre-line">{call.call_notes}</p>
                   </div>
                 ) : (
                   <p className="text-[12px] text-slate-400">No notes recorded for this session.</p>
@@ -177,6 +180,7 @@ export default async function ConciergeDashboardPage() {
         </section>
       )}
 
+      </div>
     </div>
   )
 }
