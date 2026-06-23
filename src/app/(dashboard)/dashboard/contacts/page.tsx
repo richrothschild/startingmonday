@@ -41,16 +41,16 @@ export default async function ContactsPage({
   const relationshipSummary = summarizeRelationshipNetwork(contacts)
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
 
-      <header className="bg-slate-900">
+      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"
-            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
+            className="inline-flex min-h-[44px] items-center rounded-md border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-white/30 transition-colors"
           >
             ? Dashboard
           </Link>
@@ -58,25 +58,26 @@ export default async function ContactsPage({
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-<div className="mb-8">
-          <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Contacts</h1>
-          <p className="text-[13px] text-slate-500 mt-1.5">
+<div className="mb-8 rounded-2xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300">Contacts</p>
+          <h1 className="mt-1 text-[26px] font-bold text-white leading-tight">Relationship network</h1>
+          <p className="text-[13px] text-slate-200 mt-1.5">
             Recruiters, hiring managers, and warm connections.
           </p>
         </div>
 
         <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+          <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Network health</p>
-            <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coverageScore}</p>
+            <p className="text-[24px] font-semibold text-white">{relationshipSummary.coverageScore}</p>
           </div>
-          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+          <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Covered types</p>
-            <p className="text-[24px] font-semibold text-slate-900">{relationshipSummary.coveredTypes}/{Object.keys(CONTACT_TYPE_LABELS).length}</p>
+            <p className="text-[24px] font-semibold text-white">{relationshipSummary.coveredTypes}/{Object.keys(CONTACT_TYPE_LABELS).length}</p>
           </div>
-          <div className="rounded border border-slate-200 bg-white px-4 py-3">
+          <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <p className="text-[13px] uppercase tracking-[0.12em] text-slate-400 mb-1">Gap</p>
-            <p className="text-[14px] font-semibold text-slate-900 leading-snug">{relationshipSummary.coverageGapLabel}</p>
+            <p className="text-[14px] font-semibold text-slate-100 leading-snug">{relationshipSummary.coverageGapLabel}</p>
           </div>
         </div>
 
@@ -89,18 +90,18 @@ export default async function ContactsPage({
           <ContactsList contacts={contacts} isExecutive={isExecutive} />
 
           {/* Add contact form */}
-          <div className="bg-white border border-slate-200 rounded p-5">
-            <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <div className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-4">
               Add contact
             </div>
 
             {saved && (
-              <div className="mb-4 px-3 py-2 bg-green-50 border border-green-200 rounded text-[13px] text-green-700">
+              <div className="mb-4 px-3 py-2 bg-emerald-500/10 border border-emerald-300/30 rounded text-[13px] text-emerald-200">
                 Contact saved.
               </div>
             )}
             {saveError && (
-              <div className="mb-4 px-3 py-2 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+              <div className="mb-4 px-3 py-2 bg-rose-500/10 border border-rose-300/30 rounded text-[13px] text-rose-200">
                 Could not save contact. Please try again.
               </div>
             )}
@@ -117,7 +118,7 @@ export default async function ContactsPage({
                   type="text"
                   required
                   placeholder="Jane Smith"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -130,7 +131,7 @@ export default async function ContactsPage({
                   name="title"
                   type="text"
                   placeholder="VP of Engineering"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -143,7 +144,7 @@ export default async function ContactsPage({
                   name="firm"
                   type="text"
                   placeholder="Korn Ferry"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -154,7 +155,7 @@ export default async function ContactsPage({
                 <select
                   id="contact-channel"
                   name="channel"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/30 bg-slate-950/70"
                 >
                   <option value="">-</option>
                   <option value="recruiter">Recruiter</option>
@@ -173,7 +174,7 @@ export default async function ContactsPage({
                 <select
                   id="contact-type"
                   name="contact_type"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/30 bg-slate-950/70"
                 >
                   <option value="">-</option>
                   <option value="recruiter">Recruiter</option>
@@ -192,7 +193,7 @@ export default async function ContactsPage({
                   <select
                     id="contact-company"
                     name="company_id"
-                    className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                    className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/30 bg-slate-950/70"
                   >
                     <option value="">- No company -</option>
                     {companyList.map(co => (
@@ -211,7 +212,7 @@ export default async function ContactsPage({
                   name="email"
                   type="text"
                   placeholder="jane@company.com"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -224,7 +225,7 @@ export default async function ContactsPage({
                   name="linkedin_url"
                   type="text"
                   placeholder="https://linkedin.com/in/jane"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -237,13 +238,13 @@ export default async function ContactsPage({
                   name="notes"
                   type="text"
                   placeholder="Met at SaaStr, warm connection…"
-                  className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 bg-slate-950/70 focus:outline-none focus:border-white/30"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-slate-900 text-white text-[13px] font-semibold py-2 rounded cursor-pointer border-0 mt-1"
+                className="w-full bg-orange-500 text-slate-950 text-[13px] font-semibold py-2 rounded cursor-pointer border-0 mt-1 hover:bg-orange-400"
               >
                 Add contact
               </button>
