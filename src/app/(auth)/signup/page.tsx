@@ -107,7 +107,7 @@ type HeardAboutOption =
   | 'other'
 
 const HEARD_ABOUT_OPTIONS: Array<{ value: HeardAboutOption; label: string }> = [
-  { value: 'managertools', label: 'Manager Tools / Mark Horstman' },
+  { value: 'managertools', label: 'Manager Tools' },
   { value: 'executive_coach_referral', label: 'Executive coach referral' },
   { value: 'linkedin', label: 'LinkedIn' },
   { value: 'google_web_search', label: 'Google / web search' },
