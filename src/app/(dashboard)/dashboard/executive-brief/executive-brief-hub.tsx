@@ -1160,8 +1160,7 @@ export function ExecutiveBriefHub({
             </p>
             <div className="flex flex-wrap gap-4 text-[12px]">
               <Link href="/privacy" className="text-slate-400 hover:text-white">Privacy policy</Link>
-              <Link href="/method-and-evidence" className="text-slate-400 hover:text-white">Method and evidence</Link>
-              <Link href="/evidence-room" className="text-slate-400 hover:text-white">Evidence room</Link>
+              <Link href="/evidence-room" className="text-slate-400 hover:text-white">Evidence Hub</Link>
               <Link href="/dashboard" className="text-slate-400 hover:text-white">Dashboard</Link>
               <Link href="/login" className="text-slate-400 hover:text-white">Sign in</Link>
             </div>

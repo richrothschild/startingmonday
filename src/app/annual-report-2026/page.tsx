@@ -33,8 +33,8 @@ export default function AnnualReport2026Page() {
       url="https://startingmonday.app/annual-report-2026"
       cta={{
         headline: 'See how the observations shape the product.',
-        body: 'The annual report is meant to support the evidence room and the method page, not replace them.',
-        label: 'Open the evidence room →',
+        body: 'The annual report is meant to support the Evidence Hub and the method page, not replace them.',
+        label: 'Open the Evidence Hub →',
         href: '/evidence-room',
       }}
     >
@@ -100,11 +100,11 @@ export default function AnnualReport2026Page() {
         <section id="next-step" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Next step</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
-            If you want the supporting methods and references, use the evidence room as the primary source.
+            If you want the supporting methods and references, use the Evidence Hub as the primary source.
           </p>
-          <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the evidence room and applying the measurement model to your own campaign.</p>
+          <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the Evidence Hub and applying the measurement model to your own campaign.</p>
           <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-            Open evidence room
+            Open Evidence Hub
           </Link>
         </section>
       </div>

@@ -161,9 +161,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         hero={{
           eyebrow: 'You are not behind on talent.',
           h1Lines: ['You are behind on timing, narrative, and prep.'],
-          claimMethodLabel: 'Method and evidence →',
-          claimMethodHref: '/method-and-evidence',
-                claimEvidenceLabel: 'Evidence room for executives and their partners →',
+              claimMethodLabel: '',
+              claimMethodHref: '',
+                claimEvidenceLabel: 'Evidence Hub for executives and their partners →',
           claimEvidenceHref: '/evidence-room',
                 bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
           body: 'Win with Starting Monday.',

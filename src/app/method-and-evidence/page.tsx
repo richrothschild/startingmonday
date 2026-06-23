@@ -71,7 +71,7 @@ export default function MethodAndEvidencePage() {
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
             <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
-            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence room</Link>
+            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence Hub</Link>
             <Link href="/signup" className="text-[13px] font-semibold text-slate-900 bg-white px-4 py-1.5 rounded hover:bg-slate-100 transition-colors">Try free</Link>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function MethodAndEvidencePage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/references" className={`inline-block text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-white text-slate-900 hover:bg-slate-100'}`}>References →</Link>
-            <Link href="/evidence-room" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Evidence room →</Link>
+            <Link href="/evidence-room" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Evidence Hub →</Link>
             <Link href="/blog/how-we-estimate-early-role-signals" className={`inline-block border text-[13px] font-semibold px-4 py-2 rounded transition-colors ${premiumEnabled ? 'border-white/20 text-slate-100 hover:border-orange-300/60' : 'border-slate-600 text-slate-200 hover:border-slate-400'}`}>Timing model →</Link>
           </div>
         </section>
