@@ -154,7 +154,7 @@ export default function ForCioPage() {
                 Start 30-day trial
               </TrackLink>
               <TrackLink
-                href="/evidence-hub"
+                href="/evidence-hub#transition-success"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'executives', cta_label: 'cio_prehero_review_method', source_page: '/for-cio' }}

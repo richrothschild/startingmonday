@@ -284,7 +284,7 @@ export default async function ExecutiveLanePage(
               Source path: in-product lane tutorial set ({inAppTutorials.length} assets) plus method controls.
             </p>
             <p className="mt-2 text-[13px] text-slate-100">
-              <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-white">Evidence Hub</Link>
+              <Link href="/evidence-hub#behavior-change" className="underline underline-offset-2 hover:text-white">Evidence Hub</Link>
             </p>
           </div>
         </div>

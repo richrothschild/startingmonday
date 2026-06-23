@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import { JsonLd } from '@/components/JsonLd'
 
 import { SiteFooter } from '@/components/SiteFooter'
 import { PublicPageHeader } from '@/components/PublicPageHeader'
@@ -24,9 +25,34 @@ export const metadata: Metadata = {
   },
 }
 
+const evidenceHubJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Evidence Hub',
+  url: 'https://startingmonday.app/evidence-hub',
+  description: 'Source-backed methods and findings for executive transition workflows.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Starting Monday',
+    url: 'https://startingmonday.app',
+  },
+  about: [
+    'Executive transition strategy',
+    'Executive coaching effectiveness',
+    'Early role signals',
+    'Behavior change and execution cadence',
+  ],
+  publisher: {
+    '@type': 'Organization',
+    name: 'Starting Monday',
+    url: 'https://startingmonday.app',
+  },
+}
+
 export default function EvidenceRoomPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
+      <JsonLd data={evidenceHubJsonLd} />
       <PublicPageHeader backHref="/" />
       <main className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
         {/* Introduction */}
@@ -64,7 +90,7 @@ export default function EvidenceRoomPage() {
 
         {/* Main sections */}
         {EVIDENCE_SECTIONS.map((section) => (
-          <section key={section.id} className="mt-12 scroll-mt-20">
+          <section key={section.id} id={section.id} className="mt-12 scroll-mt-20">
             <div className="rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-5 shadow-[0_20px_70px_rgba(2,6,23,0.28)] sm:p-6">
               {/* Section header */}
               <div className="mb-8">
