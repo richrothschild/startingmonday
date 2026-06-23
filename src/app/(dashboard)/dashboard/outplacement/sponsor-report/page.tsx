@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PrintButton } from './print-button'
 
 export const metadata: Metadata = {
   title: 'Sponsor Monthly Report | Starting Monday',
@@ -29,12 +30,7 @@ export default async function SponsorReportPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => typeof window !== 'undefined' && window.print()}
-              className="text-[12px] text-slate-300 hover:text-white transition-colors"
-            >
-              Print / Export PDF
-            </button>
+            <PrintButton />
             <Link href="/dashboard/outplacement/operator" className="text-[13px] text-slate-300 hover:text-white transition-colors">
               Operator console
             </Link>

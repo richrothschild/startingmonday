@@ -48,6 +48,26 @@ const ACTION_OVERRIDES = {
     expectedStatuses: [410],
     note: 'Retired endpoint intentionally returns 410 Gone',
   },
+  '/api/partner/outcome-events': {
+    expectedStatuses: [401, 404],
+    note: 'Returns 404 when authenticated user has no partner workspace — expected for standard monitoring user',
+  },
+  '/api/partner/weekly-loop': {
+    expectedStatuses: [401, 404],
+    note: 'Returns 404 when authenticated user has no partner workspace — expected for standard monitoring user',
+  },
+  '/api/team/program-settings': {
+    expectedStatuses: [401, 403, 404],
+    note: 'Returns 404 when user has no team/enterprise setup — expected for standard monitoring user',
+  },
+  '/api/team/roles': {
+    expectedStatuses: [401, 403, 404],
+    note: 'Returns 404 when user has no team/enterprise setup — expected for standard monitoring user',
+  },
+  '/api/team/white-label': {
+    expectedStatuses: [401, 403, 404],
+    note: 'Returns 404 when user has no team/enterprise setup — expected for standard monitoring user',
+  },
   '/api/strategy': {
     methodOverride: 'OPTIONS',
     expectedStatuses: [200, 204, 401, 403, 405],
