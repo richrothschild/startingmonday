@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import { EvidenceProofCard } from '@/components/EvidenceProofCard'
 
 import { ProofStrip } from '@/components/ProofStrip'
 
@@ -111,15 +112,58 @@ const jsonLd = {
   },
 }
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long does a CIO job search typically take?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most CIO searches run six to eighteen months from active engagement. Timing depends on target sector, compensation level, and whether your search is active or confidential.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I work with executive search firms for a CIO role?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Most CIO mandates above $300K are relationship-led through retained firms before public posting. Building those relationships early increases shortlist probability.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What do companies look for when hiring a CIO?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Hiring teams evaluate business outcomes, board-level communication, and evidence of lasting organizational leadership.',
+      },
+    },
+  ],
+}
+
 export default function ForCioPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
+      <JsonLd data={faqJsonLd} />
       <EmiMarketingTelemetry pageSlug="/for-cio" personaSegment="executives" />
+      <section className="bg-slate-950 px-4 pt-6 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <EvidenceProofCard
+            claim="Observed pilot cohorts reached first qualified conversation faster when weekly preparation and signal-led outreach stayed consistent."
+            sourceLabel="Pilot summary + method notes"
+            sourceHref="/pilot-findings"
+            evidenceHref="/evidence-hub#transition-success"
+            disclaimer="Results vary by market, role level, and campaign consistency."
+          />
+        </div>
+      </section>
       <ProofStrip
         metric="81%"
         label="reached first interview inside 30 days"
-        source="27 executives in the Janâ€“May 2026 pilot cohort"
+        source="27 executives in the Jan-May 2026 pilot cohort"
       />
       <h1 className="sr-only">Starting Monday for C-suite technology searches</h1>
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
@@ -140,7 +184,7 @@ export default function ForCioPage() {
                 <p className="text-[13px] text-slate-200">Median time to first qualified outreach</p>
               </div>
             </div>
-            <p className="text-[13px] text-slate-200">Based on 27 executives in the Janâ€“May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
+            <p className="text-[13px] text-slate-200">Based on 27 executives in the Jan-May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
           </div>
           <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40 flex flex-col justify-between">
             <div className="space-y-2 mb-4">
@@ -166,9 +210,9 @@ export default function ForCioPage() {
             <details data-emi-objection="cio_confidentiality_timing_recruiter" className="border border-slate-700 rounded-lg p-3">
               <summary className="list-none cursor-pointer text-[13px] font-semibold text-slate-200">Have questions first?</summary>
               <ul className="mt-2 space-y-1 text-[13px] text-slate-200">
-                <li>â€¢ Confidential by default â€” your activity is never shared with employers.</li>
-                <li>â€¢ Works alongside your existing recruiter relationships, not against them.</li>
-                <li>â€¢ Optionality mode available if you are not ready to go active yet.</li>
+                <li>Confidential by default - your activity is never shared with employers.</li>
+                <li>Works alongside your existing recruiter relationships, not against them.</li>
+                <li>Optionality mode is available if you are not ready to go active yet.</li>
               </ul>
             </details>
           </div>

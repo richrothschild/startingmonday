@@ -47,7 +47,7 @@ export const EVIDENCE_INTRODUCTION = {
     that timing is random, that preparation can happen late. Starting Monday is built on evidence.
     
     Every feature and decision is grounded in peer-reviewed research, industry data, and 
-    first-principles thinking about executive transitions. This isn't about being academic-it's about 
+    first-principles thinking about executive transitions. This isn't about being academic - it's about 
     being effective.
     
     When stakes are high and timing is narrow, working from evidence beats working from instinct.
@@ -189,7 +189,7 @@ export const EVIDENCE_EARLY_SIGNALS: EvidenceSection = {
 export const EVIDENCE_COACHING: EvidenceSection = {
   id: 'coaching-effectiveness',
   title: 'Executive Coaching & Performance',
-  subtitle: 'Why coaching works-and when it doesn\'t',
+  subtitle: 'Why coaching works and when it doesn\'t',
   overview: `
     Executive coaching is one of the few high-leverage interventions available during major transitions.
     But not all coaching is equal. The research shows what drives coaching ROI: clarity of mechanism, 
@@ -198,7 +198,7 @@ export const EVIDENCE_COACHING: EvidenceSection = {
   whyItMatters: `
     A new executive role is high-stress, high-visibility, and unforgiving. The first 90 days set 
     trajectories that are hard to reset. Research on executive coaching shows it can meaningfully 
-    improve outcomes-but only when it's structured around actual behavior change, not just advice 
+    improve outcomes - but only when it's structured around actual behavior change, not just advice 
     or emotional support.
   `,
   keyInsights: [
@@ -266,7 +266,7 @@ export const EVIDENCE_COACHING: EvidenceSection = {
           keyFinding: 'Coaching linked to greater improvement in multisource ratings over time; effect is sustained at follow-up'
         },
       ],
-      implication: 'Coaching\'s impact isn\'t just internal-it changes how peers and direct reports perceive an executive. That\'s crucial for new-role credibility.'
+      implication: 'Coaching\'s impact isn\'t just internal - it changes how peers and direct reports perceive an executive. That\'s crucial for new-role credibility.'
     },
     {
       claim: 'What coaches actually do for you: improve decision quality, accelerate insight, build accountability',
@@ -352,7 +352,7 @@ export const EVIDENCE_ONBOARDING: EvidenceSection = {
           keyFinding: 'Successor type, insider vs. outsider dynamics, and team changes significantly predict post-succession performance'
         },
       ],
-      implication: 'Your early team moves, trust-building patterns, and stakeholder relationships are not separate from performance-they are performance.'
+      implication: 'Your early team moves, trust-building patterns, and stakeholder relationships are not separate from performance - they are performance.'
     },
     {
       claim: 'Five common pitfalls derail new executives in the first 24 months',
@@ -382,12 +382,12 @@ export const EVIDENCE_BEHAVIOR: EvidenceSection = {
   overview: `
     The gap between intention and action is universal. Executives intend to build relationships, 
     follow up on opportunities, and prepare thoroughly. But most don't. The research on behavior 
-    change shows why-and how to close that gap.
+    change shows why - and how to close that gap.
   `,
   whyItMatters: `
     A new executive role requires dozens of small, consistent actions: preparation before meetings, 
     follow-ups after conversations, relationship check-ins, continuous learning. Executives who excel 
-    aren't necessarily smarter-they're better at converting intention into consistent action.
+    aren't necessarily smarter - they're better at converting intention into consistent action.
     
     The research shows how to do this: implementation plans, explicit goals, progress monitoring, 
     and accountability.
@@ -425,7 +425,7 @@ export const EVIDENCE_BEHAVIOR: EvidenceSection = {
           keyFinding: 'When executives move from intention ("I should reach out") to implementation plan ("I will email X by Wednesday with Y message"), completion rates increase 2-3x'
         },
       ],
-      implication: 'Micro-commitments and specific action triggers are not overkill-they\'re the difference between intention and outcome.'
+      implication: 'Micro-commitments and specific action triggers are not overkill - they\'re the difference between intention and outcome.'
     },
     {
       claim: 'Specific, difficult goals improve performance when commitment and feedback exist',
@@ -457,7 +457,7 @@ export const EVIDENCE_BEHAVIOR: EvidenceSection = {
           keyFinding: 'Progress monitoring improves goal attainment; effects are largest when monitoring is frequent, visible, and shared'
         },
       ],
-      implication: 'Weekly dashboards and visible progress tracking aren\'t administrative overhead-they\'re levers for better outcomes.'
+      implication: 'Weekly dashboards and visible progress tracking aren\'t administrative overhead - they\'re levers for better outcomes.'
     },
     {
       claim: 'Feedback effectiveness depends on framing and attention focus',
@@ -494,7 +494,7 @@ export const EVIDENCE_VISIBILITY: EvidenceSection = {
   whyItMatters: `
     An executive who is technically strong but organizationally isolated will struggle. One who has 
     invested in strategic relationships, clear communication, and key stakeholder alignment will outperform. 
-    This isn't politics-it's how organizations actually work.
+    This isn't politics - it's how organizations actually work.
   `,
   keyInsights: [
     {

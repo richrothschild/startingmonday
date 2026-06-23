@@ -71,17 +71,18 @@ export default function EvidenceRoomPage() {
           </div>
           <div className="mt-8 space-y-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-[14px] leading-relaxed text-slate-300 sm:p-6">
             {EVIDENCE_INTRODUCTION.whyResearchMatters.split('\n').map((line, idx) => {
-              if (line.trim() === '') return null
-              if (line.trim().startsWith('â€¢')) {
+              const trimmed = line.trim()
+              if (trimmed === '') return null
+              if (trimmed.startsWith('- ')) {
                 return (
                   <p key={idx} className="ml-4">
-                    {line.trim()}
+                    {trimmed}
                   </p>
                 )
               }
               return (
                 <p key={idx}>
-                  {line.trim()}
+                  {trimmed}
                 </p>
               )
             })}
@@ -136,13 +137,13 @@ export default function EvidenceRoomPage() {
                                 <span className="italic">{source.title}</span>
                                 {source.publication && (
                                   <>
-                                    {' Â· '}
+                                    {' - '}
                                     <span className="text-slate-400">{source.publication}</span>
                                   </>
                                 )}
                                 {source.year && (
                                   <>
-                                    {' Â· '}
+                                    {' - '}
                                     <span className="text-slate-400">{source.year}</span>
                                   </>
                                 )}
@@ -232,11 +233,11 @@ export default function EvidenceRoomPage() {
                 <div key={source.id} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
                   <p className="text-[13px] leading-relaxed">
                     <span className="font-semibold text-white">{source.authors}</span>
-                    {' Â· '}
+                    {' - '}
                     <span className="italic text-slate-300">{source.title}</span>
                     {source.publication && (
                       <>
-                        {' Â· '}
+                        {' - '}
                         <span className="text-slate-400">{source.publication}</span>
                       </>
                     )}
@@ -274,13 +275,13 @@ export default function EvidenceRoomPage() {
                     {source.authors && (
                       <>
                         <span className="font-semibold text-white">{source.authors}</span>
-                        {' Â· '}
+                        {' - '}
                       </>
                     )}
                     <span className="italic text-slate-300">{source.title}</span>
                     {source.publication && (
                       <>
-                        {' Â· '}
+                        {' - '}
                         <span className="text-slate-400">{source.publication}</span>
                       </>
                     )}
@@ -318,7 +319,7 @@ export default function EvidenceRoomPage() {
                     <span className="font-semibold text-white">{source.title}</span>
                     {source.publication && (
                       <>
-                        {' Â· '}
+                        {' - '}
                         <span className="text-slate-400">{source.publication}</span>
                       </>
                     )}
