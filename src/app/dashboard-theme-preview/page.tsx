@@ -51,9 +51,6 @@ export default function DashboardThemePreviewPage() {
       </header>
 
       <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
-        <div className="mb-3 inline-flex items-center rounded-full border border-amber-300/40 bg-amber-500/10 px-3 py-1 text-[11px] font-semibold text-amber-100">
-          Preview mode: sample data
-        </div>
         <DashboardTopShellSection
           greeting="Good morning"
           firstName="Richard"
