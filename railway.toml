@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm run build"
+buildCommand = "npm run guide:user:sync && npm run guide:internal:sync && npm run build"
 
 [deploy]
 numReplicas = 1
