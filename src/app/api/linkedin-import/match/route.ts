@@ -90,7 +90,7 @@ async function seedApolloCandidates(params: {
           source_primary: 'apollo',
           confidence: suggested.confidence,
           last_enriched_at: new Date().toISOString(),
-        })
+        } as never)
         .select('id')
         .single()
 
