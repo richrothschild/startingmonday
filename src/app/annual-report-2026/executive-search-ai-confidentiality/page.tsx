@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogPost } from '@/components/BlogPost'
 
@@ -45,7 +45,7 @@ export default function ExecutiveSearchAiConfidentialityReportPage() {
       cta={{
         headline: 'Run your search and coaching workflows with less trust risk.',
         body: 'Use structured operating controls, explicit ownership, and measurable review loops to improve decision quality while scaling AI usage.',
-        label: 'Start free trial →',
+        label: 'Start free trial â†’',
         href: '/signup',
       }}
     >
@@ -110,10 +110,11 @@ export default function ExecutiveSearchAiConfidentialityReportPage() {
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Related pages</h2>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px]">
             <Link href="/annual-report-2026" className="underline underline-offset-2 hover:text-slate-900">2026 annual report overview</Link>
-            <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-900">Evidence Hub</Link>
+            <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-slate-900">Evidence Hub</Link>
           </div>
         </section>
       </div>
     </BlogPost>
   )
 }
+

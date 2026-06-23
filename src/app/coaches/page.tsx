@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
@@ -201,7 +201,7 @@ export default function CoachesChannelPage() {
             <ul className="mt-6 space-y-3">
               {BRIGHTER_FUTURE.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-200">
-                  <span className="mt-0.5 text-orange-400">→</span>
+                  <span className="mt-0.5 text-orange-400">â†’</span>
                   {item}
                 </li>
               ))}
@@ -237,7 +237,7 @@ export default function CoachesChannelPage() {
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
-              <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
+              <Link href="/evidence-hub" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
 
               <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
               <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
@@ -257,3 +257,4 @@ export default function CoachesChannelPage() {
     </div>
   )
 }
+
