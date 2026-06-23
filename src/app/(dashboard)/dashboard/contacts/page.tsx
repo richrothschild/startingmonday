@@ -5,6 +5,7 @@ import { addContact } from './actions'
 import { ContactsList, type ContactListItem } from '@/components/ContactsList'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { summarizeRelationshipNetwork, CONTACT_TYPE_LABELS } from '@/lib/relationship-infrastructure'
+import { RelationshipMatchPanel } from './relationship-match-panel'
 
 export default async function ContactsPage({
   searchParams,
@@ -78,6 +79,10 @@ export default async function ContactsPage({
             <p className="text-[14px] font-semibold text-slate-900 leading-snug">{relationshipSummary.coverageGapLabel}</p>
           </div>
         </div>
+
+        {companyList.length > 0 && (
+          <RelationshipMatchPanel companies={companyList} />
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
