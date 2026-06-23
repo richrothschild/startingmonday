@@ -202,15 +202,15 @@ export default function DashboardPlanPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-900">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4 sm:h-14 sm:px-6">
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"
-            className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:text-white"
+            className="inline-flex min-h-[44px] items-center rounded-md border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-200 transition-colors hover:border-white/30 hover:text-white"
           >
             Back to dashboard
           </Link>
@@ -218,42 +218,42 @@ export default function DashboardPlanPage() {
       </header>
 
       <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
-        <div className="mb-6 rounded border border-slate-200 bg-white p-5">
-          <p className="text-[12px] font-bold tracking-[0.12em] uppercase text-slate-500">Weekly plan</p>
-          <h1 className="mt-1 text-[26px] font-bold leading-tight text-slate-900">Editable three-action operating plan</h1>
-          <p className="mt-2 text-[13px] text-slate-600">
+        <div className="mb-6 rounded-2xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300">Weekly plan</p>
+          <h1 className="mt-1 text-[26px] font-bold leading-tight text-white">Editable three-action operating plan</h1>
+          <p className="mt-2 text-[13px] text-slate-200">
             Keep one clear action for relationships, one for target companies, and one for preparation. Saved by week.
           </p>
-          <p className="mt-2 text-[12px] text-slate-500">
+          <p className="mt-2 text-[12px] text-slate-300">
             Momentum score: {typeof momentumScore === 'number' ? momentumScore : 'not available yet'}
           </p>
 
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-            <label className="text-[12px] text-slate-600">
+            <label className="text-[12px] text-slate-200">
               Week start (Monday)
               <input
                 type="date"
                 value={weekStart}
                 onChange={(event) => setWeekStart(event.target.value)}
-                className="mt-1 block min-h-[44px] w-full rounded border border-slate-200 bg-white px-3 text-[13px] text-slate-900"
+                className="mt-1 block min-h-[44px] w-full rounded border border-white/15 bg-slate-950/70 px-3 text-[13px] text-slate-100 shadow-inner shadow-black/20"
               />
             </label>
-            <p className="text-[12px] text-slate-500">Week of {formatWeekLabel(weekStart)}</p>
+            <p className="text-[12px] text-slate-300">Week of {formatWeekLabel(weekStart)}</p>
           </div>
         </div>
 
         {error && (
-          <p className="mb-4 rounded border border-rose-200 bg-rose-50 px-3 py-2 text-[12px] text-rose-700">{error}</p>
+          <p className="mb-4 rounded border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-[12px] text-rose-200">{error}</p>
         )}
         {message && (
-          <p className="mb-4 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-[12px] text-emerald-700">{message}</p>
+          <p className="mb-4 rounded border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-[12px] text-emerald-200">{message}</p>
         )}
 
-        <section className="rounded border border-slate-200 bg-white p-5">
+        <section className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <div className="space-y-4">
             {[0, 1, 2].map((index) => (
-              <article key={index} className="rounded border border-slate-200 bg-slate-50/70 p-3">
-                <label htmlFor={`weekly-plan-action-${index}`} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">
+              <article key={index} className="rounded-xl border border-white/10 bg-slate-950/30 p-3">
+                <label htmlFor={`weekly-plan-action-${index}`} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">
                   Action {index + 1}
                 </label>
                 <textarea
@@ -265,9 +265,9 @@ export default function DashboardPlanPage() {
                     setActions(next)
                   }}
                   disabled={loading}
-                  className="mt-2 min-h-[96px] w-full rounded border border-slate-200 bg-white px-3 py-2 text-[13px] text-slate-900"
+                  className="mt-2 min-h-[96px] w-full rounded border border-white/10 bg-slate-950/75 px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500"
                 />
-                <label className="mt-2 inline-flex min-h-[36px] items-center gap-2 text-[12px] text-slate-700">
+                <label className="mt-2 inline-flex min-h-[36px] items-center gap-2 text-[12px] text-slate-200">
                   <input
                     type="checkbox"
                     checked={Boolean(completions[index])}
@@ -283,8 +283,8 @@ export default function DashboardPlanPage() {
               </article>
             ))}
 
-            <div className="rounded border border-slate-200 bg-slate-50/70 p-3">
-              <label htmlFor="weekly-plan-reflection" className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">
+            <div className="rounded-xl border border-white/10 bg-slate-950/30 p-3">
+              <label htmlFor="weekly-plan-reflection" className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">
                 Reflection notes
               </label>
               <textarea
@@ -292,7 +292,7 @@ export default function DashboardPlanPage() {
                 value={reflectionNotes}
                 onChange={(event) => setReflectionNotes(event.target.value)}
                 disabled={loading}
-                className="mt-2 min-h-[96px] w-full rounded border border-slate-200 bg-white px-3 py-2 text-[13px] text-slate-900"
+                className="mt-2 min-h-[96px] w-full rounded border border-white/10 bg-slate-950/75 px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500"
               />
             </div>
           </div>
@@ -302,7 +302,7 @@ export default function DashboardPlanPage() {
               type="button"
               onClick={savePlan}
               disabled={!canSave || loading || saving}
-              className="inline-flex min-h-[44px] items-center rounded border border-slate-900 bg-slate-900 px-4 text-[13px] font-semibold text-white disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center rounded bg-orange-500 px-4 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400 disabled:opacity-50"
             >
               {saving ? 'Saving…' : 'Save weekly plan'}
             </button>
@@ -310,37 +310,37 @@ export default function DashboardPlanPage() {
               type="button"
               onClick={() => void regeneratePlan(false)}
               disabled={loading || saving}
-              className="inline-flex min-h-[44px] items-center rounded border border-slate-300 bg-white px-4 text-[13px] font-semibold text-slate-700 disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center rounded border border-white/15 bg-white/5 px-4 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10 disabled:opacity-50"
             >
               {saving ? 'Working…' : 'Regenerate suggestions'}
             </button>
-            <p className="text-[12px] text-slate-500">Regenerate and history actions land in the next sprint tickets.</p>
+            <p className="text-[12px] text-slate-300">Regenerate and history actions land in the next sprint tickets.</p>
           </div>
         </section>
 
-        <section className="mt-6 rounded border border-slate-200 bg-white p-5">
-          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500">4-week history</p>
+        <section className="mt-6 rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">4-week history</p>
           {history && history.length > 0 ? (
             <ul className="mt-3 space-y-3">
               {history.map((item) => (
-                <li key={item.week_start} className="rounded border border-slate-200 px-3 py-2">
-                  <p className="text-[13px] font-semibold text-slate-900">Week of {formatWeekLabel(item.week_start)}</p>
-                  <p className="mt-1 text-[12px] text-slate-600">Completed {item.completed_count}/3 actions</p>
+                <li key={item.week_start} className="rounded-xl border border-white/10 bg-slate-950/30 px-3 py-2">
+                  <p className="text-[13px] font-semibold text-white">Week of {formatWeekLabel(item.week_start)}</p>
+                  <p className="mt-1 text-[12px] text-slate-300">Completed {item.completed_count}/3 actions</p>
                   <ul className="mt-2 space-y-1">
                     {item.actions.map((action, index) => (
-                      <li key={`${item.week_start}-${index}`} className="text-[12px] text-slate-700">
+                      <li key={`${item.week_start}-${index}`} className="text-[12px] text-slate-200">
                         {item.completions[index] ? '✓' : '•'} {action}
                       </li>
                     ))}
                   </ul>
                   {item.reflection_notes && (
-                    <p className="mt-2 text-[12px] text-slate-600">Reflection: {item.reflection_notes}</p>
+                    <p className="mt-2 text-[12px] text-slate-300">Reflection: {item.reflection_notes}</p>
                   )}
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="mt-2 text-[13px] text-slate-500">No weekly history yet.</p>
+            <p className="mt-2 text-[13px] text-slate-300">No weekly history yet.</p>
           )}
         </section>
       </main>
