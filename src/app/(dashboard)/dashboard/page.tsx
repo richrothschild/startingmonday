@@ -741,12 +741,13 @@ export default async function DashboardPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
       {/* Nav */}
-      <header className="bg-slate-900">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center gap-4 sm:gap-6">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400 shrink-0">
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:gap-6 sm:px-6">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-white/90 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           {/* Desktop nav */}
@@ -789,7 +790,7 @@ export default async function DashboardPage({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         <DashboardTopShellSection
           greeting={greeting}
           firstName={firstName}
@@ -818,35 +819,35 @@ export default async function DashboardPage({
           executiveDecisionBrief={executiveDecisionBrief}
         />
 
-        <section className="mb-6 rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+        <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-500">Campaign health</p>
-              <h2 className="text-[20px] font-bold text-slate-900 mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-500">{campaignHealthBand}</span></h2>
-              <p className="text-[13px] text-slate-600 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
+              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-200/90">Campaign health</p>
+              <h2 className="text-[20px] font-bold text-white mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-300">{campaignHealthBand}</span></h2>
+              <p className="text-[13px] text-slate-200 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
-              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Cadence</p>
-                <p className="text-[16px] font-bold text-slate-900">{cadenceScore}</p>
+              <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Cadence</p>
+                <p className="text-[16px] font-bold text-white">{cadenceScore}</p>
               </div>
-              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Follow-through</p>
-                <p className="text-[16px] font-bold text-slate-900">{followThroughScore}</p>
+              <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Follow-through</p>
+                <p className="text-[16px] font-bold text-white">{followThroughScore}</p>
               </div>
-              <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-500 font-bold">Conversion</p>
-                <p className="text-[16px] font-bold text-slate-900">{conversionScore}</p>
+              <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
+                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Conversion</p>
+                <p className="text-[16px] font-bold text-white">{conversionScore}</p>
               </div>
             </div>
           </div>
 
           {topStalledCampaigns.length > 0 && (
-            <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-800 mb-2">Stalled alerts</p>
+            <div className="mt-4 rounded-lg border border-amber-300/40 bg-amber-500/10 p-3">
+              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-200 mb-2">Stalled alerts</p>
               <ul className="space-y-1.5">
                 {topStalledCampaigns.map((item) => (
-                  <li key={item.id} className="text-[13px] text-amber-900">
+                  <li key={item.id} className="text-[13px] text-amber-100">
                     <span className="font-semibold">{item.name}</span> has been idle for {item.daysStalled} days.
                   </li>
                 ))}

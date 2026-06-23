@@ -57,16 +57,16 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
   return (
     <>
       {props.isExecutiveMode && (
-        <section className="mb-6 rounded border border-slate-200 bg-white overflow-hidden">
-          <div className="px-5 py-3.5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <div className="px-5 py-3.5 border-b border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500">Executive Mode</span>
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300">Executive Mode</span>
               {props.isExecutivePreview && (
-                <span className="text-[10px] font-semibold tracking-[0.08em] uppercase text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-semibold tracking-[0.08em] uppercase text-indigo-200 bg-indigo-500/20 border border-indigo-300/30 px-2 py-0.5 rounded-full">
                   Preview
                 </span>
               )}
-              <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
+              <span className="text-[11px] font-semibold text-slate-200 bg-white/10 px-2 py-0.5 rounded-full border border-white/10">
                 Stage: {props.executiveStageLabel}
               </span>
             </div>
@@ -80,17 +80,17 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
 
           <div className="px-5 py-4 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 items-start">
             <div>
-              <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Decision brief</h2>
+              <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-2">Decision brief</h2>
               <div className="space-y-2.5">
-                <p className="text-[13px] text-slate-700"><span className="font-semibold text-slate-900">What changed:</span> {props.executiveDecisionBrief.changed}</p>
-                <p className="text-[13px] text-slate-700"><span className="font-semibold text-slate-900">Why now:</span> {props.executiveDecisionBrief.whyNow}</p>
-                <p className="text-[13px] text-slate-700"><span className="font-semibold text-slate-900">Recommended move:</span> {props.executiveDecisionBrief.recommendedMove}</p>
-                <p className="text-[13px] text-slate-700"><span className="font-semibold text-slate-900">Downside if delayed:</span> {props.executiveDecisionBrief.downsideIfDelayed}</p>
+                <p className="text-[13px] text-slate-200"><span className="font-semibold text-white">What changed:</span> {props.executiveDecisionBrief.changed}</p>
+                <p className="text-[13px] text-slate-200"><span className="font-semibold text-white">Why now:</span> {props.executiveDecisionBrief.whyNow}</p>
+                <p className="text-[13px] text-slate-200"><span className="font-semibold text-white">Recommended move:</span> {props.executiveDecisionBrief.recommendedMove}</p>
+                <p className="text-[13px] text-slate-200"><span className="font-semibold text-white">Downside if delayed:</span> {props.executiveDecisionBrief.downsideIfDelayed}</p>
               </div>
             </div>
             <Link
               href={props.executiveDecisionBrief.href}
-              className="inline-flex min-h-[44px] items-center justify-center rounded bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-4 py-2 whitespace-nowrap"
+              className="inline-flex min-h-[44px] items-center justify-center rounded bg-orange-500 hover:bg-orange-400 text-slate-950 text-[13px] font-semibold px-4 py-2 whitespace-nowrap"
             >
               {props.executiveDecisionBrief.cta}
             </Link>

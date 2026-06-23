@@ -1,6 +1,6 @@
 # Starting Monday Internal Guide
 
-Last generated: 2026-06-22T22:36:48.545Z
+Last generated: 2026-06-23T00:08:50.368Z
 
 This staff-only guide covers inner workings, infrastructure, operations, and codebase surface area.
 
@@ -15,7 +15,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Section format: Summary, Key files or routes, Data and auth flow, Risks and watchouts, Next anchor.
 - Update rule: regenerate only the affected slice, then link back to source files and the internal guide index.
 
-## Features (217)
+## Features (218)
 - Feature Login | /login | User-facing page route /login.
 - Feature Signup | /signup | User-facing page route /signup.
 - Feature Dashboard / Admin / B2b / New | /dashboard/admin/b2b/new | User-facing page route /dashboard/admin/b2b/new.
@@ -134,6 +134,7 @@ This staff-only guide covers inner workings, infrastructure, operations, and cod
 - Feature Coachos | /coachos | User-facing page route /coachos.
 - Feature Concierge | /concierge | User-facing page route /concierge.
 - Feature Contributor | /contributor | User-facing page route /contributor.
+- Feature Dashboard theme preview | /dashboard-theme-preview | User-facing page route /dashboard-theme-preview.
 - Feature Demo / Cio / Notes | /demo/cio/notes | User-facing page route /demo/cio/notes.
 - Feature Demo / Cio | /demo/cio | User-facing page route /demo/cio.
 - Feature Demo / Coach dashboard | /demo/coach-dashboard | User-facing page route /demo/coach-dashboard.

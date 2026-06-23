@@ -1,6 +1,6 @@
 # Starting Monday User Guide
 
-Last generated: 2026-06-22T22:36:45.948Z
+Last generated: 2026-06-23T00:08:47.664Z
 
 This guide is generated from product routes, APIs, and published articles.
 
@@ -11,7 +11,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Add target companies and contacts](/dashboard/companies/new) - Build your pipeline so signals, prep briefs, and outreach workflows have context.
 - [Use Help and FAQ](/dashboard/help) - Use the help page for onboarding steps, FAQ answers, and direct guide access.
 
-## Features (187)
+## Features (188)
 - [Login](/login) - Open /login to use this feature area and related workflows.
 - [Signup](/signup) - Open /signup to use this feature area and related workflows.
 - [Dashboard / Admin / B2b / New](/dashboard/admin/b2b/new) - Open /dashboard/admin/b2b/new to use this feature area and related workflows.
@@ -101,6 +101,7 @@ This guide is generated from product routes, APIs, and published articles.
 - [Coachos](/coachos) - Open /coachos to use this feature area and related workflows.
 - [Concierge](/concierge) - Open /concierge to use this feature area and related workflows.
 - [Contributor](/contributor) - Open /contributor to use this feature area and related workflows.
+- [Dashboard theme preview](/dashboard-theme-preview) - Open /dashboard-theme-preview to use this feature area and related workflows.
 - [Demo / Cio / Notes](/demo/cio/notes) - Open /demo/cio/notes to use this feature area and related workflows.
 - [Demo / Cio](/demo/cio) - Open /demo/cio to use this feature area and related workflows.
 - [Demo / Coach dashboard](/demo/coach-dashboard) - Open /demo/coach-dashboard to use this feature area and related workflows.
