@@ -84,6 +84,7 @@ export default async function ForExecutivesPage() {
                 alt="Executive seated at a desk reviewing documents in a refined home office"
                 className="block w-full rounded-[14px]"
                 loading="eager"
+                fetchPriority="high"
               />
             </figure>
           </div>
