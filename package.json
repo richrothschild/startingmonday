@@ -46,6 +46,7 @@
         "monitor:matrix:check:strict": "node scripts/check-monitoring-coverage.mjs --strict",
         "monitor:harness:generate": "node scripts/generate-monitoring-harness.mjs",
         "monitor:coverage:refresh": "npm run monitor:matrix:generate && npm run monitor:harness:generate",
+        "guard:landing-page-approval": "node scripts/check-landing-page-change-approval.mjs",
         "test:e2e:monitor:generated": "playwright test tests/e2e/generated --project=smoke",
         "launch:load:rehearsal": "node scripts/run-launch-load-rehearsal.mjs",
         "ops:dead-letter:check": "node scripts/check-dead-letter-coverage.mjs",

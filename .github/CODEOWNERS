@@ -13,3 +13,7 @@
 /scripts/ @68Commando-stack @richrothschild
 /railway.toml @richrothschild @68Commando-stack
 /next.config.ts @richrothschild @68Commando-stack
+
+# Landing page ownership guard
+/src/app/page.tsx @richrothschild
+/src/components/LandingPage.tsx @richrothschild
