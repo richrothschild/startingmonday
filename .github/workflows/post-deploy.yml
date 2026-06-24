@@ -112,11 +112,13 @@ jobs:
 
   post-deploy-synthetics:
     # Only run when a deployment to production succeeds.
-    # Railway sends environment as 'ample-blessing / production' — use contains() to match.
+    # Railway names all envs 'X / production' — exclude 'ample-blessing' (staging service)
+    # to prevent staging deploys from running production-targeted synthetic tests.
     if: >
       (github.event_name == 'workflow_dispatch') ||
       (github.event.deployment_status.state == 'success' &&
-       contains(github.event.deployment.environment, 'production'))
+       contains(github.event.deployment.environment, 'production') &&
+       !contains(github.event.deployment.environment, 'ample-blessing'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [canary-gate]
@@ -152,7 +154,7 @@ jobs:
           RELEASE_OUTPUT_JSON: '1'
         run: |
           set -o pipefail
-          npm run monitor:release:parity:json | tee release-completion-gate.json
+          npm run --silent monitor:release:parity:json | tee release-completion-gate.json
 
       - name: Verify EMI smoke credentials are configured
         id: emi_creds
@@ -357,10 +359,12 @@ jobs:
     timeout-minutes: 15
     needs: [canary-gate]
     # Run after a successful Railway production deployment, once the canary is green.
-    # Railway sends environment as 'ample-blessing / production' — use contains() to match.
+    # Railway names all envs 'X / production' — exclude 'ample-blessing' (staging service)
+    # to prevent staging deploys from running production-targeted E2E tests.
     if: >
       github.event.deployment_status.state == 'success' &&
-      contains(github.event.deployment.environment, 'production')
+      contains(github.event.deployment.environment, 'production') &&
+      !contains(github.event.deployment.environment, 'ample-blessing')
 
     steps:
       - uses: actions/checkout@v5
