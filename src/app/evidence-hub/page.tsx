@@ -7,7 +7,7 @@ import { PublicPageHeader } from '@/components/PublicPageHeader'
 
 import {
   EVIDENCE_INTRODUCTION,
-  EVIDENCE_SECTIONS,
+  EVIDENCE_SECTIONS_WITH_COACHING_TRANSITIONS,
   ALL_EVIDENCE_SOURCES,
 } from './content'
 
@@ -90,7 +90,7 @@ export default function EvidenceRoomPage() {
         </section>
 
         {/* Main sections */}
-        {EVIDENCE_SECTIONS.map((section) => (
+        {EVIDENCE_SECTIONS_WITH_COACHING_TRANSITIONS.map((section) => (
           <section key={section.id} id={section.id} className="mt-12 scroll-mt-20">
             <div className="rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-5 shadow-[0_20px_70px_rgba(2,6,23,0.28)] sm:p-6">
               {/* Section header */}
