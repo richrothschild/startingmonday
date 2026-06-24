@@ -52,7 +52,7 @@ export const CHANNEL_ROUTE_SPECS: readonly ChannelRouteSpec[] = [
 export const EXECUTIVE_PERSONA_ROUTES = {
   cio_cto_transition: '/for-cio',
   vp_to_c_suite: '/for-executives',
-  vp_technology: '/for-vp-technology',
+  vp_technology: '/for-leaders',
   chief_data_officer: '/for-data-officer',
   chief_digital_officer: '/for-cdo',
   chief_information_security_officer: '/for-ciso',

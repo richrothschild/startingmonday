@@ -254,7 +254,7 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isHomePage = sourcePage === '/'
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
-  const isRisingLeadersPage = sourcePage === '/for-vp-technology'
+  const isRisingLeadersPage = sourcePage === '/for-vp-technology' || sourcePage === '/for-leaders'
   const isManagerToolsPage = sourcePage === '/managertools'
   const useCenteredFooter = isManagerToolsPage || isExecutivesPage
   const executiveLaneBrand = executiveLaneFromSource(sourcePage)
@@ -424,7 +424,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                         <p className="text-[13px] font-semibold text-white">Rising Leaders Path</p>
                         <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Directors, senior managers, and technical leads moving toward broader scope.</p>
                         <TrackLink
-                          href="/for-vp-technology"
+                          href="/for-leaders"
                           event={EVENT_NAMES.channelEntryClicked}
                           logToUserEvents
                           properties={{

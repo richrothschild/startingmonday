@@ -83,7 +83,6 @@ export default function PartnerFirmPage() {
         situations={SITUATIONS}
         faqs={FAQS}
         sourcePage="/partner-firm"
-        showFooter={false}
       />
 
       <div className="bg-slate-950 pb-12 sm:pb-14">
