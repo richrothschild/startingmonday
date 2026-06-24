@@ -76,6 +76,25 @@ const metrics = [
   'Mid-search resets avoided',
 ]
 
+const governanceCards = [
+  {
+    title: 'Trust and confidentiality',
+    body: 'Candidate sharing stays role-scoped and revocable. Pilot reviews use explicit access boundaries before kickoff begins.',
+    primaryLabel: 'Review sample brief',
+    primaryHref: '/search-firms/sample-cfo-brief',
+    secondaryLabel: 'Run a pilot',
+    secondaryHref: '/partners#apply',
+  },
+  {
+    title: 'Procurement-ready pilot path',
+    body: 'Start with one mandate, a named sponsor, and a day-30 scorecard. No broad rollout, no open-ended software program.',
+    primaryLabel: 'Apply to partner program',
+    primaryHref: '/partners#apply',
+    secondaryLabel: 'See demo',
+    secondaryHref: '/demo?from=search-firms',
+  },
+]
+
 export default function SearchFirmsPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -143,6 +162,15 @@ export default function SearchFirmsPage() {
                 className="rounded border border-slate-500 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-300"
               >
                 Run a pilot
+              </TrackLink>
+              <TrackLink
+                href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Request legal and pilot packet', source_page: '/search-firms' }}
+                className="rounded border border-emerald-500/50 bg-emerald-950/20 px-6 py-3 text-sm font-semibold text-emerald-100 hover:border-emerald-400"
+              >
+                Request legal and pilot packet
               </TrackLink>
               <Link
                 href="/features/search-firms"
@@ -231,6 +259,34 @@ export default function SearchFirmsPage() {
 
         <section className="px-4 pb-14 sm:px-6 sm:pb-16">
           <div className="mx-auto max-w-6xl">
+            <div className="grid gap-4 md:grid-cols-2">
+              {governanceCards.map((card) => (
+                <article key={card.title} className="rounded-lg border border-slate-200 bg-slate-50 p-6">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Sprint 1 foundation</p>
+                  <h2 className="mt-2 text-xl font-bold text-slate-900">{card.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{card.body}</p>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    <Link
+                      href={card.primaryHref}
+                      className="rounded bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800"
+                    >
+                      {card.primaryLabel}
+                    </Link>
+                    <Link
+                      href={card.secondaryHref}
+                      className="rounded border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+                    >
+                      {card.secondaryLabel}
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-bold text-slate-900">Built for firm outcomes, not activity metrics</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {firmBenefits.map((benefit) => (
@@ -264,6 +320,9 @@ export default function SearchFirmsPage() {
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               Start with CFO or COO mandates. Measure team prep hours, first-slate acceptance rate, and mandate-to-shortlist speed.
             </p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              We will align sponsor ownership, legal review path, and procurement scope before kickoff so the pilot stays reversible and decision-ready at day 30.
+            </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
@@ -282,6 +341,15 @@ export default function SearchFirmsPage() {
                 className="rounded border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >
                 Apply to partner program
+              </TrackLink>
+              <TrackLink
+                href="/partners#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Request procurement packet', source_page: '/search-firms' }}
+                className="rounded border border-emerald-400 px-5 py-2.5 text-sm font-semibold text-emerald-700 hover:border-emerald-600"
+              >
+                Request procurement packet
               </TrackLink>
             </div>
           </div>

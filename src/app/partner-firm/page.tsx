@@ -60,7 +60,7 @@ const PARTNER_CHOICES = [
   },
   {
     label: 'Search Firms',
-    href: '/for-search-firms',
+    href: '/search-firms',
     description: 'Run cleaner shortlist calibration with role-signal context and structured briefs.',
   },
 ]
