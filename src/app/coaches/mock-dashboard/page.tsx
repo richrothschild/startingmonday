@@ -35,6 +35,12 @@ export default function MockCoachDashboardPage() {
             Manage your full client portfolio in one place, then click into any client to see the intervention plan,
             session agenda, commitment risk, and momentum signals before you meet.
           </p>
+          <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-slate-700">
+            This is what your view looks like when 3-5 clients are in active search. Accountability research shows
+            that coach visibility into between-session execution is one of the strongest moderators of coaching
+            outcomes.
+          </p>
+          <p className="mt-2 text-[12px] text-slate-500">Source: Bozer and Jones, 2018.</p>
         </div>
       </header>
 
