@@ -172,7 +172,7 @@ export default function EvidenceRoomPage() {
                                       rel="noopener noreferrer"
                                       className="text-orange-300 hover:text-orange-200 underline underline-offset-2 text-[12px]"
                                     >
-                                      {isInternal ? 'Learn more' : 'Source'}
+                                      {isInternal ? 'Details' : 'Source'}
                                     </a>
                                   )}
                                 </div>

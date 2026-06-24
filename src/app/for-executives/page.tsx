@@ -162,6 +162,24 @@ export default async function ForExecutivesPage() {
           </div>
         </section>
 
+        <section className="border-b border-white/10 px-6 py-14 sm:px-10 sm:py-16">
+          <div className="mx-auto w-full max-w-6xl">
+            <p className="text-[15px] font-semibold text-white">Common questions</p>
+            <div className="mt-4 space-y-3">
+              {[
+                ['Is my search completely confidential?', 'Yes. Your employer cannot see your account or your search activity. Starting Monday is designed from the ground up to be invisible to your current organization.'],
+                ['How is this different from working with a recruiter?', 'Recruiters work for the hiring company, not for you. Starting Monday works on your behalf — building your positioning, finding the right signals early, and keeping you in control of which conversations you enter and when.'],
+                ['How quickly do executives see useful signals?', 'Most users see relevant movement within the first week of setting up their target list. The value starts with intelligence and positioning, so you are prepared before a role surfaces publicly.'],
+              ].map(([question, answer]) => (
+                <details key={question} className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
+                  <summary className="cursor-pointer list-none text-[14px] font-semibold text-white">{question}</summary>
+                  <p className="mt-3 text-[14px] leading-relaxed text-slate-300">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="px-6 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto w-full max-w-4xl rounded-3xl border border-white/12 bg-white/[0.06] px-6 py-10 text-center shadow-[0_24px_62px_rgba(2,6,23,0.34)] sm:px-10">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Next step</p>
