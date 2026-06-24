@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useMemo, useRef, useState } from 'react'
@@ -507,11 +507,9 @@ export function CioDemoClient() {
           <div className="text-[12px] text-slate-500 leading-relaxed">
             Reciprocity and commitment close: run this with two clients for 30 days, then decide using a weekly scorecard (first signal action, first prep brief before high-stakes conversation, context-rebuild time reduction).
             <span className="inline-block ml-2">
-              <Link href="/method-and-evidence" className="underline underline-offset-2 hover:text-slate-800">Method</Link>
-              {' · '}
               <Link href="/references" className="underline underline-offset-2 hover:text-slate-800">References</Link>
-              {' · '}
-              <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-800">Evidence room</Link>
+              {' Â· '}
+              <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-slate-800">Evidence Hub</Link>
             </span>
           </div>
           <div className="mt-5 border border-slate-200 rounded-xl p-3 bg-slate-50">
@@ -784,3 +782,4 @@ export function CioDemoClient() {
     </div>
   )
 }
+

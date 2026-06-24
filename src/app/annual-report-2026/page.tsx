@@ -1,5 +1,6 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
+import { EvidenceProofCard } from '@/components/EvidenceProofCard'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -25,20 +26,32 @@ const THEMES = [
 
 export default function AnnualReport2026Page() {
   return (
-    <BlogPost
-      title="What We Observed in Executive Search in 2026"
-      description="A tiny annual report on the patterns that seemed to separate disciplined campaigns from reactive ones."
-      date="2026-05-20"
-      readTime="5 min read"
-      url="https://startingmonday.app/annual-report-2026"
-      cta={{
-        headline: 'See how the observations shape the product.',
-        body: 'The annual report is meant to support the evidence room and the method page, not replace them.',
-        label: 'Open the evidence room →',
-        href: '/evidence-room',
-      }}
-    >
-      <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+    <>
+      <section className="bg-slate-950 px-4 pt-6 sm:px-6">
+        <div className="mx-auto max-w-2xl">
+          <EvidenceProofCard
+            claim="Observed pilot cohorts reached first qualified conversation faster when search execution included signal monitoring and weekly prep discipline."
+            sourceLabel="Pilot summary + method notes"
+            sourceHref="/pilot-findings"
+            evidenceHref="/evidence-hub#internal-validation"
+            disclaimer="Results vary by market, role level, and campaign consistency."
+          />
+        </div>
+      </section>
+      <BlogPost
+        title="What We Observed in Executive Search in 2026"
+        description="A tiny annual report on the patterns that seemed to separate disciplined campaigns from reactive ones."
+        date="2026-05-20"
+        readTime="5 min read"
+        url="https://startingmonday.app/annual-report-2026"
+        cta={{
+          headline: 'See how the observations shape the product.',
+          body: 'The annual report is meant to support the Evidence Hub and the method page, not replace them.',
+          label: 'Open the Evidence Hub ->',
+          href: '/evidence-hub#internal-validation',
+        }}
+      >
+        <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">What We Observed in Executive Search in 2026</h1>
         <p>
           This is a small annual report, not a press release. It summarizes the recurring patterns we observed across executive search conversations, pilot behavior, and the broader literature we reviewed.
@@ -100,14 +113,16 @@ export default function AnnualReport2026Page() {
         <section id="next-step" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Next step</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
-            If you want the supporting methods and references, use the evidence room as the primary source.
+            If you want the supporting methods and references, use the Evidence Hub as the primary source.
           </p>
-          <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the evidence room and applying the measurement model to your own campaign.</p>
-          <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-            Open evidence room
+          <p className="text-[12px] text-slate-500 mb-3">CTA: get started now by reviewing the Evidence Hub and applying the measurement model to your own campaign.</p>
+          <Link href="/evidence-hub#internal-validation" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+            Open Evidence Hub
           </Link>
         </section>
-      </div>
-    </BlogPost>
+        </div>
+      </BlogPost>
+    </>
   )
 }
+

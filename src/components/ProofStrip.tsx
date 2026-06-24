@@ -1,8 +1,8 @@
-/**
- * ProofStrip — reusable executive-page proof attribution block.
+﻿/**
+ * ProofStrip - reusable executive-page proof attribution block.
  *
  * Renders a compact trust strip with denominator, window, and a link to the
- * method-and-evidence page.  Used across all /for-* executive role pages as
+ * Evidence Hub. Used across all /for-* executive role pages as
  * part of EXUX-201 (role-specific proof strips with conservative board-safe
  * language).
  */
@@ -12,7 +12,7 @@ interface ProofStripProps {
   metric: string
   /** One-line explanation of what the metric measures */
   label: string
-  /** Source window and denominator, e.g. "27 executives · Jan–May 2026" */
+  /** Source window and denominator, e.g. "27 executives - Jan-May 2026" */
   source: string
   /** Optional note about variability */
   caveat?: string
@@ -33,11 +33,8 @@ export function ProofStrip({ metric, label, source, caveat }: ProofStripProps) {
       </div>
       <p className="text-[12px] text-slate-300">
         {source}.{' '}
-        <a
-          href="/method-and-evidence"
-          className="underline text-emerald-300 hover:text-emerald-200 transition-colors"
-        >
-          See method
+        <a href="/evidence-hub" className="underline text-emerald-300 hover:text-emerald-200 transition-colors">
+          See Evidence Hub
         </a>
         .{' '}
         {caveat ?? 'Results vary by market, role level, and campaign consistency.'}
@@ -45,3 +42,4 @@ export function ProofStrip({ metric, label, source, caveat }: ProofStripProps) {
     </div>
   )
 }
+

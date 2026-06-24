@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-22",
+  "updatedAt": "2026-06-24",
   "owner": "engineering",
   "riskyPaths": [
     "src/app/(auth)/**",
@@ -58,6 +58,19 @@
       "rollbackPath": "Revert PRs #148 and #149 to restore guide artifacts and CI-generated files to git tracking",
       "killSwitch": "Re-add guide artifact generation to .gitignore exclusion list and revert ci.yml Lighthouse job change",
       "startedAt": "2026-06-22"
+    },
+    {
+      "id": "landing-page-guard-and-proof-banner-removal-2026-06",
+      "description": "Add landing-page change approval guard to predeploy-gates; remove homepage proof banner (PR #157)",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "src/app/page.tsx",
+        "scripts/check-landing-page-change-approval.mjs"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert PR #157 to restore homepage proof banner and remove landing-page guard step from ci.yml",
+      "killSwitch": "Remove guard:landing-page-approval step from predeploy-gates in ci.yml",
+      "startedAt": "2026-06-24"
     },
     {
       "id": "ci-playwright-hardening-2026-06",

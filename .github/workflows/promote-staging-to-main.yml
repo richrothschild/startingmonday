@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate guide artifacts
+        run: npm run guide:user:sync && npm run guide:internal:sync
+
       - name: Staging quality gates
         run: |
           npm run typecheck

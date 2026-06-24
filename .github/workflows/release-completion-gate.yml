@@ -36,7 +36,7 @@ jobs:
           RELEASE_OUTPUT_JSON: '1'
         run: |
           set -o pipefail
-          npm run monitor:release:parity:json | tee release-completion-gate.json
+          npm run --silent monitor:release:parity:json | tee release-completion-gate.json
 
       - name: Publish release completion summary
         if: always()

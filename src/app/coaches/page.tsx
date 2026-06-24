@@ -1,10 +1,11 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import { COACH_PERSONAS } from '@/lib/persona-routes'
+import { EvidenceProofCard } from '@/components/EvidenceProofCard'
 
 export const metadata: Metadata = {
   title: 'Coaches Channel | Starting Monday',
@@ -138,6 +139,18 @@ export default function CoachesChannelPage() {
       </header>
 
       <main className="bg-slate-50 text-slate-900">
+        <section className="border-b border-slate-200 bg-slate-950 px-4 py-6 sm:px-6">
+          <div className="mx-auto max-w-5xl">
+            <EvidenceProofCard
+              claim="Observed pilot cohorts reached first qualified conversation faster when coach and client shared one weekly operating cadence."
+              sourceLabel="Pilot summary + method notes"
+              sourceHref="/pilot-findings"
+              evidenceHref="/evidence-hub#coaching-effectiveness"
+              disclaimer="Results vary by market, role level, and campaign consistency."
+            />
+          </div>
+        </section>
+
         <section className="border-b border-slate-200 bg-white px-4 py-14 sm:px-6 sm:py-16">
           <div className="mx-auto max-w-5xl">
             <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Start from your need</p>
@@ -201,7 +214,7 @@ export default function CoachesChannelPage() {
             <ul className="mt-6 space-y-3">
               {BRIGHTER_FUTURE.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-200">
-                  <span className="mt-0.5 text-orange-400">→</span>
+                  <span className="mt-0.5 text-orange-400">-&gt;</span>
                   {item}
                 </li>
               ))}
@@ -237,8 +250,7 @@ export default function CoachesChannelPage() {
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
-              <Link href="/method-and-evidence" className="hover:text-slate-200 transition-colors">Method and evidence</Link>
-              <Link href="/evidence-room" className="hover:text-slate-200 transition-colors">Evidence room</Link>
+              <Link href="/evidence-hub#coaching-effectiveness" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
 
               <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
               <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
@@ -258,3 +270,4 @@ export default function CoachesChannelPage() {
     </div>
   )
 }
+

@@ -1,5 +1,6 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Research Brief - Starting Monday',
@@ -22,16 +23,48 @@ const bullets = [
   'Weak-signal research supports the timing thesis: the market often becomes visible before it is broadly public.',
 ]
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How should this research brief be used?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use this brief as a synthesis memo for advisors, investors, and operators, then link readers to source-level references for verification.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What evidence categories inform Starting Monday?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The model combines coaching effectiveness research, behavior-change literature, transition and onboarding studies, and weak-signal timing evidence.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How should confidentiality be handled when sharing this brief?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cite public sources directly and avoid sharing private operator details or internal-only operating notes.',
+      },
+    },
+  ],
+}
+
 export default function ResearchBriefPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
+      <JsonLd data={faqJsonLd} />
       <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/evidence-room" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence room</Link>
+            <Link href="/evidence-hub" className="text-[13px] text-slate-200 hover:text-white transition-colors">Evidence Hub</Link>
             <Link href="/references" className="text-[13px] text-slate-200 hover:text-white transition-colors">References</Link>
           </div>
         </div>
@@ -75,7 +108,7 @@ export default function ResearchBriefPage() {
           <div className="border border-slate-200 rounded-lg p-5">
             <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">How to cite it</h2>
             <p className="text-[13px] text-slate-600 leading-relaxed mb-3">Use it as a synthesis document that points readers to the references page for source-level detail.</p>
-            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open references →</Link>
+            <Link href="/references" className="text-[13px] font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">Open references {"->"}</Link>
             <p className="text-[12px] text-slate-500 mt-2">Trust and confidentiality: cite sources directly and avoid sharing private operator details.</p>
           </div>
         </section>
@@ -91,3 +124,4 @@ export default function ResearchBriefPage() {
     </div>
   )
 }
+

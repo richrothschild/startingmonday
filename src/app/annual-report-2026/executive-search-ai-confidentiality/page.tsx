@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BlogPost } from '@/components/BlogPost'
+import { JsonLd } from '@/components/JsonLd'
 
 const REPORT_URL = 'https://startingmonday.app/annual-report-2026/executive-search-ai-confidentiality'
 
@@ -34,22 +35,55 @@ export const metadata: Metadata = {
   },
 }
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How should teams use AI in executive search workflows?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use AI as decision support, not autopilot. Pair generated output with reviewer ownership, provenance checks, and structured review cadence.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What confidentiality controls matter most?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The highest-impact controls are role-based access boundaries, explicit handling rules for sensitive data, and weekly governance reviews on workflow exceptions.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why is weekly operating cadence important?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Weekly cadence improves decision quality by reducing drift, making ownership explicit, and catching trust regressions before they scale.',
+      },
+    },
+  ],
+}
+
 export default function ExecutiveSearchAiConfidentialityReportPage() {
   return (
-    <BlogPost
-      title="Executive Search, AI, and Confidentiality: 2026 Public Edition"
-      description="A practical operating report for executive coaches and search advisors on decision quality, confidentiality, and AI workflow governance."
-      date="2026-05-27"
-      readTime="8 min read"
-      url={REPORT_URL}
-      cta={{
-        headline: 'Run your search and coaching workflows with less trust risk.',
-        body: 'Use structured operating controls, explicit ownership, and measurable review loops to improve decision quality while scaling AI usage.',
-        label: 'Start free trial →',
-        href: '/signup',
-      }}
-    >
-      <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+    <>
+      <JsonLd data={faqJsonLd} />
+      <BlogPost
+        title="Executive Search, AI, and Confidentiality: 2026 Public Edition"
+        description="A practical operating report for executive coaches and search advisors on decision quality, confidentiality, and AI workflow governance."
+        date="2026-05-27"
+        readTime="8 min read"
+        url={REPORT_URL}
+        cta={{
+          headline: 'Run your search and coaching workflows with less trust risk.',
+          body: 'Use structured operating controls, explicit ownership, and measurable review loops to improve decision quality while scaling AI usage.',
+          label: 'Start free trial ->',
+          href: '/signup',
+        }}
+      >
+        <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <section className="border border-slate-200 rounded-lg p-4 bg-slate-50">
           <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Download</h2>
           <p className="text-[13px] mb-3">Choose the PDF format that fits your use case:</p>
@@ -110,11 +144,12 @@ export default function ExecutiveSearchAiConfidentialityReportPage() {
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Related pages</h2>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px]">
             <Link href="/annual-report-2026" className="underline underline-offset-2 hover:text-slate-900">2026 annual report overview</Link>
-            <Link href="/evidence-room" className="underline underline-offset-2 hover:text-slate-900">Evidence room</Link>
-            <Link href="/method-and-evidence" className="underline underline-offset-2 hover:text-slate-900">Method and evidence</Link>
+            <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-slate-900">Evidence Hub</Link>
           </div>
         </section>
-      </div>
-    </BlogPost>
+        </div>
+      </BlogPost>
+    </>
   )
 }
+

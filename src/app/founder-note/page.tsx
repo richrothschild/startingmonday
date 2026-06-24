@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
 import Link from 'next/link'
 
@@ -27,8 +27,8 @@ export default function FounderNotePage() {
       cta={{
         headline: 'See the system behind the note.',
         body: 'Method, references, pilot findings, and evidence assets are all collected in one place.',
-        label: 'Open the evidence room →',
-        href: '/evidence-room',
+        label: 'Open the Evidence Hub ->',
+        href: '/evidence-hub#internal-validation',
       }}
     >
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
@@ -61,14 +61,15 @@ export default function FounderNotePage() {
         <section id="read-method" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
           <h2 className="text-[18px] font-bold text-slate-900 mb-2">Read the method behind this note</h2>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
-            For sources, limitations, and methodology details, start with the evidence room.
+            For sources, limitations, and methodology details, start with the Evidence Hub.
           </p>
-          <p className="text-[12px] text-slate-600 leading-relaxed mb-3">CTA: get started now by reviewing the evidence room and applying the model to your own campaign.</p>
-          <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-            Open evidence room
+          <p className="text-[12px] text-slate-600 leading-relaxed mb-3">CTA: get started now by reviewing the Evidence Hub and applying the model to your own campaign.</p>
+          <Link href="/evidence-hub#internal-validation" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+            Open Evidence Hub
           </Link>
         </section>
       </div>
     </BlogPost>
   )
 }
+

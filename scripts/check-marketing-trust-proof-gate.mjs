@@ -18,8 +18,8 @@ const checks = [
     allOf: ['Source note', 'Source citations'],
   },
   {
-    file: 'src/app/evidence-room/page.tsx',
-    allOf: ['Source notes and methodology', 'Source:'],
+    file: 'src/app/evidence-hub/page.tsx',
+    allOf: ['Complete source index', 'Key finding:'],
   },
   {
     file: 'src/app/concierge/concierge-waitlist.tsx',

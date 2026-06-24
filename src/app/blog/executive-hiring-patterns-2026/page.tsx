@@ -1,9 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
+import { JsonLd } from '@/components/JsonLd'
 import { getPost } from '@/lib/blog-posts'
 
 const post = getPost('executive-hiring-patterns-2026')!
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.date,
+  dateModified: post.date,
+  author: {
+    '@type': 'Person',
+    name: 'Richard Rothschild',
+    url: 'https://startingmonday.app/about',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Starting Monday',
+    url: 'https://startingmonday.app',
+  },
+  mainEntityOfPage: `https://startingmonday.app/blog/${post.slug}`,
+  about: ['Executive search', 'C-suite transitions'],
+  isBasedOn: 'https://startingmonday.app/evidence-hub',
+}
 
 export const metadata: Metadata = {
   title: `${post.title} - Starting Monday`,
@@ -28,21 +51,23 @@ export const metadata: Metadata = {
 
 export default function ExecutiveHiringPatterns2026Page() {
   return (
-    <BlogPost
-      title={post.title}
-      description={post.description}
-      date={post.date}
-      readTime={post.readTime}
-      url="https://startingmonday.app/blog/executive-hiring-patterns-2026"
-      cta={{
-        headline: 'Benchmark your profile against what hiring teams screen for now.',
-        body: 'Run your profile through our optimizer and see where your positioning is strong, generic, or missing proof for C-suite and VP hiring conversations.',
-        label: 'Run the free profile grade ->',
-        href: '/optimize',
-        note: 'Free to start. No credit card.',
-      }}
-    >
-      <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
+    <>
+      <JsonLd data={articleJsonLd} />
+      <BlogPost
+        title={post.title}
+        description={post.description}
+        date={post.date}
+        readTime={post.readTime}
+        url="https://startingmonday.app/blog/executive-hiring-patterns-2026"
+        cta={{
+          headline: 'Benchmark your profile against what hiring teams screen for now.',
+          body: 'Run your profile through our optimizer and see where your positioning is strong, generic, or missing proof for C-suite and VP hiring conversations.',
+          label: 'Run the free profile grade ->',
+          href: '/optimize',
+          note: 'Free to start. No credit card.',
+        }}
+      >
+        <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>
           We reviewed more than 300 executive and VP-level hiring profiles across enterprise sectors to answer a practical question:
@@ -118,7 +143,8 @@ export default function ExecutiveHiringPatterns2026Page() {
           not volume.
         </p>
 
-      </div>
-    </BlogPost>
+        </div>
+      </BlogPost>
+    </>
   )
 }

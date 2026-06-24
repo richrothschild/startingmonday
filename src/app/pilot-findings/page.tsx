@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { BlogPost } from '@/components/BlogPost'
 import Link from 'next/link'
 
@@ -59,8 +59,8 @@ export default function PilotFindingsPage() {
       cta={{
         headline: 'See how the pilot translates into the product.',
         body: 'Better signals, better prep, and better between-session follow-through for senior executives and the coaches who support them.',
-        label: 'Get started in the evidence room →',
-        href: '/evidence-room',
+        label: 'Get started in the Evidence Hub ->',
+        href: '/evidence-hub#internal-validation',
         note: 'Public evidence and methods are linked from the references page.',
       }}
     >
@@ -102,11 +102,12 @@ export default function PilotFindingsPage() {
           <p className="text-[14px] text-slate-600 leading-relaxed mb-3">
             Review methods, references, and linked evidence so your team can separate observed signal from interpretation.
           </p>
-          <Link href="/evidence-room" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-            Get started in evidence room
+          <Link href="/evidence-hub#internal-validation" className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors">
+            Get started in Evidence Hub
           </Link>
         </section>
       </div>
     </BlogPost>
   )
 }
+

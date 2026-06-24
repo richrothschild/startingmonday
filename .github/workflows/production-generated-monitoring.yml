@@ -51,7 +51,9 @@ jobs:
             for (const s of suite.suites ?? []) walk(s)
             for (const spec of suite.specs ?? []) {
               for (const test of spec.tests ?? []) {
-                if (test.status === 'passed') passed++
+                // Playwright JSON reporter uses 'expected' at test level (not 'passed');
+                // 'passed' appears one level deeper in test.results[].status
+                if (test.status === 'expected') passed++
                 else if (test.status === 'skipped') skipped++
                 else failed++
               }

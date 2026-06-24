@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next'
+﻿import type { MetadataRoute } from 'next'
 import { BLOG_POSTS } from '@/lib/blog-posts'
 
 const BASE = 'https://startingmonday.app'
@@ -19,7 +19,7 @@ const CORE_PAGES = [
   { path: '/blog', changeFrequency: 'weekly' as const, priority: 0.9 },
   { path: '/references', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/method-and-evidence', changeFrequency: 'monthly' as const, priority: 0.7 },
-  { path: '/evidence-room', changeFrequency: 'monthly' as const, priority: 0.7 },
+  { path: '/evidence-hub', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/case-studies', changeFrequency: 'monthly' as const, priority: 0.7 },
   { path: '/pilot-findings', changeFrequency: 'monthly' as const, priority: 0.65 },
   { path: '/founder-note', changeFrequency: 'monthly' as const, priority: 0.6 },
@@ -95,3 +95,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticPages, ...blogPages]
 }
+
