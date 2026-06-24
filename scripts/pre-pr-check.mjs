@@ -6,8 +6,8 @@
  * Parallel group (~12s wall time):
  *   auth enforcement, dep policy, eslint (cached)
  *
- * Sequential (~38s):
- *   tsc --noEmit (incremental), vitest run (full suite)
+ * Sequential (~20s):
+ *   tsc --noEmit (incremental), vitest run --changed origin/main
  *
  * Intentionally excluded:
  *   em-dash scan   — 130+ pre-existing violations; already in CI predeploy-gates
@@ -93,7 +93,7 @@ const tsc = runSync('typecheck', 'npx tsc --noEmit')
 printResult(tsc)
 if (!tsc.ok) failures.push(tsc.label)
 
-const tests = runSync('unit tests', 'npx vitest run')
+const tests = runSync('unit tests', 'npx vitest run --changed origin/main')
 printResult(tests)
 if (!tests.ok) failures.push(tests.label)
 
