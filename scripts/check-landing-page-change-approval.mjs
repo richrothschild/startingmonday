@@ -59,9 +59,7 @@ if (!explicitApproval) {
   for (const file of changedGuarded) {
     console.error(`  - ${file}`)
   }
-  console.error(
-    'To approve: add the "allow-landing-page-change" label to the PR, or set ALLOW_LANDING_PAGE_CHANGE=true repo variable after explicit owner approval.',
-  )
+  console.error('To approve: add the "allow-landing-page-change" label to the PR, or set ALLOW_LANDING_PAGE_CHANGE=true repo variable after explicit owner approval.')
   process.exit(1)
 }
 

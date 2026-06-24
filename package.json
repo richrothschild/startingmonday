@@ -47,6 +47,8 @@
         "monitor:harness:generate": "node scripts/generate-monitoring-harness.mjs",
         "monitor:coverage:refresh": "npm run monitor:matrix:generate && npm run monitor:harness:generate",
         "guard:landing-page-approval": "node scripts/check-landing-page-change-approval.mjs",
+        "seo:crawl:audit": "node scripts/seo/run-crawl-index-audit.mjs",
+        "seo:crawl:audit:quick": "node scripts/seo/run-crawl-index-audit.mjs --max-urls 100",
         "test:e2e:monitor:generated": "playwright test tests/e2e/generated --project=smoke",
         "launch:load:rehearsal": "node scripts/run-launch-load-rehearsal.mjs",
         "ops:dead-letter:check": "node scripts/check-dead-letter-coverage.mjs",
