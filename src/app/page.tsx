@@ -2,7 +2,6 @@
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { EvidenceProofCard } from '@/components/EvidenceProofCard'
 import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
@@ -158,17 +157,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <section className="bg-slate-950 px-4 pt-6 sm:px-6 sm:pt-8">
-        <div className="mx-auto max-w-5xl">
-          <EvidenceProofCard
-            claim="Observed pilot cohorts reached first qualified conversation faster when weekly prep and outreach cadence stayed consistent."
-            sourceLabel="Pilot summary + method notes"
-            sourceHref="/pilot-findings"
-            evidenceHref="/evidence-hub#internal-validation"
-            disclaimer="Results vary by market, role level, and campaign consistency."
-          />
-        </div>
-      </section>
       <LandingPage
         hero={{
           eyebrow: 'You are not behind on talent.',

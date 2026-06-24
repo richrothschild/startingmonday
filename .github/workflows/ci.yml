@@ -90,6 +90,12 @@ jobs:
       - name: Documentation command check
         run: npm run docs:check-commands
 
+      - name: Landing page change approval guard
+        env:
+          ALLOW_LANDING_PAGE_CHANGE: ${{ vars.ALLOW_LANDING_PAGE_CHANGE }}
+          LANDING_GUARD_BASE_REF: origin/main
+        run: npm run guard:landing-page-approval
+
       - name: Release UX checklist policy check
         run: npm run release:ux:checklist:check
 
