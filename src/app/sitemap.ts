@@ -73,6 +73,8 @@ const PARTNER_AND_RESOURCE_PAGES = [
   { path: '/for-pe-teams', priority: 0.6 },
   { path: '/for-relocation', priority: 0.6 },
   { path: '/search-firms', priority: 0.6 },
+  { path: '/search-firms/trust', priority: 0.45 },
+  { path: '/search-firms/procurement', priority: 0.45 },
   { path: '/search-firms/sample-cfo-brief', priority: 0.5 },
 ].map(page => ({ ...page, changeFrequency: 'monthly' as const }))
 

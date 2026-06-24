@@ -80,13 +80,31 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
             Continue to search firm journey
           </TrackLink>
           <TrackLink
-            href="/partners#apply"
+            href="/search-firms/procurement"
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
-            properties={{ channel: 'search_firms', cta_label: `Request pilot packet ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
+            properties={{ channel: 'search_firms', cta_label: `Review procurement path ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
             className="inline-block border border-emerald-500 text-emerald-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-emerald-300 transition-colors"
           >
-            Request pilot packet
+            Review procurement path
+          </TrackLink>
+          <TrackLink
+            href="/search-firms/trust"
+            event={EVENT_NAMES.channelEntryClicked}
+            logToUserEvents
+            properties={{ channel: 'search_firms', cta_label: `Review trust summary ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
+            className="inline-block border border-slate-600 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-300 transition-colors"
+          >
+            Review trust summary
+          </TrackLink>
+          <TrackLink
+            href="/partners?channel=search-firms#apply"
+            event={EVENT_NAMES.channelEntryClicked}
+            logToUserEvents
+            properties={{ channel: 'search_firms', cta_label: `Apply to partner program ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
+            className="inline-block border border-amber-400 text-amber-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-amber-200 transition-colors"
+          >
+            Apply to partner program
           </TrackLink>
           <TrackLink
             href="/search-firms/personas"

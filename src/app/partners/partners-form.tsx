@@ -15,7 +15,25 @@ const INTEREST_OPTIONS = [
 const INPUT_CLS = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400'
 const LABEL_CLS = 'block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5'
 
-export function PartnersForm() {
+type PartnersFormProps = {
+  introLabel?: string
+  introNote?: string
+  defaultInterest?: string
+  companyPlaceholder?: string
+  emailPlaceholder?: string
+  rolePlaceholder?: string
+  notesPlaceholder?: string
+}
+
+export function PartnersForm({
+  introLabel = 'Coach partner application',
+  introNote = 'Short form. Clear next step.',
+  defaultInterest = 'Executive coaching integration',
+  companyPlaceholder = 'Acme Executive Coaching',
+  emailPlaceholder = 'jane@acmecoaching.com',
+  rolePlaceholder = 'Founder, Executive Coach',
+  notesPlaceholder = 'Client count, practice model, timeline...',
+}: PartnersFormProps) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -59,8 +77,8 @@ export function PartnersForm() {
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-      <p className="mb-2 text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">Coach partner application</p>
-      <p className="mb-6 text-[13px] text-slate-500">Short form. Clear next step.</p>
+      <p className="mb-2 text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400">{introLabel}</p>
+      <p className="mb-6 text-[13px] text-slate-500">{introNote}</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -69,20 +87,21 @@ export function PartnersForm() {
           </div>
           <div>
             <label htmlFor="p-company" className={LABEL_CLS}>Practice or company</label>
-            <input id="p-company" name="company" type="text" required placeholder="Acme Executive Coaching" className={INPUT_CLS} />
+            <input id="p-company" name="company" type="text" required placeholder={companyPlaceholder} className={INPUT_CLS} />
           </div>
         </div>
         <div>
           <label htmlFor="p-email" className={LABEL_CLS}>Work email</label>
-          <input id="p-email" name="email" type="email" required placeholder="jane@acmecoaching.com" className={INPUT_CLS} />
+          <input id="p-email" name="email" type="email" required placeholder={emailPlaceholder} className={INPUT_CLS} />
         </div>
         <div>
           <label htmlFor="p-role" className={LABEL_CLS}>Your role</label>
-          <input id="p-role" name="role" type="text" required placeholder="Founder, Executive Coach" className={INPUT_CLS} />
+          <input id="p-role" name="role" type="text" required placeholder={rolePlaceholder} className={INPUT_CLS} />
         </div>
         <div>
           <label htmlFor="p-interests" className={LABEL_CLS}>Partnership model</label>
           <select id="p-interests" name="interests"
+            defaultValue={defaultInterest}
             className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white">
             {INTEREST_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
           </select>
@@ -91,7 +110,7 @@ export function PartnersForm() {
           <label htmlFor="p-how-heard" className={LABEL_CLS}>
             Anything we should know before we reply? <span className="font-normal text-slate-300">(optional)</span>
           </label>
-          <input id="p-how-heard" name="how_heard" type="text" placeholder="Client count, practice model, timeline..."
+          <input id="p-how-heard" name="how_heard" type="text" placeholder={notesPlaceholder}
             className={INPUT_CLS} />
         </div>
         {error && <p className="text-[13px] text-red-600">{error}</p>}

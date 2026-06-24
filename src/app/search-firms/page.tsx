@@ -80,18 +80,18 @@ const governanceCards = [
   {
     title: 'Trust and confidentiality',
     body: 'Candidate sharing stays role-scoped and revocable. Pilot reviews use explicit access boundaries before kickoff begins.',
-    primaryLabel: 'Review sample brief',
-    primaryHref: '/search-firms/sample-cfo-brief',
-    secondaryLabel: 'Run a pilot',
-    secondaryHref: '/partners#apply',
+    primaryLabel: 'Review trust summary',
+    primaryHref: '/search-firms/trust',
+    secondaryLabel: 'Review sample brief',
+    secondaryHref: '/search-firms/sample-cfo-brief',
   },
   {
     title: 'Procurement-ready pilot path',
     body: 'Start with one mandate, a named sponsor, and a day-30 scorecard. No broad rollout, no open-ended software program.',
-    primaryLabel: 'Apply to partner program',
-    primaryHref: '/partners#apply',
-    secondaryLabel: 'See demo',
-    secondaryHref: '/demo?from=search-firms',
+    primaryLabel: 'Review procurement path',
+    primaryHref: '/search-firms/procurement',
+    secondaryLabel: 'Apply to partner program',
+    secondaryHref: '/partners?channel=search-firms#apply',
   },
 ]
 
@@ -108,7 +108,7 @@ export default function SearchFirmsPage() {
               See demo
             </Link>
             <Link
-              href="/partners#apply"
+              href="/partners?channel=search-firms#apply"
               className="rounded bg-orange-500 px-4 py-1.5 text-sm font-semibold text-slate-900 hover:bg-orange-600"
             >
               Partner with us
@@ -155,7 +155,7 @@ export default function SearchFirmsPage() {
                 See sample CFO brief
               </TrackLink>
               <TrackLink
-                href="/partners#apply"
+                href="/partners?channel=search-firms#apply"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Run a pilot', source_page: '/search-firms' }}
@@ -164,13 +164,22 @@ export default function SearchFirmsPage() {
                 Run a pilot
               </TrackLink>
               <TrackLink
-                href="/partners#apply"
+                href="/search-firms/trust"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Request legal and pilot packet', source_page: '/search-firms' }}
+                properties={{ channel: 'search_firms', cta_label: 'Review trust and legal summary', source_page: '/search-firms' }}
                 className="rounded border border-emerald-500/50 bg-emerald-950/20 px-6 py-3 text-sm font-semibold text-emerald-100 hover:border-emerald-400"
               >
-                Request legal and pilot packet
+                Review trust and legal summary
+              </TrackLink>
+              <TrackLink
+                href="/search-firms/procurement"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'Review procurement path', source_page: '/search-firms' }}
+                className="rounded border border-slate-500 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-300"
+              >
+                Review procurement path
               </TrackLink>
               <Link
                 href="/features/search-firms"
@@ -334,7 +343,7 @@ export default function SearchFirmsPage() {
                 Review sample brief
               </TrackLink>
               <TrackLink
-                href="/partners#apply"
+                href="/partners?channel=search-firms#apply"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Apply to partner program', source_page: '/search-firms' }}
@@ -343,13 +352,13 @@ export default function SearchFirmsPage() {
                 Apply to partner program
               </TrackLink>
               <TrackLink
-                href="/partners#apply"
+                href="/search-firms/procurement"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Request procurement packet', source_page: '/search-firms' }}
+                properties={{ channel: 'search_firms', cta_label: 'Review procurement packet', source_page: '/search-firms' }}
                 className="rounded border border-emerald-400 px-5 py-2.5 text-sm font-semibold text-emerald-700 hover:border-emerald-600"
               >
-                Request procurement packet
+                Review procurement packet
               </TrackLink>
             </div>
           </div>
