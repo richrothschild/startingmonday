@@ -74,6 +74,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
             <br className="hidden sm:block" />
             {pageLines[1]}
           </h1>
+          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-amber-100">Pilot framing</h2>
           <p className="mb-7 max-w-2xl text-[16px] leading-relaxed text-slate-200">
             {pageBody}
           </p>
@@ -93,6 +94,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
           <h2 className="mb-4 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
             {isSearchFirms ? 'One pilot. One decision window. Expand only if quality is visible.' : 'One enrollment. Ongoing commission. No minimum referral volume.'}
           </h2>
+          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Operating constraints</h3>
           <ul className="space-y-2 text-[14px] leading-relaxed text-slate-200">
             {partnerTerms.map((item) => (
               <li key={item}>{item}</li>
@@ -103,7 +105,9 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
         <section id="apply" className="scroll-mt-20 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Private application</p>
           <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">{applyHeading}</h2>
+          <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Decision packet</h3>
           <p className="mb-6 text-[14px] leading-relaxed text-slate-200">{applyBody}</p>
+          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Application form</h3>
           <PartnersForm
             introLabel={isSearchFirms ? 'Search-firm partner application' : 'Coach partner application'}
             introNote={isSearchFirms ? 'Short form. One mandate. Clear next step.' : 'Short form. Clear next step.'}
@@ -115,15 +119,17 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
           />
         </section>
 
-        <section className="border-t border-white/10 pt-8">
-          <p className="mb-3 text-[12px] text-slate-400">Other partner paths</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link href="/partners/reporting" className="text-[13px] text-slate-400 transition-colors hover:text-white">Partner reporting &rarr;</Link>
-            <Link href="/search-firms" className="text-[13px] text-slate-400 transition-colors hover:text-white">Search firms &rarr;</Link>
-            <Link href="/for-outplacement" className="text-[13px] text-slate-400 transition-colors hover:text-white">Outplacement providers &rarr;</Link>
-            <Link href="/for-pe-teams" className="text-[13px] text-slate-400 transition-colors hover:text-white">PE talent teams &rarr;</Link>
-          </div>
-        </section>
+        {!isSearchFirms && (
+          <section className="border-t border-white/10 pt-8">
+            <p className="mb-3 text-[12px] text-slate-400">Other partner paths</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link href="/partners/reporting" className="text-[13px] text-slate-400 transition-colors hover:text-white">Partner reporting &rarr;</Link>
+              <Link href="/search-firms" className="text-[13px] text-slate-400 transition-colors hover:text-white">Search firms &rarr;</Link>
+              <Link href="/for-outplacement" className="text-[13px] text-slate-400 transition-colors hover:text-white">Outplacement providers &rarr;</Link>
+              <Link href="/for-pe-teams" className="text-[13px] text-slate-400 transition-colors hover:text-white">PE talent teams &rarr;</Link>
+            </div>
+          </section>
+        )}
 
       </div>
 
