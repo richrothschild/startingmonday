@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TrackLink } from '@/components/TrackLink'
-import { ChannelMicroProductRail } from '@/components/micro-products/ChannelMicroProductRail'
 import { SiteFooter } from '@/components/SiteFooter'
-import { CompactTimelineModule } from '@/components/channel/CompactTimelineModule'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
 export const metadata: Metadata = {
@@ -21,95 +19,53 @@ export const metadata: Metadata = {
   },
 }
 
+const comparisonRows = [
+  {
+    title: 'Kickoff and shortlist quality',
+    withoutLayer: 'Partner and consultant teams rebuild context from scratch, narrative gaps surface too late, and shortlist confidence drops before round one.',
+    withLayer: 'Role-specific brief context is visible before kickoff, so the first conversation starts at decision level and shortlist quality is easier to defend.',
+  },
+  {
+    title: 'Preparation and reset risk',
+    withoutLayer: 'Candidates arrive with uneven company knowledge, board-level framing drifts, and mid-search correction consumes partner time.',
+    withLayer: 'Preparation is structured, mandate-specific, and reviewed through one clearer narrative, one scorecard, and one decision path before expanding effort.',
+  },
+]
+
 const lanes = [
   {
-    title: 'Finance',
-    body: 'CFO transitions, sponsor moves, and mandate positioning context before kickoff.',
+    title: 'Finance and operations',
+    body: 'CFO and COO transitions where sponsor pressure, integration work, and mandate clarity shape shortlist confidence early.',
   },
   {
-    title: 'Operations',
-    body: 'COO transition context, integration mandates, and org-shape signals.',
-  },
-  {
-    title: 'Technology',
-    body: 'CIO, CTO, and CISO market context with candidate positioning angles.',
-  },
-  {
-    title: 'People and Revenue',
-    body: 'CHRO and CRO context focused on mandate clarity and candidate story quality.',
+    title: 'Technology, people, and revenue',
+    body: 'CIO, CTO, CISO, CHRO, and CRO searches where narrative quality and board-level framing need to be sharper before round one.',
   },
 ]
 
-const outcomes = [
-  'Win credibility earlier with clients by showing role-specific context at kickoff.',
-  'Reduce consultant prep and partner rework before candidate outreach begins.',
-  'Present stronger first slates with tighter candidate positioning.',
-  'Shorten mandate-to-shortlist cycles with fewer mid-search resets.',
-]
-
-const firmBenefits = [
-  {
-    title: 'Protect partner time',
-    body: 'Your consultants start with a clear market narrative, so partners spend less time re-briefing teams and fixing search direction mid-cycle.',
-  },
-  {
-    title: 'Increase shortlist confidence',
-    body: 'Candidates enter interviews with stronger role framing and better objection handling, improving first-round quality and client confidence.',
-  },
-  {
-    title: 'Differentiate your process',
-    body: 'Use pre-search briefs as a visible quality signal in competitive pitches and high-stakes retained mandates.',
-  },
-]
-
-const cadence = [
-  'Monday: mandate intake and role lane selection.',
-  'Tuesday: brief delivery with market context and candidate framing.',
-  'Wednesday: consultant prep and kickoff refinement.',
-  'Thursday: candidate outreach and interview prep.',
-  'Friday: shortlist review and search reset check.',
-]
-
-const metrics = [
-  'Consultant prep hours saved per search',
-  'First-slate acceptance rate',
-  'Mid-search resets avoided',
-]
-
-const governanceCards = [
-  {
-    title: 'Trust and confidentiality',
-    body: 'Candidate sharing stays role-scoped and revocable. Pilot reviews use explicit access boundaries before kickoff begins.',
-    primaryLabel: 'Review trust summary',
-    primaryHref: '/search-firms/trust',
-    secondaryLabel: 'Review sample brief',
-    secondaryHref: '/search-firms/sample-cfo-brief',
-  },
-  {
-    title: 'Procurement-ready pilot path',
-    body: 'Start with one mandate, a named sponsor, and a day-30 scorecard. No broad rollout, no open-ended software program.',
-    primaryLabel: 'Review procurement path',
-    primaryHref: '/search-firms/procurement',
-    secondaryLabel: 'Apply to partner program',
-    secondaryHref: '/partners?channel=search-firms#apply',
-  },
+const pilotReadinessPoints = [
+  'Candidate sharing stays role-scoped and revocable before kickoff begins.',
+  'One mandate, one sponsor, and one day-30 scorecard keep the pilot bounded.',
+  'Legal and procurement review happen before broader rollout, not mid-search.',
 ]
 
 export default function SearchFirmsPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950 backdrop-blur-xl">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.12),_transparent_32%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
+
+      <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.16em]">
-            Starting Monday
+          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-80">
+            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/demo" className="text-sm text-slate-600 hover:text-slate-900">
+            <Link href="/demo" className="text-sm text-slate-300 transition-colors hover:text-white">
               See demo
             </Link>
             <Link
               href="/partners?channel=search-firms#apply"
-              className="rounded bg-orange-500 px-4 py-1.5 text-sm font-semibold text-slate-900 hover:bg-orange-600"
+              className="rounded bg-orange-500 px-4 py-1.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
             >
               Partner with us
             </Link>
@@ -118,175 +74,67 @@ export default function SearchFirmsPage() {
       </nav>
 
       <main>
-<section className="bg-slate-950 px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
-          <div className="mx-auto max-w-4xl">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">
+        <section className="px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">
               For retained search firms
             </p>
-            <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl">
-              Single comprehensive brief.<br />No rework.
+            <h1 className="max-w-4xl font-serif text-[38px] leading-[1.04] tracking-tight text-white sm:text-[54px]">
+              Raise candidate quality before round one.
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-200">
-              Starting Monday gives your team role-specific pre-search briefs that improve kickoff quality, sharpen candidate positioning, and compress mandate-to-shortlist timelines.
+            <p className="mt-6 max-w-3xl text-[19px] leading-relaxed text-slate-200/92 sm:text-[20px]">
+              Starting Monday gives retained-search teams a cleaner briefing layer for kickoff, candidate framing, and shortlist confidence before partner time starts leaking.
             </p>
-            <div className="mt-6 rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-relaxed text-slate-200">
-              If your firm already researches every mandate, this is not a replacement. It is the briefing layer that keeps partners from starting from zero.
-            </div>
-            <div className="mt-4 rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-4 text-sm leading-relaxed text-emerald-100">
-              Trust and confidentiality: candidate context stays private to authorized firm workflows, and partner pilots are measured against explicit pass/fail scorecards.
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <TrackLink
-                href="/search-firms/personas"
-                event={EVENT_NAMES.personaRouteSelected}
-                logToUserEvents
-                properties={{ channel: 'search_firms', persona: 'persona_hub', source_route: '/search-firms', target_route: '/search-firms/personas' }}
-                className="rounded bg-slate-100 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-white"
-              >
-                Explore search-firm personas
-              </TrackLink>
+            <p className="mt-4 max-w-2xl text-[13px] leading-relaxed text-slate-400">
+              Weak first-touch narrative quality leaks partner time into recap, repair, and reset work. Start with one mandate and decide from observed quality.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'See sample CFO brief', source_page: '/search-firms' }}
-                className="rounded bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-orange-600"
+                properties={{ channel: 'search_firms', cta_label: 'Review sample CFO brief', source_page: '/search-firms' }}
+                className="rounded-full bg-orange-400 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
               >
-                See sample CFO brief
+                Review sample CFO brief
               </TrackLink>
               <TrackLink
                 href="/partners?channel=search-firms#apply"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Run a pilot', source_page: '/search-firms' }}
-                className="rounded border border-slate-500 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-300"
+                properties={{ channel: 'search_firms', cta_label: 'Start search-firm pilot', source_page: '/search-firms' }}
+                className="text-sm font-semibold text-slate-200 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-orange-300"
               >
-                Run a pilot
+                Start search-firm pilot
               </TrackLink>
-              <TrackLink
-                href="/search-firms/trust"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Review trust and legal summary', source_page: '/search-firms' }}
-                className="rounded border border-emerald-500/50 bg-emerald-950/20 px-6 py-3 text-sm font-semibold text-emerald-100 hover:border-emerald-400"
-              >
-                Review trust and legal summary
-              </TrackLink>
-              <TrackLink
-                href="/search-firms/procurement"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Review procurement path', source_page: '/search-firms' }}
-                className="rounded border border-slate-500 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-300"
-              >
-                Review procurement path
-              </TrackLink>
-              <Link
-                href="/features/search-firms"
-                className="rounded border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-200 hover:border-slate-400"
-              >
-                Feature one-pager
-              </Link>
-              <Link
-                href="/features"
-                className="rounded border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-200 hover:border-slate-400"
-              >
-                Docs hub
-              </Link>
             </div>
 
-            <div className="mt-8">
-              <ChannelMicroProductRail channel="search_firms" sourceRoute="/search-firms" />
-            </div>
-
-            <CompactTimelineModule
-              channel="search_firms"
-              sourcePage="/search-firms"
-              eyebrow="Mini timeline"
-              title="See the retained-search workflow in 3 phases"
-              summary="A fast visual sequence of kickoff readiness, candidate prep quality, and shortlist reporting outcomes."
-              steps={[
-                { phase: 'Discover', focus: 'Mandate intake and lane-specific context build', visual: 'Role-lane brief panel' },
-                { phase: 'Activate', focus: 'Deliver pre-search brief before kickoff', visual: 'Kickoff readiness timeline' },
-                { phase: 'Operate', focus: 'Improve shortlist quality and reduce resets', visual: 'Shortlist quality scoreboard' },
-              ]}
-              theme="light"
-            />
-          </div>
-        </section>
-
-        <section className="px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-bold text-slate-900">What is in it for your firm</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Better search economics without operational drag. We deliver before kickoff with no software rollout, no integration project, and no workflow disruption.
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                {outcomes.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="font-bold text-orange-500">+</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold text-slate-900">How it fits your current process</h2>
-              <ol className="mt-4 space-y-3 text-sm text-slate-700">
-                {cadence.map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
-            </div>
+            <p className="mt-6 text-[12px] uppercase tracking-[0.14em] text-slate-400">
+              One mandate. Named sponsor. Day-30 decision memo.
+            </p>
           </div>
         </section>
 
         <section className="px-4 pb-14 sm:px-6 sm:pb-16">
-          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
-            <div className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold text-slate-900">Why this is credible in retained search</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                We use the same language your team uses every day: mandate, kickoff, slate, shortlist, candidate prep. The goal is not to replace research. It is to make the first conversation sharper and the search easier to run.
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-bold text-slate-900">Track it with a simple scoreboard</h2>
-              <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                {metrics.map((metric) => (
-                  <li key={metric} className="flex gap-2">
-                    <span className="font-bold text-orange-500">+</span>
-                    <span>{metric}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-4 md:grid-cols-2">
-              {governanceCards.map((card) => (
-                <article key={card.title} className="rounded-lg border border-slate-200 bg-slate-50 p-6">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Sprint 1 foundation</p>
-                  <h2 className="mt-2 text-xl font-bold text-slate-900">{card.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{card.body}</p>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <Link
-                      href={card.primaryHref}
-                      className="rounded bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800"
-                    >
-                      {card.primaryLabel}
-                    </Link>
-                    <Link
-                      href={card.secondaryHref}
-                      className="rounded border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
-                    >
-                      {card.secondaryLabel}
-                    </Link>
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-6 shadow-[0_20px_70px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-8">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Without the extra noise</p>
+            <h2 className="max-w-3xl font-serif text-[30px] leading-[1.15] text-white sm:text-[36px]">
+              A cleaner retained-search operating layer.
+            </h2>
+            <div className="mt-6 space-y-4">
+              {comparisonRows.map((row) => (
+                <article key={row.title} className="rounded-2xl border border-white/10 bg-slate-950/35 p-5">
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange-200">{row.title}</p>
+                  <div className="mt-4 grid gap-4 md:grid-cols-2">
+                    <div className="rounded-xl border border-white/8 bg-white/[0.03] p-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">Without an operating layer</p>
+                      <p className="mt-2 text-[14px] leading-relaxed text-slate-300">{row.withoutLayer}</p>
+                    </div>
+                    <div className="rounded-xl border border-orange-200/20 bg-orange-200/8 p-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-orange-100">With Starting Monday</p>
+                      <p className="mt-2 text-[14px] leading-relaxed text-slate-100">{row.withLayer}</p>
+                    </div>
                   </div>
                 </article>
               ))}
@@ -295,50 +143,71 @@ export default function SearchFirmsPage() {
         </section>
 
         <section className="px-4 pb-14 sm:px-6 sm:pb-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-bold text-slate-900">Built for firm outcomes, not activity metrics</h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              {firmBenefits.map((benefit) => (
-                <div key={benefit.title} className="rounded-lg border border-slate-200 p-5">
-                  <h3 className="text-base font-semibold text-slate-900">{benefit.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{benefit.body}</p>
-                </div>
-              ))}
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-[linear-gradient(155deg,rgba(26,22,20,0.82),rgba(10,14,24,0.9))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.3)] backdrop-blur-sm sm:p-8">
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Where it fits</p>
+              <h2 className="font-serif text-[30px] leading-[1.15] text-white sm:text-[36px]">Role lanes we support</h2>
+              <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-slate-200">
+                Keep the surface narrow: start where mandate quality matters most, then expand only if the pilot produces better shortlist confidence and lower reset risk.
+              </p>
             </div>
-          </div>
-        </section>
 
-        <section className="border-y border-slate-200 bg-white px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-bold text-slate-900">Role lanes we support</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {lanes.map((lane) => (
-                <div key={lane.title} className="rounded-lg border border-slate-200 p-5">
-                  <h3 className="text-base font-semibold text-slate-900">{lane.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{lane.body}</p>
-                </div>
+                <article key={lane.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-5">
+                  <h3 className="text-[17px] font-semibold text-white">{lane.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200">{lane.body}</p>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-4xl rounded-lg border border-slate-200 bg-slate-50 p-8 text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Next step</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">Pilot this on your next two retained mandates</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Start with CFO or COO mandates. Measure team prep hours, first-slate acceptance rate, and mandate-to-shortlist speed.
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Pilot readiness</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">Trust, scope, and buying path in one view.</h2>
+            <ul className="mt-5 space-y-3 text-[14px] leading-relaxed text-slate-200">
+              {pilotReadinessPoints.map((point) => (
+                <li key={point} className="flex gap-3">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/search-firms/trust"
+                className="rounded-full bg-orange-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+              >
+                Review trust summary
+              </Link>
+              <Link
+                href="/search-firms/procurement"
+                className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+              >
+                Review procurement path
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-16 sm:px-6 sm:pb-20">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-amber-200/25 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 text-white shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Private invitation</p>
+            <h2 className="font-serif text-[30px] leading-[1.15] text-white sm:text-[36px]">
+              Start with one retained-search mandate.
+            </h2>
+            <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-200">
+              This should feel like a serious professional decision, not software tourism. Review one sample brief, name one sponsor, and expand only if the mandate economics and shortlist quality improve.
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              We will align sponsor ownership, legal review path, and procurement scope before kickoff so the pilot stays reversible and decision-ready at day 30.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Review sample brief', source_page: '/search-firms' }}
-                className="rounded bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+                className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
               >
                 Review sample brief
               </TrackLink>
@@ -347,18 +216,9 @@ export default function SearchFirmsPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Apply to partner program', source_page: '/search-firms' }}
-                className="rounded border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+                className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
-                Apply to partner program
-              </TrackLink>
-              <TrackLink
-                href="/search-firms/procurement"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'search_firms', cta_label: 'Review procurement packet', source_page: '/search-firms' }}
-                className="rounded border border-emerald-400 px-5 py-2.5 text-sm font-semibold text-emerald-700 hover:border-emerald-600"
-              >
-                Review procurement packet
+                Start search-firm pilot
               </TrackLink>
             </div>
           </div>

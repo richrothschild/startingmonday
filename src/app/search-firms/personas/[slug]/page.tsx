@@ -46,19 +46,21 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
   const details = personaRoleDetails[persona.slug]
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-4 sm:px-6 py-14 sm:py-20">
-      <div className="max-w-3xl mx-auto">
-        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Search-firm persona</p>
-        <h1 className="text-[34px] sm:text-[42px] font-bold leading-[1.1] tracking-tight mb-4">{persona.label}</h1>
-        <p className="text-[16px] text-slate-300 leading-relaxed mb-8">{persona.summary}</p>
-        <p className="text-[13px] text-slate-400 leading-relaxed mb-8">
-          Confidential route for partner evaluation and candidate-readiness planning before outreach begins.
-        </p>
+    <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-14 text-white sm:px-6 sm:py-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
+      <div className="mx-auto max-w-4xl">
+        <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-300">Search-firm persona</p>
+        <h1 className="max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">{persona.label}</h1>
+        <h2 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Mandate summary</h2>
+        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-300">{persona.summary}</p>
+        <h3 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Role brief</h3>
 
-        <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-300">Pilot path for this role</p>
-          <p className="mt-2 text-[14px] leading-relaxed text-slate-300">{details?.pilotFocus}</p>
+        <section className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+          <h2 className="text-[22px] font-semibold text-white">Pilot path for this role</h2>
+          <p className="mt-3 text-[14px] leading-relaxed text-slate-300">{details?.pilotFocus}</p>
+          <h3 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Governance line</h3>
           <p className="mt-2 text-[13px] leading-relaxed text-slate-400">{details?.governance}</p>
+          <h3 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Outcomes to verify</h3>
           <ul className="mt-4 space-y-2 text-[13px] leading-relaxed text-slate-300">
             {details?.outcomes.map((outcome) => (
               <li key={outcome} className="flex gap-2">
@@ -69,13 +71,14 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
           </ul>
         </section>
 
-        <div className="flex flex-wrap gap-3">
+        <h3 className="mt-6 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Next actions</h3>
+        <div className="mt-6 flex flex-wrap gap-3">
           <TrackLink
             href={persona.destination}
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
             properties={{ channel: 'search_firms', cta_label: `Open ${persona.slug} destination`, source_page: `/search-firms/personas/${persona.slug}` }}
-            className="inline-block bg-orange-500 text-slate-900 text-[14px] font-semibold px-5 py-3 rounded hover:bg-orange-600 transition-colors"
+            className="inline-block rounded-full bg-orange-400 px-5 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
           >
             Continue to search firm journey
           </TrackLink>
@@ -84,25 +87,16 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
             properties={{ channel: 'search_firms', cta_label: `Review procurement path ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
-            className="inline-block border border-emerald-500 text-emerald-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-emerald-300 transition-colors"
+            className="inline-block rounded-full border border-white/18 px-5 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
           >
-            Review procurement path
-          </TrackLink>
-          <TrackLink
-            href="/search-firms/trust"
-            event={EVENT_NAMES.channelEntryClicked}
-            logToUserEvents
-            properties={{ channel: 'search_firms', cta_label: `Review trust summary ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
-            className="inline-block border border-slate-600 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-300 transition-colors"
-          >
-            Review trust summary
+            Review pilot requirements
           </TrackLink>
           <TrackLink
             href="/partners?channel=search-firms#apply"
             event={EVENT_NAMES.channelEntryClicked}
             logToUserEvents
             properties={{ channel: 'search_firms', cta_label: `Apply to partner program ${persona.slug}`, source_page: `/search-firms/personas/${persona.slug}` }}
-            className="inline-block border border-amber-400 text-amber-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-amber-200 transition-colors"
+            className="inline-block rounded-full border border-white/18 px-5 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
           >
             Apply to partner program
           </TrackLink>
@@ -111,7 +105,7 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
             event={EVENT_NAMES.personaRouteSelected}
             logToUserEvents
             properties={{ channel: 'search_firms', persona: 'persona_back_nav', source_route: `/search-firms/personas/${persona.slug}`, target_route: '/search-firms/personas' }}
-            className="inline-block border border-slate-600 text-slate-100 text-[14px] font-semibold px-5 py-3 rounded hover:border-slate-300 transition-colors"
+            className="inline-block rounded-full border border-white/18 px-5 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
           >
             Back to persona list
           </TrackLink>

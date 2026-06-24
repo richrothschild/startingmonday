@@ -34,32 +34,35 @@ const buyingSteps = [
 
 export default function SearchFirmsProcurementPage() {
   return (
-    <main className="min-h-screen bg-white px-4 py-10 text-slate-900 sm:px-6 sm:py-14">
-      <div className="mx-auto max-w-4xl">
-        <Link href="/search-firms" className="text-sm text-slate-500 hover:text-slate-900">
+    <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 sm:py-14">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
+      <div className="mx-auto max-w-5xl">
+        <Link href="/search-firms" className="text-sm text-slate-400 transition-colors hover:text-white">
           {'<- Back to search firms'}
         </Link>
 
-        <header className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Procurement path</p>
-          <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">How the pilot buying path works</h1>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
-            This page is the public-facing version of the Sprint 1 procurement flow: clear package scope, named ownership, and a reversible pilot before broader rollout.
+        <header className="mt-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Procurement path</p>
+          <h1 className="mt-3 max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">How the pilot buying path works</h1>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200">
+            This should read like a serious buying path, not a software funnel. Clear package scope, named ownership, and a reversible pilot come first.
           </p>
         </header>
 
-        <section className="mt-6 grid gap-4 md:grid-cols-3">
-          {packages.map((pkg) => (
-            <article key={pkg.title} className="rounded-xl border border-slate-200 p-5">
-              <p className="text-sm font-semibold text-slate-900">{pkg.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{pkg.body}</p>
-            </article>
-          ))}
-        </section>
+        <section className="mt-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-6 shadow-[0_20px_70px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-8">
+          <h2 className="font-serif text-[24px] leading-[1.15] text-white">Package path</h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            {packages.map((pkg) => (
+              <article key={pkg.title} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <h3 className="text-[14px] font-semibold text-white">{pkg.title}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-slate-200">{pkg.body}</p>
+              </article>
+            ))}
+          </div>
 
-        <section className="mt-6 rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900">Buying sequence</h2>
-          <ol className="mt-4 space-y-2 text-sm text-slate-700">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Buying sequence</p>
+          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Four decisions before kickoff</h2>
+          <ol className="mt-5 space-y-3 text-[14px] text-slate-200">
             {buyingSteps.map((step, index) => (
               <li key={step}>
                 {index + 1}. {step}
@@ -68,32 +71,24 @@ export default function SearchFirmsProcurementPage() {
           </ol>
         </section>
 
-        <section className="mt-6 grid gap-4 md:grid-cols-2">
-          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h2 className="text-lg font-bold text-slate-900">What management owns</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Sponsor assignment, weekly operating cadence, and the day-30 decision standard should be locked before kickoff.
-            </p>
-          </article>
-
-          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <h2 className="text-lg font-bold text-slate-900">What procurement checks</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Package scope, billing path, legal dependencies, and the implementation effort required by each buyer-side role.
-            </p>
-          </article>
+        <section className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)]">
+          <h2 className="font-serif text-[24px] leading-[1.15] text-white">Management and procurement ownership</h2>
+          <p className="mt-3 text-[14px] leading-relaxed text-slate-200">
+            Management owns sponsor assignment, weekly cadence, and day-30 decision criteria. Procurement confirms package scope, billing path, legal dependencies, and expected buyer-side effort.
+          </p>
         </section>
 
-        <section className="mt-6 rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900">Next step</h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
+        <section className="mt-6 rounded-[2rem] border border-amber-200/25 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Next step</p>
+          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Move to application only when trust and scope are already clear.</h2>
+          <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-200">
             Use the trust summary first if legal review needs to happen before commercial review. Otherwise move directly to the partner application and pilot-scope conversation.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/search-firms/trust" className="rounded border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500">
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/search-firms/trust" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
               Review trust summary
             </Link>
-            <Link href="/partners?channel=search-firms#apply" className="rounded bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
+            <Link href="/partners?channel=search-firms#apply" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300">
               Apply to partner program
             </Link>
           </div>

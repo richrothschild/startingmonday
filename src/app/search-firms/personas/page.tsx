@@ -19,20 +19,16 @@ export const metadata: Metadata = {
 
 export default function SearchFirmPersonasPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-4 sm:px-6 py-14 sm:py-20">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-4">Search-firm persona routes</p>
-        <h1 className="text-[34px] sm:text-[42px] font-bold leading-[1.1] tracking-tight mb-4">Choose your search-firm role.</h1>
-        <p className="text-[16px] text-slate-300 leading-relaxed mb-8">Select the role path that matches your mandate ownership and delivery responsibility.</p>
+    <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-14 text-white sm:px-6 sm:py-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
+      <div className="mx-auto max-w-5xl">
+        <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-300">Search-firm persona routes</p>
+        <h1 className="max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">Choose the role that owns mandate quality.</h1>
+        <h2 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Pilot frame</h2>
+        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-300">Each route keeps the same operating frame: one mandate, one sponsor, and one day-30 decision point.</p>
 
-        <div className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-300">Pilot structure</p>
-          <p className="mt-2 text-[14px] leading-relaxed text-slate-300">
-            Every path uses the same Sprint 1 operating frame: one mandate, named sponsor, role-scoped access, and a day-30 go, revise, or stop decision.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <h2 className="mt-6 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Role routes</h2>
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {SEARCH_FIRM_PERSONAS.map((persona) => (
             <TrackLink
               key={persona.slug}
@@ -40,9 +36,9 @@ export default function SearchFirmPersonasPage() {
               event={EVENT_NAMES.personaRouteSelected}
               logToUserEvents
               properties={{ channel: 'search_firms', persona: persona.slug, source_route: '/search-firms/personas', target_route: `/search-firms/personas/${persona.slug}` }}
-              className="block rounded border border-slate-800 bg-slate-900 p-4 hover:border-orange-500 transition-colors"
+              className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-colors hover:border-orange-300/70"
             >
-              <p className="text-[14px] font-semibold text-white mb-2">{persona.label}</p>
+              <h2 className="mb-2 text-[17px] font-semibold text-white">{persona.label}</h2>
               <p className="text-[13px] text-slate-300 leading-relaxed">{persona.summary}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {(personaOutcomeChips[persona.slug] ?? []).map((chip) => (
@@ -51,11 +47,31 @@ export default function SearchFirmPersonasPage() {
                   </span>
                 ))}
               </div>
-              <p className="mt-3 text-[12px] leading-relaxed text-slate-400">
-                Includes trust, procurement, and trial-governance guidance for this role.
-              </p>
+              <p className="mt-3 text-[12px] font-semibold text-slate-200">Open role path</p>
             </TrackLink>
           ))}
+        </div>
+
+        <h3 className="mt-6 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Pilot requirements</h3>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <TrackLink
+            href="/search-firms/trust"
+            event={EVENT_NAMES.channelEntryClicked}
+            logToUserEvents
+            properties={{ channel: 'search_firms', cta_label: 'Review trust summary', source_page: '/search-firms/personas' }}
+            className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+          >
+            Review trust summary
+          </TrackLink>
+          <TrackLink
+            href="/search-firms/procurement"
+            event={EVENT_NAMES.channelEntryClicked}
+            logToUserEvents
+            properties={{ channel: 'search_firms', cta_label: 'Review procurement path', source_page: '/search-firms/personas' }}
+            className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+          >
+            Review procurement path
+          </TrackLink>
         </div>
       </div>
     </main>

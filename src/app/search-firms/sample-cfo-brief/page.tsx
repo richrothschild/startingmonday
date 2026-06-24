@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import SearchFirmSampleBriefExperience from '@/components/SearchFirmSampleBriefExperience'
 
 export const metadata: Metadata = {
   title: 'Sample CFO Pre-Search Brief',
@@ -35,183 +34,105 @@ const interviewFilters = [
   'Do they have practical international finance operations experience?',
 ]
 
-const personaReadGuides = [
-  {
-    title: 'Partner lead lens',
-    body: 'Look for whether this brief would shorten kickoff ambiguity and improve shortlist confidence without adding partner overhead.',
-  },
-  {
-    title: 'Delivery lead lens',
-    body: 'Look for whether the brief gives consultants a cleaner first-pass story and reduces mid-search resets.',
-  },
-  {
-    title: 'Candidate-success lens',
-    body: 'Look for whether the candidate would enter round one with clearer framing, stronger board context, and fewer avoidable gaps.',
-  },
+const guardrails = [
+  'One mandate, named sponsor, and day-30 decision memo.',
+  'Role-scoped candidate visibility with revocation controls.',
+  'Legal and procurement review before broader lane rollout.',
 ]
 
 export default function SampleCfoBriefPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <main className="px-4 py-10 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-4xl">
-          <Link href="/search-firms" className="text-sm text-slate-500 hover:text-slate-900">
-            {'<- Back to search firms'}
-          </Link>
+    <main className="relative min-h-screen overflow-hidden bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 sm:py-14">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
-          <header className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-6 sm:p-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">Sample brief</p>
-            <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">CFO Pre-Search Brief</h1>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              This is a retained-search artifact: a board-ready CFO brief that helps a firm sharpen kickoff, candidate framing, and board prep before search starts.
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              The page includes a complete example and an intake-to-brief preview flow for real client mandates.
-            </p>
-            <div className="mt-5 grid gap-3 md:grid-cols-3">
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Pilot fit</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">Use this asset to evaluate one live mandate before committing to a broader workflow change.</p>
-              </div>
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Trust</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">Candidate-sharing stays role-scoped and revocable throughout the pilot and review cycle.</p>
-              </div>
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Procurement</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">Sprint 1 uses one mandate, named sponsor ownership, and a day-30 decision memo to keep buying reversible.</p>
-              </div>
-            </div>
-          </header>
+      <div className="mx-auto max-w-5xl">
+        <Link href="/search-firms" className="text-sm text-slate-400 transition-colors hover:text-white">
+          {'<- Back to search firms'}
+        </Link>
 
-          <section className="mt-6 rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-3">How to read this brief</h2>
-            <div className="grid gap-4 md:grid-cols-3">
-              {personaReadGuides.map((guide) => (
-                <article key={guide.title} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-sm font-semibold text-slate-900">{guide.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{guide.body}</p>
-                </article>
+        <header className="mt-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Sample brief</p>
+          <h1 className="mt-3 max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">CFO pre-search brief</h1>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200">
+            One retained-search sample to evaluate kickoff quality, candidate framing, and shortlist confidence without adding workflow noise.
+          </p>
+          <p className="mt-5 text-[12px] uppercase tracking-[0.14em] text-slate-400">One sample. One sponsor. One day-30 decision.</p>
+        </header>
+
+        <section className="mt-6 grid gap-4 md:grid-cols-3">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="text-[15px] font-semibold text-white">Market context</h2>
+            <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
+              {moves.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{item}</span>
+                </li>
               ))}
-            </div>
-          </section>
+            </ul>
+          </article>
 
-          <section className="mt-6 rounded-lg border border-slate-200 bg-white p-4">
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">Jump to section</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-              <a href="#market-context" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Market context</a>
-              <a href="#positioning-angles" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Positioning angles</a>
-              <a href="#interview-filters" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Interview filters</a>
-              <a href="#pilot-governance" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Pilot governance</a>
-              <a href="#takeaway" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">One-page takeaway</a>
-            </div>
-          </section>
+          <article className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="text-[15px] font-semibold text-white">Positioning angles</h2>
+            <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
+              {positioning.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
 
-          <section className="mt-8 space-y-6">
-            <article id="market-context" className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold">Section A: Market context</h2>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                {moves.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="font-bold text-orange-500">+</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+          <article className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="text-[15px] font-semibold text-white">Interview filters</h2>
+            <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
+              {interviewFilters.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </section>
 
-            <article id="positioning-angles" className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold">Section B: Candidate positioning angles</h2>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                {positioning.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="font-bold text-orange-500">+</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+        <section className="mt-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-6 shadow-[0_20px_70px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-8">
+          <h2 className="font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Pilot guardrails</h2>
+          <ul className="mt-5 space-y-3 text-[14px] leading-relaxed text-slate-200">
+            {guardrails.map((point) => (
+              <li key={point} className="flex gap-3">
+                <span className="font-bold text-orange-300">+</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+          <h3 className="mt-6 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-200">Requirements links</h3>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/search-firms/trust" className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
+              Review trust summary
+            </Link>
+            <Link href="/search-firms/procurement" className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
+              Review procurement path
+            </Link>
+          </div>
+        </section>
 
-            <article id="interview-filters" className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold">Section C: Interview filters and board questions</h2>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                {interviewFilters.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="font-bold text-orange-500">+</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-
-            <article id="pilot-governance" className="rounded-lg border border-slate-200 p-6">
-              <h2 className="text-xl font-bold">Section D: Pilot governance and buying path</h2>
-              <div className="mt-4 grid gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Trust and legal</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">Confirm confidentiality boundaries, role-scoped access, and decision-support limits before candidate activation.</p>
-                  <Link href="/search-firms/trust" className="mt-3 inline-flex text-sm font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">
-                    Review trust summary
-                  </Link>
-                </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Procurement</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">Use one mandate, one sponsor, and a short packet set to reduce quote-to-kickoff delay.</p>
-                  <Link href="/search-firms/procurement" className="mt-3 inline-flex text-sm font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">
-                    Review procurement path
-                  </Link>
-                </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Day-30 decision</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">Measure prep hours, first-slate quality, and reset frequency before deciding to expand, revise, or stop.</p>
-                  <Link href="/partners?channel=search-firms#apply" className="mt-3 inline-flex text-sm font-semibold text-slate-900 underline underline-offset-2 hover:text-orange-600">
-                    Start pilot review
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            <article id="takeaway" className="rounded-lg border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-xl font-bold">Section E: One-page takeaway</h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                Mandate fit is strongest when the candidate has proven integration execution, sponsor communication strength, and scale-stage finance leadership. This context should be used at kickoff and in first-round screening.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                Outcome: faster kickoff alignment, tighter shortlist quality, and clearer board interview criteria.
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                Outcome metric: cut kickoff-to-shortlist cycle time by 20 to 30 percent on retained mandates.
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Trust and confidentiality: client mandate details stay confidential to your retained search workflow.
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-800">CTA: get started now with a retained-search pilot.</p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Link
-                  href="/search-firms"
-                  className="rounded bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-                >
-                  Back to landing page
-                </Link>
-                <Link
-                  href="/partners?channel=search-firms#apply"
-                  className="rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-500"
-                >
-                  Run a pilot
-                </Link>
-                <Link
-                  href="/search-firms/procurement"
-                  className="rounded border border-emerald-300 px-4 py-2 text-sm font-semibold text-emerald-700 hover:border-emerald-500"
-                >
-                  Review procurement path
-                </Link>
-              </div>
-            </article>
-          </section>
-
-          <SearchFirmSampleBriefExperience />
-        </div>
-      </main>
-    </div>
+        <section className="mt-6 rounded-[2rem] border border-amber-200/25 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
+          <h2 className="font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Use this sample to approve one live pilot.</h2>
+          <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-200">
+            If this brief quality clears your internal bar, move to a single-mandate pilot and keep expansion contingent on measured shortlist outcomes.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/partners?channel=search-firms#apply" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300">
+              Start search-firm pilot
+            </Link>
+            <Link href="/search-firms" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
+              Back to search-firms page
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
   )
 }
