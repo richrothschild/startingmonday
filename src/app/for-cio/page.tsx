@@ -2,7 +2,6 @@
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import Link from 'next/link'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'

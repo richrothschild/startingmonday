@@ -14,6 +14,11 @@
 # testing
 /coverage
 /playwright-report
+/playwright-report-pr-*/
+/auth-ux-report/
+/first-value-synthetic-report/
+/mobile-visual-report/
+/mobile-visual-smoke-report/
 /test-results
 /tests/e2e/.auth
 /.lighthouseci
@@ -63,6 +68,7 @@ StartingMonday-Dev.bat
 tests/e2e/generated/
 docs/status/monitoring-coverage-matrix.latest.json
 docs/status/monitoring-coverage-matrix.latest.md
+monitoring-coverage-matrix/
 
 # Guide artifacts (generated locally and in CI — not committed to avoid constant conflicts)
 docs/user-guide.md

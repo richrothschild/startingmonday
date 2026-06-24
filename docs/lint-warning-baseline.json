@@ -1,5 +1,5 @@
 {
-  "warnings": 392,
-  "capturedAt": "2026-06-19",
-  "notes": "Recaptured on SMK-315/ci-pr-unblock after adding playwright-report/** to globalIgnores; 4 new warnings from files added to main since last baseline capture."
+  "warnings": 393,
+  "capturedAt": "2026-06-23",
+  "notes": "Recaptured on smk-fix-playwright-luxury-ci-failures; sprint 2-4 commits added 2 warnings to main (394 total); this PR removes unused Link import from for-cio/page.tsx, net 393."
 }
