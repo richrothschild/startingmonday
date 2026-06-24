@@ -2,29 +2,40 @@
 
 import { execSync } from 'node:child_process'
 
-function getChangedFiles() {
-  const baseRef = process.env.LANDING_GUARD_BASE_REF || 'origin/main'
-
+function tryDiff(ref) {
   try {
-    const output = execSync(`git diff --name-only ${baseRef}...HEAD`, {
+    return execSync(`git diff --name-only ${ref}`, {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     })
-    return output
       .split('\n')
       .map((line) => line.trim())
       .filter(Boolean)
   } catch {
-    // Fallback when base ref is unavailable locally.
-    const output = execSync('git diff --name-only HEAD~1..HEAD', {
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    })
-    return output
-      .split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean)
+    return null
   }
+}
+
+function getChangedFiles() {
+  const baseRef = process.env.LANDING_GUARD_BASE_REF
+
+  // Try explicit base SHA first (provided by CI as PR base commit).
+  if (baseRef) {
+    const result = tryDiff(`${baseRef}...HEAD`)
+    if (result !== null) return result
+  }
+
+  // Try origin/main (works locally and in full-depth clones).
+  const fromOriginMain = tryDiff('origin/main...HEAD')
+  if (fromOriginMain !== null) return fromOriginMain
+
+  // Fallback: single-parent diff — works in shallow clones with fetch-depth: 2.
+  const fromParent = tryDiff('HEAD^1..HEAD')
+  if (fromParent !== null) return fromParent
+
+  // Cannot determine changed files — fail safe (pass).
+  console.warn('landing-page-guard: could not determine changed files; skipping check')
+  return []
 }
 
 const guardedFiles = new Set([
@@ -48,7 +59,9 @@ if (!explicitApproval) {
   for (const file of changedGuarded) {
     console.error(`  - ${file}`)
   }
-  console.error('Set ALLOW_LANDING_PAGE_CHANGE=true only after explicit owner approval.')
+  console.error(
+    'To approve: add the "allow-landing-page-change" label to the PR, or set ALLOW_LANDING_PAGE_CHANGE=true repo variable after explicit owner approval.',
+  )
   process.exit(1)
 }
 

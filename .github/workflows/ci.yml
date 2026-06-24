@@ -78,6 +78,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
 
       - uses: actions/setup-node@v5
         with:
@@ -92,8 +94,9 @@ jobs:
 
       - name: Landing page change approval guard
         env:
-          ALLOW_LANDING_PAGE_CHANGE: ${{ vars.ALLOW_LANDING_PAGE_CHANGE }}
-          LANDING_GUARD_BASE_REF: origin/main
+          ALLOW_LANDING_PAGE_CHANGE: >-
+            ${{ (contains(github.event.pull_request.labels.*.name, 'allow-landing-page-change') || vars.ALLOW_LANDING_PAGE_CHANGE == 'true') && 'true' || 'false' }}
+          LANDING_GUARD_BASE_REF: ${{ github.event.pull_request.base.sha || '' }}
         run: npm run guard:landing-page-approval
 
       - name: Release UX checklist policy check
