@@ -73,7 +73,7 @@ console.log(`\n${BOLD}Pre-PR checks${RESET}\n`)
 console.log(`${DIM}parallel: auth · deps · lint${RESET}`)
 
 const parallelResults = await Promise.all([
-  runAsync('auth enforcement',  'sh scripts/check-auth.sh'),
+  runAsync('auth enforcement',  'node scripts/check-auth.mjs'),
   runAsync('dep policy',        'node scripts/check-dependency-policy.mjs'),
   runAsync('lint (cached)',     'npx eslint --cache src scripts worker tests'),
 ])
