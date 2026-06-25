@@ -22,7 +22,7 @@ export const EXECUTIVE_PERSONAS: readonly PersonaSpec[] = [
     slug: 'vp-technology',
     label: 'VP technology path',
     summary: 'Execution for VP-level technology leaders pursuing strategic scope expansion.',
-    destination: '/for-vp-technology',
+    destination: '/for-leaders',
   },
   {
     slug: 'chief-data-officer',

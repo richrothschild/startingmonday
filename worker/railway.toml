@@ -3,8 +3,7 @@ builder = "nixpacks"
 buildCommand = "echo 'no build step'"
 
 [deploy]
-# Keep start command shell-free; set NODE_OPTIONS in Railway service variables.
-startCommand = "node index.js"
+startCommand = "sh -lc 'NODE_OPTIONS=--max-old-space-size=1536 node index.js'"
 healthcheckPath = "/health"
-healthcheckTimeout = 300
+healthcheckTimeout = 90
 restartPolicyType = "on_failure"

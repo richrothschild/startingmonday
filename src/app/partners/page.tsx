@@ -3,33 +3,64 @@ import Link from 'next/link'
 import { PartnersForm } from './partners-form'
 
 export const metadata: Metadata = {
-  title: 'Coach Partner Program | Starting Monday',
-  description: 'A private partner evaluation for executive coaches. Test the workflow with 2 to 3 clients, verify outcome quality, and refer with confidence.',
+  title: 'Partner Program | Starting Monday',
+  description: 'Private partner evaluations for coaches, search firms, and other transition partners. Start with a bounded pilot, verify outcome quality, then expand.',
   alternates: { canonical: 'https://startingmonday.app/partners' },
   openGraph: {
-    title: 'Coach Partner Program | Starting Monday',
-    description: 'Test the workflow. Refer with confidence. Earn 20% recurring commission.',
+    title: 'Partner Program | Starting Monday',
+    description: 'Start with a private pilot, verify workflow quality, then expand with confidence.',
     url: 'https://startingmonday.app/partners',
   },
 }
 
-const PARTNER_TERMS = [
+const COACH_PARTNER_TERMS = [
   'Free enrollment with referral tracking.',
   '20% recurring commission on active referrals.',
   'Preview-first: clients evaluate from workflow quality, not pitch.',
   'Client access remains client-controlled throughout.',
 ]
 
-export default function PartnersPage() {
+const SEARCH_FIRM_PARTNER_TERMS = [
+  'Start with one mandate, one sponsor, and a 30-day decision window.',
+  'Pilot expansion depends on shortlist quality and prep-economics evidence.',
+  'Candidate visibility remains role-scoped and revocable throughout the pilot.',
+  'Procurement and legal review happen before kickoff, not mid-search.',
+]
+
+type PartnersPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
+}
+
+export default async function PartnersPage({ searchParams }: PartnersPageProps) {
+  const resolvedSearchParams = (await searchParams) ?? {}
+  const rawChannel = resolvedSearchParams.channel
+  const channel = Array.isArray(rawChannel) ? rawChannel[0] : rawChannel
+  const isSearchFirms = channel === 'search-firms'
+  const pageEyebrow = isSearchFirms ? 'Search-Firm Partner Program' : 'Coach Partner Program'
+  const pageLines = isSearchFirms
+    ? ['Run one mandate first.', 'Expand only if the pilot proves out.']
+    : ['Test the workflow with live clients.', 'Refer only when the evidence is clear.']
+  const pageBody = isSearchFirms
+    ? 'The partner path starts with a private 30-day retained-search pilot. Use one mandate, one sponsor, and a day-30 decision memo before any broader rollout.'
+    : 'The partner path starts with a private 30-day evaluation, not a pitch. Run Starting Monday with 2 to 3 clients, observe operating quality, then decide whether to refer.'
+  const partnerTerms = isSearchFirms ? SEARCH_FIRM_PARTNER_TERMS : COACH_PARTNER_TERMS
+  const applyHeading = isSearchFirms ? 'Apply for the 30-day search-firm pilot.' : 'Apply for the 30-day coach evaluation.'
+  const applyBody = isSearchFirms
+    ? 'We respond within 2 business days with pilot scope, legal and procurement next steps, and kickoff sequencing for one retained-search mandate.'
+    : 'We respond within 2 business days with your referral link and partner activation. Run the evaluation and decide from observed outcomes.'
+  const proofHref = isSearchFirms ? '/search-firms/sample-cfo-brief' : '/evidence-hub#coaching-transitions'
+
   return (
     <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/for-coaches" className="text-[13px] text-slate-100 transition-colors hover:text-white">Coach preview</Link>
+            <Link href={isSearchFirms ? '/search-firms' : '/for-coaches'} className="text-[13px] text-slate-100 transition-colors hover:text-white">
+              {isSearchFirms ? 'Search-firm preview' : 'Coach preview'}
+            </Link>
             <Link href="/login" className="text-[13px] text-slate-100 transition-colors hover:text-white">Log in</Link>
           </div>
         </div>
@@ -37,14 +68,15 @@ export default function PartnersPage() {
 
       <header className="border-b border-white/10 px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-200">Coach Partner Program</p>
+          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-200">{pageEyebrow}</p>
           <h1 className="mb-5 max-w-3xl font-serif text-[34px] leading-[1.05] tracking-tight text-white sm:text-[48px]">
-            Test the workflow with live clients.
+            {pageLines[0]}
             <br className="hidden sm:block" />
-            Refer only when the evidence is clear.
+            {pageLines[1]}
           </h1>
+          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-amber-100">Pilot framing</h2>
           <p className="mb-7 max-w-2xl text-[16px] leading-relaxed text-slate-200">
-            The partner path starts with a private 30-day evaluation, not a pitch. Run Starting Monday with 2 to 3 clients, observe operating quality, then decide whether to refer.
+            {pageBody}
           </p>
           <a
             href="#apply"
@@ -59,9 +91,12 @@ export default function PartnersPage() {
 
         <section className="rounded-[2rem] border border-amber-200/20 bg-[linear-gradient(155deg,rgba(26,22,20,0.82),rgba(10,14,24,0.9))] p-6 sm:p-8">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Partner terms</p>
-          <h2 className="mb-4 font-serif text-[26px] leading-tight text-white sm:text-[30px]">One enrollment. Ongoing commission. No minimum referral volume.</h2>
+          <h2 className="mb-4 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
+            {isSearchFirms ? 'One pilot. One decision window. Expand only if quality is visible.' : 'One enrollment. Ongoing commission. No minimum referral volume.'}
+          </h2>
+          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Operating constraints</h3>
           <ul className="space-y-2 text-[14px] leading-relaxed text-slate-200">
-            {PARTNER_TERMS.map((item) => (
+            {partnerTerms.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
@@ -69,20 +104,32 @@ export default function PartnersPage() {
 
         <section id="apply" className="scroll-mt-20 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Private application</p>
-          <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">Apply for the 30-day coach evaluation.</h2>
-          <p className="mb-6 text-[14px] leading-relaxed text-slate-200">We respond within 2 business days with your referral link and partner activation. Run the evaluation and decide from observed outcomes.</p>
-          <PartnersForm />
+          <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">{applyHeading}</h2>
+          <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Decision packet</h3>
+          <p className="mb-6 text-[14px] leading-relaxed text-slate-200">{applyBody}</p>
+          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Application form</h3>
+          <PartnersForm
+            introLabel={isSearchFirms ? 'Search-firm partner application' : 'Coach partner application'}
+            introNote={isSearchFirms ? 'Short form. One mandate. Clear next step.' : 'Short form. Clear next step.'}
+            defaultInterest={isSearchFirms ? 'Search firm / retained firm' : 'Executive coaching integration'}
+            companyPlaceholder={isSearchFirms ? 'Acme Retained Search' : 'Acme Executive Coaching'}
+            emailPlaceholder={isSearchFirms ? 'jane@acmesearch.com' : 'jane@acmecoaching.com'}
+            rolePlaceholder={isSearchFirms ? 'Managing Partner, Technology Practice Lead' : 'Founder, Executive Coach'}
+            notesPlaceholder={isSearchFirms ? 'Mandate lane, sponsor owner, pilot timing...' : 'Client count, practice model, timeline...'}
+          />
         </section>
 
-        <section className="border-t border-white/10 pt-8">
-          <p className="mb-3 text-[12px] text-slate-400">Other partner paths</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link href="/partners/reporting" className="text-[13px] text-slate-400 transition-colors hover:text-white">Partner reporting &rarr;</Link>
-            <Link href="/search-firms" className="text-[13px] text-slate-400 transition-colors hover:text-white">Search firms &rarr;</Link>
-            <Link href="/for-outplacement" className="text-[13px] text-slate-400 transition-colors hover:text-white">Outplacement providers &rarr;</Link>
-            <Link href="/for-pe-teams" className="text-[13px] text-slate-400 transition-colors hover:text-white">PE talent teams &rarr;</Link>
-          </div>
-        </section>
+        {!isSearchFirms && (
+          <section className="border-t border-white/10 pt-8">
+            <p className="mb-3 text-[12px] text-slate-400">Other partner paths</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link href="/partners/reporting" className="text-[13px] text-slate-400 transition-colors hover:text-white">Partner reporting &rarr;</Link>
+              <Link href="/search-firms" className="text-[13px] text-slate-400 transition-colors hover:text-white">Search firms &rarr;</Link>
+              <Link href="/for-outplacement" className="text-[13px] text-slate-400 transition-colors hover:text-white">Outplacement providers &rarr;</Link>
+              <Link href="/for-pe-teams" className="text-[13px] text-slate-400 transition-colors hover:text-white">PE talent teams &rarr;</Link>
+            </div>
+          </section>
+        )}
 
       </div>
 
@@ -92,7 +139,7 @@ export default function PartnersPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 text-[11px]">
-            <Link href="/evidence-hub#coaching-transitions" className="text-slate-500 transition-colors hover:text-slate-200">
+            <Link href={proofHref} className="text-slate-500 transition-colors hover:text-slate-200">
               Proof
             </Link>
             <p className="text-slate-500">

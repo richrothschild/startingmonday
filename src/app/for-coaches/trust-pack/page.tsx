@@ -49,6 +49,15 @@ export default function CoachTrustPackPage() {
           No hidden terms. No fine print that changes the answer.
         </p>
 
+        <div className="mb-8 rounded-2xl border border-amber-200/25 bg-amber-200/10 p-5">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-amber-100">Why trust is first-order</p>
+          <p className="mt-2 text-[15px] leading-relaxed text-slate-100">
+            Research on coaching alliance quality indicates that trust in data handling is a prerequisite to effective
+            engagement, not an optional layer added later.
+          </p>
+          <p className="mt-2 text-[12px] text-amber-100">Source: de Haan et al., 2013.</p>
+        </div>
+
         <div className="space-y-4">
           {TRUST_FACTS.map((item) => (
             <div key={item.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">

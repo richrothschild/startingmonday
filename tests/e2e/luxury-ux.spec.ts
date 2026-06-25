@@ -226,7 +226,7 @@ test.describe('Luxury UX checks @luxury', () => {
 const EXECUTIVE_ROUTES = [
   '/for-executives',
   '/for-cio',
-  '/for-vp-technology',
+  '/for-leaders',
   '/for-data-officer',
   '/for-cdo',
   '/for-ciso',

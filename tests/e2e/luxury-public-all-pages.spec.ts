@@ -10,7 +10,7 @@ const PUBLIC_ROUTES = [
   '/for-coaches',
   '/for-executives',
   '/for-cio',
-  '/for-vp-technology',
+  '/for-leaders',
   '/for-data-officer',
   '/for-cdo',
   '/for-ciso',

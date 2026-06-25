@@ -60,7 +60,7 @@ const PARTNER_CHOICES = [
   },
   {
     label: 'Search Firms',
-    href: '/for-search-firms',
+    href: '/search-firms',
     description: 'Run cleaner shortlist calibration with role-signal context and structured briefs.',
   },
 ]
@@ -83,7 +83,6 @@ export default function PartnerFirmPage() {
         situations={SITUATIONS}
         faqs={FAQS}
         sourcePage="/partner-firm"
-        showFooter={false}
       />
 
       <div className="bg-slate-950 pb-12 sm:pb-14">

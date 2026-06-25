@@ -5,7 +5,6 @@ import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import { COACH_PERSONAS } from '@/lib/persona-routes'
-import { EvidenceProofCard } from '@/components/EvidenceProofCard'
 
 export const metadata: Metadata = {
   title: 'Coaches Channel | Starting Monday',
@@ -44,6 +43,21 @@ const BRIGHTER_FUTURE = [
   'Clients arrive with clarity, and sessions start at decision level.',
   'You coach the strategic moments while the platform handles operating follow-through.',
   'Progress is visible every week, so trust compounds instead of leaking.',
+]
+
+const RESEARCH_PROOF_STRIP = [
+  {
+    claim: 'Between-session tracking is the strongest predictor of coaching outcome quality.',
+    source: 'Jones et al., 2016 · Journal of Occupational and Organizational Psychology',
+  },
+  {
+    claim: 'If-then implementation plans drive materially higher follow-through than intention alone.',
+    source: 'Gollwitzer, 1999 · American Psychologist',
+  },
+  {
+    claim: 'Weak-tie network access drives more executive mobility than inner-circle dependence.',
+    source: 'Rajkumar et al., 2022 · Science',
+  },
 ]
 
 const COACH_NEEDS_BY_SLUG: Record<string, { need: string; bestFit: string; cta: string }> = {
@@ -140,14 +154,13 @@ export default function CoachesChannelPage() {
 
       <main className="bg-slate-50 text-slate-900">
         <section className="border-b border-slate-200 bg-slate-950 px-4 py-6 sm:px-6">
-          <div className="mx-auto max-w-5xl">
-            <EvidenceProofCard
-              claim="Observed pilot cohorts reached first qualified conversation faster when coach and client shared one weekly operating cadence."
-              sourceLabel="Pilot summary + method notes"
-              sourceHref="/pilot-findings"
-              evidenceHref="/evidence-hub#coaching-effectiveness"
-              disclaimer="Results vary by market, role level, and campaign consistency."
-            />
+          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
+            {RESEARCH_PROOF_STRIP.map((item) => (
+              <article key={item.claim} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <p className="text-[14px] leading-relaxed text-slate-100">{item.claim}</p>
+                <p className="mt-3 text-[11px] font-semibold leading-snug text-amber-100">{item.source}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -250,7 +263,7 @@ export default function CoachesChannelPage() {
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </span>
             <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
-              <Link href="/evidence-hub#coaching-effectiveness" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
+              <Link href="/evidence-hub#coaching-transitions" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
 
               <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
               <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
