@@ -188,6 +188,12 @@ export default function SearchFirmsPage() {
               >
                 Review procurement path
               </Link>
+              <Link
+                href="/search-firms/trial-charter"
+                className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+              >
+                Review pilot charter
+              </Link>
             </div>
           </div>
         </section>
