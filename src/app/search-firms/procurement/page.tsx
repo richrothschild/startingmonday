@@ -85,11 +85,14 @@ export default function SearchFirmsProcurementPage() {
             If legal and trust review must precede commercial review, route the team through the trust summary first. Otherwise proceed to partner application with pilot scope, ownership, and approval path already aligned.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/search-firms/trust" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
-              Review trust summary
-            </Link>
             <Link href="/partners?channel=search-firms#apply" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300">
               Apply to partner program
+            </Link>
+            <Link href="/search-firms/trial-charter" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
+              Review pilot charter
+            </Link>
+            <Link href="/search-firms/trust" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">
+              Review trust summary
             </Link>
           </div>
         </section>

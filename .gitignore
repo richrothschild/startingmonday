@@ -85,6 +85,7 @@ docs/status/prep-brief-evals-readiness.md
 docs/status/prep-brief-evals-readiness.json
 build_log.txt
 build_output.txt
+tmp/
 tmp-run-*-artifacts/
 tmp-weekly-audit-*.log
 tmp-weekly-audit-*-logs.zip
