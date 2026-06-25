@@ -87,8 +87,8 @@ const OBJECTIONS = [
     response: 'It depends on what your tool does - and we can compare the overlap. CoachOS focuses on live signal monitoring, daily client accountability, and between-session tracking. If there is overlap we can work around it; if there is not, the tools likely complement each other.',
   },
   {
-    objection: 'Many of my clients are not executives. Will this still work?',
-    response: 'Yes. CoachOS runs both an executive transition track and a professional transition track so you can serve mixed cohorts from one system.',
+    objection: 'Many of my clients are not leaders. Will this still work?',
+    response: 'Yes. CoachOS runs both a leader transition track and a professional transition track so you can serve mixed cohorts from one system.',
   },
   {
     objection: 'My team is not technical. Is this manageable?',
@@ -172,7 +172,7 @@ export default function CoachOSPage() {
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-300">See it in action - no signup required</p>
             <h2 className="mb-2 text-[24px] font-bold leading-snug text-white">Live examples using a real client profile</h2>
             <p className="mb-6 text-[14px] leading-relaxed text-slate-100">
-              Michael Torres is a VP-level technology executive in active transition. Click any link to walk through what your clients and you would see inside CoachOS.
+              Michael Torres is a VP-level technology leader in active transition. Click any link to walk through what your clients and you would see inside CoachOS.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               {DEMO_LINKS.map((link) => (
@@ -192,7 +192,7 @@ export default function CoachOSPage() {
           <section className="rounded-[2rem] border border-white/10 bg-slate-950/55 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.22)] backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-300">What CoachOS does</p>
             <h2 className="mb-1 text-[24px] font-bold leading-snug text-white">Execution infrastructure for coaching practices</h2>
-            <p className="text-[13px] text-slate-200">Works for both executive and professional transition clients - no separate system required.</p>
+            <p className="text-[13px] text-slate-200">Works for both leader and professional transition clients - no separate system required.</p>
             <p className="mb-5 mt-2 text-[13px] text-slate-100">
               CoachOS also gives your team a coach layer: a clear dashboard, weekly reporting, and cohort-level visibility so delivery stays consistent.{' '}
               <Link href="/demo/coach-dashboard" className="underline underline-offset-2 text-slate-100 transition-colors hover:text-white">

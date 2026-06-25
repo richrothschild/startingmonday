@@ -92,7 +92,7 @@ function generateOutreachList(contacts: ContactListItem[], criteria: { channel?:
   URL.revokeObjectURL(url);
 }
 
-export function ContactsList({ contacts, isExecutive = false }: { contacts: ContactListItem[]; isExecutive?: boolean }) {
+export function ContactsList({ contacts, isLeader = false }: { contacts: ContactListItem[]; isLeader?: boolean }) {
   const router = useRouter()
   const [search, setSearch] = useState('')
   const [channelFilter, setChannelFilter] = useState('')
@@ -117,9 +117,9 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
     return matchesSearch && matchesChannel
   })
 
-  // For executive: group recruiters by firm, non-recruiters flat
+  // For leader: group recruiters by firm, non-recruiters flat
   function buildRows() {
-    if (!isExecutive) return { grouped: null, flat: filtered }
+    if (!isLeader) return { grouped: null, flat: filtered }
 
     const recruiters = filtered.filter(ct => ct.channel === 'recruiter' && ct.firm)
     const others = filtered.filter(ct => !(ct.channel === 'recruiter' && ct.firm))
@@ -185,7 +185,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
 
     return (
       <div className="px-6 py-4 flex items-start gap-3 bg-slate-950/10 hover:bg-white/[0.03] transition-colors">
-        {isExecutive && (
+        {isLeader && (
           <button
             type="button"
             title={isPriority ? 'Remove priority' : 'Mark as priority'}
@@ -261,7 +261,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
       <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
         <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300">All contacts</span>
         <div className="flex items-center gap-3">
-          {isExecutive && filtered.length > 0 && (
+          {isLeader && filtered.length > 0 && (
             <button
               type="button"
               onClick={() => exportContactsCsv(filtered)}
@@ -329,8 +329,8 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
       ) : (
         <div className="divide-y divide-white/10">
 
-          {/* Executive: firm-grouped recruiters first */}
-          {isExecutive && grouped && Object.entries(grouped).sort(([,a],[,b]) => b.length - a.length).map(([firm, cts]) => (
+          {/* Leader: firm-grouped recruiters first */}
+          {isLeader && grouped && Object.entries(grouped).sort(([,a],[,b]) => b.length - a.length).map(([firm, cts]) => (
             <div key={firm}>
               <div className="px-6 py-2 bg-purple-500/10 border-b border-white/10 flex items-center gap-2">
                 <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-purple-100">{firm}</span>
@@ -340,7 +340,7 @@ export function ContactsList({ contacts, isExecutive = false }: { contacts: Cont
             </div>
           ))}
 
-          {/* Non-recruiter contacts (or all contacts for non-executive) */}
+          {/* Non-recruiter contacts (or all contacts for non-leader) */}
           {flat.map(ct => <ContactRow key={ct.id} ct={ct} />)}
 
         </div>

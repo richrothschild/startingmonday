@@ -87,7 +87,7 @@ export default async function ContactsPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
-          <ContactsList contacts={contacts} isExecutive={isExecutive} />
+          <ContactsList contacts={contacts} isLeader={isExecutive} />
 
           {/* Add contact form */}
           <div className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
