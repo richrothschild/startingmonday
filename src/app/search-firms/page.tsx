@@ -90,12 +90,18 @@ export default function SearchFirmsPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="https://app-na2.hubspot.com/meetings/246442927"
+                className="rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+              >
+                Book a meeting
+              </a>
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Review sample CFO brief', source_page: '/search-firms' }}
-                className="rounded-full bg-orange-400 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+                className="rounded-full border border-white/18 px-6 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
                 Review sample CFO brief
               </TrackLink>
@@ -208,12 +214,18 @@ export default function SearchFirmsPage() {
               This should feel like a serious professional decision, not software tourism. Review one sample brief, name one sponsor, and expand only if the mandate economics and shortlist quality improve.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://app-na2.hubspot.com/meetings/246442927"
+                className="rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+              >
+                Book a meeting
+              </a>
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'search_firms', cta_label: 'Review sample brief', source_page: '/search-firms' }}
-                className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
+                className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
                 Review sample brief
               </TrackLink>

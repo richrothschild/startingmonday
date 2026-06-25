@@ -233,12 +233,18 @@ export default function CoachesChannelPage() {
               ))}
             </ul>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="https://app-na2.hubspot.com/meetings/246442927"
+                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+              >
+                Book a meeting
+              </a>
               <TrackLink
                 href="/partners#apply"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
-                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
               >
                 Request the coach preview
               </TrackLink>
@@ -247,7 +253,7 @@ export default function CoachesChannelPage() {
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
                 properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
+                className="text-[14px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
               >
                 See mock coach dashboard
               </TrackLink>

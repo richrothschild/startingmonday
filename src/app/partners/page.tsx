@@ -78,12 +78,20 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
           <p className="mb-7 max-w-2xl text-[16px] leading-relaxed text-slate-200">
             {pageBody}
           </p>
-          <a
-            href="#apply"
-            className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
-          >
-            Apply for partner access
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://app-na2.hubspot.com/meetings/246442927"
+              className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+            >
+              Book a meeting
+            </a>
+            <a
+              href="#apply"
+              className="inline-flex items-center justify-center rounded border border-white/20 px-6 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-white/40 hover:bg-white/5"
+            >
+              Apply for partner access
+            </a>
+          </div>
         </div>
       </header>
 
