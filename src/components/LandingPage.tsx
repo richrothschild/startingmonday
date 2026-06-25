@@ -399,6 +399,32 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-200/90">
                   Start with the path that matches your scope, then move into role-specific routes without sorting through every title.
                 </p>
+                <div className="mb-4 flex flex-wrap gap-3">
+                  <TrackLink
+                    href="/for-executives"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{ channel: 'executives', cta_label: 'homepage_top_level_individuals', source_page: '/' }}
+                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
+                  >
+                    Individuals
+                  </TrackLink>
+                  <TrackLink
+                    href="/partners"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{ channel: 'partners', cta_label: 'homepage_top_level_partners_firms', source_page: '/' }}
+                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
+                  >
+                    Partners / Firms
+                  </TrackLink>
+                  <Link
+                    href="/learn-more"
+                    className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-orange-300/70 hover:text-white"
+                  >
+                    Learn more
+                  </Link>
+                </div>
                 <div className="space-y-4">
                   <article className="rounded-2xl border border-white/10 bg-slate-950/55 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.18)]">
                     <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">For leaders</p>

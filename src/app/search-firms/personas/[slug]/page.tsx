@@ -53,7 +53,6 @@ export default async function SearchFirmPersonaDetailPage({ params }: { params: 
         <h1 className="max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">{persona.label}</h1>
         <h2 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Mandate summary</h2>
         <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-300">{persona.summary}</p>
-        <h3 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Role brief</h3>
 
         <section className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
           <h2 className="text-[22px] font-semibold text-white">Pilot path for this role</h2>

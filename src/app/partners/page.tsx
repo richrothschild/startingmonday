@@ -54,7 +54,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
     <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">

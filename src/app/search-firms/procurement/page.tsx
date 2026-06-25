@@ -13,23 +13,23 @@ export const metadata: Metadata = {
 const packages = [
   {
     title: 'Pilot',
-    body: 'One mandate, 30 days, one sponsor, and a day-30 decision memo.',
+    body: 'One mandate, 30 days, named sponsor ownership, and a day-30 procurement decision memo.',
   },
   {
     title: 'Lane rollout',
-    body: 'Ninety-day deployment across one role lane with weekly operating review.',
+    body: 'Ninety-day deployment across one role lane with weekly operating review and buyer-side checkpointing.',
   },
   {
     title: 'Expansion',
-    body: 'Multi-lane rollout with practice-level governance and quarterly review.',
+    body: 'Multi-lane rollout with practice governance, commercial controls, and quarterly review.',
   },
 ]
 
 const buyingSteps = [
-  'Choose package scope and name a sponsor.',
-  'Confirm legal packet path and procurement reviewer.',
-  'Approve pilot charter and baseline scorecard before kickoff.',
-  'Run day-30 go, revise, or stop decision review.',
+  'Confirm package scope, commercial owner, and sponsor for the retained-search pilot.',
+  'Align legal packet path, procurement reviewer, and contracting dependencies.',
+  'Approve pilot charter, invoicing model, and baseline scorecard before kickoff.',
+  'Run the day-30 go, revise, or stop review with procurement and search leadership.',
 ]
 
 export default function SearchFirmsProcurementPage() {
@@ -43,9 +43,9 @@ export default function SearchFirmsProcurementPage() {
 
         <header className="mt-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Procurement path</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">How the pilot buying path works</h1>
+          <h1 className="mt-3 max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">Retained-search procurement and approval path</h1>
           <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200">
-            This should read like a serious buying path, not a software funnel. Clear package scope, named ownership, and a reversible pilot come first.
+            This page is for procurement, legal, and search leadership teams reviewing a bounded pilot. It outlines scope, approvals, and decision controls before kickoff.
           </p>
         </header>
 
@@ -74,15 +74,15 @@ export default function SearchFirmsProcurementPage() {
         <section className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)]">
           <h2 className="font-serif text-[24px] leading-[1.15] text-white">Management and procurement ownership</h2>
           <p className="mt-3 text-[14px] leading-relaxed text-slate-200">
-            Management owns sponsor assignment, weekly cadence, and day-30 decision criteria. Procurement confirms package scope, billing path, legal dependencies, and expected buyer-side effort.
+            Search management owns sponsor assignment, operating cadence, and day-30 success criteria. Procurement owns package scope confirmation, billing path, contractual dependencies, and buyer-side implementation effort.
           </p>
         </section>
 
         <section className="mt-6 rounded-[2rem] border border-amber-200/25 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Next step</p>
-          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Move to application only when trust and scope are already clear.</h2>
+          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Move to application only when procurement controls are clear.</h2>
           <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-200">
-            Use the trust summary first if legal review needs to happen before commercial review. Otherwise move directly to the partner application and pilot-scope conversation.
+            If legal and trust review must precede commercial review, route the team through the trust summary first. Otherwise proceed to partner application with pilot scope, ownership, and approval path already aligned.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/search-firms/trust" className="rounded-full border border-white/18 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5">

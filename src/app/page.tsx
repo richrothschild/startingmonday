@@ -159,21 +159,21 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'You are not behind on talent.',
-          h1Lines: ['You are behind on timing, narrative, and prep.'],
-              claimMethodLabel: '',
-              claimMethodHref: '',
-                    claimEvidenceLabel: 'Evidence Hub for executives and their partners ->',
-                  claimEvidenceHref: '/evidence-hub#early-signals',
-                bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
-          body: 'Win with Starting Monday.',
-                competitiveEdge: 'Find the right roles before they open, the right people to know, and the right story to tell.',
+          eyebrow: 'The private operating system for executive and leadership moves.',
+          h1Lines: ['The shortlist is defined before the role is public.'],
+          claimMethodLabel: '',
+          claimMethodHref: '',
+          claimEvidenceLabel: 'Evidence Hub for executives and their partners ->',
+          claimEvidenceHref: '/evidence-hub#early-signals',
+          bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
+          body: 'Be the shortlist.',
+          competitiveEdge: 'Find the right roles before they open, the right people to know, and the right story to tell.',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
             'Set your level and narrative once. Keep your search private by default.',
             'Act early on signal changes and walk into conversations prepared.',
           ],
-          trialNote: 'Free for 30 days. No credit card. No employer visibility.',
+          trialNote: 'Private by default: visible only to you and explicitly invited collaborators. Free for 30 days. No credit card. No employer visibility.',
         }}
         situations={SITUATIONS}
         faqs={FAQS}

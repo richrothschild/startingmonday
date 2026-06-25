@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 }
 
 const trustPoints = [
-  'Candidate visibility is role-scoped and revocable.',
-  'Pilot reviews use explicit sharing boundaries before kickoff.',
-  'Starting Monday is a decision-support layer, not an autonomous hiring decision system.',
+  'Candidate visibility stays role-scoped, auditable, and revocable across the pilot team.',
+  'Pilot reviews run with explicit sharing boundaries agreed by search leadership and counsel before kickoff.',
+  'Starting Monday is a decision-support layer for partner and consultant judgment, not an autonomous hiring system.',
 ]
 
 const legalChecklist = [
-  'Confirm confidentiality boundaries and role access assumptions.',
-  'Confirm pilot contract path and data-processing requirements.',
-  'Confirm retention, deletion, and review escalation path.',
+  'Confirm confidentiality boundaries, role access assumptions, and approved reviewer roles.',
+  'Confirm pilot contract path, data-processing terms, and internal approver sequence.',
+  'Confirm retention, deletion, incident response, and escalation ownership.',
 ]
 
 export default function SearchFirmsTrustPage() {
@@ -35,7 +35,7 @@ export default function SearchFirmsTrustPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">Trust and legal</p>
           <h1 className="mt-3 max-w-3xl font-serif text-[34px] leading-[1.08] text-white sm:text-[44px]">Search-firm trust and legal summary</h1>
           <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200">
-            This page should answer one question quickly: can a retained-search team review a pilot without creating confidentiality drift or legal ambiguity.
+            This summary helps retained-search leadership, legal, and delivery owners decide whether a pilot can run without confidentiality drift or legal ambiguity.
           </p>
         </header>
 
@@ -66,16 +66,16 @@ export default function SearchFirmsTrustPage() {
         <section className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)]">
           <h2 className="font-serif text-[24px] leading-[1.15] text-white">Confidentiality and AI boundary</h2>
           <p className="mt-3 text-[14px] leading-relaxed text-slate-200">
-            Candidate-controlled sharing is the default. Partner-side visibility is role-limited, auditable, and revocable. Starting Monday supports human review and preparation, not autonomous hiring decisions.
+            Candidate-controlled sharing is the default. Partner-side visibility is role-limited, auditable, and revocable. Starting Monday supports partner and consultant review workflows and does not make autonomous hiring decisions.
           </p>
         </section>
 
         <section className="mt-6 rounded-[2rem] border border-amber-200/25 bg-[linear-gradient(160deg,rgba(28,20,17,0.66),rgba(12,14,24,0.92))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.28)] backdrop-blur-sm sm:p-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Next step</p>
-          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Move to the procurement path only if this matches your legal posture.</h2>
+          <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Move to procurement only when this aligns with the firm&apos;s legal posture.</h2>
           <h3 className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-orange-100">Decision boundary</h3>
           <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-200">
-            Keep the decision bounded: if trust, access control, and pilot legal structure are acceptable, continue to procurement. If not, stop here without adding more workflow noise.
+            Keep the decision bounded: if trust controls, access governance, and pilot legal structure are acceptable for the retained-search team, continue to procurement. If not, pause here without adding workflow noise.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/search-firms/procurement" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300">

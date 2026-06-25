@@ -56,7 +56,7 @@ export default function SearchFirmsPage() {
 
       <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] text-white transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] text-white transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export default function SearchFirmsPage() {
               </TrackLink>
             </div>
 
-            <p className="mt-6 text-[12px] uppercase tracking-[0.14em] text-slate-400">
+            <p className="mt-6 text-[12px] tracking-[0.14em] text-slate-400">
               One mandate. Named sponsor. Day-30 decision memo.
             </p>
           </div>
