@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
 import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowStartingMondayHelpsModal'
@@ -318,28 +319,40 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
         <section id="core-clarity" data-emi-section="clarity_block" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
             {isHomePage ? (
-              <div className="mb-8 rounded-[2rem] border border-white/12 bg-slate-950/82 p-6 shadow-[0_38px_130px_rgba(15,23,42,0.3)] backdrop-blur-xl sm:p-8 lg:p-10">
-                <p className="max-w-3xl text-[1.15rem] font-semibold leading-[1.18] tracking-tight text-orange-200/90 sm:text-[1.35rem] lg:text-[1.55rem]">
-                  {hero.eyebrow}
-                </p>
-                <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
-                  {hero.h1Lines.map((line, i) => (
-                    <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
-                  ))}
-                </h1>
-                {hero.bodyPreamble && !isHomePage && (
-                  <p className="mt-4 max-w-3xl text-[12px] font-semibold uppercase tracking-[0.12em] text-orange-200/90 sm:text-[13px]">
-                    {hero.bodyPreamble}
+              <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_390px] lg:items-start">
+                <div className="rounded-[2rem] border border-white/12 bg-slate-950/82 p-6 shadow-[0_38px_130px_rgba(15,23,42,0.3)] backdrop-blur-xl sm:p-8 lg:p-10">
+                  <p className="max-w-3xl text-[1.15rem] font-semibold leading-[1.18] tracking-tight text-orange-200/90 sm:text-[1.35rem] lg:text-[1.55rem]">
+                    {hero.eyebrow}
                   </p>
-                )}
-                <p className="mt-5 max-w-4xl text-[1.35rem] font-semibold leading-[1.12] tracking-tight text-slate-100/95 sm:text-[1.7rem] lg:text-[2.24rem]">
-                  {hero.body}
-                </p>
-                {hero.competitiveEdge && (
-                  <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300/90 sm:text-[15px] [text-wrap:pretty]">
-                    {hero.competitiveEdge}
+                  <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
+                    {hero.h1Lines.map((line, i) => (
+                      <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
+                    ))}
+                  </h1>
+                  {hero.bodyPreamble && !isHomePage && (
+                    <p className="mt-4 max-w-3xl text-[12px] font-semibold uppercase tracking-[0.12em] text-orange-200/90 sm:text-[13px]">
+                      {hero.bodyPreamble}
+                    </p>
+                  )}
+                  <p className="mt-5 max-w-4xl text-[1.35rem] font-semibold leading-[1.12] tracking-tight text-slate-100/95 sm:text-[1.7rem] lg:text-[2.24rem]">
+                    {hero.body}
                   </p>
-                )}
+                  {hero.competitiveEdge && (
+                    <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300/90 sm:text-[15px] [text-wrap:pretty]">
+                      {hero.competitiveEdge}
+                    </p>
+                  )}
+                </div>
+                <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
+                  <Image
+                    src="/hero-previews/hero-final-locked.png"
+                    alt="Stylized executive sketch visual"
+                    fill
+                    sizes="(max-width: 640px) 92vw, 390px"
+                    priority
+                    className="object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
+                  />
+                </div>
               </div>
             ) : (
               <>
