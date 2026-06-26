@@ -446,6 +446,21 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   >
                     Search Firms
                   </TrackLink>
+                  <TrackLink
+                    href="/partners"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{ channel: 'partners', cta_label: 'homepage_top_level_partners_firms', source_page: '/' }}
+                    className="hidden"
+                  >
+                    Partners / Firms
+                  </TrackLink>
+                  <Link
+                    href="/learn-more"
+                    className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-orange-300/70 hover:text-white"
+                  >
+                    Learn more
+                  </Link>
                 </div>
                 <p className="text-[12px] text-slate-300">Free for 30 days. No credit card required.</p>
               </section>
