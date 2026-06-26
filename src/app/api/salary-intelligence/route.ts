@@ -129,7 +129,15 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
     })
 
     return NextResponse.json(result)
-  } catch (err) {
+  } catch (err: any) {
+    const status = err.status ?? err.statusCode
+    const isCreditsError = status === 400 && err.error?.error?.message?.includes('credit')
+    
+    if (isCreditsError) {
+      recordTraceError({ feature: 'salary_intelligence', userId, error: 'Anthropic API credits exhausted' })
+      return NextResponse.json({ error: 'Service temporarily unavailable' }, { status: 503 })
+    }
+    
     recordTraceError({ feature: 'salary_intelligence', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json({ error: 'Failed to generate salary analysis' }, { status: 500 })
   }

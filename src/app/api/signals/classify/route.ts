@@ -85,7 +85,14 @@ Extract the following as valid JSON with no markdown fences:
     })
     const raw = msg.content[0].type === 'text' ? msg.content[0].text : ''
     parsed = JSON.parse(raw)
-  } catch {
+  } catch (err: any) {
+    const status = err.status ?? err.statusCode
+    const isCreditsError = status === 400 && err.error?.error?.message?.includes('credit')
+    
+    if (isCreditsError) {
+      return NextResponse.json({ error: 'Service temporarily unavailable' }, { status: 503 })
+    }
+    
     return NextResponse.json({ error: 'Classification failed. Try rephrasing the news.' }, { status: 500 })
   }
 

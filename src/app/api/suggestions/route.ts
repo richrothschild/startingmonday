@@ -93,7 +93,15 @@ Return only the JSON object. No explanation. No markdown fences.`
       companies: Array.isArray(parsed.companies) ? parsed.companies.slice(0, 8) : [],
       recruiters: Array.isArray(parsed.recruiters) ? parsed.recruiters.slice(0, 6) : [],
     })
-  } catch (err) {
+  } catch (err: any) {
+    const status = err.status ?? err.statusCode
+    const isCreditsError = status === 400 && err.error?.error?.message?.includes('credit')
+    
+    if (isCreditsError) {
+      recordTraceError({ feature: 'suggestions', userId, error: 'Anthropic API credits exhausted' })
+      return NextResponse.json({ companies: [], recruiters: [], error: 'Service temporarily unavailable' }, { status: 503 })
+    }
+    
     recordTraceError({ feature: 'suggestions', userId, error: err instanceof Error ? err.message : String(err) })
     return NextResponse.json({ companies: [], recruiters: [] })
   }
