@@ -406,13 +406,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 aria-labelledby="homepage-path-title"
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-2 text-[20px] font-bold leading-snug text-white sm:text-[22px]">
-                  Start with the audience that matches your situation.
+                <h2 id="homepage-path-title" className="mb-4 text-[20px] font-bold leading-snug text-white sm:text-[22px]">
+                  Start with your role.
                 </h2>
-                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-200/90">
-                  Start with the path that matches your scope, then move into role-specific routes without sorting through every title.
-                </p>
-                <div className="mb-4 flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 mb-4">
                   <TrackLink
                     href="/for-executives"
                     event={EVENT_NAMES.channelEntryClicked}
@@ -423,85 +420,34 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     Individuals
                   </TrackLink>
                   <TrackLink
-                    href="/partners"
+                    href="/for-coaches"
                     event={EVENT_NAMES.channelEntryClicked}
                     logToUserEvents
-                    properties={{ channel: 'partners', cta_label: 'homepage_top_level_partners_firms', source_page: '/' }}
+                    properties={{ channel: 'coaches', cta_label: 'homepage_top_level_coaches', source_page: '/' }}
                     className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                    Partners / Firms
+                    Coaches
                   </TrackLink>
-                  <Link
-                    href="/learn-more"
-                    className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-orange-300/70 hover:text-white"
+                  <TrackLink
+                    href="/for-outplacement"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{ channel: 'outplacement', cta_label: 'homepage_top_level_outplacement', source_page: '/' }}
+                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                    Learn more
-                  </Link>
+                    Outplacement
+                  </TrackLink>
+                  <TrackLink
+                    href="/search-firms"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{ channel: 'search_firms', cta_label: 'homepage_top_level_search_firms', source_page: '/' }}
+                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
+                  >
+                    Search Firms
+                  </TrackLink>
                 </div>
-                <div className="space-y-4">
-                  <article className="rounded-2xl border border-white/10 bg-slate-950/55 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.18)]">
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">For leaders</p>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Executive Path</p>
-                        <p className="mt-1 text-[12px] leading-relaxed text-slate-300">C-suite, VP, and mandate-level transitions with high discretion requirements.</p>
-                        <TrackLink
-                          href="/for-executives"
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_executive_leaders',
-                            source_page: '/',
-                          }}
-                          className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                        >
-                          Open Executive Path
-                        </TrackLink>
-                      </article>
-                      <article className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[13px] font-semibold text-white">Rising Leaders Path</p>
-                        <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Directors, senior managers, and technical leads moving toward broader scope.</p>
-                        <TrackLink
-                          href="/for-leaders"
-                          event={EVENT_NAMES.channelEntryClicked}
-                          logToUserEvents
-                          properties={{
-                            channel: 'executives',
-                            cta_label: 'homepage_rising_leaders',
-                            source_page: '/',
-                          }}
-                          className="mt-3 inline-flex items-center rounded-full border border-orange-300/60 px-3 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                        >
-                          Open Rising Leaders Path
-                        </TrackLink>
-                      </article>
-                    </div>
-                  </article>
-
-                  <article className="rounded-xl border border-white/10 bg-slate-950/35 p-3 shadow-[0_12px_36px_rgba(15,23,42,0.14)]">
-                    <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-200/90">For partners</p>
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                      {CHANNEL_ROUTE_SPECS.filter((spec) => spec.channel !== 'executives').map((spec) => (
-                        <div key={`homepage_partner_${spec.channel}`} className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                          <TrackLink
-                            href={spec.route}
-                            event={EVENT_NAMES.channelEntryClicked}
-                            logToUserEvents
-                            properties={{
-                              channel: spec.channel,
-                              cta_label: 'homepage_partner_path',
-                              source_page: '/',
-                            }}
-                            className="inline-flex items-center text-[12px] font-semibold text-orange-200 underline underline-offset-2 transition-colors hover:text-white"
-                          >
-                            {spec.label}
-                          </TrackLink>
-                        </div>
-                      ))}
-                    </div>
-                  </article>
-                </div>
+                <p className="text-[12px] text-slate-300">Free for 30 days. No credit card required.</p>
               </section>
             )}
 
@@ -530,45 +476,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </p>
             )}
 
-            {(isHomePage || isExecutivesPage) && (
-              <div className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md" data-emi-proof="landing_clarity_panel">
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">At a glance</p>
-                <p className="mb-4 text-[15px] leading-relaxed text-slate-100/90 sm:text-[16px] [text-wrap:pretty]">
-                  Build relationships during signal windows before mandate announcements.
-                </p>
-                <div className="grid grid-cols-1 gap-3">
-                  <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
-                    <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Opportunity Timing Gap</p>
-                    <div className="pb-1">
-                      <OpportunityTimingGapChart />
-                    </div>
-                    <div className="mt-3 flex justify-end">
-                      <ChartZoomModal buttonLabel="Open full chart" title="Opportunity Timing Gap">
-                        <OpportunityTimingGapChart className="h-auto w-full max-w-[900px]" />
-                      </ChartZoomModal>
-                    </div>
-                  </article>
 
-                  <article className="rounded-2xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 shadow-[0_16px_54px_rgba(15,23,42,0.2)]">
-                    <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Role Landing Probability</p>
-                    <div className="pb-1">
-                      <RoleLandingProbabilityChart />
-                    </div>
-                    <div className="mt-3 flex justify-end">
-                      <ChartZoomModal buttonLabel="Open full chart" title="Role Landing Probability">
-                        <RoleLandingProbabilityChart className="h-auto w-full max-w-[980px]" />
-                      </ChartZoomModal>
-                    </div>
-                  </article>
-                </div>
-                <Link
-                  href="/demo/executive-brief"
-                  className="inline-flex items-center mt-4 text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors py-2.5"
-                >
-                  See prep brief in 60 seconds
-                </Link>
-              </div>
-            )}
 
             {isExecutivesPage && (
               <section className="mb-6 rounded-[1.75rem] border border-white/12 bg-slate-950/64 p-5 shadow-[0_24px_78px_rgba(15,23,42,0.24)] backdrop-blur-md sm:p-6" aria-labelledby="executive-differentiation-title">
@@ -656,13 +564,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </section>
             )}
 
-            <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-green-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
-              Private by default
-            </p>
-            <p className="mb-2 text-sm leading-relaxed text-slate-300/85 [text-wrap:pretty]">
-              Your search stays private. We never share your identity, targets, or activity with employers or recruiters.
-            </p>
+
           </div>
         </section>
 
@@ -861,12 +763,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
               <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
-                <Link href="/method-and-evidence" className="hover:text-slate-300 transition-colors py-2.5">Method and evidence</Link>
-                <Link href="/evidence-room" className="hover:text-slate-300 transition-colors py-2.5">Evidence room</Link>
-                <Link href="/pricing" className="hover:text-slate-300 transition-colors py-2.5">Pricing</Link>
+                <Link href="/evidence-hub" className="hover:text-slate-300 transition-colors py-2.5">Evidence hub</Link>
                 <Link href="/blog" className="hover:text-slate-300 transition-colors py-2.5">Blog</Link>
                 <Link href="/about" className="hover:text-slate-300 transition-colors py-2.5">About</Link>
-                <Link href="/optimize" className="hover:text-slate-300 transition-colors py-2.5">Free Profile Grade</Link>
                 <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors py-2.5">LinkedIn</a>
                 <Link href="/security" className="hover:text-slate-300 transition-colors py-2.5">Security</Link>
                 <Link href="/privacy" className="hover:text-slate-300 transition-colors py-2.5">Privacy Policy</Link>
