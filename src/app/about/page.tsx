@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -69,9 +70,11 @@ export default function AboutPage() {
       <header className="bg-slate-950 px-4 sm:px-6 pt-14 pb-12">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-5 mb-6">
-            <img
+            <Image
               src="/headshot.jpg"
               alt="Richard Rothschild"
+              width={64}
+              height={64}
               className="w-16 h-16 rounded-full object-cover ring-2 ring-slate-700 shrink-0"
             />
             <div>

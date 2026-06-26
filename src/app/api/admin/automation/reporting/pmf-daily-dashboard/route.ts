@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { type NextRequest, NextResponse } from 'next/server'
 import { asLooseSupabaseClient, requireAutomationAccess } from '@/lib/admin-automation-route'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'

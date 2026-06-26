@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { SiteHeader } from '@/components/SiteHeader'
 import { SiteFooter } from '@/components/SiteFooter'
@@ -80,11 +81,13 @@ export default async function ForLeadersPage() {
             </div>
 
             <figure className="mx-auto w-[58%] max-w-[340px] rounded-[18px] border border-white/12 bg-slate-900/55 p-1.5 shadow-[0_24px_52px_rgba(2,6,23,0.4)] lg:mr-0 lg:ml-auto lg:w-[58%] lg:max-w-[380px]">
-              <img
+              <Image
                 src="/young-male-at-laptop.png"
                 alt="Professional man working at a laptop in a refined office"
                 className="block w-full rounded-[14px]"
-                loading="eager"
+                width={1024}
+                height={1280}
+                priority
               />
             </figure>
           </div>

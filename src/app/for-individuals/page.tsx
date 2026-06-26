@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { SiteHeader } from '@/components/SiteHeader'
 import { SiteFooter } from '@/components/SiteFooter'
@@ -79,11 +80,13 @@ export default async function ForIndividualsPage() {
             </div>
 
             <figure className="order-last mx-auto w-[70%] max-w-[360px] rounded-[18px] border border-white/12 bg-slate-900/55 p-1.5 shadow-[0_24px_52px_rgba(2,6,23,0.4)] lg:order-none lg:mr-0 lg:ml-auto lg:w-full lg:max-w-[420px]">
-              <img
+              <Image
                 src="/woman-at-two-doors.png"
                 alt="Professional woman standing between two open doors"
                 className="block max-h-[440px] w-full rounded-[14px] object-cover object-center"
-                loading="eager"
+                width={840}
+                height={880}
+                priority
               />
             </figure>
           </div>

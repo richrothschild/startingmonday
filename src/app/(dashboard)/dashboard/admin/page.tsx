@@ -320,7 +320,7 @@ export default async function AdminPage() {
   // Partners: attribution counts
   const partners = (partnerRows ?? []) as { id: string; name: string; email: string; referral_code: string; commission_pct: number; is_active: boolean; created_at: string }[]
   const partnerIds = partners.map(p => p.id)
-  let attributionsByPartner: Record<string, { total: number; active: number; mrr: number }> = {}
+  const attributionsByPartner: Record<string, { total: number; active: number; mrr: number }> = {}
   if (partnerIds.length > 0) {
     const { data: attrRows } = await adminClient
       .from('referral_attributions')

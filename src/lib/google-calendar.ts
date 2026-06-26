@@ -295,7 +295,7 @@ export async function syncGoogleCalendarIntegration(admin: SupabaseClient, integ
 
   let created = 0
   let updated = 0
-  let skipped = 0
+  const skipped = 0
 
   for (const reminder of reminders) {
     const body = buildCalendarEventBody(reminder)

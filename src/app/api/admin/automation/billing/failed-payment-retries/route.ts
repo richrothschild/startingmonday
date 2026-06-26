@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from 'next/server'
+import { type SupabaseClient } from '@supabase/supabase-js'
 import { getStripe } from '@/lib/stripe'
 import { requireAuth } from '@/lib/require-auth'
 import { requireStaffAutomationAccess } from '@/lib/admin-automation-auth'
@@ -12,8 +12,7 @@ export async function POST(request: NextRequest) {
     const auth = await requireStaffAutomationAccess(request)
     if (!auth.ok) return auth.response
 
-    const { userId, supabase } = auth
-    const sb = supabase as any
+    const { userId, supabase } = auth as { userId: string; supabase: SupabaseClient }
     const body = await request.json().catch(() => ({}))
     const retryNow = body?.retryNow === true
 
@@ -24,7 +23,7 @@ export async function POST(request: NextRequest) {
       .maybeSingle()
 
     if (!userRow?.stripe_customer_id) {
-      await sb.from('failed_payment_retry_runs').insert({
+      await (supabase.from('failed_payment_retry_runs') as any).insert({
         user_id: userId,
         status: 'no_action',
         details: { reason: 'missing_stripe_customer' },
@@ -36,7 +35,7 @@ export async function POST(request: NextRequest) {
     const targetInvoice = invoices.data.find(inv => inv.attempted && inv.status === 'open') ?? null
 
     if (!targetInvoice) {
-      await sb.from('failed_payment_retry_runs').insert({
+      await (supabase.from('failed_payment_retry_runs') as any).insert({
         user_id: userId,
         status: 'no_action',
         attempts: 0,
@@ -55,7 +54,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    await sb.from('failed_payment_retry_runs').insert({
+    await (supabase.from('failed_payment_retry_runs') as any).insert({
       user_id: userId,
       stripe_invoice_id: targetInvoice.id,
       status,

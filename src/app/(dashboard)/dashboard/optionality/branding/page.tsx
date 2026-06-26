@@ -25,9 +25,21 @@ export default function OptionalityBrandingPage() {
         <ExecutiveBrandingProfile
           lifecycleState="optionality"
           personaVariant="in_role_quiet"
-          onSave={(data) => {
-            // TODO: persist to Supabase via /api/executive/branding-profile
-            console.info('Branding profile saved', data)
+          onSave={async (data) => {
+            try {
+              const response = await fetch('/api/executive/branding-profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+              })
+              if (!response.ok) {
+                console.error('Failed to save branding profile:', response.statusText)
+              } else {
+                console.info('Branding profile saved successfully')
+              }
+            } catch (error) {
+              console.error('Error saving branding profile:', error)
+            }
           }}
         />
       </main>

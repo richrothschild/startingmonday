@@ -22,9 +22,21 @@ export default function OptionalityDecisionCockpitPage() {
           </p>
         </div>
         <ExecutiveDecisionCockpit
-          onSave={(criteria, evaluations) => {
-            // TODO: persist to Supabase via /api/executive/decision-cockpit
-            console.info('Decision cockpit saved', { criteria, evaluations })
+          onSave={async (criteria, evaluations) => {
+            try {
+              const response = await fetch('/api/executive/decision-cockpit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ criteria, evaluations }),
+              })
+              if (!response.ok) {
+                console.error('Failed to save decision cockpit:', response.statusText)
+              } else {
+                console.info('Decision cockpit saved successfully')
+              }
+            } catch (error) {
+              console.error('Error saving decision cockpit:', error)
+            }
           }}
         />
       </main>
