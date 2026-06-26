@@ -68,7 +68,7 @@ export function PricingCards() {
         Starting Monday is ${PRICING.active.monthly} a month and runs every day.
       </p>
       <p className="text-center text-[13px] text-slate-400 mb-8 max-w-xl mx-auto leading-relaxed">
-        Missing one signal on a company you are tracking — a leadership departure, a funding event, a quiet job posting — costs more than a year of this subscription.
+        Missing one signal on a company you are tracking - a leadership departure, a funding event, a quiet job posting - costs more than a year of this subscription.
       </p>
 
       {/* Interval toggle */}
@@ -96,7 +96,7 @@ export function PricingCards() {
         )}
       </div>
 
-      {/* Privacy assurance — visible before plan cards for Arc 2 users */}
+      {/* Privacy assurance - visible before plan cards for Arc 2 users */}
       <div className="flex items-center justify-center gap-2 mb-6">
         <span className="text-green-600 font-bold text-[13px]">&#10003;</span>
         <p className="text-[13px] text-slate-500">

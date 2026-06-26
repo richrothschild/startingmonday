@@ -105,7 +105,7 @@ export function DashboardPostPlacementView({
               href="/settings/billing"
               className="inline-block text-[13px] font-semibold text-slate-700 border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-colors"
             >
-              Keep your signal monitoring running — subscribe to Monitor ($49/mo)
+              Keep your signal monitoring running - subscribe to Monitor ($49/mo)
             </Link>
           ) : null}
         </div>

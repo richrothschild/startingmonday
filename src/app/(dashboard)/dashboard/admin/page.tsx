@@ -512,7 +512,7 @@ export default async function AdminPage() {
 
   const signups7d = cohort7.length
 
-  // MRR from Stripe (best-effort — falls back to null on error)
+  // MRR from Stripe (best-effort - falls back to null on error)
   let stripeMrr: number | null = null
   try {
     const stripe = getStripe()
@@ -528,7 +528,7 @@ export default async function AdminPage() {
     }
     stripeMrr = Math.round(totalCents / 100)
   } catch {
-    // Stripe unavailable — show null
+    // Stripe unavailable - show null
   }
 
   return (

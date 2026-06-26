@@ -251,7 +251,7 @@ export function DemoContent({
                   You have run {MAX_RUNS} briefs. Create a free account to generate unlimited briefs for your own target companies, with your background woven in.
                 </p>
                 <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors">
-                  Start free — 30 days, no card
+                  Start free - 30 days, no card
                 </Link>
               </div>
             ) : (

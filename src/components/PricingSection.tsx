@@ -46,7 +46,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
     const savings = PRICING[tier].monthly * 12 - annualTotal
     return annual
       ? `billed as $${annualTotal.toLocaleString()}/yr · Save $${savings.toLocaleString()}`
-      : `or $${annualTotal.toLocaleString()}/yr — save $${savings.toLocaleString()}`
+      : `or $${annualTotal.toLocaleString()}/yr - save $${savings.toLocaleString()}`
   }
 
   return (
@@ -128,7 +128,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </Link>
           </div>
 
-          {/* Active — most popular, orange border */}
+          {/* Active - most popular, orange border */}
           <div className="border-2 border-orange-500 rounded-lg p-5 sm:p-6 bg-white flex flex-col relative">
             {/* KPI Row */}
             <div className="mb-3 flex items-center gap-2">
@@ -164,7 +164,7 @@ export function PricingSection({ trialNote }: { trialNote: string }) {
             </Link>
           </div>
 
-          {/* Executive — slate-900 authority */}
+          {/* Executive - slate-900 authority */}
           <div className="border border-slate-800 rounded-lg p-5 sm:p-6 bg-slate-900 flex flex-col">
             {/* KPI Row */}
             <div className="mb-3 flex items-center gap-2">

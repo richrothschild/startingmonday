@@ -738,7 +738,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
               <p className="text-[13px] font-bold text-blue-900">Strategic decision this session</p>
             </div>
             <p className="text-[12px] text-blue-700 leading-relaxed">
-              What is the one strategic call the client needs to make — targeting, narrative, sequencing, or go/no-go?
+              What is the one strategic call the client needs to make - targeting, narrative, sequencing, or go/no-go?
             </p>
             <textarea
               value={sessionNotes.decisions}
@@ -756,14 +756,14 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
               <p className="text-[13px] font-bold text-red-900">Risk and blockers</p>
             </div>
             <p className="text-[12px] text-red-700 leading-relaxed">
-              What could derail momentum this week — signals missed, confidence drop, narrative inconsistency, or pipeline stall?
+              What could derail momentum this week - signals missed, confidence drop, narrative inconsistency, or pipeline stall?
             </p>
             <textarea
               value={sessionNotes.risks}
               onChange={(event) => setSessionNotes((current) => ({ ...current, risks: event.target.value }))}
               rows={3}
               className="w-full border border-red-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-red-400 resize-none bg-white"
-              placeholder="e.g. Client has not responded to three tier-1 contacts — outreach rhythm is stalling."
+              placeholder="e.g. Client has not responded to three tier-1 contacts - outreach rhythm is stalling."
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -806,7 +806,7 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                   onChange={(event) => setWeeklyAnswers((current) => ({ ...current, brief: event.target.value }))}
                   rows={3}
                   className="w-full border border-amber-100 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-amber-400 resize-none bg-white"
-                  placeholder="e.g. Client weakened on 'why now' — needs tighter inflection story."
+                  placeholder="e.g. Client weakened on 'why now' - needs tighter inflection story."
                 />
               </div>
               <div>
@@ -1029,15 +1029,15 @@ export function CoachClientDataView({ clientId }: { clientId: string }) {
                       <span className="text-[11px] text-slate-500">{review.status}</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[12px] text-slate-600">
-                      <p><span className="font-semibold text-slate-700">Signals:</span> {review.review_answers.signals ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Pipeline:</span> {review.review_answers.pipeline ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Brief:</span> {review.review_answers.brief ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Next step:</span> {review.review_answers.nextStep ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Confidence:</span> {review.review_answers.confidence_level ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Momentum:</span> {review.review_answers.momentum_level ?? '—'}</p>
-                      <p className="md:col-span-2"><span className="font-semibold text-slate-700">Narrative drift:</span> {review.review_answers.narrative_drift ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Agenda:</span> {review.review_answers.agenda_template ?? '—'}</p>
-                      <p><span className="font-semibold text-slate-700">Session notes:</span> {review.review_answers.session_notes?.freeform ?? '—'}</p>
+                      <p><span className="font-semibold text-slate-700">Signals:</span> {review.review_answers.signals ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Pipeline:</span> {review.review_answers.pipeline ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Brief:</span> {review.review_answers.brief ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Next step:</span> {review.review_answers.nextStep ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Confidence:</span> {review.review_answers.confidence_level ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Momentum:</span> {review.review_answers.momentum_level ?? '\u2014'}</p>
+                      <p className="md:col-span-2"><span className="font-semibold text-slate-700">Narrative drift:</span> {review.review_answers.narrative_drift ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Agenda:</span> {review.review_answers.agenda_template ?? '\u2014'}</p>
+                      <p><span className="font-semibold text-slate-700">Session notes:</span> {review.review_answers.session_notes?.freeform ?? '\u2014'}</p>
                     </div>
                   </div>
                 ))}

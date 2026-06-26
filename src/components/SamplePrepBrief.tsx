@@ -7,7 +7,7 @@ const BRIEF = {
   sections: [
     {
       heading: 'Your Win Thesis',
-      body: 'ServiceNow is executing a platform consolidation play — moving customers from point solutions to the full Now Platform. The CIO role is both internal (run IT at a $9B company on your own product) and external (be a credible peer to the CIOs you are selling to). Your record of consolidating fragmented technology stacks under business-aligned platforms maps directly to what they are asking customers to do. That alignment is the thesis.',
+      body: 'ServiceNow is executing a platform consolidation play - moving customers from point solutions to the full Now Platform. The CIO role is both internal (run IT at a $9B company on your own product) and external (be a credible peer to the CIOs you are selling to). Your record of consolidating fragmented technology stacks under business-aligned platforms maps directly to what they are asking customers to do. That alignment is the thesis.',
     },
     {
       heading: 'Objections They Will Raise',
@@ -20,7 +20,7 @@ const BRIEF = {
     {
       heading: 'Questions That Signal Peer-Level Understanding',
       items: [
-        { body: 'How is the internal IT organization structured relative to the product engineering org — and where does the CIO have accountability versus influence?' },
+        { body: 'How is the internal IT organization structured relative to the product engineering org - and where does the CIO have accountability versus influence?' },
         { body: 'What is the current state of ServiceNow\'s own Now Platform adoption internally, and where are the gaps the new CIO is expected to close?' },
         { body: 'How does the CIO role interface with the Chief Customer Officer function, given that internal IT credibility is part of the external sales story?' },
       ],

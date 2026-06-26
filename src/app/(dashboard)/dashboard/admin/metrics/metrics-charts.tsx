@@ -107,7 +107,7 @@ export function MetricsCharts({
       {selected && (
         <div className="border-t border-slate-100 pt-5">
           <p className="text-[11px] font-bold tracking-[0.12em] uppercase mb-3" style={{ color: GROUP_COLORS[selected] }}>
-            {GROUP_LABELS[selected]} — event breakdown
+            {GROUP_LABELS[selected]} - event breakdown
           </p>
           {details.length === 0 ? (
             <p className="text-[13px] text-slate-400">No events recorded for this group yet.</p>

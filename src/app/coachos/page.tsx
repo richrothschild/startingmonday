@@ -141,7 +141,7 @@ export default function CoachOSPage() {
             For relationship-first career transition coaches who want clients to execute between sessions.
           </h1>
           <p className="mb-8 max-w-3xl text-[16px] leading-relaxed text-slate-100">
-            If your coaching strengths are trust, positioning, and network strategy, CoachOS gives your clients the daily operating rhythm that keeps progress moving between calls — without you having to build or manage any software.
+            If your coaching strengths are trust, positioning, and network strategy, CoachOS gives your clients the daily operating rhythm that keeps progress moving between calls - without you having to build or manage any software.
           </p>
 
           <div className="mb-8">

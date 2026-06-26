@@ -79,16 +79,16 @@ const PILLAR_OPTIONS = [
 
 const CONNECTION_TEMPLATES = [
   {
-    label: 'Cold — exec in search',
-    text: `Hi [Name], I'm building Starting Monday — daily market intelligence for senior tech execs in active search. Thought it might be useful given where you are. Happy to connect.`,
+    label: 'Cold - exec in search',
+    text: `Hi [Name], I'm building Starting Monday - daily market intelligence for senior tech execs in active search. Thought it might be useful given where you are. Happy to connect.`,
   },
   {
-    label: 'Warm — referred or met',
+    label: 'Warm - referred or met',
     text: `Hi [Name], [Referrer] suggested I reach out. I'm building Starting Monday for CIOs and CTOs navigating a search. Would love to stay connected.`,
   },
   {
-    label: 'Follow-up — after content',
-    text: `Hi [Name], glad the post resonated. I built Starting Monday for exactly the dynamic you described — would love to connect and hear more about what you're seeing.`,
+    label: 'Follow-up - after content',
+    text: `Hi [Name], glad the post resonated. I built Starting Monday for exactly the dynamic you described - would love to connect and hear more about what you're seeing.`,
   },
 ]
 

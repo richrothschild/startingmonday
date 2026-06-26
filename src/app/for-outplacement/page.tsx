@@ -18,7 +18,7 @@ const FEATURES = [
   {
     name: 'Active Search Infrastructure',
     forFirm: 'Your program graduates executives with a clear understanding of the search process. Starting Monday gives them the platform to actually run it. Pipeline command center, company intelligence scanner, daily briefing, interview prep briefs - it is the operational layer that turns your workshop into an active campaign.',
-    outcome: 'Executives leave your program with a running search, not a revised resume and a list of job boards. Programs using the operating layer show stronger early-stage momentum—higher first-interview rates and more signal-driven actions in the first 30 days. Your client\'s HR team sees the difference.',
+    outcome: 'Executives leave your program with a running search, not a revised resume and a list of job boards. Programs using the operating layer show stronger early-stage momentum-higher first-interview rates and more signal-driven actions in the first 30 days. Your client\'s HR team sees the difference.',
   },
   {
     name: 'Company Intelligence Scanner',
@@ -27,7 +27,7 @@ const FEATURES = [
   },
   {
     name: 'Daily Briefing and Accountability',
-    forFirm: 'Every morning, the platform sends each enrolled executive a digest of new signals, pending follow-up actions, and pipeline status. It installs the daily discipline that displaced executives often lose when the structure of employment disappears. This reduces the need for manual check-ins between sessions—based on early pilot observation.',
+    forFirm: 'Every morning, the platform sends each enrolled executive a digest of new signals, pending follow-up actions, and pipeline status. It installs the daily discipline that displaced executives often lose when the structure of employment disappears. This reduces the need for manual check-ins between sessions-based on early pilot observation.',
     outcome: 'Search activity stays consistent between check-ins. Executives who were drifting stay in motion. Your counselors spend time on strategy, not accountability.',
   },
 ]

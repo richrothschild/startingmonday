@@ -5,7 +5,7 @@ import { DemoContent } from '@/app/demo/page'
 
 export const metadata: Metadata = {
   title: 'Starting Monday | Private Demo',
-  description: 'Private review demo — full prep brief generation with no email gate.',
+  description: 'Private review demo - full prep brief generation with no email gate.',
   robots: { index: false, follow: false },
 }
 

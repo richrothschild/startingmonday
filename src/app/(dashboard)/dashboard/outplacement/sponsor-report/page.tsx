@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * Sponsor-Ready Monthly Report — Sprint ITS-4 Ticket 24
+ * Sponsor-Ready Monthly Report - Sprint ITS-4 Ticket 24
  *
  * AC: report template is real, reviewable, and mapped to partner metrics.
  * Generates a sponsor-safe summary that is caveated and board-safe.
@@ -42,7 +42,7 @@ export default async function SponsorReportPage() {
         {/* Report header */}
         <div className="rounded-2xl border border-slate-200 bg-white px-6 py-6 print:border-0 print:px-0">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1 print:text-slate-600">
-            Starting Monday — Partner Program Report
+            Starting Monday - Partner Program Report
           </p>
           <h1 className="text-[24px] font-bold text-slate-900 leading-tight">{reportDate} Program Update</h1>
           <p className="text-[13px] text-slate-500 mt-2">
@@ -79,7 +79,7 @@ export default async function SponsorReportPage() {
 
         {/* Activity velocity */}
         <div className="rounded-xl border border-slate-200 bg-white px-5 py-5">
-          <h2 className="text-[13px] font-bold text-slate-800 mb-3">Activity velocity — this month</h2>
+          <h2 className="text-[13px] font-bold text-slate-800 mb-3">Activity velocity - this month</h2>
           <div className="space-y-2">
             {[
               { metric: 'Signal-driven outreach actions', value: '4.2 avg per participant per week', trend: '↑ from 3.1 last month' },
@@ -104,9 +104,9 @@ export default async function SponsorReportPage() {
           <p className="text-[12px] text-slate-500 mb-3">Qualitative themes from session notes this month. Individual participant data not disclosed.</p>
           <ul className="space-y-2">
             {[
-              'Narrative clarity improving — fewer session minutes spent on context rebuild.',
+              'Narrative clarity improving - fewer session minutes spent on context rebuild.',
               'Three participants in active interview stage; counselors focused on stakeholder-specific prep.',
-              'Two participants showing confidence drop signals — counselors have scheduled additional touchpoints.',
+              'Two participants showing confidence drop signals - counselors have scheduled additional touchpoints.',
             ].map((obs) => (
               <li key={obs} className="flex items-start gap-2 text-[13px] text-slate-700">
                 <span className="text-orange-400 mt-0.5 flex-shrink-0">→</span>

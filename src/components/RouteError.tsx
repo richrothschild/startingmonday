@@ -35,7 +35,7 @@ export function RouteError({
           </h1>
           <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
             This page failed to load. It is usually a temporary issue.
-            Try refreshing — if it persists, the team has been notified.
+            Try refreshing - if it persists, the team has been notified.
           </p>
           <button
             onClick={reset}

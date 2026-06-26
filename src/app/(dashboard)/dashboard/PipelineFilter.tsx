@@ -18,7 +18,7 @@ export function PipelineFilter({ q, stage, stages }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // When q changes externally (e.g. user clicks Clear), sync the input imperatively.
-  // Skip if the input is focused — user may still be typing and we don't want to overwrite them.
+  // Skip if the input is focused - user may still be typing and we don't want to overwrite them.
   useEffect(() => {
     if (inputRef.current && document.activeElement !== inputRef.current && inputRef.current.value !== q) {
       inputRef.current.value = q

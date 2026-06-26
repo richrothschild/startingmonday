@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * Outplacement Operator Console — Sprint ITS-4 Ticket 23
+ * Outplacement Operator Console - Sprint ITS-4 Ticket 23
  *
  * AC: partner buyers can see operating-system proof, not only docs.
  * This route shows cohort health, exception queue, intervention queue,
@@ -277,7 +277,7 @@ export default async function OutplacementOperatorConsolePage() {
   const EXCEPTION_QUEUE = [
     { participant: 'Exec A', issue: 'No signal action for 7 days', severity: 'high', owner: 'Counselor team' },
     { participant: 'Exec B', issue: 'Pipeline stalled at watching stage (3 weeks)', severity: 'medium', owner: 'Counselor 2' },
-    { participant: 'Exec C', issue: 'Narrative drift detected — 3 versions in 2 weeks', severity: 'medium', owner: 'Counselor lead' },
+    { participant: 'Exec C', issue: 'Narrative drift detected - 3 versions in 2 weeks', severity: 'medium', owner: 'Counselor lead' },
     { participant: 'Exec D', issue: 'Overdue follow-up × 2', severity: 'low', owner: 'Counselor 1' },
     { participant: 'Exec E', issue: 'No brief review in 14 days', severity: 'low', owner: 'Unassigned' },
   ]
@@ -314,7 +314,7 @@ export default async function OutplacementOperatorConsolePage() {
 
         {/* Cohort health KPIs */}
         <div>
-          <h2 className="text-[12px] font-bold text-slate-600 uppercase tracking-wider mb-3">Cohort health — current cycle</h2>
+          <h2 className="text-[12px] font-bold text-slate-600 uppercase tracking-wider mb-3">Cohort health - current cycle</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {LIVE_COHORT_HEALTH.map((item) => (
               <div key={item.label} className={`rounded-xl border p-4 ${STATUS_STYLE[item.status as keyof typeof STATUS_STYLE]}`}>

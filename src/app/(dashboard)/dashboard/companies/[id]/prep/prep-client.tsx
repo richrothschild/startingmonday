@@ -377,7 +377,7 @@ function OnDemandPanel({
           )}
           {!loading && (
             <p className="mt-5 pt-3 border-t border-slate-100 text-[11px] text-slate-400">
-              AI-generated — use as input, not advice. Verify facts before any conversation.
+              AI-generated - use as input, not advice. Verify facts before any conversation.
             </p>
           )}
         </div>
@@ -1083,7 +1083,7 @@ export function PrepClient({
             )}
             {!busy && (
               <p className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
-                AI-generated — use as input, not advice. Verify facts before any conversation.
+                AI-generated - use as input, not advice. Verify facts before any conversation.
               </p>
             )}
           </div>
@@ -1287,7 +1287,7 @@ export function PrepClient({
                   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleChat() }
                 }}
                 placeholder={chatMessages.length === 0
-                  ? 'Ask anything — "What should I ask about their CFO transition?" or "Role-play their opening question"'
+                  ? 'Ask anything - "What should I ask about their CFO transition?" or "Role-play their opening question"'
                   : 'Ask a follow-up...'}
                 rows={2}
                 disabled={chatLoading || loading}

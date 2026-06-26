@@ -9,17 +9,17 @@ const SECTIONS = [
     label: 'Start Here',
     docs: [
       {
-        title: '01 — Claude Code Setup',
+        title: '01 - Claude Code Setup',
         description: 'Install Claude Code, authenticate, connect to all services (Railway, Supabase, Resend, Sentry, Anthropic Console). Meeting cadence checklist.',
         href: `${REPO}/docs/onboarding/01-claude-code-setup.md`,
       },
       {
-        title: '02 — Environment Setup',
+        title: '02 - Environment Setup',
         description: 'Clone the repo, install dependencies, configure .env.local and worker/.env. Full variable reference for web app and worker.',
         href: `${REPO}/docs/onboarding/02-environment-setup.md`,
       },
       {
-        title: '03 — Project Overview',
+        title: '03 - Project Overview',
         description: 'What Starting Monday is, who the user is, the six activation actions, current state, and what Rich is focused on.',
         href: `${REPO}/docs/onboarding/03-project-overview.md`,
       },
@@ -29,12 +29,12 @@ const SECTIONS = [
     label: 'The Codebase',
     docs: [
       {
-        title: '04 — Codebase Guide',
+        title: '04 - Codebase Guide',
         description: 'Repository structure, Supabase client rules, auth enforcement, API patterns, AI calls, feature gating, migrations, worker job list.',
         href: `${REPO}/docs/onboarding/04-codebase-guide.md`,
       },
       {
-        title: '05 — Dev Workflow',
+        title: '05 - Dev Workflow',
         description: 'Branch strategy, staging environment, commit style, PR process, who owns what, pre-merge checklist, hotfix procedure.',
         href: `${REPO}/docs/onboarding/05-dev-workflow.md`,
       },
@@ -44,7 +44,7 @@ const SECTIONS = [
         href: `${REPO}/ARCHITECTURE.md`,
       },
       {
-        title: 'Tech Debt — Round 2',
+        title: 'Tech Debt - Round 2',
         description: '7 open items from the May 2026 scan: Sentry gaps in 8 routes, unauthenticated notify endpoint, stale type casts in cron and dashboard pages, Stripe SDK workarounds.',
         href: `${REPO}/docs/tech-debt-round2.md`,
       },
@@ -59,7 +59,7 @@ const SECTIONS = [
     label: 'Product Intelligence',
     docs: [
       {
-        title: '06 — Product Intelligence',
+        title: '06 - Product Intelligence',
         description: 'The intelligence scanner (signal sources, roadmap, known gaps), the synthetic council (how to use it), and the 9 arc personas (onboarding paths, stall detection).',
         href: `${REPO}/docs/onboarding/06-product-intelligence.md`,
       },
@@ -74,7 +74,7 @@ const SECTIONS = [
         href: `${REPO}/docs/content/council-review-process.md`,
       },
       {
-        title: 'Site Review — May 2026',
+        title: 'Site Review - May 2026',
         description: 'Full synthetic council review of the live site. Every council member, current grade, specific feedback, and exactly what it takes to earn an A. 30+ members across 15 councils.',
         href: `${REPO}/docs/content/site-review-may-2026.md`,
       },
@@ -104,12 +104,12 @@ const SECTIONS = [
     label: 'Legal & Admin',
     docs: [
       {
-        title: '07 — Contributor Agreement',
+        title: '07 - Contributor Agreement',
         description: 'NDA, IP assignment, data access obligations, scope of engagement. Sign and return to Rich before writing any code.',
         href: `${REPO}/docs/onboarding/07-contributor-agreement.md`,
       },
       {
-        title: '08 — Day One Checklist',
+        title: '08 - Day One Checklist',
         description: 'Structured walkthrough of every product surface: signup, pipeline, contacts, signals, chat, briefing, billing, mobile. Bug and UX issue filing format.',
         href: `${REPO}/docs/onboarding/08-day-one-checklist.md`,
       },

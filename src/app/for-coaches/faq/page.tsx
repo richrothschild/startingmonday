@@ -33,37 +33,37 @@ const FAQS = [
     id: 'onboarding',
     category: 'Getting Started',
     question: 'How long does it take to set up for one coach preview?',
-    answer: 'About 15 minutes. You schedule a session with our onboarding specialist, we create your coach workspace, invite 2-3 of your client accounts to the preview, and you\'re live. Clients can view your coach profile and shared pipeline immediately. No long setup or training required—the interface is designed for coaches to navigate on their first look.',
+    answer: 'About 15 minutes. You schedule a session with our onboarding specialist, we create your coach workspace, invite 2-3 of your client accounts to the preview, and you\'re live. Clients can view your coach profile and shared pipeline immediately. No long setup or training required-the interface is designed for coaches to navigate on their first look.',
   },
   {
     id: 'client-benefits',
     category: 'Client Experience',
     question: 'What are the main benefits for my clients?',
-    answer: 'Clients get four immediate benefits: (1) Stop missing signals—overnight detection of executive departures, board changes, funding, and hiring. They act before the market gets noisy. (2) Walk in prepared—gen-down prep briefs in about a minute with win thesis, likely objections, peer-level questions. (3) Nothing goes cold—every company, contact, and conversation tracked between sessions. (4) One decision each morning—a prioritized action list before the market opens, not 30 competing priorities. All this stays private and visible only to their coaches they invite.',
+    answer: 'Clients get four immediate benefits: (1) Stop missing signals-overnight detection of executive departures, board changes, funding, and hiring. They act before the market gets noisy. (2) Walk in prepared-gen-down prep briefs in about a minute with win thesis, likely objections, peer-level questions. (3) Nothing goes cold-every company, contact, and conversation tracked between sessions. (4) One decision each morning-a prioritized action list before the market opens, not 30 competing priorities. All this stays private and visible only to their coaches they invite.',
   },
   {
     id: 'sharing',
     category: 'Data Sharing & Collaboration',
     question: 'How does the coach and client sharing work?',
-    answer: 'Coach and client see the same pipeline, signals, and prep briefs. This eliminates the translation layer. When you ask "Did you see the signal about the CFO?" the client already knows—because they saw it when it happened. You see their pipeline activity in real time. All data access is logged so you both know exactly what was seen and when. Clients grant you access and can revoke it anytime.',
+    answer: 'Coach and client see the same pipeline, signals, and prep briefs. This eliminates the translation layer. When you ask "Did you see the signal about the CFO?" the client already knows-because they saw it when it happened. You see their pipeline activity in real time. All data access is logged so you both know exactly what was seen and when. Clients grant you access and can revoke it anytime.',
   },
   {
     id: 'client-control',
     category: 'Privacy & Control',
     question: 'Can my clients control what I see? What if they want to restrict my access?',
-    answer: 'Yes, completely. Clients decide which coaches can access their account and what they can view. You get full access during the preview, but in live usage, clients can grant or deny access to specific companies, signals, or briefs. Every coach access action is logged with timestamps—clients can review exactly when you viewed what. Clients can revoke your access instantly from their settings.',
+    answer: 'Yes, completely. Clients decide which coaches can access their account and what they can view. You get full access during the preview, but in live usage, clients can grant or deny access to specific companies, signals, or briefs. Every coach access action is logged with timestamps-clients can review exactly when you viewed what. Clients can revoke your access instantly from their settings.',
   },
   {
     id: 'security',
     category: 'Data Security & Compliance',
     question: 'How do you protect client data? What is your security posture?',
-    answer: 'Data security is foundational. All data is encrypted at rest (AES-256) and in transit (TLS 1.2+). We use role-based access control (RBAC) and row-level security (RLS) in Postgres so coaches can only see what clients grant. All access is logged for audit trails. Data is stored in US-based infrastructure. We are working toward SOC 2 Type II certification; current security controls are documented and available to enterprise partners through our diligence request process. Clients own their data—you cannot export without permission. We are designed with GDPR and CCPA principles; our privacy policy details data handling terms.',
+    answer: 'Data security is foundational. All data is encrypted at rest (AES-256) and in transit (TLS 1.2+). We use role-based access control (RBAC) and row-level security (RLS) in Postgres so coaches can only see what clients grant. All access is logged for audit trails. Data is stored in US-based infrastructure. We are working toward SOC 2 Type II certification; current security controls are documented and available to enterprise partners through our diligence request process. Clients own their data-you cannot export without permission. We are designed with GDPR and CCPA principles; our privacy policy details data handling terms.',
   },
   {
     id: 'compliance',
     category: 'Legal & Compliance',
     question: 'Are there any compliance concerns for coaches using this with clients?',
-    answer: 'No material compliance issues. We handle data security; you handle coaching ethics. If you work in regulated industries (PE, executive recruiting), our current trust and governance materials are available for review on request. We are not legal or investment advice—you retain full responsibility for your advice and recommendations. Our terms clarify that coaches are independent contractors, not Starting Monday employees, and Starting Monday does not provide coaching or investment guidance.',
+    answer: 'No material compliance issues. We handle data security; you handle coaching ethics. If you work in regulated industries (PE, executive recruiting), our current trust and governance materials are available for review on request. We are not legal or investment advice-you retain full responsibility for your advice and recommendations. Our terms clarify that coaches are independent contractors, not Starting Monday employees, and Starting Monday does not provide coaching or investment guidance.',
   },
   {
     id: 'pricing',
@@ -81,7 +81,7 @@ const FAQS = [
     id: 'trial',
     category: 'Getting Started',
     question: 'Is there a trial? Can I get my money back if it does not work?',
-    answer: 'Yes, 30-day free preview. No credit card, no commitment. If you decide it does not fit after the preview, you simply decline to roll into live client referrals. If you do roll in and change your mind within 30 days of paying, we offer a full refund. The risk is on us—we want coaches to experience the workflow before deciding.',
+    answer: 'Yes, 30-day free preview. No credit card, no commitment. If you decide it does not fit after the preview, you simply decline to roll into live client referrals. If you do roll in and change your mind within 30 days of paying, we offer a full refund. The risk is on us-we want coaches to experience the workflow before deciding.',
   },
   {
     id: 'time-commitment',
@@ -99,13 +99,13 @@ const FAQS = [
     id: 'manual-work',
     category: 'Operations',
     question: 'Do clients have to manually update their pipeline, or is it automated?',
-    answer: 'Clients update their own pipeline—we do not pull from LinkedIn or CRMs automatically (yet). This is intentional: the discipline of tracking is part of the accountability loop. Most clients spend 5 minutes per week updating 3-5 company stages. If they are not tracking their own pipeline, they probably are not serious about the search. The prep brief, signal detection, and interview tracking are fully automated.',
+    answer: 'Clients update their own pipeline-we do not pull from LinkedIn or CRMs automatically (yet). This is intentional: the discipline of tracking is part of the accountability loop. Most clients spend 5 minutes per week updating 3-5 company stages. If they are not tracking their own pipeline, they probably are not serious about the search. The prep brief, signal detection, and interview tracking are fully automated.',
   },
   {
     id: 'switching-coaches',
     category: 'Client Experience',
     question: 'What happens if a client changes coaches or works with multiple coaches?',
-    answer: 'Clients can grant access to multiple coaches independently. Each coach sees the same pipeline but has a separate access log. Clients can revoke access from one coach while keeping another active. There is no "switching" process—clients simply control who has access. This is useful for coaches working in pairs or client firms rotating coaches.',
+    answer: 'Clients can grant access to multiple coaches independently. Each coach sees the same pipeline but has a separate access log. Clients can revoke access from one coach while keeping another active. There is no "switching" process-clients simply control who has access. This is useful for coaches working in pairs or client firms rotating coaches.',
   },
 ]
 
@@ -117,7 +117,7 @@ const OBJECTIONS = [
   },
   {
     id: 'workload',
-    objection: '"I already handle this in my coaching—pipeline review, prep work, accountability. This feels like overhead."',
+    objection: '"I already handle this in my coaching-pipeline review, prep work, accountability. This feels like overhead."',
     response: 'Not necessarily. Most coaches spend 20-30 minutes per session on operational catch-up: "So where did we leave off? What companies have you contacted?" This tool answers those questions before the session starts. You arrive knowing the state of the pipeline, what signals moved, and what prep the client reviewed. Session time stays the same-more of it goes to strategy instead of context rebuilding. Early coaches report spending less total time on operational work.',
   },
   {
@@ -133,7 +133,7 @@ const OBJECTIONS = [
   {
     id: 'data-risk',
     objection: '"I am nervous about data security and liability if coach data is breached."',
-    response: 'Data security is foundational—AES-256 encryption at rest, TLS 1.2+ in transit, role-based access controls. You, as the coach, are not liable for platform security—that is on Starting Monday. The terms are clear: coaches are independent contractors, not employees, and Starting Monday carries liability for data handling. We are working toward SOC 2 Type II certification; security documentation is available to enterprise partners through our diligence request process. If your firm has specific security requirements, our enterprise team can discuss custom options.',
+    response: 'Data security is foundational-AES-256 encryption at rest, TLS 1.2+ in transit, role-based access controls. You, as the coach, are not liable for platform security-that is on Starting Monday. The terms are clear: coaches are independent contractors, not employees, and Starting Monday carries liability for data handling. We are working toward SOC 2 Type II certification; security documentation is available to enterprise partners through our diligence request process. If your firm has specific security requirements, our enterprise team can discuss custom options.',
   },
   {
     id: 'privacy',
@@ -143,17 +143,17 @@ const OBJECTIONS = [
   {
     id: 'competitive-concern',
     objection: '"What if I use this with a client who later works with another coach? Am I sharing intelligence with a competitor?"',
-    response: 'No. Clients control access per coach. If a client switches coaches, the new coach does not automatically see the old coach\'s notes or activity—only the shared pipeline state. Old coach access is revoked unless the client re-grants it. This is by design. Coaches maintain privacy even when clients work with multiple coaches.',
+    response: 'No. Clients control access per coach. If a client switches coaches, the new coach does not automatically see the old coach\'s notes or activity-only the shared pipeline state. Old coach access is revoked unless the client re-grants it. This is by design. Coaches maintain privacy even when clients work with multiple coaches.',
   },
   {
     id: 'integration-roadmap',
     objection: '"If I adopt this now, will the features I need be built before I am ready to scale?"',
-    response: 'Ask what specific integration you need during preview. Our roadmap includes Salesforce sync, HubSpot integration, and API access for custom workflows. If a feature matters for your firm, flag it during onboarding—we weight feedback from active coaches. Roadmap is transparent and updated quarterly.',
+    response: 'Ask what specific integration you need during preview. Our roadmap includes Salesforce sync, HubSpot integration, and API access for custom workflows. If a feature matters for your firm, flag it during onboarding-we weight feedback from active coaches. Roadmap is transparent and updated quarterly.',
   },
   {
     id: 'effort',
     objection: '"This requires discipline from clients. My clients already do not track their pipelines consistently."',
-    response: 'Fair. This tool works best with clients who are motivated and disciplined. If a client will not track their own pipeline 5 minutes a week, this tool will not make them do it—nothing will. But for your serious clients in active transition, this provides the structure and accountability they need to stay consistent. Use it selectively with clients who are committed to a disciplined search.',
+    response: 'Fair. This tool works best with clients who are motivated and disciplined. If a client will not track their own pipeline 5 minutes a week, this tool will not make them do it-nothing will. But for your serious clients in active transition, this provides the structure and accountability they need to stay consistent. Use it selectively with clients who are committed to a disciplined search.',
   },
 ]
 

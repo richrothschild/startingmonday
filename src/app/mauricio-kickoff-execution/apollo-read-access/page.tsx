@@ -46,7 +46,7 @@ function previewValue(row: CsvRow, keys: string[]): string {
     const value = row[key]?.trim()
     if (value) return value
   }
-  return '—'
+  return '\u2014'
 }
 
 export default async function MauricioApolloReadAccessPage() {
