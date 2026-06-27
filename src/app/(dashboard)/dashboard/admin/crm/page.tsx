@@ -336,7 +336,7 @@ export default async function AdminCrmPage({
                     return (
                       <tr key={lead.id}>
                         <td className="px-6 py-3 font-semibold text-white">{lead.name}</td>
-                        <td className="px-4 py-3 text-slate-300">{lead.title ?? '—'}</td>
+                        <td className="px-4 py-3 text-slate-300">{lead.title ?? '\u2014'}</td>
                         <td className="px-4 py-3 text-slate-300">{channelLabel(lead.channel)}</td>
                         <td className="px-4 py-3 text-slate-300 capitalize">{lead.lead_queue ?? 'nurture'}</td>
                         <td className="px-4 py-3 text-right">

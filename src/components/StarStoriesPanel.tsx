@@ -59,19 +59,19 @@ function StoryForm({
       <div>
         <label className={labelCls}>Situation <span className="text-red-500">*</span></label>
         <textarea rows={2} value={situation} onChange={e => setSituation(e.target.value)}
-          placeholder="The context and challenge — one or two sentences."
+          placeholder="The context and challenge - one or two sentences."
           className={inputCls} />
       </div>
       <div>
         <label className={labelCls}>What you did <span className="text-red-500">*</span></label>
         <textarea rows={2} value={action} onChange={e => setAction(e.target.value)}
-          placeholder="Your specific decision or action — not the team, you."
+          placeholder="Your specific decision or action - not the team, you."
           className={inputCls} />
       </div>
       <div>
         <label className={labelCls}>Outcome <span className="text-red-500">*</span></label>
         <textarea rows={2} value={result} onChange={e => setResult(e.target.value)}
-          placeholder="Quantified result — dollars, %, time, scope."
+          placeholder="Quantified result - dollars, %, time, scope."
           className={inputCls} />
       </div>
       <div>

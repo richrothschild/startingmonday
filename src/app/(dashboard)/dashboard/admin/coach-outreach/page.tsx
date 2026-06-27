@@ -370,7 +370,7 @@ export default async function CoachOutreachPage() {
                 <li>
                   Link to a 2-min demo video (if you have one) is better than a link to a page, because it feels more personal
                 </li>
-                <li>Never send the partner dashboard link — it's internal only</li>
+                <li>Never send the partner dashboard link - it's internal only</li>
               </ul>
             </div>
             <div className="border-t border-orange-100 pt-4">

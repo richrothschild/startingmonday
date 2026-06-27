@@ -39,7 +39,7 @@ export default function VpJobSearchDifferentRulesPage() {
 
         <p>
           It stops being accurate somewhere around the VP level. Not gradually, and not at
-          every company simultaneously — but at some point in your career, the playbook you
+          every company simultaneously - but at some point in your career, the playbook you
           have been running stops producing the results it used to. You apply and hear nothing.
           You find out about roles after they were filled. You make it to the first interview
           and get a polite pass with no useful feedback. The process feels broken. It is not
@@ -173,8 +173,8 @@ export default function VpJobSearchDifferentRulesPage() {
 
         <p>
           None of this is complicated. All of it requires deliberate attention before the
-          moment it matters. Starting Monday was built to operationalize it — monitoring,
-          pipeline, prep briefs, daily briefing — for the executives who want to run the
+          moment it matters. Starting Monday was built to operationalize it - monitoring,
+          pipeline, prep briefs, daily briefing - for the executives who want to run the
           search the way it needs to be run. The{' '}
           <a href="/blog" className="text-slate-900 font-semibold underline underline-offset-2 hover:text-orange-600 transition-colors">
             blog

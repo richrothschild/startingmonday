@@ -35,7 +35,7 @@ export default function ExecutiveSearchOperatingSystemPage() {
       url="https://startingmonday.app/blog/executive-search-operating-system"
       cta={{
         headline: 'The system, not just the mindset.',
-        body: 'Pipeline tracking, signal monitoring, interview prep, and outreach — all calibrated to your level and your targets. This is what a disciplined executive search campaign looks like in practice.',
+        body: 'Pipeline tracking, signal monitoring, interview prep, and outreach - all calibrated to your level and your targets. This is what a disciplined executive search campaign looks like in practice.',
         label: 'Set up your campaign →',
         href: '/signup',
         note: 'Free for 30 days. No credit card.',

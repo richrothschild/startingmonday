@@ -6,11 +6,11 @@ import { LIFECYCLE_TEMPLATES, LIFECYCLE_STATE_DESCRIPTIONS } from '@/lib/executi
 
 export const metadata: Metadata = {
   title: 'Optionality Mode | Starting Monday',
-  description: 'Quietly monitor the market, warm key relationships, and stay ready — without signaling departure.',
+  description: 'Quietly monitor the market, warm key relationships, and stay ready - without signaling departure.',
 }
 
 /**
- * Optionality Mode — Sprint ITS-3 Ticket 16
+ * Optionality Mode - Sprint ITS-3 Ticket 16
  *
  * AC:
  * - Distinct from active search state
@@ -54,7 +54,7 @@ export default async function OptionalityModePage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">
-                Optionality Mode — In-Role (Quiet)
+                Optionality Mode - In-Role (Quiet)
               </p>
               <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
                 Good to see you, {firstName}.
@@ -82,7 +82,7 @@ export default async function OptionalityModePage() {
         {/* Subtle external positioning guidance */}
         <div className="rounded-xl border border-blue-200 bg-blue-50/30 px-5 py-4">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-2">
-            External positioning — signal-level guidance
+            External positioning - signal-level guidance
           </p>
           <p className="text-[13px] text-blue-800 leading-relaxed">
             {template.positioningGuidance}

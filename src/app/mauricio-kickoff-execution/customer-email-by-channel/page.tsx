@@ -200,10 +200,10 @@ export default async function MauricioCustomerEmailByChannelPage() {
               <tbody className="divide-y divide-slate-100">
                 {rows.slice(0, 100).map((row) => (
                   <tr key={row.id}>
-                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.email ?? '—'}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.email ?? '\u2014'}</td>
                     <td className="px-4 py-3 text-[13px] text-slate-700">{normalizeChannel(row.signup_source)}</td>
-                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.subscription_status ?? '—'}</td>
-                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.subscription_tier ?? '—'}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.subscription_status ?? '\u2014'}</td>
+                    <td className="px-4 py-3 text-[13px] text-slate-700">{row.subscription_tier ?? '\u2014'}</td>
                     <td className="px-4 py-3 text-[13px] text-slate-700">{new Date(row.created_at).toLocaleDateString('en-US')}</td>
                   </tr>
                 ))}

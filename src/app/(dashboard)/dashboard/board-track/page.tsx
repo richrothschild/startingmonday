@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * Board and Governance Workflow Pack — Sprint ITS-3 Ticket 20
+ * Board and Governance Workflow Pack - Sprint ITS-3 Ticket 20
  *
  * AC: board/governance route and artifact pack published
  */
@@ -75,7 +75,7 @@ export default async function BoardGovernancePage() {
         <div className="rounded-xl border border-white/15 bg-white/5 px-5 py-5 space-y-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold text-white">Governance thesis</h2>
           <p className="text-[12px] text-slate-300">
-            Articulate your unique value as a director — not what you have done as an operator, but what you bring to a governance context.
+            Articulate your unique value as a director - not what you have done as an operator, but what you bring to a governance context.
           </p>
           {GOVERNANCE_THESIS_PROMPTS.map(({ label, placeholder }) => (
             <div key={label}>

@@ -267,11 +267,11 @@ export default async function SocialAdminPage() {
               },
               {
                 title: 'Edit anything that needs fixing.',
-                body: 'Click anywhere in the text box and type directly. Changes save automatically when you click somewhere else on the page — you\'ll see "Unsaved edits" in amber if a save is still pending. Do not close the tab while it says that.',
+                body: 'Click anywhere in the text box and type directly. Changes save automatically when you click somewhere else on the page - you\'ll see "Unsaved edits" in amber if a save is still pending. Do not close the tab while it says that.',
               },
               {
                 title: 'Post it. Two options.',
-                body: 'Option A: Click "Post to LinkedIn" — this fires immediately through the LinkedIn API. The status updates to confirm. This is the preferred method. Option B: Click "Copy to clipboard," go to linkedin.com, create a new post, paste the text, and publish it yourself. Then come back here and click "Mark posted (manual)" so the record stays accurate. Use Option B only if Option A throws an error.',
+                body: 'Option A: Click "Post to LinkedIn" - this fires immediately through the LinkedIn API. The status updates to confirm. This is the preferred method. Option B: Click "Copy to clipboard," go to linkedin.com, create a new post, paste the text, and publish it yourself. Then come back here and click "Mark posted (manual)" so the record stays accurate. Use Option B only if Option A throws an error.',
               },
               {
                 title: 'Track engagement in the Notes field.',
