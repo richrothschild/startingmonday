@@ -159,7 +159,7 @@ export function DemoContent({
             Walk in as a peer.<br className="hidden sm:block" /> Not a candidate.
           </h1>
           <p className="text-[16px] text-slate-300 leading-relaxed">
-            Select a role at Salesforce below. Starting Monday generates your brief in under a minute — win thesis, objections with exact counters, peer-level questions, and what not to say.
+            A real brief. Generated from a sample executive background against Salesforce&rsquo;s actual business context. Every section specific to the role you choose.
           </p>
         </header>
 
