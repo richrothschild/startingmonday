@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
-import { DeferredHowStartingMondayHelpsModal } from '@/components/DeferredHowStartingMondayHelpsModal'
+import { HomepageBriefTeaser } from '@/components/HomepageBriefTeaser'
 import { ChartZoomModal } from '@/components/home/ChartZoomModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
@@ -589,6 +589,8 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
           </div>
         </section>
+
+        {isHomePage && <HomepageBriefTeaser />}
 
         <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
           <div className="max-w-5xl mx-auto">
