@@ -131,12 +131,10 @@ export function DemoContent({
   }
 
   return (
-    <div className={`relative min-h-screen font-sans ${premiumEnabled ? 'overflow-hidden bg-slate-950' : 'bg-slate-950'}`}>
-      {premiumEnabled && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
-      )}
+    <div className="relative min-h-screen font-sans overflow-hidden bg-slate-950">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_40%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
       {/* Nav */}
-      <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 border-b border-slate-800 sticky top-0 z-10'}>
+      <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -151,69 +149,39 @@ export function DemoContent({
       </nav>
 
       {/* Hero */}
-      <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14' : 'bg-slate-950 px-4 sm:px-6 pt-14 sm:pt-18 pb-10 sm:pb-14'}>
+      <header className="px-4 sm:px-6 pt-16 sm:pt-24 pb-14 sm:pb-20">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-3">Live demo</p>
-          <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-4">
+          <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-orange-300 mb-5">Live demo</p>
+          <h1 className="font-serif text-[2.6rem] sm:text-[3.6rem] leading-[1.02] tracking-tight text-white mb-7 max-w-2xl">
             The brief. Before the conversation that matters.
           </h1>
-          <p className="text-[15px] text-slate-200 leading-relaxed max-w-xl mb-6">
-            You are about to see what Starting Monday generates in under 60 seconds: a role-specific brief that builds your win thesis, addresses the objections that will surface, and prepares you for peer-level questions that separate candidates from peers. Grounded in your background and their actual situation.
+          <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-10">
+            Generated in under a minute. The preparation a top executive coach produces — specific to this company, this role, and how your background positions you in this room.
           </p>
 
-          {/* Differentiators */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+          {/* Credential strip */}
+          <div className="flex flex-wrap gap-x-7 gap-y-3 mb-10 border-t border-white/10 pt-7">
             {[
-              { label: 'Context before it is posted', body: 'Signal monitoring detects role formation before most candidates know to look.' },
-              { label: 'Brief in 60 seconds', body: 'Company-specific, role-specific, grounded in your background. Not generic.' },
-              { label: 'Objections handled', body: 'Likely pushbacks and how to counter them, specific to the search context.' },
-            ].map(item => (
-              <div key={item.label} className="border border-white/12 bg-white/[0.06] rounded-lg p-4 shadow-[0_14px_48px_rgba(15,23,42,0.16)]">
-                <p className="text-[12px] font-bold text-orange-400 mb-1.5">{item.label}</p>
-                <p className="text-[13px] text-slate-200 leading-relaxed">{item.body}</p>
-              </div>
+              'Win thesis',
+              'Objections with exact counters',
+              'Peer-level questions',
+              'What not to say',
+              'How to close',
+            ].map((item) => (
+              <span key={item} className="text-[13px] text-slate-400 flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-orange-500/60 shrink-0" />
+                {item}
+              </span>
             ))}
           </div>
 
-          {/* Visual: timing gap inline mini-chart */}
-          <div className="border border-white/12 rounded-lg bg-slate-950/62 p-4 mb-2 shadow-[0_18px_56px_rgba(15,23,42,0.2)] backdrop-blur-sm">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">Opportunity window</p>
-            <svg viewBox="0 0 420 60" className="w-full h-[52px]" aria-label="Opportunity window timing" role="img">
-              <line x1="20" y1="28" x2="400" y2="28" stroke="#334155" strokeWidth="2" />
-              {['Signal','Shape','Outreach','Open','Interviews','Start'].map((label, i) => {
-                const x = 20 + i * 76
-                return (
-                  <g key={label}>
-                    <circle cx={x} cy="28" r="4" fill="#64748b" />
-                    <text x={x} y="50" fill="#64748b" fontSize="9" textAnchor="middle">{label}</text>
-                  </g>
-                )
-              })}
-              <line x1="96" y1="10" x2="96" y2="24" stroke="#22c55e" strokeWidth="3" />
-              <polygon points="96,28 91,18 101,18" fill="#22c55e" />
-              <text x="100" y="12" fill="#86efac" fontSize="9" fontWeight="700">SM enters here</text>
-              <line x1="248" y1="10" x2="248" y2="24" stroke="#f97316" strokeWidth="3" />
-              <polygon points="248,28 243,18 253,18" fill="#f97316" />
-              <text x="252" y="12" fill="#fdba74" fontSize="9" fontWeight="700">Typical</text>
-            </svg>
-          </div>
-          <p className="text-[11px] text-slate-500 text-center mb-8">Entering before the role opens materially improves shortlist odds.</p>
-
           {/* Anchor CTA */}
-          <a href="#run-demo" className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 text-[14px] font-bold px-6 py-3 rounded transition-colors">
-            Run the demo ↓
+          <a href="#run-demo" className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600">
+            Generate the brief
           </a>
+          <p className="mt-4 text-[12px] text-slate-500">Free for 30 days. No credit card. Usually ready in about a minute.</p>
         </div>
       </header>
-
-      <section className={`px-4 sm:px-6 pb-6 ${premiumEnabled ? '' : 'bg-slate-950'}`}>
-        <div className="max-w-3xl mx-auto rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_16px_52px_rgba(15,23,42,0.16)]">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Source note</p>
-          <p className="text-[12px] text-slate-200 leading-relaxed">
-            Demo claims reflect observed prep-brief behavior in pilot cohorts and are linked to source-backed methodology in the Evidence Hub.
-          </p>
-        </div>
-      </section>
 
       {/* Demo section */}
       <section id="run-demo" className="bg-slate-950/70 border-t border-white/10 px-4 sm:px-6 py-12 sm:py-16" ref={briefRef}>
