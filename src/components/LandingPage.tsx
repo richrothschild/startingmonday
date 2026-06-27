@@ -402,7 +402,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <p className="mt-6 mb-8 max-w-2xl text-[14px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty]">
-                Founded by executives. Based on research. Built for you. Completely private. Free for 30 days.
+                Designed for all leaders. Grounded in research. Completely private. Thirty days free.
               </p>
             )}
 
