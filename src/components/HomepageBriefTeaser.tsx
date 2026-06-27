@@ -1,48 +1,50 @@
 import Link from 'next/link'
 
-const BOTTOM_LINE = [
-  "Your decisive advantage is your acquisition integration record: you have closed the books, rationalized the cost structure, and produced investor-grade reporting under the timelines a PE sponsor actually runs on.",
-  "The objection that surfaces first is whether your experience is in sponsor-directed exit preparation or founder-led growth. If it leans toward the latter, expect the first 20 minutes to test your comfort with cost discipline under board scrutiny.",
-  "Win this conversation by naming the specific deal, the exit multiple your finance work contributed to, and the one CFO decision in the 90 days before close that most shaped the outcome.",
-]
-
 export function HomepageBriefTeaser() {
   return (
     <section className="border-y border-white/10 bg-slate-950/50 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
         <div className="max-w-3xl">
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-300">The preparation</p>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-300">
+            The signal, the story, the plan
+          </p>
           <h2 className="mb-8 font-serif text-[1.5rem] leading-tight text-white sm:text-[1.9rem]">
-            This is what you walk in with.
+            Before you apply, you're already in the conversation.
           </h2>
 
-          <div className="mb-6 space-y-5">
-            {BOTTOM_LINE.map((sentence, i) => (
-              <div key={i} className="flex gap-4">
-                <span className="mt-0.5 shrink-0 text-[11px] font-bold text-orange-400">{i + 1}</span>
-                <p className="text-[15px] leading-relaxed text-slate-200">{sentence}</p>
-              </div>
-            ))}
+          <div className="mb-8 space-y-6">
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500 mb-2">Signal</p>
+              <p className="text-[15px] leading-relaxed text-slate-200">
+                Salesforce is under pressure from Elliott Management and betting everything on Agentforce. The CIO role is both internal and external — you're running IT on your own product. That's not a job posting. That's an opportunity.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500 mb-2">Story</p>
+              <p className="text-[15px] leading-relaxed text-slate-200">
+                You've modernized enterprise IT at scale. You understand what it takes to run internal systems as a proof point for external customers. You know how Agentforce deployment becomes your credibility architecture.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500 mb-2">Plan</p>
+              <p className="text-[15px] leading-relaxed text-slate-200">
+                Week one: conversations with the platform team and finance about integration priorities. Week two: internal Agentforce pilots that become reference cases. By week four, you're the executive who gets this mandate — not because you applied, but because you already see the path.
+              </p>
+            </div>
           </div>
 
-          <p className="mb-8 text-[12px] text-slate-600">
-            Sample — Chief Financial Officer · PE-backed software company
+          <p className="mb-6 text-[12px] text-slate-600">
+            Salesforce · Chief Information Officer · Generate the brief at any company
           </p>
 
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/demo"
-              className="inline-flex items-center rounded-full bg-orange-500 px-5 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
-            >
-              Generate yours
-            </Link>
-            <Link
-              href="/learn-more"
-              className="inline-flex items-center rounded-full border border-white/15 px-5 py-2.5 text-[13px] font-semibold text-slate-200 transition-colors hover:border-white/25 hover:text-white"
-            >
-              See the full brief
-            </Link>
-          </div>
+          <Link
+            href="/demo"
+            className="inline-flex items-center rounded-full bg-orange-500 px-5 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+          >
+            See the brief
+          </Link>
         </div>
       </div>
     </section>
