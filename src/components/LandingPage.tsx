@@ -409,7 +409,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <section
-                className="mb-8"
+                className="mb-12"
                 aria-labelledby="homepage-path-title"
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
@@ -471,31 +471,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </div>
                 <p className="text-[12px] text-slate-300">Free for 30 days. No credit card required.</p>
               </section>
-            )}
-
-            {proofHighlights && proofHighlights.length > 0 && (
-              <p className="mb-6 text-[14px] leading-relaxed text-slate-100 sm:text-[15px]" data-emi-proof="landing_micro_proof">
-                <span className="font-semibold text-orange-200">Proof:</span> {isLeadershipLanePage
-                  ? 'Leaders maintain disciplined narratives and enter conversations grounded in company context.'
-                  : 'Executives maintain disciplined narratives and enter conversations grounded in company context.'}
-              </p>
-            )}
-
-            {experimentVariant !== 'proof_first' && proofHighlights && proofHighlights.length > 0 && (
-              <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
-                {proofHighlights.map((item) => (
-                  <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-                    <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
-                    <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {proofHighlights && proofHighlights.length > 0 && (
-              <p className="mb-6 text-[12px] leading-relaxed text-slate-200">
-                Source: Jan-May 2026 pilot cohorts with published method notes and attribution controls.
-              </p>
             )}
 
 
@@ -590,77 +565,142 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </div>
         </section>
 
-        {isHomePage && <HomepageBriefTeaser />}
-
-        <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
-          <div className="max-w-5xl mx-auto">
-            {isManagerToolsPage ? (
-              <>
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Manager Tools next step</p>
-                <h2 className="mb-6 text-[22px] font-bold leading-snug text-white">
-                  For managers and executives in transition.
+        {isHomePage && (
+          <>
+            {/* SIGNAL SECTION: Market opportunity and timing advantage */}
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+              <div className="mx-auto max-w-5xl">
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
+                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
+                  Find the role before the posting.
                 </h2>
-                <div className="mb-6 grid grid-cols-1 gap-3">
-                  <TrackLink
-                    href="/for-executives"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'next_step_manager_tools_audience',
-                      source_page: sourcePage,
-                    }}
-                    className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
-                  >
-                    <p className="text-[13px] font-semibold text-white">Managers and Executives</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
-                  </TrackLink>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <TrackLink
-                    href={MANAGERTOOLS_SIGNUP_URL}
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'next_step_manager_tools_signup',
-                      source_page: sourcePage,
-                    }}
-                    className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
-                  >
-                    Start 90-day free access
-                  </TrackLink>
-                  <TrackLink
-                    href="/feedback"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'next_step_manager_tools_feedback',
-                      source_page: sourcePage,
-                    }}
-                    className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
-                  >
-                    Submit feedback
-                  </TrackLink>
-                </div>
-              </>
-            ) : isExecutivesPage ? (
-              <>
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leader outcomes' : 'Executive outcomes'}</p>
-                <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
-                  Build momentum in the first 30 days.
-                </h2>
-                <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                  Use your trial to sharpen narrative quality, improve conversation conversion, and create a weekly operating cadence you can keep through offer-stage decisions.
+                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                  When a company faces pressure—activist investors, product launches, strategic shifts—internal conversations start first. Budgets get reallocated. Roles start getting defined. Decision-makers (who will become your advocates) start asking "who can run this?" And then, months later, it gets posted. Starting Monday finds you in that window. Before the shortlist gets crowded. When your relevance is obvious to the people who matter.
                 </p>
-                <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Week 1</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Mandate narrative, role filter, and priority relationship map.</p>
+
+                <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-4 sm:p-6">
+                  <OpportunityTimingGapChart />
+                </div>
+
+                <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-4 sm:p-6">
+                  <RoleLandingProbabilityChart />
+                </div>
+
+                <p className="text-[13px] leading-relaxed text-slate-300">
+                  <span className="font-semibold text-white">What this means:</span> You're not competing for the posted job. You're already in the conversation. You're the one the mandate-shapers know about.
+                </p>
+              </div>
+            </section>
+
+            {/* STORY SECTION: Advocates and narrative */}
+            <HomepageBriefTeaser />
+
+            {/* PLAN SECTION: Execution and momentum */}
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+              <div className="mx-auto max-w-5xl">
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Plan</p>
+                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
+                  Build advocates while you search.
+                </h2>
+                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                  Most executives search in isolation—reaching out to scattered contacts, piecing together research, lacking any systematic way to know who actually shapes the mandate. Starting Monday changes this. You identify key decision-makers and advocates. You move from generic outreach to genuine relationships grounded in company context. You track weekly what's working, so advocates stay engaged and momentum compounds.
+                </p>
+
+                <div className="mb-8 space-y-4">
+                  <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">01</span>
+                      <span><span className="font-semibold text-white">Find who shapes the role.</span> Not from LinkedIn or a recruiter, but from analyzing who actually influences mandate decisions. That's who becomes your advocate.</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">02</span>
+                      <span><span className="font-semibold text-white">Build genuine relationships through your narrative.</span> Your story gets sharper. When you talk to the CFO, the board, the CTO—each conversation feels personal because it is. They see themselves in your mandate understanding.</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">03</span>
+                      <span><span className="font-semibold text-white">Track advocate momentum weekly.</span> You know who's engaged, who's advancing the conversation, and where advocates can help next. Relationships that compound turn into sponsorship.</span>
+                    </div>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Week 2</p>
+                </div>
+
+                <p className="text-[13px] leading-relaxed text-slate-300">
+                  <span className="font-semibold text-white">By week four:</span> Advocates are talking about you to other decision-makers. That's when real momentum starts. That's when you're no longer searching—you're being sought.
+                </p>
+              </div>
+            </section>
+          </>
+        )}
+
+        {!isHomePage && (
+          <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+            <div className="max-w-5xl mx-auto">
+              {isManagerToolsPage ? (
+                <>
+                  <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Manager Tools next step</p>
+                  <h2 className="mb-6 text-[22px] font-bold leading-snug text-white">
+                    For managers and executives in transition.
+                  </h2>
+                  <div className="mb-6 grid grid-cols-1 gap-3">
+                    <TrackLink
+                      href="/for-executives"
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'next_step_manager_tools_audience',
+                        source_page: sourcePage,
+                      }}
+                      className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
+                    >
+                      <p className="text-[13px] font-semibold text-white">Managers and Executives</p>
+                      <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
+                    </TrackLink>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <TrackLink
+                      href={MANAGERTOOLS_SIGNUP_URL}
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'next_step_manager_tools_signup',
+                        source_page: sourcePage,
+                      }}
+                      className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                    >
+                      Start 90-day free access
+                    </TrackLink>
+                    <TrackLink
+                      href="/feedback"
+                      event={EVENT_NAMES.channelEntryClicked}
+                      logToUserEvents
+                      properties={{
+                        channel: 'executives',
+                        cta_label: 'next_step_manager_tools_feedback',
+                        source_page: sourcePage,
+                      }}
+                      className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
+                    >
+                      Submit feedback
+                    </TrackLink>
+                  </div>
+                </>
+              ) : isExecutivesPage ? (
+                <>
+                  <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leader outcomes' : 'Executive outcomes'}</p>
+                  <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
+                    Build momentum in the first 30 days.
+                  </h2>
+                  <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
+                    Use your trial to sharpen narrative quality, improve conversation conversion, and create a weekly operating cadence you can keep through offer-stage decisions.
+                  </p>
+                  <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <p className="text-[12px] font-semibold text-white">Week 1</p>
+                      <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Mandate narrative, role filter, and priority relationship map.</p>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <p className="text-[12px] font-semibold text-white">Week 2</p>
                     <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Signal tracking and audience-specific prep for recruiter and board conversations.</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
@@ -725,11 +765,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </div>
               </>
             )}
-            {isHomePage && (
-              <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
-            )}
-          </div>
-        </section>
+            <p className="mt-3 text-[12px] text-slate-400">{hero.trialNote}</p>
+            </div>
+          </section>
+        )}
 
         {faqs && faqs.length > 0 && (
           <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6" aria-labelledby="faq-heading">
