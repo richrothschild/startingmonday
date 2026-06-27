@@ -401,18 +401,19 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             )}
 
             {isHomePage && (
-              <p className="mt-6 mb-8 max-w-2xl text-[14px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty]">
-                Designed for all leaders. Grounded in research. Completely private. Thirty days free.
+              <p className="mt-6 mb-10 max-w-3xl text-[18px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty] sm:text-[20px]">
+                Designed for all leaders. Grounded in research.
+                <br className="hidden sm:inline" /> Completely private. Thirty days free.
               </p>
             )}
 
             {isHomePage && (
               <section
-                className="mb-8 rounded-[1.5rem] border border-white/12 bg-white/[0.05] p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)]"
+                className="mb-8"
                 aria-labelledby="homepage-path-title"
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-4 text-[20px] font-bold leading-snug text-white sm:text-[22px]">
+                <h2 id="homepage-path-title" className="mb-5 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
                   Start with your role.
                 </h2>
                 <div className="flex flex-wrap gap-3 mb-4">
@@ -697,33 +698,28 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             ) : (
               <>
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Why it feels different</p>
-                <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
-                  Expensive spray-and-pray tools optimize for volume. Starting Monday optimizes for outcomes.
+                <h2 className="mb-4 text-[24px] font-bold leading-tight text-white sm:text-[28px]">
+                  Most executives search in isolation. Starting Monday helps you build the relationships that matter.
                 </h2>
-                <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
-                  Most platforms sell reach, noise, and public activity. Starting Monday is built for targeted timing, private execution, and role-specific conversations that convert.
+                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                  You're not casting nets into crowded windows. You're having targeted conversations with decision-makers before the market even knows the role exists. Starting Monday gives you clarity on who shapes real outcomes, focus on genuine relationships over noise, and control over timing when mandates crystallize. The difference feels immediate: by week one, you've moved from overwhelm to confidence, from scattered outreach to relationship leadership that converts.
                 </p>
-                <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Spray-and-pray tools</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Pay more to broadcast broadly, chase low-signal alerts, and then compete in the same crowded windows as everyone else.</p>
-                  </article>
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Starting Monday</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Identify signal early, focus on high-fit roles, and run a disciplined private weekly cadence tied to real decision milestones.</p>
-                  </article>
-                  <article className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[12px] font-semibold text-white">Bottom line</p>
-                    <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Less spend on noisy tools, fewer dead-end conversations, and stronger positioning when real mandates open.</p>
-                  </article>
-                </div>
-                <div className="mb-6 rounded-2xl border border-orange-300/20 bg-orange-300/[0.05] p-4 sm:p-5">
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">What changes in practice</p>
-                  <ul className="space-y-2 text-[13px] leading-relaxed text-slate-200">
-                    <li>Start outreach earlier while role scope is still being shaped.</li>
-                    <li>Use one narrative adapted for boards, recruiters, and leadership peers.</li>
-                    <li>Track weekly execution against concrete conversion checkpoints.</li>
-                  </ul>
+                <div className="mb-8 space-y-4">
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">What shifts</p>
+                  <ol className="space-y-3 text-[14px] leading-relaxed text-slate-200">
+                    <li className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">01</span>
+                      <span>From isolated searching to strategic relationship building. You know who matters.</span>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">02</span>
+                      <span>From scattered outreach to one refined narrative. Your authentic story, consistently delivered.</span>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">03</span>
+                      <span>From hoping for outcomes to tracking real progress weekly. Relationships that convert.</span>
+                    </li>
+                  </ol>
                 </div>
               </>
             )}
