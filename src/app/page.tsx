@@ -159,14 +159,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For leaders who shape the future.',
-          h1Lines: ['Excellence finds excellence.'],
+          eyebrow: 'For leaders in search.',
+          h1Lines: ['Be the conversation before the posting.'],
           claimMethodLabel: '',
           claimMethodHref: '',
           claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
           bodyPreamble: 'For senior leaders in search and the partners who guide them.',
-          body: 'Be the name they thought of.',
+          body: 'Your story. The right people. The right moment. Founded on research. Tailored to you. Completely private. 30 days free.',
           competitiveEdge: '',
           steps: [
             'Track the companies where your next role is most likely to emerge.',

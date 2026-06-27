@@ -36,12 +36,12 @@ const SPECS = [
       {
         id: 'home-operating-system-frame',
         description: 'Homepage keeps executive operating-system framing copy.',
-        matcher: 'For leaders who shape the future.',
+        matcher: 'For leaders in search.',
       },
       {
         id: 'home-hero-claim',
-        description: 'Homepage hero keeps shortlist outcome claim.',
-        matcher: 'Be the name they thought of.',
+        description: 'Homepage hero keeps conversation-before-posting claim.',
+        matcher: 'Be the conversation before the posting.',
       },
       {
         id: 'home-primary-path-ctas',
