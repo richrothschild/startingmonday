@@ -166,7 +166,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
           bodyPreamble: 'For senior leaders in search and the partners who guide them.',
-          body: 'Your story. The right people. The right moment. Founded on research. Tailored to you. Completely private. 30 days free.',
+          body: 'Your story. The right people. The right moment.',
           competitiveEdge: '',
           steps: [
             'Track the companies where your next role is most likely to emerge.',

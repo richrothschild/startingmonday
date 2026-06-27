@@ -401,6 +401,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             )}
 
             {isHomePage && (
+              <p className="mt-6 mb-8 max-w-2xl text-[14px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty]">
+                Founded by executives. Based on research. Built for you. Completely private. Free for 30 days.
+              </p>
+            )}
+
+            {isHomePage && (
               <section
                 className="mb-8 rounded-[1.5rem] border border-white/12 bg-white/[0.05] p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)]"
                 aria-labelledby="homepage-path-title"
