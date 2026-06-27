@@ -39,7 +39,7 @@ export default function EarlyRoleSignalsMethodPage() {
 
         <p>
           Every product decision at Starting Monday is grounded in one question: what is the earliest reliable signal that
-          a C-suite search is forming? This post explains the evidence basis for that claim — without exposing the exact
+          a C-suite search is forming? This post explains the evidence basis for that claim - without exposing the exact
           detection methods we use.
         </p>
 
@@ -97,7 +97,7 @@ export default function EarlyRoleSignalsMethodPage() {
             href="/signup?from=blog"
             className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-5 py-2.5 rounded hover:bg-orange-600 transition-colors"
           >
-            Start free — 30 days, no card
+            Start free - 30 days, no card
           </Link>
         </div>
 

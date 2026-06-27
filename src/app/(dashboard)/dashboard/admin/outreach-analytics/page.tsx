@@ -421,7 +421,7 @@ export default async function OutreachAnalyticsPage() {
             )}
           </div>
 
-          {/* Engagement trend bar chart — inline SVG, no client bundle needed */}
+          {/* Engagement trend bar chart - inline SVG, no client bundle needed */}
           <div className="bg-white border border-slate-200 rounded overflow-hidden">
             <div className="px-5 py-4 border-b border-slate-100">
               <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Engagement Trend (last 20 posts)</h2>

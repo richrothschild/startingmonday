@@ -164,7 +164,7 @@ const SPECS = [
 			{
 				id: 'conversion-cta',
 				description: 'Post includes signup CTA.',
-				matcher: 'Start free — 30 days, no card',
+				matcher: 'Start free - 30 days, no card',
 			},
 		],
 	},

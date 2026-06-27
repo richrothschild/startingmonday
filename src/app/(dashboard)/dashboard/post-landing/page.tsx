@@ -5,12 +5,12 @@ import type { Metadata } from 'next'
 import { LIFECYCLE_TEMPLATES } from '@/lib/executive-lifecycle'
 
 export const metadata: Metadata = {
-  title: 'Post-Landing — 30/60/90 Plan | Starting Monday',
+  title: 'Post-Landing - 30/60/90 Plan | Starting Monday',
   description: 'Onboarding narrative, stakeholder trust map, early-win planner, and first-90-day milestones.',
 }
 
 /**
- * Post-Landing 30/60/90 Mode — Sprint ITS-3 Ticket 19
+ * Post-Landing 30/60/90 Mode - Sprint ITS-3 Ticket 19
  *
  * AC:
  * - Distinct executive lifecycle state from active search
@@ -57,7 +57,7 @@ export default async function PostLandingPage() {
       theme: 'Listen, learn, and build trust',
       goals: [
         'Complete structured stakeholder introductions (all key relationships mapped)',
-        'Understand the real mandate — what success looks like in 90 days',
+        'Understand the real mandate - what success looks like in 90 days',
         'Identify the one visible win you can deliver in the first month',
         'Establish your communication cadence with your manager and team',
       ],
@@ -74,7 +74,7 @@ export default async function PostLandingPage() {
       goals: [
         'Complete the first visible win and document it clearly',
         'Identify two more high-value moves in the next 30 days',
-        'Run a stakeholder trust check — where do you have credit? Where is it thin?',
+        'Run a stakeholder trust check - where do you have credit? Where is it thin?',
         'Begin shaping the narrative of your impact for the 90-day review',
       ],
       artifacts: [
@@ -91,7 +91,7 @@ export default async function PostLandingPage() {
         'Articulate your 90-day impact narrative in one paragraph',
         'Define your mandate for the next 6 months',
         'Identify the three external relationships to stay warm (keep optionality alive)',
-        'Capture proof points while they are fresh — your future search will need them',
+        'Capture proof points while they are fresh - your future search will need them',
       ],
       artifacts: [
         '90-day impact narrative (for internal reviews and future positioning)',
@@ -119,7 +119,7 @@ export default async function PostLandingPage() {
         {/* Mode header */}
         <div className="rounded-2xl border border-emerald-200 bg-white px-6 py-6">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-emerald-600 mb-2">
-            Post-Landing — 30/60/90 Mode
+            Post-Landing - 30/60/90 Mode
           </p>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
             {firstName}&apos;s first 90 days at {company}

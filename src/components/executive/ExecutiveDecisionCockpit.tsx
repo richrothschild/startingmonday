@@ -5,7 +5,7 @@ import type React from 'react'
 /**
  * ExecutiveDecisionCockpit.tsx
  *
- * Sprint ITS-3 — Ticket 18: Decision cockpit with risk and constraints scoring.
+ * Sprint ITS-3 - Ticket 18: Decision cockpit with risk and constraints scoring.
  *
  * AC:
  * - Decision owner, confidence, blockers, next irreversible choice
@@ -27,7 +27,7 @@ interface ExecutiveDecisionCockpitProps {
   onSave?: (criteria: WhatMattersCriterion[], evaluations: TargetEvaluation[]) => void
 }
 
-// Tailwind width classes for score bars — static list so Tailwind scanner can detect them
+// Tailwind width classes for score bars - static list so Tailwind scanner can detect them
 const SCORE_BAR_WIDTHS: Record<number, string> = {
   0: 'w-0', 5: 'w-[5%]', 10: 'w-[10%]', 15: 'w-[15%]', 20: 'w-[20%]',
   25: 'w-1/4', 30: 'w-[30%]', 35: 'w-[35%]', 40: 'w-2/5', 45: 'w-[45%]',
@@ -243,7 +243,7 @@ export function ExecutiveDecisionCockpit({
         </div>
       )}
 
-      {/* What matters — criteria editor */}
+      {/* What matters - criteria editor */}
       {view === 'criteria' && (
         <div className="space-y-4">
           <div className="rounded-xl border border-amber-200 bg-amber-50/30 px-4 py-3">
@@ -337,7 +337,7 @@ export function ExecutiveDecisionCockpit({
                   {/* Disqualification alert */}
                   {activeScoringResult.isDisqualified && (
                     <div className="rounded-xl border border-red-300 bg-red-50 px-5 py-4">
-                      <p className="text-[13px] font-bold text-red-700 mb-1">Disqualified — hard constraint failed</p>
+                      <p className="text-[13px] font-bold text-red-700 mb-1">Disqualified - hard constraint failed</p>
                       <ul className="space-y-1">
                         {activeScoringResult.disqualificationReasons.map((r) => (
                           <li key={r} className="text-[12px] text-red-600">• {r}</li>

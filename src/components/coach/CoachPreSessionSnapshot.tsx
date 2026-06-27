@@ -91,7 +91,7 @@ export function CoachPreSessionSnapshot({
         </div>
       </div>
 
-      {/* Change summary — 4 numbers */}
+      {/* Change summary - 4 numbers */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: 'New signals', value: snapshot.signals_since_last_session, warn: snapshot.signals_since_last_session === 0 },
@@ -151,7 +151,7 @@ export function CoachPreSessionSnapshot({
         </div>
       )}
 
-      {/* Confidence, momentum, narrative drift — Sprint ITS-2 fields */}
+      {/* Confidence, momentum, narrative drift - Sprint ITS-2 fields */}
       {(confidenceField || momentumField || narrativeDriftFlag) && (
         <div className="rounded-xl border border-slate-200 bg-white p-5">
           <h3 className="text-[12px] font-semibold text-slate-700 mb-3">State signals</h3>
@@ -185,7 +185,7 @@ export function CoachPreSessionSnapshot({
           {anyStalledOrWatch && (
             <li className="flex items-start gap-2">
               <span className="text-amber-500 mt-0.5">→</span>
-              Open with: "I noticed {stalledCount > 0 ? 'some stalled activity' : 'a few areas to watch'}—let me share what I see before we jump in."
+              Open with: "I noticed {stalledCount > 0 ? 'some stalled activity' : 'a few areas to watch'}-let me share what I see before we jump in."
             </li>
           )}
           {snapshot.overdue_actions > 0 && (

@@ -757,7 +757,7 @@ export function ExecutiveBriefHub({
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {protocolProgress.map(step => (
                   <div key={step.label} className={`rounded border px-2.5 py-2 text-[11px] ${step.done ? 'border-emerald-300 bg-emerald-50 text-emerald-800' : 'border-slate-200 bg-white text-slate-600'}`}>
-                    {step.done ? 'âœ“' : 'â—‹'} {step.label}
+                    {step.done ? 'âœ“' : 'â-‹'} {step.label}
                   </div>
                 ))}
               </div>

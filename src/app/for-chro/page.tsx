@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 }
 
 /**
- * CHRO and Sponsor Liaison Page — Sprint ITS-4 Ticket 26
+ * CHRO and Sponsor Liaison Page - Sprint ITS-4 Ticket 26
  *
  * AC: page published and linked from outplacement and enterprise partner paths.
  */
 
 const SPONSOR_VALUE_PROPS = [
   {
-    title: 'Visible program health — not just a status call',
+    title: 'Visible program health - not just a status call',
     body: 'Weekly cohort dashboards show activation rate, signal-driven actions, stall index, and counselor intervention quality. You see trends before they become problems.',
   },
   {
@@ -25,7 +25,7 @@ const SPONSOR_VALUE_PROPS = [
   },
   {
     title: 'Transition credibility for your executives',
-    body: 'Displaced executives arrive at the job market prepared. They carry a strong narrative, an active pipeline, and documented momentum — not just a revised resume.',
+    body: 'Displaced executives arrive at the job market prepared. They carry a strong narrative, an active pipeline, and documented momentum - not just a revised resume.',
   },
   {
     title: 'Governance-first pilot design',
@@ -36,7 +36,7 @@ const SPONSOR_VALUE_PROPS = [
 const SPONSOR_FAQ = [
   {
     q: 'What do I see in the monthly report?',
-    a: 'Activation rate, action velocity, stall index, interview conversion rate, and counselor observations — all caveated and presented without individual participant names unless separately authorized.',
+    a: 'Activation rate, action velocity, stall index, interview conversion rate, and counselor observations - all caveated and presented without individual participant names unless separately authorized.',
   },
   {
     q: 'What is the governance process if the program underperforms?',
@@ -90,7 +90,7 @@ export default function ChroSponsorPage() {
         <div className="mx-auto max-w-4xl">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-400">For CHROs and Sponsors</p>
           <h1 className="mb-4 text-[28px] font-bold leading-[1.1] tracking-tight text-white sm:text-[38px] max-w-3xl">
-            Transition programs that earn sponsor confidence — not just participant engagement.
+            Transition programs that earn sponsor confidence - not just participant engagement.
           </h1>
           <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl">
             Starting Monday gives you board-safe reporting, visible program health, and governance-first pilot design.

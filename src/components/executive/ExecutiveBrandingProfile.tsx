@@ -94,7 +94,7 @@ export function ExecutiveBrandingProfile({
       {template.positioningGuidance && (
         <div className="rounded-xl border border-blue-200 bg-blue-50/40 px-5 py-4">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-1">
-            Positioning guidance — {LIFECYCLE_TEMPLATES.find((t) => t.state === lifecycleState)?.state.replace('_', ' ')}
+            Positioning guidance - {LIFECYCLE_TEMPLATES.find((t) => t.state === lifecycleState)?.state.replace('_', ' ')}
           </p>
           <p className="text-[13px] text-blue-800 leading-relaxed">{template.positioningGuidance}</p>
         </div>
@@ -104,7 +104,7 @@ export function ExecutiveBrandingProfile({
       {lifecycleState === 'optionality' && (
         <div className="rounded-xl border border-amber-200 bg-amber-50/40 px-5 py-4">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-amber-600 mb-1">
-            Confidentiality — subtle external positioning
+            Confidentiality - subtle external positioning
           </p>
           <p className="text-[13px] text-amber-800 leading-relaxed">
             {template.confidentialityNotes}
@@ -117,9 +117,9 @@ export function ExecutiveBrandingProfile({
         <h3 className="text-[13px] font-bold text-slate-800">Narrative architecture</h3>
         <p className="text-[12px] text-slate-500">Three-layer story: what you built, why now, where your edge is strongest next.</p>
         {[
-          { label: '1. Legacy — what I built or fixed', value: legacy, setter: setLegacy, placeholder: 'e.g. Inherited a fragmented engineering org, consolidated to one platform, reduced TTM by 40%.' },
-          { label: '2. Inflection — why now', value: inflection, setter: setInflection, placeholder: 'e.g. The company has been acquired. The scope I built now fits a larger stage.' },
-          { label: '3. Next mandate — where my edge is strongest', value: nextMandate, setter: setNextMandate, placeholder: 'e.g. PE-backed platforms scaling from $50M to $200M where the operating complexity is highest.' },
+          { label: '1. Legacy - what I built or fixed', value: legacy, setter: setLegacy, placeholder: 'e.g. Inherited a fragmented engineering org, consolidated to one platform, reduced TTM by 40%.' },
+          { label: '2. Inflection - why now', value: inflection, setter: setInflection, placeholder: 'e.g. The company has been acquired. The scope I built now fits a larger stage.' },
+          { label: '3. Next mandate - where my edge is strongest', value: nextMandate, setter: setNextMandate, placeholder: 'e.g. PE-backed platforms scaling from $50M to $200M where the operating complexity is highest.' },
         ].map(({ label, value, setter, placeholder }) => (
           <div key={label}>
             <label className="block text-[11px] font-semibold text-slate-600 mb-1">{label}</label>

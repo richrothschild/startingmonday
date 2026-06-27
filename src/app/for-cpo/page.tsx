@@ -124,7 +124,7 @@ export default function ForCpoPage() {
           steps: [
             'Identify companies where the product mandate is genuinely C-suite: board-level investment, a CEO who understands product deeply, and a current leadership gap or transition that creates a real opening rather than a posted backfill',
             'Watch the signals that precede CPO searches: new CEOs resetting product vision, Series C and D companies formalizing product leadership for the first time, and public companies where the product has fallen behind the competitive market',
-            'Prepare a brief that speaks in two registers: the visionary register (a point of view on where the market is going and how this company should build for it) and the executive register (evidence that you have shipped at scale and built teams that outlasted your tenure). Evaluators expect both — the first earns their interest, the second closes their confidence.',
+            'Prepare a brief that speaks in two registers: the visionary register (a point of view on where the market is going and how this company should build for it) and the executive register (evidence that you have shipped at scale and built teams that outlasted your tenure). Evaluators expect both - the first earns their interest, the second closes their confidence.',
           ],
           trialNote: '30-day pilot. No credit card. Cancel any time.',
         }}

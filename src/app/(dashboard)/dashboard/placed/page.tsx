@@ -85,7 +85,7 @@ export default async function PlacedPage() {
                 href="/settings/billing"
                 className="block text-center bg-orange-500 text-white text-[14px] font-bold px-7 py-3.5 rounded hover:bg-orange-600 transition-colors"
               >
-                Stay sharp — upgrade to Monitor ($49/mo)
+                Stay sharp - upgrade to Monitor ($49/mo)
               </Link>
             )}
             <Link

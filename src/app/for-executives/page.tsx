@@ -168,7 +168,7 @@ export default async function ForExecutivesPage() {
             <div className="mt-4 space-y-3">
               {[
                 ['Is my search completely confidential?', 'Yes. Your employer cannot see your account or your search activity. Starting Monday is designed from the ground up to be invisible to your current organization.'],
-                ['How is this different from working with a recruiter?', 'Recruiters work for the hiring company, not for you. Starting Monday works on your behalf — building your positioning, finding the right signals early, and keeping you in control of which conversations you enter and when.'],
+                ['How is this different from working with a recruiter?', 'Recruiters work for the hiring company, not for you. Starting Monday works on your behalf - building your positioning, finding the right signals early, and keeping you in control of which conversations you enter and when.'],
                 ['How quickly do executives see useful signals?', 'Most users see relevant movement within the first week of setting up their target list. The value starts with intelligence and positioning, so you are prepared before a role surfaces publicly.'],
               ].map(([question, answer]) => (
                 <details key={question} className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">

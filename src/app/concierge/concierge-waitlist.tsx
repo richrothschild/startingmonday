@@ -6,7 +6,7 @@ import { usePostHog } from 'posthog-js/react'
 import { isEnabledFlag } from '@/lib/feature-flags'
 
 const INCLUDES = [
-  'Everything in Executive ($499/mo) — full intelligence depth, all sources, full brief suite',
+  'Everything in Executive ($499/mo) - full intelligence depth, all sources, full brief suite',
   'One 45-minute strategy session each month with the founder, who has run this search from the executive side',
   'AI prepares the session agenda from your live pipeline before every call',
   'Session notes and recommendations are stored in your concierge hub after every call',
@@ -141,7 +141,7 @@ export function ConciergeWaitlist() {
       <header className={premiumEnabled ? 'px-4 sm:px-6 pt-14 pb-18' : 'bg-slate-900 px-4 sm:px-6 pt-14 pb-16'}>
         <div className="max-w-2xl mx-auto">
           <p className={`text-[11px] font-bold tracking-[0.16em] uppercase mb-4 ${premiumEnabled ? 'text-orange-300' : 'text-orange-500'}`}>
-            {isBetaProgram ? 'Confidential Beta Cohort — Founder-Led, 10 Seats' : 'Executive Concierge — $499/mo'}
+            {isBetaProgram ? 'Confidential Beta Cohort - Founder-Led, 10 Seats' : 'Executive Concierge - $499/mo'}
           </p>
           <h1 className="text-[34px] sm:text-[42px] font-bold text-white leading-[1.05] tracking-tight mb-5">
             {isBetaProgram ? (

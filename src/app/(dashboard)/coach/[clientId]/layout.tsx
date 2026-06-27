@@ -25,22 +25,13 @@ export default async function CoachClientLayout({
 
   const { clientId } = await params
 
-  // Fetch client details from Supabase
-  const { data: coachClientData } = await supabase
-    .from('coach_clients')
-    .select('id, user:users(name, email), status')
-    .eq('id', clientId)
-    .maybeSingle()
-
-  if (!coachClientData) {
-    redirect('/coach/clients')
-  }
-
-  const clientDetails = {
-    id: (coachClientData as any).id,
-    name: (coachClientData as any).user?.name ?? 'Client',
-    email: (coachClientData as any).user?.email ?? '',
-    status: ((coachClientData as any).status as string) ?? 'In Prep',
+  // TODO: Fetch client details from Supabase
+  // Verify coach has access to this client
+  const client = {
+    id: clientId,
+    name: 'Sarah Chen',
+    email: 'sarah@example.com',
+    status: 'In Prep',
   }
 
   return (
@@ -56,8 +47,8 @@ export default async function CoachClientLayout({
               ← Back to clients
             </Link>
           </div>
-          <h1 className="text-[24px] font-bold text-white mb-1">{clientDetails.name}</h1>
-          <p className="text-[13px] text-slate-400">{clientDetails.email}</p>
+          <h1 className="text-[24px] font-bold text-white mb-1">{client.name}</h1>
+          <p className="text-[13px] text-slate-400">{client.email}</p>
         </div>
       </div>
 

@@ -15,20 +15,34 @@ export default async function CoachClientsPage() {
     redirect('/auth/login')
   }
 
-  // Query coach_clients relationship to get list of assigned clients
-  const { data: coachClientsData } = await supabase
-    .from('coach_clients')
-    .select('id, user:users(id, name, email), status')
-    .eq('coach_id', user.id)
-  
-  const clients = (coachClientsData ?? []).map((client: any) => ({
-    id: client.id as string,
-    name: client.user?.name ?? 'Unknown Client',
-    status: (client.status as string) ?? 'New',
-    completionPercent: 0,
-    lastActivity: 'Just started',
-    avatar: (client.user?.name ?? 'C').substring(0, 2).toUpperCase(),
-  }))
+  // TODO: Query coach_clients relationship to get list of assigned clients
+  // This is a placeholder - actual implementation will fetch from Supabase
+  const clients = [
+    {
+      id: '1',
+      name: 'Sarah Chen',
+      status: 'In Prep',
+      completionPercent: 65,
+      lastActivity: '2 hours ago',
+      avatar: 'SC',
+    },
+    {
+      id: '2',
+      name: 'Michael Torres',
+      status: 'Interviewing',
+      completionPercent: 100,
+      lastActivity: '1 day ago',
+      avatar: 'MT',
+    },
+    {
+      id: '3',
+      name: 'Jessica Park',
+      status: 'New',
+      completionPercent: 0,
+      lastActivity: 'Just started',
+      avatar: 'JP',
+    },
+  ]
 
   const getStatusColor = (status: string) => {
     switch (status) {
