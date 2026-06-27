@@ -132,151 +132,136 @@ export function DemoContent({
 
   return (
     <div className="relative min-h-screen font-sans overflow-hidden bg-slate-950">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_40%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.98)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[50rem] bg-[radial-gradient(ellipse_at_top_left,_rgba(193,127,59,0.16),_transparent_55%)]" />
+
       {/* Nav */}
-      <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
+      <nav className="sticky top-0 z-20 border-b border-white/8 bg-slate-950/80 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">Log in</Link>
-            <Link href="/signup?from=demo" className="text-[13px] font-semibold text-slate-900 bg-orange-500 px-4 py-1.5 rounded hover:bg-orange-600 transition-colors">
+            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors">Log in</Link>
+            <Link href="/signup?from=demo" className="text-[13px] font-semibold text-slate-950 bg-orange-500 px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors">
               Start free trial
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <header className="px-4 sm:px-6 pt-16 sm:pt-24 pb-14 sm:pb-20">
-        <div className="max-w-3xl mx-auto">
+      {/* Page: single editorial flow */}
+      <main className="max-w-2xl mx-auto px-4 sm:px-6">
+
+        {/* Hero */}
+        <header className="pt-16 sm:pt-24 pb-12 sm:pb-16">
           <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-orange-300 mb-5">Live demo</p>
-          <h1 className="font-serif text-[2.6rem] sm:text-[3.6rem] leading-[1.02] tracking-tight text-white mb-7 max-w-2xl">
-            The brief. Before the conversation that matters.
+          <h1 className="font-serif text-[2.6rem] sm:text-[3.5rem] leading-[1.03] tracking-tight text-white mb-6">
+            Walk in as a peer.<br className="hidden sm:block" /> Not a candidate.
           </h1>
-          <p className="text-[16px] text-slate-300 leading-relaxed max-w-xl mb-10">
-            Generated in under a minute. The preparation a top executive coach produces — specific to this company, this role, and how your background positions you in this room.
+          <p className="text-[16px] text-slate-300 leading-relaxed">
+            Select a role at Salesforce below. Starting Monday generates your brief in under a minute — win thesis, objections with exact counters, peer-level questions, and what not to say.
           </p>
+        </header>
 
-          {/* Credential strip */}
-          <div className="flex flex-wrap gap-x-7 gap-y-3 mb-10 border-t border-white/10 pt-7">
-            {[
-              'Win thesis',
-              'Objections with exact counters',
-              'Peer-level questions',
-              'What not to say',
-              'How to close',
-            ].map((item) => (
-              <span key={item} className="text-[13px] text-slate-400 flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-orange-500/60 shrink-0" />
-                {item}
-              </span>
-            ))}
-          </div>
+        {/* Form — flows directly from hero, no separate section header */}
+        <div id="run-demo" ref={briefRef}>
 
-          {/* Anchor CTA */}
-          <a href="#run-demo" className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600">
-            Generate the brief
-          </a>
-          <p className="mt-4 text-[12px] text-slate-500">Free for 30 days. No credit card. Usually ready in about a minute.</p>
-        </div>
-      </header>
+          {runCount > 0 && runsLeft > 0 && (
+            <p className="text-[12px] text-slate-500 mb-4">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this session.</p>
+          )}
 
-      {/* Demo section */}
-      <section id="run-demo" className="bg-slate-950/70 border-t border-white/10 px-4 sm:px-6 py-12 sm:py-16" ref={briefRef}>
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-[22px] font-bold mb-1 text-white">Generate a prep brief</h2>
-          <p className="text-[13px] mb-6 text-slate-300">
-            Showing a brief for <span className="font-semibold text-slate-700">{DEMO_COMPANY}</span>. Select a role below.
-            {runCount > 0 && runsLeft > 0 && (
-              <span className="ml-2 text-slate-200">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this demo.</span>
-            )}
-          </p>
-
-          <form onSubmit={handleGenerate} className="bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm rounded-lg p-6 flex flex-col gap-4 mb-8">
+          <form onSubmit={handleGenerate} className="space-y-4">
             <div>
-              <label className={`block text-[11px] font-bold tracking-[0.07em] uppercase mb-1.5 ${premiumEnabled ? 'text-slate-100' : 'text-slate-200'}`}>
+              <label htmlFor="role-select" className="block text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-400 mb-2">
                 Role
               </label>
               <select
+                id="role-select"
                 value={role}
                 onChange={e => setRole(e.target.value)}
                 disabled={loading}
                 aria-label="Demo role selector"
-                className="w-full border border-white/15 rounded-lg px-3 py-2.5 text-[14px] text-white focus:outline-none focus:border-orange-400/50 focus:ring-1 focus:ring-orange-400/20 bg-slate-900"
+                className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-[15px] text-white focus:outline-none focus:border-orange-400/40 focus:ring-1 focus:ring-orange-400/20 backdrop-blur-sm"
               >
                 {DEMO_ROLES.map(r => (
-                  <option key={r} value={r}>{r}</option>
+                  <option key={r} value={r} className="bg-slate-900">{r}</option>
                 ))}
               </select>
             </div>
 
             {exhausted ? (
-              <div className={`${premiumEnabled ? 'bg-slate-950/64 border border-white/12' : 'bg-slate-50 border border-slate-200'} rounded p-5`}>
-                <p className={`text-[14px] font-semibold mb-2 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Demo limit reached.</p>
-                <p className={`text-[13px] mb-4 leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
-                  You have run {MAX_RUNS} briefs. Create a free account to generate unlimited briefs for your own target companies, with your background woven in.
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                <p className="text-[15px] font-semibold text-white mb-2">Demo limit reached.</p>
+                <p className="text-[13px] leading-relaxed text-slate-300 mb-5">
+                  You have seen {MAX_RUNS} briefs. Create a free account to generate unlimited briefs for your own companies, with your background woven in.
                 </p>
-                <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors">
-                  Start free - 30 days, no card
+                <Link href="/signup?from=demo" className="inline-flex items-center rounded-full bg-orange-500 px-6 py-2.5 text-[13px] font-semibold text-slate-950 hover:bg-orange-600 transition-colors">
+                  Start free — 30 days, no card
                 </Link>
               </div>
             ) : (
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-white text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
+                className="rounded-full bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-slate-950 text-[14px] font-semibold px-7 py-3 transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
               >
-                {loading ? 'Building brief…' : content ? 'Regenerate brief' : 'Generate brief'}
+                {loading ? 'Building brief…' : content ? 'Regenerate' : 'Generate the brief'}
               </button>
             )}
 
-            {error && <p className="text-[13px] text-red-600">{error}</p>}
+            {error && <p className="text-[13px] text-red-400">{error}</p>}
           </form>
 
-          {/* Brief output */}
-          {(content || loading) && (
-            <div>
-              {loading && !content && (
-                <div className="flex items-center gap-2 py-6 justify-center">
-                  <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-                  <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse [animation-delay:150ms]" />
-                  <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse [animation-delay:300ms]" />
-                  <span className="text-[13px] text-slate-500 ml-2">Building brief…</span>
-                </div>
-              )}
-              {content && (
-                <div className="bg-white/[0.06] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.22)] backdrop-blur-sm rounded-lg p-6 sm:p-8 mb-8">
-                  {renderBrief(content, loading)}
-                </div>
-              )}
-              {content && !loading && (
-                <div className="bg-slate-950/64 border border-white/12 rounded-lg p-6 text-center">
-                  <p className="text-[15px] font-semibold mb-1.5 text-white">Ready to run briefs for your targets?</p>
-                  <p className="text-[13px] mb-5 leading-relaxed text-slate-300">
-                    Your account generates briefs with your background, your companies, and your narrative woven in.
-                  </p>
-                  <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[14px] font-semibold px-7 py-3 rounded hover:bg-orange-600 transition-colors">
-                    Start free trial
-                  </Link>
-                  <p className={`text-[12px] mt-3 ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>30 days free. No credit card.</p>
-                </div>
-              )}
+          {/* Loading indicator */}
+          {loading && !content && (
+            <div className="flex items-center gap-2.5 py-10">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse [animation-delay:150ms]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse [animation-delay:300ms]" />
+              <span className="text-[13px] text-slate-500 ml-1">Building your brief…</span>
             </div>
           )}
-        </div>
-      </section>
 
-      {/* Footer strip */}
-      <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-6 backdrop-blur-xl' : 'bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-6'}>
+          {/* Brief output */}
+          {content && (
+            <div className="mt-10 border-t border-white/10 pt-10">
+              <div className="mb-6">
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-orange-300 mb-1">Your brief</p>
+                <p className="text-[13px] text-slate-500">{DEMO_COMPANY} — {role}</p>
+              </div>
+              <div className="space-y-0">
+                {renderBrief(content, loading)}
+              </div>
+            </div>
+          )}
+
+          {/* Post-brief CTA */}
+          {content && !loading && (
+            <div className="mt-12 pt-10 border-t border-white/10 pb-20">
+              <p className="font-serif text-[1.6rem] leading-snug text-white mb-3">
+                Ready to walk in with this for your own targets?
+              </p>
+              <p className="text-[14px] text-slate-400 leading-relaxed mb-7">
+                Your account generates briefs from your background, your companies, and current market signals — not a demo profile.
+              </p>
+              <Link href="/signup?from=demo" className="inline-flex items-center rounded-full bg-orange-500 px-7 py-3 text-[14px] font-semibold text-slate-950 hover:bg-orange-600 transition-colors">
+                Start free trial
+              </Link>
+              <p className="mt-3 text-[12px] text-slate-600">30 days free. No credit card.</p>
+            </div>
+          )}
+
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-white/8 bg-slate-950/80 px-4 sm:px-6 py-6 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-5 flex-wrap justify-center">
-
-            <Link href="/privacy" className="text-[12px] text-slate-500 hover:text-slate-200 transition-colors">Privacy</Link>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-300 transition-colors">Privacy</Link>
             <Link href="/signup?from=demo" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Start free trial →</Link>
           </div>
         </div>
