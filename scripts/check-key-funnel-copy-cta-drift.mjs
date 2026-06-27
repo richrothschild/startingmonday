@@ -80,7 +80,7 @@ const SPECS = [
       {
         id: 'demo-run-anchor',
         description: 'Demo keeps run-action CTA anchor.',
-        matcher: 'Run the demo',
+        matcher: 'Generate the brief',
       },
       {
         id: 'demo-trial-cta',
