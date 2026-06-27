@@ -470,12 +470,20 @@ export default function ForOutplacementPage() {
                 <p className="text-[12px] text-slate-200 leading-relaxed">How would you feel if your next cohort had a shared scorecard your counselors and client HR both trusted?</p>
                 <p className="text-[12px] text-slate-200 leading-relaxed mt-1">What would need to be true in 30 days for you to consider expansion rational?</p>
               </div>
-              <Link
-                href="/partners#apply"
-                className="inline-block rounded-full bg-orange-400 px-7 py-3 text-[14px] font-bold text-slate-950 transition-colors hover:bg-orange-300"
-              >
-                Apply now &rarr;
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://app-na2.hubspot.com/meetings/246442927"
+                  className="inline-block rounded-full bg-orange-500 px-7 py-3 text-[14px] font-bold text-slate-950 transition-colors hover:bg-orange-400"
+                >
+                  Book a meeting
+                </a>
+                <Link
+                  href="/partners#apply"
+                  className="inline-block rounded-full border border-white/20 bg-transparent px-7 py-3 text-[14px] font-bold text-slate-100 transition-colors hover:border-white/40 hover:bg-white/5"
+                >
+                  Apply now &rarr;
+                </Link>
+              </div>
               <p className="text-[12px] text-slate-200 mt-4 leading-relaxed">
                 Run one 30-day pilot before deciding on broader rollout.
               </p>

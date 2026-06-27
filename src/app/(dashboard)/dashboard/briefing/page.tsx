@@ -364,11 +364,41 @@ Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No fille
 Keep the full JSON under 1600 characters.
 Output valid JSON only, no markdown fences.`
 
-  const message = await anthropic.messages.create({
-    model: MODELS.haiku,
-    max_tokens: 4096,
-    messages: [{ role: 'user', content: prompt }],
-  })
+  let message
+  try {
+    message = await anthropic.messages.create({
+      model: MODELS.haiku,
+      max_tokens: 4096,
+      messages: [{ role: 'user', content: prompt }],
+    })
+  } catch (err: any) {
+    // Handle Anthropic API errors (e.g., insufficient credits)
+    const status = err.status ?? err.statusCode
+    const isCreditsError = status === 400 && err.error?.error?.type === 'invalid_request_error' && err.error?.error?.message?.includes('credit')
+
+    if (isCreditsError) {
+      Sentry.captureException(err, {
+        level: 'error',
+        extra: {
+          errorType: 'anthropic_insufficient_credits',
+          model: MODELS.haiku,
+        },
+      })
+      // Return fallback briefing when credits are exhausted
+      return {
+        briefing: {
+          intro: `Here is your search update for ${todayStr}.`,
+          signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
+          matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
+          followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
+          closing: `${totalCompanies} companies in your pipeline.`,
+        },
+        usedFallback: true,
+      }
+    }
+    // Re-throw other API errors
+    throw err
+  }
 
   if (message.stop_reason === 'max_tokens') {
     Sentry.captureMessage('Briefing generation truncated by max_tokens', { level: 'warning', extra: { model: MODELS.haiku } })
