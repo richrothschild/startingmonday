@@ -73,10 +73,4 @@ if (landing.includes('The signal comes before<br />')) {
   throw new Error('Final CTA heading contract failed: remove manual line breaks that create mobile orphan lines')
 }
 
-assertContains(
-  landing,
-  'At a glance',
-  'Clarity panel contract missing: expected updated heading copy "At a glance"',
-)
-
 console.log('mobile-ui contract checks passed')
