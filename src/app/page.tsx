@@ -68,28 +68,28 @@ const SITUATIONS: SituationCard[] = [
 
 const FAQS: FAQ[] = [
   {
-    question: 'How is this different from LinkedIn Premium?',
-    answer: 'LinkedIn Premium is a better job board. Starting Monday improves execution: earlier signals, better timing, and stronger follow-through between coaching sessions.',
+    question: 'I already have a strong network. How does this add value?',
+    answer: 'Most strong networks are reactive: you know who to call when you need something. Starting Monday makes them proactive: you know when to call, what to say, and which relationships to prioritize before the market moves. Your network is an asset. This makes it strategic.',
   },
   {
-    question: 'How do you surface signals before a role is posted?',
-    answer: 'We track filings, leadership moves, funding, M&A news, and career pages for your target companies. When signals cluster, we flag a transition window before most formal searches start.',
+    question: 'Is this really different from doing this myself?',
+    answer: 'The pieces exist: LinkedIn, company research, conversation prep. What differs is timing and discipline. Starting Monday surfaces opportunities before they are public, flags which relationships matter most, and structures execution so you don\'t lose momentum between conversations. You move earlier. You move with more certainty.',
   },
   {
-    question: 'Is my search confidential?',
-    answer: 'Yes. Your account and activity are private. We do not sell leads or train on your data, and you can permanently delete your account from Settings.',
+    question: 'Is my search completely private?',
+    answer: 'Completely. No employer visibility, no recruiter access to your data, no sale of information. We do not monetize your search. You own everything you enter, and you can delete your entire account whenever you choose.',
   },
   {
-    question: 'What does the prep brief include?',
-    answer: 'A company-specific win thesis, likely objections, and peer-level questions. It is generated from your background, the role, and current company signals in about a minute.',
+    question: 'Will this add to my workload?',
+    answer: 'No. A daily three-minute brief and one weekly update. That\'s it. The system is built around executives already in motion. It reduces cognitive load by centralizing signal, timing, and execution tracking in one place.',
   },
   {
-    question: 'How long does setup take?',
-    answer: 'Most users complete setup quickly: upload resume, add target companies, and set search level. Daily briefings begin the next morning.',
+    question: 'What does it cost?',
+    answer: 'Forty-nine dollars monthly, or free for your first thirty days. No credit card required, cancel anytime. Designed to fit the search window, not to lock you into long contracts.',
   },
   {
-    question: 'Who is this built for?',
-    answer: 'CIO/CTO/CISO-level and VP technology leaders moving toward the C-suite. It is built for senior searches, not general job hunting.',
+    question: 'How do I know I can trust this?',
+    answer: 'The platform was built by search leaders who ran their own campaigns against the same constraints you face. It\'s grounded in research with executives at Fortune 500, private equity, and venture firms. Read the evidence hub to see the research backing the approach.',
   },
 ]
 
