@@ -28,22 +28,22 @@ function renderBrief(text: string, isStreaming: boolean) {
     if (line.trim() === '---' || line.trim() === '***') return null
     if (line.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-200 mt-8 mb-3 first:mt-0 pb-2 border-b border-slate-100">
+        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-300 mt-8 mb-3 first:mt-0 pb-2 border-b border-white/10">
           {line.slice(3)}
         </h2>
       )
     }
     if (line.startsWith('- ') || line.startsWith('* ')) {
       return (
-        <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
-          <span className="text-slate-200 shrink-0 select-none mt-0.5">-</span>
+        <div key={i} className="flex gap-2.5 text-[14px] text-slate-200 leading-relaxed mb-2.5">
+          <span className="text-slate-500 shrink-0 select-none mt-0.5">–</span>
           <span>{renderInline(line.slice(2))}</span>
         </div>
       )
     }
     if (line.trim() === '') return <div key={i} className="h-1.5" />
     return (
-      <p key={i} className="text-[14px] text-slate-700 leading-relaxed mb-2.5">
+      <p key={i} className="text-[14px] text-slate-200 leading-relaxed mb-2.5">
         {renderInline(line)}
       </p>
     )
@@ -155,10 +155,10 @@ export function DemoContent({
         <div className="max-w-3xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-400 mb-3">Live demo</p>
           <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-4">
-            See the brief that changes the conversation.
+            The brief. Before the conversation that matters.
           </h1>
           <p className="text-[15px] text-slate-200 leading-relaxed max-w-xl mb-6">
-            Before a high-stakes executive conversation, most candidates walk in under-prepared. Starting Monday generates a role-specific prep brief in under 60 seconds.
+            You are about to see what Starting Monday generates in under 60 seconds: a role-specific brief that builds your win thesis, addresses the objections that will surface, and prepares you for peer-level questions that separate candidates from peers. Grounded in your background and their actual situation.
           </p>
 
           {/* Differentiators */}
@@ -216,17 +216,17 @@ export function DemoContent({
       </section>
 
       {/* Demo section */}
-      <section id="run-demo" className={`${premiumEnabled ? 'bg-slate-950/70 border-t border-white/10' : 'bg-white'} px-4 sm:px-6 py-12 sm:py-16`} ref={briefRef}>
+      <section id="run-demo" className="bg-slate-950/70 border-t border-white/10 px-4 sm:px-6 py-12 sm:py-16" ref={briefRef}>
         <div className="max-w-2xl mx-auto">
-          <h2 className={`text-[22px] font-bold mb-1 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Generate a prep brief</h2>
-          <p className={`text-[13px] mb-6 ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
+          <h2 className="text-[22px] font-bold mb-1 text-white">Generate a prep brief</h2>
+          <p className="text-[13px] mb-6 text-slate-300">
             Showing a brief for <span className="font-semibold text-slate-700">{DEMO_COMPANY}</span>. Select a role below.
             {runCount > 0 && runsLeft > 0 && (
               <span className="ml-2 text-slate-200">{runsLeft} run{runsLeft !== 1 ? 's' : ''} remaining in this demo.</span>
             )}
           </p>
 
-          <form onSubmit={handleGenerate} className={`${premiumEnabled ? 'bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm' : 'bg-white border border-slate-200'} rounded-lg p-6 flex flex-col gap-4 mb-8`}>
+          <form onSubmit={handleGenerate} className="bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm rounded-lg p-6 flex flex-col gap-4 mb-8">
             <div>
               <label className={`block text-[11px] font-bold tracking-[0.07em] uppercase mb-1.5 ${premiumEnabled ? 'text-slate-100' : 'text-slate-200'}`}>
                 Role
@@ -236,7 +236,7 @@ export function DemoContent({
                 onChange={e => setRole(e.target.value)}
                 disabled={loading}
                 aria-label="Demo role selector"
-                className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-500 bg-white"
+                className="w-full border border-white/15 rounded-lg px-3 py-2.5 text-[14px] text-white focus:outline-none focus:border-orange-400/50 focus:ring-1 focus:ring-orange-400/20 bg-slate-900"
               >
                 {DEMO_ROLES.map(r => (
                   <option key={r} value={r}>{r}</option>
@@ -279,14 +279,14 @@ export function DemoContent({
                 </div>
               )}
               {content && (
-                <div className={`${premiumEnabled ? 'bg-white/[0.07] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.16)] backdrop-blur-sm' : 'bg-white border border-slate-200'} rounded-lg p-6 sm:p-8 mb-8`}>
+                <div className="bg-white/[0.06] border border-white/12 shadow-[0_16px_52px_rgba(15,23,42,0.22)] backdrop-blur-sm rounded-lg p-6 sm:p-8 mb-8">
                   {renderBrief(content, loading)}
                 </div>
               )}
               {content && !loading && (
-                <div className={`${premiumEnabled ? 'bg-slate-950/64 border border-white/12' : 'bg-slate-50 border border-slate-200'} rounded-lg p-6 text-center`}>
-                  <p className={`text-[15px] font-semibold mb-1.5 ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>Ready to run briefs for your targets?</p>
-                  <p className={`text-[13px] mb-5 leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
+                <div className="bg-slate-950/64 border border-white/12 rounded-lg p-6 text-center">
+                  <p className="text-[15px] font-semibold mb-1.5 text-white">Ready to run briefs for your targets?</p>
+                  <p className="text-[13px] mb-5 leading-relaxed text-slate-300">
                     Your account generates briefs with your background, your companies, and your narrative woven in.
                   </p>
                   <Link href="/signup?from=demo" className="inline-block bg-orange-500 text-white text-[14px] font-semibold px-7 py-3 rounded hover:bg-orange-600 transition-colors">
