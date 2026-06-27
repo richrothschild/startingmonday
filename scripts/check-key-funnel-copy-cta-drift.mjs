@@ -36,12 +36,12 @@ const SPECS = [
       {
         id: 'home-operating-system-frame',
         description: 'Homepage keeps executive operating-system framing copy.',
-        matcher: 'The private operating system for executive and leadership moves.',
+        matcher: 'For leaders who shape the future.',
       },
       {
         id: 'home-hero-claim',
         description: 'Homepage hero keeps shortlist outcome claim.',
-        matcher: 'Be the shortlist.',
+        matcher: 'Be the name they thought of.',
       },
       {
         id: 'home-primary-path-ctas',

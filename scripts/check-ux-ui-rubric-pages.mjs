@@ -35,18 +35,18 @@ const SPECS = [
 		rules: [
 			{
 				id: 'clarity-operating-system',
-				description: 'Above-fold copy frames Starting Monday as an executive operating system.',
-				matcher: 'The private operating system for executive and leadership moves.',
+				description: 'Above-fold copy frames Starting Monday with luxury positioning for leaders.',
+				matcher: 'For leaders who shape the future.',
 			},
 			{
 				id: 'clarity-shortlist-frame',
-				description: 'Hero action frame emphasizes shortlist outcome.',
-				matcher: 'Be the shortlist.',
+				description: 'Hero body copy delivers the name-they-thought-of outcome line.',
+				matcher: 'Be the name they thought of.',
 			},
 			{
 				id: 'clarity-opening-line',
-				description: 'Hero opening line keeps concise editorial framing.',
-				matcher: 'The shortlist is defined before the role is public.',
+				description: 'Hero headline delivers luxury excellence framing.',
+				matcher: 'Excellence finds excellence.',
 			},
 			{
 				id: 'conversion-path-buttons',

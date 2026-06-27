@@ -719,24 +719,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     <li>Track weekly execution against concrete conversion checkpoints.</li>
                   </ul>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <TrackLink
-                    href="/for-executives"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: 'next_step_executive_path',
-                      source_page: sourcePage,
-                    }}
-                    className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
-                  >
-                    {isRisingLeadersPage ? 'Explore Leaders path' : 'Explore executive path'}
-                  </TrackLink>
-                </div>
               </>
             )}
-            <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
+            {isHomePage && (
+              <p className={isManagerToolsPage ? 'mt-3 text-[12px] whitespace-pre-line text-slate-400' : 'mt-3 text-[12px] text-slate-400'}>{hero.trialNote}</p>
+            )}
           </div>
         </section>
 

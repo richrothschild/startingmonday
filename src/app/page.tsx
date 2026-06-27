@@ -159,14 +159,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'The private operating system for executive and leadership moves.',
-          h1Lines: ['The shortlist is defined before the role is public.', 'Be the shortlist.'],
+          eyebrow: 'For leaders who shape the future.',
+          h1Lines: ['Excellence finds excellence.'],
           claimMethodLabel: '',
           claimMethodHref: '',
-          claimEvidenceLabel: 'Evidence Hub for executives and their partners ->',
+          claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
-          bodyPreamble: 'For C-suite executives and senior operators in search and the partners who guide them.',
-          body: 'Find the right roles before they open, the right people to know, and the right story to tell.',
+          bodyPreamble: 'For senior leaders in search and the partners who guide them.',
+          body: 'Be the name they thought of.',
           competitiveEdge: '',
           steps: [
             'Track the companies where your next role is most likely to emerge.',
