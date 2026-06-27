@@ -402,8 +402,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <p className="mt-6 mb-10 max-w-3xl text-[18px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty] sm:text-[20px]">
-                Designed for all leaders. Grounded in research.
-                <br className="hidden sm:inline" /> Completely private. Thirty days free.
+                Find the mandate before the posting. Build internal advocates while you search. That's how you move from competing for a job to already being in the conversation.
               </p>
             )}
 
@@ -413,9 +412,10 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 aria-labelledby="homepage-path-title"
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-5 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
+                <h2 id="homepage-path-title" className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
                   Start with your role.
                 </h2>
+                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Tell us your context so we can show you how Starting Monday works for your specific search or professional goals.</p>
                 <div className="flex flex-wrap gap-3 mb-4">
                   <TrackLink
                     href="/for-executives"
@@ -574,6 +574,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
                   Find the role before the posting.
                 </h2>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Every mandate starts before the job posting. This is what Starting Monday detects.</p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
                   When a company faces pressure—activist investors, product launches, strategic shifts—internal conversations start first. Budgets get reallocated. Roles start getting defined. Decision-makers (who will become your advocates) start asking "who can run this?" And then, months later, it gets posted. Starting Monday finds you in that window. Before the shortlist gets crowded. When your relevance is obvious to the people who matter.
                 </p>
@@ -582,12 +583,8 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   <OpportunityTimingGapChart />
                 </div>
 
-                <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-4 sm:p-6">
-                  <RoleLandingProbabilityChart />
-                </div>
-
                 <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white">What this means:</span> You're not competing for the posted job. You're already in the conversation. You're the one the mandate-shapers know about.
+                  <span className="font-semibold text-white\">Why this matters:</span> Instead of competing in the posted job window with dozens of other qualified candidates, you're already in the conversation when decision-makers are forming the mandate. That's the advantage.
                 </p>
               </div>
             </section>
@@ -600,31 +597,31 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Plan</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Build advocates while you search.
+                  Build internal advocates while you search.
                 </h2>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Most executives search in isolation—reaching out to scattered contacts, piecing together research, lacking any systematic way to know who actually shapes the mandate. Starting Monday changes this. You identify key decision-makers and advocates. You move from generic outreach to genuine relationships grounded in company context. You track weekly what's working, so advocates stay engaged and momentum compounds.
+                  The difference between a candidate competing for a posted role and an executive already in the conversation: internal advocates who are actively talking about you to decision-makers before the role even exists. Most executives search in isolation. Starting Monday is designed to systematically build and maintain advocate momentum—the relationships that compound into sponsorship.
                 </p>
 
                 <div className="mb-8 space-y-4">
                   <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Find who shapes the role.</span> Not from LinkedIn or a recruiter, but from analyzing who actually influences mandate decisions. That's who becomes your advocate.</span>
+                      <span><span className="font-semibold text-white">Identify advocates.</span> Find who actually influences mandate decisions—not from job boards or recruiters, but from analyzing company pressure, budget changes, and decision-maker influence. These become your internal advocates.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Build genuine relationships through your narrative.</span> Your story gets sharper. When you talk to the CFO, the board, the CTO—each conversation feels personal because it is. They see themselves in your mandate understanding.</span>
+                      <span><span className="font-semibold text-white">Engage advocates through your authentic narrative.</span> When you talk to the CFO, the platform team, or the board—each conversation feels personal because it is. Your story frames them as protagonists in the mandate you understand. That makes them champions.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Track advocate momentum weekly.</span> You know who's engaged, who's advancing the conversation, and where advocates can help next. Relationships that compound turn into sponsorship.</span>
+                      <span><span className="font-semibold text-white">Track momentum weekly.</span> You see who's engaged, who's advancing the conversation, and where advocates can help next. These conversations compound into real sponsorship—advocates proactively talking about you to other decision-makers.</span>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white">By week four:</span> Advocates are talking about you to other decision-makers. That's when real momentum starts. That's when you're no longer searching—you're being sought.
+                  <span className="font-semibold text-white\">By week four:</span> Internal advocates are actively talking about you to other decision-makers. You stop searching. You start being sought. That's the power of building advocates systematically instead of hoping they emerge.
                 </p>
               </div>
             </section>

@@ -5,6 +5,8 @@ export function HomepageBriefTeaser() {
     <section className="border-y border-white/10 bg-slate-950/50 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
         <div className="max-w-3xl">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The story</p>
+          <p className="mb-5 text-[14px] leading-relaxed text-slate-300">Here's a real example: a Salesforce CIO candidate who entered the conversation not through a posting, but through the internal mandate shaping. This is what Starting Monday enables—you find the role when decision-makers are forming it, not when HR posts it.</p>
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-300">
             Find the role · Create advocates · Follow the plan
           </p>
