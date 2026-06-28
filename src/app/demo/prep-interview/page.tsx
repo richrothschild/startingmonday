@@ -48,7 +48,7 @@ export default function DemoInterviewPrepPage() {
             <h1 className="text-[32px] font-bold tracking-tight text-white sm:text-[40px]">
               Interview Prep
             </h1>
-            <p className="text-[12px] font-semibold text-slate-400 uppercase tracking-[0.1em]">
+            <p className="text-[13px] font-semibold text-slate-400">
               15-20 minutes
             </p>
           </div>
@@ -73,10 +73,10 @@ export default function DemoInterviewPrepPage() {
           {/* Role & Company */}
           <div className="flex items-center gap-2 mb-3">
             <div className="h-1.5 w-1.5 rounded-full bg-orange-400"></div>
-            <p className="text-[11px] font-semibold text-orange-300/70 uppercase tracking-[0.1em]">Section 1 of 4</p>
+            <p className="text-[13px] font-semibold text-orange-300/70">Section 1 of 4</p>
           </div>
           <fieldset className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 sm:p-8 space-y-6">
-            <legend className="text-[13px] font-semibold uppercase tracking-[0.1em] text-slate-300 mb-4">
+            <legend className="text-[13px] font-semibold text-slate-300 mb-4">
               The Role
             </legend>
 
@@ -122,10 +122,10 @@ export default function DemoInterviewPrepPage() {
           {/* Positioning */}
           <div className="flex items-center gap-2 mb-3">
             <div className="h-1.5 w-1.5 rounded-full bg-orange-400"></div>
-            <p className="text-[11px] font-semibold text-orange-300/70 uppercase tracking-[0.1em]">Section 2 of 4</p>
+            <p className="text-[13px] font-semibold text-orange-300/70">Section 2 of 4</p>
           </div>
           <fieldset className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 sm:p-8 space-y-6">
-            <legend className="text-[13px] font-semibold uppercase tracking-[0.1em] text-slate-300 mb-4">
+            <legend className="text-[13px] font-semibold text-slate-300 mb-4">
               Your Positioning
             </legend>
 
@@ -165,10 +165,10 @@ export default function DemoInterviewPrepPage() {
           {/* Company research */}
           <div className="flex items-center gap-2 mb-3">
             <div className="h-1.5 w-1.5 rounded-full bg-orange-400"></div>
-            <p className="text-[11px] font-semibold text-orange-300/70 uppercase tracking-[0.1em]">Section 3 of 4</p>
+            <p className="text-[13px] font-semibold text-orange-300/70">Section 3 of 4</p>
           </div>
           <fieldset className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 sm:p-8 space-y-6">
-            <legend className="text-[13px] font-semibold uppercase tracking-[0.1em] text-slate-300 mb-4">
+            <legend className="text-[13px] font-semibold text-slate-300 mb-4">
               Company Research
             </legend>
 
@@ -208,10 +208,10 @@ export default function DemoInterviewPrepPage() {
           {/* Objections */}
           <div className="flex items-center gap-2 mb-3">
             <div className="h-1.5 w-1.5 rounded-full bg-orange-400"></div>
-            <p className="text-[11px] font-semibold text-orange-300/70 uppercase tracking-[0.1em]">Section 4 of 4</p>
+            <p className="text-[13px] font-semibold text-orange-300/70">Section 4 of 4</p>
           </div>
           <fieldset className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 sm:p-8 space-y-6">
-            <legend className="text-[13px] font-semibold uppercase tracking-[0.1em] text-slate-300 mb-4">
+            <legend className="text-[13px] font-semibold text-slate-300 mb-4">
               Anticipated Objections
             </legend>
 

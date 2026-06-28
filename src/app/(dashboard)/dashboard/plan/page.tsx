@@ -219,17 +219,31 @@ export default function DashboardPlanPage() {
 
       <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
         <div className="mb-6 rounded-2xl border border-white/15 bg-white/5 px-5 py-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300">Weekly plan</p>
+          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-300">Weekly plan</p>
           <h1 className="mt-1 text-[26px] font-bold leading-tight text-white">Editable three-action operating plan</h1>
           <p className="mt-2 text-[13px] text-slate-200">
-            Keep one clear action for relationships, one for target companies, and one for preparation. Saved by week.
+            This is the source of truth for Start Here. Choose one relationships move, one opportunities move, and one prep move for the week.
           </p>
-          <p className="mt-2 text-[12px] text-slate-300">
+          <p className="mt-2 text-[13px] text-slate-300">
             Momentum score: {typeof momentumScore === 'number' ? momentumScore : 'not available yet'}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link
+              href="/dashboard#start-here"
+              className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10"
+            >
+              Back to Start Here
+            </Link>
+            <Link
+              href="/dashboard/outreach"
+              className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10"
+            >
+              Open outreach block
+            </Link>
+          </div>
 
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-            <label className="text-[12px] text-slate-200">
+            <label className="text-[13px] text-slate-200">
               Week start (Monday)
               <input
                 type="date"
@@ -238,22 +252,22 @@ export default function DashboardPlanPage() {
                 className="mt-1 block min-h-[44px] w-full rounded border border-white/15 bg-slate-950/70 px-3 text-[13px] text-slate-100 shadow-inner shadow-black/20"
               />
             </label>
-            <p className="text-[12px] text-slate-300">Week of {formatWeekLabel(weekStart)}</p>
+            <p className="text-[13px] text-slate-300">Week of {formatWeekLabel(weekStart)}</p>
           </div>
         </div>
 
         {error && (
-          <p className="mb-4 rounded border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-[12px] text-rose-200">{error}</p>
+          <p className="mb-4 rounded border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-[13px] text-rose-200">{error}</p>
         )}
         {message && (
-          <p className="mb-4 rounded border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-[12px] text-emerald-200">{message}</p>
+          <p className="mb-4 rounded border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-[13px] text-emerald-200">{message}</p>
         )}
 
         <section className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
           <div className="space-y-4">
             {[0, 1, 2].map((index) => (
               <article key={index} className="rounded-xl border border-white/10 bg-slate-950/30 p-3">
-                <label htmlFor={`weekly-plan-action-${index}`} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">
+                <label htmlFor={`weekly-plan-action-${index}`} className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300">
                   Action {index + 1}
                 </label>
                 <textarea
@@ -267,7 +281,7 @@ export default function DashboardPlanPage() {
                   disabled={loading}
                   className="mt-2 min-h-[96px] w-full rounded border border-white/10 bg-slate-950/75 px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500"
                 />
-                <label className="mt-2 inline-flex min-h-[36px] items-center gap-2 text-[12px] text-slate-200">
+                <label className="mt-2 inline-flex min-h-[36px] items-center gap-2 text-[13px] text-slate-200">
                   <input
                     type="checkbox"
                     checked={Boolean(completions[index])}
@@ -284,7 +298,7 @@ export default function DashboardPlanPage() {
             ))}
 
             <div className="rounded-xl border border-white/10 bg-slate-950/30 p-3">
-              <label htmlFor="weekly-plan-reflection" className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">
+              <label htmlFor="weekly-plan-reflection" className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300">
                 Reflection notes
               </label>
               <textarea
@@ -314,27 +328,27 @@ export default function DashboardPlanPage() {
             >
               {saving ? 'Working…' : 'Regenerate suggestions'}
             </button>
-            <p className="text-[12px] text-slate-300">Regenerate and history actions land in the next sprint tickets.</p>
+            <p className="text-[13px] text-slate-300">Regenerate and history actions land in the next sprint tickets.</p>
           </div>
         </section>
 
         <section className="mt-6 rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300">4-week history</p>
+          <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300">4-week history</p>
           {history && history.length > 0 ? (
             <ul className="mt-3 space-y-3">
               {history.map((item) => (
                 <li key={item.week_start} className="rounded-xl border border-white/10 bg-slate-950/30 px-3 py-2">
                   <p className="text-[13px] font-semibold text-white">Week of {formatWeekLabel(item.week_start)}</p>
-                  <p className="mt-1 text-[12px] text-slate-300">Completed {item.completed_count}/3 actions</p>
+                  <p className="mt-1 text-[13px] text-slate-300">Completed {item.completed_count}/3 actions</p>
                   <ul className="mt-2 space-y-1">
                     {item.actions.map((action, index) => (
-                      <li key={`${item.week_start}-${index}`} className="text-[12px] text-slate-200">
+                      <li key={`${item.week_start}-${index}`} className="text-[13px] text-slate-200">
                         {item.completions[index] ? '✓' : '•'} {action}
                       </li>
                     ))}
                   </ul>
                   {item.reflection_notes && (
-                    <p className="mt-2 text-[12px] text-slate-300">Reflection: {item.reflection_notes}</p>
+                    <p className="mt-2 text-[13px] text-slate-300">Reflection: {item.reflection_notes}</p>
                   )}
                 </li>
               ))}

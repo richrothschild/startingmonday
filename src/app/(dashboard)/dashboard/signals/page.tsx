@@ -105,7 +105,7 @@ export default async function SignalsPage({
     profile_persona: string | null
     relevance_score: number | null
     company_id: string
-    companies: { id: string; name: string } | null
+    companies: { id: string; name: string } | Array<{ id: string; name: string }> | null
   }
 
   const rawSignalList = (signals ?? []) as unknown as Signal[]
@@ -169,7 +169,7 @@ export default async function SignalsPage({
             </p>
           </div>
           <Link href="/dashboard" className="ml-auto text-[13px] text-slate-500 hover:text-slate-700">
-            ? Dashboard
+            Back to dashboard
           </Link>
         </div>
 
@@ -252,7 +252,7 @@ export default async function SignalsPage({
           <div className="bg-white border border-amber-200 rounded overflow-hidden mb-6">
             <div className="divide-y divide-slate-100">
               {signalList.map(sig => {
-                const co = sig.companies
+                const co = Array.isArray(sig.companies) ? (sig.companies[0] ?? null) : sig.companies
                 const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', {
                   month: 'short', day: 'numeric', year: 'numeric',
                 })
@@ -293,7 +293,7 @@ export default async function SignalsPage({
                     {sig.outreach_angle && (
                       <details className="group">
                         <summary className="text-[13px] text-amber-700 font-semibold cursor-pointer list-none hover:text-amber-900">
-                          Outreach angle ?
+                          Outreach angle
                         </summary>
                         <p className="text-[13px] text-slate-500 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
                       </details>
@@ -308,7 +308,7 @@ export default async function SignalsPage({
                         rel="noopener noreferrer"
                         className="inline-block mt-2 text-[13px] text-slate-400 hover:text-slate-600 underline"
                       >
-                        Source ?
+                        Source link
                       </a>
                     )}
                     <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-slate-50">
@@ -318,7 +318,7 @@ export default async function SignalsPage({
                             href={`/dashboard/contacts/${contact.id}/outreach`}
                             className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
                           >
-                            Draft outreach ? {contact.name}
+                              Draft outreach to {contact.name}
                           </Link>
                         ) : co ? (
                           <>
@@ -369,7 +369,7 @@ export default async function SignalsPage({
               href={page > 0 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page - 1) }) : '#'}
               className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page === 0 ? 'opacity-40 pointer-events-none' : ''}`}
             >
-              ? Previous
+              Previous
             </Link>
             <span className="text-[13px] text-slate-400">
               Page {page + 1} of {totalPages}
@@ -378,7 +378,7 @@ export default async function SignalsPage({
               href={page < totalPages - 1 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page + 1) }) : '#'}
               className={`text-[13px] font-semibold px-4 py-2 rounded border border-slate-200 bg-white hover:bg-slate-50 ${page >= totalPages - 1 ? 'opacity-40 pointer-events-none' : ''}`}
             >
-              Next ?
+              Next
             </Link>
           </div>
         )}
