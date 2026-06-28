@@ -6,7 +6,12 @@ export function validateCronRequest(request: NextRequest): boolean {
   const authorization = request.headers.get('authorization') ?? ''
   const [scheme, bearerToken] = authorization.split(' ')
   const bearer = scheme?.toLowerCase() === 'bearer' ? (bearerToken?.trim() ?? '') : ''
-  const secret = explicit || bearer
+  
+  // Check query string as fallback
+  const url = request.nextUrl
+  const querySecret = url.searchParams.get('secret')?.trim() ?? ''
+  
+  const secret = explicit || bearer || querySecret
   const expected = process.env.CRON_SECRET
   if (!secret || !expected) return false
   try {
