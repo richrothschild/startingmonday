@@ -36,17 +36,17 @@ const SPECS = [
       {
         id: 'home-operating-system-frame',
         description: 'Homepage keeps executive operating-system framing copy.',
-        matcher: 'For leaders in search.',
+        matcher: 'Discover your dream role. Build advocates. Start Monday.',
       },
       {
         id: 'home-hero-claim',
         description: 'Homepage hero keeps conversation-before-posting claim.',
-        matcher: 'Be the conversation before the posting.',
+        matcher: /Most leaders search in isolation/,
       },
       {
         id: 'home-primary-path-ctas',
-        description: 'Homepage primary CTAs are Individuals and Partners / Firms path buttons.',
-        matcher: /Individuals[\s\S]*Partners \/ Firms/,
+        description: 'Homepage primary CTAs are Individuals and Partners path buttons.',
+        matcher: /Individuals[\s\S]*Partners(?![\s\S]*Coaches)/,
       },
       {
         id: 'home-learn-more-route',

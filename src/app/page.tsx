@@ -159,19 +159,19 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'For leaders in search.',
-          h1Lines: ['Be the conversation before the posting.'],
+          eyebrow: 'Discover your dream role. Build advocates. Start Monday.',
+          h1Lines: ['You don\'t compete for the posting. You\'re already in the conversation.'],
           claimMethodLabel: '',
           claimMethodHref: '',
           claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
           bodyPreamble: 'For senior leaders in search and the partners who guide them.',
-          body: 'Your story. The right people. The right moment.',
+          body: 'Most leaders search in isolation—competing with dozens of qualified candidates for posted roles. Starting Monday changes this. You discover your dream role when it\'s still forming, build relationships with internal advocates before the shortlist exists, and enter as an insider. Not one of many applicants. The conversation they\'re already having.',
           competitiveEdge: '',
           steps: [
-            'Track the companies where your next role is most likely to emerge.',
-            'Set your level and narrative once. Keep your search private by default.',
-            'Act early on signal changes and walk into conversations prepared.',
+            'Discover your dream role early when decision-makers are still shaping the opportunity.',
+            'Build advocates strategically—the people who influence hiring before the posting.',
+            'Tell your story once, refined for each decision-maker, and let relationships compound.',
           ],
           trialNote: 'Private by default: visible only to you and explicitly invited collaborators. Free for 30 days. No credit card. No employer visibility.',
         }}
