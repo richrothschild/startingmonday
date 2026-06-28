@@ -822,21 +822,21 @@ export default async function DashboardPage({
         <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-200/90">Campaign health</p>
+              <p className="text-[13px] font-semibold text-orange-200/90">Campaign health</p>
               <h2 className="text-[20px] font-bold text-white mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-300">{campaignHealthBand}</span></h2>
               <p className="text-[13px] text-slate-200 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
               <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Cadence</p>
+                <p className="text-[13px] text-slate-300 font-semibold">Cadence</p>
                 <p className="text-[16px] font-bold text-white">{cadenceScore}</p>
               </div>
               <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Follow-through</p>
+                <p className="text-[13px] text-slate-300 font-semibold">Follow-through</p>
                 <p className="text-[16px] font-bold text-white">{followThroughScore}</p>
               </div>
               <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
-                <p className="text-[13px] uppercase tracking-[0.08em] text-slate-300 font-bold">Conversion</p>
+                <p className="text-[13px] text-slate-300 font-semibold">Conversion</p>
                 <p className="text-[16px] font-bold text-white">{conversionScore}</p>
               </div>
             </div>
@@ -844,7 +844,7 @@ export default async function DashboardPage({
 
           {topStalledCampaigns.length > 0 && (
             <div className="mt-4 rounded-lg border border-amber-300/40 bg-amber-500/10 p-3">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-200 mb-2">Stalled alerts</p>
+              <p className="text-[13px] font-semibold text-amber-200 mb-2">Stalled alerts</p>
               <ul className="space-y-1.5">
                 {topStalledCampaigns.map((item) => (
                   <li key={item.id} className="text-[13px] text-amber-100">

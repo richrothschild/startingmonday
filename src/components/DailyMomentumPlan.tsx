@@ -186,16 +186,16 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
       <div className="px-5 py-5 sm:px-6 sm:py-6 border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.2),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-[42rem]">
-            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-2">Today&apos;s Momentum Plan</p>
+            <p className="text-[13px] font-semibold text-orange-200 mb-2">Today&apos;s momentum plan</p>
             <h2 className="text-[20px] font-bold text-white leading-tight mb-2">Three actions. One screen. No extra sprawl.</h2>
             <p className="text-[13px] text-slate-200 leading-relaxed">{statusCopy.body}</p>
             <p className="mt-2 text-[12px] text-slate-300">Your daily three map to the same tenets: roles, relationships, and plan.</p>
           </div>
-          <div className={`inline-flex items-center self-start rounded-full border px-3 py-1 text-[11px] font-semibold ${statusCopy.accent}`}>
+          <div className={`inline-flex items-center self-start rounded-full border px-3 py-1 text-[13px] font-semibold ${statusCopy.accent}`}>
             {statusCopy.chip}
           </div>
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-[12px] text-slate-300">
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-[13px] text-slate-300">
           <span>{completedCount} of 3 actions complete</span>
           <span>Day complete when two or more actions are done.</span>
         </div>
@@ -214,10 +214,10 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-orange-500 text-[11px] font-bold text-slate-950">{index + 1}</span>
-                      <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-200">
+                      <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[13px] font-medium text-slate-200">
                         {action.track}
                       </span>
-                      <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-200">
+                      <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[13px] font-medium text-slate-200">
                         {action.effortMinutes} min
                       </span>
                     </div>
@@ -247,13 +247,13 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
 
                         return nextState
                       })}
-                      className={`inline-flex min-h-[44px] items-center justify-center rounded-full border px-4 py-2 text-[12px] font-semibold transition-colors ${done ? 'border-emerald-300/40 bg-emerald-500/10 text-emerald-100' : 'border-white/25 bg-white/5 text-slate-100 hover:border-white/40'}`}
+                      className={`inline-flex min-h-[44px] items-center justify-center rounded-full border px-4 py-2 text-[13px] font-semibold transition-colors ${done ? 'border-emerald-300/40 bg-emerald-500/10 text-emerald-100' : 'border-white/25 bg-white/5 text-slate-100 hover:border-white/40'}`}
                     >
                       {done ? 'Completed' : 'Mark complete'}
                     </button>
                     <Link
                       href={action.href}
-                      className="inline-flex h-[44px] items-center justify-center rounded-full bg-orange-500 px-4 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+                      className="inline-flex h-[44px] items-center justify-center rounded-full bg-orange-500 px-4 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
                     >
                       {action.cta}
                     </Link>
@@ -261,7 +261,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                 </div>
 
                 <div className="mt-4">
-                  <label className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 mb-2" htmlFor={`daily-note-${action.id}`}>
+                  <label className="block text-[13px] font-medium text-slate-200 mb-2" htmlFor={`daily-note-${action.id}`}>
                     Optional note
                   </label>
                   <input
@@ -285,7 +285,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
 
         <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start">
           <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-4">
-            <label className="block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-300 mb-2" htmlFor="daily-reflection-prompt">
+            <label className="block text-[13px] font-medium text-slate-200 mb-2" htmlFor="daily-reflection-prompt">
               End-of-day reflection
             </label>
             <textarea
@@ -299,7 +299,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
           </div>
 
           <div className={`rounded-2xl border px-4 py-4 ${isDayComplete ? 'border-emerald-300/40 bg-emerald-500/10' : 'border-amber-300/40 bg-amber-500/10'}`}>
-            <p className={`text-[11px] font-semibold uppercase tracking-[0.12em] ${isDayComplete ? 'text-emerald-100' : 'text-amber-100'}`}>
+            <p className={`text-[13px] font-semibold ${isDayComplete ? 'text-emerald-100' : 'text-amber-100'}`}>
               {isDayComplete ? 'Day complete' : 'Recovery rule'}
             </p>
             <p className={`mt-2 text-[13px] leading-relaxed ${isDayComplete ? 'text-emerald-100' : 'text-amber-100'}`}>
