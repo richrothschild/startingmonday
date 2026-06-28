@@ -58,7 +58,7 @@ export function BriefingHeader({
           </div>
         </div>
         <p className="text-[14px] sm:text-[15px] text-slate-300/90 leading-relaxed max-w-md">
-          {matchCount} aligned role opportunity{matchCount !== 1 ? 's' : ''} ready to move. Position improving.
+          {matchCount} aligned role {matchCount === 1 ? 'opportunity' : 'opportunities'} ready to move. Position improving.
         </p>
       </div>
 
