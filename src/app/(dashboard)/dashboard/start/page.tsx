@@ -185,11 +185,11 @@ export default async function StartPage() {
       {/* Nav */}
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] font-semibold text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">
+            <Link href="/dashboard" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
               Skip to dashboard
             </Link>
             <LogoutButton label="Sign out" />
@@ -226,16 +226,16 @@ export default async function StartPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
             {briefingDisplay && (
               <div className="bg-white border border-slate-200 rounded p-4">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">First briefing</p>
+                <p className="text-[13px] font-medium text-slate-500 mb-1">First briefing</p>
                 <p className="text-[16px] font-bold text-slate-900">Tomorrow at {briefingDisplay}</p>
-                {tz && <p className="text-[11px] text-slate-400 mt-0.5">{tz}</p>}
+                {tz && <p className="text-[13px] text-slate-500 mt-0.5">{tz}</p>}
               </div>
             )}
             {(companyCount ?? 0) > 0 && (
               <div className="bg-white border border-slate-200 rounded p-4">
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Companies watching</p>
+                <p className="text-[13px] font-medium text-slate-500 mb-1">Companies watching</p>
                 <p className="text-[16px] font-bold text-slate-900">{companyCount} {(companyCount ?? 0) === 1 ? 'company' : 'companies'}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">Add career page URLs to start scanning</p>
+                <p className="text-[13px] text-slate-500 mt-0.5">Add career page URLs to start scanning</p>
               </div>
             )}
           </div>
@@ -251,7 +251,7 @@ export default async function StartPage() {
               />
             ))}
           </div>
-          <span className="text-[12px] font-semibold text-slate-500 shrink-0">
+          <span className="text-[13px] font-semibold text-slate-500 shrink-0">
             {doneCount} of {tasks.length} complete
           </span>
         </div>
@@ -268,7 +268,7 @@ export default async function StartPage() {
               <div className="px-6 py-5">
                 <div className="flex items-start gap-4">
                   {/* Number / check */}
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[12px] font-bold ${
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[13px] font-bold ${
                     task.done
                       ? 'bg-emerald-500 text-white'
                       : 'bg-slate-100 text-slate-400'
@@ -282,7 +282,7 @@ export default async function StartPage() {
                         {task.title}
                       </p>
                       {task.done && (
-                        <span className="text-[11px] font-semibold text-emerald-600">
+                        <span className="text-[13px] font-semibold text-emerald-600">
                           {task.doneNote}
                         </span>
                       )}
@@ -294,7 +294,7 @@ export default async function StartPage() {
                         </p>
                         <Link
                           href={task.href}
-                          className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+                          className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
                         >
                           {task.cta} &rarr;
                         </Link>
@@ -310,47 +310,47 @@ export default async function StartPage() {
         {/* CTA */}
         <div className="mt-10 mb-8 grid grid-cols-1 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Role lane tutorials</p>
+            <p className="text-[13px] font-medium text-slate-500 mb-2">Role lane tutorials</p>
             <p className="text-[13px] text-slate-600 mb-4">Fast training assets tailored to your current role lane.</p>
             <div className="space-y-3">
               {tutorials.map((asset) => (
                 <Link key={asset.title} href={asset.href} className="block rounded border border-slate-200 px-3 py-2 hover:border-slate-300 transition-colors">
                   <p className="text-[13px] font-semibold text-slate-900">{asset.title}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{asset.format.replace('_', ' ')} • {asset.description}</p>
+                  <p className="text-[13px] text-slate-500 mt-0.5">{asset.format.replace('_', ' ')} • {asset.description}</p>
                 </Link>
               ))}
             </div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Recruiter outreach toolkit</p>
+            <p className="text-[13px] font-medium text-slate-500 mb-2">Recruiter outreach toolkit</p>
             <p className="text-[13px] text-slate-600 mb-2">{recruiterToolkit.lane}</p>
             <p className="text-[13px] text-slate-600 mb-3">Use this role-lane toolkit to run targeted recruiter and hiring manager outreach.</p>
             <div className="space-y-3 mb-4">
               {recruiterToolkit.assets.map((asset) => (
                 <Link key={asset.title} href={asset.href} className="block rounded border border-slate-200 px-3 py-2 hover:border-slate-300 transition-colors">
                   <p className="text-[13px] font-semibold text-slate-900">{asset.title}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{asset.type.replace('_', ' ')} • {asset.description}</p>
+                  <p className="text-[13px] text-slate-500 mt-0.5">{asset.type.replace('_', ' ')} • {asset.description}</p>
                 </Link>
               ))}
             </div>
             <div className="rounded border border-slate-200 bg-slate-50 px-3 py-2">
-              <p className="text-[11px] font-semibold text-slate-700 mb-1">Suggested cadence</p>
+              <p className="text-[13px] font-semibold text-slate-700 mb-1">Suggested cadence</p>
               <ul className="space-y-1">
                 {recruiterToolkit.cadence.map((step) => (
-                  <li key={step} className="text-[11px] text-slate-500">• {step}</li>
+                  <li key={step} className="text-[13px] text-slate-500">• {step}</li>
                 ))}
               </ul>
             </div>
           </div>
 
           <div className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Manager tools bridge</p>
+            <p className="text-[13px] font-medium text-slate-500 mb-2">Manager tools bridge</p>
             <p className="text-[13px] text-slate-600 mb-3">Need deeper management systems? Use these keyword starters on Manager Tools.</p>
-            <p className="text-[12px] text-slate-500 mb-4">Keywords: {managerToolsBridge.keywords.join(', ')}</p>
+            <p className="text-[13px] text-slate-500 mb-4">Keywords: {managerToolsBridge.keywords.join(', ')}</p>
             <Link
               href={managerToolsBridge.href}
-              className="inline-block bg-slate-900 text-white text-[12px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+              className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
             >
               Open Manager Tools resources &rarr;
             </Link>

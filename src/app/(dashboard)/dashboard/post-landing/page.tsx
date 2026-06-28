@@ -106,7 +106,7 @@ export default async function PostLandingPage() {
     <div className="min-h-screen bg-slate-50 font-sans">
       <header className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] font-semibold text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -118,7 +118,7 @@ export default async function PostLandingPage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         {/* Mode header */}
         <div className="rounded-2xl border border-emerald-200 bg-white px-6 py-6">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-emerald-600 mb-2">
+          <p className="text-[13px] font-semibold text-emerald-600 mb-2">
             Post-Landing - 30/60/90 Mode
           </p>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">
@@ -138,7 +138,7 @@ export default async function PostLandingPage() {
         {/* Onboarding narrative frame */}
         <div className="rounded-xl border border-slate-200 bg-white px-5 py-5">
           <h2 className="text-[13px] font-bold text-slate-800 mb-3">Onboarding narrative</h2>
-          <p className="text-[12px] text-slate-500 mb-3">
+          <p className="text-[13px] text-slate-500 mb-3">
             The same three-layer structure from your search narrative applies here. Legacy from your last role → inflection into this one → what you are building now.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -148,11 +148,11 @@ export default async function PostLandingPage() {
               { label: 'What I am building here', placeholder: 'The specific value I will add in the first 6–12 months.' },
             ].map(({ label, placeholder }) => (
               <div key={label} className="rounded-lg bg-slate-50 border border-slate-200 p-3">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">{label}</p>
+                <p className="text-[13px] font-semibold text-slate-500 mb-2">{label}</p>
                 <textarea
                   rows={3}
                   placeholder={placeholder}
-                  className="w-full bg-white border border-slate-200 rounded px-3 py-2 text-[12px] focus:outline-none focus:border-emerald-400 resize-none"
+                  className="w-full bg-white border border-slate-200 rounded px-3 py-2 text-[13px] focus:outline-none focus:border-emerald-400 resize-none"
                 />
               </div>
             ))}
@@ -162,25 +162,25 @@ export default async function PostLandingPage() {
         {/* Stakeholder trust map */}
         <div className="rounded-xl border border-slate-200 bg-white px-5 py-5">
           <h2 className="text-[13px] font-bold text-slate-800 mb-1">Stakeholder trust map</h2>
-          <p className="text-[12px] text-slate-500 mb-4">
+          <p className="text-[13px] text-slate-500 mb-4">
             Who are the 5–8 people whose trust determines your first-quarter success? Rate your current relationship quality (1–5) and identify what each one needs to see from you.
           </p>
           <div className="rounded-lg border border-slate-200 overflow-hidden">
-            <table className="w-full text-[12px]">
+            <table className="w-full text-[13px]">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   {['Name / role', 'Trust (1–5)', 'What they need to see', 'Your next move'].map((h) => (
-                    <th key={h} className="text-left px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">{h}</th>
+                    <th key={h} className="text-left px-3 py-2 text-[13px] font-semibold text-slate-500">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {[...Array(5)].map((_, i) => (
                   <tr key={i} className="bg-white">
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="e.g. CFO" /></td>
-                    <td className="px-3 py-2"><input type="number" min="1" max="5" title="Trust score 1-5" placeholder="3" className="w-12 border border-slate-200 rounded px-2 py-1 text-[12px] focus:outline-none focus:border-emerald-400" /></td>
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="Quick wins on cost..." /></td>
-                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[12px] focus:outline-none placeholder-slate-300" placeholder="Coffee this week" /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[13px] focus:outline-none placeholder-slate-300" placeholder="e.g. CFO" /></td>
+                    <td className="px-3 py-2"><input type="number" min="1" max="5" title="Trust score 1-5" placeholder="3" className="w-12 border border-slate-200 rounded px-2 py-1 text-[13px] focus:outline-none focus:border-emerald-400" /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[13px] focus:outline-none placeholder-slate-300" placeholder="Quick wins on cost..." /></td>
+                    <td className="px-3 py-2"><input className="w-full border-0 bg-transparent text-[13px] focus:outline-none placeholder-slate-300" placeholder="Coffee this week" /></td>
                   </tr>
                 ))}
               </tbody>
@@ -200,23 +200,23 @@ export default async function PostLandingPage() {
                 phase.id === currentPhase ? 'bg-emerald-50/50' : ''
               }`}>
                 <div className="flex items-center gap-3">
-                  <span className={`h-7 w-7 rounded-full flex items-center justify-center text-[12px] font-bold ${
+                  <span className={`h-7 w-7 rounded-full flex items-center justify-center text-[13px] font-bold ${
                     phase.id === currentPhase
                       ? 'bg-emerald-600 text-white'
                       : 'bg-slate-100 text-slate-500'
                   }`}>{phase.id}</span>
                   <div>
                     <p className="text-[13px] font-bold text-slate-800">{phase.label}</p>
-                    <p className="text-[12px] text-slate-500">{phase.theme}</p>
+                    <p className="text-[13px] text-slate-500">{phase.theme}</p>
                   </div>
                 </div>
                 {phase.id === currentPhase && (
-                  <span className="rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-1">Current</span>
+                  <span className="rounded-full bg-emerald-100 text-emerald-700 text-[13px] font-semibold px-2 py-1">Current</span>
                 )}
               </summary>
               <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
                 <div>
-                  <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-4 mb-2">Goals</h4>
+                  <h4 className="text-[13px] font-semibold text-slate-500 mt-4 mb-2">Goals</h4>
                   <ul className="space-y-1.5">
                     {phase.goals.map((g) => (
                       <li key={g} className="flex items-start gap-2 text-[13px] text-slate-700">
@@ -227,7 +227,7 @@ export default async function PostLandingPage() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Artifacts to create</h4>
+                  <h4 className="text-[13px] font-semibold text-slate-500 mb-2">Artifacts to create</h4>
                   <ul className="space-y-1.5">
                     {phase.artifacts.map((a) => (
                       <li key={a} className="flex items-start gap-2 text-[13px] text-slate-600">

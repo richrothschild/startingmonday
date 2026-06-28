@@ -292,7 +292,7 @@ export default async function OutplacementOperatorConsolePage() {
     <div className="min-h-screen bg-slate-50 font-sans">
       <header className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] font-semibold text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <nav className="flex items-center gap-4 text-[13px] text-slate-300">
@@ -305,7 +305,7 @@ export default async function OutplacementOperatorConsolePage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Header */}
         <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5">
-          <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Outplacement Operator Console</p>
+          <p className="text-[13px] font-semibold text-orange-500 mb-1">Outplacement operator console</p>
           <h1 className="text-[22px] font-bold text-slate-900 leading-tight">Program operations overview</h1>
           <p className="text-[13px] text-slate-500 mt-1">
             Cohort health, exceptions, and intervention queue for the current program cycle.
@@ -314,13 +314,13 @@ export default async function OutplacementOperatorConsolePage() {
 
         {/* Cohort health KPIs */}
         <div>
-          <h2 className="text-[12px] font-bold text-slate-600 uppercase tracking-wider mb-3">Cohort health - current cycle</h2>
+          <h2 className="text-[13px] font-semibold text-slate-600 mb-3">Cohort health - current cycle</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {LIVE_COHORT_HEALTH.map((item) => (
               <div key={item.label} className={`rounded-xl border p-4 ${STATUS_STYLE[item.status as keyof typeof STATUS_STYLE]}`}>
-                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">{item.label}</p>
+                <p className="text-[13px] font-semibold text-slate-500 mb-1">{item.label}</p>
                 <p className="text-[22px] font-bold leading-none">{item.value}</p>
-                <p className="text-[11px] mt-1 text-slate-400">Benchmark: {item.benchmark}</p>
+                <p className="text-[13px] mt-1 text-slate-400">Benchmark: {item.benchmark}</p>
               </div>
             ))}
           </div>
@@ -329,27 +329,27 @@ export default async function OutplacementOperatorConsolePage() {
         {/* Exception queue */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[12px] font-bold text-slate-600 uppercase tracking-wider">Exception queue ({exceptionQueue.length})</h2>
-            <span className="text-[11px] text-slate-400">Sorted by severity</span>
+            <h2 className="text-[13px] font-semibold text-slate-600">Exception queue ({exceptionQueue.length})</h2>
+            <span className="text-[13px] text-slate-400">Sorted by severity</span>
           </div>
           <div className="space-y-2">
             {exceptionQueue.length === 0 ? (
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] text-emerald-800">
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[13px] text-emerald-800">
                 No active exceptions in your scoped partner cohorts.
               </div>
             ) : exceptionQueue.map((item) => (
               <div key={item.participant} className={`rounded-xl border px-4 py-3 flex items-start gap-4 ${SEVERITY_STYLE[item.severity as keyof typeof SEVERITY_STYLE]}`}>
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] font-semibold text-slate-900">{item.participant}</p>
-                  <p className="text-[12px] text-slate-600 mt-0.5">{item.issue}</p>
+                  <p className="text-[13px] text-slate-600 mt-0.5">{item.issue}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                  <span className={`inline-block px-2 py-0.5 rounded-full text-[13px] font-semibold ${
                     item.severity === 'high' ? 'bg-red-100 text-red-700' :
                     item.severity === 'medium' ? 'bg-amber-100 text-amber-700' :
                     'bg-slate-100 text-slate-500'
                   }`}>{item.severity}</span>
-                  <p className="text-[11px] text-slate-400 mt-1">Owner: {item.owner}</p>
+                  <p className="text-[13px] text-slate-400 mt-1">Owner: {item.owner}</p>
                 </div>
               </div>
             ))}
@@ -358,13 +358,13 @@ export default async function OutplacementOperatorConsolePage() {
 
         {/* Cohort efficiency summary */}
         <div>
-          <h2 className="text-[12px] font-bold text-slate-600 uppercase tracking-wider mb-3">Cohort efficiency</h2>
+          <h2 className="text-[13px] font-semibold text-slate-600 mb-3">Cohort efficiency</h2>
           <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
             <table className="w-full text-[13px]">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   {['Cohort', 'Participants', 'Activation rate', 'Overdue actions', 'Stall flags', 'Status'].map((h) => (
-                    <th key={h} className="text-left px-4 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider">{h}</th>
+                    <th key={h} className="text-left px-4 py-3 text-[13px] font-semibold text-slate-500">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -381,7 +381,7 @@ export default async function OutplacementOperatorConsolePage() {
                     <td className={`px-4 py-3 font-semibold ${c.overdue > 0 ? 'text-red-600' : 'text-slate-400'}`}>{c.overdue}</td>
                     <td className={`px-4 py-3 font-semibold ${c.stalls > 0 ? 'text-amber-600' : 'text-slate-400'}`}>{c.stalls}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                      <span className={`inline-block px-2 py-0.5 rounded-full text-[13px] font-semibold ${
                         c.status === 'on_track'
                           ? 'bg-emerald-100 text-emerald-700'
                           : c.status === 'watch'
