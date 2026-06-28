@@ -201,15 +201,15 @@ export function DashboardWeeklyPerformanceSection({
       {isExecutiveMode && riskItems.length > 0 && (
         <section id="risk-engine" className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Emotional risk engine</h2>
-            <span className="text-[11px] text-slate-500">Operational state from behavior patterns</span>
+            <h2 className="text-[13px] font-semibold text-slate-400">Risk signals</h2>
+            <span className="text-[13px] text-slate-500">Operational state from behavior patterns</span>
           </div>
           <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {riskItems.map((risk) => (
               <div key={risk.id} className={`border rounded p-3 ${riskTone[risk.level]}`}>
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-[12px] font-semibold">{risk.label}</p>
-                  <span className="text-[10px] uppercase tracking-[0.08em] font-bold">{risk.level}</span>
+                  <span className="text-[12px] font-semibold">{risk.level}</span>
                 </div>
                 <p className="text-[12px] mt-1.5 leading-relaxed">{risk.detail}</p>
                 <Link href={risk.href} className="inline-flex mt-2 text-[12px] font-semibold underline">
@@ -224,8 +224,8 @@ export function DashboardWeeklyPerformanceSection({
       {offerCockpit.show && (
         <section id="offer-cockpit" className="mb-6 sm:mb-8 bg-slate-900 border border-slate-700 rounded overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-700 flex items-center justify-between gap-3">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-400">Offer and tradeoff cockpit</h2>
-            <span className="text-[11px] text-slate-300">{offerCockpit.offerCount} offer{offerCockpit.offerCount === 1 ? '' : 's'} in play</span>
+            <h2 className="text-[13px] font-semibold text-orange-400">Offer comparison</h2>
+            <span className="text-[13px] text-slate-300">{offerCockpit.offerCount} offer{offerCockpit.offerCount === 1 ? '' : 's'} in play</span>
           </div>
           <div className="p-5 space-y-4">
             <p className="text-[13px] text-slate-200">
@@ -242,11 +242,11 @@ export function DashboardWeeklyPerformanceSection({
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/dashboard/offers" className="inline-flex min-h-[44px] items-center justify-center bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100">
-                Compare offers
+                <Link href="/dashboard/offers" className="inline-flex min-h-[44px] items-center justify-center bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100">
+                Offers
               </Link>
               <Link href="/dashboard/strategy" className="inline-flex min-h-[44px] items-center justify-center border border-slate-500 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-300">
-                Capture no-go criteria
+                Criteria
               </Link>
               <Link href="/dashboard/wrap-up" className="inline-flex min-h-[44px] items-center justify-center border border-emerald-500 text-emerald-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-emerald-300">
                 Mark accepted

@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { createAdminClient } from './supabase/admin'
+import { resolveDevAuthUser } from './dev-auth'
 
 export type AuthResult =
   | { ok: true; userId: string; response: NextResponse }
@@ -17,6 +19,17 @@ export type AuthResult =
 // Pass it to withAuthCookies() when constructing a final NextResponse to ensure
 // the browser receives updated tokens.
 export async function requireAuth(request: NextRequest): Promise<AuthResult> {
+  const devAuthUser = process.env.NODE_ENV === 'development'
+    ? await resolveDevAuthUser(createAdminClient() as any, request.headers)
+    : null
+  if (devAuthUser) {
+    return {
+      ok: true,
+      userId: devAuthUser.userId,
+      response: new NextResponse(),
+    }
+  }
+
   const response = NextResponse.next()
 
   const supabase = createServerClient(

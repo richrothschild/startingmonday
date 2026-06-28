@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { todayInTz, greetingInTz, fullDateInTz } from '@/lib/date'
 import { getActivationStatus } from '@/lib/activation'
 import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
@@ -22,12 +21,14 @@ import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelli
 import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
+import { DashboardActivitySnooze } from './dashboard-activity-snooze'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
 import { updateDecisionOwner } from './actions'
 import { decisionMarkerForStage, extractDecisionOwnerFromNotes } from './dashboard-decision-timeline-utils'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
+import { greetingInTz, fullDateInTz } from '@/lib/date'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -124,7 +125,9 @@ export default async function DashboardPage({
   }
 
   const tz = profile?.briefing_timezone ?? 'UTC'
-  const todayISO = todayInTz(tz)
+  const todayISO = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(new Date())
+  const greeting = greetingInTz(tz)
+  const today = fullDateInTz(tz)
 
   // Build filtered company query (server-side) with pagination
   let companyQuery = supabase
@@ -420,9 +423,6 @@ export default async function DashboardPage({
   const totalPages = Math.ceil(totalFiltered / PAGE_SIZE)
   const hasFilters = !!(q || stage)
 
-  const greeting = greetingInTz(tz)
-  const today = fullDateInTz(tz)
-
   const trialEndsAt = userRow?.trial_ends_at ? new Date(userRow.trial_ends_at) : null
   const isTrialing = userRow?.subscription_status === 'trialing'
   const isExecutive = userRow?.subscription_tier === 'executive'
@@ -492,7 +492,7 @@ export default async function DashboardPage({
         body: `${warmPaths[0].signal.signal_summary} gives you a concrete reason to re-engage. Use that signal while it is still fresh.`,
         effortMinutes: 15,
         href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
-        cta: 'Open outreach',
+        cta: 'Outreach',
       }
     : overdueCount > 0
       ? {
@@ -502,7 +502,7 @@ export default async function DashboardPage({
           body: 'A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.',
           effortMinutes: 15,
           href: '/dashboard/calendar',
-          cta: 'Open calendar',
+          cta: 'Calendar',
         }
       : {
           id: 'relationship-action',
@@ -511,7 +511,7 @@ export default async function DashboardPage({
           body: 'Open contacts, choose one person who can unblock a real conversation, and schedule the next step.',
           effortMinutes: 15,
           href: '/dashboard/contacts',
-          cta: 'Open contacts',
+          cta: 'Contacts',
         }
 
   const readinessAction: DailyMomentumAction = interviewingCompany
@@ -522,7 +522,7 @@ export default async function DashboardPage({
         body: 'If you already have a live conversation, readiness work outranks almost everything else.',
         effortMinutes: 25,
         href: `/dashboard/companies/${interviewingCompany.id}/prep`,
-        cta: 'Run prep brief',
+        cta: 'Prep brief',
       }
     : profileScore < 100
       ? {
@@ -532,7 +532,7 @@ export default async function DashboardPage({
           body: 'Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.',
           effortMinutes: 20,
           href: profileHref,
-          cta: 'Finish profile',
+          cta: 'Profile',
         }
       : {
           id: 'readiness-action',
@@ -541,7 +541,7 @@ export default async function DashboardPage({
           body: 'Use the strategy layer to sharpen what you will say before the next live conversation opens.',
           effortMinutes: 20,
           href: '/dashboard/strategy',
-          cta: 'Open strategy',
+          cta: 'Strategy',
         }
 
   const focusAction: DailyMomentumAction = signalCount > 0
@@ -552,7 +552,7 @@ export default async function DashboardPage({
         body: 'New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.',
         effortMinutes: 15,
         href: '/dashboard/signals',
-        cta: 'Open signals',
+        cta: 'Signals',
       }
     : totalCount < 12
       ? {
@@ -562,7 +562,7 @@ export default async function DashboardPage({
           body: 'A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.',
           effortMinutes: 15,
           href: '/dashboard/companies/new',
-          cta: 'Add company',
+          cta: 'Company',
         }
       : {
           id: 'focus-action',
@@ -571,7 +571,7 @@ export default async function DashboardPage({
           body: 'If the pipeline already exists, pick the next visible move instead of expanding scope.',
           effortMinutes: 10,
           href: overdueCount > 0 ? '/dashboard/calendar' : '/dashboard/briefing',
-          cta: overdueCount > 0 ? 'View due today' : 'Open briefing',
+          cta: overdueCount > 0 ? 'Due today' : 'Briefing',
         }
 
   const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
@@ -612,7 +612,7 @@ export default async function DashboardPage({
         ? 'Activity decay suggests rising uncertainty. Use one concrete move to restore control today.'
         : 'Signal and action flow is stable enough to keep confidence anchored in execution.',
       href: '/dashboard/briefing',
-      cta: 'Open daily briefing',
+      cta: 'Briefing',
     },
     {
       id: 'perfection-loop',
@@ -622,7 +622,7 @@ export default async function DashboardPage({
         ? 'You may be polishing inputs without enough market activation. Ship one outreach action.'
         : 'Profile quality is improving. Keep edits tied to live outreach outcomes.',
       href: profileScore < 100 ? '/dashboard/profile' : '/dashboard/strategy',
-      cta: profileScore < 100 ? 'Finish profile inputs' : 'Run strategy brief',
+      cta: profileScore < 100 ? 'Profile' : 'Strategy brief',
     },
     {
       id: 'isolation-risk',
@@ -632,7 +632,7 @@ export default async function DashboardPage({
         ? 'Coverage is low for an executive search. Relationship depth is likely the bottleneck now.'
         : 'Sponsor coverage is trending in the right direction. Keep adding depth at top targets.',
       href: '/dashboard/contacts',
-      cta: 'Expand sponsor map',
+      cta: 'Sponsors',
     },
     {
       id: 'decision-drag',
@@ -642,16 +642,16 @@ export default async function DashboardPage({
         ? 'Offer context exists. Decision quality drops when timeline and no-go criteria stay implicit.'
         : 'No active offer context. Keep criteria explicit before final-round intensity rises.',
       href: offerCompanies.length > 0 ? '/dashboard/offers' : '/dashboard/strategy',
-      cta: offerCompanies.length > 0 ? 'Open offer compare' : 'Capture criteria',
+      cta: offerCompanies.length > 0 ? 'Offer compare' : 'Criteria',
     },
   ]
 
   const executivePrimaryRisk = (() => {
-    if (decisionRiskHigh) return { label: 'Decision drag', level: 'high' as const, href: '/dashboard/offers', cta: 'Resolve tradeoffs' }
-    if (isolationRiskHigh) return { label: 'Sponsor depth gap', level: 'high' as const, href: '/dashboard/contacts', cta: 'Add sponsors' }
-    if (threatRiskHigh) return { label: 'Momentum decay', level: 'high' as const, href: '/dashboard/briefing', cta: 'Re-anchor today' }
-    if (perfectionRiskHigh) return { label: 'Perfection loop', level: 'medium' as const, href: '/dashboard/profile', cta: 'Ship and move' }
-    return { label: 'Managed', level: 'low' as const, href: '/dashboard/briefing', cta: 'Keep cadence' }
+    if (decisionRiskHigh) return { label: 'Decision drag', level: 'high' as const, href: '/dashboard/offers', cta: 'Offer compare' }
+    if (isolationRiskHigh) return { label: 'Sponsor depth gap', level: 'high' as const, href: '/dashboard/contacts', cta: 'Sponsors' }
+    if (threatRiskHigh) return { label: 'Momentum decay', level: 'high' as const, href: '/dashboard/briefing', cta: 'Briefing' }
+    if (perfectionRiskHigh) return { label: 'Perfection loop', level: 'medium' as const, href: '/dashboard/profile', cta: 'Profile' }
+    return { label: 'Managed', level: 'low' as const, href: '/dashboard/briefing', cta: 'Cadence' }
   })()
 
   const executiveDecisionBrief = (() => {
@@ -711,11 +711,11 @@ export default async function DashboardPage({
 
   const setupSteps = [
     { done: activation.a1_resume,    label: 'Upload your resume or import LinkedIn', sub: 'Drives every brief, every briefing, and every AI response you get.',                                                         href: '/dashboard/profile',        cta: 'Go to profile' },
-    { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Add a company' },
-    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard',      cta: 'Go to companies' },
-    { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Add a contact' },
-    { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Configure briefing' },
-    { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Go to contacts' },
+    { done: activation.a2_company,   label: 'Add your first target company',         sub: 'Include the career page URL - we scan it within minutes and alert you to matching roles.',                                   href: '/dashboard/companies/new',  cta: 'Company' },
+    { done: activation.a3_prep_brief,label: 'Generate your first prep brief',        sub: 'Open any target company and run the brief. Leadership signals, likely objections, best outreach angle.',                     href: '/dashboard',      cta: 'Companies' },
+    { done: activation.a4_contact,   label: 'Add your first contact',                sub: 'Who do you know at target companies? Roles at this level fill through relationships, not applications.',                     href: '/dashboard/contacts',       cta: 'Contacts' },
+    { done: activation.a5_briefing,  label: 'Set up your daily briefing',            sub: 'Signals and due actions in your inbox before you start work.',                                                               href: '/dashboard/profile',        cta: 'Briefing' },
+    { done: activation.a6_follow_up, label: 'Log your first follow-up reminder',     sub: 'The difference between an active search and a passive one is whether the next action is scheduled.',                        href: '/dashboard/contacts',       cta: 'Contacts' },
   ]
 
   // Post-placement: Career Intelligence mode
@@ -790,11 +790,10 @@ export default async function DashboardPage({
         </div>
       </header>
 
-      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
         <DashboardTopShellSection
-          greeting={greeting}
           firstName={firstName}
-          today={today}
+            briefingTimezone={profile?.briefing_timezone ?? null}
           signalCount={signalCount}
           overdueCount={overdueCount}
           canUseOutreachHub={canUseOutreachHub}
@@ -864,6 +863,25 @@ export default async function DashboardPage({
           page={safeTimelinePage}
           totalPages={timelineTotalPages}
           updateDecisionOwner={updateDecisionOwner}
+        />
+
+        {/* Pipeline */}
+        <DashboardPipelineSection
+          q={q ?? ''}
+          stage={stage ?? ''}
+          page={page}
+          start={start}
+          pageSize={PAGE_SIZE}
+          totalCount={totalCount}
+          totalFiltered={totalFiltered}
+          totalPages={totalPages}
+          hasFilters={hasFilters}
+          filtered={filtered}
+          contactCountMap={contactCountMap}
+          stageMap={STAGE}
+          stageOptions={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
+          activationResumeDone={activation.a1_resume}
+          showWrapUpLink={!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active')}
         />
 
         <DashboardDisclosureSection
@@ -946,24 +964,7 @@ export default async function DashboardPage({
 
         </DashboardDisclosureSection>
 
-        {/* Pipeline */}
-        <DashboardPipelineSection
-          q={q ?? ''}
-          stage={stage ?? ''}
-          page={page}
-          start={start}
-          pageSize={PAGE_SIZE}
-          totalCount={totalCount}
-          totalFiltered={totalFiltered}
-          totalPages={totalPages}
-          hasFilters={hasFilters}
-          filtered={filtered}
-          contactCountMap={contactCountMap}
-          stageMap={STAGE}
-          stageOptions={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
-          activationResumeDone={activation.a1_resume}
-          showWrapUpLink={!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active')}
-        />
+        <DashboardActivitySnooze />
       </main>
       <HelpQuickButton source="dashboard" />
     </div>

@@ -52,9 +52,8 @@ export default function DashboardThemePreviewPage() {
 
       <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         <DashboardTopShellSection
-          greeting="Good morning"
           firstName="Richard"
-          today={new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+          briefingTimezone="America/New_York"
           signalCount={4}
           overdueCount={3}
           canUseOutreachHub

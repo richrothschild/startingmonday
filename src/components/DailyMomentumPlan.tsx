@@ -249,7 +249,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                       })}
                       className={`inline-flex min-h-[44px] items-center justify-center rounded-full border px-4 py-2 text-[13px] font-semibold transition-colors ${done ? 'border-emerald-300/40 bg-emerald-500/10 text-emerald-100' : 'border-white/25 bg-white/5 text-slate-100 hover:border-white/40'}`}
                     >
-                      {done ? 'Completed' : 'Mark complete'}
+                      {done ? 'Done' : 'Complete'}
                     </button>
                     <Link
                       href={action.href}

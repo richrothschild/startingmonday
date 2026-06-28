@@ -1,0 +1,72 @@
+name: Landing Standard Monitor
+
+on:
+  pull_request:
+    branches: [main, staging]
+    paths:
+      - 'src/app/**/page.tsx'
+      - 'src/components/**/*.tsx'
+      - 'src/app/**/layout.tsx'
+      - 'scripts/check-landing-standard-all-pages.mjs'
+      - 'docs/landing-page-standard.md'
+      - '.github/workflows/landing-standard-monitor.yml'
+  schedule:
+    - cron: '0 6,18 * * *'
+  workflow_dispatch:
+
+jobs:
+  landing-standard-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run strict landing-standard audit
+        run: npm run ux:landing-standard:strict
+
+      - name: Upload landing-standard artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: landing-standard-audit-${{ github.run_number }}
+          path: |
+            tmp/site-style-audit.json
+            tmp/site-style-audit.md
+          if-no-files-found: error
+
+      - name: Publish summary
+        if: always()
+        run: |
+          echo "## Landing Standard Audit" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f tmp/site-style-audit.md ]; then
+            cat tmp/site-style-audit.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Audit report missing" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Send Slack alert on strict failure
+        if: failure() && github.event_name == 'schedule'
+        env:
+          SLACK_UI_ALERTS_WEBHOOK: ${{ secrets.SLACK_UI_ALERTS_WEBHOOK }}
+        run: |
+          if [ -z "$SLACK_UI_ALERTS_WEBHOOK" ]; then
+            echo "SLACK_UI_ALERTS_WEBHOOK not set; skipping Slack alert"
+            exit 0
+          fi
+          payload=$(jq -nc \
+            --arg runUrl "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg branch "${{ github.ref_name }}" \
+            --arg workflow "${{ github.workflow }}" \
+            '{text:("Landing standard strict monitor failed\nWorkflow: " + $workflow + "\nBranch: " + $branch + "\nRun: " + $runUrl)}')
+          curl --fail-with-body -sS -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_UI_ALERTS_WEBHOOK"
