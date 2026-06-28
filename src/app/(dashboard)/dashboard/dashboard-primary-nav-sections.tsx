@@ -17,25 +17,6 @@ export function DashboardPrimaryNavSections({
 }: DashboardPrimaryNavSectionsProps) {
   return (
     <>
-      <section className="mb-5 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-        <h2 className="text-[13px] font-semibold text-slate-100 mb-2">Jump to section</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[13px]">
-          <a href="#start-here" className="rounded-full border border-white/20 px-3 py-2 text-center text-slate-200 hover:border-white/35 hover:text-white">
-            What matters now
-          </a>
-          <a href="#daily-momentum-plan" className="rounded-full border border-white/20 px-3 py-2 text-center text-slate-200 hover:border-white/35 hover:text-white">
-            Keep momentum
-          </a>
-          <a href="#profile-modules" className="rounded-full border border-white/20 px-3 py-2 text-center text-slate-200 hover:border-white/35 hover:text-white">
-            Profile modules
-          </a>
-          <a href="#advanced-modules" className="rounded-full border border-white/20 px-3 py-2 text-center text-slate-200 hover:border-white/35 hover:text-white">
-            Advanced modules
-          </a>
-        </div>
-        <p className="mt-2 text-[13px] text-slate-300">Compact by default. Expand for advanced navigation.</p>
-      </section>
-
       {!isExecutiveMode && (
         <section id="start-here" className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
         <div className="mb-4">
@@ -59,10 +40,10 @@ export function DashboardPrimaryNavSections({
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
             <p className="text-[13px] font-medium text-orange-200">Find roles first</p>
-            <p className="mt-1 text-[14px] font-semibold text-white">{signalCount} signals to review</p>
+            <p className="mt-1 text-[14px] font-semibold text-white">{signalCount} signals ready</p>
             <p className="mt-1 text-[13px] text-slate-300">Start with the clearest timing window.</p>
             <Link href="/dashboard/briefing#tenet-find-roles" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-orange-300/40 bg-orange-500/20 px-3 text-[13px] font-semibold text-orange-100 hover:text-white">
-              Open briefing
+              Briefing
             </Link>
           </article>
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
@@ -70,7 +51,7 @@ export function DashboardPrimaryNavSections({
             <p className="mt-1 text-[14px] font-semibold text-white">{overdueCount} relationship moves ready</p>
             <p className="mt-1 text-[13px] text-slate-300">Advance one warm path before noon.</p>
             <Link href="/dashboard/contacts" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
-              Open relationships
+              Relationships
             </Link>
           </article>
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
@@ -78,7 +59,7 @@ export function DashboardPrimaryNavSections({
             <p className="mt-1 text-[14px] font-semibold text-white">Protect weekly momentum</p>
             <p className="mt-1 text-[13px] text-slate-300">Close one follow-through and keep cadence steady.</p>
             <Link href="/dashboard/plan" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
-              Open plan
+              Plan
             </Link>
           </article>
         </div>

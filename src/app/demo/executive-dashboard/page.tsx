@@ -144,9 +144,8 @@ export default function ExecutiveDashboardDemoPage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
         <DashboardTopShellSection
-          greeting="Good morning"
           firstName="Richard"
-          today="Sunday, June 7"
+          briefingTimezone="America/New_York"
           signalCount={3}
           overdueCount={2}
           canUseOutreachHub={true}

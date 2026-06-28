@@ -55,7 +55,7 @@ export function DashboardProfileIntelligenceSection({
         count: companiesWithoutContact.length,
         title: `${companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact`,
         body: companiesWithoutContact.slice(0, 2).map((c) => c.name).join(', '),
-        cta: 'Add contacts ->',
+        cta: 'Contacts',
       }
     }
 
@@ -65,7 +65,7 @@ export function DashboardProfileIntelligenceSection({
         count: prospectContactCount,
         title: `${prospectContactCount === 1 ? 'contact' : 'contacts'} not yet reached`,
         body: 'People you know but have not yet connected with in this search.',
-        cta: 'Draft outreach ->',
+        cta: 'Outreach draft',
       }
     }
 
@@ -75,7 +75,7 @@ export function DashboardProfileIntelligenceSection({
         count: companiesWithoutBrief.length,
         title: `${companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief`,
         body: companiesWithoutBrief.slice(0, 2).map((c) => c.name).join(', '),
-        cta: 'Run prep brief ->',
+        cta: 'Prep brief',
       }
     }
 
@@ -109,14 +109,14 @@ export function DashboardProfileIntelligenceSection({
             </div>
           </div>
           <span className="text-[12px] font-semibold text-slate-500 shrink-0">
-            {nextProfileSection ? `Complete ${nextProfileSection.label} ?` : 'View profile ?'}
+            {nextProfileSection ? nextProfileSection.label : 'Profile'}
           </span>
         </Link>
       )}
 
       {profileScore < 40 && (
         <section className="mb-6 bg-slate-900 rounded p-5 sm:p-6">
-          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Quick start</h2>
+          <h2 className="text-[13px] font-semibold text-orange-500 mb-1">Quick start</h2>
           <p className="text-[13px] text-slate-300 mb-4">3 fields. Unlocks your first prep brief in under 3 minutes.</p>
           <form action={onSaveQuickProfile} className="flex flex-col gap-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -200,7 +200,7 @@ export function DashboardProfileIntelligenceSection({
 
       {totalCount >= 3 && numIntelGaps > 0 && isExecutiveMode && rankedAttentionCard && (
         <section id="attention-gaps" className="mb-6 sm:mb-8">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Top attention gap</h2>
+          <h2 className="text-[13px] font-semibold text-slate-400 mb-3">Top attention gap</h2>
           <Link href={rankedAttentionCard.href} className="bg-white border border-slate-200 rounded p-5 hover:border-slate-400 transition-colors block">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -216,7 +216,7 @@ export function DashboardProfileIntelligenceSection({
 
       {totalCount >= 3 && numIntelGaps > 0 && !isExecutiveMode && (
         <section id="attention-gaps" className="mb-6 sm:mb-8">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What needs attention</h2>
+          <h2 className="text-[13px] font-semibold text-slate-400 mb-3">What needs attention</h2>
           <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
             {companiesWithoutContact.length > 0 && (
               <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
@@ -228,7 +228,7 @@ export function DashboardProfileIntelligenceSection({
                   {companiesWithoutContact.slice(0, 2).map(c => c.name).join(', ')}
                   {companiesWithoutContact.length > 2 ? ` +${companiesWithoutContact.length - 2} more` : ''}
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Add contacts &rarr;</span>
+                <span className="text-[11px] font-semibold text-slate-500">Contacts</span>
               </Link>
             )}
 
@@ -241,7 +241,7 @@ export function DashboardProfileIntelligenceSection({
                 <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
                   People you know but have not yet connected with in this search.
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Draft outreach &rarr;</span>
+                <span className="text-[11px] font-semibold text-slate-500">Outreach</span>
               </Link>
             )}
 
@@ -255,7 +255,7 @@ export function DashboardProfileIntelligenceSection({
                   {companiesWithoutBrief.slice(0, 2).map(c => c.name).join(', ')}
                   {companiesWithoutBrief.length > 2 ? ` +${companiesWithoutBrief.length - 2} more` : ''}
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Run prep briefs &rarr;</span>
+                <span className="text-[11px] font-semibold text-slate-500">Prep brief</span>
               </Link>
             )}
           </div>

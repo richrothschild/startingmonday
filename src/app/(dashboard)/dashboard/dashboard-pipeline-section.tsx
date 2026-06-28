@@ -58,8 +58,8 @@ export function DashboardPipelineSection(props: Props) {
   return (
     <section id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
       <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
-        <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">
-          Company Pipeline
+        <h2 className="text-[13px] font-semibold text-slate-400">
+          Pipeline
         </h2>
         <div className="flex items-center gap-4">
           <span className="text-[12px] text-slate-400">
@@ -73,7 +73,7 @@ export function DashboardPipelineSection(props: Props) {
             href="/dashboard/companies/new"
             className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 rounded transition-colors"
           >
-            Add more companies
+            Companies
           </Link>
         </div>
       </div>
@@ -108,14 +108,14 @@ export function DashboardPipelineSection(props: Props) {
                         icon={EMPTY_ICONS.companies}
                         title="Start here: upload your resume"
                         body="Paste your LinkedIn profile text or upload your resume. It's what drives prep briefs, daily briefings, and every AI response you get."
-                        cta={{ label: 'Go to profile ->', href: '/dashboard/profile' }}
+                        cta={{ label: 'Profile', href: '/dashboard/profile' }}
                       />
                     ) : (
                       <EmptyState
                         icon={EMPTY_ICONS.companies}
                         title="No target companies yet"
                         body="Add companies you want to work for. We'll scan for signals - exec moves, funding, openings - and alert you when the timing is right. Then use the briefing to decide who to contact first."
-                        cta={{ label: 'Add your first company', href: '/dashboard/companies/new' }}
+                        cta={{ label: 'First company', href: '/dashboard/companies/new' }}
                       />
                     )
                   ) : (
@@ -126,7 +126,7 @@ export function DashboardPipelineSection(props: Props) {
                           href={`/dashboard/companies/new?name=${encodeURIComponent(q)}`}
                           className="mt-3 inline-block text-[13px] font-semibold text-slate-900 hover:underline"
                         >
-                          Add &ldquo;{q}&rdquo; to pipeline →
+                          Use &ldquo;{q}&rdquo; as pipeline draft →
                         </a>
                       )}
                     </div>
@@ -187,7 +187,7 @@ export function DashboardPipelineSection(props: Props) {
                 href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page - 1) }).toString()}`}
                 className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
               >
-                &larr; Previous
+                  Previous
               </a>
             )}
             {page < totalPages - 1 && (
@@ -195,7 +195,7 @@ export function DashboardPipelineSection(props: Props) {
                 href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page + 1) }).toString()}`}
                 className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
               >
-                Next &rarr;
+                  Next
               </a>
             )}
           </div>

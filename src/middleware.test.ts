@@ -14,6 +14,9 @@ vi.mock('@supabase/ssr', () => ({
 describe('src/proxy.ts middleware', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    ;(process.env as Record<string, string | undefined>).NODE_ENV = 'test'
+    delete process.env.DEMO_USER_ID
+    delete process.env.DEV_AUTH_EMAIL
   })
 
   describe('API routes', () => {
@@ -164,6 +167,33 @@ describe('src/proxy.ts middleware', () => {
       const requestId = response.headers.get('X-Request-Id')
       expect(requestId).toBeTruthy()
       expect(requestId).toMatch(/^req_[a-f0-9]{16}$/)
+    })
+  })
+
+  describe('dev auth bypass', () => {
+    it('redirects login requests to dashboard when local dev auth is enabled', async () => {
+      ;(process.env as Record<string, string | undefined>).NODE_ENV = 'development'
+      process.env.DEMO_USER_ID = 'demo-user-123'
+
+      const request = new NextRequest(new URL('http://localhost:3000/login'), {
+        headers: { 'user-agent': 'Mozilla/5.0' },
+      })
+
+      const response = await proxy(request)
+      expect(response.headers.get('location')).toMatch('/dashboard')
+    })
+
+    it('bypasses the dashboard redirect guard when local dev auth is enabled', async () => {
+      ;(process.env as Record<string, string | undefined>).NODE_ENV = 'development'
+      process.env.DEMO_USER_ID = 'demo-user-123'
+
+      const request = new NextRequest(new URL('http://localhost:3000/dashboard'), {
+        headers: { 'user-agent': 'Mozilla/5.0' },
+      })
+
+      const response = await proxy(request)
+      expect(response.status).not.toBe(307)
+      expect(response.headers.get('X-Request-Id')).toBeTruthy()
     })
   })
 })

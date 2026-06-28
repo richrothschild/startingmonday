@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { getDevAuthHeaders, isDevAuthBypassEnabled } from '@/lib/dev-auth'
 
 // Obvious non-browser clients: blocked on /api/optimize and /intelligence/* routes
 const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scrapy|httpx|aiohttp|libwww-perl|okhttp|axios\/|node-fetch|python\/|go\/|ruby|perl|php\/|spider|crawler|bot\/|bot$|scraper|HeadlessChrome)/i
@@ -34,6 +35,20 @@ function logRequest(request: NextRequest, requestId: string) {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = request.headers.get('x-request-id') ?? generateRequestId()
+  const devAuthEnabled = isDevAuthBypassEnabled()
+
+  if (devAuthEnabled && (pathname === '/login' || pathname === '/auth/login')) {
+    const dashboardUrl = request.nextUrl.clone()
+    dashboardUrl.pathname = '/dashboard'
+    dashboardUrl.search = ''
+    return NextResponse.redirect(dashboardUrl)
+  }
+
+  const nextRequestHeaders = devAuthEnabled ? new Headers(request.headers) : null
+  if (nextRequestHeaders) {
+    const devAuthHeaders = getDevAuthHeaders()
+    devAuthHeaders.forEach((value, key) => nextRequestHeaders.set(key, value))
+  }
 
   // --- API routes: early return after header/bot handling ---
   if (pathname.startsWith('/api/')) {
@@ -48,7 +63,7 @@ export async function proxy(request: NextRequest) {
       }
     }
     // Tell crawlers not to index API responses
-    const res = NextResponse.next()
+    const res = NextResponse.next(nextRequestHeaders ? { request: { headers: nextRequestHeaders } } : undefined)
     res.headers.set('X-Robots-Tag', 'noindex, nofollow')
     res.headers.set('X-Request-Id', requestId)
     return res
@@ -61,9 +76,16 @@ export async function proxy(request: NextRequest) {
     if (!ua || BOT_UA_RE.test(ua)) {
       return new NextResponse('Forbidden', { status: 403 })
     }
-    const intelligenceRes = NextResponse.next()
+    const intelligenceRes = NextResponse.next(nextRequestHeaders ? { request: { headers: nextRequestHeaders } } : undefined)
     intelligenceRes.headers.set('X-Request-Id', requestId)
     return intelligenceRes
+  }
+
+  if (devAuthEnabled && nextRequestHeaders) {
+    const response = NextResponse.next({ request: { headers: nextRequestHeaders } })
+    Object.entries(NOINDEX).forEach(([k, v]) => response.headers.set(k, v))
+    response.headers.set('X-Request-Id', requestId)
+    return response
   }
 
   // --- Dashboard routes: session refresh + redirect guard ---
