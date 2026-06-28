@@ -36,22 +36,22 @@ const SPECS = [
 			{
 				id: 'clarity-operating-system',
 				description: 'Above-fold copy frames Starting Monday with luxury positioning for leaders.',
-				matcher: 'For leaders in search.',
+				matcher: 'Discover your dream role. Build advocates. Start Monday.',
 			},
 			{
 				id: 'clarity-shortlist-frame',
 				description: 'Hero headline delivers conversation-before-posting positioning.',
-				matcher: 'Be the conversation before the posting.',
+				matcher: /You don.*t compete for the posting.*You.*re already in the conversation/i,
 			},
 			{
 				id: 'clarity-opening-line',
 				description: 'Hero body copy delivers relationship narrative framing.',
-				matcher: 'Your story. The right people. The right moment.',
+				matcher: 'Most leaders search in isolation',
 			},
 			{
 				id: 'conversion-path-buttons',
 				description: 'Homepage exposes the two top-level path buttons.',
-				matcher: /Individuals[\s\S]*Partners \/ Firms/,
+				matcher: /Individuals[\s\S]*Partners(?![\s\S]*Coaches)/,
 			},
 			{
 				id: 'content-economy-no-signal-preview-block',

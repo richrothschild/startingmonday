@@ -107,7 +107,7 @@ function executiveLaneFromSource(sourcePage: string): ExecutiveLaneBrand | null 
 const EXECUTIVE_FEATURE_MATRIX = [
   {
     feature: 'Executive signal intelligence',
-    whatYouGet: 'Track role-shaping movement before a mandate is publicly obvious.',
+    whatYouGet: 'Track role-shaping movement before your dream role is publicly obvious.',
     whyItMatters: 'You enter while the role is still being defined, not after the shortlist is crowded.',
   },
   {
@@ -135,7 +135,7 @@ const EXECUTIVE_DIFFERENTIATORS = [
   },
   {
     category: 'Narrative quality',
-    startingMonday: 'Mandate-level narrative tuned for multiple executive audiences.',
+    startingMonday: 'Role-level narrative tuned for multiple leadership audiences.',
     otherTools: 'Resume/profile optimization oriented toward broad applicant pools.',
   },
   {
@@ -146,42 +146,84 @@ const EXECUTIVE_DIFFERENTIATORS = [
   {
     category: 'Conversation readiness',
     startingMonday: 'Preparation workflows for recruiter, board, and C-suite dialogue.',
-    otherTools: 'Generic interview tips that rarely map to executive mandate discussions.',
+    otherTools: 'Generic interview tips that rarely map to leadership-level role discussions.',
   },
 ]
 
 function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 520 252" className={className} role="img" aria-label="Opportunity timing gap chart preview">
-      <line x1="34" y1="138" x2="490" y2="138" stroke="#334155" strokeWidth="2.5" />
-      <circle cx="44" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="116" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="188" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="260" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="332" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="404" cy="138" r="4.5" fill="#64748b" />
-      <circle cx="476" cy="138" r="4.5" fill="#64748b" />
+    <svg viewBox="0 0 560 280" className={className} role="img" aria-label="Opportunity timing gap: when you enter vs typical candidates">
+      {/* Subtle background gradient definition */}
+      <defs>
+        <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#1e293b" stopOpacity="0.3" />
+          <stop offset="50%" stopColor="#0f172a" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#1e293b" stopOpacity="0.3" />
+        </linearGradient>
+        <linearGradient id="startingMondayGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#86efac" stopOpacity="1" />
+          <stop offset="100%" stopColor="#4ade80" stopOpacity="0.8" />
+        </linearGradient>
+        <linearGradient id="typicalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#fb923c" stopOpacity="1" />
+          <stop offset="100%" stopColor="#f97316" stopOpacity="0.8" />
+        </linearGradient>
+      </defs>
 
-      <text x="24" y="168" fill="#cbd5e1" fontSize="13">Signal</text>
-      <text x="94" y="182" fill="#cbd5e1" fontSize="13">Shape</text>
-      <text x="160" y="168" fill="#cbd5e1" fontSize="13">Outreach</text>
-      <text x="242" y="182" fill="#cbd5e1" fontSize="13">Open</text>
-      <text x="302" y="168" fill="#cbd5e1" fontSize="13">Interviews</text>
-      <text x="384" y="182" fill="#cbd5e1" fontSize="13">Selection</text>
-      <text x="450" y="168" fill="#cbd5e1" fontSize="13">Start</text>
+      {/* Main timeline with subtle background */}
+      <rect x="40" y="125" width="480" height="36" fill="url(#timelineGradient)" rx="4" />
+      <line x1="40" y1="143" x2="520" y2="143" stroke="#475569" strokeWidth="1.5" />
 
-      <text x="70" y="30" fill="#86efac" fontSize="14" fontWeight="700">Starting Monday enters here</text>
-      <line x1="116" y1="42" x2="116" y2="122" stroke="#22c55e" strokeWidth="4" />
-      <polygon points="116,133.5 109,121.5 123,121.5" fill="#22c55e" />
+      {/* Timeline dots - more refined */}
+      <circle cx="55" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="130" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="205" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="280" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="355" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="430" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
+      <circle cx="505" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
 
-      <text x="206" y="50" fill="#fdba74" fontSize="14" fontWeight="700">Typical candidates enter here</text>
-      <line x1="260" y1="60" x2="260" y2="122" stroke="#f97316" strokeWidth="4" />
-      <polygon points="260,133.5 253,121.5 267,121.5" fill="#f97316" />
+      {/* Phase labels - refined typography */}
+      <text x="55" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Signal</text>
+      <text x="130" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Shape</text>
+      <text x="205" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Outreach</text>
+      <text x="280" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Open</text>
+      <text x="355" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Interviews</text>
+      <text x="430" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Selection</text>
+      <text x="505" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Start</text>
 
-      <text x="16" y="228" fill="#cbd5e1" fontSize="14" fontWeight="700">Entering before the role opens materially improves shortlist odds.</text>
+      {/* Starting Monday entry point - refined */}
+      <g>
+        <line x1="130" y1="110" x2="130" y2="127" stroke="url(#startingMondayGradient)" strokeWidth="3.5" strokeLinecap="round" />
+        <circle cx="130" cy="105" r="6.5" fill="#86efac" stroke="#4ade80" strokeWidth="1.5" />
+        <text x="130" y="32" fill="#86efac" fontSize="13" fontWeight="600" textAnchor="middle" letterSpacing="0.5">Starting Monday</text>
+        <text x="130" y="49" fill="#9ca3af" fontSize="11" textAnchor="middle">enters before</text>
+        <text x="130" y="62" fill="#9ca3af" fontSize="11" textAnchor="middle">decision-makers</text>
+        <text x="130" y="75" fill="#9ca3af" fontSize="11" textAnchor="middle">form shortlist</text>
+      </g>
+
+      {/* Typical candidates entry point - refined */}
+      <g>
+        <line x1="280" y1="110" x2="280" y2="127" stroke="url(#typicalGradient)" strokeWidth="3.5" strokeLinecap="round" />
+        <circle cx="280" cy="105" r="6.5" fill="#fb923c" stroke="#f97316" strokeWidth="1.5" />
+        <text x="280" y="32" fill="#fb923c" fontSize="13" fontWeight="600" textAnchor="middle" letterSpacing="0.5">Typical candidates</text>
+        <text x="280" y="49" fill="#9ca3af" fontSize="11" textAnchor="middle">enter when role</text>
+        <text x="280" y="62" fill="#9ca3af" fontSize="11" textAnchor="middle">is publicly posted</text>
+        <text x="280" y="75" fill="#9ca3af" fontSize="11" textAnchor="middle">& widely known</text>
+      </g>
+
+      {/* Advantage callout - refined */}
+      <rect x="40" y="225" width="480" height="1" fill="#475569" opacity="0.4" />
+      <text x="280" y="250" fill="#cbd5e1" fontSize="12" fontWeight="600" textAnchor="middle" letterSpacing="0.3">
+        Starting early: when role is still taking shape • Better odds: fewer qualified candidates
+      </text>
+      <text x="280" y="268" fill="#cbd5e1" fontSize="12" fontWeight="600" textAnchor="middle" letterSpacing="0.3">
+        Advantage: already known and trusted
+      </text>
     </svg>
   )
 }
+
 
 function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
@@ -402,7 +444,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <p className="mt-6 mb-10 max-w-3xl text-[18px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty] sm:text-[20px]">
-                Find the mandate before the posting. Build internal advocates while you search. That's how you move from competing for a job to already being in the conversation.
+                Discover your dream role before the posting. Build internal advocates while you search. That's how you move from competing for a job to already being in the conversation.
               </p>
             )}
 
@@ -427,40 +469,13 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     Individuals
                   </TrackLink>
                   <TrackLink
-                    href="/for-coaches"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{ channel: 'coaches', cta_label: 'homepage_top_level_coaches', source_page: '/' }}
-                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                  >
-                    Coaches
-                  </TrackLink>
-                  <TrackLink
-                    href="/for-outplacement"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{ channel: 'outplacement', cta_label: 'homepage_top_level_outplacement', source_page: '/' }}
-                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                  >
-                    Outplacement
-                  </TrackLink>
-                  <TrackLink
-                    href="/search-firms"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{ channel: 'search_firms', cta_label: 'homepage_top_level_search_firms', source_page: '/' }}
-                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                  >
-                    Search Firms
-                  </TrackLink>
-                  <TrackLink
                     href="/partners"
                     event={EVENT_NAMES.channelEntryClicked}
                     logToUserEvents
                     properties={{ channel: 'partners', cta_label: 'homepage_top_level_partners_firms', source_page: '/' }}
-                    className="hidden"
+                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                    Partners / Firms
+                    Partners
                   </TrackLink>
                   <Link
                     href="/learn-more"
@@ -490,7 +505,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   <p className="max-w-3xl text-[14px] leading-relaxed text-slate-200/90">
                     {isLeadershipLanePage
                       ? 'Starting Monday is designed for leadership transitions that require earlier timing, sharper narrative control, and disciplined weekly execution.'
-                      : 'Starting Monday is designed for executive-transition behavior: earlier timing, sharper mandate narrative, and disciplined weekly execution.'}
+                      : 'Starting Monday is designed for leadership-transition behavior: earlier timing, sharper role narrative, and disciplined weekly execution.'}
                   </p>
                 </div>
 
@@ -568,61 +583,109 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
         {isHomePage && (
           <>
             {/* SIGNAL SECTION: Market opportunity and timing advantage */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-20 sm:px-6 sm:py-28">
               <div className="mx-auto max-w-5xl">
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
-                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Find the role before the posting.
-                </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Every mandate starts before the job posting. This is what Starting Monday detects.</p>
-                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
+                <p className="mb-6 text-[14px] leading-relaxed text-slate-300">Every dream role starts before the job posting. This is what Starting Monday detects.</p>
+                <p className="mb-12 max-w-3xl text-[16px] leading-relaxed text-slate-200">
                   When a company faces pressure—activist investors, product launches, strategic shifts—internal conversations start first. Budgets get reallocated. Roles start getting defined. Decision-makers (who will become your advocates) start asking "who can run this?" And then, months later, it gets posted. Starting Monday finds you in that window. Before the shortlist gets crowded. When your relevance is obvious to the people who matter.
                 </p>
 
-                <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-4 sm:p-6">
-                  <OpportunityTimingGapChart />
+                <div className="mb-12">
+                  <h3 className="font-serif text-[22px] sm:text-[26px] leading-tight text-white mb-8">Entering before the role opens materially improves your odds.</h3>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-6 sm:p-8 animate-in fade-in duration-700">
+                    <OpportunityTimingGapChart />
+                  </div>
                 </div>
 
-                <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white\">Why this matters:</span> Instead of competing in the posted job window with dozens of other qualified candidates, you're already in the conversation when decision-makers are forming the mandate. That's the advantage.
+                <p className="mb-10 text-[14px] leading-relaxed text-slate-300">
+                  <span className="font-semibold text-white">Why this matters:</span> Instead of competing in the posted job window with dozens of other qualified candidates, you're already in the conversation when decision-makers are shaping your dream role. That's not a disadvantage. That's your entire advantage.
                 </p>
+
+                <TrackLink
+                  href="/evidence-hub#early-signals"
+                  event="signal_section_cta"
+                  properties={{ channel: 'homepage', cta_label: 'signal_explore', source_page: '/' }}
+                >
+                  <button className="inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600">
+                    Explore the evidence →
+                  </button>
+                </TrackLink>
               </div>
             </section>
 
-            {/* STORY SECTION: Advocates and narrative */}
-            <HomepageBriefTeaser />
-
-            {/* PLAN SECTION: Execution and momentum */}
+            {/* ADVOCATES SECTION: Create advocates to get on shortlist */}
             <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
               <div className="mx-auto max-w-5xl">
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Plan</p>
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Create Advocates</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Build internal advocates while you search.
+                  Get on the shortlist through relationships, not job boards.
                 </h2>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Once you discover your dream role forming, the next step is clear: you need advocates inside the company who will put you on the shortlist. These aren't recruiters or HR. These are decision-makers who shape this role and influence hiring.</p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  The difference between a candidate competing for a posted role and an executive already in the conversation: internal advocates who are actively talking about you to decision-makers before the role even exists. Most executives search in isolation. Starting Monday is designed to systematically build and maintain advocate momentum—the relationships that compound into sponsorship.
+                  Most executives search in isolation—reaching out to scattered contacts without any systematic way to know who actually shapes mandate decisions. Starting Monday changes this. You identify advocates strategically. You build genuine relationships with the people who influence outcomes. You track momentum weekly so advocates know you're serious and stay engaged.
                 </p>
 
                 <div className="mb-8 space-y-4">
                   <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Identify advocates.</span> Find who actually influences mandate decisions—not from job boards or recruiters, but from analyzing company pressure, budget changes, and decision-maker influence. These become your internal advocates.</span>
+                      <span><span className="font-semibold text-white">Identify who shapes the mandate.</span> Not from LinkedIn or a recruiter, but from analyzing who actually influences decisions. Budget holders, strategic planners, the people the CEO listens to. These become your advocates.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Engage advocates through your authentic narrative.</span> When you talk to the CFO, the platform team, or the board—each conversation feels personal because it is. Your story frames them as protagonists in the mandate you understand. That makes them champions.</span>
+                      <span><span className="font-semibold text-white">Engage them directly and early.</span> Before the posting. When the mandate is still taking shape. Your credibility comes from understanding what they're trying to solve, not from a resume.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Track momentum weekly.</span> You see who's engaged, who's advancing the conversation, and where advocates can help next. These conversations compound into real sponsorship—advocates proactively talking about you to other decision-makers.</span>
+                      <span><span className="font-semibold text-white">Track advocate engagement weekly.</span> You see who's championing you internally, who's advancing the conversation, and where you need to engage next. This turns passive interest into active sponsorship.</span>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white\">By week four:</span> Internal advocates are actively talking about you to other decision-makers. You stop searching. You start being sought. That's the power of building advocates systematically instead of hoping they emerge.
+                  <span className="font-semibold text-white">Why it works:</span> Advocates put you on the shortlist before external candidates even know the role exists. You're not competing with dozens of qualified people. You're the conversation they're already having.
                 </p>
+              </div>
+            </section>
+
+            {/* STORY SECTION: Tell your narrative */}
+            <HomepageBriefTeaser />
+
+            {/* MONDAY SECTION: Start Monday - cadence and execution */}
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20 animate-in fade-in duration-1000 delay-100">
+              <div className="mx-auto max-w-5xl">
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Start Monday</p>
+                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
+                  Execute with discipline. Compound momentum weekly.
+                </h2>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Finding your dream role, identifying advocates, and telling your story isn't enough. The difference between a successful transition and a stalled one: the discipline to execute weekly and let momentum compound.</p>
+                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                  Starting Monday isn't a moment. It's a rhythm. Each week, you revisit your advocate list. You measure what's working. You know who's warming up, who's ready to move, and where conversations need to shift. This sustained engagement turns interest into sponsorship. By week four, advocates aren't just interested—they're talking about you to other decision-makers. That's when you stop searching. That's when you start being sought.
+                </p>
+
+                <div className="mb-8 space-y-4">
+                  <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">01</span>
+                      <span><span className="font-semibold text-white">Review weekly.</span> Which advocates are engaged. Who's advancing the conversation. Where momentum is building.</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">02</span>
+                      <span><span className="font-semibold text-white">Adjust narratively.</span> Your story evolves based on what you learn. Each conversation informs the next. Advocates see thoughtfulness, not formula.</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <span className="font-semibold text-orange-300 shrink-0">03</span>
+                      <span><span className="font-semibold text-white">Compound relationships.</span> Small weekly efforts turn into sponsor momentum. By week four, advocates are making the case for you internally. You're no longer pushing. You're being championed.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-[13px] leading-relaxed text-slate-300">
+                    <span className="font-semibold text-white">The outcome:</span> Advocates do the advocacy. Momentum does the work. You start the role as an insider, not a candidate.
+                  </p>
+                </div>
               </div>
             </section>
           </>
@@ -767,37 +830,6 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
           </section>
         )}
 
-        {faqs && faqs.length > 0 && (
-          <section className="border-b border-white/10 bg-slate-950/80 px-4 py-12 sm:px-6" aria-labelledby="faq-heading">
-            <div className="max-w-5xl mx-auto">
-              <h2 id="faq-heading" className="text-[22px] font-bold text-white mb-6">Common questions</h2>
-              <div className="space-y-3">
-                {faqs.map((f) => (
-                  <details key={f.question} className="rounded-xl border border-white/10 bg-white/5 px-5 py-4 group">
-                    <summary className="list-none cursor-pointer text-[14px] font-semibold text-white flex justify-between items-start gap-3">
-                      <span>{f.question}</span>
-                      <span className="mt-0.5 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
-                    </summary>
-                    <p className="mt-3 text-[13px] leading-relaxed text-slate-200 [text-wrap:pretty]">{f.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {faqs && faqs.length > 0 && (
-          <JsonLd data={{
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqs.map((f) => ({
-              '@type': 'Question',
-              name: f.question,
-              acceptedAnswer: { '@type': 'Answer', text: f.answer },
-            })),
-          }} />
-        )}
-
         <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
@@ -820,10 +852,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
               </p>
             ) : (
-              <>
-                <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
-                <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
-              </>
+              <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
             )}
           </div>
         </footer>
