@@ -40,9 +40,9 @@ export function DashboardPrimaryNavSections({
         <section id="start-here" className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
         <div className="mb-4">
           <h2 className="text-[13px] font-semibold text-orange-200 mb-1">Start here</h2>
-          <p className="text-[16px] font-semibold text-white">Pick one move in each tenet.</p>
+          <p className="text-[16px] font-semibold text-white">Run today in three moves: signals, relationships, and plan.</p>
           <p className="text-[13px] text-slate-200 leading-relaxed mt-1">
-            Keep the day focused: role timing, one relationship step, and one plan action.
+            This is your executive operating console. Make one high-quality move in each lane, then stop.
           </p>
           <div className="mt-3 grid grid-cols-1 gap-2 text-[12px] text-slate-200 sm:grid-cols-3">
             <p className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
@@ -69,7 +69,7 @@ export function DashboardPrimaryNavSections({
             <p className="text-[13px] font-medium text-orange-200">Talk to the right people</p>
             <p className="mt-1 text-[14px] font-semibold text-white">{overdueCount} relationship moves ready</p>
             <p className="mt-1 text-[13px] text-slate-300">Advance one warm path before noon.</p>
-            <Link href={canUseOutreachHub ? '/dashboard/outreach' : '/dashboard/contacts'} className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
+            <Link href="/dashboard/contacts" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
               Open relationships
             </Link>
           </article>

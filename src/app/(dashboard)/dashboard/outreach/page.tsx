@@ -326,14 +326,26 @@ export default async function OutreachHubPage() {
 <div>
           <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Outreach Hub</h1>
           <p className="text-[13px] text-slate-500 mt-1">
-            Internal outbound operating center: executives, search firms, and coaches with one-click send and auto follow-up reminders.
+            Run one high-quality outreach block: choose a lane, send deliberate notes, and keep follow-through visible.
           </p>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-wrap gap-2">
             <Link
               href="/dashboard/admin/social#content-checker"
               className="inline-flex items-center text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
             >
               Content Checker
+            </Link>
+            <Link
+              href="/dashboard#start-here"
+              className="inline-flex items-center text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Back to Start Here
+            </Link>
+            <Link
+              href="/dashboard/plan"
+              className="inline-flex items-center text-[13px] font-semibold text-slate-700 border border-slate-300 rounded px-3 py-1.5 hover:border-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Open weekly plan
             </Link>
           </div>
         </div>
