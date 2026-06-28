@@ -258,21 +258,13 @@ export default function ChatPage() {
               href="/dashboard"
               className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors"
             >
-              ← Dashboard
+              &larr; Dashboard
             </Link>
           </div>
         </div>
       </header>
 
       <div className="flex-1 overflow-y-auto">
-        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-1">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-2 text-[12px]">
-            <a href="#chat-empty-state" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Starter prompts</a>
-            <a href="#chat-thread" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Conversation</a>
-            <a href="#chat-composer" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-600 hover:text-slate-800 hover:border-slate-400">Composer</a>
-          </div>
-        </section>
         {loadingHistory ? (
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 flex items-center gap-2 text-slate-300">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block" />

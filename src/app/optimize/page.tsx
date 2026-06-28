@@ -217,23 +217,6 @@ export default function OptimizePage() {
           <p className="text-[12px] text-slate-200 mt-2">Free. No account required. 3 analyses per day.</p>
         </div>
 
-        <section className="bg-white border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">How grading works</h2>
-          <p className="text-[13px] text-slate-600 leading-relaxed">Your pasted text is used only to generate your analysis.</p>
-          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Output includes section grades plus rewrites for weak areas.</p>
-          <p className="text-[13px] text-slate-600 leading-relaxed mt-1">Start by pasting your current profile.</p>
-        </section>
-
-        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#profile-input" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Profile input</a>
-            <a href="#profile-analysis" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Analysis</a>
-            <a href="#share-score" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Share score</a>
-            <a href="#next-step-cta" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
-          </div>
-        </section>
-
         {/* Input card */}
         <section id="profile-input" className="bg-white border border-slate-200 rounded overflow-hidden mb-6">
           <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">

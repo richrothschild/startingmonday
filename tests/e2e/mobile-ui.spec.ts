@@ -50,38 +50,13 @@ test.describe('Mobile UI rubric @rubric @mobile', () => {
     })
     expect(hasOverflow).toBeFalsy()
 
-    // R2: jump chips are rendered as tappable controls
-    const jumpHeading = page.getByRole('heading', { name: 'Jump to section' })
-    await expect(jumpHeading).toBeVisible()
-    const jumpContainer = page.locator('h2:has-text("Jump to section") + div').first()
-    const jumpChips = jumpContainer.locator('a[href^="#"]')
-    const jumpChipCount = await jumpChips.count()
-    expect(jumpChipCount).toBeGreaterThanOrEqual(3)
-    expect(jumpChipCount).toBeLessThanOrEqual(4)
-
-    // Responsive layout: 2 columns under sm, 4 columns at/above sm.
-    const viewportWidth = await page.evaluate(() => window.innerWidth)
-    const renderedColumns = await jumpContainer.evaluate((el) => {
-      const style = window.getComputedStyle(el)
-      const template = style.gridTemplateColumns
-      if (!template || template === 'none') return 0
-      return template.split(' ').filter(Boolean).length
-    })
-    if (viewportWidth < 640) {
-      expect(renderedColumns).toBe(2)
-    } else {
-      expect(renderedColumns).toBe(4)
-    }
-
-    // Balanced layout for phone-sized viewports: no row should exceed two chips.
-    const yPositions = await jumpChips.evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().top)))
-    const rows = new Map()
-    for (const y of yPositions) rows.set(y, (rows.get(y) ?? 0) + 1)
-    const rowCounts = [...rows.values()].sort((a, b) => b - a)
-    if (viewportWidth < 640) {
-      expect(rowCounts[0]).toBe(2)
-      expect(rowCounts.length).toBeGreaterThanOrEqual(2)
-    }
+    // R2: Start here guidance and lane links are rendered as tappable controls.
+    const startHeading = page.getByRole('heading', { name: 'Start here' }).first()
+    await expect(startHeading).toBeVisible()
+    const startSection = page.locator('section:has(h2:has-text("Start here"))').first()
+    const laneLinks = startSection.getByRole('link')
+    const laneLinkCount = await laneLinks.count()
+    expect(laneLinkCount).toBeGreaterThanOrEqual(3)
 
     // R5: no large blank region after meaningful page content
     const blankGap = await page.evaluate(() => {
@@ -96,8 +71,8 @@ test.describe('Mobile UI rubric @rubric @mobile', () => {
     })
     expect(blankGap).toBeLessThan(180)
 
-    // R3/R2: primary CTA should be visible and reasonably tappable.
-    const cta = page.getByRole('link', { name: 'Open briefing' }).first()
+    // R3/R2: primary lane CTA should be visible and reasonably tappable.
+    const cta = page.getByRole('link', { name: /Briefing|Relationships|Plan/i }).first()
     await expect(cta).toBeVisible()
     const ctaBox = await cta.boundingBox()
     expect(ctaBox?.height ?? 0).toBeGreaterThanOrEqual(44)

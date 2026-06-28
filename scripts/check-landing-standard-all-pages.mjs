@@ -31,6 +31,8 @@ const MARKETING_SHELL_HINTS = [
   '<LandingPage',
 ]
 
+const CRITICAL_ROUTES = ['/login', '/signup', '/onboarding', '/dashboard/chat']
+
 function walk(dirPath) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true })
   const files = []
@@ -63,6 +65,26 @@ function countMatches(content, regex) {
   return (content.match(regex) || []).length
 }
 
+function shellPaletteAlignment(shell, content) {
+  const hasDarkBase = /bg-slate-(9|8)\d\d|bg-\[radial-gradient|bg-\[linear-gradient|bg-slate-950|bg-slate-900/.test(content)
+  const orangeTokenCount = countMatches(content, /(?:bg|text|border)-orange-/g)
+  const plainWhiteSurfaceCount = countMatches(content, /bg-white\b/g)
+
+  if (shell === 'dashboard-shell') {
+    return hasDarkBase && orangeTokenCount >= 1 && plainWhiteSurfaceCount <= 6
+  }
+
+  if (shell === 'landing-shell' || shell === 'marketing-shell') {
+    return hasDarkBase && orangeTokenCount >= 1
+  }
+
+  if (shell === 'auth-shell') {
+    return hasDarkBase || orangeTokenCount >= 1
+  }
+
+  return hasDarkBase || orangeTokenCount >= 1
+}
+
 function inferShell(relativePath, content) {
   if (relativePath.includes('src/app/(dashboard)/')) return 'dashboard-shell'
   if (relativePath.includes('src/app/(auth)/')) return 'auth-shell'
@@ -92,9 +114,12 @@ function evaluate(relativePath) {
   const formCount = countMatches(content, /<form\b/g)
 
   const paletteScore = PALETTE_TOKENS.reduce((sum, token) => sum + (content.includes(token) ? 1 : 0), 0)
-  const paletteConsistency = shell === 'landing-shell' || shell === 'marketing-shell' || shell === 'dashboard-shell' || shell === 'auth-shell' || shell === 'custom-shell' || paletteScore >= 2
+  const paletteConsistency = paletteScore >= 2
+  const shellPaletteConsistent = shellPaletteAlignment(shell, content)
 
   const thoughtProcessAlignment = shellStandard || h1Count >= 1 || h2Count >= 1
+  const jumpNavRemoved = !/jump to section/i.test(content)
+  const glyphFallbackFree = !/(?:\?\s+(?:Dashboard|Prev|Next|Admin|Back))|(?:(?:Dashboard|Prev|Next|Admin|Back)\s+\?)/.test(content)
 
   let cognitiveLoad = 'excellent'
   if (paragraphCount > 90 || linkCount + buttonCount > 120) {
@@ -121,8 +146,11 @@ function evaluate(relativePath) {
     thought_process_alignment: thoughtProcessAlignment,
     cognitive_load: cognitiveLoad !== 'high',
     palette_consistency: paletteConsistency,
+    shell_palette_alignment: shellPaletteConsistent,
     button_wiring: buttonWiring,
     header_footer_consistency: headerFooterConsistency,
+    jump_navigation_removed: jumpNavRemoved,
+    glyph_fallback_free: glyphFallbackFree,
   }
 
   const failedChecks = Object.entries(checks)
@@ -149,6 +177,9 @@ function evaluate(relativePath) {
       orphanButtonCount,
       cognitiveLoad,
     },
+    comparisonToLanding: failedChecks.length === 0
+      ? 'match'
+      : `different: ${failedChecks.join(', ')}`,
   }
 }
 
@@ -159,6 +190,13 @@ const pageFiles = walk(APP_DIR)
 
 const results = pageFiles.map(evaluate)
 const failing = results.filter((row) => row.issueCount > 0)
+const routeSet = new Set(results.map((row) => row.route))
+const criticalRoutes = CRITICAL_ROUTES.map((route) => {
+  const page = results.find((row) => row.route === route)
+  if (!page) return { route, present: false, status: 'missing' }
+  return { route, present: true, status: page.issueCount === 0 ? 'pass' : 'failing', failedChecks: page.failedChecks }
+})
+const criticalRoutesPassing = criticalRoutes.filter((row) => row.status === 'pass').length
 
 const summary = {
   totalPages: results.length,
@@ -168,8 +206,13 @@ const summary = {
   luxuryLookAndFeelPages: results.filter((row) => row.checks.luxury_look_and_feel).length,
   thoughtProcessAlignmentPages: results.filter((row) => row.checks.thought_process_alignment).length,
   paletteConsistencyPages: results.filter((row) => row.checks.palette_consistency).length,
+  shellPaletteAlignmentPages: results.filter((row) => row.checks.shell_palette_alignment).length,
   buttonWiringPages: results.filter((row) => row.checks.button_wiring).length,
   headerFooterConsistencyPages: results.filter((row) => row.checks.header_footer_consistency).length,
+  jumpNavigationRemovedPages: results.filter((row) => row.checks.jump_navigation_removed).length,
+  glyphFallbackFreePages: results.filter((row) => row.checks.glyph_fallback_free).length,
+  criticalRoutesPassing,
+  criticalRoutesTotal: CRITICAL_ROUTES.length,
   cognitiveExcellentPages: results.filter((row) => row.metrics.cognitiveLoad === 'excellent').length,
   cognitiveGoodPages: results.filter((row) => row.metrics.cognitiveLoad === 'good').length,
   cognitiveHighPages: results.filter((row) => row.metrics.cognitiveLoad === 'high').length,
@@ -180,6 +223,7 @@ const payload = {
   strict,
   summary,
   failingRoutes: failing.map((row) => ({ route: row.route, relativePath: row.relativePath, failedChecks: row.failedChecks })),
+  criticalRoutes,
   results,
 }
 
@@ -189,6 +233,24 @@ mdLines.push('')
 mdLines.push('## Summary')
 for (const [key, value] of Object.entries(summary)) {
   mdLines.push(`- ${key}: ${value}`)
+}
+mdLines.push('')
+mdLines.push('## Critical Routes')
+for (const row of criticalRoutes) {
+  if (row.status === 'pass') {
+    mdLines.push(`- ${row.route}: pass`)
+    continue
+  }
+  if (row.status === 'missing') {
+    mdLines.push(`- ${row.route}: missing`)
+    continue
+  }
+  mdLines.push(`- ${row.route}: failing (${(row.failedChecks ?? []).join(', ')})`)
+}
+mdLines.push('')
+mdLines.push('## All Pages Comparison')
+for (const row of results) {
+  mdLines.push(`- ${row.route} -> ${row.comparisonToLanding}`)
 }
 mdLines.push('')
 mdLines.push('## Pages Different From Landing')
@@ -217,6 +279,6 @@ if (asJson) {
   console.log(`Total issues: ${summary.totalIssues}`)
 }
 
-if (strict && failing.length > 0) {
+if (strict && (failing.length > 0 || criticalRoutesPassing !== CRITICAL_ROUTES.length)) {
   process.exit(1)
 }

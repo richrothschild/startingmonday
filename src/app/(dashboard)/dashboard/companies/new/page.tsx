@@ -40,7 +40,7 @@ export default async function AddCompanyPage({
             href="/dashboard"
             className="text-[13px] text-slate-300 hover:text-white transition-colors"
           >
-            ? Dashboard
+            &larr; Dashboard
           </Link>
         </div>
       </header>

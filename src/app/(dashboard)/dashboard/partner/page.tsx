@@ -325,17 +325,6 @@ export default async function PartnerDashboardPage({
           </p>
         </div>
 
-        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#partner-stats" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Stats</a>
-            <a href="#partner-performance" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Performance</a>
-            <a href="#partner-referral-link" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Referral link</a>
-            <a href="#partner-subscribers" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Subscribers</a>
-            <a href="#partner-commission" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Commission model</a>
-          </div>
-        </section>
-
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/partners#apply" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">

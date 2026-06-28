@@ -73,17 +73,7 @@ export default async function IntelligencePage({
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-<section className="mb-6 bg-white border border-slate-200 rounded p-4">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#company-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Company overview</a>
-            <a href="#recent-intelligence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Recent intelligence</a>
-            <a href="#access-gate" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Access gate</a>
-            <a href="#next-step" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Next step</a>
-          </div>
-        </section>
-
-        {/* Company hero */}
+{/* Company hero */}
         <section id="company-overview" className="mb-10">
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 rounded-lg bg-slate-950 flex items-center justify-center text-white text-[16px] font-bold shrink-0">

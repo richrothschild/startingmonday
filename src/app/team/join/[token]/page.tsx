@@ -104,15 +104,6 @@ export default async function TeamJoinPage({
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
         <div className="max-w-md w-full">
-          <section className="mb-6 bg-slate-800 border border-slate-700 rounded p-4">
-            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-2">Jump to section</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-              <a href="#invite-summary" className="text-slate-200 hover:text-white underline underline-offset-2">Invite summary</a>
-              <a href="#invite-benefits" className="text-slate-200 hover:text-white underline underline-offset-2">What you get</a>
-              <a href="#next-step" className="text-slate-200 hover:text-white underline underline-offset-2">Next step</a>
-            </div>
-          </section>
-
           <section id="invite-summary">
           <h2 className="text-[13px] text-slate-500 mb-4">Team invitation</h2>
           <h1 className="text-[32px] font-bold text-white leading-tight mb-4">
