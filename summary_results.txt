@@ -1,1614 +1,425 @@
-{
-  "generatedAt": "2026-06-18T22:26:26.315Z",
-  "totalPublicPages": 136,
-  "worst10": [
-    {
-      "route": "/",
-      "file": "C:/Users/roths/startingmonday/src/app/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/about",
-      "file": "C:/Users/roths/startingmonday/src/app/about/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/annual-report-2026",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/annual-report-2026/executive-search-ai-confidentiality",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/blog/cio-board-presentation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-board-presentation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-compensation-negotiation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-compensation-negotiation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-job-market-2026",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-market-2026/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-job-search-timeline",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-search-timeline/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-vs-cto-which-role",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-vs-cto-which-role/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    }
-  ],
-  "all": [
-    {
-      "route": "/",
-      "file": "C:/Users/roths/startingmonday/src/app/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/about",
-      "file": "C:/Users/roths/startingmonday/src/app/about/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/annual-report-2026",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/annual-report-2026/executive-search-ai-confidentiality",
-      "file": "C:/Users/roths/startingmonday/src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/blog/cio-board-presentation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-board-presentation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-compensation-negotiation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-compensation-negotiation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-job-market-2026",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-market-2026/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-job-search-timeline",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-job-search-timeline/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cio-vs-cto-which-role",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cio-vs-cto-which-role/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/ciso-interview-preparation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/ciso-interview-preparation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cto-job-search-timeline",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cto-job-search-timeline/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/cto-vs-vp-engineering-career-path",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/cto-vs-vp-engineering-career-path/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-coaching-candidate-infrastructure",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-coaching-candidate-infrastructure/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-coaching-job-search",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-coaching-job-search/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-hiring-patterns-2026",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-hiring-patterns-2026/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-job-search-daily-routine",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-job-search-daily-routine/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-resume-gaps",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-resume-gaps/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-search-firms-cio",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-search-firms-cio/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/executive-search-operating-system",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/executive-search-operating-system/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/how-cios-find-jobs",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/how-cios-find-jobs/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/how-we-estimate-early-role-signals",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/how-we-estimate-early-role-signals/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/linkedin-executive-search-strategy",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/linkedin-executive-search-strategy/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/pe-backed-cio",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/pe-backed-cio/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/retained-search-candidate-preparation",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/retained-search-candidate-preparation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/retained-search-firms",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/retained-search-firms/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/target-company-list",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/target-company-list/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/target-company-list-cto",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/target-company-list-cto/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/technology-executive-transition-chro",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/technology-executive-transition-chro/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/vp-job-search-different-rules",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/vp-job-search-different-rules/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/vp-to-cio-transition",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/vp-to-cio-transition/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/what-companies-want-chief-data-officer",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/what-companies-want-chief-data-officer/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/why-executive-recruiters-go-quiet",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/why-executive-recruiters-go-quiet/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/blog/why-starting-monday-exists",
-      "file": "C:/Users/roths/startingmonday/src/app/blog/why-starting-monday-exists/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/career-tools",
-      "file": "C:/Users/roths/startingmonday/src/app/career-tools/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/case-studies",
-      "file": "C:/Users/roths/startingmonday/src/app/case-studies/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/channels/feature-map",
-      "file": "C:/Users/roths/startingmonday/src/app/channels/feature-map/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches-guide",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches-guide/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches/mock-dashboard",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches/mock-dashboard/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches/mock-dashboard/[clientId]",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches/mock-dashboard/[clientId]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 1,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches/personas",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches/personas/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coaches/personas/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/coaches/personas/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/coachos",
-      "file": "C:/Users/roths/startingmonday/src/app/coachos/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/concierge",
-      "file": "C:/Users/roths/startingmonday/src/app/concierge/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/contributor",
-      "file": "C:/Users/roths/startingmonday/src/app/contributor/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/cio",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/cio/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/demo/cio/notes",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/cio/notes/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/demo/coach-dashboard",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/coach-dashboard/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/executive-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/executive-brief/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/executive-dashboard",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/executive-dashboard/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/manager-tools",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/manager-tools/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/demo/michael-dashboard",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/michael-dashboard/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/michael-strategy-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/michael-strategy-brief/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/demo/presenter",
-      "file": "C:/Users/roths/startingmonday/src/app/demo/presenter/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/evaluate",
-      "file": "C:/Users/roths/startingmonday/src/app/evaluate/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/evidence-room",
-      "file": "C:/Users/roths/startingmonday/src/app/evidence-room/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 1,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/executive-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/executive-brief/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/executives",
-      "file": "C:/Users/roths/startingmonday/src/app/executives/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 1,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/executives/active",
-      "file": "C:/Users/roths/startingmonday/src/app/executives/active/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 3,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/executives/passive",
-      "file": "C:/Users/roths/startingmonday/src/app/executives/passive/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 3,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/executives/personas",
-      "file": "C:/Users/roths/startingmonday/src/app/executives/personas/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/executives/personas/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/executives/personas/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 1,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/features",
-      "file": "C:/Users/roths/startingmonday/src/app/features/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/features/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/features/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 3,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/feedback",
-      "file": "C:/Users/roths/startingmonday/src/app/feedback/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 1,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-cdo",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cdo/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-chro",
-      "file": "C:/Users/roths/startingmonday/src/app/for-chro/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-cio",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cio/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-cio-associations",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cio-associations/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-ciso",
-      "file": "C:/Users/roths/startingmonday/src/app/for-ciso/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-coaches",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/coach-prep-worksheet",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/coach-prep-worksheet/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/economics",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/economics/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/faq",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/faq/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/micro-products",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/micro-products/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/micro-products/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/micro-products/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/search-affiliate",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/search-affiliate/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 3,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-coaches/trust-pack",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coaches/trust-pack/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-coo",
-      "file": "C:/Users/roths/startingmonday/src/app/for-coo/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-cpo",
-      "file": "C:/Users/roths/startingmonday/src/app/for-cpo/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-data-officer",
-      "file": "C:/Users/roths/startingmonday/src/app/for-data-officer/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-executives",
-      "file": "C:/Users/roths/startingmonday/src/app/for-executives/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-executives/[lane]",
-      "file": "C:/Users/roths/startingmonday/src/app/for-executives/[lane]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-financial-advisors",
-      "file": "C:/Users/roths/startingmonday/src/app/for-financial-advisors/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-fractional-executives",
-      "file": "C:/Users/roths/startingmonday/src/app/for-fractional-executives/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-media-partners",
-      "file": "C:/Users/roths/startingmonday/src/app/for-media-partners/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/economics",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/economics/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/executive-summary",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/executive-summary/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/faq",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/faq/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/metric-dictionary",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/metric-dictionary/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/operating-scorecard",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/operating-scorecard/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/runbook",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/runbook/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/security-overview",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/security-overview/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-outplacement/trust-pack",
-      "file": "C:/Users/roths/startingmonday/src/app/for-outplacement/trust-pack/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-pe-partners",
-      "file": "C:/Users/roths/startingmonday/src/app/for-pe-partners/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-pe-teams",
-      "file": "C:/Users/roths/startingmonday/src/app/for-pe-teams/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-relocation",
-      "file": "C:/Users/roths/startingmonday/src/app/for-relocation/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-search-firms",
-      "file": "C:/Users/roths/startingmonday/src/app/for-search-firms/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/for-vp",
-      "file": "C:/Users/roths/startingmonday/src/app/for-vp/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/for-vp-technology",
-      "file": "C:/Users/roths/startingmonday/src/app/for-vp-technology/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/founder-note",
-      "file": "C:/Users/roths/startingmonday/src/app/founder-note/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/guide",
-      "file": "C:/Users/roths/startingmonday/src/app/guide/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/ideas",
-      "file": "C:/Users/roths/startingmonday/src/app/ideas/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/intelligence/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/intelligence/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/invite/[code]",
-      "file": "C:/Users/roths/startingmonday/src/app/invite/[code]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/managertools",
-      "file": "C:/Users/roths/startingmonday/src/app/managertools/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/mark-demo",
-      "file": "C:/Users/roths/startingmonday/src/app/mark-demo/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/method-and-evidence",
-      "file": "C:/Users/roths/startingmonday/src/app/method-and-evidence/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/onboarding",
-      "file": "C:/Users/roths/startingmonday/src/app/onboarding/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/optimize",
-      "file": "C:/Users/roths/startingmonday/src/app/optimize/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/outplacement",
-      "file": "C:/Users/roths/startingmonday/src/app/outplacement/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 2,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/outplacement/personas",
-      "file": "C:/Users/roths/startingmonday/src/app/outplacement/personas/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/outplacement/personas/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/outplacement/personas/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 1,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/partners",
-      "file": "C:/Users/roths/startingmonday/src/app/partners/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/partners/reporting",
-      "file": "C:/Users/roths/startingmonday/src/app/partners/reporting/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/pilot-findings",
-      "file": "C:/Users/roths/startingmonday/src/app/pilot-findings/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/pricing",
-      "file": "C:/Users/roths/startingmonday/src/app/pricing/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/privacy",
-      "file": "C:/Users/roths/startingmonday/src/app/privacy/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/proof/roi-calculator",
-      "file": "C:/Users/roths/startingmonday/src/app/proof/roi-calculator/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/references",
-      "file": "C:/Users/roths/startingmonday/src/app/references/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/research-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/research-brief/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/sales-marketing-plan",
-      "file": "C:/Users/roths/startingmonday/src/app/sales-marketing-plan/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/search-firms",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 1,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/search-firms/personas",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/personas/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/search-firms/personas/[slug]",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/personas/[slug]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 2,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/search-firms/sample-cfo-brief",
-      "file": "C:/Users/roths/startingmonday/src/app/search-firms/sample-cfo-brief/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/security",
-      "file": "C:/Users/roths/startingmonday/src/app/security/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/stuart-meyer-review",
-      "file": "C:/Users/roths/startingmonday/src/app/stuart-meyer-review/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/team/join/[token]",
-      "file": "C:/Users/roths/startingmonday/src/app/team/join/[token]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/terms",
-      "file": "C:/Users/roths/startingmonday/src/app/terms/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/terry-anderson-review",
-      "file": "C:/Users/roths/startingmonday/src/app/terry-anderson-review/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": true,
-      "hasStrongPremiumBase": true
-    },
-    {
-      "route": "/unsubscribe/[code]",
-      "file": "C:/Users/roths/startingmonday/src/app/unsubscribe/[code]/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 0,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    },
-    {
-      "route": "/unsubscribe/confirmed",
-      "file": "C:/Users/roths/startingmonday/src/app/unsubscribe/confirmed/page.tsx",
-      "score": 98,
-      "contrastRiskCount": 1,
-      "pastelRiskCount": 0,
-      "transparentRoot": false,
-      "gradientToTransparent": false,
-      "mixedExtremeSurfaces": false,
-      "hasStrongPremiumBase": false
-    }
-  ]
-}
+# Site Style Audit
+
+## Summary
+- totalPages: 275
+- failingPages: 120
+- totalIssues: 289
+- shellStandardPages: 275
+- luxuryLookAndFeelPages: 190
+- thoughtProcessAlignmentPages: 275
+- paletteConsistencyPages: 190
+- shellPaletteAlignmentPages: 158
+- buttonWiringPages: 275
+- headerFooterConsistencyPages: 275
+- jumpNavigationRemovedPages: 275
+- glyphFallbackFreePages: 273
+- criticalRoutesPassing: 3
+- criticalRoutesTotal: 4
+- cognitiveExcellentPages: 264
+- cognitiveGoodPages: 11
+- cognitiveHighPages: 0
+
+## Critical Routes
+- /login: pass
+- /signup: pass
+- /onboarding: failing (luxury_look_and_feel, palette_consistency, shell_palette_alignment)
+- /dashboard/chat: pass
+
+## All Pages Comparison
+- /login -> match
+- /signup -> match
+- /coach/[clientId]/interview -> match
+- /coach/clients -> match
+- /dashboard/admin/b2b/[id] -> match
+- /dashboard/admin/b2b/new -> match
+- /dashboard/admin/b2b -> match
+- /dashboard/admin/channel-benchmarks -> different: shell_palette_alignment
+- /dashboard/admin/coach-outreach -> different: shell_palette_alignment
+- /dashboard/admin/crm -> different: shell_palette_alignment
+- /dashboard/admin/customers -> match
+- /dashboard/admin/diagrams -> different: shell_palette_alignment
+- /dashboard/admin/feedback/[id] -> different: shell_palette_alignment
+- /dashboard/admin/feedback -> different: shell_palette_alignment
+- /dashboard/admin/guide -> different: shell_palette_alignment
+- /dashboard/admin/intelligence -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/admin/intelligence/qa -> match
+- /dashboard/admin/internal-guide -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/admin/linkedin-company-launch -> match
+- /dashboard/admin/metrics -> different: shell_palette_alignment
+- /dashboard/admin/onboarding/qa -> different: shell_palette_alignment
+- /dashboard/admin/onboarding/video -> different: shell_palette_alignment
+- /dashboard/admin/operations -> match
+- /dashboard/admin/outplacement-cohorts -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/admin/outplacement-outreach -> different: shell_palette_alignment
+- /dashboard/admin/outreach-analytics -> different: shell_palette_alignment
+- /dashboard/admin/outreach-reliability -> different: shell_palette_alignment
+- /dashboard/admin -> different: shell_palette_alignment
+- /dashboard/admin/product/catalog -> different: shell_palette_alignment
+- /dashboard/admin/product -> match
+- /dashboard/admin/revenue -> match
+- /dashboard/admin/sales-enablement -> match
+- /dashboard/admin/social -> different: glyph_fallback_free
+- /dashboard/admin/speakers -> match
+- /dashboard/admin/team -> match
+- /dashboard/admin/traces -> match
+- /dashboard/admin/traces/rubric -> match
+- /dashboard/board-track -> match
+- /dashboard/briefing -> different: shell_palette_alignment
+- /dashboard/calendar -> match
+- /dashboard/chat -> match
+- /dashboard/coach/[clientId] -> match
+- /dashboard/coach -> different: shell_palette_alignment
+- /dashboard/companies/[id] -> different: shell_palette_alignment
+- /dashboard/companies/[id]/prep -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/companies/new -> match
+- /dashboard/concierge -> match
+- /dashboard/contacts/[id]/edit -> match
+- /dashboard/contacts/[id]/outreach -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/contacts/[id] -> different: shell_palette_alignment
+- /dashboard/contacts -> match
+- /dashboard/discover -> match
+- /dashboard/discover/recommendation/[id] -> different: shell_palette_alignment
+- /dashboard/executive-brief -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/feedback -> different: shell_palette_alignment
+- /dashboard/help -> match
+- /dashboard/invite -> match
+- /dashboard/kanban -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/offers -> match
+- /dashboard/optionality/branding -> different: shell_palette_alignment
+- /dashboard/optionality/decision-cockpit -> different: shell_palette_alignment
+- /dashboard/optionality -> match
+- /dashboard/outplacement/counselor -> match
+- /dashboard/outplacement/enterprise -> match
+- /dashboard/outplacement/firm-admin -> different: shell_palette_alignment
+- /dashboard/outplacement/operator -> match
+- /dashboard/outplacement -> match
+- /dashboard/outplacement/sponsor-report -> match
+- /dashboard/outreach -> different: shell_palette_alignment
+- /dashboard -> different: glyph_fallback_free
+- /dashboard/partner -> different: shell_palette_alignment
+- /dashboard/pilot-outreach -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/placed -> match
+- /dashboard/plan -> different: shell_palette_alignment
+- /dashboard/positioning -> match
+- /dashboard/post-landing -> different: shell_palette_alignment
+- /dashboard/post-search -> match
+- /dashboard/profile -> match
+- /dashboard/profile/tailor -> match
+- /dashboard/salary -> match
+- /dashboard/signals -> different: shell_palette_alignment
+- /dashboard/start -> match
+- /dashboard/strategy -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /dashboard/wrap-up -> match
+- /prep/communications -> match
+- /prep/companies -> match
+- /prep/interview -> match
+- /prep/meetings -> match
+- /prep/relationships -> match
+- /settings/billing -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /settings/security -> match
+- /settings/team -> match
+- /about -> match
+- /annual-report-2026/executive-search-ai-confidentiality -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /annual-report-2026 -> match
+- /blog/c-suite-search-90-day-plan -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/c-suite-search-weekly-metrics -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-board-presentation -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-compensation-negotiation -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-job-market-2026 -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-job-search-timeline -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-search-signal-story-sequence -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cio-vs-cto-which-role -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/ciso-interview-preparation -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/confidential-executive-search-pipeline -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cto-job-search-timeline -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/cto-vs-vp-engineering-career-path -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/evaluate-executive-coach-evidence -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/evidence-based-executive-networking -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/evidence-hub-coaching-session-framework -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-coaching-candidate-infrastructure -> different: shell_palette_alignment
+- /blog/executive-coaching-job-search -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-coaching-search-outcomes -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-hiring-committee-psychology -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-hiring-patterns-2026 -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-interview-prep-7-day-system -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-job-search-daily-routine -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-organizational-visibility -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-outreach-response-rate -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-resume-gaps -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-consistency-model -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-firms-cio -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-operating-system -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-pilot-data-observations -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-readiness-audit -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-risk-register -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-search-timing-signals -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/executive-transition-success-factors -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/how-cios-find-jobs -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/how-we-estimate-early-role-signals -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/linkedin-executive-search-strategy -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog -> match
+- /blog/pe-backed-cio -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/retained-search-candidate-preparation -> different: shell_palette_alignment
+- /blog/retained-search-firms -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/source-backed-executive-career-narrative -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/target-company-list-cto -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/target-company-list -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/technology-executive-transition-chro -> different: shell_palette_alignment
+- /blog/vp-job-search-different-rules -> different: shell_palette_alignment
+- /blog/vp-to-c-suite-positioning -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/vp-to-cio-transition -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/what-companies-want-chief-data-officer -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/why-executive-recruiters-go-quiet -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /blog/why-starting-monday-exists -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /career-tools -> match
+- /case-studies -> match
+- /channels/feature-map -> different: luxury_look_and_feel, palette_consistency
+- /coaches-guide -> match
+- /coaches/mock-dashboard/[clientId] -> match
+- /coaches/mock-dashboard -> match
+- /coaches -> match
+- /coaches/personas/[slug] -> match
+- /coaches/personas -> match
+- /coachos -> match
+- /concierge -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /contributor -> match
+- /dashboard-theme-preview -> match
+- /demo/cio/notes -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /demo/cio -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /demo/coach-dashboard -> match
+- /demo/executive-brief -> match
+- /demo/executive-dashboard -> match
+- /demo/leader-brief -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /demo/manager-tools -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /demo/michael-dashboard -> match
+- /demo/michael-strategy-brief -> match
+- /demo -> match
+- /demo/prep-communications -> match
+- /demo/prep-companies -> match
+- /demo/prep-interview -> match
+- /demo/prep-meetings -> match
+- /demo/presenter -> match
+- /evaluate -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /evidence-hub -> match
+- /evidence-room -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /executive-brief -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /executives/active -> match
+- /executives -> match
+- /executives/passive -> match
+- /executives/personas/[slug] -> match
+- /executives/personas -> match
+- /features/[slug] -> match
+- /features -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /feedback -> match
+- /for-cdo -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-chro -> match
+- /for-cio-associations -> match
+- /for-cio -> match
+- /for-ciso -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-coaches/coach-prep-worksheet -> match
+- /for-coaches/economics -> match
+- /for-coaches/faq -> match
+- /for-coaches/micro-products/[slug] -> match
+- /for-coaches/micro-products -> match
+- /for-coaches -> match
+- /for-coaches/search-affiliate -> match
+- /for-coaches/trust-pack -> match
+- /for-coo -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-cpo -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-data-officer -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-executives/[lane] -> match
+- /for-executives -> match
+- /for-financial-advisors -> match
+- /for-fractional-executives -> match
+- /for-individuals -> match
+- /for-leaders -> match
+- /for-media-partners -> match
+- /for-outplacement/economics -> match
+- /for-outplacement/executive-summary -> match
+- /for-outplacement/faq -> match
+- /for-outplacement/metric-dictionary -> match
+- /for-outplacement/operating-scorecard -> match
+- /for-outplacement -> match
+- /for-outplacement/runbook -> match
+- /for-outplacement/security-overview -> match
+- /for-outplacement/trust-pack -> match
+- /for-pe-partners -> match
+- /for-pe-teams -> match
+- /for-relocation -> match
+- /for-search-firms -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-vp-technology -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /for-vp -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /founder-note -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /guide -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /ideas -> match
+- /individuals -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /intelligence/[slug] -> match
+- /invite/[code] -> match
+- /learn-more/common-questions -> match
+- /learn-more/inside-the-system -> match
+- /learn-more/objections -> match
+- /learn-more -> match
+- /managertools -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /mark-demo -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /mark-review/appendix -> match
+- /mark-review/business-plan -> match
+- /mark-review -> match
+- /mark-review/summary -> match
+- /mauricio-kickoff-execution/apollo-read-access -> match
+- /mauricio-kickoff-execution/customer-email-by-channel -> match
+- /mauricio-kickoff-execution -> match
+- /mauricio-kickoff -> match
+- /method-and-evidence -> match
+- /onboarding -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /optimize -> match
+- /outplacement -> match
+- /outplacement/personas/[slug] -> match
+- /outplacement/personas -> match
+- / -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /partner-firm -> match
+- /partners/mauricio-kickoff -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /partners -> match
+- /partners/reporting -> match
+- /pilot-findings -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /pricing -> match
+- /privacy -> match
+- /proof/roi-calculator -> match
+- /references -> match
+- /research-brief -> match
+- /sales-marketing-plan -> match
+- /search-firms -> match
+- /search-firms/personas/[slug] -> match
+- /search-firms/personas -> match
+- /search-firms/procurement -> match
+- /search-firms/sample-cfo-brief -> match
+- /search-firms/trial-charter -> match
+- /search-firms/trust -> match
+- /security -> match
+- /stuart-meyer-review -> match
+- /team/join/[token] -> match
+- /terms -> match
+- /terry-anderson-review -> match
+- /unsubscribe/[code] -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+- /unsubscribe/confirmed -> different: luxury_look_and_feel, palette_consistency, shell_palette_alignment
+
+## Pages Different From Landing
+- /dashboard/admin/channel-benchmarks -> shell_palette_alignment
+- /dashboard/admin/coach-outreach -> shell_palette_alignment
+- /dashboard/admin/crm -> shell_palette_alignment
+- /dashboard/admin/diagrams -> shell_palette_alignment
+- /dashboard/admin/feedback/[id] -> shell_palette_alignment
+- /dashboard/admin/feedback -> shell_palette_alignment
+- /dashboard/admin/guide -> shell_palette_alignment
+- /dashboard/admin/intelligence -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/admin/internal-guide -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/admin/metrics -> shell_palette_alignment
+- /dashboard/admin/onboarding/qa -> shell_palette_alignment
+- /dashboard/admin/onboarding/video -> shell_palette_alignment
+- /dashboard/admin/outplacement-cohorts -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/admin/outplacement-outreach -> shell_palette_alignment
+- /dashboard/admin/outreach-analytics -> shell_palette_alignment
+- /dashboard/admin/outreach-reliability -> shell_palette_alignment
+- /dashboard/admin -> shell_palette_alignment
+- /dashboard/admin/product/catalog -> shell_palette_alignment
+- /dashboard/admin/social -> glyph_fallback_free
+- /dashboard/briefing -> shell_palette_alignment
+- /dashboard/coach -> shell_palette_alignment
+- /dashboard/companies/[id] -> shell_palette_alignment
+- /dashboard/companies/[id]/prep -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/contacts/[id]/outreach -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/contacts/[id] -> shell_palette_alignment
+- /dashboard/discover/recommendation/[id] -> shell_palette_alignment
+- /dashboard/executive-brief -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/feedback -> shell_palette_alignment
+- /dashboard/kanban -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/optionality/branding -> shell_palette_alignment
+- /dashboard/optionality/decision-cockpit -> shell_palette_alignment
+- /dashboard/outplacement/firm-admin -> shell_palette_alignment
+- /dashboard/outreach -> shell_palette_alignment
+- /dashboard -> glyph_fallback_free
+- /dashboard/partner -> shell_palette_alignment
+- /dashboard/pilot-outreach -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /dashboard/plan -> shell_palette_alignment
+- /dashboard/post-landing -> shell_palette_alignment
+- /dashboard/signals -> shell_palette_alignment
+- /dashboard/strategy -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /settings/billing -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /annual-report-2026/executive-search-ai-confidentiality -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/c-suite-search-90-day-plan -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/c-suite-search-weekly-metrics -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-board-presentation -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-compensation-negotiation -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-job-market-2026 -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-job-search-timeline -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-search-signal-story-sequence -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cio-vs-cto-which-role -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/ciso-interview-preparation -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/confidential-executive-search-pipeline -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cto-job-search-timeline -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/cto-vs-vp-engineering-career-path -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/evaluate-executive-coach-evidence -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/evidence-based-executive-networking -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/evidence-hub-coaching-session-framework -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-coaching-candidate-infrastructure -> shell_palette_alignment
+- /blog/executive-coaching-job-search -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-coaching-search-outcomes -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-hiring-committee-psychology -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-hiring-patterns-2026 -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-interview-prep-7-day-system -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-job-search-daily-routine -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-organizational-visibility -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-outreach-response-rate -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-resume-gaps -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-consistency-model -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-firms-cio -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-operating-system -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-pilot-data-observations -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-readiness-audit -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-risk-register -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-search-timing-signals -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/executive-transition-success-factors -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/how-cios-find-jobs -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/how-we-estimate-early-role-signals -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/linkedin-executive-search-strategy -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/pe-backed-cio -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/retained-search-candidate-preparation -> shell_palette_alignment
+- /blog/retained-search-firms -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/source-backed-executive-career-narrative -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/target-company-list-cto -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/target-company-list -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/technology-executive-transition-chro -> shell_palette_alignment
+- /blog/vp-job-search-different-rules -> shell_palette_alignment
+- /blog/vp-to-c-suite-positioning -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/vp-to-cio-transition -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/what-companies-want-chief-data-officer -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/why-executive-recruiters-go-quiet -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /blog/why-starting-monday-exists -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /channels/feature-map -> luxury_look_and_feel; palette_consistency
+- /concierge -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /demo/cio/notes -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /demo/cio -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /demo/leader-brief -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /demo/manager-tools -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /evaluate -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /evidence-room -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /executive-brief -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /features -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-cdo -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-ciso -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-coo -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-cpo -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-data-officer -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-search-firms -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-vp-technology -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /for-vp -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /founder-note -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /guide -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /individuals -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /managertools -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /mark-demo -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /onboarding -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- / -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /partners/mauricio-kickoff -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /pilot-findings -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /unsubscribe/[code] -> luxury_look_and_feel; palette_consistency; shell_palette_alignment
+- /unsubscribe/confirmed -> luxury_look_and_feel; palette_consistency; shell_palette_alignment

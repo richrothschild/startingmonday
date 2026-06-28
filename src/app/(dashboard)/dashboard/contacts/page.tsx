@@ -52,7 +52,7 @@ export default async function ContactsPage({
             href="/dashboard"
             className="inline-flex min-h-[44px] items-center rounded-md border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-white/30 transition-colors"
           >
-            ? Dashboard
+            &larr; Dashboard
           </Link>
         </div>
       </header>

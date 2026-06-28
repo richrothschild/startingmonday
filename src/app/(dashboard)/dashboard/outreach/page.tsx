@@ -350,16 +350,6 @@ export default async function OutreachHubPage() {
           </div>
         </div>
 
-        <section className="bg-slate-50 border border-slate-200 rounded p-4">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-2 text-[13px]">
-            <a href="#outreach-snapshot" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Snapshot</a>
-            <a href="#outreach-workbench" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Outreach workbench</a>
-            <a href="#outreach-cadence" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Cadence</a>
-            <a href="#outreach-links" className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3.5 font-semibold text-slate-700 hover:text-slate-900 hover:border-slate-400">Linked tools</a>
-          </div>
-        </section>
-
         <section id="outreach-snapshot" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-slate-200 rounded p-5">
             <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Total Prospects</p>

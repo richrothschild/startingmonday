@@ -159,16 +159,6 @@ export default async function MetricsPage() {
           </p>
         </div>
 
-        <section className="bg-slate-50 border border-slate-200 rounded p-4 mb-6">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#metrics-definitions" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Definitions</a>
-            <a href="#metrics-high-low" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">High and low</a>
-            <a href="#metrics-groups" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Group detail</a>
-            <a href="#metrics-trends" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Trend dashboard</a>
-          </div>
-        </section>
-
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/dashboard/admin/crm" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors">

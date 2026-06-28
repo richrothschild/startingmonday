@@ -79,15 +79,6 @@ export default function ResearchBriefPage() {
           </p>
         </header>
 
-        <section className="border border-slate-200 rounded-lg bg-white p-4 mb-10 max-w-3xl">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#executive-summary" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Executive summary</a>
-            <a href="#primary-uses" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Primary uses</a>
-            <a href="#print-note" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Print note</a>
-          </div>
-        </section>
-
         <section id="executive-summary" className="border border-slate-200 rounded-lg bg-slate-50 p-6 mb-10">
           <h2 className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Executive summary</h2>
           <p className="text-[15px] text-slate-700 leading-relaxed mb-4">

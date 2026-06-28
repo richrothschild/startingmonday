@@ -572,19 +572,6 @@ export default async function AdminPage() {
           </div>
         </div>
 
-        <section className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-md">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#control-rooms" className="text-slate-300 hover:text-white underline underline-offset-2">Control rooms</a>
-            <a href="#subscriber-summary" className="text-slate-300 hover:text-white underline underline-offset-2">Subscribers</a>
-            <a href="#email-council-health" className="text-slate-300 hover:text-white underline underline-offset-2">Email council</a>
-            <a href="#system-health" className="text-slate-300 hover:text-white underline underline-offset-2">System health</a>
-            <a href="#role-path-ranking" className="text-slate-300 hover:text-white underline underline-offset-2">Role-path ranking</a>
-            <a href="#internal-pages" className="text-slate-300 hover:text-white underline underline-offset-2">Internal pages</a>
-            <a href="#partners" className="text-slate-300 hover:text-white underline underline-offset-2">Partners</a>
-          </div>
-        </section>
-
         <section id="control-rooms" className="rounded-2xl border border-white/10 bg-white/5 p-5 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
           <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-3">Control rooms</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px]">

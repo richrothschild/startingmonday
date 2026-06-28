@@ -108,7 +108,7 @@ export default async function CalendarPage({
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            ? Dashboard
+            &larr; Dashboard
           </Link>
         </div>
       </header>
@@ -125,7 +125,7 @@ export default async function CalendarPage({
               href={`/dashboard/calendar?week=${prevMonday}`}
               className="text-[12px] font-semibold text-slate-600 border border-slate-200 bg-white rounded px-3 py-1.5 hover:border-slate-400 transition-colors"
             >
-              ? Prev
+              &larr; Prev
             </Link>
             <Link
               href={`/dashboard/calendar?week=${mondayOf(todayISO)}`}
@@ -137,7 +137,7 @@ export default async function CalendarPage({
               href={`/dashboard/calendar?week=${nextMonday}`}
               className="text-[12px] font-semibold text-slate-600 border border-slate-200 bg-white rounded px-3 py-1.5 hover:border-slate-400 transition-colors"
             >
-              Next ?
+              Next &rarr;
             </Link>
           </div>
         </div>

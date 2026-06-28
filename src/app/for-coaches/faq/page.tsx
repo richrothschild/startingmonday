@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 import { CoachValueNudge } from '@/components/CoachValueNudge'
@@ -202,28 +202,6 @@ export default function CoachFaqPage() {
             />
           </div>
 
-          {/* Quick nav links */}
-          <div className="mb-12 pb-8 border-b border-white/10">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-amber-200 mb-4">Quick jump to section:</p>
-            <div className="flex flex-wrap gap-2">
-              {Array.from(new Set(FAQS.map((faq) => faq.category))).map((category) => (
-                <a
-                  key={category}
-                  href={`#${category.toLowerCase().replace(/ /g, '-')}`}
-                  className="inline-flex px-3 py-1.5 text-[12px] font-medium border border-white/20 rounded-full hover:border-amber-200/70 hover:bg-white/10 transition-colors text-slate-200 hover:text-amber-100"
-                >
-                  {category}
-                </a>
-              ))}
-              <a
-                href="#objections"
-                className="inline-flex px-3 py-1.5 text-[12px] font-medium border border-white/20 rounded-full hover:border-amber-200/70 hover:bg-white/10 transition-colors text-slate-200 hover:text-amber-100"
-              >
-                Common Objections
-              </a>
-            </div>
-          </div>
-
           {/* FAQs grouped by category */}
           {Array.from(new Set(FAQS.map((faq) => faq.category))).map((category) => (
             <section
@@ -387,7 +365,7 @@ export default function CoachFaqPage() {
             <a href={CONTACT_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-slate-200 transition-colors">
               {CONTACT_EMAIL}
             </a>{' '}
-            •{' '}
+            ΓÇó{' '}
             <a href={FEEDBACK_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-slate-200 transition-colors">
               Send feedback
             </a>

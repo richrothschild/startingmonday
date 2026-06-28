@@ -125,22 +125,6 @@ export default async function ProfilePage({
           <p className="text-[13px] text-slate-500 mt-1.5">{user.email}</p>
         </div>
 
-        <section className="mb-6 bg-slate-50 border border-slate-200 rounded p-4 max-w-xl">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#section-identity" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Identity</a>
-            <a href="#section-targets" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Targets</a>
-            <a href="#section-positioning" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Positioning</a>
-            <a href="#section-briefing" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Briefing</a>
-            <a href="#section-data-privacy" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Data and privacy</a>
-          </div>
-          <div className="mt-3 pt-3 border-t border-slate-200 text-[13px]">
-            <Link href="/guide?q=How+do+I+set+up+my+profile+and+resume%3F" className="font-semibold text-slate-700 hover:text-slate-900 hover:underline">
-              Need help here? Open profile guide chat
-            </Link>
-          </div>
-        </section>
-
         <div className="mb-6 bg-white border border-slate-200 rounded px-5 py-3.5 max-w-xl flex items-center gap-4">
           <div className="flex items-center gap-1.5 shrink-0">
             {progressSections.map((section, index) => <div key={index} title={section.label} className={`h-1.5 w-9 rounded-full transition-colors ${section.done ? 'bg-slate-900' : 'bg-slate-200'}`} />)}

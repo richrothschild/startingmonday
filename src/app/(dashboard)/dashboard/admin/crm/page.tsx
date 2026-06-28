@@ -158,16 +158,6 @@ export default async function AdminCrmPage({
           </form>
         </div>
 
-        <section className="rounded-2xl border border-white/10 bg-white/5 p-4 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
-          <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
-            <a href="#crm-run-log" className="text-slate-300 hover:text-white underline underline-offset-2">Run log</a>
-            <a href="#crm-kpis" className="text-slate-300 hover:text-white underline underline-offset-2">KPIs</a>
-            <a href="#crm-channel-mix" className="text-slate-300 hover:text-white underline underline-offset-2">Channel mix</a>
-            <a href="#crm-top-leads" className="text-slate-300 hover:text-white underline underline-offset-2">Top leads</a>
-          </div>
-        </section>
-
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
           <h2 className="sr-only">Quick actions</h2>
           <Link href="/dashboard/contacts" className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md hover:border-white/30 transition-colors">

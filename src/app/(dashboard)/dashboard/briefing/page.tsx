@@ -799,24 +799,6 @@ export default async function BriefingPage({
           </section>
         )}
 
-        <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 sm:px-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-          <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-2">Jump to section</h2>
-          <details className="group">
-            <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-950/30 px-3 text-[12px] font-semibold text-slate-100">
-              <span>Show sections</span>
-              <span className="inline-flex h-5 w-5 items-center justify-center text-[11px] text-slate-400 transition group-open:rotate-180">v</span>
-            </summary>
-            <div className="mt-3 flex flex-wrap gap-2 text-[12px]">
-              <a href="#weekly-pulse" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Weekly pulse</a>
-              <a href="#what-matters-now" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">What matters now</a>
-              <a href="#signals-to-review" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Signals to review</a>
-              <a href="#people-to-reach" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">People to reach</a>
-              <a href="#keep-momentum" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Keep momentum</a>
-              <a href="#best-next-moves" className="inline-flex min-h-[44px] items-center rounded-full border border-white/10 px-3.5 py-1 font-semibold text-slate-200 hover:text-white hover:border-white/25 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-150">Best next moves</a>
-            </div>
-          </details>
-        </section>
-
         {/* Header - Phase 1a redesign with primary stat card */}
         <BriefingHeader
           firstName={firstName}

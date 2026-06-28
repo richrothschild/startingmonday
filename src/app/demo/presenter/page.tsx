@@ -48,15 +48,6 @@ export default function PresenterDemoPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <section className="mb-6 bg-white border border-slate-200 rounded p-4">
-          <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Jump to section</h2>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[12px]">
-            <a href="#presenter-overview" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Presenter overview</a>
-            <a href="#talk-track" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Talk track</a>
-            <a href="#demo-sequence" className="text-slate-700 hover:text-slate-900 underline underline-offset-2">Demo sequence</a>
-          </div>
-        </section>
-
         <section className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 mb-8">
           <div id="presenter-overview" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
             <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Presenter mode</h2>
