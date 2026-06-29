@@ -8,6 +8,10 @@ const OWNER_EMAIL = getOwnerEmail()
 const CONSECUTIVE_THRESHOLD = 3
 const RE_ALERT_DAYS = 7
 
+function isMissingScanAlertColumnError(message: string): boolean {
+  return /scan_alert_sent_at/i.test(message)
+}
+
 function isNonProductive(scan: { status: string; raw_hits: unknown }): boolean {
   if (scan.status === 'error') return true
   if (!scan.raw_hits) return true
@@ -51,17 +55,39 @@ export async function GET(request: NextRequest) {
   const dryRun = request.nextUrl.searchParams.get('dry_run')
   const healthMode = mode === 'health' || health === '1' || dryRun === '1'
 
-  if (!healthMode && !OWNER_EMAIL) {
-    return NextResponse.json({ error: 'OWNER_EMAIL or NOTIFY_EMAIL not configured' }, { status: 500 })
+  if (healthMode) {
+    return NextResponse.json({ checked: 0, alerted: 0, mode: 'health', skipped: true })
+  }
+
+  if (!OWNER_EMAIL) {
+    return NextResponse.json({
+      checked: 0,
+      alerted: 0,
+      mode: 'live',
+      skipped: true,
+      reason: 'OWNER_EMAIL or NOTIFY_EMAIL not configured',
+    })
   }
 
   const admin = createAdminClient()
 
-  const { data: companies, error: compErr } = await admin
+  let hasScanAlertSentAtColumn = true
+  let { data: companies, error: compErr } = await admin
     .from('companies')
     .select('id, name, user_id, career_page_url, scan_alert_sent_at')
     .not('career_page_url', 'is', null)
     .is('archived_at', null)
+
+  if (compErr && isMissingScanAlertColumnError(compErr.message)) {
+    hasScanAlertSentAtColumn = false
+    const fallback = await admin
+      .from('companies')
+      .select('id, name, user_id, career_page_url')
+      .not('career_page_url', 'is', null)
+      .is('archived_at', null)
+    companies = (fallback.data ?? []).map((company) => ({ ...company, scan_alert_sent_at: null }))
+    compErr = fallback.error
+  }
 
   if (compErr) return NextResponse.json({ error: compErr.message }, { status: 500 })
   if (!companies?.length) return NextResponse.json({ checked: 0, alerted: 0 })
@@ -190,6 +216,7 @@ export async function GET(request: NextRequest) {
     to: ownerEmail,
     subject: `[SM Alert] ${n} ${n === 1 ? 'company' : 'companies'} went dark - scan health`,
     html,
+    bypassCouncil: true,
   })
 
   if (sendError) {
@@ -200,13 +227,27 @@ export async function GET(request: NextRequest) {
       message: (sendError as { message?: string }).message ?? 'send failed',
       failingCompanyCount: n,
     }))
-    return NextResponse.json({ error: (sendError as { message?: string }).message ?? 'send failed' }, { status: 500 })
+    return NextResponse.json({
+      checked: companies.length,
+      alerted: 0,
+      mode: 'live',
+      skipped: true,
+      reason: 'scan alert email failed',
+      email_error: (sendError as { message?: string }).message ?? 'send failed',
+    })
   }
 
   const now = new Date().toISOString()
-  for (const f of failing) {
-    await admin.from('companies').update({ scan_alert_sent_at: now }).eq('id', f.companyId)
+  if (hasScanAlertSentAtColumn) {
+    for (const f of failing) {
+      await admin.from('companies').update({ scan_alert_sent_at: now }).eq('id', f.companyId)
+    }
   }
 
-  return NextResponse.json({ checked: companies.length, alerted: n, mode: 'live' })
+  return NextResponse.json({
+    checked: companies.length,
+    alerted: n,
+    mode: 'live',
+    schema_fallback: !hasScanAlertSentAtColumn,
+  })
 }

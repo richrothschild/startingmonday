@@ -235,6 +235,7 @@
         "test:outreach-templates": "vitest run src/lib/outreach/template-engine.test.ts",
         "test:experiment-coverage-guard": "vitest run src/lib/experiment-route-coverage-guard.test.ts",
         "test:coverage": "vitest run --coverage",
+        "coverage:folders:check": "node scripts/check-coverage-thresholds.mjs",
         "coverage:diff:check": "node scripts/check-diff-coverage.mjs --min-coverage=90",
         "test": "npm run guard:observability-imports && npm run test:placeholder-guard && vitest run",
         "test:watch": "vitest"

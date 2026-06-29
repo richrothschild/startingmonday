@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { attachJourneyGuards, expectJourneyHealthy, expectJourneyShell } from './monitoring.helpers'
 
 const publicJourneys = [
-  { path: '/', heading: /You are behind on timing, narrative, and prep|Be ready.*(Be early|search opens)|Starting Monday|Operating System|Run your transition/i },
+  { path: '/', heading: /You don't compete for the posting|You are behind on timing, narrative, and prep|Be ready.*(Be early|search opens)|Starting Monday|Operating System|Run your transition/i },
   { path: '/login', heading: /Sign in/i },
   { path: '/signup', heading: /Get started|Create your account|Sign up/i },
   { path: '/pricing', heading: /Pricing/i },
