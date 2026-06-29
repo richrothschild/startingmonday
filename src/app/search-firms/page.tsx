@@ -21,24 +21,39 @@ export const metadata: Metadata = {
 }
 
 const summaryPoints = [
-  'Client kickoff turns into a decision brief in hours, so mandate scope stops drifting.',
-  'Candidate narrative is calibrated to sponsor priorities before first client interview.',
-  'Interview panel focus is pre-structured, reducing contradictory feedback and false negatives.',
-  'Risk and readiness signals surface early enough to reset before credibility is lost.',
+  'Convert kickoff notes into a decision brief in hours, before scope drifts.',
+  'Calibrate candidate narrative to sponsor priorities before first client interview.',
+  'Pre-structure panel focus so feedback stays comparable and usable.',
+  'Surface risk and readiness early enough to reset before credibility drops.',
 ]
 
 const roleLanes = [
   {
     title: '1) Align the client before outreach starts',
-    body: 'Capture sponsor outcomes, non-negotiables, and likely objections in one source so recruiters are not translating shifting expectations across calls and decks.',
+    body: 'Capture sponsor outcomes, non-negotiables, and likely objections in one source of truth.',
   },
   {
     title: '2) Coach the candidate narrative to the mandate',
-    body: 'Turn resume facts into a client-ready thesis with proof points, pressure-test prompts, and role-specific risk flags before round one.',
+    body: 'Turn resume facts into a client-ready thesis with proof points and pressure-test prompts.',
   },
   {
     title: '3) Keep client feedback decision-grade',
-    body: 'Anchor panel interviews to agreed criteria so feedback stays comparable and shortlist decisions do not collapse into politics or recency bias.',
+    body: 'Anchor panel interviews to agreed criteria so shortlist decisions do not collapse into politics.',
+  },
+]
+
+const differentiators = [
+  {
+    title: 'Most tools organize activity. Starting Monday organizes judgment.',
+    body: 'Traditional recruiter software tracks tasks and stages. Starting Monday centers the decision brief your client and candidate both need before round one.',
+  },
+  {
+    title: 'Most tools produce records. Starting Monday produces interview leverage.',
+    body: 'Instead of more notes to reconcile later, your team gets one mandate-level narrative with thesis, proof, risk, and interview focus aligned upfront.',
+  },
+  {
+    title: 'Most tools report after drift. Starting Monday helps prevent drift.',
+    body: 'The workflow is built to expose misalignment early so partners can reset sponsor expectations before shortlist confidence breaks.',
   },
 ]
 
@@ -59,9 +74,6 @@ export default function SearchFirmsPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/demo" className="text-sm text-slate-300 transition-colors hover:text-white">
-              See demo
-            </Link>
             <Link
               href="/search-firms/executive-recruiter-demo"
               className="rounded bg-orange-500 px-4 py-1.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
@@ -82,7 +94,7 @@ export default function SearchFirmsPage() {
               Your client reaches shortlist confidence before round one.
             </h1>
             <p className="mt-6 max-w-3xl text-[19px] leading-relaxed text-slate-200/92 sm:text-[20px]">
-              Starting Monday gives recruiters one working brief across the full mandate: client context, candidate thesis, interview focus, and risk flags in one place. Fewer late resets with candidates. Fewer avoidable surprises with executive clients.
+              Starting Monday gives recruiters one working brief across the mandate: client context, candidate thesis, interview focus, and risk flags. Fewer late resets. Fewer executive-client surprises.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -95,7 +107,7 @@ export default function SearchFirmsPage() {
             </div>
 
             <p className="mt-6 text-[12px] tracking-[0.14em] text-slate-400">
-              One mandate. One narrative spine. One decision path.
+              One mandate. One brief. One decision path.
             </p>
           </div>
         </section>
@@ -135,6 +147,23 @@ export default function SearchFirmsPage() {
           </div>
         </section>
 
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(17,21,35,0.86),rgba(13,16,28,0.92))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.25)] backdrop-blur-sm sm:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Why Starting Monday is different</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">
+              A retained-search tool should sharpen judgment, not just store workflow.
+            </h2>
+            <div className="mt-6 space-y-4">
+              {differentiators.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                  <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <ProspectingScannerPanel />
 
         <section className="px-4 pb-14 sm:px-6 sm:pb-16">
@@ -156,12 +185,6 @@ export default function SearchFirmsPage() {
               >
                 Review trust controls
               </Link>
-              <Link
-                href="/search-firms/procurement"
-                className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
-              >
-                Review procurement readiness
-              </Link>
               <TrackLink
                 href="/search-firms/sample-cfo-brief"
                 event={EVENT_NAMES.channelEntryClicked}
@@ -171,6 +194,28 @@ export default function SearchFirmsPage() {
               >
                 Review full brief structure
               </TrackLink>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-16 sm:px-6 sm:pb-20">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(27,20,17,0.68),rgba(11,14,24,0.94))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Common objections</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">
+              Short answers for the objections you hear most.
+            </h2>
+            <ul className="mt-4 space-y-2 text-[14px] leading-relaxed text-slate-200">
+              <li>We already have an ATS and a CRM. Why add another layer?</li>
+              <li>Will this create extra work for partners and principals?</li>
+              <li>How do we know this improves shortlist quality, not just reporting?</li>
+            </ul>
+            <div className="mt-6">
+              <Link
+                href="/search-firms/objections"
+                className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+              >
+                Read full objections and how we overcome them
+              </Link>
             </div>
           </div>
         </section>

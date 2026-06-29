@@ -22,13 +22,30 @@ export async function canUserSeeAdminHeader(email: string): Promise<boolean> {
 
 export async function getStaffMember(email: string): Promise<StaffMember | null> {
   try {
+    const normalizedEmail = email.trim().toLowerCase()
     const admin = createAdminClient()
     const { data } = await admin
       .from('staff_members')
       .select('*')
-      .eq('email', email)
-      .single()
-    return data as StaffMember | null
+      .eq('email', normalizedEmail)
+      .maybeSingle()
+
+    if (data) {
+      return data as StaffMember
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      return {
+        id: '00000000-0000-0000-0000-000000000000',
+        email: normalizedEmail || process.env.DEV_AUTH_EMAIL?.trim() || 'demo@startingmonday.app',
+        role: 'owner',
+        permissions: {},
+        created_at: new Date(0).toISOString(),
+        created_by: null,
+      }
+    }
+
+    return null
   } catch {
     return null
   }

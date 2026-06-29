@@ -8,6 +8,14 @@ const ALLOWED_EVENTS: readonly UserEventName[] = [
   'trust_block_viewed',
   'trust_block_interacted',
   'micro_product_boundary_viewed',
+  'shortlist_sprint_viewed',
+  'shortlist_sprint_cta_clicked',
+  'shortlist_sprint_checkout_started',
+  'shortlist_sprint_purchased',
+  'shortlist_sprint_delivered',
+  'shortlist_sprint_credit_applied',
+  'partner_pilot_admin_viewed',
+  'partner_pilot_seat_status_updated',
 ] as const
 
 function isAllowedEvent(value: string): value is UserEventName {

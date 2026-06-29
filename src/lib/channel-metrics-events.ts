@@ -13,6 +13,14 @@ export const EVENT_NAMES = {
   trustBlockViewed: 'trust_block_viewed',
   trustBlockInteracted: 'trust_block_interacted',
   microProductBoundaryViewed: 'micro_product_boundary_viewed',
+  shortlistSprintViewed: 'shortlist_sprint_viewed',
+  shortlistSprintCtaClicked: 'shortlist_sprint_cta_clicked',
+  shortlistSprintCheckoutStarted: 'shortlist_sprint_checkout_started',
+  shortlistSprintPurchased: 'shortlist_sprint_purchased',
+  shortlistSprintDelivered: 'shortlist_sprint_delivered',
+  shortlistSprintCreditApplied: 'shortlist_sprint_credit_applied',
+  partnerPilotAdminViewed: 'partner_pilot_admin_viewed',
+  partnerPilotSeatStatusUpdated: 'partner_pilot_seat_status_updated',
 } as const
 
 export type ChannelEventName = (typeof EVENT_NAMES)[keyof typeof EVENT_NAMES]
@@ -53,5 +61,42 @@ export type MicroProductBoundaryViewedProps = {
   product_name: string
   route: string
   audience_type: string
+  session_id?: string
+}
+
+export type ShortlistSprintViewedProps = {
+  route: string
+  audience_type: string
+  offer_code: 'shortlist_sprint'
+  session_id?: string
+}
+
+export type ShortlistSprintCtaClickedProps = {
+  route: string
+  cta_label: string
+  destination: string
+  offer_code: 'shortlist_sprint'
+  session_id?: string
+}
+
+export type ShortlistSprintCheckoutStartedProps = {
+  route: string
+  offer_code: 'shortlist_sprint'
+  amount_usd: number
+  session_id?: string
+}
+
+export type PartnerPilotAdminViewedProps = {
+  route: string
+  partner_type: 'coach' | 'search' | 'outplacement' | 'mixed'
+  session_id?: string
+}
+
+export type PartnerPilotSeatStatusUpdatedProps = {
+  route: string
+  seat_owner: string
+  previous_status: string
+  next_status: string
+  action: 'mark_at_risk' | 'mark_active'
   session_id?: string
 }
