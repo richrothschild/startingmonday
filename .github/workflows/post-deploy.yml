@@ -20,6 +20,14 @@ permissions:
 jobs:
   canary-gate:
     name: Canary gate
+    # Only run when a deployment to production succeeds.
+    # Railway names all envs 'X / production' — exclude 'ample-blessing' (staging service)
+    # to prevent staging deploys from running production-targeted canary checks.
+    if: >
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event.deployment_status.state == 'success' &&
+       contains(github.event.deployment.environment, 'production') &&
+       !contains(github.event.deployment.environment, 'ample-blessing'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
