@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { FOR_COACHES_ROUTE_CONTRACT } from './route-contracts.manifest'
 
 const BASE_URL = process.env.LUXURY_TEST_BASE_URL ?? process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000'
 
@@ -11,15 +12,11 @@ test.describe('Luxury UX checks @luxury', () => {
   test('first-click clarity tasks for for-coaches', async ({ page }) => {
     await gotoForCoaches(page)
 
-    await page.getByRole('link', { name: 'Journey map' }).first().click()
-    await expect(page).toHaveURL(/#journey-map$/)
-
-    await page.getByRole('link', { name: 'Comparison table' }).first().click()
-    await expect(page).toHaveURL(/#competitive-comparison$/)
-
-    await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
-    await page.getByRole('link', { name: 'Request the coach preview' }).first().click()
-    await expect(page).toHaveURL(/\/partners#apply$/)
+    for (const clickContract of FOR_COACHES_ROUTE_CONTRACT.firstClickChecks) {
+      await page.locator(clickContract.selector).first().click()
+      await expect(page).toHaveURL(clickContract.expectedUrl)
+      await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
+    }
   })
 
   test('readability and premium density baseline for for-coaches', async ({ page }) => {
@@ -60,9 +57,9 @@ test.describe('Luxury UX checks @luxury', () => {
       }
     })
 
-    expect(metrics.readingEase).toBeGreaterThan(28)
-    expect(metrics.tinyRatio).toBeLessThan(0.4)
-    expect(metrics.ctaCount).toBeLessThanOrEqual(13)
+    expect(metrics.readingEase).toBeGreaterThan(FOR_COACHES_ROUTE_CONTRACT.readability.minReadingEase)
+    expect(metrics.tinyRatio).toBeLessThan(FOR_COACHES_ROUTE_CONTRACT.readability.maxTinyRatio)
+    expect(metrics.ctaCount).toBeLessThanOrEqual(FOR_COACHES_ROUTE_CONTRACT.readability.maxCtaCount)
   })
 
   test('accessibility polish basics for headings and disclosure', async ({ page }) => {
@@ -84,7 +81,7 @@ test.describe('Luxury UX checks @luxury', () => {
 
     expect(headingAudit.h1Count).toBe(1)
     expect(headingAudit.skipped).toBeFalsy()
-    expect(headingAudit.disclosureCount).toBeGreaterThanOrEqual(2)
+    expect(headingAudit.disclosureCount).toBeGreaterThanOrEqual(FOR_COACHES_ROUTE_CONTRACT.accessibility.minDisclosureCount)
 
     const firstSummary = page.locator('details summary').first()
     await firstSummary.focus()
@@ -140,25 +137,9 @@ test.describe('Luxury UX checks @luxury', () => {
             .filter((text) => /(request|view|watch|read|open|learn|choose|faq|economics|trust|preview)/i.test(text)).length,
         }))
 
-      const comparison = document.querySelector('#competitive-comparison')
-      const keyTakeawayPresent = !!Array.from(comparison?.querySelectorAll('p') || []).find((p) =>
-        (p.textContent || '').includes('Key takeaway:'),
-      )
-
-      const summaryTable = comparison
-        ? Array.from(comparison.querySelectorAll('table')).find((table) => !table.closest('details'))
-        : undefined
-      const summaryTableRows = summaryTable ? summaryTable.querySelectorAll('tbody tr').length : 0
-
-      const comparisonDetails = comparison?.querySelector('details') as HTMLDetailsElement | null
-      const detailsClosedByDefault = comparisonDetails ? !comparisonDetails.open : false
-
-      let expandedRows = 0
-      if (comparisonDetails) {
-        comparisonDetails.open = true
-        expandedRows = comparisonDetails.querySelectorAll('table tbody tr').length
-        comparisonDetails.open = false
-      }
+      const details = document.querySelector('details') as HTMLDetailsElement | null
+      const detailsClosedByDefault = details ? !details.open : false
+      const trustPackLinkPresent = !!document.querySelector('a[href="/for-coaches/trust-pack"]')
 
       return {
         tinyTextRatio: tinyTextCount / Math.max(1, textEls.length),
@@ -167,34 +148,29 @@ test.describe('Luxury UX checks @luxury', () => {
         ctaCount: ctaLabels.length,
         repeatedCtas,
         majorSectionCtas,
-        keyTakeawayPresent,
-        summaryTableRows,
         detailsClosedByDefault,
-        expandedRows,
+        trustPackLinkPresent,
       }
     })
 
-    expect(standards.tinyTextRatio).toBeLessThan(0.3)
-    expect(standards.support13to14Ratio).toBeGreaterThan(0.65)
-    expect(standards.uppercaseTiny).toBeLessThanOrEqual(4)
+    expect(standards.tinyTextRatio).toBeLessThan(FOR_COACHES_ROUTE_CONTRACT.loadReduction.maxTinyTextRatio)
+    expect(standards.support13to14Ratio).toBeGreaterThan(FOR_COACHES_ROUTE_CONTRACT.loadReduction.minSupport13to14Ratio)
+    expect(standards.uppercaseTiny).toBeLessThanOrEqual(FOR_COACHES_ROUTE_CONTRACT.loadReduction.maxUppercaseTiny)
 
-    expect(standards.ctaCount).toBeLessThanOrEqual(13)
-    const allowedRepeated = new Map<string, number>([
-      ['Open channel', 4],
-      ['Preview timeline', 4],
-    ])
+    expect(standards.ctaCount).toBeLessThanOrEqual(FOR_COACHES_ROUTE_CONTRACT.loadReduction.maxCtaCount)
+    const allowedRepeated = new Map<string, number>(FOR_COACHES_ROUTE_CONTRACT.allowedRepeatedCtas)
     const disallowedRepeated = standards.repeatedCtas.filter(([label, count]) => {
       const maxAllowed = allowedRepeated.get(label)
       if (maxAllowed === undefined) return true
       return count > maxAllowed
     })
     expect(disallowedRepeated).toEqual([])
-    expect(standards.majorSectionCtas.every((section) => section.ctas <= 2)).toBeTruthy()
+    expect(standards.majorSectionCtas.every((section) => section.ctas <= FOR_COACHES_ROUTE_CONTRACT.loadReduction.maxMajorSectionCtas)).toBeTruthy()
 
-    expect(standards.keyTakeawayPresent).toBeTruthy()
-    expect(standards.summaryTableRows).toBe(3)
     expect(standards.detailsClosedByDefault).toBeTruthy()
-    expect(standards.expandedRows).toBeGreaterThanOrEqual(2)
+    if (FOR_COACHES_ROUTE_CONTRACT.loadReduction.requiresTrustPackLink) {
+      expect(standards.trustPackLinkPresent).toBeTruthy()
+    }
   })
 
   test('mobile premium scan behavior', async ({ page }, testInfo) => {

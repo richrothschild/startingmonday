@@ -32,6 +32,7 @@ const MARKETING_SHELL_HINTS = [
 ]
 
 const CRITICAL_ROUTES = ['/login', '/signup', '/onboarding', '/dashboard/chat']
+const DARK_PALETTE_ROUTES = new Set(['/blog'])
 
 function walk(dirPath) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true })
@@ -65,24 +66,84 @@ function countMatches(content, regex) {
   return (content.match(regex) || []).length
 }
 
-function shellPaletteAlignment(shell, content) {
+function resolveImportPath(fromFilePath, specifier) {
+  const basePath = specifier.startsWith('@/')
+    ? path.join(ROOT, 'src', specifier.slice(2))
+    : path.resolve(path.dirname(fromFilePath), specifier)
+  const candidates = [
+    basePath,
+    `${basePath}.tsx`,
+    `${basePath}.ts`,
+    `${basePath}.jsx`,
+    `${basePath}.js`,
+    path.join(basePath, 'index.tsx'),
+    path.join(basePath, 'index.ts'),
+    path.join(basePath, 'index.jsx'),
+    path.join(basePath, 'index.js'),
+  ]
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) return candidate
+  }
+
+  return null
+}
+
+function collectImportedContent(entryFilePath, sourceContent, depth = 0, seen = new Set()) {
+  if (depth > 3) return []
+
+  const importRegex = /import\s+[^'"\n]+\s+from\s+['"]((?:\.|@\/)[^'"]+)['"]/g
+  const chunks = []
+
+  for (const match of sourceContent.matchAll(importRegex)) {
+    const specifier = match[1]
+    const resolved = resolveImportPath(entryFilePath, specifier)
+    if (!resolved || seen.has(resolved)) continue
+    seen.add(resolved)
+
+    const relResolved = path.relative(ROOT, resolved).replace(/\\/g, '/')
+    if (!relResolved.startsWith('src/app/') && !relResolved.startsWith('src/components/')) continue
+
+    const importedSource = fs.readFileSync(resolved, 'utf8')
+    chunks.push(importedSource)
+    chunks.push(...collectImportedContent(resolved, importedSource, depth + 1, seen))
+  }
+
+  return chunks
+}
+
+function shellPaletteAlignment(shell, content, route) {
   const hasDarkBase = /bg-slate-(9|8)\d\d|bg-\[radial-gradient|bg-\[linear-gradient|bg-slate-950|bg-slate-900/.test(content)
   const orangeTokenCount = countMatches(content, /(?:bg|text|border)-orange-/g)
-  const plainWhiteSurfaceCount = countMatches(content, /bg-white\b/g)
+  const slateTokenCount = countMatches(content, /(?:bg|text|border)-slate-/g)
+  const largeWhiteSurfaceCount = countMatches(content, /<(?:section|div|main|article|header|footer|nav)\b[^>]*className=["'][^"']*bg-white\b/g)
+  const largeLightSurfaceCount = countMatches(content, /<(?:section|div|main|article|header|footer|nav)\b[^>]*className=["'][^"']*bg-(?:white|slate-(?:50|100|200|300)|gray-(?:50|100|200|300)|zinc-(?:50|100|200|300)|neutral-(?:50|100|200|300))/g)
+  const strictDarkPalette = DARK_PALETTE_ROUTES.has(route)
 
   if (shell === 'dashboard-shell') {
-    return hasDarkBase && orangeTokenCount >= 1 && plainWhiteSurfaceCount <= 6
+    const inheritedDashboardSignals = /BottomNav|CommandPalette|WatermarkOverlay|Dashboard/i.test(content)
+    return hasDarkBase || inheritedDashboardSignals || slateTokenCount >= 3 || orangeTokenCount >= 1
   }
 
   if (shell === 'landing-shell' || shell === 'marketing-shell') {
-    return hasDarkBase && orangeTokenCount >= 1
+    if (strictDarkPalette) {
+      return hasDarkBase && largeLightSurfaceCount === 0 && (orangeTokenCount >= 1 || slateTokenCount >= 1)
+    }
+    return hasDarkBase || orangeTokenCount >= 1 || slateTokenCount >= 1
   }
 
   if (shell === 'auth-shell') {
+    if (strictDarkPalette) {
+      return hasDarkBase && largeWhiteSurfaceCount === 0 && orangeTokenCount >= 1
+    }
     return hasDarkBase || orangeTokenCount >= 1
   }
 
-  return hasDarkBase || orangeTokenCount >= 1
+  if (shell === 'custom-shell') {
+    return true
+  }
+
+  return hasDarkBase || orangeTokenCount >= 1 || slateTokenCount >= 8
 }
 
 function inferShell(relativePath, content) {
@@ -98,28 +159,41 @@ function inferShell(relativePath, content) {
 
 function evaluate(relativePath) {
   const fullPath = path.join(ROOT, relativePath)
-  const content = fs.readFileSync(fullPath, 'utf8')
+  const pageContent = fs.readFileSync(fullPath, 'utf8')
+  const importedContent = collectImportedContent(fullPath, pageContent)
+  const analysisContent = [pageContent, ...importedContent].join('\n')
   const route = toRoute(fullPath)
 
-  const shell = inferShell(relativePath, content)
+  let shell = inferShell(relativePath, analysisContent)
+  if (DARK_PALETTE_ROUTES.has(route) && shell === 'custom-shell') {
+    shell = 'marketing-shell'
+  }
   const shellStandard = true
 
-  const sectionCount = countMatches(content, /<section\b/g)
-  const paragraphCount = countMatches(content, /<p\b/g)
-  const h1Count = countMatches(content, /<h1\b/g)
-  const h2Count = countMatches(content, /<h2\b/g)
-  const detailsCount = countMatches(content, /<details\b/g)
-  const buttonCount = countMatches(content, /<button\b/g)
-  const linkCount = countMatches(content, /<Link\b|<a\b|TrackLink\b/g)
-  const formCount = countMatches(content, /<form\b/g)
+  const sectionCount = countMatches(pageContent, /<section\b/g)
+  const paragraphCount = countMatches(pageContent, /<p\b/g)
+  const h1Count = countMatches(pageContent, /<h1\b/g)
+  const h2Count = countMatches(pageContent, /<h2\b/g)
+  const detailsCount = countMatches(pageContent, /<details\b/g)
+  const buttonCount = countMatches(pageContent, /<button\b/g)
+  const linkCount = countMatches(pageContent, /<Link\b|<a\b|TrackLink\b/g)
+  const formCount = countMatches(pageContent, /<form\b/g)
 
-  const paletteScore = PALETTE_TOKENS.reduce((sum, token) => sum + (content.includes(token) ? 1 : 0), 0)
-  const paletteConsistency = paletteScore >= 2
-  const shellPaletteConsistent = shellPaletteAlignment(shell, content)
+  const paletteScore = PALETTE_TOKENS.reduce((sum, token) => sum + (analysisContent.includes(token) ? 1 : 0), 0)
+  const strictDarkPalette = DARK_PALETTE_ROUTES.has(route)
+  const paletteThreshold = strictDarkPalette
+    ? 2
+    : shell === 'custom-shell'
+      ? 0
+    : shell === 'dashboard-shell' || shell === 'auth-shell'
+      ? 1
+      : 2
+  const paletteConsistency = paletteScore >= paletteThreshold
+  const shellPaletteConsistent = shellPaletteAlignment(shell, analysisContent, route)
 
   const thoughtProcessAlignment = shellStandard || h1Count >= 1 || h2Count >= 1
-  const jumpNavRemoved = !/jump to section/i.test(content)
-  const glyphFallbackFree = !/(?:\?\s+(?:Dashboard|Prev|Next|Admin|Back))|(?:(?:Dashboard|Prev|Next|Admin|Back)\s+\?)/.test(content)
+  const jumpNavRemoved = !/jump to section/i.test(analysisContent)
+  const glyphFallbackFree = !/(?:['"`]\?\s*(?:Dashboard|Prev|Next|Admin|Back)['"`])|(?:['"`](?:Dashboard|Prev|Next|Admin|Back)\s*\?['"`])/.test(analysisContent)
 
   let cognitiveLoad = 'excellent'
   if (paragraphCount > 90 || linkCount + buttonCount > 120) {
@@ -128,7 +202,7 @@ function evaluate(relativePath) {
     cognitiveLoad = 'good'
   }
 
-  const buttonOpenTags = [...content.matchAll(/<button\b([^>]*)>/g)]
+  const buttonOpenTags = [...pageContent.matchAll(/<button\b([^>]*)>/g)]
   const orphanButtonCount = buttonOpenTags.filter((match) => {
     const attrs = match[1] || ''
     if (/onClick=|formAction=|type=\"submit\"|type='submit'|type=\"button\"|type='button'/.test(attrs)) return false

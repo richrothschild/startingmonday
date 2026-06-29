@@ -101,6 +101,12 @@ The promotion workflow enforces:
 - `npm run ux:rubric:pages`
 - `npm run test`
 
+In addition, the required standards gate can be run per environment:
+
+- `npm run gate:standards:dev`
+- `npm run gate:standards:staging`
+- `npm run gate:standards:production`
+
 before fast-forwarding `main` from `staging`.
 
 ### PR Autofix Workflow

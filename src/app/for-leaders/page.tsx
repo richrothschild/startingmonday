@@ -57,9 +57,9 @@ export default async function ForLeadersPage() {
           <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">For leaders</p>
-              <h2 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
+              <h1 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
                 Create your next role before someone else does.
-              </h2>
+              </h1>
               <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate-200/90">
                 Find the role first. Talk to the right people. Follow a clear plan.
               </p>
@@ -96,7 +96,7 @@ export default async function ForLeadersPage() {
         <section className="border-b border-white/10 px-6 py-12 sm:px-10 sm:py-14">
           <div className="mx-auto w-full max-w-6xl">
             <div className="max-w-2xl">
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">What Leaders say they need.</h3>
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">What Leaders say they need.</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-slate-200/80">
                   Leaders want to be the shortlist, meet the right people, and have a system to manage the process.
               </p>
@@ -126,7 +126,7 @@ export default async function ForLeadersPage() {
 
         <section className="border-b border-white/10 px-6 py-14 sm:px-10 sm:py-16">
           <div className="mx-auto w-full max-w-6xl">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Starting Monday vs. other services</h3>
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Starting Monday vs. other services</h2>
             <p className="mt-3 max-w-5xl text-[15px] leading-relaxed text-slate-200/90 lg:max-w-none">
               Most alternatives make you do the coordination, absorb the reputational risk, and manage a fragmented process yourself.
             </p>
@@ -166,7 +166,7 @@ export default async function ForLeadersPage() {
         <section className="px-6 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto w-full max-w-4xl rounded-3xl border border-white/12 bg-white/[0.06] px-6 py-10 text-center shadow-[0_24px_62px_rgba(2,6,23,0.34)] sm:px-10">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Next step</p>
-            <h3 className="mt-3 text-[30px] font-semibold leading-tight text-white sm:text-[38px]">Start with one decisive week.</h3>
+            <h2 className="mt-3 text-[30px] font-semibold leading-tight text-white sm:text-[38px]">Start with one decisive week.</h2>
             <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-200/90">
               Build your role map, tighten your narrative, and enter priority conversations fully prepared.
             </p>
