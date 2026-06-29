@@ -86,9 +86,9 @@ export function BlogChat({
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 sm:p-6">
-      <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-500 mb-2">{title}</p>
-      <p className="text-[13px] text-slate-600 leading-relaxed mb-4">
+    <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-5 sm:p-6">
+      <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">{title}</p>
+      <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
         {description}
       </p>
       <form onSubmit={handleSearch} className="flex gap-2 mb-4">
@@ -98,7 +98,7 @@ export function BlogChat({
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-500 bg-white"
+          className="flex-1 border border-slate-700 rounded px-3 py-2.5 text-[14px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-slate-500 bg-slate-950"
         />
         <button
           type="submit"
@@ -109,9 +109,9 @@ export function BlogChat({
       </form>
 
       {searched && answerMode && results !== null && (
-        <div className="mb-4 rounded border border-slate-200 bg-white p-4">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1.5">Answer</p>
-          <p className="text-[13px] text-slate-700 leading-relaxed">
+        <div className="mb-4 rounded border border-slate-700 bg-slate-950 p-4">
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1.5">Answer</p>
+          <p className="text-[13px] text-slate-200 leading-relaxed">
             {buildAnswer(query.trim(), results)}
           </p>
         </div>
@@ -122,11 +122,11 @@ export function BlogChat({
           <ul className="space-y-3">
             {results.map(r => (
               <li key={r.slug}>
-                <Link href={`/blog/${r.slug}`} className="group block rounded border border-slate-200 bg-white p-4 hover:border-slate-400 transition-colors">
-                  <p className="text-[14px] font-semibold text-slate-900 group-hover:text-slate-600 leading-snug mb-1">
+                <Link href={`/blog/${r.slug}`} className="group block rounded border border-slate-700 bg-slate-950 p-4 hover:border-slate-500 transition-colors">
+                  <p className="text-[14px] font-semibold text-slate-100 group-hover:text-white leading-snug mb-1">
                     {r.title}
                   </p>
-                  <p className="text-[13px] text-slate-500 leading-relaxed line-clamp-2">
+                  <p className="text-[13px] text-slate-300 leading-relaxed line-clamp-2">
                     {r.description}
                   </p>
                 </Link>
@@ -134,7 +134,7 @@ export function BlogChat({
             ))}
           </ul>
         ) : (
-          !answerMode ? <p className="text-[13px] text-slate-500">No matching articles found. Try different keywords.</p> : null
+          !answerMode ? <p className="text-[13px] text-slate-300">No matching articles found. Try different keywords.</p> : null
         )
       )}
 
@@ -142,7 +142,7 @@ export function BlogChat({
         <div className="mt-4">
           <Link
             href={guideCtaHref}
-            className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-5 py-2.5 hover:border-slate-500 transition-colors"
+            className="inline-flex items-center justify-center rounded border border-slate-600 text-slate-100 text-[13px] font-semibold px-5 py-2.5 hover:border-slate-400 transition-colors"
           >
             {guideCtaLabel}
           </Link>

@@ -32,6 +32,7 @@ const MARKETING_SHELL_HINTS = [
 ]
 
 const CRITICAL_ROUTES = ['/login', '/signup', '/onboarding', '/dashboard/chat']
+const DARK_PALETTE_ROUTES = new Set(['/blog'])
 
 function walk(dirPath) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true })
@@ -111,11 +112,13 @@ function collectImportedContent(entryFilePath, sourceContent, depth = 0, seen = 
   return chunks
 }
 
-function shellPaletteAlignment(shell, content) {
+function shellPaletteAlignment(shell, content, route) {
   const hasDarkBase = /bg-slate-(9|8)\d\d|bg-\[radial-gradient|bg-\[linear-gradient|bg-slate-950|bg-slate-900/.test(content)
   const orangeTokenCount = countMatches(content, /(?:bg|text|border)-orange-/g)
   const slateTokenCount = countMatches(content, /(?:bg|text|border)-slate-/g)
-  const plainWhiteSurfaceCount = countMatches(content, /bg-white\b/g)
+  const largeWhiteSurfaceCount = countMatches(content, /<(?:section|div|main|article|header|footer|nav)\b[^>]*className=["'][^"']*bg-white\b/g)
+  const largeLightSurfaceCount = countMatches(content, /<(?:section|div|main|article|header|footer|nav)\b[^>]*className=["'][^"']*bg-(?:white|slate-(?:50|100|200|300)|gray-(?:50|100|200|300)|zinc-(?:50|100|200|300)|neutral-(?:50|100|200|300))/g)
+  const strictDarkPalette = DARK_PALETTE_ROUTES.has(route)
 
   if (shell === 'dashboard-shell') {
     const inheritedDashboardSignals = /BottomNav|CommandPalette|WatermarkOverlay|Dashboard/i.test(content)
@@ -123,10 +126,16 @@ function shellPaletteAlignment(shell, content) {
   }
 
   if (shell === 'landing-shell' || shell === 'marketing-shell') {
+    if (strictDarkPalette) {
+      return hasDarkBase && largeLightSurfaceCount === 0 && (orangeTokenCount >= 1 || slateTokenCount >= 1)
+    }
     return hasDarkBase || orangeTokenCount >= 1 || slateTokenCount >= 1
   }
 
   if (shell === 'auth-shell') {
+    if (strictDarkPalette) {
+      return hasDarkBase && largeWhiteSurfaceCount === 0 && orangeTokenCount >= 1
+    }
     return hasDarkBase || orangeTokenCount >= 1
   }
 
@@ -155,7 +164,10 @@ function evaluate(relativePath) {
   const analysisContent = [pageContent, ...importedContent].join('\n')
   const route = toRoute(fullPath)
 
-  const shell = inferShell(relativePath, analysisContent)
+  let shell = inferShell(relativePath, analysisContent)
+  if (DARK_PALETTE_ROUTES.has(route) && shell === 'custom-shell') {
+    shell = 'marketing-shell'
+  }
   const shellStandard = true
 
   const sectionCount = countMatches(pageContent, /<section\b/g)
@@ -168,13 +180,16 @@ function evaluate(relativePath) {
   const formCount = countMatches(pageContent, /<form\b/g)
 
   const paletteScore = PALETTE_TOKENS.reduce((sum, token) => sum + (analysisContent.includes(token) ? 1 : 0), 0)
-  const paletteThreshold = shell === 'custom-shell'
-    ? 0
+  const strictDarkPalette = DARK_PALETTE_ROUTES.has(route)
+  const paletteThreshold = strictDarkPalette
+    ? 2
+    : shell === 'custom-shell'
+      ? 0
     : shell === 'dashboard-shell' || shell === 'auth-shell'
       ? 1
       : 2
   const paletteConsistency = paletteScore >= paletteThreshold
-  const shellPaletteConsistent = shellPaletteAlignment(shell, analysisContent)
+  const shellPaletteConsistent = shellPaletteAlignment(shell, analysisContent, route)
 
   const thoughtProcessAlignment = shellStandard || h1Count >= 1 || h2Count >= 1
   const jumpNavRemoved = !/jump to section/i.test(analysisContent)
