@@ -1,142 +1,141 @@
 import Link from 'next/link'
+import { DashboardTopShellSection } from '@/app/(dashboard)/dashboard/dashboard-top-shell-section'
+import type { DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { markPlaced } from '@/app/(dashboard)/dashboard/placed/actions'
 
-const TODAY_FOCUS = [
-  'Confirm opening positioning statement and first 90-day narrative.',
-  'Prioritize two peer targets for warm outreach this week.',
-  'Finalize interview question set tied to Salesforce operating pressure.',
+const michaelActions: DailyMomentumAction[] = [
+  {
+    id: 'relationship',
+    title: 'Advance one Salesforce sponsor conversation',
+    body: 'Send a specific follow-up to the SVP Product contact tied to current platform AI priorities.',
+    cta: 'Open contacts',
+    href: '/dashboard/contacts',
+    effortMinutes: 20,
+    track: 'relationship',
+  },
+  {
+    id: 'readiness',
+    title: 'Sharpen VP of IT interview proof points',
+    body: 'Refine one systems-integration story with measurable outcomes and decision ownership.',
+    cta: 'Open briefing',
+    href: '/dashboard/briefing',
+    effortMinutes: 15,
+    track: 'readiness',
+  },
+  {
+    id: 'focus',
+    title: 'Protect weekly follow-through quality',
+    body: 'Close one overdue action before adding net-new outreach this week.',
+    cta: 'Open calendar',
+    href: '/dashboard/calendar',
+    effortMinutes: 15,
+    track: 'focus',
+  },
 ]
 
 const PIPELINE = [
-  { company: 'Salesforce', stage: 'Interview prep', owner: 'Michael Torres', nextAction: 'Run VP of IT interview brief' },
-  { company: 'ServiceNow', stage: 'Warm outreach', owner: 'Michael Torres', nextAction: 'Send revised outreach draft to CIO contact' },
-  { company: 'Workday', stage: 'Signal watch', owner: 'Michael Torres', nextAction: 'Monitor IT leadership movement and follow up Friday' },
+  { company: 'Salesforce', stage: 'Interview prep', nextAction: 'Run VP of IT interview brief and sponsor call prep', owner: 'Michael Torres' },
+  { company: 'ServiceNow', stage: 'Warm outreach', nextAction: 'Send revised outreach note to CIO network path', owner: 'Michael Torres' },
+  { company: 'Workday', stage: 'Signal watch', nextAction: 'Track leadership movement and follow up Friday', owner: 'Michael Torres' },
 ]
 
 const KEY_CONTACTS = [
   { name: 'Jordan Lee', role: 'SVP Product, Salesforce', status: 'Warm', lastTouch: '2 days ago' },
-  { name: 'Priya Patel', role: 'Partner, Retained Search', status: 'Active', lastTouch: 'Yesterday' },
+  { name: 'Priya Patel', role: 'Partner, retained search', status: 'Active', lastTouch: 'Yesterday' },
   { name: 'Alex Chen', role: 'Former CIO peer', status: 'Advisory', lastTouch: 'Today' },
 ]
 
 export default function MichaelDashboardPage() {
   return (
-    <div className="min-h-screen bg-slate-50 font-sans">
-      <nav className="bg-slate-950 sticky top-0 z-10 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
+
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:gap-6 sm:px-6">
+          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/mark-review" className="text-[13px] text-slate-200 hover:text-white transition-colors">
-              Back to Mark flow
+            <Link href="/alumni-networks-review" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
+              Back to alumni demo
             </Link>
-            <Link href="/demo/michael-strategy-brief" className="text-[13px] text-slate-200 hover:text-white transition-colors">
+            <Link href="/demo/michael-strategy-brief" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
               Strategy brief
             </Link>
           </div>
         </div>
-      </nav>
-
-      <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-8">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Prefilled demo dashboard</p>
-          <h1 className="text-[28px] font-bold text-slate-900 mb-2">Michael Torres dashboard</h1>
-          <p className="text-[14px] text-slate-600">All sections are prefilled for meeting walkthrough: target account, pipeline, contacts, and next actions.</p>
-        </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-6">
-        <section className="space-y-6">
-          <article className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Target role profile</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
-              <div>
-                <p className="text-slate-500">Candidate</p>
-                <p className="font-semibold text-slate-900">Michael Torres</p>
-              </div>
-              <div>
-                <p className="text-slate-500">Target role</p>
-                <p className="font-semibold text-slate-900">VP of IT</p>
-              </div>
-              <div>
-                <p className="text-slate-500">Primary company</p>
-                <p className="font-semibold text-slate-900">Salesforce</p>
-              </div>
-              <div>
-                <p className="text-slate-500">Interview stage</p>
-                <p className="font-semibold text-slate-900">Strategy + interview prep complete</p>
-              </div>
-            </div>
-          </article>
+      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
+        <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Prefilled operating dashboard demo</p>
+          <h1 className="mt-2 font-serif text-[28px] leading-tight text-white sm:text-[34px]">Michael Torres · VP of IT transition dashboard</h1>
+          <p className="mt-2 text-[14px] leading-relaxed text-slate-200">New dashboard style with Michael Torres data prefilled for fast walkthrough: priorities, signals, pipeline, and next actions.</p>
+        </div>
 
-          <article className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Pipeline snapshot</p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Company</th>
-                    <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Stage</th>
-                    <th className="py-2 pr-3 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Owner</th>
-                    <th className="py-2 text-[11px] font-bold tracking-[0.08em] uppercase text-slate-500">Next action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PIPELINE.map((row) => (
-                    <tr key={row.company} className="border-b border-slate-100 align-top">
-                      <td className="py-3 pr-3 text-[13px] font-semibold text-slate-900">{row.company}</td>
-                      <td className="py-3 pr-3 text-[13px] text-slate-700">{row.stage}</td>
-                      <td className="py-3 pr-3 text-[13px] text-slate-700">{row.owner}</td>
-                      <td className="py-3 text-[13px] text-slate-700">{row.nextAction}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
+        <DashboardTopShellSection
+          firstName="Michael"
+          briefingTimezone="America/Los_Angeles"
+          signalCount={4}
+          overdueCount={2}
+          canUseOutreachHub
+          isRothschildAdmin
+          dailyMomentumActions={michaelActions}
+          todayISO={new Date().toISOString().slice(0, 10)}
+          momentumStatus="medium"
+          profileSaved={false}
+          isTrialing={false}
+          trialDaysLeft={0}
+          totalCount={18}
+          offerCount={0}
+          offerName={null}
+          offerCompanyName={null}
+          onMarkPlaced={markPlaced}
+          activationComplete={true}
+          activationCompletedCount={4}
+          isExecutiveMode={true}
+          isExecutivePreview={true}
+          executiveStageLabel="Interview cycle"
+          executivePrimaryRisk={{
+            label: 'Signal response lag',
+            level: 'medium',
+            href: '/dashboard/briefing',
+            cta: 'Review',
+          }}
+          executiveDecisionBrief={{
+            changed: 'Two target companies moved into active leadership search mode.',
+            whyNow: 'Outreach timing is strongest before recruiter process hardens.',
+            recommendedMove: 'Advance one sponsor relationship this week.',
+            downsideIfDelayed: 'Michael enters after shortlist assumptions lock.',
+            href: '/dashboard/briefing',
+            cta: 'Open decision brief',
+          }}
+        />
 
-        <section className="space-y-6">
-          <article className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Today's focus</p>
-            <ul className="space-y-2.5">
-              {TODAY_FOCUS.map((item) => (
-                <li key={item} className="text-[13px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-orange-500 mt-0.5">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          <article className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Key contacts</p>
-            <div className="space-y-3">
-              {KEY_CONTACTS.map((contact) => (
-                <div key={contact.name} className="rounded border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-[13px] font-semibold text-slate-900">{contact.name}</p>
-                  <p className="text-[12px] text-slate-700">{contact.role}</p>
-                  <p className="text-[12px] text-slate-600 mt-1">Status: {contact.status} · Last touch: {contact.lastTouch}</p>
+        <section className="mt-5 grid gap-4 lg:grid-cols-2">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Michael pipeline snapshot</p>
+            <div className="mt-3 space-y-2.5">
+              {PIPELINE.map((item) => (
+                <div key={item.company} className="rounded-xl border border-white/10 bg-slate-950/45 p-3">
+                  <p className="text-[13px] font-semibold text-white">{item.company} · {item.stage}</p>
+                  <p className="mt-1 text-[12px] text-slate-300">Owner: {item.owner}</p>
+                  <p className="mt-1 text-[12px] text-slate-200">Next action: {item.nextAction}</p>
                 </div>
               ))}
             </div>
           </article>
 
-          <article className="bg-white border border-slate-200 rounded-xl p-5">
-            <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">Open next</p>
-            <div className="flex flex-col gap-3">
-              <Link
-                href="/demo/michael-strategy-brief"
-                className="inline-flex items-center justify-center rounded bg-slate-950 text-white text-[13px] font-semibold px-5 py-2.5 hover:bg-slate-800 transition-colors"
-              >
-                Open strategy brief
-              </Link>
-              <Link
-                href="/demo/executive-brief"
-                className="inline-flex items-center justify-center rounded border border-slate-300 text-slate-900 text-[13px] font-semibold px-5 py-2.5 hover:border-slate-500 transition-colors"
-              >
-                Open live interview brief
-              </Link>
+          <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Key relationships</p>
+            <div className="mt-3 space-y-2.5">
+              {KEY_CONTACTS.map((contact) => (
+                <div key={contact.name} className="rounded-xl border border-white/10 bg-slate-950/45 p-3">
+                  <p className="text-[13px] font-semibold text-white">{contact.name}</p>
+                  <p className="mt-1 text-[12px] text-slate-300">{contact.role}</p>
+                  <p className="mt-1 text-[12px] text-slate-200">Status: {contact.status} · Last touch: {contact.lastTouch}</p>
+                </div>
+              ))}
             </div>
           </article>
         </section>
