@@ -323,14 +323,14 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                 <button
                   type="button"
                   onClick={() => setInterval('monthly')}
-                  className={`px-4 py-1.5 transition-colors ${interval === 'monthly' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+                  className={`px-4 py-1.5 transition-colors ${interval === 'monthly' ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
                 >
                   Monthly
                 </button>
                 <button
                   type="button"
                   onClick={() => setInterval('annual')}
-                  className={`px-4 py-1.5 transition-colors ${interval === 'annual' ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+                  className={`px-4 py-1.5 transition-colors ${interval === 'annual' ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
                 >
                   Annual
                 </button>
@@ -407,7 +407,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
                   <button
                     type="button"
                     onClick={() => handleWaitlist(plan.name)}
-                    className="w-full py-2.5 rounded text-[13px] font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 cursor-pointer"
+                    className="w-full py-2.5 rounded text-[13px] font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 cursor-pointer"
                   >
                     {plan.cta}
                   </button>
@@ -428,7 +428,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
             {MICRO_PRODUCT_DEFINITIONS.filter((item) => item.channel === 'executives').map((item) => {
               const highlighted = highlightedAddOn === item.slug
               return (
-                <div key={item.slug} className={`rounded border p-4 ${highlighted ? 'border-orange-500 bg-orange-50/40' : 'border-slate-200 bg-white'}`}>
+                <div key={item.slug} className={`rounded border p-4 ${highlighted ? 'border-orange-500 bg-orange-50/40' : 'border-slate-200 bg-slate-50'}`}>
                   <p className="text-[14px] font-semibold text-slate-900">{item.name}</p>
                   <p className="text-[13px] text-slate-500 mt-1 leading-relaxed">{item.summary}</p>
                   <p className="text-[13px] font-semibold text-slate-900 mt-3">{formatMicroProductPrice(item.amountCents, item.defaultInterval)}</p>

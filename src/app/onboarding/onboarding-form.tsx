@@ -404,7 +404,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     : 'opacity-100 translate-x-0'
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.12),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_48%,_#111827_100%)] flex flex-col items-center justify-center px-4 py-12">
       <form id="onboarding-form" action={completeOnboarding} className="hidden">
         <input type="hidden" name="full_name"           value={fullName} />
         <input type="hidden" name="search_persona"      value={searchPersona} />
@@ -432,10 +432,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="briefing_frequency"   value={briefingFrequency} />
       </form>
 
-      <div className="w-full max-w-lg">
+      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-white/95 p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-6">
         {/* Wordmark */}
         <div className="text-center mb-10">
-          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400">Starting Monday</span>
+          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400"><span className="text-slate-900">Starting </span><span className="text-orange-500">Monday</span></span>
         </div>
 
         {/* Step content */}

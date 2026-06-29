@@ -34,6 +34,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Required standards gate (production)
+        env:
+          REQUIRED_GATE_BASE_URL: https://startingmonday.app
+        run: npm run gate:standards:production
+
       - name: Cache Playwright browsers
         id: playwright-cache
         uses: actions/cache@v4

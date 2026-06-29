@@ -362,7 +362,7 @@ export default async function StartPage() {
             href="/dashboard"
             className="inline-block bg-slate-900 text-white text-[13px] font-bold px-8 py-3 rounded hover:bg-slate-700 transition-colors"
           >
-            {allDone ? 'Go to dashboard ?' : 'Continue to dashboard ?'}
+            {allDone ? 'Go to dashboard ->' : 'Continue to dashboard ->'}
           </Link>
           {!allDone && (
             <p className="text-[12px] text-slate-400 mt-2">You can finish these any time from your dashboard.</p>

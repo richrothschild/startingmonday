@@ -97,7 +97,7 @@ const tests = runSync('unit tests', 'npx vitest run --changed origin/main')
 printResult(tests)
 if (!tests.ok) failures.push(tests.label)
 
-const landingStandard = runSync('landing standard', 'node scripts/check-landing-standard-all-pages.mjs --strict')
+const landingStandard = runSync('required std gate (dev)', 'node scripts/check-required-standard-gates.mjs --env=dev')
 printResult(landingStandard)
 if (!landingStandard.ok) failures.push(landingStandard.label)
 

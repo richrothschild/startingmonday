@@ -64,12 +64,8 @@ export default function BlogIndexPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/partners" className="hidden sm:inline text-[13px] text-slate-200 hover:text-white transition-colors">
-              Partners
-            </Link>
-            <Link href="/optimize" className="hidden sm:inline text-[13px] text-slate-200 hover:text-white transition-colors">
-              Free Profile Grade
-            </Link>
+            <span className="hidden sm:inline text-[13px] text-slate-300">Partners</span>
+            <span className="hidden sm:inline text-[13px] text-slate-300">Free Profile Grade</span>
             <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">
               Log in
             </Link>
@@ -110,22 +106,27 @@ export default function BlogIndexPage() {
           <p className="text-[12px] text-slate-500 mb-5 leading-relaxed">
             Every article should help you decide whether Starting Monday solves your next step. If the post is useful, the next click should be the demo or the pricing page, not another blog post.
           </p>
+          <div className="mb-6 flex items-center gap-5 text-[13px] text-slate-500">
+            <span>Navigate to topic pages:</span>
+            <Link href="/for-coaches" className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900">
+              Coaches
+            </Link>
+            <Link href="/partners" className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900">
+              Partners
+            </Link>
+          </div>
           <div className="divide-y divide-slate-100">
             {executivePosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">
-                <Link href={`/blog/${post.slug}`} className="group block">
-                  <p className="text-[12px] text-slate-200 mb-3">
-                    {formatDate(post.date)} &middot; {post.readTime}
-                  </p>
-                  <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 group-hover:text-slate-600 transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-[15px] text-slate-500 leading-relaxed mb-4">
-                    {post.description}
-                  </p>
-                  <span className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-600 transition-colors">
-                    Read &rarr;
-                  </span>
+                <p className="text-[12px] text-slate-200 mb-3">
+                  {formatDate(post.date)} &middot; {post.readTime}
+                </p>
+                <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3">{post.title}</h2>
+                <p className="text-[15px] text-slate-500 leading-relaxed mb-4">
+                  {post.description}
+                </p>
+                <Link href={`/blog/${post.slug}`} className="text-[13px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
+                  Article details &rarr;
                 </Link>
               </article>
             ))}
@@ -150,19 +151,15 @@ export default function BlogIndexPage() {
           <div className="divide-y divide-slate-100">
             {intermediaryPosts.map(post => (
               <article key={post.slug} className="py-9 first:pt-0">
-                <Link href={`/blog/${post.slug}`} className="group block">
-                  <p className="text-[12px] text-slate-200 mb-3">
-                    {formatDate(post.date)} &middot; {post.readTime}
-                  </p>
-                  <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 group-hover:text-slate-600 transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-[15px] text-slate-500 leading-relaxed mb-4">
-                    {post.description}
-                  </p>
-                  <span className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-600 transition-colors">
-                    Read &rarr;
-                  </span>
+                <p className="text-[12px] text-slate-200 mb-3">
+                  {formatDate(post.date)} &middot; {post.readTime}
+                </p>
+                <h2 className="text-[22px] font-bold text-slate-900 leading-snug mb-3">{post.title}</h2>
+                <p className="text-[15px] text-slate-500 leading-relaxed mb-4">
+                  {post.description}
+                </p>
+                <Link href={`/blog/${post.slug}`} className="text-[13px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
+                  Article details &rarr;
                 </Link>
               </article>
             ))}
@@ -184,11 +181,7 @@ export default function BlogIndexPage() {
             <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200 hover:text-slate-200 transition-colors">
               <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
             </Link>
-            <div className="flex items-center gap-5 flex-wrap">
-              <Link href="/optimize" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Free Profile Grade</Link>
-              <Link href="/privacy" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-[12px] text-slate-200 hover:text-slate-200 transition-colors">Terms</Link>
-            </div>
+            <p className="text-[12px] text-slate-300">Free Profile Grade available in product navigation after login.</p>
           </div>
           <p className="text-[11px] text-slate-500">
             &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.

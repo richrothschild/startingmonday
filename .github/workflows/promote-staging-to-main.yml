@@ -44,6 +44,7 @@ jobs:
 
       - name: Staging quality gates
         run: |
+          npm run gate:standards:staging
           npm run typecheck
           npm run ux:rubric:pages
           npm run test

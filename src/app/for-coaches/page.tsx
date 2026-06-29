@@ -131,6 +131,12 @@ export default function ForCoachesPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            <details className="mt-6 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3">
+              <summary className="cursor-pointer text-[13px] font-semibold text-amber-100">What happens during the 30-day evaluation?</summary>
+              <p className="mt-3 text-[13px] leading-relaxed text-slate-200">
+                Week 1 establishes baseline routines, week 2 validates signal-to-session translation, week 3 measures follow-through consistency, and week 4 confirms whether session quality improves enough to justify continuation.
+              </p>
+            </details>
             <div className="mt-6 flex flex-wrap gap-3">
               <TrackLink
                 href="/for-coaches/trust-pack"

@@ -1,5 +1,6 @@
 import { readFile, stat } from 'fs/promises'
 import path from 'path'
+import bundledFeatureDocs from '../../docs/features-docs.bundle.json'
 
 export type FeatureDocCategory = 'features' | 'onboarding' | 'analysis'
 
@@ -22,6 +23,26 @@ export type FeatureDocCard = FeatureDocMeta & {
 
 export type FeatureDocRecord = FeatureDocCard & {
   content: string
+}
+
+type BundledFeatureDocEntry = {
+  slug: string
+  title?: string
+  summary?: string
+  persona?: FeatureDocMeta['persona']
+  category?: FeatureDocCategory
+  filePath?: string
+  landingHref?: string
+  content?: string
+  lineCount?: number
+  headingCount?: number
+  lastLine?: string
+  updatedAt?: string | null
+}
+
+type BundledFeatureDocsFile = {
+  generatedAt?: string
+  entries?: BundledFeatureDocEntry[]
 }
 
 export const FEATURE_DOCS: FeatureDocMeta[] = [
@@ -119,6 +140,12 @@ function absolutePath(relativePath: string): string {
   return path.join(process.cwd(), relativePath)
 }
 
+function bundledEntryForSlug(slug: string): BundledFeatureDocEntry | null {
+  const file = bundledFeatureDocs as BundledFeatureDocsFile
+  const entries = file.entries ?? []
+  return entries.find((entry) => entry.slug === slug) ?? null
+}
+
 function firstUsefulLine(content: string): string {
   const lines = content
     .split(/\r?\n/)
@@ -156,10 +183,14 @@ function tokenize(input: string): string[] {
 
 export async function listFeatureDocCards(): Promise<FeatureDocCard[]> {
   const cards: FeatureDocCard[] = []
+  const file = bundledFeatureDocs as BundledFeatureDocsFile
+  const bundledEntries = file.entries ?? []
 
   for (const meta of FEATURE_DOCS) {
     const fullPath = absolutePath(meta.filePath)
-    const content = await readFile(fullPath, 'utf8').catch(() => '')
+    const bundled = bundledEntryForSlug(meta.slug)
+    let content = await readFile(fullPath, 'utf8').catch(() => '')
+    if (!content) content = bundled?.content ?? ''
     if (!content) continue
 
     const lines = content.split(/\r?\n/)
@@ -173,9 +204,33 @@ export async function listFeatureDocCards(): Promise<FeatureDocCard[]> {
       summary: clip(firstUsefulLine(content)),
       lineCount: lines.length,
       headingCount,
-      updatedAt: fileStat?.mtime?.toISOString(),
+      updatedAt: fileStat?.mtime?.toISOString() ?? bundled?.updatedAt ?? undefined,
       lastLine: clip(lastLine, 140),
     })
+  }
+
+  if (cards.length === 0 && bundledEntries.length > 0) {
+    for (const entry of bundledEntries) {
+      if (!entry.slug || !entry.content) continue
+      const meta = FEATURE_DOCS.find((doc) => doc.slug === entry.slug)
+      const lines = entry.content.split(/\r?\n/)
+      const headingCount = lines.filter((line) => line.startsWith('## ') || line.startsWith('### ')).length
+      const lastLine = lines.filter((line) => line.trim().length > 0).at(-1) ?? ''
+
+      cards.push({
+        slug: entry.slug,
+        title: titleFromContent(entry.content, entry.title ?? meta?.title ?? entry.slug),
+        summary: clip(entry.summary ?? firstUsefulLine(entry.content)),
+        persona: entry.persona ?? meta?.persona ?? 'cross-persona',
+        category: entry.category ?? meta?.category ?? 'analysis',
+        filePath: entry.filePath ?? meta?.filePath ?? '',
+        landingHref: entry.landingHref ?? meta?.landingHref,
+        lineCount: entry.lineCount ?? lines.length,
+        headingCount: entry.headingCount ?? headingCount,
+        updatedAt: entry.updatedAt ?? undefined,
+        lastLine: clip(entry.lastLine ?? lastLine, 140),
+      })
+    }
   }
 
   return cards
@@ -186,7 +241,9 @@ export async function loadFeatureDocBySlug(slug: string): Promise<FeatureDocReco
   if (!meta) return null
 
   const fullPath = absolutePath(meta.filePath)
-  const content = await readFile(fullPath, 'utf8').catch(() => '')
+  const bundled = bundledEntryForSlug(meta.slug)
+  let content = await readFile(fullPath, 'utf8').catch(() => '')
+  if (!content) content = bundled?.content ?? ''
   if (!content) return null
 
   const lines = content.split(/\r?\n/)
@@ -200,7 +257,7 @@ export async function loadFeatureDocBySlug(slug: string): Promise<FeatureDocReco
     summary: clip(firstUsefulLine(content)),
     lineCount: lines.length,
     headingCount,
-    updatedAt: fileStat?.mtime?.toISOString(),
+    updatedAt: fileStat?.mtime?.toISOString() ?? bundled?.updatedAt ?? undefined,
     lastLine: clip(lastLine, 140),
     content,
   }
