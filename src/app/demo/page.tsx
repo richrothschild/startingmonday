@@ -161,6 +161,9 @@ export function DemoContent({
           <p className="text-[16px] text-slate-300 leading-relaxed">
             A real brief. Generated from a sample executive background against Salesforce&rsquo;s actual business context. Every section specific to the role you choose.
           </p>
+          <p className="mt-4 text-[12px] text-slate-400 leading-relaxed">
+            Source note: sample brief structure is based on observed prep patterns across pilot cohorts and is displayed for demonstration only.
+          </p>
         </header>
 
         {/* Form — flows directly from hero, no separate section header */}

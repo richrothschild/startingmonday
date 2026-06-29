@@ -48,6 +48,8 @@ export default function CoachTrustPackPage() {
         <p className="mb-10 text-[16px] leading-relaxed text-slate-200">
           No hidden terms. No fine print that changes the answer.
         </p>
+        <p className="mb-3 text-[13px] text-slate-300">Trust and confidentiality: client-controlled access boundaries with no recruiter-side sharing by default.</p>
+        <p className="mb-8 text-[13px] text-slate-300">Governance path: see /security for controls, audit posture, and incident response details.</p>
 
         <div className="mb-8 rounded-2xl border border-amber-200/25 bg-amber-200/10 p-5">
           <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-amber-100">Why trust is first-order</p>
@@ -68,6 +70,8 @@ export default function CoachTrustPackPage() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-8">
+          <p className="mb-2 text-[13px] text-slate-200">Trust and confidentiality: client data stays inside the coaching boundary and remains client-controlled.</p>
+          <p className="mb-3 text-[13px] text-slate-300">Governance path: see /security for controls, incident process, and verification details.</p>
           <p className="mb-3 text-[13px] text-slate-300">For full technical documentation:</p>
           <div className="flex flex-wrap gap-4 text-[13px]">
             <Link href="/security" className="text-amber-200 underline underline-offset-2 transition-colors hover:text-amber-100">Security overview</Link>
