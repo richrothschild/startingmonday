@@ -305,12 +305,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
   const heroPrimaryHref = isManagerToolsPage
     ? MANAGERTOOLS_SIGNUP_URL
     : isExecutivesPage
-      ? '/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page'
+      ? '/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint'
       : '/concierge?program=beta&from=landing'
   const heroPrimaryLabel = isManagerToolsPage
     ? 'Start 90-day free access'
     : isExecutivesPage
-      ? 'Start your free trial'
+      ? 'Start 7-day shortlist sprint'
       : 'Start Now'
 
   return (
@@ -455,9 +455,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
                 <h2 id="homepage-path-title" className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Start with your role.
+                  Start with the search you need to win.
                 </h2>
-                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Tell us your context so we can show you how Starting Monday works for your specific search or professional goals.</p>
+                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Choose the executive wedge or partner workflow that matches your next move.</p>
                 <div className="flex flex-wrap gap-3 mb-4">
                   <TrackLink
                     href="/for-executives"
@@ -466,7 +466,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     properties={{ channel: 'executives', cta_label: 'homepage_top_level_individuals', source_page: '/' }}
                     className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                    Individuals
+                      Executives
                   </TrackLink>
                   <TrackLink
                     href="/partners"

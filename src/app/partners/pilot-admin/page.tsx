@@ -1,10 +1,7 @@
 import Link from 'next/link'
-
-const SEATS = [
-  { owner: 'Coach Seat 1', activeClients: 3, weeklyActions: 8, status: 'Active' },
-  { owner: 'Coach Seat 2', activeClients: 2, weeklyActions: 5, status: 'Active' },
-  { owner: 'Search Seat 1', activeClients: 4, weeklyActions: 11, status: 'At risk' },
-]
+import { TrackLink } from '@/components/TrackLink'
+import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import PartnerPilotAdminClient from './PartnerPilotAdminClient'
 
 export default function PartnerPilotAdminPage() {
   return (
@@ -32,18 +29,28 @@ export default function PartnerPilotAdminPage() {
             Early seat-admin view for partner pilots: usage visibility, relationship action velocity, and at-risk seat detection.
           </p>
 
-          <section className="mt-6 grid gap-3">
-            {SEATS.map((seat) => (
-              <article key={seat.owner} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="text-[14px] font-semibold text-white">{seat.owner}</h2>
-                  <span className="rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-orange-200">{seat.status}</span>
-                </div>
-                <p className="mt-2 text-[13px] text-slate-200">Active clients: {seat.activeClients}</p>
-                <p className="mt-1 text-[13px] text-slate-200">Weekly relationship actions: {seat.weeklyActions}</p>
-              </article>
-            ))}
-          </section>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <TrackLink
+              href="/api/partners/pilot-admin/summary"
+              event={EVENT_NAMES.partnerPilotAdminViewed}
+              logToUserEvents
+              properties={{ route: '/partners/pilot-admin', partner_type: 'mixed' }}
+              className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+            >
+              Open seat summary endpoint
+            </TrackLink>
+            <TrackLink
+              href="/api/admin/automation/reporting/pilot-partner-validation"
+              event={EVENT_NAMES.partnerPilotAdminViewed}
+              logToUserEvents
+              properties={{ route: '/partners/pilot-admin', partner_type: 'mixed' }}
+              className="rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+            >
+              Open partner validation report
+            </TrackLink>
+          </div>
+
+          <PartnerPilotAdminClient />
         </div>
       </main>
     </div>

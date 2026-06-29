@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TrackLink } from '@/components/TrackLink'
+import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import ShortlistSprintStatusCard from './ShortlistSprintStatusCard'
 
 export const metadata: Metadata = {
   title: '7-Day Shortlist Sprint | Starting Monday',
@@ -79,19 +82,61 @@ export default function ShortlistSprintPage() {
           </section>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link
+            <TrackLink
               href="/signup?offer=shortlist_sprint"
+              event={EVENT_NAMES.shortlistSprintCheckoutStarted}
+              logToUserEvents
+              properties={{
+                route: '/shortlist-sprint',
+                cta_label: 'start_7_day_sprint',
+                destination: '/signup?offer=shortlist_sprint',
+                offer_code: 'shortlist_sprint',
+                amount_usd: 199,
+              }}
               className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
             >
               Start 7-day sprint
-            </Link>
-            <Link
+            </TrackLink>
+            <TrackLink
               href="/demo/wedge-30s"
+              event={EVENT_NAMES.shortlistSprintCtaClicked}
+              logToUserEvents
+              properties={{
+                route: '/shortlist-sprint',
+                cta_label: 'review_wedge_demo_first',
+                destination: '/demo/wedge-30s',
+                offer_code: 'shortlist_sprint',
+              }}
               className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
             >
               Review wedge demo first
-            </Link>
+            </TrackLink>
           </div>
+
+          <section className="mt-6 grid gap-4 md:grid-cols-2">
+            <article className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-orange-200">Funnel instrumentation</p>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
+                This page now emits canonical shortlist funnel events to user_events so cohort reporting can track CTA clicks, checkout starts, purchases, delivery, and credit-forward conversion.
+              </p>
+              <TrackLink
+                href="/api/admin/automation/reporting/shortlist-sprint-funnel"
+                event={EVENT_NAMES.shortlistSprintCtaClicked}
+                logToUserEvents
+                properties={{
+                  route: '/shortlist-sprint',
+                  cta_label: 'open_shortlist_funnel_report_api',
+                  destination: '/api/admin/automation/reporting/shortlist-sprint-funnel',
+                  offer_code: 'shortlist_sprint',
+                }}
+                className="mt-3 inline-flex rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+              >
+                View funnel report endpoint
+              </TrackLink>
+            </article>
+
+            <ShortlistSprintStatusCard />
+          </section>
         </div>
       </main>
     </div>

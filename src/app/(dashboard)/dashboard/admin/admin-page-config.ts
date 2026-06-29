@@ -51,6 +51,7 @@ export const PAGE_GROUPS: PageGroup[] = [
       { path: '/dashboard/admin/b2b', label: 'B2B Deals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/metrics', label: 'Action Scores', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/channel-benchmarks', label: 'Channel Benchmarks', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/wedge-funnels', label: 'Wedge Funnel Monitor', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
     ],
@@ -61,6 +62,8 @@ export const PAGE_GROUPS: PageGroup[] = [
     purpose: 'Runbooks, access control, reliability, and operational governance.',
     pages: [
       { path: '/dashboard/admin/operations', label: 'Operations Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'core' },
+      { path: '/dashboard/admin/operations/wedge-cron', label: 'Wedge Cron History', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
+      { path: '/dashboard/admin/operations/wedge-economics', label: 'Wedge Economics Ledgers', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },
       { path: '/guide', label: 'Automation Guide', owner: 'rw', admin: 'rw', viewer: '-', priority: 'core' },
       { path: '/dashboard/admin/team', label: 'Team Management', owner: 'rw', admin: 'r', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/outreach', label: 'Outreach Hub', owner: 'rw', admin: 'rw', viewer: 'r', priority: 'advanced' },

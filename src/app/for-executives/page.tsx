@@ -6,8 +6,8 @@ import { SiteHeader } from '@/components/SiteHeader'
 import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for Executives - Move into board-caliber roles',
-  description: 'Executive search infrastructure for leaders moving into board-caliber roles. Get earlier signals, stronger narrative control, and calm weekly execution.',
+  title: 'Starting Monday for Executives - Be on the shortlist before the role is posted',
+  description: 'For executives who need likely-to-open roles, decision-path contacts, and weekly relationship execution before the posting goes public.',
   keywords: [
     'executive transition infrastructure',
     'executive role transition',
@@ -16,15 +16,15 @@ export const metadata: Metadata = {
     'executive search signal intelligence',
   ],
   openGraph: {
-    title: 'Starting Monday for Executives - Move into board-caliber roles',
-    description: 'For leaders who need board-level readiness before opportunities become obvious.',
+    title: 'Starting Monday for Executives - Be on the shortlist before the role is posted',
+    description: 'Find likely-to-open roles, map decision-path contacts, and act before the shortlist is crowded.',
     url: 'https://startingmonday.app/for-executives',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday for Executives - Move into board-caliber roles',
-    description: 'Build the timing, narrative, and execution discipline expected for board-level opportunities.',
+    title: 'Starting Monday for Executives - Be on the shortlist before the role is posted',
+    description: 'Find likely-to-open roles, map decision-path contacts, and act before the shortlist is crowded.',
   },
   alternates: {
     canonical: 'https://startingmonday.app/for-executives',
@@ -57,23 +57,23 @@ export default async function ForExecutivesPage() {
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">For executives</p>
               <h1 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
-                Create your next role before someone else does.
+                Be on the shortlist before the role is posted.
               </h1>
               <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate-200/90">
-                Find the role first. Talk to the right people. Follow a clear plan.
+                Find likely-to-open roles first. Talk to the people shaping the decision. Follow a weekly relationship plan.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page"
+                  href="/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint"
                   className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
                 >
-                  Start your free trial
+                  Start 7-day shortlist sprint
                 </Link>
                 <Link
-                  href="/demo/executive-brief"
+                  href="/demo/wedge-30s"
                   className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3 text-[14px] font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-orange-400/10"
                 >
-                  Preview executive brief
+                  Preview 30-second wedge demo
                 </Link>
               </div>
               <p className="mt-4 text-[12px] tracking-[0.01em] text-slate-300">Confidential by design. No employer visibility. No outbound exposure.</p>
@@ -97,7 +97,7 @@ export default async function ForExecutivesPage() {
             <div className="max-w-2xl">
               <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">What Executives say they need.</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-slate-200/80">
-                  Executives want to be the shortlist, meet the right people, and have a system to manage the process.
+                  Executives find jobs through timing, relationships, and disciplined follow-through. Starting Monday makes those three things visible and actionable.
               </p>
             </div>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -105,19 +105,19 @@ export default async function ForExecutivesPage() {
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-300 via-orange-200 to-transparent" />
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">01</p>
                 <p className="mt-3 text-[15px] font-semibold text-white">Timing intelligence</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Starting Monday uses a proprietary system to find roles for you before they are posted.</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">See likely-to-open roles before they become crowded public searches.</p>
               </article>
               <article className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-6 shadow-[0_18px_48px_rgba(15,23,42,0.22)]">
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-white/70 via-orange-200 to-transparent" />
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">02</p>
                   <p className="mt-3 text-[15px] font-semibold text-white">Talk to the right people</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Starting Monday finds the decision-makers for your role. We help you connect with them.</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Map the decision-path people who shape the shortlist and know where to focus now.</p>
               </article>
               <article className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-6 shadow-[0_18px_48px_rgba(15,23,42,0.22)]">
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-200 via-white/70 to-transparent" />
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200/90">03</p>
                   <p className="mt-3 text-[15px] font-semibold text-white">Clear Plan</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Stay on top of everything in one place.</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200/90">Turn opportunity intelligence into a weekly action plan so momentum stays visible.</p>
               </article>
             </div>
           </div>
@@ -189,10 +189,10 @@ export default async function ForExecutivesPage() {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
-                href="/signup?utm_source=executives&utm_medium=landing&utm_campaign=executive-page"
+                href="/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint"
                 className="inline-flex items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-7 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-300"
               >
-                Start your free trial
+                Start 7-day shortlist sprint
               </Link>
               <Link
                 href="/learn-more"

@@ -8,7 +8,6 @@ Parent Sprint Ticket: SMK-384
 ## Motions Evaluated
 1. Direct paid sprint (B2C)
 2. Partner pilot (B2B)
-3. Alumni/higher-ed distribution
 
 ## KPI Scorecard
 - Hook clarity (%):
@@ -31,7 +30,6 @@ Parent Sprint Ticket: SMK-384
 ## Decision
 - Motion 1: Scale / Iterate / Stop
 - Motion 2: Scale / Iterate / Stop
-- Motion 3: Scale / Iterate / Stop
 
 ## Next 30-Day Focus
 1.

@@ -5,8 +5,8 @@ import { JsonLd } from '@/components/JsonLd'
 import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-  description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+  title: 'Starting Monday - Be on the shortlist before the role is posted',
+  description: 'Starting Monday helps senior executives find likely-to-open roles early, identify the people shaping the shortlist, and take the next relationship action before the posting goes public.',
   keywords: [
     'executive job search tools',
     'CIO job search',
@@ -18,15 +18,15 @@ export const metadata: Metadata = {
     'job search CRM executives',
   ],
   openGraph: {
-    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday - Be on the shortlist before the role is posted',
+    description: 'Find likely-to-open executive roles early, map the decision path, and act before the shortlist is crowded.',
     url: 'https://startingmonday.app',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Starting Monday (startingmonday.app) - Signal intelligence for C-suite searches',
-    description: 'Starting Monday (startingmonday.app) is the signal intelligence platform for C-suite technology searches. Improve search behavior, strengthen relationships, and land the right role with earlier market context and disciplined execution.',
+    title: 'Starting Monday - Be on the shortlist before the role is posted',
+    description: 'Find likely-to-open executive roles early, map the decision path, and act before the shortlist is crowded.',
   },
   alternates: {
     canonical: 'https://startingmonday.app',
@@ -159,19 +159,19 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Discover your dream role. Build advocates. Start Monday.',
-          h1Lines: ['You don\'t compete for the posting. You\'re already in the conversation.'],
+          eyebrow: 'Likely-to-open roles. Decision-path people. Weekly execution.',
+          h1Lines: ['Be on the shortlist before the role is posted.'],
           claimMethodLabel: '',
           claimMethodHref: '',
           claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
-          bodyPreamble: 'For senior leaders in search and the partners who guide them.',
-          body: 'Most leaders search in isolation—competing with dozens of qualified candidates for posted roles. Starting Monday changes this. You discover your dream role when it\'s still forming, build relationships with internal advocates before the shortlist exists, and enter as an insider. Not one of many applicants. The conversation they\'re already having.',
+          bodyPreamble: 'For senior leaders who win through timing and relationships, not job boards.',
+          body: 'Starting Monday shows you which executive roles are likely to open, who influences each hiring decision, and what to do next this week so you can enter before the public posting window is crowded.',
           competitiveEdge: '',
           steps: [
-            'Discover your dream role early when decision-makers are still shaping the opportunity.',
-            'Build advocates strategically—the people who influence hiring before the posting.',
-            'Tell your story once, refined for each decision-maker, and let relationships compound.',
+            'See likely-to-open roles before most candidates know they exist.',
+            'Identify the decision-path people who shape the shortlist.',
+            'Take the next relationship action while timing is still on your side.',
           ],
           trialNote: 'Private by default: visible only to you and explicitly invited collaborators. Free for 30 days. No credit card. No employer visibility.',
         }}

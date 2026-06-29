@@ -19,6 +19,7 @@ const OPS_ALERT_SOURCES = [
   'runtime_health_check_runs',
   'scheduled_job_observability_runs',
   'error_monitoring_runs',
+  'wedge_funnel_scorecard_cron_runs',
 ]
 
 function roleBadge(role: string): string {
@@ -54,10 +55,14 @@ export default async function AdminOperationsPage() {
   const quickActions = staff.role === 'viewer'
     ? [
         { href: '/dashboard/admin/traces', label: 'Inspect trace quality', description: 'Validate AI behavior and output consistency.' },
+        { href: '/dashboard/admin/operations/wedge-cron', label: 'Review wedge cron history', description: 'Filter wedge scorecard run logs by status, date, and error code.' },
+        { href: '/dashboard/admin/operations/wedge-economics', label: 'Review wedge economics ledgers', description: 'Inspect canonical CAC and partner commercial ledger rows.' },
         { href: '/guide', label: 'Use operations runbook', description: 'Follow incident and response procedures.' },
       ]
     : [
         { href: '/dashboard/admin/traces', label: 'Audit reliability traces', description: 'Inspect quality and anomaly signatures.' },
+        { href: '/dashboard/admin/operations/wedge-cron', label: 'Review wedge cron history', description: 'Drill into wedge cron failures and run-level diagnostics.' },
+        { href: '/dashboard/admin/operations/wedge-economics', label: 'Maintain wedge economics ledgers', description: 'Write canonical marketing spend and partner commercial events.' },
         { href: '/guide', label: 'Execute SRE runbooks', description: 'Apply monitoring and incident playbooks.' },
         { href: '/dashboard/admin/team', label: 'Manage operational access', description: 'Ensure least-privilege admin coverage.' },
       ]

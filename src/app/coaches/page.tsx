@@ -1,292 +1,245 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-
-import { COACH_PROOF_STRIPS } from '../for-coaches/page-content'
 import { TrackLink } from '@/components/TrackLink'
+import { SiteFooter } from '@/components/SiteFooter'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
-import { COACH_PERSONAS } from '@/lib/persona-routes'
+import { TransitionCoachDashboardPanel } from './TransitionCoachDashboardPanel'
 
 export const metadata: Metadata = {
-  title: 'Coaches Channel | Starting Monday',
+  title: 'Starting Monday for Executive Transition Coaches',
   description:
-    'For executive coaches who want to see the value immediately. Request the coach preview and compare the workflow, trust boundary, and sign-up path in one place.',
+    'Starting Monday helps executive transition coaches move clients to decision-ready confidence with one operating brief, weekly momentum discipline, and market timing signals.',
   alternates: {
     canonical: 'https://startingmonday.app/coaches',
   },
   openGraph: {
-    title: 'Coaches Channel | Starting Monday',
+    title: 'Starting Monday for Executive Transition Coaches',
     description:
-      'Coach-first landing page for executive coaches and coaching firms. See the value fast, then request the coach preview.',
+      'One transition brief. Better interview readiness. Stronger decision confidence for executive coaching clients.',
     url: 'https://startingmonday.app/coaches',
   },
 }
 
-const OPERATING_ROWS = [
+const summaryPoints = [
+  'Session one starts with decision-grade narrative instead of recap and guesswork.',
+  'Between-session commitments stay visible, so momentum does not disappear between calls.',
+  'Client messaging is pressure-tested before high-stakes recruiter and board conversations.',
+  'Opportunity timing is guided by signals, not reactive outreach bursts.',
+]
+
+const coachingWorkflow = [
   {
-    friction: 'Sessions start with recap instead of decisions.',
-    change: 'Use one weekly prep brief before every session.',
-    proof: '81% reached a first interview within 30 days in the pilot cohort.',
+    title: '1) Set the transition thesis before outreach',
+    body: 'Define role narrative, proof stories, and likely objections in one brief before client conversations scale.',
+    href: '/coaches/workflow/set-transition-thesis-demo',
+    cta: 'View thesis demo',
   },
   {
-    friction: 'Momentum drops between calls and coaching looks inconsistent.',
-    change: 'Track one shared list of commitments and overdue actions.',
-    proof: 'Median setup-to-first-qualified-outreach time was 9 days.',
+    title: '2) Run weekly momentum discipline',
+    body: 'Track commitments, blocked actions, and confidence risk so coaching sessions stay strategic.',
+    href: '/coaches/workflow/weekly-momentum-demo',
+    cta: 'View momentum demo',
   },
   {
-    friction: 'Stakeholders lose trust when progress is hard to see.',
-    change: 'Keep one visible weekly signal view for coach and client.',
-    proof: 'Current evidence snapshot includes 27 verified executives.',
+    title: '3) Convert readiness into opportunity access',
+    body: 'Use relationship paths and market signals to improve mandate access and interview conversion quality.',
+    href: '/coaches/workflow/opportunity-access-demo',
+    cta: 'View opportunity demo',
   },
 ]
 
-const BRIGHTER_FUTURE = [
-  'Clients arrive with clarity, and sessions start at decision level.',
-  'You coach the strategic moments while the platform handles operating follow-through.',
-  'Progress is visible every week, so trust compounds instead of leaking.',
+const differentiators = [
+  {
+    title: 'Clients arrive more prepared, so coaching time moves up-market.',
+    body: 'Sessions start with a decision-ready brief and pressure-tested narrative, not recap and reactive edits.',
+  },
+  {
+    title: 'The product experience reflects well on the coach.',
+    body: 'Premium flow, clear structure, and disciplined outputs reinforce coach credibility with senior clients.',
+  },
+  {
+    title: 'It highlights companies with higher near-term role probability.',
+    body: 'Signal-based targeting helps coaches focus client energy where executive openings are more likely to emerge soon.',
+  },
+  {
+    title: 'It prioritizes which relationships to activate first.',
+    body: 'Beyond the coach\'s existing network, it surfaces relationship paths most likely to improve access and conversion.',
+  },
+  {
+    title: 'It turns advice into a behavior-focused operating plan.',
+    body: 'Weekly commitments, intervention triggers, and execution cadence keep momentum measurable between sessions.',
+  },
 ]
 
-const RESEARCH_PROOF_STRIP = [
-  {
-    claim: 'Between-session tracking is the strongest predictor of coaching outcome quality.',
-    source: 'Jones et al., 2016 · Journal of Occupational and Organizational Psychology',
-  },
-  {
-    claim: 'If-then implementation plans drive materially higher follow-through than intention alone.',
-    source: 'Gollwitzer, 1999 · American Psychologist',
-  },
-  {
-    claim: 'Weak-tie network access drives more executive mobility than inner-circle dependence.',
-    source: 'Rajkumar et al., 2022 · Science',
-  },
+const painPoints = [
+  'When clients present a generic story, interview confidence drops even with strong experience.',
+  'When session commitments are not operationalized, momentum leaks between calls.',
+  'When opportunity timing is reactive, transition outcomes depend on luck instead of discipline.',
 ]
-
-const COACH_NEEDS_BY_SLUG: Record<string, { need: string; bestFit: string; cta: string }> = {
-  'independent-executive-coach': {
-    need: 'Tighten between-session accountability.',
-    bestFit: 'Best fit: solo coach',
-    cta: 'Open workflow',
-  },
-  'boutique-firm-coach': {
-    need: 'Standardize team delivery quality.',
-    bestFit: 'Best fit: boutique team',
-    cta: 'Open workflow',
-  },
-  'enterprise-sponsored-coach': {
-    need: 'Show sponsor-ready weekly progress.',
-    bestFit: 'Best fit: sponsored cohort',
-    cta: 'Open workflow',
-  },
-}
 
 export default function CoachesChannelPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <nav className="border-b border-slate-800 bg-slate-950/95 backdrop-blur">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.22),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.12),_transparent_32%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.96)_54%,_rgba(10,15,28,0.98)_100%)]" />
+
+      <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] text-white transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center rounded bg-orange-500 px-3 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-600 sm:px-4"
-            >
-              Start now
-            </Link>
-            <Link
-              href="/login"
-              className="inline-flex items-center justify-center rounded border border-slate-600 px-3 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white sm:px-4"
-            >
-              Login
-            </Link>
-          </div>
+          <Link
+            href="/coaches/executive-transition-coach-demo"
+            className="rounded bg-orange-500 px-4 py-1.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+          >
+            Coach outcomes
+          </Link>
         </div>
       </nav>
 
-      <header className="border-b border-slate-800 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.18),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_100%)] px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-          <div>
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-400">Coach gateway</p>
-            <h1 className="max-w-3xl text-[34px] font-bold leading-[1.05] tracking-tight text-white sm:text-[48px]">
-              Your next session should start with decisions,
-              <br className="hidden sm:block" />
-              not updates.
+      <main>
+        <section className="px-4 pb-14 pt-16 sm:px-6 sm:pt-20">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">
+              For executive transition coaches
+            </p>
+            <h1 className="max-w-4xl font-serif text-[38px] leading-[1.04] tracking-tight text-white sm:text-[54px]">
+              Your client reaches transition-ready confidence before interview pressure begins.
             </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-slate-200 sm:text-[17px]">
-              Starting Monday gives coaches one private operating layer for prep briefs, client signals, and between-session follow-through.
-            </p>
-            <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-slate-200">
-              Coach-first by design. You keep judgment and relationship ownership.
+            <p className="mt-6 max-w-3xl text-[19px] leading-relaxed text-slate-200/92 sm:text-[20px]">
+              Starting Monday gives coaches one operating brief across the transition: narrative thesis, proof stories, commitment discipline, and opportunity timing in one place.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <TrackLink
-                href="/partners#apply"
+                href="/coaches/sample-transition-brief"
                 event={EVENT_NAMES.channelEntryClicked}
                 logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v5' }}
-                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+                properties={{ channel: 'coaches', cta_label: 'View sample transition brief', source_page: '/coaches' }}
+                className="rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
               >
-                Request the coach preview
-              </TrackLink>
-              <TrackLink
-                href="/coaches/mock-dashboard"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="text-[13px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
-              >
-                See mock coach dashboard
+                View sample transition brief
               </TrackLink>
             </div>
-          </div>
 
-          <div className="flex flex-col justify-center gap-6 pt-2">
-            {COACH_PROOF_STRIPS.map((item) => (
-              <div key={item.label}>
-                <p className="text-[22px] font-bold leading-none text-white">{item.value}</p>
-                <p className="mt-1 text-[11px] leading-snug text-slate-500">{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </header>
-
-      <main className="bg-slate-50 text-slate-900">
-        <section className="border-b border-slate-200 bg-slate-950 px-4 py-6 sm:px-6">
-          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
-            {RESEARCH_PROOF_STRIP.map((item) => (
-              <article key={item.claim} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <p className="text-[14px] leading-relaxed text-slate-100">{item.claim}</p>
-                <p className="mt-3 text-[11px] font-semibold leading-snug text-amber-100">{item.source}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-slate-200 bg-white px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Start from your need</p>
-            <h2 className="max-w-3xl text-[24px] font-bold leading-tight text-slate-900 sm:text-[28px]">
-              Pick what you need help with.
-            </h2>
-            <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
-              One click opens the fastest next step.
+            <p className="mt-6 text-[12px] tracking-[0.14em] text-slate-400">
+              One client. One brief. One transition path.
             </p>
-
-            <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
-              {COACH_PERSONAS.map((persona) => {
-                const need = COACH_NEEDS_BY_SLUG[persona.slug]
-                return (
-                  <TrackLink
-                    key={persona.slug}
-                    href={persona.destination}
-                    event={EVENT_NAMES.personaRouteSelected}
-                    logToUserEvents
-                    properties={{ channel: 'coaches', persona: persona.slug, source_route: '/coaches', target_route: persona.destination }}
-                    className="flex h-full flex-col rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-orange-300 hover:bg-white"
-                  >
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">{persona.label}</p>
-                    <p className="text-[16px] font-semibold leading-snug text-slate-900">{need?.need ?? persona.label}</p>
-                    <p className="mt-2 text-[12px] font-medium text-slate-600">{need?.bestFit ?? 'Best fit'}</p>
-                    <p className="mt-auto pt-4 text-[12px] font-semibold text-orange-600">{need?.cta ?? 'Open route'}</p>
-                  </TrackLink>
-                )
-              })}
-            </div>
           </div>
         </section>
 
-        <section className="px-4 py-14 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-8 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-500">Friction to outcomes</p>
-            <div className="space-y-8">
-              {OPERATING_ROWS.map((row) => (
-                <div key={row.friction} className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-5 md:grid-cols-3 md:gap-5">
-                  <div>
-                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Friction</p>
-                    <p className="text-[14px] leading-relaxed text-slate-800">{row.friction}</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">What changes</p>
-                    <p className="text-[14px] leading-relaxed text-slate-700">{row.change}</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Proof cue</p>
-                    <p className="text-[14px] leading-relaxed text-slate-700">{row.proof}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-slate-200 bg-slate-950 px-4 py-16 text-white sm:px-6">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="text-[26px] font-bold leading-snug text-white sm:text-[32px]">The next 30 days can feel different.</h2>
-            <ul className="mt-6 space-y-3">
-              {BRIGHTER_FUTURE.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-slate-200">
-                  <span className="mt-0.5 text-orange-400">-&gt;</span>
-                  {item}
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Executive summary</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-slate-200">
+              {summaryPoints.map((point) => (
+                <li key={point} className="flex gap-3">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{point}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="https://app-na2.hubspot.com/meetings/246442927"
-                className="inline-flex items-center justify-center rounded bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-900 transition-colors hover:bg-orange-600"
+          </div>
+        </section>
+
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-[linear-gradient(155deg,rgba(26,22,20,0.82),rgba(10,14,24,0.9))] p-6 shadow-[0_22px_80px_rgba(15,23,42,0.3)] backdrop-blur-sm sm:p-8">
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Coach workflow</p>
+              <h2 className="font-serif text-[30px] leading-[1.15] text-white sm:text-[36px]">How transition coaches run from clarity to conversion.</h2>
+              <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-slate-200">
+                Keep the sequence tight: build the thesis, protect momentum, then convert readiness into better opportunities.
+              </p>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {coachingWorkflow.map((lane) => (
+                <article key={lane.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-5">
+                  <h3 className="text-[17px] font-semibold text-white">{lane.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200">{lane.body}</p>
+                  <Link
+                    href={lane.href}
+                    className="mt-4 inline-flex rounded-full border border-white/18 px-4 py-2 text-xs font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+                  >
+                    {lane.cta}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(17,21,35,0.86),rgba(13,16,28,0.92))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.25)] backdrop-blur-sm sm:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">What makes Starting Monday different</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">
+              Key differences executive transition coaches feel in real client work.
+            </h2>
+            <div className="mt-6 space-y-4">
+              {differentiators.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                  <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-200">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <TransitionCoachDashboardPanel />
+
+        <section className="px-4 pb-14 sm:px-6 sm:pb-16">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.22)] backdrop-blur-sm">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Transition pain points</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">What breaks executive transitions and how this prevents it.</h2>
+            <ul className="mt-5 space-y-3 text-[14px] leading-relaxed text-slate-200">
+              {painPoints.map((point) => (
+                <li key={point} className="flex gap-3">
+                  <span className="font-bold text-orange-300">+</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/coaches/objections"
+                className="rounded-full bg-orange-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-300"
               >
-                Book a meeting
-              </a>
-              <TrackLink
-                href="/partners#apply"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'Start coach preview', source_page: '/coaches', variant_key: 'coach_gateway_v2' }}
-                className="inline-flex items-center justify-center rounded border border-slate-600 px-6 py-3 text-[14px] font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
+                Review coach objections
+              </Link>
+              <Link
+                href="/coaches/executive-transition-coach-demo"
+                className="rounded-full border border-white/18 px-4 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
-                Request the coach preview
-              </TrackLink>
-              <TrackLink
-                href="/coaches/mock-dashboard"
-                event={EVENT_NAMES.channelEntryClicked}
-                logToUserEvents
-                properties={{ channel: 'coaches', cta_label: 'See mock coach dashboard', source_page: '/coaches', variant_key: 'coach_gateway_v4' }}
-                className="text-[14px] font-semibold text-slate-200 underline underline-offset-2 transition-colors hover:text-white"
+                Walk through coach outcomes
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-16 sm:px-6 sm:pb-20">
+          <div className="mx-auto max-w-5xl rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(27,20,17,0.68),rgba(11,14,24,0.94))] p-6 shadow-[0_18px_56px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Common objections</p>
+            <h2 className="mt-3 font-serif text-[26px] leading-[1.2] text-white sm:text-[32px]">
+              Short answers for the objections executive coaches hear most.
+            </h2>
+            <ul className="mt-4 space-y-2 text-[14px] leading-relaxed text-slate-200">
+              <li>Will this add administration and dilute coaching quality?</li>
+              <li>How is this different from notes, templates, and generic career platforms?</li>
+              <li>How do we prove transition impact beyond activity volume?</li>
+            </ul>
+            <div className="mt-6">
+              <Link
+                href="/coaches/objections"
+                className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
               >
-                See mock coach dashboard
-              </TrackLink>
+                Read full objections and how we overcome them
+              </Link>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
-              <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
-            </span>
-            <div className="flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-200">
-              <Link href="/evidence-hub#coaching-transitions" className="hover:text-slate-200 transition-colors">Evidence Hub</Link>
-
-              <Link href="/blog" className="hover:text-slate-200 transition-colors">Blog</Link>
-              <Link href="/about" className="hover:text-slate-200 transition-colors">About</Link>
-              <Link href="/for-coaches/trust-pack" className="hover:text-slate-200 transition-colors">Trust pack</Link>
-              <Link href="/optimize" className="hover:text-slate-200 transition-colors">Free Profile Grade</Link>
-              <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-200 transition-colors">LinkedIn</a>
-              <Link href="/security" className="hover:text-slate-200 transition-colors">Security</Link>
-              <Link href="/privacy" className="hover:text-slate-200 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-slate-200 transition-colors">Terms</Link>
-            </div>
-          </div>
-
-          <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever.</p>
-          <p className="text-[11px] text-slate-500 mt-2">&copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
-
