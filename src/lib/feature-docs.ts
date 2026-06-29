@@ -1,6 +1,6 @@
 import { readFile, stat } from 'fs/promises'
 import path from 'path'
-import bundledFeatureDocs from '../../docs/features-docs.bundle.json'
+import bundledFeatureDocs from '@/data/features-docs.bundle.json'
 
 export type FeatureDocCategory = 'features' | 'onboarding' | 'analysis'
 
