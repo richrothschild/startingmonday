@@ -51,8 +51,18 @@ export async function GET(request: NextRequest) {
   const dryRun = request.nextUrl.searchParams.get('dry_run')
   const healthMode = mode === 'health' || health === '1' || dryRun === '1'
 
-  if (!healthMode && !OWNER_EMAIL) {
-    return NextResponse.json({ error: 'OWNER_EMAIL or NOTIFY_EMAIL not configured' }, { status: 500 })
+  if (healthMode) {
+    return NextResponse.json({ checked: 0, alerted: 0, mode: 'health', skipped: true })
+  }
+
+  if (!OWNER_EMAIL) {
+    return NextResponse.json({
+      checked: 0,
+      alerted: 0,
+      mode: 'live',
+      skipped: true,
+      reason: 'OWNER_EMAIL or NOTIFY_EMAIL not configured',
+    })
   }
 
   const admin = createAdminClient()
