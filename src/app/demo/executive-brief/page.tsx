@@ -16,15 +16,15 @@ function renderBrief(text: string, isStreaming: boolean) {
     if (line.trim() === '---' || line.trim() === '***') return null
     if (line.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-200 mt-10 mb-4 first:mt-0 pb-2 border-b border-slate-100">
+        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-orange-200 mt-10 mb-4 first:mt-0 pb-2 border-b border-white/10">
           {line.slice(3)}
         </h2>
       )
     }
     if (line.startsWith('- ') || line.startsWith('* ')) {
       return (
-        <div key={i} className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed mb-2.5">
-          <span className="text-slate-200 shrink-0 select-none mt-0.5">-</span>
+        <div key={i} className="flex gap-2.5 text-[14px] text-slate-200 leading-relaxed mb-2.5">
+          <span className="text-slate-500 shrink-0 select-none mt-0.5">-</span>
           <span>{renderInline(line.slice(2))}</span>
         </div>
       )
@@ -33,7 +33,7 @@ function renderBrief(text: string, isStreaming: boolean) {
     return (
       <p
         key={i}
-        className="text-[14px] text-slate-700 leading-relaxed mb-2.5"
+        className="text-[14px] text-slate-200 leading-relaxed mb-2.5"
       >
         {renderInline(line)}
       </p>
@@ -138,11 +138,12 @@ export default function ExecutiveBriefDemoPage() {
     setTimeout(() => customRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
   }
 
-  const inputCls  = 'w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-200 focus:outline-none focus:border-slate-500'
-  const labelCls  = 'block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-200 mb-1.5'
+  const inputCls  = 'w-full rounded border border-white/12 bg-white/[0.04] px-3 py-2.5 text-[14px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-300/50 focus:ring-1 focus:ring-orange-300/20'
+  const labelCls  = 'block text-[11px] font-bold tracking-[0.07em] uppercase text-slate-300 mb-1.5'
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[48rem] bg-[radial-gradient(ellipse_at_top_left,_rgba(193,127,59,0.16),_transparent_58%),radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.08),_transparent_42%)]" />
 
       <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
@@ -170,10 +171,10 @@ export default function ExecutiveBriefDemoPage() {
 {/* Header */}
         <div className="mb-10">
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">For executive search listeners</p>
-          <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-3">
+          <h1 className="text-[28px] font-bold text-white leading-tight mb-3">
             The prep brief. Before the interview.
           </h1>
-          <p className="text-[15px] text-slate-500 leading-relaxed">
+          <p className="text-[15px] text-slate-300 leading-relaxed">
             Search as a project needs fast research infrastructure. Below is a live brief for a VP of IT candidate at Salesforce.
           </p>
         </div>
@@ -184,19 +185,19 @@ export default function ExecutiveBriefDemoPage() {
             ['3 layers', 'Company context, likely objections, and peer-level questions in one artifact'],
             ['0 uploads required', 'The live example below is generated without a manual brief-writing workflow'],
           ].map(([value, label]) => (
-            <div key={value} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-[22px] font-bold text-slate-900 mb-1">{value}</p>
-              <p className="text-[12px] text-slate-600 leading-relaxed">{label}</p>
+            <div key={value} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-[22px] font-bold text-white mb-1">{value}</p>
+              <p className="text-[12px] text-slate-300 leading-relaxed">{label}</p>
             </div>
           ))}
         </section>
 
-        <section className="mb-10 rounded-xl border border-emerald-200 bg-emerald-50/40 p-5">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-700 mb-2">Trust and use boundary</p>
-          <p className="text-[13px] text-slate-700 leading-relaxed mb-2">
+        <section className="mb-10 rounded-xl border border-emerald-300/25 bg-emerald-300/10 p-5">
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-200 mb-2">Trust and use boundary</p>
+          <p className="text-[13px] text-slate-200 leading-relaxed mb-2">
             This demo uses generated sample material for evaluation only. Customer searches and prep data remain private to account owners and invited collaborators.
           </p>
-          <p className="text-[12px] text-slate-600 leading-relaxed">
+          <p className="text-[12px] text-slate-300 leading-relaxed">
             Verification path: review this example, generate your own brief, then compare prep time before a real interview.
           </p>
         </section>
@@ -204,24 +205,24 @@ export default function ExecutiveBriefDemoPage() {
         {/* Pre-loaded brief: Salesforce / VP of IT */}
         <div className="mb-4">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-200">Live example</span>
-            <span className="text-slate-200 text-[11px]">|</span>
-            <span className="text-[12px] text-slate-200">Michael Torres &mdash; VP of IT candidate at Salesforce</span>
+            <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-300">Live example</span>
+            <span className="text-slate-500 text-[11px]">|</span>
+            <span className="text-[12px] text-slate-300">Michael Torres &mdash; VP of IT candidate at Salesforce</span>
             {preLoading && (
-              <span className="text-[11px] text-slate-200 italic">generating...</span>
+              <span className="text-[11px] text-slate-400 italic">generating...</span>
             )}
           </div>
 
-          <div className="bg-white border border-slate-200 rounded p-6 sm:p-8 min-h-[120px]">
+          <div className="rounded border border-white/10 bg-white/[0.03] p-6 sm:p-8 min-h-[120px]">
             {preError ? (
               <p className="text-[14px] text-red-500">Failed to load. Refresh to try again.</p>
             ) : preContent ? (
               renderBrief(preContent, preLoading)
             ) : (
               <div className="flex items-center gap-2 py-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block" />
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:150ms]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-200 animate-pulse inline-block [animation-delay:300ms]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse inline-block [animation-delay:150ms]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse inline-block [animation-delay:300ms]" />
               </div>
             )}
           </div>
@@ -229,25 +230,25 @@ export default function ExecutiveBriefDemoPage() {
 
         {/* Context note after brief */}
         {!preLoading && preContent && !preError && (
-          <div className="mb-12 bg-slate-50 border border-slate-200 rounded px-5 py-4">
-            <p className="text-[13px] text-slate-600 leading-relaxed">
+          <div className="mb-12 rounded border border-white/10 bg-white/[0.03] px-5 py-4">
+            <p className="text-[13px] text-slate-300 leading-relaxed">
               In a full account this brief is generated automatically for every company in the pipeline, updates as new signals come in, and feeds the daily morning briefing. The user never has to build this from scratch.
             </p>
           </div>
         )}
 
         {/* Divider */}
-        <div className="border-t border-slate-100 mb-10" />
+        <div className="border-t border-white/10 mb-10" />
 
         {/* Generate your own */}
         <div ref={customRef}>
           <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-2">Try it yourself</p>
-          <h2 className="text-[20px] font-bold text-slate-900 mb-2">Generate a brief for any company and role.</h2>
-          <p className="text-[13px] text-slate-500 mb-6">
+          <h2 className="text-[20px] font-bold text-white mb-2">Generate a brief for any company and role.</h2>
+          <p className="text-[13px] text-slate-300 mb-6">
             Enter any target company and the role you are coaching for. The brief generates live.
           </p>
 
-          <form onSubmit={handleGenerate} className="bg-white border border-slate-200 rounded p-6 flex flex-col gap-4 mb-8">
+          <form onSubmit={handleGenerate} className="rounded border border-white/10 bg-white/[0.03] p-6 flex flex-col gap-4 mb-8">
             <div>
               <label className={labelCls}>Company <span className="text-red-500">*</span></label>
               <input
@@ -275,7 +276,7 @@ export default function ExecutiveBriefDemoPage() {
             <button
               type="submit"
               disabled={!company.trim() || !role.trim() || loading}
-              className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
+              className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-slate-950 text-[13px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed self-start"
             >
               {loading ? 'Generating...' : content ? 'Regenerate' : 'Generate prep brief'}
             </button>
@@ -283,7 +284,7 @@ export default function ExecutiveBriefDemoPage() {
           </form>
 
           {(content || loading) && (
-            <div className="bg-white border border-slate-200 rounded p-6 sm:p-8 mb-8">
+            <div className="rounded border border-white/10 bg-white/[0.03] p-6 sm:p-8 mb-8">
               {renderBrief(content, loading)}
               {loading && !content && (
                 <div className="flex items-center gap-2 py-2">
@@ -297,17 +298,17 @@ export default function ExecutiveBriefDemoPage() {
         </div>
 
         {/* CTA */}
-        <div className="border-t border-slate-100 pt-10">
-          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-200 mb-4">What a full account includes</p>
-          <details className="group rounded-xl border border-slate-200 bg-white overflow-hidden mb-8">
-            <summary className="list-none cursor-pointer px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
+        <div className="border-t border-white/10 pt-10">
+          <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-4">What a full account includes</p>
+          <details className="group rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden mb-8">
+            <summary className="list-none cursor-pointer px-5 py-4 flex items-center justify-between gap-4 hover:bg-white/[0.05] transition-colors">
               <div>
-                <p className="text-[14px] font-semibold text-slate-900">Expand full account capabilities</p>
-                <p className="text-[12px] text-slate-500 mt-1">Signals, pipeline, briefing, outreach, and advisor support</p>
+                <p className="text-[14px] font-semibold text-white">Expand full account capabilities</p>
+                <p className="text-[12px] text-slate-300 mt-1">Signals, pipeline, briefing, outreach, and advisor support</p>
               </div>
-              <span className="text-slate-200 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
+              <span className="text-slate-400 text-[18px] leading-none group-open:rotate-45 transition-transform">+</span>
             </summary>
-            <div className="px-5 pb-5 pt-1 border-t border-slate-100 flex flex-col gap-3">
+            <div className="px-5 pb-5 pt-1 border-t border-white/10 flex flex-col gap-3">
               {[
                 'This brief auto-generated for every company in the pipeline, updated as new signals come in',
                 'Intelligence monitoring on every target company: exec moves, 8-K filings, funding rounds, career page changes, and pattern alerts before roles are posted',
@@ -317,7 +318,7 @@ export default function ExecutiveBriefDemoPage() {
               ].map((item, i) => (
                 <div key={i} className="flex gap-3 items-start">
                   <span className="text-orange-500 font-bold text-[11px] shrink-0 mt-0.5">{i + 1}</span>
-                  <p className="text-[13px] text-slate-500 leading-relaxed">{item}</p>
+                  <p className="text-[13px] text-slate-300 leading-relaxed">{item}</p>
                 </div>
               ))}
             </div>
@@ -325,11 +326,11 @@ export default function ExecutiveBriefDemoPage() {
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <Link
               href="/signup"
-              className="inline-block bg-orange-500 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors"
+              className="inline-block bg-orange-500 text-slate-950 text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-orange-600 transition-colors"
             >
               Start free trial &rarr;
             </Link>
-            <p className="text-[12px] text-slate-200 sm:mt-2.5">30 days free. No credit card.</p>
+            <p className="text-[12px] text-slate-300 sm:mt-2.5">30 days free. No credit card.</p>
           </div>
         </div>
 
