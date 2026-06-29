@@ -37,7 +37,7 @@ const MEETING_FLOW = [
 
 export default function HandshakeReviewPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+    <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.1),_transparent_30%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(10,15,28,0.96)_60%,_rgba(10,15,28,1)_100%)]" />
 
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/78 backdrop-blur-xl">
@@ -62,12 +62,12 @@ export default function HandshakeReviewPage() {
       </nav>
 
       <main className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto grid h-[calc(100vh-5.5rem)] max-w-6xl gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:gap-5">
+        <div className="mx-auto grid min-h-[calc(100vh-5.5rem)] max-w-6xl gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:gap-5">
           <section className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(150deg,rgba(26,22,20,0.72),rgba(10,14,24,0.92))] p-5 shadow-[0_18px_56px_rgba(15,23,42,0.24)] backdrop-blur-sm sm:p-7 lg:flex lg:flex-col lg:justify-between lg:p-8">
             <div>
               <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Handshake partner briefing</p>
               <h1 className="max-w-3xl font-serif text-[33px] leading-[1.05] tracking-tight text-white sm:text-[46px]">
-                Add executive-transition depth to Handshake without disrupting the core product.
+                Help executives be on the shortlist before the role is posted.
               </h1>
               <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-slate-200 sm:text-[18px]">
                 Handshake already delivers personalized opportunities, events, employer access, and career-center outcomes reporting. Starting Monday extends that value for advanced alumni transitions as either an embedded feature set or a companion experience.
@@ -76,16 +76,16 @@ export default function HandshakeReviewPage() {
 
             <div className="mt-6 flex flex-wrap gap-3 lg:mt-7">
               <Link
-                href="/demo/michael-strategy-brief"
+                href="/demo/wedge-30s"
                 className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
               >
-                Strategy brief demo
+                See likely-open shortlist demo
               </Link>
               <Link
-                href="/demo/executive-brief"
+                href="/demo/michael-strategy-brief"
                 className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
-                Interview brief demo
+                See decision-path prep demo
               </Link>
             </div>
           </section>
@@ -131,6 +131,20 @@ export default function HandshakeReviewPage() {
           </section>
         </div>
       </main>
+
+      <footer className="border-t border-white/10 bg-slate-950/70 px-4 py-5 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 text-[12px] text-slate-300 sm:flex-row sm:items-center sm:justify-between">
+          <p>Starting Monday Handshake demo. Private meeting preview.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/alumni-networks-review" className="transition-colors hover:text-white">
+              Alumni demo
+            </Link>
+            <Link href="/demo/michael-dashboard" className="transition-colors hover:text-white">
+              Michael dashboard
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

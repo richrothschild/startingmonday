@@ -45,6 +45,12 @@ const KEY_CONTACTS = [
   { name: 'Alex Chen', role: 'Former CIO peer', status: 'Advisory', lastTouch: 'Today' },
 ]
 
+const RELATIONSHIP_QUEUE = [
+  { action: 'Send sponsor follow-up to Jordan Lee', due: 'Tue', status: 'Ready', note: 'Tie message to current platform AI delivery pressure.' },
+  { action: 'Request intro sync with Priya Patel', due: 'Wed', status: 'Ready', note: 'Confirm shortlist formation timing and interview angle.' },
+  { action: 'Ask Alex Chen for operating-story calibration', due: 'Thu', status: 'At risk', note: 'Need one quantified outcomes example before call.' },
+]
+
 export default function MichaelDashboardPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
@@ -138,6 +144,23 @@ export default function MichaelDashboardPage() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Weekly relationship action queue</p>
+          <div className="mt-3 grid gap-2.5 md:grid-cols-3">
+            {RELATIONSHIP_QUEUE.map((item) => (
+              <article key={item.action} className="rounded-xl border border-white/10 bg-slate-950/45 p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[12px] font-semibold text-white">{item.due}</p>
+                  <span className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold text-orange-200">{item.status}</span>
+                </div>
+                <p className="mt-1 text-[12px] font-semibold text-slate-100">{item.action}</p>
+                <p className="mt-1 text-[12px] text-slate-300">{item.note}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-3 text-[11px] text-slate-400">Trust layer: each queue item is tied to role-timing signals and decision-path relevance, with uncertainty surfaced before outreach.</p>
         </section>
       </main>
     </div>
