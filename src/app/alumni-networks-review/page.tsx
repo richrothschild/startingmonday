@@ -84,10 +84,10 @@ export default function AlumniNetworksReviewPage() {
 
             <div className="mt-6 flex flex-wrap gap-3 lg:mt-7">
               <Link
-                href="/demo/michael-dashboard"
+                href="/demo/wedge-30s"
                 className="rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
               >
-                Operating dashboard demo
+                30-second shortlist demo
               </Link>
               <Link
                 href="/demo/executive-brief"

@@ -197,6 +197,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         properties: {
           elapsed_seconds: elapsedSeconds,
           under_ten_minutes: elapsedSeconds <= 600,
+          company_count: companyNames.filter((name) => name.trim()).length,
+          wedge_surface: 'shortlist',
           transition_first: transitionFirst,
           low_energy_mode: lowEnergyMode,
           mode: lowEnergyMode ? 'low_energy' : 'standard',
@@ -205,7 +207,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         },
       }),
     }).catch(() => {})
-  }, [step, elapsedSeconds, transitionFirst, lowEnergyMode])
+  }, [step, elapsedSeconds, companyNames, transitionFirst, lowEnergyMode])
 
   useEffect(() => {
     if (step >= 6 || elapsedSeconds < 480 || nudgeLogged.current) return
@@ -566,10 +568,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             <Dots current={progressIndex()} total={advancedSetup ? STEP_COUNT : QUICK_PATH_STEP_COUNT} />
             <p className="text-[11px] text-slate-400">
               {step <= 1
-                ? 'Fast path: launch your first watchlist in about a minute.'
+                ? 'Fast path: see your likely-to-open shortlist in minutes.'
                 : step <= 4
                 ? 'You are one step away from first value.'
-                : 'Next: first briefing preview, then dashboard.'}
+                : 'Next: shortlist preview, then relationship actions.'}
             </p>
           </div>
 
@@ -581,7 +583,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 onClick={() => { setAdvancedSetup(false); goTo(1) }}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Guided setup (under 10 minutes)
+                Generate my shortlist (under 10 minutes)
               </button>
             )}
             {step === 1 && (
@@ -592,7 +594,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                   disabled={!roleTitle}
                   className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
                 >
-                  Continue to watchlist
+                  Continue to shortlist
                 </button>
                 <button
                   type="button"
@@ -952,12 +954,12 @@ function StepDone({
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
-          {firstName}, your watchlist is live.
+          {firstName}, your likely-to-open shortlist is live.
         </h1>
         <p className="text-[15px] text-slate-500">
           {isPassive
-            ? 'We will watch your companies and send you a digest every Sunday. Nothing to do until an opportunity appears.'
-            : 'Everything is set. Here is what happens next.'}
+            ? 'We will watch your companies and send a digest every Sunday. You can take action when a role starts taking shape.'
+            : 'You now have an early view of where to focus. Here is what happens next.'}
         </p>
       </div>
 
@@ -970,9 +972,17 @@ function StepDone({
             <p className="text-[15px] font-semibold text-slate-900">{companies.join(', ')}</p>
           )}
           <p className="text-[12px] text-slate-400 mt-1.5">
-            Add their career page URLs after setup to start scanning.
+            This powers your first likely-to-open role shortlist and signal feed.
           </p>
         </div>
+
+        {!isPassive && (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First relationship action this week</p>
+            <p className="text-[15px] font-semibold text-slate-900">Identify one decision-path contact and start outreach timing.</p>
+            <p className="text-[12px] text-slate-400 mt-1.5">Open contacts from the dashboard and begin with your highest-leverage target.</p>
+          </div>
+        )}
 
         {isPassive ? (
           <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
