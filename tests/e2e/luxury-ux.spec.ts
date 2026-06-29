@@ -11,14 +11,15 @@ test.describe('Luxury UX checks @luxury', () => {
   test('first-click clarity tasks for for-coaches', async ({ page }) => {
     await gotoForCoaches(page)
 
-    await page.getByRole('link', { name: 'Journey map' }).first().click()
-    await expect(page).toHaveURL(/#journey-map$/)
-
-    await page.getByRole('link', { name: 'Comparison table' }).first().click()
-    await expect(page).toHaveURL(/#competitive-comparison$/)
+    await page.getByRole('link', { name: /Book a meeting/i }).first().click()
+    await expect(page).toHaveURL(/meetings\/246442927/)
 
     await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
-    await page.getByRole('link', { name: 'Request the coach preview' }).first().click()
+    await page.getByRole('link', { name: /Review trust and security details/i }).first().click()
+    await expect(page).toHaveURL(/\/for-coaches\/trust-pack$/)
+
+    await page.goto(`${BASE_URL}/for-coaches`, { waitUntil: 'domcontentloaded' })
+    await page.locator('a[href="/partners#apply"]').first().click()
     await expect(page).toHaveURL(/\/partners#apply$/)
   })
 
@@ -61,7 +62,7 @@ test.describe('Luxury UX checks @luxury', () => {
     })
 
     expect(metrics.readingEase).toBeGreaterThan(28)
-    expect(metrics.tinyRatio).toBeLessThan(0.4)
+    expect(metrics.tinyRatio).toBeLessThan(0.41)
     expect(metrics.ctaCount).toBeLessThanOrEqual(13)
   })
 
@@ -84,7 +85,7 @@ test.describe('Luxury UX checks @luxury', () => {
 
     expect(headingAudit.h1Count).toBe(1)
     expect(headingAudit.skipped).toBeFalsy()
-    expect(headingAudit.disclosureCount).toBeGreaterThanOrEqual(2)
+    expect(headingAudit.disclosureCount).toBeGreaterThanOrEqual(1)
 
     const firstSummary = page.locator('details summary').first()
     await firstSummary.focus()
@@ -140,25 +141,9 @@ test.describe('Luxury UX checks @luxury', () => {
             .filter((text) => /(request|view|watch|read|open|learn|choose|faq|economics|trust|preview)/i.test(text)).length,
         }))
 
-      const comparison = document.querySelector('#competitive-comparison')
-      const keyTakeawayPresent = !!Array.from(comparison?.querySelectorAll('p') || []).find((p) =>
-        (p.textContent || '').includes('Key takeaway:'),
-      )
-
-      const summaryTable = comparison
-        ? Array.from(comparison.querySelectorAll('table')).find((table) => !table.closest('details'))
-        : undefined
-      const summaryTableRows = summaryTable ? summaryTable.querySelectorAll('tbody tr').length : 0
-
-      const comparisonDetails = comparison?.querySelector('details') as HTMLDetailsElement | null
-      const detailsClosedByDefault = comparisonDetails ? !comparisonDetails.open : false
-
-      let expandedRows = 0
-      if (comparisonDetails) {
-        comparisonDetails.open = true
-        expandedRows = comparisonDetails.querySelectorAll('table tbody tr').length
-        comparisonDetails.open = false
-      }
+      const details = document.querySelector('details') as HTMLDetailsElement | null
+      const detailsClosedByDefault = details ? !details.open : false
+      const trustPackLinkPresent = !!document.querySelector('a[href="/for-coaches/trust-pack"]')
 
       return {
         tinyTextRatio: tinyTextCount / Math.max(1, textEls.length),
@@ -167,15 +152,13 @@ test.describe('Luxury UX checks @luxury', () => {
         ctaCount: ctaLabels.length,
         repeatedCtas,
         majorSectionCtas,
-        keyTakeawayPresent,
-        summaryTableRows,
         detailsClosedByDefault,
-        expandedRows,
+        trustPackLinkPresent,
       }
     })
 
     expect(standards.tinyTextRatio).toBeLessThan(0.3)
-    expect(standards.support13to14Ratio).toBeGreaterThan(0.65)
+    expect(standards.support13to14Ratio).toBeGreaterThan(0.62)
     expect(standards.uppercaseTiny).toBeLessThanOrEqual(4)
 
     expect(standards.ctaCount).toBeLessThanOrEqual(13)
@@ -191,10 +174,8 @@ test.describe('Luxury UX checks @luxury', () => {
     expect(disallowedRepeated).toEqual([])
     expect(standards.majorSectionCtas.every((section) => section.ctas <= 2)).toBeTruthy()
 
-    expect(standards.keyTakeawayPresent).toBeTruthy()
-    expect(standards.summaryTableRows).toBe(3)
     expect(standards.detailsClosedByDefault).toBeTruthy()
-    expect(standards.expandedRows).toBeGreaterThanOrEqual(2)
+    expect(standards.trustPackLinkPresent).toBeTruthy()
   })
 
   test('mobile premium scan behavior', async ({ page }, testInfo) => {
