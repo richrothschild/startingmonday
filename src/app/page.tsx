@@ -6,16 +6,16 @@ import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - Be on the shortlist before the role is posted',
-  description: 'Starting Monday helps senior executives find likely-to-open roles early, identify the people shaping the shortlist, and take the next relationship action before the posting goes public.',
+  description: 'Starting Monday helps senior leaders find likely-to-open roles early, identify the people shaping the shortlist, and take the next relationship action before the posting goes public.',
   keywords: [
     'executive job search tools',
     'CIO job search',
     'CTO job search',
     'technology executive career',
     'executive pipeline tracker',
-    'AI interview prep executives',
+    'AI interview prep leaders',
     'executive search campaign',
-    'job search CRM executives',
+    'job search CRM leaders',
   ],
   openGraph: {
     title: 'Starting Monday - Be on the shortlist before the role is posted',
@@ -81,7 +81,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'Will this add to my workload?',
-    answer: 'No. A daily three-minute brief and one weekly update. That\'s it. The system is built around executives already in motion. It reduces cognitive load by centralizing signal, timing, and execution tracking in one place.',
+    answer: 'No. A daily three-minute brief and one weekly update. That\'s it. The system is built around leaders already in motion. It reduces cognitive load by centralizing signal, timing, and execution tracking in one place.',
   },
   {
     question: 'What does it cost?',
@@ -89,7 +89,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: 'How do I know I can trust this?',
-    answer: 'The platform was built by search leaders who ran their own campaigns against the same constraints you face. It\'s grounded in research with executives at Fortune 500, private equity, and venture firms. Read the evidence hub to see the research backing the approach.',
+    answer: 'The platform was built by search leaders who ran their own campaigns against the same constraints you face. It\'s grounded in research with leaders at Fortune 500, private equity, and venture firms. Read the evidence hub to see the research backing the approach.',
   },
 ]
 
@@ -118,7 +118,7 @@ const jsonLd = {
       name: 'Starting Monday',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI-powered career search platform for senior executives. Pipeline tracking, company intelligence, and interview prep for CIOs, CTOs, VPs, and other senior leaders in active search.',
+      description: 'AI-powered career search platform for senior leaders. Pipeline tracking, company intelligence, and interview prep for CIOs, CTOs, VPs, and other senior leaders in active search.',
       url: 'https://startingmonday.app',
       publisher: { '@id': 'https://startingmonday.app/#organization' },
       offers: {
@@ -135,9 +135,9 @@ const jsonLd = {
       '@type': 'WebPage',
       '@id': 'https://startingmonday.app/#webpage',
       url: 'https://startingmonday.app',
-      name: 'Starting Monday - AI Career Platform for Senior Technology Executives',
+      name: 'Starting Monday - AI Career Platform for Senior Technology Leaders',
       isPartOf: { '@id': 'https://startingmonday.app/#website' },
-      description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior executives in active search.',
+      description: 'Pipeline tracking, company intelligence, and AI-powered interview prep for senior leaders in active search.',
     },
   ],
 }

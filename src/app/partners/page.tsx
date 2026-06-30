@@ -97,6 +97,46 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
 
       <div className="mx-auto max-w-5xl space-y-10 px-4 py-12 sm:px-6">
 
+        <section className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Start lane</p>
+          <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
+            {isSearchFirms ? 'Pilot-first lane for search firms. Small-fee lane for coach teams.' : 'Small-fee lane for coaches. Pilot lane for search firms.'}
+          </h2>
+          <p className="mb-6 max-w-3xl text-[14px] leading-relaxed text-slate-200">
+            Keep the first decision simple. Start with a low-friction product checkout if you are validating coach workflow fit, or start with a retained-search pilot if you are running a live mandate.
+          </p>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <article className="rounded-2xl border border-amber-200/25 bg-amber-200/10 p-5">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Coach lane</p>
+              <h3 className="text-[18px] font-semibold text-white">Start with a small-fee signal product</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
+                Use the coach micro-product catalog when you want immediate workflow value before broader partner rollout.
+              </p>
+              <Link
+                href="/for-coaches/micro-products"
+                className="mt-4 inline-flex items-center justify-center rounded bg-amber-400 px-4 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-amber-300"
+              >
+                Open coach small-fee products
+              </Link>
+            </article>
+
+            <article className="rounded-2xl border border-white/10 bg-slate-950/45 p-5">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Search-firm lane</p>
+              <h3 className="text-[18px] font-semibold text-white">Start the retained-search pilot</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
+                Run one mandate with one sponsor and evaluate shortlist-confidence outcomes at the day-30 checkpoint.
+              </p>
+              <Link
+                href="/partners?channel=search-firms#apply"
+                className="mt-4 inline-flex items-center justify-center rounded bg-orange-500 px-4 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+              >
+                Start search-firm pilot lane
+              </Link>
+            </article>
+          </div>
+        </section>
+
         <section className="rounded-[2rem] border border-amber-200/20 bg-[linear-gradient(155deg,rgba(26,22,20,0.82),rgba(10,14,24,0.9))] p-6 sm:p-8">
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Partner terms</p>
           <h2 className="mb-4 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
