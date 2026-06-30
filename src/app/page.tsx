@@ -159,14 +159,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Likely-to-open roles. Decision-path people. Weekly execution.',
+          eyebrow: 'Find the role first. Find the decision-makers. Start before it posts.',
           h1Lines: ['Be on the shortlist before the role is posted.'],
           claimMethodLabel: '',
           claimMethodHref: '',
           claimEvidenceLabel: 'Evidence Hub for leaders and their partners ->',
           claimEvidenceHref: '/evidence-hub#early-signals',
           bodyPreamble: 'For senior leaders who win through timing and relationships, not job boards.',
-          body: 'Starting Monday shows you which executive roles are likely to open, who influences each hiring decision, and what to do next this week so you can enter before the public posting window is crowded.',
+          body: 'Reputation opens doors. Timing decides outcomes. Starting Monday gives you an early view of likely-to-open roles and a clear map of the people who will influence the hire.',
           competitiveEdge: '',
           steps: [
             'See likely-to-open roles before most candidates know they exist.',

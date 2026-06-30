@@ -444,7 +444,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <p className="mt-6 mb-10 max-w-3xl text-[18px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty] sm:text-[20px]">
-                Discover your dream role before the posting. Build internal advocates while you search. That's how you move from competing for a job to already being in the conversation.
+                The posting is public. The decision is usually not. Move earlier, with the right relationships already in motion.
               </p>
             )}
 
@@ -455,9 +455,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
                 <h2 id="homepage-path-title" className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Start with the search you need to win.
+                  Start with the search strategy built to win.
                 </h2>
-                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Choose the executive wedge or partner workflow that matches your next move.</p>
+                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Select the executive track or partner workflow aligned to your next move.</p>
                 <div className="flex flex-wrap gap-3 mb-4">
                   <TrackLink
                     href="/for-executives"
