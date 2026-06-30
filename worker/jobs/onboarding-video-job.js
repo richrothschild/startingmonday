@@ -10,13 +10,24 @@ export async function runOnboardingVideoJob() {
   }
 
   const url = `${APP_URL}/api/cron/onboarding-video-worker?limit=10`
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/onboarding-video-job',
-    },
-  })
+  let response
+  try {
+    response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'x-cron-secret': CRON_SECRET,
+        'User-Agent': 'startingmonday-worker/onboarding-video-job',
+      },
+      signal: AbortSignal.timeout(30_000),
+    })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'unknown_fetch_error'
+    logger.warn('onboarding-video-job: transient fetch failure', {
+      url,
+      error: message,
+    })
+    return
+  }
 
   const bodyText = await response.text()
   let payload = null
