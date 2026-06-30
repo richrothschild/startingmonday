@@ -35,23 +35,23 @@ const SPECS = [
 		rules: [
 			{
 				id: 'clarity-operating-system',
-				description: 'Above-fold copy frames Starting Monday with luxury positioning for leaders.',
-				matcher: 'Discover your dream role. Build advocates. Start Monday.',
+					description: 'Above-fold bridge copy frames the decision-visibility contrast.',
+					matcher: 'The posting is public. The decision is usually not.',
 			},
 			{
 				id: 'clarity-shortlist-frame',
-				description: 'Hero headline delivers conversation-before-posting positioning.',
-				matcher: /You don.*t compete for the posting.*You.*re already in the conversation/i,
+					description: 'Hero headline keeps shortlist-before-posting positioning.',
+					matcher: 'Be on the shortlist before the role is posted.',
 			},
 			{
 				id: 'clarity-opening-line',
-				description: 'Hero body copy delivers relationship narrative framing.',
-				matcher: 'Most leaders search in isolation',
+					description: 'Hero body copy keeps timing-and-outcomes narrative framing.',
+					matcher: 'Reputation opens doors. Timing decides outcomes.',
 			},
 			{
 				id: 'conversion-path-buttons',
-				description: 'Homepage exposes the two top-level path buttons.',
-				matcher: /Individuals[\s\S]*Partners(?![\s\S]*Coaches)/,
+					description: 'Homepage exposes the two top-level path buttons.',
+					matcher: /Executives[\s\S]*Partners(?![\s\S]*Coaches)/,
 			},
 			{
 				id: 'content-economy-no-signal-preview-block',
