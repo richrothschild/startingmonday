@@ -4,12 +4,12 @@ import type { FAQ, SituationCard } from '@/components/LandingPage'
 import { PHProvider } from '@/components/PosthogProvider'
 
 export const metadata: Metadata = {
-  title: 'Starting Monday for the Manager Tools Community',
-  description: 'A warmer, discipline-first search operating system for the Manager Tools community. Get 90 days free, keep your search private, and share feedback to shape the cohort experience.',
+  title: 'Starting Monday - Be on the shortlist before the role is posted',
+  description: 'A disciplined, editorial search operating system for the Manager Tools community. Try it free for 60 days, keep your search private, and help shape the experience.',
   alternates: { canonical: 'https://startingmonday.app/managertools' },
   openGraph: {
-    title: 'Starting Monday for the Manager Tools Community',
-    description: 'Manager Tools members get 90 days free with private-by-default search support and a direct feedback loop.',
+    title: 'Starting Monday - Be on the shortlist before the role is posted',
+    description: 'Manager Tools members get 60 days free with private-by-default search support and a direct feedback loop.',
     url: 'https://startingmonday.app/managertools',
     type: 'website',
   },
@@ -18,15 +18,15 @@ export const metadata: Metadata = {
 const MANAGER_TOOLS_SITUATIONS: SituationCard[] = [
   {
     id: 'managertools-community',
-    headline: 'Manager Tools members running an executive search.',
-    sub: 'Structured weekly cadence with calmer execution and better timing windows.',
+    headline: 'Manager Tools members running a high-stakes executive search.',
+    sub: 'Structured weekly rhythm with calmer execution, sharper timing, and fewer distractions.',
   },
 ]
 
 const MANAGER_TOOLS_FAQS: FAQ[] = [
   {
     question: 'What is special for the Manager Tools cohort?',
-    answer: 'Manager Tools members get 90 days free, private-by-default search operations, and a direct feedback loop with the Starting Monday team.',
+    answer: 'Manager Tools members get 60 days free, private-by-default search operations, and a direct feedback loop with the Starting Monday team.',
   },
   {
     question: 'How should I share feedback?',
@@ -40,10 +40,10 @@ export default function ManagerToolsPage() {
       <LandingPage
         sourcePage="/managertools"
         hero={{
-          eyebrow: 'Manager Tools community: we are glad you are here.',
-          h1Lines: ['Run your executive search with calm, consistent momentum.'],
-          body: 'Built for Manager Tools members: better timing, clearer narrative, steady weekly execution. Use it, pressure-test it, and tell us what to improve.',
-          trialNote: 'Manager Tools members get 90 days free. No credit card. No employer visibility.\nPlease submit your feedback so we can improve this experience quickly.',
+          eyebrow: 'Find roles before they are posted. Meet the decision-makers. Start Monday.',
+          h1Lines: ['Be on the shortlist before the role is posted.'],
+          body: 'Starting Monday shows you which senior leader roles are likely to open, who influences each hiring decision, and what to do so you can enter before the public posting window is crowded.',
+          trialNote: 'Private by default: visible only to you and explicitly invited collaborators. Free for 30 days. No credit card. No employer visibility.',
         }}
         situations={MANAGER_TOOLS_SITUATIONS}
         faqs={MANAGER_TOOLS_FAQS}

@@ -295,10 +295,10 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
 }
 
 export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
-  const isHomePage = sourcePage === '/'
+  const isManagerToolsPage = sourcePage === '/managertools'
+  const isHomePage = sourcePage === '/' || isManagerToolsPage
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
   const isRisingLeadersPage = sourcePage === '/for-vp-technology' || sourcePage === '/for-leaders'
-  const isManagerToolsPage = sourcePage === '/managertools'
   const useCenteredFooter = isManagerToolsPage || isExecutivesPage
   const executiveLaneBrand = executiveLaneFromSource(sourcePage)
   const isLeadershipLanePage = executiveLaneBrand?.key === 'leadership'
@@ -308,7 +308,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
       ? '/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint'
       : '/concierge?program=beta&from=landing'
   const heroPrimaryLabel = isManagerToolsPage
-    ? 'Start 90-day free access'
+    ? 'Try free for 60 days'
     : isExecutivesPage
       ? 'Start 7-day shortlist sprint'
       : 'Start Now'
@@ -322,37 +322,16 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
-            {isManagerToolsPage ? (
-              <>
-                <Link
-                  href="/login"
-                  className="inline-flex h-9 items-center justify-center rounded border border-slate-500 px-4 text-[13px] font-semibold text-slate-200 hover:border-slate-300 hover:text-white transition-colors"
-                  aria-label="Log in"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href={MANAGERTOOLS_SIGNUP_URL}
-                  className="inline-flex h-9 items-center justify-center rounded bg-orange-500 px-4 text-[13px] font-bold text-slate-900 hover:bg-orange-600 transition-colors"
-                  aria-label="Sign up"
-                >
-                  Sign Up
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
-                  aria-label={isHomePage ? 'Try free' : 'Sign up'}
-                >
-                  {isHomePage ? 'Try free' : 'Sign Up'}
-                </Link>
-                <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
-                  Log in
-                </Link>
-              </>
-            )}
+            <Link
+              href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup'}
+              className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
+              aria-label={isManagerToolsPage ? 'Try free for 60 days' : isHomePage ? 'Try free' : 'Sign up'}
+            >
+              {isManagerToolsPage ? 'Try free for 60 days' : isHomePage ? 'Try free' : 'Sign Up'}
+            </Link>
+            <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
+              Log in
+            </Link>
           </div>
         </div>
       </nav>
@@ -360,6 +339,11 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
       <main className="relative">
         <section id="core-clarity" data-emi-section="clarity_block" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
+            {isManagerToolsPage && (
+              <p className="mb-5 text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
+                Welcome Manager Tools
+              </p>
+            )}
             {isHomePage ? (
               <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_390px] lg:items-start">
                 <div className="rounded-[2rem] border border-white/12 bg-slate-950/82 p-6 shadow-[0_38px_130px_rgba(15,23,42,0.3)] backdrop-blur-xl sm:p-8 lg:p-10">
@@ -707,17 +691,17 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                       </p>
                     </div>
                   <TrackLink
-                    href="/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta"
+                    href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta'}
                     event={EVENT_NAMES.channelEntryClicked}
                     logToUserEvents
                     properties={{
                       channel: 'executives',
-                      cta_label: 'homepage_bottom_try_free',
-                      source_page: '/',
+                      cta_label: isManagerToolsPage ? 'managertools_bottom_try_free_60_days' : 'homepage_bottom_try_free',
+                      source_page: isManagerToolsPage ? '/managertools' : '/',
                     }}
                     className="inline-flex min-w-[8.75rem] items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-2.5 text-center text-[13px] font-semibold tracking-[0.01em] text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                   >
-                    Try free
+                    {isManagerToolsPage ? 'Try free for 60 days' : 'Try free'}
                   </TrackLink>
                   </div>
                 </div>
@@ -763,7 +747,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                       }}
                       className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                     >
-                      Start 90-day free access
+                        Start 60-day free access
                     </TrackLink>
                     <TrackLink
                       href="/feedback"

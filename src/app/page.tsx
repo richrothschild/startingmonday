@@ -159,7 +159,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{
-          eyebrow: 'Find the role first. Find the decision-makers. Start before it posts.',
+          eyebrow: 'Find roles before they are posted. Meet the decision-makers. Start Monday.',
           h1Lines: ['Be on the shortlist before the role is posted.'],
           claimMethodLabel: '',
           claimMethodHref: '',
