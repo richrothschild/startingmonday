@@ -344,9 +344,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <Link
                   href="/signup"
                   className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
-                  aria-label="Sign up"
+                  aria-label={isHomePage ? 'Try free' : 'Sign up'}
                 >
-                  Sign Up
+                  {isHomePage ? 'Try free' : 'Sign Up'}
                 </Link>
                 <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
                   Log in
@@ -583,7 +583,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
         {isHomePage && (
           <>
             {/* SIGNAL SECTION: Market opportunity and timing advantage */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-20 sm:px-6 sm:py-28">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_840px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
                 <p className="mb-6 text-[14px] leading-relaxed text-slate-300">The best opportunities are decided in private before they are posted in public.</p>
@@ -615,7 +615,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             </section>
 
             {/* ADVOCATES SECTION: Create advocates to get on shortlist */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Create Advocates</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
@@ -649,42 +649,77 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               </div>
             </section>
 
-            {/* STORY SECTION: Tell your narrative */}
-            <HomepageBriefTeaser />
-
             {/* MONDAY SECTION: Start Monday - cadence and execution */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20 animate-in fade-in duration-1000 delay-100">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 animate-in fade-in duration-1000 delay-100 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Start Monday</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Execute with discipline. Compound momentum weekly.
+                  Momentum is not random. It is scheduled.
                 </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Finding your dream role, identifying advocates, and telling your story isn't enough. The difference between a successful transition and a stalled one: the discipline to execute weekly and let momentum compound.</p>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Most searches stall between strong conversations. Starting Monday keeps momentum moving so progress does not reset each week.</p>
+                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-300">
+                  Want a concrete walkthrough?{' '}
+                  <Link href="#example-walkthrough" className="underline underline-offset-2 hover:text-white">
+                    See one example
+                  </Link>
+                  .
+                </p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Starting Monday isn't a moment. It's a rhythm. Each week, you revisit your advocate list. You measure what's working. You know who's warming up, who's ready to move, and where conversations need to shift. This sustained engagement turns interest into sponsorship. By week four, advocates aren't just interested—they're talking about you to other decision-makers. That's when you stop searching. That's when you start being sought.
+                  Starting Monday gives you a repeatable rhythm. Revisit priorities weekly, sharpen your message from real feedback, and move key relationships forward with intent.
                 </p>
 
                 <div className="mb-8 space-y-4">
                   <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Review weekly.</span> Which advocates are engaged. Who's advancing the conversation. Where momentum is building.</span>
+                      <span><span className="font-semibold text-white">Weekly momentum map.</span> See where conversations are advancing and where action is needed now.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Adjust narratively.</span> Your story evolves based on what you learn. Each conversation informs the next. Advocates see thoughtfulness, not formula.</span>
+                      <span><span className="font-semibold text-white">Narrative precision loop.</span> Refine proof points so each conversation is clearer than the last.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Compound relationships.</span> Small weekly efforts turn into sponsor momentum. By week four, advocates are making the case for you internally. You're no longer pushing. You're being championed.</span>
+                      <span><span className="font-semibold text-white">Sponsorship engine.</span> Convert warm interest into active internal support through consistent follow-through.</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-[13px] leading-relaxed text-slate-300">
-                    <span className="font-semibold text-white">The outcome:</span> Advocates do the advocacy. Momentum does the work. You start the role as an insider, not a candidate.
+                    <span className="font-semibold text-white">The outcome:</span> Your progress becomes cumulative, not cyclical.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* STORY SECTION: Tell your narrative */}
+            <HomepageBriefTeaser />
+
+            <section className="px-4 pb-12 sm:px-6 sm:pb-14">
+              <div className="mx-auto max-w-5xl">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-5 shadow-[0_10px_30px_rgba(2,6,23,0.12)] sm:px-6 sm:py-5">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="max-w-xl">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">Try free</p>
+                      <p className="mt-2 text-[14px] leading-relaxed text-slate-200/85">
+                        See if the flow fits your search.
+                      </p>
+                    </div>
+                  <TrackLink
+                    href="/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_bottom_try_free',
+                      source_page: '/',
+                    }}
+                    className="inline-flex min-w-[8.75rem] items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-2.5 text-center text-[13px] font-semibold tracking-[0.01em] text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                  >
+                    Try free
+                  </TrackLink>
+                  </div>
                 </div>
               </div>
             </section>
