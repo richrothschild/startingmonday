@@ -4,14 +4,31 @@ function eventContainsBlockedHostNoise(event: Sentry.Event): boolean {
   const message = (event.message ?? '').toLowerCase()
   const exceptionMessages = (event.exception?.values ?? [])
     .map((value) => `${value.type ?? ''} ${value.value ?? ''}`.toLowerCase())
+  const extraValues = Object.values(event.extra ?? {})
+    .map((value) => {
+      if (typeof value === 'string') return value.toLowerCase()
+      try {
+        return JSON.stringify(value).toLowerCase()
+      } catch {
+        return ''
+      }
+    })
   const combined = [message, ...exceptionMessages].join(' ')
+  const fullText = [combined, ...extraValues].join(' ')
 
   return (
-    combined.includes('blocked-host')
-    && combined.includes('frontend-cdn.perplexity.ai')
+    fullText.includes('perplexity.ai')
+    && (
+      fullText.includes('blocked-host')
+      || fullText.includes('content security policy')
+      || fullText.includes('csp')
+      || fullText.includes('script-src')
+      || fullText.includes('connect-src')
+      || fullText.includes('font-src')
+    )
   ) || (
-    combined.includes('font-src')
-    && combined.includes('perplexity.ai')
+    fullText.includes('font-src')
+    && fullText.includes('perplexity.ai')
   )
 }
 
