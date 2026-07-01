@@ -98,7 +98,7 @@ export default function SampleTransitionBriefPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <main className="px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-20">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-200">Sample transition brief</p>
+          <p className="mb-4 text-[12px] font-semibold tracking-[0.08em] text-orange-200">Sample transition brief</p>
           <h1 className="max-w-4xl font-serif text-[36px] leading-[1.06] text-white sm:text-[52px]">
             This brief shows how a coach moves a senior candidate from prepared to compelling.
           </h1>
@@ -107,18 +107,18 @@ export default function SampleTransitionBriefPage() {
           </p>
 
           <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Executive summary</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Executive summary</p>
             <p className="mt-3 text-[15px] leading-relaxed text-slate-200">
               Candidate is directionally strong for high-pressure CFO transition mandates. The coaching objective is to tighten proof specificity and board-facing narrative precision so first-round confidence converts to finalist-level credibility.
             </p>
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Brief snapshot</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Brief snapshot</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {briefSnapshot.map((item) => (
                 <article key={item.label} className="rounded-xl border border-white/10 bg-slate-950/55 p-4">
-                  <p className="text-[11px] uppercase tracking-[0.1em] text-slate-300">{item.label}</p>
+                  <p className="text-[12px] font-medium tracking-[0.04em] text-slate-300">{item.label}</p>
                   <p className="mt-2 text-[13px] leading-relaxed text-slate-100">{item.value}</p>
                 </article>
               ))}
@@ -126,14 +126,14 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Context</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Context</p>
             <p className="mt-3 text-[15px] leading-relaxed text-slate-200">
               Candidate is targeting CFO transitions in sponsor-backed industrial and healthcare businesses undergoing margin reset and integration complexity.
             </p>
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Thesis</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Thesis</p>
             <p className="mt-3 text-[15px] leading-relaxed text-slate-200">
               The candidate is strongest where financial discipline must be rebuilt while preserving strategic growth options. Core edge: operating rigor plus sponsor communication under pressure.
             </p>
@@ -145,7 +145,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Target mandate criteria</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Target mandate criteria</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {targetMandateCriteria.map((item) => (
                 <li key={item}>{item}</li>
@@ -154,7 +154,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Stakeholder map and coaching focus</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Stakeholder map and coaching focus</p>
             <div className="mt-3 grid gap-3">
               {stakeholderMap.map((item) => (
                 <article key={item.stakeholder} className="rounded-xl border border-white/10 bg-slate-950/55 p-4">
@@ -167,7 +167,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Interview focus</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Interview focus</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {interviewStrategy.map((item) => (
                 <li key={item}>{item}</li>
@@ -176,7 +176,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Likely objections and responses</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Likely objections and responses</p>
             <div className="mt-3 grid gap-3">
               {objectionsAndResponses.map((item) => (
                 <article key={item.objection} className="rounded-xl border border-white/10 bg-slate-950/55 p-4">
@@ -188,7 +188,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Risk flags</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Risk flags</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {risks.map((item) => (
                 <li key={item}>{item}</li>
@@ -197,7 +197,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">First 90-day operating priorities</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">First 90-day operating priorities</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {firstNinetyDays.map((item) => (
                 <li key={item}>{item}</li>
@@ -206,7 +206,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Relationship activation plan</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">Relationship activation plan</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {relationshipPlan.map((item) => (
                 <li key={item}>{item}</li>
@@ -215,7 +215,7 @@ export default function SampleTransitionBriefPage() {
           </section>
 
           <section className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">30-day coaching sprint</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-orange-200">30-day coaching sprint</p>
             <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-slate-200">
               {thirtyDayPlan.map((item) => (
                 <li key={item}>{item}</li>

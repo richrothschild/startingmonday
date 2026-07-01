@@ -89,6 +89,9 @@ export default function AboutPage() {
           <p className="text-[16px] text-slate-100 leading-relaxed mb-4">
             Founder of Starting Monday. Built for C-suite searches.
           </p>
+          <p className="text-[15px] text-slate-200 leading-relaxed mb-4 max-w-xl">
+            I build systems that turn noisy information into decisive action. Starting Monday came from running my own senior search and seeing how much of the process was still broken.
+          </p>
           <a
             href="https://www.linkedin.com/in/richrothschild"
             target="_blank"

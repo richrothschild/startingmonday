@@ -68,13 +68,13 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
 
       <header className="border-b border-white/10 px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-200">{pageEyebrow}</p>
+          <p className="mb-4 text-[12px] font-bold tracking-[0.08em] text-amber-200">{pageEyebrow}</p>
           <h1 className="mb-5 max-w-3xl font-serif text-[34px] leading-[1.05] tracking-tight text-white sm:text-[48px]">
             {pageLines[0]}
             <br className="hidden sm:block" />
             {pageLines[1]}
           </h1>
-          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-amber-100">Pilot framing</h2>
+          <h2 className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Pilot framing</h2>
           <p className="mb-7 max-w-2xl text-[16px] leading-relaxed text-slate-200">
             {pageBody}
           </p>
@@ -98,7 +98,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
       <div className="mx-auto max-w-5xl space-y-10 px-4 py-12 sm:px-6">
 
         <section className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Start lane</p>
+          <p className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-200">Start lane</p>
           <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
             {isSearchFirms ? 'Pilot-first lane for search firms. Small-fee lane for coach teams.' : 'Small-fee lane for coaches. Pilot lane for search firms.'}
           </h2>
@@ -108,7 +108,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
 
           <div className="grid gap-4 md:grid-cols-2">
             <article className="rounded-2xl border border-amber-200/25 bg-amber-200/10 p-5">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Coach lane</p>
+              <p className="mb-2 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Coach lane</p>
               <h3 className="text-[18px] font-semibold text-white">Start with a small-fee signal product</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
                 Use the coach micro-product catalog when you want immediate workflow value before broader partner rollout.
@@ -122,7 +122,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
             </article>
 
             <article className="rounded-2xl border border-white/10 bg-slate-950/45 p-5">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Search-firm lane</p>
+              <p className="mb-2 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Search-firm lane</p>
               <h3 className="text-[18px] font-semibold text-white">Start the retained-search pilot</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
                 Run one mandate with one sponsor and evaluate shortlist-confidence outcomes at the day-30 checkpoint.
@@ -138,11 +138,11 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
         </section>
 
         <section className="rounded-[2rem] border border-amber-200/20 bg-[linear-gradient(155deg,rgba(26,22,20,0.82),rgba(10,14,24,0.9))] p-6 sm:p-8">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Partner terms</p>
+          <p className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-200">Partner terms</p>
           <h2 className="mb-4 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
             {isSearchFirms ? 'One pilot. One decision window. Expand only if quality is visible.' : 'One enrollment. Ongoing commission. No minimum referral volume.'}
           </h2>
-          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Operating constraints</h3>
+          <h3 className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Operating constraints</h3>
           <ul className="space-y-2 text-[14px] leading-relaxed text-slate-200">
             {partnerTerms.map((item) => (
               <li key={item}>{item}</li>
@@ -151,11 +151,11 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
         </section>
 
         <section id="apply" className="scroll-mt-20 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Private application</p>
+          <p className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-200">Private application</p>
           <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">{applyHeading}</h2>
-          <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Decision packet</h3>
+          <h3 className="mb-2 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Decision packet</h3>
           <p className="mb-6 text-[14px] leading-relaxed text-slate-200">{applyBody}</p>
-          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-100">Application form</h3>
+          <h3 className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Application form</h3>
           <PartnersForm
             introLabel={isSearchFirms ? 'Search-firm partner application' : 'Coach partner application'}
             introNote={isSearchFirms ? 'Short form. One mandate. Clear next step.' : 'Short form. Clear next step.'}
@@ -186,7 +186,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
           <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-4 text-[12px]">
             <Link href={proofHref} className="text-slate-500 transition-colors hover:text-slate-200">
               Proof
             </Link>
