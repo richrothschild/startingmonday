@@ -623,7 +623,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </h2>
                 <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Once you see a role taking shape, do not start by applying. Start by building advocates inside the company, before the process formalizes.</p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Most senior leaders already have strong networks and earned credibility. What changes outcomes is direction and timing. Starting Monday helps you engage the right people early and build trust before the shortlist hardens.
+                  Most senior leaders already have strong networks and earned credibility. The difference is direction and timing. Starting Monday helps you identify the people shaping the mandate, engage with relevance, and compound trust before the shortlist hardens.
                 </p>
 
                 <div className="mb-8 space-y-4">
@@ -638,7 +638,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Run weekly advocate momentum.</span> Track who is championing you, where momentum is building, and where the next high-value touch belongs.</span>
+                      <span><span className="font-semibold text-white">Run weekly advocate momentum.</span> Track who is championing you, where conversations are advancing, and which relationship needs the next high-value touch.</span>
                     </div>
                   </div>
                 </div>

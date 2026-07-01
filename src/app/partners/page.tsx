@@ -98,7 +98,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
       <div className="mx-auto max-w-5xl space-y-10 px-4 py-12 sm:px-6">
 
         <section className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-amber-200">Start lane</p>
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Start lane</p>
           <h2 className="mb-2 font-serif text-[26px] leading-tight text-white sm:text-[30px]">
             {isSearchFirms ? 'Pilot-first lane for search firms. Small-fee lane for coach teams.' : 'Small-fee lane for coaches. Pilot lane for search firms.'}
           </h2>
@@ -108,7 +108,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
 
           <div className="grid gap-4 md:grid-cols-2">
             <article className="rounded-2xl border border-amber-200/25 bg-amber-200/10 p-5">
-              <p className="mb-2 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Coach lane</p>
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Coach lane</p>
               <h3 className="text-[18px] font-semibold text-white">Start with a small-fee signal product</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
                 Use the coach micro-product catalog when you want immediate workflow value before broader partner rollout.
@@ -122,7 +122,7 @@ export default async function PartnersPage({ searchParams }: PartnersPageProps) 
             </article>
 
             <article className="rounded-2xl border border-white/10 bg-slate-950/45 p-5">
-              <p className="mb-2 text-[12px] font-semibold tracking-[0.08em] text-amber-100">Search-firm lane</p>
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-100">Search-firm lane</p>
               <h3 className="text-[18px] font-semibold text-white">Start the retained-search pilot</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-slate-200">
                 Run one mandate with one sponsor and evaluate shortlist-confidence outcomes at the day-30 checkpoint.
