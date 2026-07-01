@@ -33,6 +33,24 @@ type RawDiscoveryCompany = {
   suggestedPeople?: unknown
 }
 
+const ROLE_ALIAS_MAP: Record<string, string[]> = {
+  cio: ['cio', 'chief information officer'],
+  'chief information officer': ['chief information officer', 'cio'],
+  cto: ['cto', 'chief technology officer'],
+  'chief technology officer': ['chief technology officer', 'cto'],
+  ciso: ['ciso', 'chief information security officer'],
+  'chief information security officer': ['chief information security officer', 'ciso'],
+  coo: ['coo', 'chief operating officer'],
+  'chief operating officer': ['chief operating officer', 'coo'],
+  cdo: ['cdo', 'chief data officer', 'chief digital officer'],
+  'chief data officer': ['chief data officer', 'cdo'],
+  'chief digital officer': ['chief digital officer', 'cdo'],
+  chro: ['chro', 'chief human resources officer'],
+  'chief human resources officer': ['chief human resources officer', 'chro'],
+  cpo: ['cpo', 'chief product officer'],
+  'chief product officer': ['chief product officer', 'cpo'],
+}
+
 const REQUESTED_COUNT = 20
 const RESPONSE_COUNT = 12
 
@@ -88,7 +106,50 @@ function normalizeList(value: unknown, fallback: string[]): string[] {
   return next.length > 0 ? next : fallback
 }
 
-function normalizePeople(value: unknown): SuggestedPerson[] {
+function normalizeRoleText(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function parseTargetRoleAliases(targetTitles: string): string[] {
+  const baseRoles = targetTitles
+    .split(/[\/,|]/)
+    .map((role) => normalizeRoleText(role))
+    .filter((role) => role.length >= 2)
+
+  const aliases = new Set<string>()
+  for (const role of baseRoles) {
+    aliases.add(role)
+    const mapped = ROLE_ALIAS_MAP[role] ?? []
+    for (const alias of mapped) {
+      const normalizedAlias = normalizeRoleText(alias)
+      if (normalizedAlias.length >= 2) aliases.add(normalizedAlias)
+    }
+  }
+  return [...aliases]
+}
+
+function titleContainsRole(title: string, roleAlias: string): boolean {
+  const normalizedTitle = normalizeRoleText(title)
+  if (!normalizedTitle || !roleAlias) return false
+
+  if (roleAlias.length <= 5) {
+    const escaped = roleAlias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(normalizedTitle)
+  }
+
+  return normalizedTitle.includes(roleAlias)
+}
+
+export function shouldExcludeSuggestedPerson(title: string, targetTitles: string): boolean {
+  const aliases = parseTargetRoleAliases(targetTitles)
+  return aliases.some((alias) => titleContainsRole(title, alias))
+}
+
+function normalizePeople(value: unknown, targetTitles: string): SuggestedPerson[] {
   if (!Array.isArray(value)) return []
   return value
     .map((item) => {
@@ -110,10 +171,11 @@ function normalizePeople(value: unknown): SuggestedPerson[] {
       } satisfies SuggestedPerson
     })
     .filter((person): person is SuggestedPerson => Boolean(person))
+    .filter((person) => !shouldExcludeSuggestedPerson(person.title, targetTitles))
     .slice(0, 3)
 }
 
-function normalizeCandidate(raw: RawDiscoveryCompany): DiscoveryCompany | null {
+function normalizeCandidate(raw: RawDiscoveryCompany, targetTitles: string): DiscoveryCompany | null {
   if (typeof raw.name !== 'string' || typeof raw.sector !== 'string' || typeof raw.why !== 'string') {
     return null
   }
@@ -126,7 +188,7 @@ function normalizeCandidate(raw: RawDiscoveryCompany): DiscoveryCompany | null {
     fit: clampFit(fit),
     keySignals: normalizeList(raw.keySignals, ['Recent leadership-relevant growth signal']),
     keyAttributes: normalizeList(raw.keyAttributes, ['Role scope likely aligned to senior operator profile']),
-    suggestedPeople: normalizePeople(raw.suggestedPeople),
+    suggestedPeople: normalizePeople(raw.suggestedPeople, targetTitles),
   }
 }
 
@@ -296,6 +358,7 @@ Rules:
 - Include companies plausibly hiring at this level in the next 12-18 months
 - keySignals and keyAttributes: arrays with 2-4 concise bullets each
 - suggestedPeople: 1-3 people, prefer role placeholders if a specific name is uncertain
+- Never suggest people currently in the exact target role (example: if targeting CIO, do not suggest current CIOs)
 - Sort by fit descending
 - Return only the JSON array, no explanation, no markdown fences`
 
@@ -313,7 +376,7 @@ Rules:
     const parsed = JSON.parse(cleaned) as unknown
     const parsedList = Array.isArray(parsed) ? parsed : []
     const normalized = parsedList
-      .map((item) => normalizeCandidate((item ?? {}) as RawDiscoveryCompany))
+      .map((item) => normalizeCandidate((item ?? {}) as RawDiscoveryCompany, targetTitles))
       .filter((item): item is DiscoveryCompany => Boolean(item))
 
     const seen = new Set(normalized.map((item) => item.name.toLowerCase()))
@@ -346,7 +409,16 @@ Rules:
     const provider = getEnrichmentProvider()
     const withEnrichment = await Promise.all(
       normalized.slice(0, REQUESTED_COUNT).map(async (candidate) => {
-        if ((candidate.suggestedPeople?.length ?? 0) >= 1) return candidate
+        const filteredExisting = (candidate.suggestedPeople ?? [])
+          .filter((person) => !shouldExcludeSuggestedPerson(person.title, targetTitles))
+          .slice(0, 3)
+        if (filteredExisting.length >= 1) {
+          return {
+            ...candidate,
+            suggestedPeople: filteredExisting,
+          }
+        }
+
         const enrichedPeople = await provider.enrichPeople({
           companyName: candidate.name,
           sector: candidate.sector,
@@ -354,7 +426,9 @@ Rules:
         })
         return {
           ...candidate,
-          suggestedPeople: enrichedPeople.slice(0, 3),
+          suggestedPeople: enrichedPeople
+            .filter((person) => !shouldExcludeSuggestedPerson(person.title, targetTitles))
+            .slice(0, 3),
         }
       }),
     )
