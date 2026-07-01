@@ -35,18 +35,18 @@ const SPECS = [
     rules: [
       {
         id: 'home-operating-system-frame',
-        description: 'Homepage keeps executive operating-system framing copy.',
-        matcher: 'Discover your dream role. Build advocates. Start Monday.',
+        description: 'Homepage keeps decision-visibility bridge copy.',
+        matcher: 'The posting is public. The decision is usually not.',
       },
       {
         id: 'home-hero-claim',
-        description: 'Homepage hero keeps conversation-before-posting claim.',
-        matcher: /Most leaders search in isolation/,
+        description: 'Homepage hero keeps timing-and-outcomes claim.',
+        matcher: 'Reputation opens doors. Timing decides outcomes.',
       },
       {
         id: 'home-primary-path-ctas',
-        description: 'Homepage primary CTAs are Individuals and Partners path buttons.',
-        matcher: /Individuals[\s\S]*Partners(?![\s\S]*Coaches)/,
+        description: 'Homepage primary CTAs are Executives and Partners path buttons.',
+        matcher: /Executives[\s\S]*Partners(?![\s\S]*Coaches)/,
       },
       {
         id: 'home-learn-more-route',

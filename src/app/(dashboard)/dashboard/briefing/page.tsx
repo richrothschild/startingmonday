@@ -374,14 +374,17 @@ Output valid JSON only, no markdown fences.`
   } catch (err: any) {
     // Handle Anthropic API errors (e.g., insufficient credits)
     const status = err.status ?? err.statusCode
-    const isCreditsError = status === 400 && err.error?.error?.type === 'invalid_request_error' && err.error?.error?.message?.includes('credit')
+    const errorType = String(err?.error?.error?.type ?? '').toLowerCase()
+    const errorMessage = String(err?.error?.error?.message ?? err?.message ?? '').toLowerCase()
+    const isCreditsError = status === 400 && errorType === 'invalid_request_error' && (errorMessage.includes('credit') || errorMessage.includes('balance'))
 
     if (isCreditsError) {
-      Sentry.captureException(err, {
-        level: 'error',
+      Sentry.captureMessage('Anthropic credits exhausted for briefing generation; using fallback briefing.', {
+        level: 'warning',
         extra: {
           errorType: 'anthropic_insufficient_credits',
           model: MODELS.haiku,
+          status,
         },
       })
       // Return fallback briefing when credits are exhausted

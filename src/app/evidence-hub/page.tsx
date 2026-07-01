@@ -55,37 +55,44 @@ export default function EvidenceRoomPage() {
       <JsonLd data={evidenceHubJsonLd} />
       <PublicPageHeader backHref="/" />
       <main className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
-        {/* Introduction */}
-        <section className="max-w-4xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">Evidence Hub</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-[2.2rem] leading-[1.03] tracking-tight text-white sm:text-[3rem]">
-            {EVIDENCE_INTRODUCTION.headline}
-          </h1>
+        {/* How we find roles */}
+        <section className="mt-10 max-w-4xl rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-5 shadow-[0_20px_70px_rgba(2,6,23,0.28)] sm:p-6">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">How we find roles</p>
+          <h2 className="mt-3 text-[1.8rem] font-serif leading-tight text-white sm:text-[2.2rem]">
+            Proprietary signal detection, clear validation, and a trust boundary.
+          </h2>
           <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">
-            {EVIDENCE_INTRODUCTION.subheadline}
+            We built a proprietary system that separates meaningful role signals from market noise across thousands of companies. It uses public information, then validates the pattern before anything is surfaced as a likely opportunity. The goal is earlier context and better timing without exposing the scoring system behind it.
           </p>
-          <div className="mt-6 space-y-4 text-[14px] leading-relaxed text-slate-300">
-            {EVIDENCE_INTRODUCTION.summary.split('\n\n').map((paragraph, idx) => (
-              <p key={idx}>{paragraph.trim()}</p>
-            ))}
+          <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">
+            It reflects a founder who builds systems that turn noisy information into decisive action, informed by running a senior search and seeing how much of the process was still broken.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange-200">What we analyze</p>
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-300">
+                Executive moves, funding events, filings, press releases, company announcements, and adjacent public changes that often precede a mandate.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange-200">How we validate</p>
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-300">
+                No single signal is enough. We look for patterns across multiple sources and only elevate directionally strong matches.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange-200">What stays private</p>
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-300">
+                We disclose the evidence categories and reliability standards, but not the exact weighting, trigger logic, or ranking model.
+              </p>
+            </div>
           </div>
-          <div className="mt-8 space-y-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-[14px] leading-relaxed text-slate-300 sm:p-6">
-            {EVIDENCE_INTRODUCTION.whyResearchMatters.split('\n').map((line, idx) => {
-              const trimmed = line.trim()
-              if (trimmed === '') return null
-              if (trimmed.startsWith('- ')) {
-                return (
-                  <p key={idx} className="ml-4">
-                    {trimmed}
-                  </p>
-                )
-              }
-              return (
-                <p key={idx}>
-                  {trimmed}
-                </p>
-              )
-            })}
+
+          <div className="mt-6 rounded-2xl border border-orange-500/20 bg-orange-500/10 p-4">
+            <p className="text-[14px] leading-relaxed text-orange-100">
+              <span className="font-semibold text-orange-200">Why this matters:</span> you get enough transparency to trust the signal, without making it easier for competitors to copy the engine.
+            </p>
           </div>
         </section>
 

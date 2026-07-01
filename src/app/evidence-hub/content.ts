@@ -77,14 +77,19 @@ export const EVIDENCE_EARLY_SIGNALS: EvidenceSection = {
   subtitle: 'Why transition signals appear weeks before market convergence',
   overview: `
     Executive transitions move through predictable phases: private uncertainty, subtle positioning, 
-    formal announcement, public search. Each phase has its own signals. The leaders who win move during 
-    the early phases, when options are still forming and access is still warm.
+    formal announcement, public search. Each phase has its own signals. Starting Monday uses a proprietary 
+    system to separate meaningful role signals from market noise, then validates the pattern before anything 
+    is surfaced. The leaders who win move during the early phases, when options are still forming and access is still warm.
   `,
   whyItMatters: `
     The difference between finding a role during weak-signal phase vs. posted-job phase is not just timing-
     it's decision quality. Early in a transition, decision-makers are still gathering context, building 
     the shortlist in their heads, and forming perceptions. That's when an executive with clear value and 
     strong prior relationships can shape how the role itself is defined.
+
+    We disclose the evidence categories and validation standards, but not the exact weighting or trigger 
+    logic. That keeps the signal useful without giving away the engine. Starting Monday is built to turn 
+    noisy public information into decisive action, so leaders can move earlier with better context.
   `,
   keyInsights: [
     {

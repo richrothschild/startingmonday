@@ -98,9 +98,24 @@ export default function SearchFirmsPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
+              <TrackLink
+                href="/partners?channel=search-firms#apply"
+                event={EVENT_NAMES.channelEntryClicked}
+                logToUserEvents
+                properties={{ channel: 'search_firms', cta_label: 'start_retained_search_pilot', source_page: '/search-firms' }}
+                className="rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+              >
+                Start retained-search pilot
+              </TrackLink>
+              <Link
+                href="/search-firms/executive-recruiter-demo"
+                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
+              >
+                Open recruiter outcomes demo
+              </Link>
               <Link
                 href="/search-firms/sample-cfo-brief"
-                className="rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-slate-100 transition-colors hover:border-orange-300/70 hover:bg-white/5"
               >
                 View sample CFO brief
               </Link>

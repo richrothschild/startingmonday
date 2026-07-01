@@ -106,13 +106,13 @@ function executiveLaneFromSource(sourcePage: string): ExecutiveLaneBrand | null 
 
 const EXECUTIVE_FEATURE_MATRIX = [
   {
-    feature: 'Executive signal intelligence',
+    feature: 'Leadership signal intelligence',
     whatYouGet: 'Track role-shaping movement before your dream role is publicly obvious.',
     whyItMatters: 'You enter while the role is still being defined, not after the shortlist is crowded.',
   },
   {
     feature: 'Audience-specific narrative system',
-    whatYouGet: 'One core story adapted for board members, search partners, CHROs, and executive peers.',
+    whatYouGet: 'One core story adapted for board members, search partners, CHROs, and leadership peers.',
     whyItMatters: 'You stay consistent while still sounding precise for each decision-maker.',
   },
   {
@@ -141,7 +141,7 @@ const EXECUTIVE_DIFFERENTIATORS = [
   {
     category: 'Execution model',
     startingMonday: 'Weekly operating system with accountability to outcomes.',
-    otherTools: 'Task lists and alerts without a strategic executive cadence.',
+    otherTools: 'Task lists and alerts without a strategic leadership cadence.',
   },
   {
     category: 'Conversation readiness',
@@ -344,9 +344,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <Link
                   href="/signup"
                   className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
-                  aria-label="Sign up"
+                  aria-label={isHomePage ? 'Try free' : 'Sign up'}
                 >
-                  Sign Up
+                  {isHomePage ? 'Try free' : 'Sign Up'}
                 </Link>
                 <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
                   Log in
@@ -388,7 +388,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
                   <Image
                     src="/hero-previews/hero-final-locked.png"
-                    alt="Stylized executive sketch visual"
+                    alt="Stylized leadership sketch visual"
                     fill
                     sizes="(max-width: 640px) 92vw, 390px"
                     priority
@@ -444,7 +444,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
             {isHomePage && (
               <p className="mt-6 mb-10 max-w-3xl text-[18px] font-semibold leading-relaxed text-slate-300 [text-wrap:pretty] sm:text-[20px]">
-                Discover your dream role before the posting. Build internal advocates while you search. That's how you move from competing for a job to already being in the conversation.
+                The posting is public. The decision is usually not. Move earlier, with the right relationships already in motion.
               </p>
             )}
 
@@ -455,9 +455,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               >
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
                 <h2 id="homepage-path-title" className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Start with the search you need to win.
+                  Start with the search strategy built to win.
                 </h2>
-                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Choose the executive wedge or partner workflow that matches your next move.</p>
+                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Select the leader track or partner workflow aligned to your next move.</p>
                 <div className="flex flex-wrap gap-3 mb-4">
                   <TrackLink
                     href="/for-executives"
@@ -466,7 +466,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     properties={{ channel: 'executives', cta_label: 'homepage_top_level_individuals', source_page: '/' }}
                     className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                      Executives
+                      Leaders
                   </TrackLink>
                   <TrackLink
                     href="/partners"
@@ -498,7 +498,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                       {executiveLaneBrand.label}
                     </span>
                   )}
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leadership platform capabilities' : 'Executive platform capabilities'}</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leadership platform capabilities' : 'Leader platform capabilities'}</p>
                   <h2 id="executive-differentiation-title" className="text-[22px] font-bold leading-snug text-white sm:text-[24px]">
                     All essentials in one operating view.
                   </h2>
@@ -511,7 +511,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
 
                 <div className="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
                   {EXECUTIVE_FEATURE_MATRIX.map((item) => {
-                    const featureTitle = isLeadershipLanePage && item.feature === 'Executive signal intelligence'
+                    const featureTitle = isLeadershipLanePage && item.feature === 'Leadership signal intelligence'
                       ? 'Leadership signal intelligence'
                       : item.feature
                     const whatYouGet = isLeadershipLanePage && item.feature === 'Audience-specific narrative system'
@@ -583,12 +583,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
         {isHomePage && (
           <>
             {/* SIGNAL SECTION: Market opportunity and timing advantage */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-20 sm:px-6 sm:py-28">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_840px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
-                <p className="mb-6 text-[14px] leading-relaxed text-slate-300">Every dream role starts before the job posting. This is what Starting Monday detects.</p>
+                <p className="mb-6 text-[14px] leading-relaxed text-slate-300">The best opportunities are decided in private before they are posted in public.</p>
                 <p className="mb-12 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-                  When a company faces pressure—activist investors, product launches, strategic shifts—internal conversations start first. Budgets get reallocated. Roles start getting defined. Decision-makers (who will become your advocates) start asking "who can run this?" And then, months later, it gets posted. Starting Monday finds you in that window. Before the shortlist gets crowded. When your relevance is obvious to the people who matter.
+                  By the time a role is posted, the internal conversation has already advanced. Most senior leaders already have deep networks and proven reputations. Starting Monday helps you convert that foundation into action at the exact right moment.
                 </p>
 
                 <div className="mb-12">
@@ -615,76 +615,111 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
             </section>
 
             {/* ADVOCATES SECTION: Create advocates to get on shortlist */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Create Advocates</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
                   Get on the shortlist through relationships, not job boards.
                 </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Once you discover your dream role forming, the next step is clear: you need advocates inside the company who will put you on the shortlist. These aren't recruiters or HR. These are decision-makers who shape this role and influence hiring.</p>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Once you see a role taking shape, do not start by applying. Start by building advocates inside the company, before the process formalizes.</p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Most executives search in isolation—reaching out to scattered contacts without any systematic way to know who actually shapes mandate decisions. Starting Monday changes this. You identify advocates strategically. You build genuine relationships with the people who influence outcomes. You track momentum weekly so advocates know you're serious and stay engaged.
+                  Most senior leaders already have strong networks and earned credibility. What changes outcomes is direction and timing. Starting Monday helps you engage the right people early and build trust before the shortlist hardens.
                 </p>
 
                 <div className="mb-8 space-y-4">
                   <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Identify who shapes the mandate.</span> Not from LinkedIn or a recruiter, but from analyzing who actually influences decisions. Budget holders, strategic planners, the people the CEO listens to. These become your advocates.</span>
+                      <span><span className="font-semibold text-white">Map mandate influence, not job titles.</span> Find budget owners, strategic operators, and trusted advisors shaping the decision before hiring opens.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Engage them directly and early.</span> Before the posting. When the mandate is still taking shape. Your credibility comes from understanding what they're trying to solve, not from a resume.</span>
+                      <span><span className="font-semibold text-white">Engage early with problem-level context.</span> Show you understand the business pressure behind the role, not just the title.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Track advocate engagement weekly.</span> You see who's championing you internally, who's advancing the conversation, and where you need to engage next. This turns passive interest into active sponsorship.</span>
+                      <span><span className="font-semibold text-white">Run weekly advocate momentum.</span> Track who is championing you, where momentum is building, and where the next high-value touch belongs.</span>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white">Why it works:</span> Advocates put you on the shortlist before external candidates even know the role exists. You're not competing with dozens of qualified people. You're the conversation they're already having.
+                  <span className="font-semibold text-white">Why it works:</span> The shortlist is often shaped before the posting goes live. With the right advocates engaged early, you are not entering late. You are already inside the decision.
                 </p>
               </div>
             </section>
 
-            {/* STORY SECTION: Tell your narrative */}
-            <HomepageBriefTeaser />
-
             {/* MONDAY SECTION: Start Monday - cadence and execution */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20 animate-in fade-in duration-1000 delay-100">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 animate-in fade-in duration-1000 delay-100 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Start Monday</p>
                 <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Execute with discipline. Compound momentum weekly.
+                  Momentum is not random. It is scheduled.
                 </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Finding your dream role, identifying advocates, and telling your story isn't enough. The difference between a successful transition and a stalled one: the discipline to execute weekly and let momentum compound.</p>
+                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Most searches stall between strong conversations. Starting Monday keeps momentum moving so progress does not reset each week.</p>
+                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-300">
+                  Want a concrete walkthrough?{' '}
+                  <Link href="#example-walkthrough" className="underline underline-offset-2 hover:text-white">
+                    See one example
+                  </Link>
+                  .
+                </p>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Starting Monday isn't a moment. It's a rhythm. Each week, you revisit your advocate list. You measure what's working. You know who's warming up, who's ready to move, and where conversations need to shift. This sustained engagement turns interest into sponsorship. By week four, advocates aren't just interested—they're talking about you to other decision-makers. That's when you stop searching. That's when you start being sought.
+                  Starting Monday gives you a repeatable rhythm. Revisit priorities weekly, sharpen your message from real feedback, and move key relationships forward with intent.
                 </p>
 
                 <div className="mb-8 space-y-4">
                   <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Review weekly.</span> Which advocates are engaged. Who's advancing the conversation. Where momentum is building.</span>
+                      <span><span className="font-semibold text-white">Weekly momentum map.</span> See where conversations are advancing and where action is needed now.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Adjust narratively.</span> Your story evolves based on what you learn. Each conversation informs the next. Advocates see thoughtfulness, not formula.</span>
+                      <span><span className="font-semibold text-white">Narrative precision loop.</span> Refine proof points so each conversation is clearer than the last.</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Compound relationships.</span> Small weekly efforts turn into sponsor momentum. By week four, advocates are making the case for you internally. You're no longer pushing. You're being championed.</span>
+                      <span><span className="font-semibold text-white">Sponsorship engine.</span> Convert warm interest into active internal support through consistent follow-through.</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-[13px] leading-relaxed text-slate-300">
-                    <span className="font-semibold text-white">The outcome:</span> Advocates do the advocacy. Momentum does the work. You start the role as an insider, not a candidate.
+                    <span className="font-semibold text-white">The outcome:</span> Your progress becomes cumulative, not cyclical.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* STORY SECTION: Tell your narrative */}
+            <HomepageBriefTeaser />
+
+            <section className="px-4 pb-12 sm:px-6 sm:pb-14">
+              <div className="mx-auto max-w-5xl">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-5 shadow-[0_10px_30px_rgba(2,6,23,0.12)] sm:px-6 sm:py-5">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="max-w-xl">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">Try free</p>
+                      <p className="mt-2 text-[14px] leading-relaxed text-slate-200/85">
+                        See if the flow fits your search.
+                      </p>
+                    </div>
+                  <TrackLink
+                    href="/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta"
+                    event={EVENT_NAMES.channelEntryClicked}
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_bottom_try_free',
+                      source_page: '/',
+                    }}
+                    className="inline-flex min-w-[8.75rem] items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-2.5 text-center text-[13px] font-semibold tracking-[0.01em] text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                  >
+                    Try free
+                  </TrackLink>
+                  </div>
                 </div>
               </div>
             </section>
@@ -698,7 +733,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 <>
                   <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Manager Tools next step</p>
                   <h2 className="mb-6 text-[22px] font-bold leading-snug text-white">
-                    For managers and executives in transition.
+                    For managers and leaders in transition.
                   </h2>
                   <div className="mb-6 grid grid-cols-1 gap-3">
                     <TrackLink
@@ -712,7 +747,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                       }}
                       className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
                     >
-                      <p className="text-[13px] font-semibold text-white">Managers and Executives</p>
+                      <p className="text-[13px] font-semibold text-white">Managers and Leaders</p>
                       <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
                     </TrackLink>
                   </div>
@@ -747,7 +782,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </>
               ) : isExecutivesPage ? (
                 <>
-                  <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">{isLeadershipLanePage ? 'Leader outcomes' : 'Executive outcomes'}</p>
+                  <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Leader outcomes</p>
                   <h2 className="mb-2 text-[22px] font-bold leading-snug text-white">
                     Build momentum in the first 30 days.
                   </h2>
@@ -793,7 +828,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     }}
                     className="inline-flex items-center justify-center rounded-full border border-orange-300/70 px-6 py-3 text-[14px] font-bold text-orange-200 transition-colors hover:bg-orange-400/10"
                   >
-                    {isLeadershipLanePage ? 'Preview leader brief' : 'Preview executive brief'}
+                    Preview leader brief
                   </TrackLink>
                 </div>
               </>
@@ -801,7 +836,7 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
               <>
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Why it feels different</p>
                 <h2 className="mb-4 text-[24px] font-bold leading-tight text-white sm:text-[28px]">
-                  Most executives search in isolation. Starting Monday helps you build the relationships that matter.
+                  Most leaders search in isolation. Starting Monday helps you build the relationships that matter.
                 </h2>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
                   You're not casting nets into crowded windows. You're having targeted conversations with decision-makers before the market even knows the role exists. Starting Monday gives you clarity on who shapes real outcomes, focus on genuine relationships over noise, and control over timing when mandates crystallize. The difference feels immediate: by week one, you've moved from overwhelm to confidence, from scattered outreach to relationship leadership that converts.
