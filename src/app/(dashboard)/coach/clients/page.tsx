@@ -12,7 +12,7 @@ export default async function CoachClientsPage() {
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   // TODO: Query coach_clients relationship to get list of assigned clients

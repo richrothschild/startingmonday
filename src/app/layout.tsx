@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     'senior technology executive',
   ],
   metadataBase: new URL('https://startingmonday.app'),
+  alternates: {
+    canonical: './',
+  },
   icons: {
     icon: '/icon',
     shortcut: '/icon',

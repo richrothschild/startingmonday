@@ -64,6 +64,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/auth/login',
+        destination: '/login',
+        permanent: true,
+      },
+      {
+        source: '/auth/signup',
+        destination: '/signup',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.startingmonday.app' }],
         destination: 'https://startingmonday.app/:path*',

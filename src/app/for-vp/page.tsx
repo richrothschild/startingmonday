@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 
 export default function LegacyForVpPage() {
-  redirect('/for-executives/leadership')
+  permanentRedirect('/for-executives/leadership')
 }
