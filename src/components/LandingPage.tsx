@@ -1,9 +1,7 @@
 ﻿import Link from 'next/link'
 import Image from 'next/image'
-import { JsonLd } from '@/components/JsonLd'
 import { TrackLink } from '@/components/TrackLink'
 import { HomepageBriefTeaser } from '@/components/HomepageBriefTeaser'
-import { ChartZoomModal } from '@/components/home/ChartZoomModal'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 
@@ -48,7 +46,6 @@ export interface LandingPageProps {
   situations: SituationCard[]
   faqs?: FAQ[]
   showPersonaSelector?: boolean
-  rolePathPriorityByCtaKey?: Record<string, number>
   proofHighlights?: ProofHighlight[]
   sourcePage?: string
   experimentVariant?: 'control' | 'proof_first'
@@ -294,7 +291,7 @@ function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { classNam
   )
 }
 
-export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
+export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isManagerToolsPage = sourcePage === '/managertools'
   const isHomePage = sourcePage === '/' || isManagerToolsPage
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
@@ -375,7 +372,9 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                     alt="Stylized leadership sketch visual"
                     fill
                     sizes="(max-width: 640px) 92vw, 390px"
-                    priority
+                    preload
+                    fetchPriority="high"
+                    quality={60}
                     className="object-cover object-top [filter:brightness(1.08)_contrast(0.95)_saturate(0.9)]"
                   />
                 </div>
@@ -443,29 +442,23 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                 </h2>
                 <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Select the leader track or partner workflow aligned to your next move.</p>
                 <div className="flex flex-wrap gap-3 mb-4">
-                  <TrackLink
+                  <Link
                     href="/for-executives"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{ channel: 'executives', cta_label: 'homepage_top_level_individuals', source_page: '/' }}
                     className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
-                      Leaders
-                  </TrackLink>
-                  <TrackLink
+                    Leaders
+                  </Link>
+                  <Link
                     href="/partners"
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{ channel: 'partners', cta_label: 'homepage_top_level_partners_firms', source_page: '/' }}
                     className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
                   >
                     Partners
-                  </TrackLink>
+                  </Link>
                   <Link
                     href="/learn-more"
                     className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-orange-300/70 hover:text-white"
                   >
-                    Learn more
+                    Learn how early-role signals work
                   </Link>
                 </div>
                 <p className="text-[12px] text-slate-300">Free for 30 days. No credit card required.</p>
@@ -586,15 +579,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                   <span className="font-semibold text-white">Why this matters:</span> Instead of competing in the posted job window with dozens of other qualified candidates, you're already in the conversation when decision-makers are shaping your dream role. That's not a disadvantage. That's your entire advantage.
                 </p>
 
-                <TrackLink
+                <Link
                   href="/evidence-hub#early-signals"
-                  event="signal_section_cta"
-                  properties={{ channel: 'homepage', cta_label: 'signal_explore', source_page: '/' }}
+                  className="inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
                 >
-                  <button className="inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600">
-                    Explore the evidence →
-                  </button>
-                </TrackLink>
+                  Explore the evidence →
+                </Link>
               </div>
             </section>
 
@@ -690,19 +680,12 @@ export function LandingPage({ hero, faqs, rolePathPriorityByCtaKey, proofHighlig
                         See if the flow fits your search.
                       </p>
                     </div>
-                  <TrackLink
+                  <Link
                     href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta'}
-                    event={EVENT_NAMES.channelEntryClicked}
-                    logToUserEvents
-                    properties={{
-                      channel: 'executives',
-                      cta_label: isManagerToolsPage ? 'managertools_bottom_try_free_60_days' : 'homepage_bottom_try_free',
-                      source_page: isManagerToolsPage ? '/managertools' : '/',
-                    }}
                     className="inline-flex min-w-[8.75rem] items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-2.5 text-center text-[13px] font-semibold tracking-[0.01em] text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                   >
                     {isManagerToolsPage ? 'Try free for 60 days' : 'Try free'}
-                  </TrackLink>
+                  </Link>
                   </div>
                 </div>
               </div>
