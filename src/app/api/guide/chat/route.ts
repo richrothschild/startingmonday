@@ -6,7 +6,6 @@ import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { retrieveGuide, type GuideEntry, type GuideIntent } from '@/lib/guide-retrieval'
-import bundledUserGuideIndex from '../../../../../docs/user-guide.index.json'
 
 type GuideIndex = {
   generatedAt: string
@@ -59,16 +58,12 @@ function buildAnswer(intent: GuideIntent, question: string, top: Array<{ title: 
 async function loadGuideIndex(): Promise<GuideIndex | null> {
   const guideIndexPath = path.join(process.cwd(), 'docs', 'user-guide.index.json')
   const raw = await readFile(guideIndexPath, 'utf8').catch(() => '')
-  if (!raw) {
-    const bundled = bundledUserGuideIndex as GuideIndex
-    return bundled?.entries?.length ? bundled : null
-  }
+  if (!raw) return null
 
   try {
     return JSON.parse(raw) as GuideIndex
   } catch {
-    const bundled = bundledUserGuideIndex as GuideIndex
-    return bundled?.entries?.length ? bundled : null
+    return null
   }
 }
 

@@ -7,7 +7,6 @@ import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { retrieveGuide, type GuideIntent } from '@/lib/guide-retrieval'
-import bundledInternalIndex from '../../../../../../docs/internal-guide.index.json'
 
 type InternalEntry = {
   id: string
@@ -52,16 +51,12 @@ function buildAnswer(intent: GuideIntent, question: string, lines: string[], con
 async function loadInternalIndex(): Promise<InternalIndex | null> {
   const indexPath = path.join(process.cwd(), 'docs', 'internal-guide.index.json')
   const raw = await readFile(indexPath, 'utf8').catch(() => '')
-  if (!raw) {
-    const bundled = bundledInternalIndex as InternalIndex
-    return bundled?.entries?.length ? bundled : null
-  }
+  if (!raw) return null
 
   try {
     return JSON.parse(raw) as InternalIndex
   } catch {
-    const bundled = bundledInternalIndex as InternalIndex
-    return bundled?.entries?.length ? bundled : null
+    return null
   }
 }
 
