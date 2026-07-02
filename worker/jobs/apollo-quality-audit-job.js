@@ -1,5 +1,6 @@
 import { logger } from '../lib/logger.js'
 import { sendWorkerSlackAlert } from '../lib/slack-alert.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -11,29 +12,29 @@ export async function runApolloQualityAuditJob() {
   }
 
   const url = `${APP_URL}/api/cron/apollo-quality-audit`
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/apollo-quality-audit-job',
-    },
+  const result = await callCronRoute({
+    job: 'apollo-quality-audit-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/apollo-quality-audit-job',
   })
 
-  const bodyText = await response.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!response.ok) {
-    logger.error('apollo-quality-audit-job: web route failed', {
-      status: response.status,
-      body: payload,
+  if (!result.ok && result.transient) {
+    logger.warn('apollo-quality-audit-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
-    throw new Error(`apollo-quality-audit route failed with status ${response.status}`)
+    return
   }
 
-  logger.info('apollo-quality-audit-job: completed', payload)
+  if (!result.ok) {
+    logger.error('apollo-quality-audit-job: web route failed', {
+      status: result.status,
+      body: result.payload,
+    })
+    throw new Error(`apollo-quality-audit route failed with status ${result.status}`)
+  }
+
+  logger.info('apollo-quality-audit-job: completed', result.payload)
 }

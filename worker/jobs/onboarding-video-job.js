@@ -1,4 +1,5 @@
 import { logger } from '../lib/logger.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -10,40 +11,29 @@ export async function runOnboardingVideoJob() {
   }
 
   const url = `${APP_URL}/api/cron/onboarding-video-worker?limit=10`
-  let response
-  try {
-    response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'x-cron-secret': CRON_SECRET,
-        'User-Agent': 'startingmonday-worker/onboarding-video-job',
-      },
-      signal: AbortSignal.timeout(30_000),
-    })
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'unknown_fetch_error'
-    logger.warn('onboarding-video-job: transient fetch failure', {
-      url,
-      error: message,
+  const result = await callCronRoute({
+    job: 'onboarding-video-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/onboarding-video-job',
+  })
+
+  if (!result.ok && result.transient) {
+    logger.warn('onboarding-video-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
     return
   }
 
-  const bodyText = await response.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!response.ok) {
+  if (!result.ok) {
     logger.error('onboarding-video-job: web route failed', {
-      status: response.status,
-      body: payload,
+      status: result.status,
+      body: result.payload,
     })
-    throw new Error(`onboarding video worker route failed with status ${response.status}`)
+    throw new Error(`onboarding video worker route failed with status ${result.status}`)
   }
 
-  logger.info('onboarding-video-job: completed', payload)
+  logger.info('onboarding-video-job: completed', result.payload)
 }
