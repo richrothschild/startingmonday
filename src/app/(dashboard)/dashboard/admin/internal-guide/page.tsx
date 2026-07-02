@@ -4,7 +4,6 @@ import path from 'node:path'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 import { InternalGuideClient } from './internal-guide-client'
-import bundledIndex from '../../../../../../docs/internal-guide.index.json'
 
 type GuideSection = {
   id: string
@@ -170,10 +169,7 @@ export default async function InternalGuidePage({
     }
   }
 
-  const bundledFile = bundledIndex as InternalIndexFile
-  const bundledEntries = (bundledFile.entries ?? []) as InternalIndexEntry[]
-  if (!guideGeneratedAt) guideGeneratedAt = bundledFile.generatedAt ?? ''
-  const indexSections = sectionsFromIndex(diskIndexEntries.length > 0 ? diskIndexEntries : bundledEntries)
+  const indexSections = sectionsFromIndex(diskIndexEntries)
 
   const guidePath = path.join(process.cwd(), 'docs', 'internal-guide.md')
   const markdown = await readFile(guidePath, 'utf8').catch(() => '')
