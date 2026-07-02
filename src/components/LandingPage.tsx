@@ -315,7 +315,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
+          <Link href="/" className="text-[14px] sm:text-[15px] lg:text-[16px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
@@ -835,7 +835,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
         <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
-              <span className={useCenteredFooter ? 'text-[12px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
+              <span className={useCenteredFooter ? 'text-[15px] font-bold tracking-[0.14em] uppercase text-slate-400 text-center' : 'text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400'}>
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
               <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>

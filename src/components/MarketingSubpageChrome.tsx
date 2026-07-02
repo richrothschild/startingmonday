@@ -16,7 +16,7 @@ export function MarketingSubpageChrome({ children, backHref, backLabel }: Market
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
-            className="inline-flex min-h-[48px] items-center text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80"
+            className="inline-flex min-h-[48px] items-center text-[14px] sm:text-[15px] lg:text-[16px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white/95 transition-opacity hover:opacity-80"
             aria-label="Go to homepage"
           >
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
