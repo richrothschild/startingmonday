@@ -1,4 +1,5 @@
 import { logger } from '../lib/logger.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -10,32 +11,32 @@ export async function runGoogleCalendarSyncJob() {
   }
 
   const url = `${APP_URL}/api/cron/google-calendar-sync`
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/google-calendar-sync-job',
-    },
+  const result = await callCronRoute({
+    job: 'google-calendar-sync-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/google-calendar-sync-job',
   })
 
-  const bodyText = await res.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
+  if (!result.ok && result.transient) {
+    logger.warn('google-calendar-sync-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
+    })
+    return
   }
 
-  if (!res.ok) {
+  if (!result.ok) {
     logger.error('google-calendar-sync-job: web route failed', {
-      status: res.status,
-      body: payload,
+      status: result.status,
+      body: result.payload,
     })
-    throw new Error(`google calendar sync route failed with status ${res.status}`)
+    throw new Error(`google calendar sync route failed with status ${result.status}`)
   }
 
   logger.info('google-calendar-sync-job: completed', {
-    status: res.status,
-    payload,
+    status: result.status,
+    payload: result.payload,
   })
 }

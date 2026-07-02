@@ -1,4 +1,5 @@
 import { logger } from '../lib/logger.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -10,29 +11,29 @@ export async function runIdeasMonthlyJob() {
   }
 
   const url = `${APP_URL}/api/cron/ideas-monthly`
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/ideas-monthly-job',
-    },
+  const result = await callCronRoute({
+    job: 'ideas-monthly-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/ideas-monthly-job',
   })
 
-  const bodyText = await response.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!response.ok) {
-    logger.error('ideas-monthly-job: web route failed', {
-      status: response.status,
-      body: payload,
+  if (!result.ok && result.transient) {
+    logger.warn('ideas-monthly-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
-    throw new Error(`ideas-monthly route failed with status ${response.status}`)
+    return
   }
 
-  logger.info('ideas-monthly-job: completed', payload)
+  if (!result.ok) {
+    logger.error('ideas-monthly-job: web route failed', {
+      status: result.status,
+      body: result.payload,
+    })
+    throw new Error(`ideas-monthly route failed with status ${result.status}`)
+  }
+
+  logger.info('ideas-monthly-job: completed', result.payload)
 }

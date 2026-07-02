@@ -1,4 +1,5 @@
 import { logger } from '../lib/logger.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -10,29 +11,29 @@ export async function runOutreachReconcileJob() {
   }
 
   const url = `${APP_URL}/api/cron/outreach-reconcile?days=14&limit=1000`
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/outreach-reconcile-job',
-    },
+  const result = await callCronRoute({
+    job: 'outreach-reconcile-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/outreach-reconcile-job',
   })
 
-  const bodyText = await res.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!res.ok) {
-    logger.error('outreach-reconcile-job: web route failed', {
-      status: res.status,
-      body: payload,
+  if (!result.ok && result.transient) {
+    logger.warn('outreach-reconcile-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
-    throw new Error(`outreach reconcile route failed with status ${res.status}`)
+    return
   }
 
-  logger.info('outreach-reconcile-job: completed', payload)
+  if (!result.ok) {
+    logger.error('outreach-reconcile-job: web route failed', {
+      status: result.status,
+      body: result.payload,
+    })
+    throw new Error(`outreach reconcile route failed with status ${result.status}`)
+  }
+
+  logger.info('outreach-reconcile-job: completed', result.payload)
 }

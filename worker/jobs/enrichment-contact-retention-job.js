@@ -1,25 +1,9 @@
 import { logger } from '../lib/logger.js'
 import { sendWorkerSlackAlert } from '../lib/slack-alert.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
-
-async function fetchWithRetry(url, options, attempts = 3) {
-  let lastResponse = null
-
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    const response = await fetch(url, options)
-    lastResponse = response
-    if (response.status < 500) return response
-
-    if (attempt < attempts) {
-      const backoffMs = 250 * attempt
-      await new Promise((resolve) => setTimeout(resolve, backoffMs))
-    }
-  }
-
-  return lastResponse
-}
 
 export async function runEnrichmentContactRetentionJob() {
   if (!CRON_SECRET) {
@@ -28,29 +12,29 @@ export async function runEnrichmentContactRetentionJob() {
   }
 
   const url = `${APP_URL}/api/cron/enrichment-contact-retention`
-  const response = await fetchWithRetry(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/enrichment-contact-retention-job',
-    },
+  const result = await callCronRoute({
+    job: 'enrichment-contact-retention-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/enrichment-contact-retention-job',
   })
 
-  const bodyText = await response.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!response.ok) {
-    logger.error('enrichment-contact-retention-job: web route failed', {
-      status: response.status,
-      body: payload,
+  if (!result.ok && result.transient) {
+    logger.warn('enrichment-contact-retention-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
-    throw new Error(`enrichment contact retention route failed with status ${response.status}`)
+    return
   }
 
-  logger.info('enrichment-contact-retention-job: completed', payload)
+  if (!result.ok) {
+    logger.error('enrichment-contact-retention-job: web route failed', {
+      status: result.status,
+      body: result.payload,
+    })
+    throw new Error(`enrichment contact retention route failed with status ${result.status}`)
+  }
+
+  logger.info('enrichment-contact-retention-job: completed', result.payload)
 }

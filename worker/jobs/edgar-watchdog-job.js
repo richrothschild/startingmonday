@@ -1,5 +1,6 @@
 import { logger } from '../lib/logger.js'
 import { sendWorkerSlackAlert } from '../lib/slack-alert.js'
+import { callCronRoute } from '../lib/cron-route.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const CRON_SECRET = process.env.CRON_SECRET
@@ -11,29 +12,29 @@ export async function runEdgarWatchdogJob() {
   }
 
   const url = `${APP_URL}/api/cron/edgar-watchdog`
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'x-cron-secret': CRON_SECRET,
-      'User-Agent': 'startingmonday-worker/edgar-watchdog-job',
-    },
+  const result = await callCronRoute({
+    job: 'edgar-watchdog-job',
+    url,
+    cronSecret: CRON_SECRET,
+    userAgent: 'startingmonday-worker/edgar-watchdog-job',
   })
 
-  const bodyText = await response.text()
-  let payload = null
-  try {
-    payload = bodyText ? JSON.parse(bodyText) : null
-  } catch {
-    payload = { raw: bodyText }
-  }
-
-  if (!response.ok) {
-    logger.error('edgar-watchdog-job: web route failed', {
-      status: response.status,
-      body: payload,
+  if (!result.ok && result.transient) {
+    logger.warn('edgar-watchdog-job: transient upstream failure, skipping hard error', {
+      status: result.status,
+      error: result.error,
+      body: result.payload,
     })
-    throw new Error(`edgar-watchdog route failed with status ${response.status}`)
+    return
   }
 
-  logger.info('edgar-watchdog-job: completed', payload)
+  if (!result.ok) {
+    logger.error('edgar-watchdog-job: web route failed', {
+      status: result.status,
+      body: result.payload,
+    })
+    throw new Error(`edgar-watchdog route failed with status ${result.status}`)
+  }
+
+  logger.info('edgar-watchdog-job: completed', result.payload)
 }
