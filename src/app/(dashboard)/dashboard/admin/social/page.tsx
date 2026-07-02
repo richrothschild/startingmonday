@@ -64,7 +64,7 @@ export default async function SocialAdminPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
@@ -387,3 +387,4 @@ export default async function SocialAdminPage() {
     </div>
   )
 }
+

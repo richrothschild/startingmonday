@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -76,7 +76,7 @@ export default async function TracesPage({
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-300">Monday</span>
           </span>
           <div className="flex items-center gap-4">
@@ -207,5 +207,6 @@ export default async function TracesPage({
     </div>
   )
 }
+
 
 

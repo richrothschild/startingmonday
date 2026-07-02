@@ -193,7 +193,7 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-600"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-600"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <Link href={`/dashboard/contacts/${contact.id}`} className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors">
             ← {contact.name}
           </Link>
@@ -520,3 +520,4 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
     </div>
   )
 }
+

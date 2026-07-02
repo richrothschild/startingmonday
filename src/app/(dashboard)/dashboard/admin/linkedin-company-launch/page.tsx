@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
@@ -17,11 +17,11 @@ export default async function LinkedInCompanyLaunchPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">← Admin</Link>
+            <Link href="/dashboard/admin" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">â† Admin</Link>
             <Link href="/dashboard/admin/social" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Social</Link>
           </div>
         </div>
@@ -89,3 +89,4 @@ export default async function LinkedInCompanyLaunchPage() {
     </div>
   )
 }
+

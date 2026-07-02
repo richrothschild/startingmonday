@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
@@ -124,7 +124,7 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
@@ -187,7 +187,7 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
                         <td className="px-4 py-2 text-slate-700">{flow}</td>
                         <td className="px-4 py-2 text-slate-600">{eventName}</td>
                         <td className="px-4 py-2 text-slate-700">{run.provider}</td>
-                        <td className="px-4 py-2 text-slate-500 font-mono">{run.user_id.slice(0, 8)}…</td>
+                        <td className="px-4 py-2 text-slate-500 font-mono">{run.user_id.slice(0, 8)}â€¦</td>
                         <td className="px-4 py-2 text-right text-slate-700">{run.retry_count}/{run.max_retries}</td>
                         <td className="px-4 py-2 text-slate-500">{new Date(run.created_at).toLocaleString()}</td>
                       </tr>
@@ -260,3 +260,4 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
     </div>
   )
 }
+

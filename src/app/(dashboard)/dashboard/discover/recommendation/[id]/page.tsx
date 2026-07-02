@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { SuggestedPerson } from '@/lib/enrichment'
@@ -74,7 +74,7 @@ export default async function RecommendationDetailPage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard/discover" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -102,7 +102,7 @@ export default async function RecommendationDetailPage({
             <h2 className="text-[13px] tracking-[0.08em] text-slate-400 font-bold mb-2">Key Signals</h2>
             <ul className="space-y-2">
               {(row.key_signals ?? []).map((signal: string) => (
-                <li key={signal} className="text-[14px] text-slate-700">• {signal}</li>
+                <li key={signal} className="text-[14px] text-slate-700">â€¢ {signal}</li>
               ))}
             </ul>
           </section>
@@ -111,7 +111,7 @@ export default async function RecommendationDetailPage({
             <h2 className="text-[13px] tracking-[0.08em] text-slate-400 font-bold mb-2">Key Attributes Match</h2>
             <ul className="space-y-2">
               {(row.key_attributes ?? []).map((attribute: string) => (
-                <li key={attribute} className="text-[14px] text-slate-700">• {attribute}</li>
+                <li key={attribute} className="text-[14px] text-slate-700">â€¢ {attribute}</li>
               ))}
             </ul>
           </section>
@@ -182,3 +182,4 @@ export default async function RecommendationDetailPage({
     </div>
   )
 }
+

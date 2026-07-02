@@ -1,11 +1,11 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 export default function OutplacementLanding() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center font-sans">
       <header className="w-full bg-slate-900 py-4 mb-8">
         <div className="max-w-2xl mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400 hover:text-slate-300 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
         </div>
@@ -42,3 +42,4 @@ export default function OutplacementLanding() {
     </div>
   )
 }
+

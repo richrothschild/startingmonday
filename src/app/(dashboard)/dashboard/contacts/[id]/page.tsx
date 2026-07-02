@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
@@ -143,7 +143,7 @@ export default async function ContactDetailPage({
 
       <header className="bg-slate-900">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard/contacts" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -538,3 +538,4 @@ export default async function ContactDetailPage({
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { saveProfile } from './actions'
@@ -111,9 +111,9 @@ export default async function ProfilePage({
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">â† Dashboard</Link>
             {isRothschildAdmin && <Link href="/dashboard/admin" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Admin</Link>}
           </div>
         </div>
@@ -163,15 +163,15 @@ export default async function ProfilePage({
             <section id="section-targets">
               <h2 className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Targets</h2>
               <label htmlFor="target_titles" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target titles</label>
-              <TagInput id="target_titles" name="target_titles" defaultValue={targetTitles} placeholder="Type a title and press Enter - CIO, VP of Technology…" />
+              <TagInput id="target_titles" name="target_titles" defaultValue={targetTitles} placeholder="Type a title and press Enter - CIO, VP of Technologyâ€¦" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
                   <label htmlFor="target_sectors" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target sectors</label>
-                  <TagInput id="target_sectors" name="target_sectors" defaultValue={targetSectors} placeholder="Healthcare, Fintech, SaaS…" />
+                  <TagInput id="target_sectors" name="target_sectors" defaultValue={targetSectors} placeholder="Healthcare, Fintech, SaaSâ€¦" />
                 </div>
                 <div>
                   <label htmlFor="target_locations" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target locations</label>
-                  <TagInput id="target_locations" name="target_locations" defaultValue={targetLocations} placeholder="New York, Remote, Dallas…" />
+                  <TagInput id="target_locations" name="target_locations" defaultValue={targetLocations} placeholder="New York, Remote, Dallasâ€¦" />
                 </div>
               </div>
             </section>

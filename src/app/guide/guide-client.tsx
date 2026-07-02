@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -275,7 +275,7 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/help" className="text-[13px] text-slate-300 hover:text-white transition-colors">Help</Link>
             <Link href="/features" className="text-[13px] text-slate-300 hover:text-white transition-colors">Features Docs</Link>
@@ -405,7 +405,7 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
                   <p className="text-[12px] font-semibold text-slate-900">{entry.title}</p>
                   <p className="text-[12px] text-slate-500 mt-1">Covers {entry.sectionSummary}.</p>
                   <p className="text-[11px] text-slate-500 mt-1">Why: use this when you want the broad overview before drilling into functions.</p>
-                  <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions · {entry.itemCount} items</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions Â· {entry.itemCount} items</p>
                 </button>
               ))}
             </div>
@@ -421,7 +421,7 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
                   <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
                   <p className="text-[12px] text-slate-500 mt-1">Covers {entry.summary}.</p>
                   <p className="text-[11px] text-slate-500 mt-1">Why: this groups the related items you would usually review together.</p>
-                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` · updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` Â· updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
                 </button>
               ))}
             </div>
@@ -431,7 +431,7 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
         {activeSection && activeFunction ? (
           <section className="bg-white border border-slate-200 rounded p-5">
             <h2 className="text-[18px] font-bold text-slate-900 mb-2">{activeSection.section.title}</h2>
-            <p className="text-[13px] text-slate-600 mb-4">{activeFunction.functionKey} · {activeFunction.items.length} items</p>
+            <p className="text-[13px] text-slate-600 mb-4">{activeFunction.functionKey} Â· {activeFunction.items.length} items</p>
             <div className="space-y-3">
               {activeFunction.items.map((item, index) => (
                 <article key={`${item.title}-${index}`} className="rounded border border-slate-200 bg-slate-50 p-3">
@@ -455,3 +455,4 @@ export function GuideClient({ sections, initialQuestion = '', guideGeneratedAt =
     </div>
   )
 }
+
