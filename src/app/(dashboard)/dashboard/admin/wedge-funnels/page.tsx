@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember } from '@/lib/staff'
@@ -17,7 +17,7 @@ export default async function AdminWedgeFunnelsPage() {
     <div className={ADMIN_DARK_PAGE_BG}>
       <header className="bg-slate-900">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <span className="text-[13px] font-bold uppercase tracking-[0.16em] text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin" className="text-[13px] text-slate-300 transition-colors hover:text-white">Admin</Link>
             <Link href="/dashboard/admin/operations" className="text-[13px] text-slate-300 transition-colors hover:text-white">Operations</Link>
@@ -40,3 +40,4 @@ export default async function AdminWedgeFunnelsPage() {
     </div>
   )
 }
+

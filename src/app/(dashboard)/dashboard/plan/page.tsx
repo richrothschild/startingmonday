@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
@@ -205,7 +205,7 @@ export default function DashboardPlanPage() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4 sm:h-14 sm:px-6">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
@@ -318,7 +318,7 @@ export default function DashboardPlanPage() {
               disabled={!canSave || loading || saving}
               className="inline-flex min-h-[44px] items-center rounded bg-orange-500 px-4 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400 disabled:opacity-50"
             >
-              {saving ? 'Saving…' : 'Save weekly plan'}
+              {saving ? 'Savingâ€¦' : 'Save weekly plan'}
             </button>
             <button
               type="button"
@@ -326,7 +326,7 @@ export default function DashboardPlanPage() {
               disabled={loading || saving}
               className="inline-flex min-h-[44px] items-center rounded border border-white/15 bg-white/5 px-4 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10 disabled:opacity-50"
             >
-              {saving ? 'Working…' : 'Regenerate suggestions'}
+              {saving ? 'Workingâ€¦' : 'Regenerate suggestions'}
             </button>
             <p className="text-[13px] text-slate-300">Regenerate and history actions land in the next sprint tickets.</p>
           </div>
@@ -343,7 +343,7 @@ export default function DashboardPlanPage() {
                   <ul className="mt-2 space-y-1">
                     {item.actions.map((action, index) => (
                       <li key={`${item.week_start}-${index}`} className="text-[13px] text-slate-200">
-                        {item.completions[index] ? '✓' : '•'} {action}
+                        {item.completions[index] ? 'âœ“' : 'â€¢'} {action}
                       </li>
                     ))}
                   </ul>
@@ -361,3 +361,4 @@ export default function DashboardPlanPage() {
     </div>
   )
 }
+

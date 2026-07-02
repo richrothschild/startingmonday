@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
@@ -437,7 +437,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-white/95 p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-6">
         {/* Wordmark */}
         <div className="text-center mb-10">
-          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400"><span className="text-slate-900">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-slate-900">Starting </span><span className="text-orange-500">Monday</span></span>
         </div>
 
         {/* Step content */}
@@ -799,7 +799,7 @@ function StepCompanies({
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  {added ? '✓ ' : '+ '}{s}
+                  {added ? 'âœ“ ' : '+ '}{s}
                 </button>
               )
             })}
@@ -814,7 +814,7 @@ function StepCompanies({
           onClick={discover}
           className="text-[13px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
         >
-          {discoverError ? 'Could not load suggestions - try again →' : 'Not sure where to start? Discover companies with AI →'}
+          {discoverError ? 'Could not load suggestions - try again â†’' : 'Not sure where to start? Discover companies with AI â†’'}
         </button>
       )}
 
@@ -848,7 +848,7 @@ function StepCompanies({
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  {added ? '✓ ' : '+ '}{co.name}
+                  {added ? 'âœ“ ' : '+ '}{co.name}
                 </button>
               )
             })}
@@ -1452,3 +1452,4 @@ function StepImport({
     </div>
   )
 }
+

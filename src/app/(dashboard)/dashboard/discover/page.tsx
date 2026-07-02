@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
@@ -103,7 +103,7 @@ export default function DiscoverPage() {
 
       <header className="bg-slate-900">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-5">
@@ -257,7 +257,7 @@ export default function DiscoverPage() {
                             : 'bg-slate-900 hover:bg-slate-700 text-white'
                       }`}
                     >
-                      {isAdded ? '✓ Added' : isAdding ? 'Adding...' : '+ Add to watchlist'}
+                      {isAdded ? 'âœ“ Added' : isAdding ? 'Adding...' : '+ Add to watchlist'}
                     </button>
                   </div>
                 )
@@ -283,3 +283,4 @@ export default function DiscoverPage() {
     </div>
   )
 }
+

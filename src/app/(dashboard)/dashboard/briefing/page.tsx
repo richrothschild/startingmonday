@@ -765,7 +765,7 @@ export default async function BriefingPage({
 
       <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="hidden sm:flex items-center gap-5">
@@ -901,3 +901,4 @@ export default async function BriefingPage({
     </div>
   )
 }
+

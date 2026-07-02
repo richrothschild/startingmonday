@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -167,7 +167,7 @@ export default function CoachDashboard() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
@@ -264,7 +264,7 @@ export default function CoachDashboard() {
                         <p className="text-[13px] font-semibold text-white truncate">{session.name ?? session.email ?? 'Client'}</p>
                         <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
                       </div>
-                      <p className="text-[13px] text-slate-300 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
+                      <p className="text-[13px] text-slate-300 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` Â· Owner: ${session.owner}` : ''}</p>
                       {session.action && <p className="text-[13px] text-slate-100 mt-1">{session.action}</p>}
                     </div>
                   ))}
@@ -285,7 +285,7 @@ export default function CoachDashboard() {
                         <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(client.urgency)}`}>{client.urgency}</span>
                       </div>
                       <p className="text-[13px] text-slate-100 mt-1">{client.next_action?.action}</p>
-                      <p className="text-[13px] text-slate-300 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` · Owner: ${client.next_action.owner}` : ''}</p>
+                      <p className="text-[13px] text-slate-300 mt-0.5">Due {client.next_action?.due_date ?? 'TBD'}{client.next_action?.owner ? ` Â· Owner: ${client.next_action.owner}` : ''}</p>
                     </div>
                   ))}
                 </div>
@@ -380,10 +380,10 @@ export default function CoachDashboard() {
                             {client.next_action.owner ? `Owner: ${client.next_action.owner}` : 'Owner: unassigned'}
                           </p>
                           <p className={`text-[13px] ${client.next_action.due_date && client.next_action.due_date < new Date().toISOString().split('T')[0] ? 'text-red-200' : 'text-slate-300'}`}>
-                            Due {client.next_action.due_date ?? 'TBD'}{client.next_action.status ? ` · ${client.next_action.status}` : ''}
+                            Due {client.next_action.due_date ?? 'TBD'}{client.next_action.status ? ` Â· ${client.next_action.status}` : ''}
                           </p>
                           <p className="text-[13px] text-slate-400">
-                            Last activity {client.last_activity_at ? client.last_activity_at.slice(0, 10) : 'none'} · lag {client.risk_inputs.days_since_activity}d
+                            Last activity {client.last_activity_at ? client.last_activity_at.slice(0, 10) : 'none'} Â· lag {client.risk_inputs.days_since_activity}d
                           </p>
                         </div>
                       ) : (
@@ -411,7 +411,7 @@ export default function CoachDashboard() {
           {!loading && commandCenter?.pagination && commandCenter.pagination.total_pages > 1 && (
             <div className="border-t border-white/10 px-6 py-3 flex items-center justify-between">
               <p className="text-[13px] text-slate-300">
-                Page {commandCenter.pagination.page} of {commandCenter.pagination.total_pages} · {commandCenter.pagination.total_clients} clients
+                Page {commandCenter.pagination.page} of {commandCenter.pagination.total_pages} Â· {commandCenter.pagination.total_clients} clients
               </p>
               <div className="flex items-center gap-2">
                 <button
@@ -468,3 +468,4 @@ export default function CoachDashboard() {
     </div>
   )
 }
+

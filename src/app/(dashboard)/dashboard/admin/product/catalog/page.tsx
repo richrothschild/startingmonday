@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
@@ -110,7 +110,7 @@ export default async function AdminMicroProductCatalogPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
@@ -350,7 +350,7 @@ export default async function AdminMicroProductCatalogPage() {
                   {entitlement.partner_id ? `partner:${entitlement.partner_id}` : `user:${entitlement.user_id}`}
                   {entitlement.source_bundle_id ? ` via ${bundleNameById.get(entitlement.source_bundle_id) ?? entitlement.source_bundle_id}` : ''}
                 </p>
-                <p className="text-slate-500">{entitlement.entitlement_key} • seats {entitlement.seat_limit} • {entitlement.status}</p>
+                <p className="text-slate-500">{entitlement.entitlement_key} â€¢ seats {entitlement.seat_limit} â€¢ {entitlement.status}</p>
               </div>
             ))}
           </div>
@@ -359,3 +359,4 @@ export default async function AdminMicroProductCatalogPage() {
     </div>
   )
 }
+

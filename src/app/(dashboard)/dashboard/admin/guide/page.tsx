@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -91,7 +91,7 @@ export default async function AdminGuidePage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">Back to Admin</Link>
             <Link href="/guide" className="text-[13px] text-slate-300 hover:text-white transition-colors">Open Guide</Link>
@@ -182,3 +182,4 @@ export default async function AdminGuidePage() {
     </div>
   )
 }
+

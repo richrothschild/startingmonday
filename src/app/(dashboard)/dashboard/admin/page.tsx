@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -535,7 +535,7 @@ export default async function AdminPage() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-300">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-300">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-orange-300 hover:text-orange-200 transition-colors">Sales enablement</Link>
             <Link href="/dashboard/admin/revenue" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
@@ -879,7 +879,7 @@ export default async function AdminPage() {
             <span className="text-[13px] text-slate-200">
               Executive research refresh{' '}
               {latestExecutiveResearchRun
-                ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago • checked ${latestExecutiveResearchRun.checked_count ?? 0} • changed ${latestExecutiveResearchRun.changed_count ?? 0}`
+                ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago â€¢ checked ${latestExecutiveResearchRun.checked_count ?? 0} â€¢ changed ${latestExecutiveResearchRun.changed_count ?? 0}`
                 : '-- no runs yet'}
             </span>
             <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
@@ -894,7 +894,7 @@ export default async function AdminPage() {
               {executiveResearchStatus.toUpperCase()}
             </span>
             <span className="text-[13px] text-slate-300">
-              Sources: {executiveResearchSourceCount ?? 0} • Failures: {executiveResearchFailureCount ?? 0}
+              Sources: {executiveResearchSourceCount ?? 0} â€¢ Failures: {executiveResearchFailureCount ?? 0}
             </span>
           </div>
           <p className="text-[13px] text-slate-300 mt-2">
@@ -1190,4 +1190,5 @@ export default async function AdminPage() {
     </div>
   )
 }
+
 

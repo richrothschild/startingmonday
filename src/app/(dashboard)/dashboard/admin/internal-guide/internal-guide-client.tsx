@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -313,7 +313,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
           <div className="flex items-center gap-4">
             <span className="text-[11px] text-slate-400 uppercase tracking-[0.12em]">{staffRole}</span>
             <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">Admin</Link>
@@ -387,7 +387,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
               <a href="/dashboard/admin/diagrams" className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left hover:border-orange-400 hover:bg-orange-50 transition-colors">
                 <p className="text-[12px] font-semibold text-slate-900">Architecture Diagrams</p>
                 <p className="text-[11px] text-slate-600 mt-1">10 Mermaid diagrams covering auth, onboarding, billing, signals, integrations, and SRE.</p>
-                <p className="text-[11px] text-orange-500 mt-1">View diagrams →</p>
+                <p className="text-[11px] text-orange-500 mt-1">View diagrams â†’</p>
               </a>
             </div>
           </div>
@@ -402,7 +402,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
                 <p className="text-[12px] font-semibold text-slate-900">{entry.title}</p>
                 <p className="text-[12px] text-slate-500 mt-1">Covers {entry.sectionSummary}.</p>
                 <p className="text-[11px] text-slate-500 mt-1">Why: use this when you want the broad overview before drilling into functions.</p>
-                <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions · {entry.itemCount} items</p>
+                <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions Â· {entry.itemCount} items</p>
               </button>
             ))}
           </div>
@@ -417,7 +417,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
                   <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
                   <p className="text-[12px] text-slate-500 mt-1">Covers {entry.summary}.</p>
                   <p className="text-[11px] text-slate-500 mt-1">Why: this groups the related items you would usually review together.</p>
-                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` · updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` Â· updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
                 </button>
               ))}
             </div>
@@ -498,3 +498,4 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
     </div>
   )
 }
+

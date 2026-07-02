@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useToast } from '@/lib/toast'
@@ -137,7 +137,7 @@ export function IntelligenceAdminClient({
       <header className="bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/dashboard/admin" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400 hover:text-white">
+            <Link href="/dashboard/admin" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400 hover:text-white">
               Admin
             </Link>
             <span className="text-slate-700">/</span>
@@ -371,3 +371,4 @@ export function IntelligenceAdminClient({
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { FunnelChart, EventVolumeChart } from './admin-charts'
@@ -75,14 +75,14 @@ export function AdminPageClient(props: AdminPageProps) {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),_transparent_28%),linear-gradient(180deg,#0f172a_0%,#111827_45%,#020617_100%)] font-sans text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-300">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-300">Monday</span></span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Revenue</Link>
             <Link href="/dashboard/admin/product" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Product</Link>
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Team</Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">â† Dashboard</Link>
           </div>
         </div>
       </header>
@@ -146,7 +146,7 @@ export function AdminPageClient(props: AdminPageProps) {
           </div>
           <div className="mt-3">
             <Link href="/guide" className="inline-flex items-center gap-2 text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">
-              Automation alerts open: <span className="text-white">{props.openAutomationAlerts}</span> • view runbooks
+              Automation alerts open: <span className="text-white">{props.openAutomationAlerts}</span> â€¢ view runbooks
             </Link>
           </div>
         </div>
@@ -213,7 +213,7 @@ export function AdminPageClient(props: AdminPageProps) {
 
         <details id="active-trials" className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md"><summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-white/10">Active Trials ({props.trialUsers.length})</summary><div>{props.trialUsers.length === 0 ? <p className="px-6 py-5 text-[13px] text-slate-300">No active trials.</p> : null}</div></details>
 
-        <details id="signal-action-rate" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md"><summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary><div className="pt-4"><h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal → Action Rate</h2><p className="text-[12px] text-slate-300 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p></div></details>
+        <details id="signal-action-rate" className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md"><summary className="cursor-pointer text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400">Signal &rarr; Action Rate</summary><div className="pt-4"><h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-1">Signal â†’ Action Rate</h2><p className="text-[12px] text-slate-300 mb-5">Signals that triggered outreach, brief gen, or contact add within 48h</p></div></details>
 
         <details id="partners" className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md"><summary className="cursor-pointer px-6 py-[18px] text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 border-b border-white/10">Partners ({props.partners.length})</summary><div>{props.partners.length === 0 ? <p className="px-6 py-5 text-[13px] text-slate-300">No partners yet.</p> : null}</div></details>
 
