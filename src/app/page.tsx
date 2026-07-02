@@ -2,7 +2,6 @@
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { getRolePathPriorityByCtaKey } from '@/lib/role-path-priority'
 
 export const metadata: Metadata = {
   title: 'Starting Monday - Be on the shortlist before the role is posted',
@@ -152,7 +151,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     ? resolvedSearchParams.lp_variant[0]
     : resolvedSearchParams?.lp_variant
   const experimentVariant = variantParam === 'proof_first' ? 'proof_first' : 'control'
-  const rolePathPriorityByCtaKey = await getRolePathPriorityByCtaKey()
 
   return (
     <>
@@ -178,7 +176,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         situations={SITUATIONS}
         faqs={FAQS}
         showPersonaSelector
-        rolePathPriorityByCtaKey={rolePathPriorityByCtaKey}
         experimentVariant={experimentVariant}
       />
     </>

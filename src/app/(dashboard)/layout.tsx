@@ -5,6 +5,7 @@ import { WatermarkOverlay } from '@/components/WatermarkOverlay'
 import { BottomNav } from '@/components/BottomNav'
 import { PHProvider } from '@/components/PosthogProvider'
 import { CommandPalette } from '@/components/CommandPalette'
+import { ToastProvider } from '@/lib/toast'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -13,17 +14,19 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const isDemo = !!(user?.id && demoId && user.id === demoId)
 
   return (
-    <PHProvider>
-      <>
-        {isDemo && <DemoBanner />}
-        {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
-        {!isDemo && user?.email && <WatermarkOverlay email={user.email} />}
-        <div className="nav-content-spacer">
-          {children}
-        </div>
-        <BottomNav />
-        <CommandPalette />
-      </>
-    </PHProvider>
+    <ToastProvider>
+      <PHProvider>
+        <>
+          {isDemo && <DemoBanner />}
+          {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
+          {!isDemo && user?.email && <WatermarkOverlay email={user.email} />}
+          <div className="nav-content-spacer">
+            {children}
+          </div>
+          <BottomNav />
+          <CommandPalette />
+        </>
+      </PHProvider>
+    </ToastProvider>
   )
 }
