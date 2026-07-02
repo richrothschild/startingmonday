@@ -10,7 +10,7 @@ export function SiteFooter({ centered = false, className = '' }: SiteFooterProps
     <footer className={`bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-10 ${className}`.trim()}>
       <div className="max-w-5xl mx-auto">
         <div className={centered ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
-          <span className={centered ? 'text-[12px] font-bold tracking-[0.18em] uppercase text-slate-400 text-center' : 'text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400'}>
+          <span className={centered ? 'text-[13px] sm:text-[14px] font-bold tracking-[0.16em] uppercase text-slate-400 text-center' : 'text-[12px] sm:text-[13px] font-bold tracking-[0.16em] uppercase text-slate-400'}>
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className={centered ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>

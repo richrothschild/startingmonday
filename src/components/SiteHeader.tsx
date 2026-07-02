@@ -8,7 +8,7 @@ export function SiteHeader({ className = '' }: SiteHeaderProps) {
   return (
     <nav className={`sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl ${className}`.trim()}>
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
+        <Link href="/" className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
           <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
         <div className="flex items-center gap-3 sm:gap-5">
