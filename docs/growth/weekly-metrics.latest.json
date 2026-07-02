@@ -1,22 +1,30 @@
 {
   "source": "posthog",
-  "exported_at": "2026-06-24T07:00:00.000Z",
-  "window_start_iso": "2026-06-16T00:00:00.000Z",
-  "window_end_iso": "2026-06-22T00:00:00.000Z",
-  "period_start": "2026-06-16",
-  "period_end": "2026-06-22",
-  "qualified_signup_rate": 0.074,
-  "hero_cta_ctr": 0.162,
-  "form_start_rate": 0.284,
-  "form_completion_rate": 0.513,
-  "bounce_rate": 0.441,
-  "median_engaged_time_seconds": 68,
-  "scroll_depth_75_rate": 0.371,
+  "exported_at": "2026-07-02T17:09:02.141Z",
+  "window_start_iso": "2026-06-25T00:00:00.000Z",
+  "window_end_iso": "2026-07-02T00:00:00.000Z",
+  "period_start": "2026-06-25",
+  "period_end": "2026-07-01",
+  "qualified_signup_rate": 0,
+  "hero_cta_ctr": 0,
+  "form_start_rate": 0,
+  "form_completion_rate": 0,
+  "bounce_rate": 0,
+  "median_engaged_time_seconds": 0,
+  "scroll_depth_75_rate": 0.3333,
   "section_dwell_median_ms": {
-    "clarity_block": 10240,
-    "proof_block": 7030,
-    "how_it_works_block": 5980,
-    "objection_block": 4670,
-    "final_cta_block": 4210
+    "clarity_block": 0,
+    "proof_block": 0,
+    "how_it_works_block": 0,
+    "objection_block": 0,
+    "final_cta_block": 0
+  },
+  "raw_counts": {
+    "page_views": 3,
+    "hero_apply_beta_clicks": 0,
+    "form_starts": 0,
+    "form_submits": 0,
+    "scroll_depth_25_hits": 4,
+    "scroll_depth_75_hits": 1
   }
 }
