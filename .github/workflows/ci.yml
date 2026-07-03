@@ -996,6 +996,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: github.actor != 'dependabot[bot]'
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v5
@@ -1011,6 +1013,8 @@ jobs:
     name: Dependency vulnerability audit
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v5

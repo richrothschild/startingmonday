@@ -12,6 +12,13 @@ async function ensureMonitoringAnchorCompany(page: Page) {
   if ((await companyLink.count()) > 0) return
 
   await page.goto('/dashboard/companies/new')
+  // If the authenticated form did not render (auth unavailable in this
+  // environment), skip anchor creation instead of failing the whole setup
+  // project - public-only suites do not need it.
+  const nameInput = page.locator('input[name="name"]')
+  const formReady = await nameInput.waitFor({ state: 'visible', timeout: 10_000 }).then(() => true).catch(() => false)
+  if (!formReady) return
+
   await page.fill('input[name="name"]', 'Synthetic Monitoring Anchor')
   await page.selectOption('select[name="stage"]', 'interviewing')
   await page.fill('input[name="sector"]', 'Technology')
