@@ -69,6 +69,7 @@ const faqJsonLd = {
 export default function ExecutiveSearchAiConfidentialityReportPage() {
   return (
     <>
+        <h1 className="sr-only">Starting Monday</h1>
       <JsonLd data={faqJsonLd} />
       <BlogPost
         title="Executive Search, AI, and Confidentiality: 2026 Public Edition"

@@ -41,6 +41,7 @@ export default function ExecutiveOutreachResponseRatePage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Executive outreach is usually ignored for structural reasons: low context, generic value framing, or poor timing relative to role pressure.

@@ -41,6 +41,7 @@ export default function WhyStartingMondayExistsPage() {
         note: 'No credit card required to start.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>

@@ -12,6 +12,7 @@ const EVENT_PROPERTIES = {
 export function CoachPreviewActions() {
   return (
     <div className="space-y-2.5">
+
       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-200">Choose your start lane</p>
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
         <TrackLink

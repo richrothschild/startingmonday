@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -134,7 +134,7 @@ export default function MarkBusinessPlanPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/mark-review" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Back to Mark review brief">
+          <Link href="/mark-review" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase" aria-label="Back to Mark review brief">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -254,7 +254,7 @@ export default function MarkBusinessPlanPage() {
             <ul className="space-y-2.5">
               {MISSING_FOR_DECISION.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-blue-700 mt-0.5">•</span>
+                  <span className="text-blue-700 mt-0.5">â€¢</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -273,7 +273,10 @@ export default function MarkBusinessPlanPage() {
             </ol>
           </section>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

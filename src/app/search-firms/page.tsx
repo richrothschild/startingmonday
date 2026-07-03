@@ -70,7 +70,7 @@ export default function SearchFirmsPage() {
 
       <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] text-white transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] text-white transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">

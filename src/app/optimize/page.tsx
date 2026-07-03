@@ -190,7 +190,7 @@ export default function OptimizePage() {
       {/* Nav */}
       <header className="bg-slate-950">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200 hover:text-slate-200 transition-colors">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-200 hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -368,9 +368,12 @@ export default function OptimizePage() {
           {' '}&middot;{' '}
           <Link href="/terms" className="hover:text-slate-600 transition-colors">Terms</Link>
         </p>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
 
       </main>
     </div>
   )
 }
+

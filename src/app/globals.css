@@ -15,6 +15,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-playfair-display);
 }
 
 body {
@@ -93,4 +94,8 @@ body {
 .dashboard-landing-theme .text-slate-400,
 .dashboard-landing-theme .text-slate-300 {
   color: #94a3b8 !important;
+}
+
+.font-display {
+  font-family: var(--font-playfair-display), Georgia, "Times New Roman", serif;
 }

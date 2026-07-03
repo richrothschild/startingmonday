@@ -41,6 +41,7 @@ export default function ExecutiveOrganizationalVisibilityPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Executive visibility is not self-promotion. It is consistent, context-aware communication that helps decision-makers reduce uncertainty.

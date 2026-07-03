@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 const POSITIONING = [
   'Michael Torres is a VP-level enterprise IT operator who wins in high-complexity integration environments.',
@@ -34,7 +34,7 @@ export default function MichaelStrategyBriefPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-950 sticky top-0 z-10 border-b border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase" aria-label="Go to Starting Monday homepage">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase" aria-label="Go to Starting Monday homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -67,7 +67,7 @@ export default function MichaelStrategyBriefPage() {
             <ul className="space-y-2.5">
               {POSITIONING.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-orange-500 mt-0.5">•</span>
+                  <span className="text-orange-500 mt-0.5">â€¢</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -101,7 +101,10 @@ export default function MichaelStrategyBriefPage() {
             </Link>
           </section>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

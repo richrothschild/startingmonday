@@ -35,6 +35,7 @@ export default function CioBoardPresentationPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cio-board-presentation"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The first board presentation as a new CIO is not a technology briefing. The audience has

@@ -35,6 +35,7 @@ export default function VpToCioTransitionPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/vp-to-cio-transition"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The executives who make the VP-to-CIO move well understand something that the ones who stall do not: it is

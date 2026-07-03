@@ -57,9 +57,9 @@ export default async function ForLeadersPage() {
           <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">For leaders</p>
-              <h1 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
+              <h2 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
                 Create your next role before someone else does.
-              </h1>
+              </h2>
               <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate-200/90">
                 Find the role first. Talk to the right people. Follow a clear plan.
               </p>

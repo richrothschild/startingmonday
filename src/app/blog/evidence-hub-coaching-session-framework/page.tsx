@@ -41,6 +41,7 @@ export default function EvidenceHubCoachingSessionFrameworkPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>Weekly coaching is strongest when each session maps evidence to one decision and one execution commitment.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">Session design</h2>

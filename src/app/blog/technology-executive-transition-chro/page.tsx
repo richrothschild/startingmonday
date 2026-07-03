@@ -28,6 +28,7 @@ export default function TechnologyExecutiveTransitionChroPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/technology-executive-transition-chro"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most outplacement programs were not designed for technology executive searches.

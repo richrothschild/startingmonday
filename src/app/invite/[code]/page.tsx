@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const metadata = { title: 'Join Starting Monday' }
@@ -24,7 +24,7 @@ export default async function InvitePage({
     <div className="min-h-screen bg-slate-950 font-sans flex flex-col">
 
       <header className="px-6 h-14 flex items-center">
-        <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 hover:text-slate-200 transition-colors">
+        <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-600 hover:text-slate-200 transition-colors">
           <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
       </header>
@@ -78,7 +78,10 @@ export default async function InvitePage({
           </div>
 
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

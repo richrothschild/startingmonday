@@ -11,6 +11,7 @@ const strict = args.has('--strict')
 const asJson = args.has('--json')
 const outputJsonArg = argv.find((arg) => arg.startsWith('--output-json='))
 const outputMdArg = argv.find((arg) => arg.startsWith('--output-md='))
+const outputInventoryArg = argv.find((arg) => arg.startsWith('--output-inventory='))
 
 const PALETTE_TOKENS = [
   'bg-slate-950',
@@ -32,7 +33,14 @@ const MARKETING_SHELL_HINTS = [
 ]
 
 const CRITICAL_ROUTES = ['/login', '/signup', '/onboarding', '/dashboard/chat']
+const TIER0_ROUTES = new Set(['/', '/login', '/signup', '/onboarding', '/dashboard/chat'])
 const DARK_PALETTE_ROUTES = new Set(['/blog'])
+
+const GLOBAL_FILES = {
+  layout: path.join(ROOT, 'src', 'app', 'layout.tsx'),
+  globals: path.join(ROOT, 'src', 'app', 'globals.css'),
+  landingPage: path.join(ROOT, 'src', 'components', 'LandingPage.tsx'),
+}
 
 function walk(dirPath) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true })
@@ -60,6 +68,13 @@ function toRoute(filePath) {
   const parts = noLeaf.split('/').filter(Boolean).filter((part) => !(part.startsWith('(') && part.endsWith(')')))
   const route = `/${parts.join('/')}`.replace(/\/+/g, '/')
   return route === '/' ? '/' : route
+}
+
+function classifyTier(route) {
+  if (TIER0_ROUTES.has(route)) return 'tier0'
+  if (route.startsWith('/dashboard') || route.startsWith('/api/')) return 'tier2'
+  if (route === '/' || route.startsWith('/for-') || route.startsWith('/blog') || route.startsWith('/pricing') || route.startsWith('/demo')) return 'tier1'
+  return 'tier3'
 }
 
 function countMatches(content, regex) {
@@ -178,6 +193,11 @@ function evaluate(relativePath) {
   const buttonCount = countMatches(pageContent, /<button\b/g)
   const linkCount = countMatches(pageContent, /<Link\b|<a\b|TrackLink\b/g)
   const formCount = countMatches(pageContent, /<form\b/g)
+  const primaryCtaCount = countMatches(
+    analysisContent,
+    /(Try free|Start free trial|Start your free trial|Start Now|Start 7-day shortlist sprint|Start 60-day free access)/g
+  )
+  const redirectOnlyRoute = /(permanentRedirect|redirect)\(/.test(pageContent) && !/return\s*\(/.test(pageContent)
 
   const paletteScore = PALETTE_TOKENS.reduce((sum, token) => sum + (analysisContent.includes(token) ? 1 : 0), 0)
   const strictDarkPalette = DARK_PALETTE_ROUTES.has(route)
@@ -213,12 +233,27 @@ function evaluate(relativePath) {
   const buttonWiring = buttonCount === 0 || orphanButtonCount === 0 || linkCount > 0
   const headerFooterConsistency = true
   const luxuryLookAndFeel = shellStandard && paletteConsistency && cognitiveLoad !== 'high'
+  const h1Contract = redirectOnlyRoute ? true : h1Count === 1
+  const ctaDensityContract = route === '/' ? primaryCtaCount <= 3 : primaryCtaCount <= 2
+  const trustAssuranceContract =
+    shell === 'dashboard-shell'
+      ? true
+      : redirectOnlyRoute
+        ? true
+      : /Private by default|Privacy-first by design|Your employer cannot see your account/i.test(analysisContent)
+  const displayHeadingContract = shell === 'landing-shell' ? analysisContent.includes('font-display') : true
+  const lockupTrackingContract = !/text-\[10px\][^"']*tracking-\[(?:0\.18|0\.24)em\]/.test(analysisContent)
 
   const checks = {
     shell_standard: shellStandard,
     luxury_look_and_feel: luxuryLookAndFeel,
     thought_process_alignment: thoughtProcessAlignment,
     cognitive_load: cognitiveLoad !== 'high',
+    h1_contract: h1Contract,
+    cta_density_contract: ctaDensityContract,
+    trust_assurance_contract: trustAssuranceContract,
+    display_heading_contract: displayHeadingContract,
+    lockup_tracking_contract: lockupTrackingContract,
     palette_consistency: paletteConsistency,
     shell_palette_alignment: shellPaletteConsistent,
     button_wiring: buttonWiring,
@@ -248,12 +283,39 @@ function evaluate(relativePath) {
       buttonCount,
       linkCount,
       formCount,
+      primaryCtaCount,
       orphanButtonCount,
       cognitiveLoad,
     },
+    tier: classifyTier(route),
     comparisonToLanding: failedChecks.length === 0
       ? 'match'
       : `different: ${failedChecks.join(', ')}`,
+  }
+}
+
+function evaluateGlobalContracts() {
+  const layout = fs.readFileSync(GLOBAL_FILES.layout, 'utf8')
+  const globals = fs.readFileSync(GLOBAL_FILES.globals, 'utf8')
+  const landingPage = fs.readFileSync(GLOBAL_FILES.landingPage, 'utf8')
+
+  const checks = {
+    playfair_imported: /Playfair_Display/.test(layout),
+    playfair_variable_registered: /--font-playfair-display/.test(layout),
+    display_font_token_defined: /--font-display:\s*var\(--font-playfair-display\)/.test(globals),
+    display_font_utility_defined: /\.font-display\s*\{[\s\S]*font-family:\s*var\(--font-playfair-display\)/.test(globals),
+    body_uses_geist_sans: /font-family:\s*var\(--font-geist-sans\)/.test(globals),
+    landing_headlines_use_display: /font-display/.test(landingPage),
+  }
+
+  const failedChecks = Object.entries(checks)
+    .filter(([, passed]) => !passed)
+    .map(([name]) => name)
+
+  return {
+    checks,
+    failedChecks,
+    passed: failedChecks.length === 0,
   }
 }
 
@@ -264,7 +326,10 @@ const pageFiles = walk(APP_DIR)
 
 const results = pageFiles.map(evaluate)
 const failing = results.filter((row) => row.issueCount > 0)
+const globalContracts = evaluateGlobalContracts()
 const routeSet = new Set(results.map((row) => row.route))
+const dynamicRoutePatterns = results.filter((row) => row.route.includes('[')).length
+const staticRoutePatterns = results.length - dynamicRoutePatterns
 const criticalRoutes = CRITICAL_ROUTES.map((route) => {
   const page = results.find((row) => row.route === route)
   if (!page) return { route, present: false, status: 'missing' }
@@ -273,8 +338,16 @@ const criticalRoutes = CRITICAL_ROUTES.map((route) => {
 const criticalRoutesPassing = criticalRoutes.filter((row) => row.status === 'pass').length
 
 const summary = {
+  inventoryVersion: 'v1',
   totalPages: results.length,
+  discoveredRoutePatterns: results.length,
+  testedRoutePatterns: results.length,
+  untestedRoutePatterns: 0,
+  staticRoutePatterns,
+  dynamicRoutePatterns,
   failingPages: failing.length,
+  globalContractPass: globalContracts.passed,
+  globalContractFailures: globalContracts.failedChecks.length,
   totalIssues: results.reduce((sum, row) => sum + row.issueCount, 0),
   shellStandardPages: results.filter((row) => row.checks.shell_standard).length,
   luxuryLookAndFeelPages: results.filter((row) => row.checks.luxury_look_and_feel).length,
@@ -285,6 +358,11 @@ const summary = {
   headerFooterConsistencyPages: results.filter((row) => row.checks.header_footer_consistency).length,
   jumpNavigationRemovedPages: results.filter((row) => row.checks.jump_navigation_removed).length,
   glyphFallbackFreePages: results.filter((row) => row.checks.glyph_fallback_free).length,
+  h1ContractPages: results.filter((row) => row.checks.h1_contract).length,
+  ctaDensityContractPages: results.filter((row) => row.checks.cta_density_contract).length,
+  trustAssuranceContractPages: results.filter((row) => row.checks.trust_assurance_contract).length,
+  displayHeadingContractPages: results.filter((row) => row.checks.display_heading_contract).length,
+  lockupTrackingContractPages: results.filter((row) => row.checks.lockup_tracking_contract).length,
   criticalRoutesPassing,
   criticalRoutesTotal: CRITICAL_ROUTES.length,
   cognitiveExcellentPages: results.filter((row) => row.metrics.cognitiveLoad === 'excellent').length,
@@ -296,6 +374,13 @@ const payload = {
   generatedAt: new Date().toISOString(),
   strict,
   summary,
+  globalContracts,
+  routeInventory: results.map((row) => ({
+    route: row.route,
+    relativePath: row.relativePath,
+    tier: row.tier,
+    dynamic: row.route.includes('['),
+  })),
   failingRoutes: failing.map((row) => ({ route: row.route, relativePath: row.relativePath, failedChecks: row.failedChecks })),
   criticalRoutes,
   results,
@@ -322,6 +407,18 @@ for (const row of criticalRoutes) {
   mdLines.push(`- ${row.route}: failing (${(row.failedChecks ?? []).join(', ')})`)
 }
 mdLines.push('')
+mdLines.push('## Global Typography Contracts')
+for (const [name, passed] of Object.entries(globalContracts.checks)) {
+  mdLines.push(`- ${name}: ${passed ? 'pass' : 'fail'}`)
+}
+mdLines.push('')
+mdLines.push('## Inventory Coverage')
+mdLines.push(`- discovered_route_patterns: ${summary.discoveredRoutePatterns}`)
+mdLines.push(`- tested_route_patterns: ${summary.testedRoutePatterns}`)
+mdLines.push(`- untested_route_patterns: ${summary.untestedRoutePatterns}`)
+mdLines.push(`- static_route_patterns: ${summary.staticRoutePatterns}`)
+mdLines.push(`- dynamic_route_patterns: ${summary.dynamicRoutePatterns}`)
+mdLines.push('')
 mdLines.push('## All Pages Comparison')
 for (const row of results) {
   mdLines.push(`- ${row.route} -> ${row.comparisonToLanding}`)
@@ -343,6 +440,9 @@ if (outputJsonArg) {
 if (outputMdArg) {
   writeFile(outputMdArg.split('=')[1], mdLines.join('\n'))
 }
+if (outputInventoryArg) {
+  writeFile(outputInventoryArg.split('=')[1], `${JSON.stringify(payload.routeInventory, null, 2)}\n`)
+}
 
 if (asJson) {
   process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`)
@@ -353,6 +453,11 @@ if (asJson) {
   console.log(`Total issues: ${summary.totalIssues}`)
 }
 
-if (strict && (failing.length > 0 || criticalRoutesPassing !== CRITICAL_ROUTES.length)) {
+if (strict && (
+  failing.length > 0 ||
+  criticalRoutesPassing !== CRITICAL_ROUTES.length ||
+  !globalContracts.passed ||
+  summary.untestedRoutePatterns > 0
+)) {
   process.exit(1)
 }

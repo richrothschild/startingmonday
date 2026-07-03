@@ -41,6 +41,7 @@ export default function ExecutiveSearchReadinessAuditPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Search readiness determines whether your first month creates momentum or noise. A short audit usually prevents expensive resets.

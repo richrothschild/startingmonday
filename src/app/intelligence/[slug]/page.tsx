@@ -254,7 +254,9 @@ export default async function IntelligencePage({
           <Link href="/" className="hover:text-slate-700 transition-colors">Starting Monday</Link>
           {' '}&middot;{' '}Executive intelligence for active job seekers
         </p>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }

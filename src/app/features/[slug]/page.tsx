@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MarkdownArticle } from '@/components/docs/MarkdownArticle'
@@ -59,7 +59,7 @@ export default async function FeatureDocPage({ params }: FeatureDocPageProps) {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.12),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_48%,_#111827_100%)] text-slate-100">
       <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-300">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 text-[13px]">
@@ -78,7 +78,7 @@ export default async function FeatureDocPage({ params }: FeatureDocPageProps) {
             </div>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-white">{doc.title}</h1>
             <p className="mt-2 text-[14px] text-slate-300">{doc.summary}</p>
-            <p className="mt-2 text-[12px] text-slate-400">{doc.lineCount} lines · {doc.headingCount} headings · updated {formatDate(doc.updatedAt)}</p>
+            <p className="mt-2 text-[12px] text-slate-400">{doc.lineCount} lines Â· {doc.headingCount} headings Â· updated {formatDate(doc.updatedAt)}</p>
           </div>
 
           <MarkdownArticle markdown={doc.content} />
@@ -107,6 +107,8 @@ export default async function FeatureDocPage({ params }: FeatureDocPageProps) {
             </section>
           ) : null}
         </aside>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )

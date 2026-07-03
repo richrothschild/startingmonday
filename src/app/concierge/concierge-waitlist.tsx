@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
@@ -121,7 +121,7 @@ export function ConciergeWaitlist() {
       )}
       <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-900 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
@@ -364,7 +364,7 @@ export function ConciergeWaitlist() {
 
       <footer className={premiumEnabled ? 'border-t border-white/10 bg-slate-950/78 px-4 sm:px-6 py-8 backdrop-blur-xl' : 'bg-slate-900 border-t border-slate-800 px-4 sm:px-6 py-8'}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
@@ -378,3 +378,4 @@ export function ConciergeWaitlist() {
     </div>
   )
 }
+

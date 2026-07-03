@@ -467,7 +467,7 @@ export function CioDemoClient() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-slate-950 border-b border-slate-900 sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-white hover:opacity-80 transition-opacity">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-4">
@@ -782,4 +782,5 @@ export function CioDemoClient() {
     </div>
   )
 }
+
 

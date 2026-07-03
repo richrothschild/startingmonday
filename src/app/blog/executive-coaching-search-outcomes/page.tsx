@@ -42,6 +42,7 @@ export default function ExecutiveCoachingSearchOutcomesPage() {
         note: 'No credit card required.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Short answer: coaching improves outcomes most when paired with clear commitments, measurable weekly cadence, and role-specific preparation.

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CapabilityDisclosure } from '@/components/CapabilityDisclosure'
 
@@ -52,7 +52,7 @@ const SPONSOR_FAQ = [
   },
   {
     q: 'What evidence do you have that this works?',
-    a: 'Jan-May 2026 pilot cohort (n=27): 81% reached a first interview within 30 days, 9-day median to first qualified outreach. Session strategy time increased from an observed 45–55% to 65–80% of session time. All metrics disclosed with methodology notes.',
+    a: 'Jan-May 2026 pilot cohort (n=27): 81% reached a first interview within 30 days, 9-day median to first qualified outreach. Session strategy time increased from an observed 45â€“55% to 65â€“80% of session time. All metrics disclosed with methodology notes.',
   },
 ]
 
@@ -69,7 +69,7 @@ export default function ChroSponsorPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-slate-900">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -167,7 +167,7 @@ export default function ChroSponsorPage() {
               <details key={item.q} className="rounded-xl border border-slate-200 overflow-hidden group">
                 <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none">
                   <p className="text-[14px] font-semibold text-slate-900">{item.q}</p>
-                  <span className="text-slate-400 flex-shrink-0 mt-0.5 group-open:rotate-180 transition-transform">↓</span>
+                  <span className="text-slate-400 flex-shrink-0 mt-0.5 group-open:rotate-180 transition-transform">â†“</span>
                 </summary>
                 <div className="px-5 pb-5 border-t border-slate-100">
                   <p className="text-[13px] text-slate-600 leading-relaxed pt-3">{item.a}</p>
@@ -187,7 +187,10 @@ export default function ChroSponsorPage() {
             Request partner brief
           </Link>
         </section>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

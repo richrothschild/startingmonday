@@ -49,9 +49,9 @@ const SPECS = [
 					matcher: 'Reputation opens doors. Timing decides outcomes.',
 			},
 			{
-				id: 'conversion-path-buttons',
-					description: 'Homepage exposes the two top-level path buttons.',
-					matcher: /Executives[\s\S]*Partners(?![\s\S]*Coaches)/,
+				id: 'conversion-unified-method-flow',
+				description: 'Homepage uses one consolidated method section heading.',
+				matcher: 'How The Monday Engine Works',
 			},
 			{
 				id: 'content-economy-no-signal-preview-block',
@@ -64,9 +64,9 @@ const SPECS = [
 				matcher: /Key takeaway:/i,
 			},
 			{
-				id: 'discoverability-learn-more-route',
-				description: 'Homepage learn-more CTA routes to dedicated learn-more page.',
-				matcher: 'href="/learn-more"',
+				id: 'discoverability-evidence-route',
+				description: 'Homepage evidence CTA routes to early-signals anchor.',
+				matcher: 'href="/evidence-hub#early-signals"',
 			},
 			{
 				id: 'trust-private-by-default-expanded',

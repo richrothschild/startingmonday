@@ -19,6 +19,7 @@ export default function PilotOutreachForm() {
 
   return (
     <form className="max-w-lg mx-auto bg-white border border-slate-200 rounded-lg shadow p-8 mt-12" onSubmit={handleSubmit}>
+      <h1 className="sr-only">Pilot Outreach</h1>
       <h2 className="text-2xl font-bold mb-4 text-slate-900">Pilot Outreach</h2>
       <p className="mb-6 text-slate-600">Request a pilot or partnership. We'll get back to you within 1 business day.</p>
       <div className="mb-4">

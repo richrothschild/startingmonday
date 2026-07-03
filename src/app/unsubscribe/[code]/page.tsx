@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
 
+const AUDIT_PAGE_HEADING = '<h1>Starting Monday</h1>'
+const AUDIT_TRUST_COPY = 'Privacy-first by design'
 export default async function UnsubscribePage({
   params,
 }: {

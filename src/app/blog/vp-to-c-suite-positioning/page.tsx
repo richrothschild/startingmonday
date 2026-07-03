@@ -41,6 +41,7 @@ export default function VPToCSuitePositioningPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           VP-to-C-suite transition success depends on narrative scale. The panel must see enterprise-level scope, not only team-level excellence.

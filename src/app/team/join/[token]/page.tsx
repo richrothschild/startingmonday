@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -23,7 +23,7 @@ export default async function TeamJoinPage({
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100 font-sans">
         <div className="text-center px-6">
-          <h1 className="text-[20px] font-bold text-slate-900 mb-2">Invite not available</h1>
+          <h2 className="text-[20px] font-bold text-slate-900 mb-2">Invite not available</h2>
           <p className="text-[15px] font-semibold text-slate-700 mb-3">This invite link is invalid or expired.</p>
           <Link href="/" className="text-[13px] text-slate-500 underline underline-offset-2">Go to startingmonday.app</Link>
         </div>
@@ -35,7 +35,7 @@ export default async function TeamJoinPage({
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100 font-sans">
         <div className="text-center px-6">
-          <h1 className="text-[20px] font-bold text-slate-900 mb-2">Invite already accepted</h1>
+          <h2 className="text-[20px] font-bold text-slate-900 mb-2">Invite already accepted</h2>
           <p className="text-[15px] font-semibold text-slate-700 mb-3">This invite has already been accepted.</p>
           <Link href="/dashboard" className="text-[13px] font-semibold text-orange-500">Go to dashboard &rarr;</Link>
         </div>
@@ -97,7 +97,7 @@ export default async function TeamJoinPage({
   return (
     <div className="min-h-screen bg-slate-950 font-sans flex flex-col">
       <header className="px-6 h-14 flex items-center">
-        <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+        <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
           <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
       </header>
@@ -160,7 +160,10 @@ export default async function TeamJoinPage({
           )}
           </section>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

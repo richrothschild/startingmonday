@@ -68,6 +68,7 @@ const PARTNER_CHOICES = [
 export default function PartnerFirmPage() {
   return (
     <>
+        <h1 className="sr-only">Starting Monday</h1>
       <LandingPage
         hero={{
           eyebrow: 'Partner and firm lane selection',

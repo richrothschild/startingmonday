@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function CIODemoPage() {
   return (
     <>
+        <p className="sr-only">Privacy-first by design.</p>
       <section className="sr-only" aria-label="CIO demo summary">
         <h1>Kenneth Kicia CIO demo</h1>
         <p>Trust and confidentiality: this page is private demo content, not indexed by search engines, and intended for confidential review.</p>

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { DemoContent } from '../page'
@@ -25,10 +25,10 @@ const STEPS = [
 ]
 
 const TALK_TRACK = [
-  '1. “This is the infrastructure layer for a CIO search.”',
-  '2. “It tells you what changed, who to contact, and how to prep before the meeting.”',
-  '3. “The brief auto-generates, so the team is never building this from scratch.”',
-  '4. “The goal is a better search campaign, not another job board.”',
+  '1. â€œThis is the infrastructure layer for a CIO search.â€',
+  '2. â€œIt tells you what changed, who to contact, and how to prep before the meeting.â€',
+  '3. â€œThe brief auto-generates, so the team is never building this from scratch.â€',
+  '4. â€œThe goal is a better search campaign, not another job board.â€',
 ]
 
 export default function PresenterDemoPage() {
@@ -36,7 +36,7 @@ export default function PresenterDemoPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-slate-950 border-b border-slate-900 sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-white hover:opacity-80 transition-opacity">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-4">
@@ -137,3 +137,4 @@ export default function PresenterDemoPage() {
     </div>
   )
 }
+

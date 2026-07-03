@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoachPreviewActions } from '../coach-preview-actions'
 import { CoachValueNudge } from '@/components/CoachValueNudge'
@@ -47,7 +47,7 @@ export default function CoachEconomicsPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <Link href="/for-coaches" className="text-[13px] text-slate-200 hover:text-white transition-colors">
@@ -201,7 +201,10 @@ export default function CoachEconomicsPage() {
             </Link>
           </div>
         </section>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

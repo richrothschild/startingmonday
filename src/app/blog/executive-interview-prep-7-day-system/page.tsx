@@ -41,6 +41,7 @@ export default function ExecutiveInterviewPrep7DaySystemPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Executive interview performance is mostly determined before the interview starts. The biggest differentiator is preparation depth, not improvisation skill.

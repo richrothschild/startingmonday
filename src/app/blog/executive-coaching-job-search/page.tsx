@@ -28,6 +28,7 @@ export default function ExecutiveCoachingJobSearchPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/executive-coaching-job-search"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           There is a moment that happens in almost every executive coaching engagement focused on a

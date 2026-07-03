@@ -42,6 +42,7 @@ export default function ExecutiveResumeGapsPage() {
         note: 'Free for 30 days. No credit card.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The first person to read your resume in a retained search is not the partner. It is an

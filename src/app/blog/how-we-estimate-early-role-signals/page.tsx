@@ -35,6 +35,7 @@ export default function EarlyRoleSignalsMethodPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/how-we-estimate-early-role-signals"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>

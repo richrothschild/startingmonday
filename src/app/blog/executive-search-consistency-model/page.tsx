@@ -42,6 +42,7 @@ export default function ExecutiveSearchConsistencyModelPage() {
         note: 'No credit card required.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Short answer: in executive search, consistency outperforms intensity because opportunities emerge over a long and uneven timeline.

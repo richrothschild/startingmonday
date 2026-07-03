@@ -41,6 +41,7 @@ export default function EvidenceBasedExecutiveNetworkingPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Executive networking improves when it is treated as an operating cadence with explicit goals by contact tier.

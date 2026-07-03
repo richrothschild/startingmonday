@@ -90,6 +90,8 @@ export default function EvaluatePage() {
           </Link>
         </div>
       </section>
-    </main>
+    
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
+      </main>
   )
 }

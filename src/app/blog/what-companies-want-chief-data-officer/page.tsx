@@ -35,6 +35,7 @@ export default function WhatCompaniesWantChiefDataOfficerPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/what-companies-want-chief-data-officer"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Read a Chief Data Officer job description and you will find a list of platforms, a paragraph about

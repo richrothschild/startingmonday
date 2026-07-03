@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default function HandshakeReviewPage() {
 
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/78 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -144,7 +144,10 @@ export default function HandshakeReviewPage() {
             </Link>
           </div>
         </div>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }
+

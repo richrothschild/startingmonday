@@ -28,6 +28,7 @@ export default function VpJobSearchDifferentRulesPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/vp-job-search-different-rules"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most job search advice is built around a transparent market. Roles are posted.

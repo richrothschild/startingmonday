@@ -1,0 +1,2934 @@
+{
+  "generatedAt": "2026-07-03T14:18:08.147Z",
+  "sourceAuditFile": "tmp/site-style-audit.json",
+  "sourceInventoryFile": "tmp/site-route-inventory.json",
+  "branch": "staging",
+  "summary": {
+    "totalPages": 291,
+    "discoveredRoutePatterns": 291,
+    "testedRoutePatterns": 291,
+    "untestedRoutePatterns": 0,
+    "failingPages": 0,
+    "totalIssues": 0,
+    "h1ContractPages": 291,
+    "ctaDensityContractPages": 291,
+    "trustAssuranceContractPages": 291,
+    "lockupTrackingContractPages": 291,
+    "criticalRoutesPassing": 4,
+    "criticalRoutesTotal": 4,
+    "changedPageFilesInWorkingTree": 187,
+    "unchangedPageFilesInWorkingTree": 104
+  },
+  "rows": [
+    {
+      "route": "/",
+      "relativePath": "src/app/page.tsx",
+      "tier": "tier0",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/about",
+      "relativePath": "src/app/about/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/alumni-networks-review",
+      "relativePath": "src/app/alumni-networks-review/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/annual-report-2026",
+      "relativePath": "src/app/annual-report-2026/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/annual-report-2026/executive-search-ai-confidentiality",
+      "relativePath": "src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog",
+      "relativePath": "src/app/blog/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/c-suite-search-90-day-plan",
+      "relativePath": "src/app/blog/c-suite-search-90-day-plan/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/c-suite-search-weekly-metrics",
+      "relativePath": "src/app/blog/c-suite-search-weekly-metrics/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "relativePath": "src/app/blog/cio-board-presentation/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "relativePath": "src/app/blog/cio-compensation-negotiation/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/blog/cio-job-search-timeline",
+      "relativePath": "src/app/blog/cio-job-search-timeline/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cio-search-signal-story-sequence",
+      "relativePath": "src/app/blog/cio-search-signal-story-sequence/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cio-vs-cto-which-role",
+      "relativePath": "src/app/blog/cio-vs-cto-which-role/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/ciso-interview-preparation",
+      "relativePath": "src/app/blog/ciso-interview-preparation/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/confidential-executive-search-pipeline",
+      "relativePath": "src/app/blog/confidential-executive-search-pipeline/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cto-job-search-timeline",
+      "relativePath": "src/app/blog/cto-job-search-timeline/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/cto-vs-vp-engineering-career-path",
+      "relativePath": "src/app/blog/cto-vs-vp-engineering-career-path/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/evaluate-executive-coach-evidence",
+      "relativePath": "src/app/blog/evaluate-executive-coach-evidence/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/evidence-based-executive-networking",
+      "relativePath": "src/app/blog/evidence-based-executive-networking/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/evidence-hub-coaching-session-framework",
+      "relativePath": "src/app/blog/evidence-hub-coaching-session-framework/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-coaching-candidate-infrastructure",
+      "relativePath": "src/app/blog/executive-coaching-candidate-infrastructure/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-coaching-job-search",
+      "relativePath": "src/app/blog/executive-coaching-job-search/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-coaching-search-outcomes",
+      "relativePath": "src/app/blog/executive-coaching-search-outcomes/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-hiring-committee-psychology",
+      "relativePath": "src/app/blog/executive-hiring-committee-psychology/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-hiring-patterns-2026",
+      "relativePath": "src/app/blog/executive-hiring-patterns-2026/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-interview-prep-7-day-system",
+      "relativePath": "src/app/blog/executive-interview-prep-7-day-system/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-job-search-daily-routine",
+      "relativePath": "src/app/blog/executive-job-search-daily-routine/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-organizational-visibility",
+      "relativePath": "src/app/blog/executive-organizational-visibility/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-outreach-response-rate",
+      "relativePath": "src/app/blog/executive-outreach-response-rate/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-resume-gaps",
+      "relativePath": "src/app/blog/executive-resume-gaps/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-consistency-model",
+      "relativePath": "src/app/blog/executive-search-consistency-model/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-firms-cio",
+      "relativePath": "src/app/blog/executive-search-firms-cio/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-operating-system",
+      "relativePath": "src/app/blog/executive-search-operating-system/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-pilot-data-observations",
+      "relativePath": "src/app/blog/executive-search-pilot-data-observations/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-readiness-audit",
+      "relativePath": "src/app/blog/executive-search-readiness-audit/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-risk-register",
+      "relativePath": "src/app/blog/executive-search-risk-register/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-search-timing-signals",
+      "relativePath": "src/app/blog/executive-search-timing-signals/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/executive-transition-success-factors",
+      "relativePath": "src/app/blog/executive-transition-success-factors/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/how-cios-find-jobs",
+      "relativePath": "src/app/blog/how-cios-find-jobs/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/how-we-estimate-early-role-signals",
+      "relativePath": "src/app/blog/how-we-estimate-early-role-signals/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/linkedin-executive-search-strategy",
+      "relativePath": "src/app/blog/linkedin-executive-search-strategy/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/pe-backed-cio",
+      "relativePath": "src/app/blog/pe-backed-cio/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/retained-search-candidate-preparation",
+      "relativePath": "src/app/blog/retained-search-candidate-preparation/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/retained-search-firms",
+      "relativePath": "src/app/blog/retained-search-firms/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/source-backed-executive-career-narrative",
+      "relativePath": "src/app/blog/source-backed-executive-career-narrative/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/target-company-list",
+      "relativePath": "src/app/blog/target-company-list/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/target-company-list-cto",
+      "relativePath": "src/app/blog/target-company-list-cto/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/blog/technology-executive-transition-chro",
+      "relativePath": "src/app/blog/technology-executive-transition-chro/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/vp-job-search-different-rules",
+      "relativePath": "src/app/blog/vp-job-search-different-rules/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/vp-to-c-suite-positioning",
+      "relativePath": "src/app/blog/vp-to-c-suite-positioning/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/vp-to-cio-transition",
+      "relativePath": "src/app/blog/vp-to-cio-transition/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/what-companies-want-chief-data-officer",
+      "relativePath": "src/app/blog/what-companies-want-chief-data-officer/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/why-executive-recruiters-go-quiet",
+      "relativePath": "src/app/blog/why-executive-recruiters-go-quiet/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/blog/why-starting-monday-exists",
+      "relativePath": "src/app/blog/why-starting-monday-exists/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/career-tools",
+      "relativePath": "src/app/career-tools/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/case-studies",
+      "relativePath": "src/app/case-studies/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/channels/feature-map",
+      "relativePath": "src/app/channels/feature-map/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coach/[clientId]/interview",
+      "relativePath": "src/app/(dashboard)/coach/[clientId]/interview/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coach/clients",
+      "relativePath": "src/app/(dashboard)/coach/clients/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/coaches",
+      "relativePath": "src/app/coaches/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches-guide",
+      "relativePath": "src/app/coaches-guide/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/executive-transition-coach-demo",
+      "relativePath": "src/app/coaches/executive-transition-coach-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/mock-dashboard",
+      "relativePath": "src/app/coaches/mock-dashboard/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/objections",
+      "relativePath": "src/app/coaches/objections/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/personas",
+      "relativePath": "src/app/coaches/personas/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/personas/[slug]",
+      "relativePath": "src/app/coaches/personas/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/sample-transition-brief",
+      "relativePath": "src/app/coaches/sample-transition-brief/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/workflow/opportunity-access-demo",
+      "relativePath": "src/app/coaches/workflow/opportunity-access-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/workflow/set-transition-thesis-demo",
+      "relativePath": "src/app/coaches/workflow/set-transition-thesis-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coaches/workflow/weekly-momentum-demo",
+      "relativePath": "src/app/coaches/workflow/weekly-momentum-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/coachos",
+      "relativePath": "src/app/coachos/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/concierge",
+      "relativePath": "src/app/concierge/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/contributor",
+      "relativePath": "src/app/contributor/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard-theme-preview",
+      "relativePath": "src/app/dashboard-theme-preview/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/admin",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/b2b/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/channel-benchmarks",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/diagrams",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/diagrams/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/intelligence",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/intelligence/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/internal-guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/internal-guide/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/onboarding/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/operations",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-cron",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-cron/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-economics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-economics/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/outplacement-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/product",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/product/catalog",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/revenue",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/sales-enablement",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/sales-enablement/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/speakers/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/team",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/team/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/traces",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/traces/rubric",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/admin/wedge-funnels",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/wedge-funnels/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/board-track",
+      "relativePath": "src/app/(dashboard)/dashboard/board-track/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/briefing",
+      "relativePath": "src/app/(dashboard)/dashboard/briefing/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/calendar",
+      "relativePath": "src/app/(dashboard)/dashboard/calendar/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/chat",
+      "relativePath": "src/app/(dashboard)/dashboard/chat/page.tsx",
+      "tier": "tier0",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/coach",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/coach/[clientId]",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/companies/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/companies/[id]/prep",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/new/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/concierge",
+      "relativePath": "src/app/(dashboard)/dashboard/concierge/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/contacts",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/contacts/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/contacts/[id]/edit",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/contacts/[id]/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/discover",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/discover/recommendation/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "tier": "tier2",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "relativePath": "src/app/(dashboard)/dashboard/executive-brief/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/feedback/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/help",
+      "relativePath": "src/app/(dashboard)/dashboard/help/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/invite",
+      "relativePath": "src/app/(dashboard)/dashboard/invite/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/kanban",
+      "relativePath": "src/app/(dashboard)/dashboard/kanban/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/offers",
+      "relativePath": "src/app/(dashboard)/dashboard/offers/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/optionality",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/optionality/branding",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/branding/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/optionality/decision-cockpit",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/decision-cockpit/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/outplacement",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/outplacement/counselor",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/counselor/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/outplacement/enterprise",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/enterprise/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/outplacement/operator",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/operator/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/outplacement/sponsor-report",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/sponsor-report/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/partner",
+      "relativePath": "src/app/(dashboard)/dashboard/partner/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/pilot-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/pilot-outreach/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/placed",
+      "relativePath": "src/app/(dashboard)/dashboard/placed/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/plan",
+      "relativePath": "src/app/(dashboard)/dashboard/plan/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/positioning",
+      "relativePath": "src/app/(dashboard)/dashboard/positioning/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/post-landing",
+      "relativePath": "src/app/(dashboard)/dashboard/post-landing/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/post-search",
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/profile",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/profile/tailor",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/tailor/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/salary",
+      "relativePath": "src/app/(dashboard)/dashboard/salary/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/signals",
+      "relativePath": "src/app/(dashboard)/dashboard/signals/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/start",
+      "relativePath": "src/app/(dashboard)/dashboard/start/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/dashboard/strategy",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/dashboard/wrap-up",
+      "relativePath": "src/app/(dashboard)/dashboard/wrap-up/page.tsx",
+      "tier": "tier2",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo",
+      "relativePath": "src/app/demo/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/cio/notes",
+      "relativePath": "src/app/demo/cio/notes/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/coach-dashboard",
+      "relativePath": "src/app/demo/coach-dashboard/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/executive-brief",
+      "relativePath": "src/app/demo/executive-brief/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/executive-dashboard",
+      "relativePath": "src/app/demo/executive-dashboard/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/leader-brief",
+      "relativePath": "src/app/demo/leader-brief/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/demo/manager-tools",
+      "relativePath": "src/app/demo/manager-tools/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/demo/michael-dashboard",
+      "relativePath": "src/app/demo/michael-dashboard/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/michael-strategy-brief",
+      "relativePath": "src/app/demo/michael-strategy-brief/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/prep-communications",
+      "relativePath": "src/app/demo/prep-communications/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/prep-companies",
+      "relativePath": "src/app/demo/prep-companies/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/prep-interview",
+      "relativePath": "src/app/demo/prep-interview/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/prep-meetings",
+      "relativePath": "src/app/demo/prep-meetings/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/presenter",
+      "relativePath": "src/app/demo/presenter/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/demo/wedge-30s",
+      "relativePath": "src/app/demo/wedge-30s/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/evaluate",
+      "relativePath": "src/app/evaluate/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/evidence-hub",
+      "relativePath": "src/app/evidence-hub/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/evidence-room",
+      "relativePath": "src/app/evidence-room/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/executive-brief",
+      "relativePath": "src/app/executive-brief/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/executives",
+      "relativePath": "src/app/executives/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/executives/active",
+      "relativePath": "src/app/executives/active/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/executives/passive",
+      "relativePath": "src/app/executives/passive/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/executives/personas",
+      "relativePath": "src/app/executives/personas/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/executives/personas/[slug]",
+      "relativePath": "src/app/executives/personas/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/features",
+      "relativePath": "src/app/features/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/features/[slug]",
+      "relativePath": "src/app/features/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/feedback",
+      "relativePath": "src/app/feedback/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-cdo",
+      "relativePath": "src/app/for-cdo/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-chro",
+      "relativePath": "src/app/for-chro/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-cio",
+      "relativePath": "src/app/for-cio/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-cio-associations",
+      "relativePath": "src/app/for-cio-associations/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-ciso",
+      "relativePath": "src/app/for-ciso/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-coaches",
+      "relativePath": "src/app/for-coaches/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/coach-prep-worksheet",
+      "relativePath": "src/app/for-coaches/coach-prep-worksheet/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/economics",
+      "relativePath": "src/app/for-coaches/economics/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/faq",
+      "relativePath": "src/app/for-coaches/faq/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/micro-products",
+      "relativePath": "src/app/for-coaches/micro-products/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/micro-products/[slug]",
+      "relativePath": "src/app/for-coaches/micro-products/[slug]/page.tsx",
+      "tier": "tier1",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/search-affiliate",
+      "relativePath": "src/app/for-coaches/search-affiliate/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coaches/trust-pack",
+      "relativePath": "src/app/for-coaches/trust-pack/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-coo",
+      "relativePath": "src/app/for-coo/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-cpo",
+      "relativePath": "src/app/for-cpo/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-data-officer",
+      "relativePath": "src/app/for-data-officer/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-executives",
+      "relativePath": "src/app/for-executives/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-executives/[lane]",
+      "relativePath": "src/app/for-executives/[lane]/page.tsx",
+      "tier": "tier1",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-financial-advisors",
+      "relativePath": "src/app/for-financial-advisors/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-fractional-executives",
+      "relativePath": "src/app/for-fractional-executives/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-individuals",
+      "relativePath": "src/app/for-individuals/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-leaders",
+      "relativePath": "src/app/for-leaders/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-media-partners",
+      "relativePath": "src/app/for-media-partners/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement",
+      "relativePath": "src/app/for-outplacement/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/economics",
+      "relativePath": "src/app/for-outplacement/economics/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/executive-summary",
+      "relativePath": "src/app/for-outplacement/executive-summary/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/faq",
+      "relativePath": "src/app/for-outplacement/faq/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/metric-dictionary",
+      "relativePath": "src/app/for-outplacement/metric-dictionary/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/operating-scorecard",
+      "relativePath": "src/app/for-outplacement/operating-scorecard/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/runbook",
+      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/security-overview",
+      "relativePath": "src/app/for-outplacement/security-overview/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-outplacement/trust-pack",
+      "relativePath": "src/app/for-outplacement/trust-pack/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-pe-partners",
+      "relativePath": "src/app/for-pe-partners/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-pe-teams",
+      "relativePath": "src/app/for-pe-teams/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-relocation",
+      "relativePath": "src/app/for-relocation/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/for-search-firms",
+      "relativePath": "src/app/for-search-firms/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-vp",
+      "relativePath": "src/app/for-vp/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/for-vp-technology",
+      "relativePath": "src/app/for-vp-technology/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/founder-note",
+      "relativePath": "src/app/founder-note/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/guide",
+      "relativePath": "src/app/guide/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/handshake-review",
+      "relativePath": "src/app/handshake-review/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/ideas",
+      "relativePath": "src/app/ideas/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/individuals",
+      "relativePath": "src/app/individuals/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/invite/[code]",
+      "relativePath": "src/app/invite/[code]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/learn-more",
+      "relativePath": "src/app/learn-more/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/learn-more/common-questions",
+      "relativePath": "src/app/learn-more/common-questions/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/learn-more/inside-the-system",
+      "relativePath": "src/app/learn-more/inside-the-system/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/learn-more/objections",
+      "relativePath": "src/app/learn-more/objections/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/login",
+      "relativePath": "src/app/(auth)/login/page.tsx",
+      "tier": "tier0",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/managertools",
+      "relativePath": "src/app/managertools/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mark-demo",
+      "relativePath": "src/app/mark-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/mark-review",
+      "relativePath": "src/app/mark-review/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mark-review/appendix",
+      "relativePath": "src/app/mark-review/appendix/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mark-review/business-plan",
+      "relativePath": "src/app/mark-review/business-plan/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mark-review/summary",
+      "relativePath": "src/app/mark-review/summary/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mauricio-kickoff",
+      "relativePath": "src/app/mauricio-kickoff/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mauricio-kickoff-execution",
+      "relativePath": "src/app/mauricio-kickoff-execution/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mauricio-kickoff-execution/apollo-read-access",
+      "relativePath": "src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/mauricio-kickoff-execution/customer-email-by-channel",
+      "relativePath": "src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/method-and-evidence",
+      "relativePath": "src/app/method-and-evidence/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/onboarding",
+      "relativePath": "src/app/onboarding/page.tsx",
+      "tier": "tier0",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/optimize",
+      "relativePath": "src/app/optimize/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/outplacement",
+      "relativePath": "src/app/outplacement/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/outplacement/personas",
+      "relativePath": "src/app/outplacement/personas/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/outplacement/personas/[slug]",
+      "relativePath": "src/app/outplacement/personas/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/partner-firm",
+      "relativePath": "src/app/partner-firm/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/partners",
+      "relativePath": "src/app/partners/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/partners/mauricio-kickoff",
+      "relativePath": "src/app/partners/mauricio-kickoff/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/partners/pilot-admin",
+      "relativePath": "src/app/partners/pilot-admin/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/partners/reporting",
+      "relativePath": "src/app/partners/reporting/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/pilot-findings",
+      "relativePath": "src/app/pilot-findings/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/prep/communications",
+      "relativePath": "src/app/(dashboard)/prep/communications/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/prep/companies",
+      "relativePath": "src/app/(dashboard)/prep/companies/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/prep/interview",
+      "relativePath": "src/app/(dashboard)/prep/interview/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/prep/meetings",
+      "relativePath": "src/app/(dashboard)/prep/meetings/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/prep/relationships",
+      "relativePath": "src/app/(dashboard)/prep/relationships/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/pricing",
+      "relativePath": "src/app/pricing/page.tsx",
+      "tier": "tier1",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/privacy",
+      "relativePath": "src/app/privacy/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/proof/roi-calculator",
+      "relativePath": "src/app/proof/roi-calculator/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/references",
+      "relativePath": "src/app/references/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/research-brief",
+      "relativePath": "src/app/research-brief/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/sales-marketing-plan",
+      "relativePath": "src/app/sales-marketing-plan/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms",
+      "relativePath": "src/app/search-firms/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/executive-recruiter-demo",
+      "relativePath": "src/app/search-firms/executive-recruiter-demo/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/objections",
+      "relativePath": "src/app/search-firms/objections/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/personas",
+      "relativePath": "src/app/search-firms/personas/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/personas/[slug]",
+      "relativePath": "src/app/search-firms/personas/[slug]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/procurement",
+      "relativePath": "src/app/search-firms/procurement/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/sample-cfo-brief",
+      "relativePath": "src/app/search-firms/sample-cfo-brief/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/trial-charter",
+      "relativePath": "src/app/search-firms/trial-charter/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/search-firms/trust",
+      "relativePath": "src/app/search-firms/trust/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/security",
+      "relativePath": "src/app/security/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/settings/billing",
+      "relativePath": "src/app/(dashboard)/settings/billing/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/settings/security",
+      "relativePath": "src/app/(dashboard)/settings/security/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/settings/team",
+      "relativePath": "src/app/(dashboard)/settings/team/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": false
+    },
+    {
+      "route": "/shortlist-sprint",
+      "relativePath": "src/app/shortlist-sprint/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/signup",
+      "relativePath": "src/app/(auth)/signup/page.tsx",
+      "tier": "tier0",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/stuart-meyer-review",
+      "relativePath": "src/app/stuart-meyer-review/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/team/join/[token]",
+      "relativePath": "src/app/team/join/[token]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/terms",
+      "relativePath": "src/app/terms/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/terry-anderson-review",
+      "relativePath": "src/app/terry-anderson-review/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/unsubscribe/[code]",
+      "relativePath": "src/app/unsubscribe/[code]/page.tsx",
+      "tier": "tier3",
+      "dynamic": true,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    },
+    {
+      "route": "/unsubscribe/confirmed",
+      "relativePath": "src/app/unsubscribe/confirmed/page.tsx",
+      "tier": "tier3",
+      "dynamic": false,
+      "pass": true,
+      "issueCount": 0,
+      "failedChecks": [],
+      "changed": true
+    }
+  ]
+}

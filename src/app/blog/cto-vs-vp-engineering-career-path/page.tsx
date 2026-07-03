@@ -28,6 +28,7 @@ export default function CtoVsVpEngineeringPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cto-vs-vp-engineering-career-path"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           At some point in a technology executive career, the choice becomes real. CTO or VP

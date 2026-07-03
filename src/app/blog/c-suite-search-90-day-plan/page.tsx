@@ -41,6 +41,7 @@ export default function CSuiteSearch90DayPlanPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most executive campaigns underperform because all phases are blended together. Better outcomes come from sequencing work by phase.

@@ -34,6 +34,7 @@ export default function TargetCompanyListPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/target-company-list"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most CIOs start an executive search by updating their resume. The ones who land fastest

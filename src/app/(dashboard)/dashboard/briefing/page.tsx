@@ -788,6 +788,7 @@ export default async function BriefingPage({
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+      <h1 className="sr-only">Briefing</h1>
         {noteSaved === '1' && (
           <section className="mb-4 rounded-2xl border border-emerald-300/20 bg-emerald-500/10 px-4 py-3 backdrop-blur-md">
             <p className="text-[12px] font-semibold text-emerald-100">Today&apos;s note saved.</p>

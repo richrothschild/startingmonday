@@ -8,6 +8,7 @@ export const metadata = {
 export default function DemoMeetingsPrepPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
+      <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       {/* Task navigation */}
       <nav className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/95 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function CioNotesPage() {
   return (
     <>
+        <p className="sr-only">Privacy-first by design.</p>
       <section className="sr-only" aria-label="CIO notes summary">
         <h1>Kenneth Kicia talking points</h1>
         <p>Trust and confidentiality: these notes are private demonstration materials for confidential review conversations.</p>

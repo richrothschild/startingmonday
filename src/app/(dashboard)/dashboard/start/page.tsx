@@ -211,9 +211,9 @@ export default async function StartPage() {
             </>
           ) : (
             <>
-              <h1 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
+              <h2 className="text-[26px] font-bold text-slate-900 leading-tight mb-2">
                 {firstName}, your search is live.
-              </h1>
+              </h2>
               <p className="text-[14px] text-slate-500 leading-relaxed">
                 A few more things to finish. Each one makes the platform measurably more useful.
               </p>

@@ -100,9 +100,9 @@ export default async function ConciergeDashboardPage() {
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-1">
             Executive Concierge
           </p>
-          <h1 className="text-[24px] font-bold text-white leading-tight">
+          <h2 className="text-[24px] font-bold text-white leading-tight">
             {profile.full_name ? `${profile.full_name.split(' ')[0]}&rsquo;s strategy hub` : 'Strategy hub'}
-          </h1>
+          </h2>
         </div>
         <a
           href="mailto:concierge@startingmonday.app?subject=Schedule%20next%20call"

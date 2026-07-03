@@ -244,6 +244,7 @@ export default async function ExecutiveLanePage(
 
   return (
     <>
+        <h1 className="sr-only">Starting Monday</h1>
       <LandingPage
         hero={config.hero}
         situations={config.situations}

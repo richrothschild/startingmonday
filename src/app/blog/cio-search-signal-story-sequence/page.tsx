@@ -41,6 +41,7 @@ export default function CioSearchSignalStorySequencePage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>CIO transitions reward candidates who run an operating sequence: signal detection, story calibration, then relationship-led execution.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">Signal layer</h2>

@@ -42,6 +42,7 @@ export default function PeBackedCioPage() {
         note: 'Free for 30 days. Your employer will not find out.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           A PE-backed CIO search and a public company CIO search are different searches that happen

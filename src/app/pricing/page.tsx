@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { EmiMarketingTelemetry } from '@/components/EmiMarketingTelemetry'
@@ -34,7 +34,7 @@ export default function PricingPage() {
       <EmiMarketingTelemetry pageSlug="/pricing" personaSegment="executives" />
       <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
@@ -144,7 +144,10 @@ export default function PricingPage() {
           All plans include a 30-day free trial. Cancel any time.{' '}
           Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className={premiumEnabled ? 'text-slate-100 underline underline-offset-2' : 'text-slate-600 underline underline-offset-2'}>support@startingmonday.app</a>
         </p>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

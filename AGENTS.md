@@ -4,6 +4,12 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+## Sitewide Design Standard
+
+- Canonical design and editorial standard: docs/landing-page-standard.md
+- All sitewide UX/style gates and migration work should use that file as source of truth.
+- Route compliance claims must be backed by inventory-driven audit output (no partial-scan claims).
+
 ## Truthfulness And Verification Contract
 
 1. Verification-first

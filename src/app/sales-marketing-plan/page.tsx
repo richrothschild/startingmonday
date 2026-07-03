@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
@@ -261,7 +261,7 @@ export default async function SalesMarketingPlanPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-950 sticky top-0 z-20 border-b border-slate-900/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
@@ -479,7 +479,10 @@ export default async function SalesMarketingPlanPage() {
           </div>
         </section>
         </details>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+
