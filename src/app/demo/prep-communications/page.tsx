@@ -87,9 +87,9 @@ export default function DemoCommunicationsPrepPage() {
               </label>
               <textarea
                 id="opening-message"
-                defaultValue="Hi [Name], I've been following Figma's product direction—the enterprise push is impressive and I think I can help. I'm currently exploring VP engineering opportunities at hyper-growth companies (specifically design tools and infrastructure). Would you be open to a quick conversation about how your team scales infrastructure?
+                defaultValue="Hi [Name], I've been following Figma's product direction - the enterprise push is impressive and I think I can help. I'm currently exploring VP engineering opportunities at hyper-growth companies (specifically design tools and infrastructure). Would you be open to a quick conversation about how your team scales infrastructure?
 
-— Michael"
+- Michael"
                 rows={6}
                 className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
               />
@@ -165,7 +165,7 @@ Variation 3 (Warm intro): Hey [Name], [Mutual friend] thought we should connect.
               </label>
               <textarea
                 id="followup-1"
-                defaultValue="Hi [Name], I know you're probably swamped. Saw your new enterprise tier announcement—that's a big move. If you have 20 mins, would love to chat about the infrastructure needs that implies. If now's not good, I totally understand!"
+                defaultValue="Hi [Name], I know you're probably swamped. Saw your new enterprise tier announcement - that's a big move. If you have 20 mins, would love to chat about the infrastructure needs that implies. If now's not good, I totally understand!"
                 rows={3}
                 className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
               />
@@ -226,7 +226,7 @@ Variation 3 (Warm intro): Hey [Name], [Mutual friend] thought we should connect.
               </label>
               <textarea
                 id="objections"
-                defaultValue="'I totally get it—no ask for a job. I'm just curious about how you're thinking about growth and infrastructure. Even if Figma isn't the right fit, I'd love your advice on the market.'"
+                defaultValue="'I totally get it - no ask for a job. I'm just curious about how you're thinking about growth and infrastructure. Even if Figma isn't the right fit, I'd love your advice on the market.'"
                 rows={2}
                 className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
               />
@@ -238,7 +238,7 @@ Variation 3 (Warm intro): Hey [Name], [Mutual friend] thought we should connect.
               </label>
               <textarea
                 id="objections-2"
-                defaultValue="'Happy to—but a quick conversation would probably be more valuable. Could we chat for 20 mins first? Then I'll have better context for what you're actually looking for.'"
+                defaultValue="'Happy to - but a quick conversation would probably be more valuable. Could we chat for 20 mins first? Then I'll have better context for what you're actually looking for.'"
                 rows={2}
                 className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
               />

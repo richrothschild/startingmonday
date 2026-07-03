@@ -8,7 +8,7 @@ const BRIEF = {
   role: 'Chief Information Officer',
   bottomLine: [
     'Your decisive advantage is your platform consolidation record: you have done operationally what ServiceNow is asking its enterprise customers to pay to do.',
-    'The objection that will kill your candidacy is product credibility — if you cannot speak to your own ServiceNow deployment with specificity, they will not trust you to be the internal reference customer the external sales story requires.',
+    'The objection that will kill your candidacy is product credibility - if you cannot speak to your own ServiceNow deployment with specificity, they will not trust you to be the internal reference customer the external sales story requires.',
     'Win this conversation by naming which workflows you deployed, the adoption metrics that followed, and the one decision that did not go as planned.',
   ],
   winThesis:
@@ -29,7 +29,7 @@ const BRIEF = {
   ],
   questions: [
     {
-      body: 'How is the internal IT organization structured relative to the product engineering org — and where does the CIO have accountability versus influence?',
+      body: 'How is the internal IT organization structured relative to the product engineering org - and where does the CIO have accountability versus influence?',
       probing: 'Whether you understand the CIO is a business-political role as much as a technical one.',
     },
     {
@@ -57,14 +57,14 @@ export function LearnMoreBriefShowcase() {
       <div className="max-w-4xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">Sample prep brief</p>
         <h2 className="mt-3 text-[1.6rem] font-serif leading-tight text-white sm:text-[2rem]">
-          {BRIEF.company} — {BRIEF.role}
+          {BRIEF.company} - {BRIEF.role}
         </h2>
         <p className="mt-3 text-[13px] leading-relaxed text-slate-400">
           Generated from a sample executive profile. This is what goes into every conversation.
         </p>
       </div>
 
-      {/* Bottom Line — always visible */}
+      {/* Bottom Line - always visible */}
       <div className="mt-7 rounded-2xl border border-orange-300/20 bg-orange-300/[0.05] p-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300">Bottom line</p>
         <ol className="mt-4 space-y-3">
@@ -79,7 +79,7 @@ export function LearnMoreBriefShowcase() {
         </ol>
       </div>
 
-      {/* Win Thesis — always visible */}
+      {/* Win Thesis - always visible */}
       <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/50 p-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300">Win thesis</p>
         <p className="mt-4 text-[14px] leading-relaxed text-slate-100">{BRIEF.winThesis}</p>
@@ -109,7 +109,7 @@ export function LearnMoreBriefShowcase() {
 
           {/* Likely Questions */}
           <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/50 p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300">Questions to ask — peer level</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300">Questions to ask - peer level</p>
             <div className="mt-4 space-y-5">
               {BRIEF.questions.map((q, i) => (
                 <div key={i} className="space-y-1.5">

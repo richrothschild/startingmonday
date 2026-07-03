@@ -242,7 +242,7 @@ export default function DemoInterviewPrepPage() {
               <textarea
                 id="objection-response"
                 placeholder="Your response framing and proof..."
-                defaultValue="'I've scaled infrastructure at Stripe from 10K to 1M+ transactions/sec. Design tools are a specific domain, but distributed systems is the challenge.' 'Speed is infrastructure + strong process. I've built both—velocity comes from good defaults, not chaos.'"
+                defaultValue="'I've scaled infrastructure at Stripe from 10K to 1M+ transactions/sec. Design tools are a specific domain, but distributed systems is the challenge.' 'Speed is infrastructure + strong process. I've built both - velocity comes from good defaults, not chaos.'"
                 rows={3}
                 className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
               />

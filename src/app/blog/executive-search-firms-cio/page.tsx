@@ -39,7 +39,7 @@ export default function ExecutiveSearchFirmsCioPage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most technology executives think about executive search firms the wrong way. They think of them as
-          the people who find jobs. The firms think of themselves as the people who fill mandates&mdash;a
+          the people who find jobs. The firms think of themselves as the people who fill mandates - a
           different orientation, with different implications for how you should approach them.
         </p>
 
@@ -47,13 +47,13 @@ export default function ExecutiveSearchFirmsCioPage() {
 
         <p>
           When a company engages a retained search firm for a CIO, they pay a retainer
-          upfront&mdash;typically one-third of the estimated first-year compensation, which for a $400K CIO
+          upfront - typically one-third of the estimated first-year compensation, which for a $400K CIO
           role means $130K before a single candidate is presented. That money buys the firm&rsquo;s full
           attention and exclusivity. The client is not talking to three firms. They are talking to one.
         </p>
 
         <p>
-          The firm assembles a long list&mdash;fifteen to twenty-five names&mdash;through three sources: their
+          The firm assembles a long list - fifteen to twenty-five names - through three sources: their
           existing database of known candidates, direct outreach to executives they have tracked over time, and
           referrals from the client&rsquo;s network. Applications are rarely on that list.
         </p>
@@ -73,15 +73,15 @@ export default function ExecutiveSearchFirmsCioPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What gets you on the short list</h2>
 
         <p>
-          The firms that fill CIO mandates at $300K and above&mdash;Korn Ferry, Spencer Stuart,
-          Heidrick &amp; Struggles, Russell Reynolds, and the boutique technology practices&mdash;are looking
+          The firms that fill CIO mandates at $300K and above - Korn Ferry, Spencer Stuart,
+          Heidrick &amp; Struggles, Russell Reynolds, and the boutique technology practices - are looking
           for candidates who can answer one question clearly: What business problem have you solved, at what
           scale, and how do I know it worked?
         </p>
 
         <p>
           Not: What systems have you implemented. Not: What budget have you managed. What business
-          problem&mdash;in terms a CFO or CEO would recognize&mdash;have you solved, and what is the measurable
+          problem - in terms a CFO or CEO would recognize - have you solved, and what is the measurable
           evidence that it worked?
         </p>
 
@@ -122,7 +122,7 @@ export default function ExecutiveSearchFirmsCioPage() {
 
         <p>
           The executives who consistently land well are the ones who built search firm relationships when they
-          did not need them&mdash;who had coffee with a Korn Ferry partner when they were two years into a
+          did not need them - who had coffee with a Korn Ferry partner when they were two years into a
           successful CIO role, not the week after their role was eliminated.
         </p>
 
@@ -131,7 +131,7 @@ export default function ExecutiveSearchFirmsCioPage() {
           transformation initiative and the current technology function is clearly not built for it. A new CEO
           comes from a company known for technology investment. A board adds a technology committee. A PE firm
           acquires a company in a sector with a known technology deficit. These are the indicators that a CIO
-          search is forming&mdash;often six to twelve months before the search is formally opened.
+          search is forming - often six to twelve months before the search is formally opened.
         </p>
 
         <p>
@@ -142,8 +142,8 @@ export default function ExecutiveSearchFirmsCioPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What Starting Monday tracks</h2>
 
         <p>
-          Starting Monday watches the organizational signals that precede CIO searches&mdash;transformation
-          announcements, leadership changes, board composition shifts, investment activity&mdash;across the
+          Starting Monday watches the organizational signals that precede CIO searches - transformation
+          announcements, leadership changes, board composition shifts, investment activity - across the
           companies you are targeting. The point is not to apply faster. It is to be in the right conversations
           before the search formally exists.
         </p>
@@ -154,13 +154,13 @@ export default function ExecutiveSearchFirmsCioPage() {
             prep brief
           </Link>{' '}
           assembles your win thesis, likely objections, and company-specific questions in sixty
-          seconds&mdash;the document that converts a warm search firm conversation into a first-round interview.
+          seconds - the document that converts a warm search firm conversation into a first-round interview.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">The only question that matters</h2>
 
         <p>
-          When the right partner calls&mdash;and if your positioning is right, they will&mdash;the outcome
+          When the right partner calls - and if your positioning is right, they will - the outcome
           depends on one thing: whether you are already known to them in the right way, at the right moment.
         </p>
 

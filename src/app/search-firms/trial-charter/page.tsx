@@ -157,7 +157,7 @@ export default function SearchFirmsTrialCharterPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-200">Next step</p>
           <h2 className="mt-3 font-serif text-[28px] leading-[1.15] text-white sm:text-[34px]">Complete the charter, then apply.</h2>
           <p className="mt-4 max-w-2xl text-[14px] leading-relaxed text-slate-200">
-            If all six charter sections are complete and approved internally, submit your search-firm pilot application. An incomplete charter delays kickoff — legal and procurement reviews cannot begin without it.
+            If all six charter sections are complete and approved internally, submit your search-firm pilot application. An incomplete charter delays kickoff - legal and procurement reviews cannot begin without it.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link

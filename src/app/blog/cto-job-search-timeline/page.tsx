@@ -32,7 +32,7 @@ export default function CtoJobSearchTimelinePage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Ask a company how long a CTO search takes and they will say eight to twelve weeks. That is
-          the time from search kickoff to offer acceptance&mdash;the company&rsquo;s experience of
+          the time from search kickoff to offer acceptance - the company&rsquo;s experience of
           the process.
         </p>
 
@@ -56,7 +56,7 @@ export default function CtoJobSearchTimelinePage() {
           happened before it starts. The market has been warm for candidates through ongoing recruiter
           relationships. The board has already formed opinions about the kind of CTO they want. The
           search is a structured process to confirm and close a short list that was assembled
-          informally&mdash;not to discover candidates from scratch.
+          informally - not to discover candidates from scratch.
         </p>
 
         <p>
@@ -86,8 +86,8 @@ export default function CtoJobSearchTimelinePage() {
         <p>
           Positioning clarity is the second. Do you have a clean answer to which kind of CTO you are
           and which kind of company needs you? A technology executive with a consistent track
-          record&mdash;external CTO at growth-stage companies, or engineering-focused CTO at scaling
-          platforms&mdash;converts faster than one who has done both and cannot clearly say which fits
+          record - external CTO at growth-stage companies, or engineering-focused CTO at scaling
+          platforms - converts faster than one who has done both and cannot clearly say which fits
           best. Ambiguous positioning creates longer search cycles because every conversation has to
           do the work of calibration before it can move forward.
         </p>
@@ -104,7 +104,7 @@ export default function CtoJobSearchTimelinePage() {
 
         <p>
           Network currency has a simple solution and a time cost. Reach out to ten search firm
-          partners and investors this month&mdash;not to say you are available, but to share
+          partners and investors this month - not to say you are available, but to share
           something genuinely useful, ask what they are seeing, and make the conversation worth their
           time. Six months from now, when you are ready to move, those relationships will be current.
           You cannot build that currency in a week once the urgency is real.
@@ -112,7 +112,7 @@ export default function CtoJobSearchTimelinePage() {
 
         <p>
           Positioning clarity requires honest self-assessment. What kind of CTO does your track record
-          clearly demonstrate? Not what you could be&mdash;what have you actually done, and where was
+          clearly demonstrate? Not what you could be - what have you actually done, and where was
           the impact clearest? That answer, written in two sentences, is what you want every search
           partner to know about you before the conversation ends.
         </p>

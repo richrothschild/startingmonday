@@ -42,7 +42,7 @@ export function SamplePrepBrief() {
           What a prep brief looks like
         </p>
         <h2 className="text-[22px] font-bold text-slate-900 mb-2 max-w-xl leading-snug">
-          {BRIEF.company} &mdash; {BRIEF.role}
+          {BRIEF.company} - {BRIEF.role}
         </h2>
         <p className="text-[14px] text-slate-500 mb-6">
           Generated from a sample executive profile. Usually generated in about a minute. No account required to read this.

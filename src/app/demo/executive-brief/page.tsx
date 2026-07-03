@@ -207,7 +207,7 @@ export default function ExecutiveBriefDemoPage() {
           <div className="flex items-center gap-3 mb-4">
             <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-300">Live example</span>
             <span className="text-slate-500 text-[11px]">|</span>
-            <span className="text-[12px] text-slate-300">Michael Torres &mdash; VP of IT candidate at Salesforce</span>
+            <span className="text-[12px] text-slate-300">Michael Torres - VP of IT candidate at Salesforce</span>
             {preLoading && (
               <span className="text-[11px] text-slate-400 italic">generating...</span>
             )}

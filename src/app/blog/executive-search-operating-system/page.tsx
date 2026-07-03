@@ -44,8 +44,8 @@ export default function ExecutiveSearchOperatingSystemPage() {
       <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
-          On the day your CIO role ends&mdash;whether by elimination, restructuring, or your own
-          decision&mdash;something happens that no one in your professional life has prepared you for.
+          On the day your CIO role ends - whether by elimination, restructuring, or your own
+          decision - something happens that no one in your professional life has prepared you for.
         </p>
 
         <p>
@@ -86,7 +86,7 @@ export default function ExecutiveSearchOperatingSystemPage() {
         </p>
 
         <p>
-          That shape is gone now. What remains is capability without context&mdash;and a search is a
+          That shape is gone now. What remains is capability without context - and a search is a
           context-hostile environment.
         </p>
 
@@ -94,8 +94,8 @@ export default function ExecutiveSearchOperatingSystemPage() {
           The feedback loops are long and ambiguous. A search firm partner who was genuinely
           enthusiastic in March goes quiet in April. A role that was clearly right gets filled without
           explanation. A board member who promised an introduction never follows up. Your
-          pattern-recognition&mdash;trained over two decades to distinguish signal from noise at the
-          highest levels of organizational complexity&mdash;will find patterns in this noise anyway.
+          pattern-recognition - trained over two decades to distinguish signal from noise at the
+          highest levels of organizational complexity - will find patterns in this noise anyway.
           Most of them will be wrong.
         </p>
 
@@ -117,8 +117,8 @@ export default function ExecutiveSearchOperatingSystemPage() {
         <p>
           A search operating system does the same thing. It does not make your network larger, your
           track record better, or the market move faster. It makes your time and attention available
-          for useful work&mdash;the right conversations, the right positioning, the right
-          intelligence&mdash;instead of being consumed by the daily question of what to do next.
+          for useful work - the right conversations, the right positioning, the right
+          intelligence - instead of being consumed by the daily question of what to do next.
         </p>
 
         <p>
@@ -130,7 +130,7 @@ export default function ExecutiveSearchOperatingSystemPage() {
           list before recruiter outreach, because the partners who matter want to know which companies
           you have already studied. Positioning clarity before networking events, because the events
           that matter are the ones where your next role might be assembled in a side conversation.
-          The prep brief before the screening call, assembled and rehearsed&mdash;not drafted the
+          The prep brief before the screening call, assembled and rehearsed - not drafted the
           night before the panel. Sequence determines whether effort compounds or dissipates.
         </p>
 
@@ -145,12 +145,12 @@ export default function ExecutiveSearchOperatingSystemPage() {
 
         <p>
           Metrics: how to know whether progress is real. Not whether you have received an
-          offer&mdash;that is an outcome, not a metric, and it will mislead you for months at a time.
+          offer - that is an outcome, not a metric, and it will mislead you for months at a time.
           The metrics that matter: how many target companies showed an organizational signal this
           week. How many outreach messages sent versus responses received. How many search firm
           partners spoken to in the last sixty days. The conversion rate from first conversation to
           first-round consideration. These numbers tell you whether the search is moving or
-          stalled&mdash;and more importantly, where it is stalled.
+          stalled - and more importantly, where it is stalled.
         </p>
 
         <p>
@@ -165,14 +165,14 @@ export default function ExecutiveSearchOperatingSystemPage() {
 
         <p>
           Executives who run searches with this kind of structure behave differently from those who
-          do not&mdash;not in talent, but in execution.
+          do not - not in talent, but in execution.
         </p>
 
         <p>
           Without the structure: energy concentrates on the visible and urgent. The LinkedIn profile
-          update, the coffee meeting, the recruiter call. The less visible work&mdash;building the
+          update, the coffee meeting, the recruiter call. The less visible work - building the
           target list before it is needed, monitoring organizational signals, drafting outreach before
-          a role exists&mdash;never gets done, because it is never urgent enough to displace whatever
+          a role exists - never gets done, because it is never urgent enough to displace whatever
           is in front of you. The search becomes reactive. You are always responding to what appears
           instead of positioning for what is forming.
         </p>
@@ -186,8 +186,8 @@ export default function ExecutiveSearchOperatingSystemPage() {
         </p>
 
         <p>
-          The executives who land in the top quartile of their peer group&mdash;in scope,
-          compensation, and speed&mdash;are not uniformly more talented than the ones who do not.
+          The executives who land in the top quartile of their peer group - in scope,
+          compensation, and speed - are not uniformly more talented than the ones who do not.
           They are more organized. They treat the search like the business it is.
         </p>
 
@@ -201,7 +201,7 @@ export default function ExecutiveSearchOperatingSystemPage() {
         </p>
 
         <p>
-          It does not replace the work. It makes the work legible&mdash;so that on a Thursday when
+          It does not replace the work. It makes the work legible - so that on a Thursday when
           everything is quiet and nothing seems to be happening, you know exactly what to do next.
         </p>
 
