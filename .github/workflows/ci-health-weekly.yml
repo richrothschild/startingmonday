@@ -22,6 +22,10 @@ jobs:
       - name: Compare required checks against manifest
         uses: actions/github-script@v8
         with:
+          # Fine-grained PAT with Administration: Read-only on this repo,
+          # required to read branch protection. Falls back to the default
+          # token (job degrades to a warning) if the secret is absent.
+          github-token: ${{ secrets.CI_HEALTH_PAT || secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs')
             const manifest = JSON.parse(fs.readFileSync('config/required-checks-manifest.json', 'utf8'))
