@@ -111,3 +111,7 @@ tmp-weekly-audit-*-logs.zip
 !public/reports/executive-search-ai-confidentiality-annual-report-2026-email.pdf
 lint-output.txt
 .eslintcache
+
+# Build artifacts (accidentally committed once; keep untracked)
+dist/
+build_output.log

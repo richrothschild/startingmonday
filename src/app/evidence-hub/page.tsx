@@ -55,13 +55,12 @@ export default function EvidenceRoomPage() {
       <JsonLd data={evidenceHubJsonLd} />
       <PublicPageHeader backHref="/" />
       <main className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
-        <h1 className="sr-only">Starting Monday</h1>
         {/* How we find roles */}
         <section className="mt-10 max-w-4xl rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-5 shadow-[0_20px_70px_rgba(2,6,23,0.28)] sm:p-6">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">How we find roles</p>
-          <h2 className="mt-3 text-[1.8rem] font-serif leading-tight text-white sm:text-[2.2rem]">
+          <h1 className="mt-3 text-[1.8rem] font-serif leading-tight text-white sm:text-[2.2rem]">
             Proprietary signal detection, clear validation, and a trust boundary.
-          </h2>
+          </h1>
           <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">
             We built a proprietary system that separates meaningful role signals from market noise across thousands of companies. It uses public information, then validates the pattern before anything is surfaced as a likely opportunity. The goal is earlier context and better timing without exposing the scoring system behind it.
           </p>

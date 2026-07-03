@@ -18,6 +18,7 @@ on:
         options:
           - mobile-visual
           - elite-visual
+          - visual-smoke
 
 permissions:
   contents: write
@@ -75,7 +76,7 @@ jobs:
               const allowedAssoc = new Set(['OWNER', 'MEMBER', 'COLLABORATOR'])
               if (!allowedAssoc.has(assoc)) return stop(`User association not allowed: ${assoc}`)
 
-              const match = body.match(/^\/autofix\s+(mobile-visual|elite-visual)\s*$/i)
+              const match = body.match(/^\/autofix\s+(mobile-visual|elite-visual|visual-smoke)\s*$/i)
               if (!match) return stop('No supported /autofix command found')
 
               prNumber = Number(context.payload.issue.number)
@@ -87,6 +88,7 @@ jobs:
               const mapping = {
                 'autofix:mobile-visual': 'mobile-visual',
                 'autofix:elite-visual': 'elite-visual',
+                'autofix:visual-smoke': 'visual-smoke',
               }
               target = mapping[label]
               if (!target) return stop(`Label not mapped: ${label}`)
@@ -108,7 +110,7 @@ jobs:
               return stop('Autofix blocked by PR risk labels (risk:high or autofix:blocked)')
             }
 
-            const requiresApprovalLabel = target === 'mobile-visual' || target === 'elite-visual'
+            const requiresApprovalLabel = target === 'mobile-visual' || target === 'elite-visual' || target === 'visual-smoke'
             if (requiresApprovalLabel && !prLabels.includes('autofix:approved') && eventName !== 'workflow_dispatch') {
               return stop('Visual autofix requires autofix:approved label')
             }
@@ -131,6 +133,13 @@ jobs:
 
             if (target === 'elite-visual') {
               // Allow privileged manual/label-triggered refreshes because elite baselines must be authored in CI's Ubuntu rendering environment.
+            }
+
+            if (target === 'visual-smoke') {
+              const hasVisualSmokeFailure = failedCheckNames.some((n) => /Mobile visual smoke|Auth UX guard/i.test(n))
+              if (!hasVisualSmokeFailure && eventName !== 'workflow_dispatch') {
+                return stop('No failing Mobile visual smoke or Auth UX guard check found on PR head SHA')
+              }
             }
 
             setOut('run', 'true')
@@ -217,12 +226,12 @@ jobs:
               body,
             })
 
-  autofix-elite-visual:
-    name: Autofix elite visual baseline
+  autofix-visual-smoke:
+    name: Autofix visual smoke and auth UX baselines
     needs: detect
-    if: needs.detect.outputs.run == 'true' && needs.detect.outputs.target == 'elite-visual'
+    if: needs.detect.outputs.run == 'true' && needs.detect.outputs.target == 'visual-smoke'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
         with:
@@ -239,14 +248,104 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Update elite mobile visual snapshots
-        env:
-          PLAYWRIGHT_BASE_URL: https://starting-monday-staging.up.railway.app
-        run: npx playwright test tests/e2e/mobile-elite-visual.spec.ts --project=mobile-iphone --project=mobile-android --workers=1 --update-snapshots
+      # Baselines are authored against the PR's own build in CI's Ubuntu
+      # rendering environment - the same environment the PR checks use.
+      - name: Generate guide artifacts
+        run: npm run guide:user:sync && npm run guide:internal:sync
 
-      - name: Re-run elite mobile visual suite
+      - name: Build PR branch
         env:
-          PLAYWRIGHT_BASE_URL: https://starting-monday-staging.up.railway.app
+          MOBILE_ELITE_GATE_STRICT: '0'
+        run: npm run build
+
+      - name: Start app
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next-start.pid
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "App is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          tail -n 200 /tmp/next-start.log || true
+          exit 1
+
+      - name: Update mobile visual smoke snapshots
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3000
+        run: npx playwright test tests/e2e/mobile-visual-smoke.spec.ts --project=mobile-iphone --project=mobile-android --update-snapshots
+
+      - name: Update auth UX snapshots
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3000
+        run: npx playwright test tests/e2e/auth-ux.spec.ts --project=auth-ux --update-snapshots
+
+      - name: Re-run both suites to confirm green
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3000
+        run: |
+          npm run test:e2e:mobile-visual:smoke
+          npm run test:e2e:auth-ux
+
+      - name: Stop app
+        if: always()
+        run: |
+          if [ -f /tmp/next-start.pid ]; then
+            kill "$(cat /tmp/next-start.pid)" || true
+          fi
+
+      - name: Commit and push updated baselines
+        id: commit_smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git diff --quiet -- tests/e2e/__screenshots__/; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add tests/e2e/__screenshots__/*.png
+            git commit -m "chore(ci): refresh visual smoke and auth UX baselines"
+            git push origin HEAD:${{ needs.detect.outputs.head_ref }}
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Comment result on PR
+        if: github.event_name != 'workflow_dispatch'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const changed = '${{ steps.commit_smoke.outputs.changed }}' === 'true'
+            const body = changed
+              ? 'Autofix complete: refreshed visual smoke + auth UX baselines and pushed a bot commit to this PR branch.'
+              : 'Autofix complete: both suites passed and no baseline changes were required.'
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number('${{ needs.detect.outputs.pr_number }}'),
+              body,
+            })
+
+  autofix-elite-visual:
+    name: Autofix elite visual baseline
+    needs: detect
+    if: needs.detect.outputs.run == 'true' && needs.detect.outputs.target == 'elite-visual'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.detect.outputs.head_ref }}
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
         run: node scripts/check-mobile-elite-visual-gate.mjs
 
       - name: Commit and push updated elite baselines

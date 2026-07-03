@@ -67,6 +67,11 @@ const eslintConfig = defineConfig([
     "run_extract.js",
     // Generated Playwright output — not source, contains minified third-party JS:
     "playwright-report/**",
+    "test-results/**",
+    "coverage/**",
+    "dist/**",
+    "tmp/**",
+    "tmp-run-*-artifacts/**",
   ]),
 ]);
 
