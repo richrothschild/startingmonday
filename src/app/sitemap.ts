@@ -2,7 +2,7 @@
 import { BLOG_POSTS } from '@/lib/blog-posts'
 
 const BASE = 'https://startingmonday.app'
-const STATIC_LAST_MODIFIED = new Date('2026-05-13T00:00:00.000Z')
+const STATIC_LAST_MODIFIED = new Date('2026-07-03T00:00:00.000Z')
 
 const CORE_PAGES = [
   { path: '', changeFrequency: 'weekly' as const, priority: 1.0 },
@@ -34,7 +34,8 @@ const CORE_PAGES = [
   { path: '/partners/reporting', changeFrequency: 'monthly' as const, priority: 0.55 },
   { path: '/privacy', changeFrequency: 'yearly' as const, priority: 0.3 },
   { path: '/terms', changeFrequency: 'yearly' as const, priority: 0.3 },
-  { path: '/security', changeFrequency: 'yearly' as const, priority: 0.3 },
+  { path: '/security', changeFrequency: 'monthly' as const, priority: 0.55 },
+  { path: '/blog/why-starting-monday-exists', changeFrequency: 'monthly' as const, priority: 0.75 },
 ]
 
 const ROLE_PAGES = [

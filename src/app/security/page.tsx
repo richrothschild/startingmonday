@@ -3,6 +3,15 @@
 export const metadata = {
   title: 'Security & Data - Starting Monday',
   description: 'How Starting Monday stores, protects, and handles your search data.',
+  alternates: {
+    canonical: 'https://startingmonday.app/security',
+  },
+  openGraph: {
+    title: 'Security & Data - Starting Monday',
+    description: 'How Starting Monday stores, protects, and handles your search data.',
+    url: 'https://startingmonday.app/security',
+    type: 'website',
+  },
 }
 
 export default function SecurityPage() {
