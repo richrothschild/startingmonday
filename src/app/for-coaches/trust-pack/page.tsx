@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function CoachTrustPackPage() {
     <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <Link href="/for-coaches" className="text-[13px] text-slate-100 transition-colors hover:text-white">
@@ -92,7 +92,7 @@ export default function CoachTrustPackPage() {
 
       <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-8 sm:px-6">
         <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex flex-wrap gap-4 text-[12px] text-slate-400">
@@ -101,7 +101,10 @@ export default function CoachTrustPackPage() {
             <Link href="/security" className="transition-colors hover:text-white">Security</Link>
           </div>
         </div>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }
+

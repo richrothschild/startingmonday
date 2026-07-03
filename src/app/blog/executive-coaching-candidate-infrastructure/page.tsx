@@ -28,6 +28,7 @@ export default function ExecutiveCoachingCandidateInfrastructurePage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/executive-coaching-candidate-infrastructure"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           There is a category of executive coaching engagement that is harder than it looks from the outside.

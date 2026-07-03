@@ -163,7 +163,7 @@ export default function CoachFaqPage() {
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.18),_transparent_36%),linear-gradient(180deg,_rgba(9,14,26,0.96)_0%,_rgba(10,15,28,0.96)_100%)]" />
       <nav className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/78 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -357,7 +357,7 @@ export default function CoachFaqPage() {
 
       <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-20">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
@@ -371,7 +371,10 @@ export default function CoachFaqPage() {
             </a>
           </p>
         </div>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }
+

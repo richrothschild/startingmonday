@@ -48,6 +48,7 @@ function gatesForEnvironment(targetEnv) {
         '--strict',
         '--output-json=tmp/site-style-audit.json',
         '--output-md=tmp/site-style-audit.md',
+        '--output-inventory=tmp/site-route-inventory.json',
       ],
     },
     {

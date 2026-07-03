@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { TrackLink } from '@/components/TrackLink'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
 import PartnerPilotAdminClient from './PartnerPilotAdminClient'
@@ -10,7 +10,7 @@ export default function PartnerPilotAdminPage() {
 
       <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/78 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <Link href="/shortlist-sprint" className="text-[13px] text-slate-200 transition-colors hover:text-white">
@@ -52,7 +52,10 @@ export default function PartnerPilotAdminPage() {
 
           <PartnerPilotAdminClient />
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

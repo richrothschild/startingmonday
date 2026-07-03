@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default function CareerToolsPage() {
       {/* Nav */}
       <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center min-h-[48px] px-1 text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="inline-flex items-center min-h-[48px] px-1 text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
@@ -210,15 +210,18 @@ export default function CareerToolsPage() {
       {/* Footer */}
       <footer className="bg-slate-950 border-t border-slate-800 px-4 sm:px-6 py-8 mt-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <Link href="/" className="inline-flex items-center min-h-[48px] px-1 text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="inline-flex items-center min-h-[48px] px-1 text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <p className="text-[11px] text-slate-500">
             Questions? contact@startingmonday.app
           </p>
         </div>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
 
     </div>
   )
 }
+

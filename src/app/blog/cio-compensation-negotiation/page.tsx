@@ -35,6 +35,7 @@ export default function CioCompensationNegotiationPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cio-compensation-negotiation"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The compensation conversation for a CIO role is different from every negotiation you have done before.

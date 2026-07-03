@@ -617,7 +617,7 @@ export function ExecutiveBriefHub({
     <div className="min-h-screen bg-slate-100 font-sans">
       <nav className="bg-slate-900 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-white hover:opacity-80 transition-opacity" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">

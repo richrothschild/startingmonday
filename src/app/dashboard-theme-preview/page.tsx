@@ -51,6 +51,8 @@ export default function DashboardThemePreviewPage() {
       </header>
 
       <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+        <p className="sr-only">Privacy-first by design.</p>
+        <h1 className="sr-only">Starting Monday</h1>
         <DashboardTopShellSection
           firstName="Richard"
           briefingTimezone="America/New_York"

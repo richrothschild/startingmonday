@@ -42,6 +42,7 @@ export default function ExecutiveTransitionSuccessFactorsPage() {
         note: 'No credit card required.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Short answer: better transition outcomes are strongly associated with preparation depth, timing discipline, and consistent follow-through.

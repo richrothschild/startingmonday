@@ -41,6 +41,7 @@ export default function ExecutiveSearchPilotDataObservationsPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>Pilot data is useful when you evaluate both outcomes and constraints. It should guide decisions, not replace judgment.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What improved</h2>

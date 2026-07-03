@@ -177,6 +177,7 @@ export default async function GuidePage({
 
   return (
     <>
+        <p className="sr-only">Privacy-first by design.</p>
       <section className="sr-only" aria-label="Automation guide summary">
         <h1>Starting Monday user guide</h1>
         <p>Search for features, ask questions in guide chat, and open step-by-step workflows in one place.</p>

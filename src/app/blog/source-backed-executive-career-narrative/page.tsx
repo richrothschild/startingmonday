@@ -41,6 +41,7 @@ export default function SourceBackedExecutiveCareerNarrativePage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>Executive narrative quality improves when each core claim is supported by context, quantified outcomes, and external validation where possible.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">Narrative components</h2>

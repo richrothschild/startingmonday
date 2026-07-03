@@ -73,6 +73,8 @@ export default async function CoachPersonaDetailPage({ params }: { params: Promi
           />
         </div>
       </div>
-    </main>
+    
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
+      </main>
   )
 }

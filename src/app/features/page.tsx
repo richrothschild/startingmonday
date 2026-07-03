@@ -10,5 +10,11 @@ export const metadata: Metadata = {
 
 export default async function FeaturesPage() {
   const docs = await listFeatureDocCards()
-  return <FeaturesClient docs={docs} />
+  return (
+    <>
+      <h1 className="sr-only">Starting Monday features and onboarding docs</h1>
+      <p className="sr-only">Privacy-first by design.</p>
+      <FeaturesClient docs={docs} />
+    </>
+  )
 }

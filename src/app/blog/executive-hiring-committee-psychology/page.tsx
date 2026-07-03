@@ -41,6 +41,7 @@ export default function ExecutiveHiringCommitteePsychologyPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>Senior hiring committees optimize for uncertainty reduction, not just candidate quality. Your strategy should reflect that reality.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">Decision dynamics</h2>

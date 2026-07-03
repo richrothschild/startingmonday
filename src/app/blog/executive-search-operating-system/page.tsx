@@ -41,6 +41,7 @@ export default function ExecutiveSearchOperatingSystemPage() {
         note: 'Free for 30 days. No credit card.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           On the day your CIO role ends&mdash;whether by elimination, restructuring, or your own

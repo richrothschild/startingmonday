@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -94,7 +94,7 @@ export default function ReferencesPage() {
     <div className="min-h-screen bg-white font-sans">
       <nav className="bg-slate-950 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white hover:text-slate-200 transition-colors">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-white hover:text-slate-200 transition-colors">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
@@ -132,7 +132,7 @@ export default function ReferencesPage() {
                 <p className="text-[14px] font-semibold text-slate-900 mb-2">{row.claim}</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed mb-2">{row.basis}</p>
                 <p className="text-[12px] text-slate-500 mb-3">
-                  Source type: <span className="font-medium text-slate-700">{row.sourceType}</span> · Confidence: <span className="font-medium text-slate-700">{row.confidence}</span>
+                  Source type: <span className="font-medium text-slate-700">{row.sourceType}</span> Â· Confidence: <span className="font-medium text-slate-700">{row.confidence}</span>
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-2">
                   {row.links.map(link => (
@@ -188,7 +188,7 @@ export default function ReferencesPage() {
                 </tr>
                 <tr>
                   <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Weak signals can appear before formal market visibility.</td>
-                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the product’s edge: it helps users act before the search is obvious to everyone else.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the productâ€™s edge: it helps users act before the search is obvious to everyone else.</td>
                   <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ansoff (1975)</td>
                 </tr>
                 <tr>
@@ -244,7 +244,10 @@ export default function ReferencesPage() {
             <p><span className="font-medium text-slate-800">May 13, 2026:</span> Added claim-to-source map, tiered evidence model, and directional context section.</p>
           </div>
         </section>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

@@ -2,6 +2,38 @@
 
 This document defines the production quality standard for all routes using the landing page as the design and experience reference. The goal is not static code compliance. The goal is rendered experience parity.
 
+## Canonical Standard (v1.0)
+
+This file is the canonical source of truth for sitewide editorial standards.
+
+### Typography Contract
+
+- Section headlines and pull quotes use Playfair Display.
+- Body copy and UI labels use Geist Sans.
+- Mono usage is restricted to micro labels and kickers (Geist Mono default; JetBrains Mono only by explicit experiment).
+- Body text must not switch to Playfair or any replacement sans family.
+
+### Narrative Contract
+
+- Each landing-style page uses one primary narrative spine.
+- Duplicate conversion blocks are not allowed in the same scroll band.
+- Trust assurance appears before the final conversion decision point.
+- Proof/evidence CTA appears at first skepticism moment, not only at footer depth.
+
+### Brand Lockup Contract
+
+- Header and footer wordmark sizing must remain legible at mobile and desktop breakpoints.
+- Over-compressed lockups are not allowed (avoid ultra-small lockups with oversized tracking).
+
+### Verification Contract
+
+- 100% route inventory coverage is required for compliance reports.
+- A compliance report is valid only when:
+	- all discovered routes are tested,
+	- untested routes = 0,
+	- global typography contract checks pass,
+	- per-route standards checks pass or are explicitly reported as failing.
+
 ## Why This Standard Exists
 
 - Static-only checks can pass while production still looks wrong.

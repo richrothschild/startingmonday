@@ -25,7 +25,7 @@ export default async function WrapUpPage() {
   return (
     <div className="min-h-screen bg-slate-900 font-sans flex flex-col">
       <header className="px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+        <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
           <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
         </Link>
         <Link href="/dashboard" className="text-[12px] text-slate-400 hover:text-slate-200 transition-colors">

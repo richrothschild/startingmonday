@@ -41,6 +41,7 @@ export default function ExecutiveSearchRiskRegisterPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>Most executive campaigns fail through recognizable patterns. A risk register makes those patterns visible before they become expensive.</p>
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">10 failure modes to watch</h2>

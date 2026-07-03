@@ -13,5 +13,10 @@ const demoData: ExecutiveBriefHubData = {
 }
 
 export default function PublicExecutiveBriefPage() {
-  return <ExecutiveBriefHub data={demoData} enableLivePrefetch={false} />
+  return (
+    <>
+      <h1 className="sr-only">Starting Monday executive brief demo</h1>
+      <ExecutiveBriefHub data={demoData} enableLivePrefetch={false} />
+    </>
+  )
 }

@@ -28,6 +28,7 @@ export default function CioVsCtoPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cio-vs-cto-which-role"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Two titles, one domain, and a distinction that matters more than most technology executives

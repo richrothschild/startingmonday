@@ -79,7 +79,7 @@ export default function ExecutiveRecruiterDemoPage() {
 
       <header className="border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] text-white hover:opacity-80">
+          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] text-white hover:opacity-80">
             <span className="text-white">Starting </span>
             <span className="text-orange-500">Monday</span>
           </Link>
@@ -188,6 +188,8 @@ export default function ExecutiveRecruiterDemoPage() {
             </article>
           </section>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )

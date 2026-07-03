@@ -1,0 +1,100 @@
+{
+  "steps": [
+    {
+      "id": "step-1",
+      "label": "Create account screen",
+      "description": "User opens /signup and sees social sign-in plus email/password signup options.",
+      "type": "start"
+    },
+    {
+      "id": "step-2",
+      "label": "Choose auth method",
+      "description": "User continues with Google/Apple OAuth or submits email/password via /api/auth/verify-and-signup.",
+      "type": "step"
+    },
+    {
+      "id": "step-3",
+      "label": "Email confirmation pending",
+      "description": "Email-password path without immediate session shows the in-page Check your email state on /signup.",
+      "type": "step"
+    },
+    {
+      "id": "step-4",
+      "label": "OAuth provider handoff",
+      "description": "Social path redirects user to Google/Apple consent, then returns to /auth/callback.",
+      "type": "step"
+    },
+    {
+      "id": "step-5",
+      "label": "Auth callback exchange",
+      "description": "On /auth/callback, auth code/otp is exchanged for session and browser is replaced to next route (default /dashboard/briefing).",
+      "type": "step"
+    },
+    {
+      "id": "step-6",
+      "label": "First post-auth destination",
+      "description": "User lands on /dashboard/briefing (or /team/join/:token when seat_token exists), then onboarding guard runs.",
+      "type": "step"
+    },
+    {
+      "id": "step-7",
+      "label": "Onboarding gate redirect",
+      "description": "If onboarding_completed_at is missing, protected dashboard routes redirect user to /onboarding.",
+      "type": "step"
+    },
+    {
+      "id": "step-8",
+      "label": "Onboarding: name",
+      "description": "Step 0: user provides name (or skips/quick-starts) in the onboarding wizard.",
+      "type": "step"
+    },
+    {
+      "id": "step-9",
+      "label": "Onboarding: role lane",
+      "description": "Step 1: user selects target role lane to set workflow and signal prioritization.",
+      "type": "step"
+    },
+    {
+      "id": "step-10",
+      "label": "Onboarding: search context",
+      "description": "Step 2 (advanced path): user sets current situation, timeline, and driver; some quick/low-energy paths bypass this.",
+      "type": "step"
+    },
+    {
+      "id": "step-11",
+      "label": "Onboarding: profile import/manual",
+      "description": "Step 3 (advanced path): user imports LinkedIn/PDF or enters title/company manually; may be skipped on quick paths.",
+      "type": "step"
+    },
+    {
+      "id": "step-12",
+      "label": "Onboarding: target companies",
+      "description": "Step 4: user adds at least one target company (with optional AI suggestions).",
+      "type": "step"
+    },
+    {
+      "id": "step-13",
+      "label": "Onboarding: briefing time",
+      "description": "Step 5: user picks briefing time; quick/passive flows can route directly to completion state.",
+      "type": "step"
+    },
+    {
+      "id": "step-14",
+      "label": "Onboarding: first value preview",
+      "description": "Step 6: user sees shortlist/value preview and submits Start my search or Start monitoring.",
+      "type": "step"
+    },
+    {
+      "id": "step-15",
+      "label": "Dashboard start checklist",
+      "description": "completeOnboarding or skipOnboarding redirects to /dashboard/start for post-setup tasks.",
+      "type": "step"
+    },
+    {
+      "id": "step-16",
+      "label": "Main product reached",
+      "description": "User proceeds into core product surfaces such as /dashboard and /dashboard/briefing with onboarding complete.",
+      "type": "end"
+    }
+  ]
+}

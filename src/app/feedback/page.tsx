@@ -54,7 +54,7 @@ function FeedbackForm() {
         </h2>
         {state === 'done' ? (
           <div className="rounded-2xl border border-emerald-200 bg-white p-8 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
-            <h1 className="text-[28px] font-bold text-slate-900 mb-2">Thank you.</h1>
+            <h2 className="text-[28px] font-bold text-slate-900 mb-2">Thank you.</h2>
             <p className="text-[16px] text-slate-600 leading-relaxed">
               Your feedback is in. We use notes like this to sharpen what we build next.
             </p>

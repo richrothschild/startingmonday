@@ -28,6 +28,7 @@ export default function RetainedSearchCandidatePreparationPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/retained-search-candidate-preparation"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           There is a conversation that happens at retained search firms after a technology executive

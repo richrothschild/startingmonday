@@ -41,6 +41,7 @@ export default function CSuiteSearchWeeklyMetricsPage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Short answer: senior campaigns improve when candidates track a small weekly set of leading and lagging indicators instead of only tracking interviews.

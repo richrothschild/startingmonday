@@ -154,6 +154,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   return (
     <>
+        <h1 className="sr-only">Starting Monday</h1>
       <JsonLd data={jsonLd} />
       <LandingPage
         hero={{

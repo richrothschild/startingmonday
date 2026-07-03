@@ -33,6 +33,7 @@ export default async function CoachClientInterviewPage({
 
   return (
     <div className="space-y-8">
+      <h1 className="sr-only">Interview</h1>
       {/* Header */}
       <div className="space-y-3">
         <h2 className="text-[24px] font-bold tracking-tight text-white">

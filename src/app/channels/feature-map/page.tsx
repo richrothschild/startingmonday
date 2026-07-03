@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 export default function ChannelFeatureMapPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
-      <ChannelFeatureMapClient />
+      <>
+        <h1 className="sr-only">Starting Monday channel feature map</h1>
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
+        <ChannelFeatureMapClient />
+      </>
     </Suspense>
   )
 }

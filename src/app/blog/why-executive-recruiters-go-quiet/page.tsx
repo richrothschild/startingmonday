@@ -42,6 +42,7 @@ export default function WhyExecutiveRecruitersGoQuietPage() {
         note: 'Use demo first, then run your own campaign.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
 
         <p>

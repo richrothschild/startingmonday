@@ -59,6 +59,8 @@ export default function SetTransitionThesisDemoPage() {
             Back to coach workflow
           </Link>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )

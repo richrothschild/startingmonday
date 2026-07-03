@@ -216,6 +216,8 @@ export default async function MauricioApolloReadAccessPage() {
             </div>
           </div>
         </section>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )

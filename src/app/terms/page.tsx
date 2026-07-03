@@ -11,13 +11,14 @@ export default function TermsPage() {
     <div className="min-h-screen bg-white font-sans">
       <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase text-white">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-white">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
         </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
+        <h1 className="sr-only">Starting Monday</h1>
 
         <div className="bg-slate-50 border border-slate-200 rounded-lg px-8 py-7 mb-10">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">AI-Generated Content</p>
@@ -72,7 +73,7 @@ export default function TermsPage() {
 
       <footer className="border-t border-slate-100 px-6 py-6 mt-12">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-200">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-200">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/" className="text-[12px] text-slate-200 hover:text-slate-600 transition-colors">
@@ -82,7 +83,10 @@ export default function TermsPage() {
         <p className="max-w-4xl mx-auto mt-4 text-[11px] text-slate-200">
           &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
         </p>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }
+

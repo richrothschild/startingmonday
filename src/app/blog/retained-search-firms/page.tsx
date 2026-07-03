@@ -35,6 +35,7 @@ export default function RetainedSearchFirmsPage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/retained-search-firms"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The retained search firm is paid by the company doing the hiring. That single fact explains

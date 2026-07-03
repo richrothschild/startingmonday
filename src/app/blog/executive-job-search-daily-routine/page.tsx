@@ -41,6 +41,7 @@ export default function ExecutiveJobSearchDailyRoutinePage() {
         note: 'No credit card required.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Most executive searches do not fail because the candidate lacks experience. They fail because

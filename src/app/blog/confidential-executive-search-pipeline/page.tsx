@@ -41,6 +41,7 @@ export default function ConfidentialExecutiveSearchPipelinePage() {
         href: '/signup',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           A confidential executive search needs two things at once: velocity and discretion. Most campaigns get one and lose the other.

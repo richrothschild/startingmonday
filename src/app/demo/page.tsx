@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Link from 'next/link'
 import { useState, useRef, Suspense } from 'react'
 import { isEnabledFlag } from '@/lib/feature-flags'
@@ -36,7 +36,7 @@ function renderBrief(text: string, isStreaming: boolean) {
     if (line.startsWith('- ') || line.startsWith('* ')) {
       return (
         <div key={i} className="flex gap-2.5 text-[14px] text-slate-200 leading-relaxed mb-2.5">
-          <span className="text-slate-500 shrink-0 select-none mt-0.5">–</span>
+          <span className="text-slate-500 shrink-0 select-none mt-0.5">â€“</span>
           <span>{renderInline(line.slice(2))}</span>
         </div>
       )
@@ -137,7 +137,7 @@ export function DemoContent({
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-white/8 bg-slate-950/80 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -166,7 +166,7 @@ export function DemoContent({
           </p>
         </header>
 
-        {/* Form — flows directly from hero, no separate section header */}
+        {/* Form â€” flows directly from hero, no separate section header */}
         <div id="run-demo" ref={briefRef}>
 
           {runCount > 0 && runsLeft > 0 && (
@@ -199,7 +199,7 @@ export function DemoContent({
                   You have seen {MAX_RUNS} briefs. Create a free account to generate unlimited briefs for your own companies, with your background woven in.
                 </p>
                 <Link href="/signup?from=demo" className="inline-flex items-center rounded-full bg-orange-500 px-6 py-2.5 text-[13px] font-semibold text-slate-950 hover:bg-orange-600 transition-colors">
-                  Start free — 30 days, no card
+                  Start free â€” 30 days, no card
                 </Link>
               </div>
             ) : (
@@ -208,7 +208,7 @@ export function DemoContent({
                 disabled={loading}
                 className="rounded-full bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-slate-950 text-[14px] font-semibold px-7 py-3 transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
               >
-                {loading ? 'Building brief…' : content ? 'Regenerate' : 'Generate the brief'}
+                {loading ? 'Building briefâ€¦' : content ? 'Regenerate' : 'Generate the brief'}
               </button>
             )}
 
@@ -221,7 +221,7 @@ export function DemoContent({
               <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
               <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse [animation-delay:150ms]" />
               <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse [animation-delay:300ms]" />
-              <span className="text-[13px] text-slate-500 ml-1">Building your brief…</span>
+              <span className="text-[13px] text-slate-500 ml-1">Building your briefâ€¦</span>
             </div>
           )}
 
@@ -230,7 +230,7 @@ export function DemoContent({
             <div className="mt-10 border-t border-white/10 pt-10">
               <div className="mb-6">
                 <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-orange-300 mb-1">Your brief</p>
-                <p className="text-[13px] text-slate-500">{DEMO_COMPANY} — {role}</p>
+                <p className="text-[13px] text-slate-500">{DEMO_COMPANY} â€” {role}</p>
               </div>
               <div className="space-y-0">
                 {renderBrief(content, loading)}
@@ -245,10 +245,10 @@ export function DemoContent({
                 Ready to walk in with this for your own targets?
               </p>
               <p className="text-[14px] text-slate-400 leading-relaxed mb-7">
-                Your account generates briefs from your background, your companies, and current market signals — not a demo profile.
+                Your account generates briefs from your background, your companies, and current market signals â€” not a demo profile.
               </p>
               <Link href="/signup?from=demo" className="inline-flex items-center rounded-full bg-orange-500 px-7 py-3 text-[14px] font-semibold text-slate-950 hover:bg-orange-600 transition-colors">
-                Start free trial
+                Begin free trial
               </Link>
               <p className="mt-3 text-[12px] text-slate-600">30 days free. No credit card.</p>
             </div>
@@ -260,15 +260,17 @@ export function DemoContent({
       {/* Footer */}
       <footer className="border-t border-white/8 bg-slate-950/80 px-4 sm:px-6 py-6 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.18em] uppercase">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-5">
             <Link href="/privacy" className="text-[12px] text-slate-600 hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link href="/signup?from=demo" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Start free trial →</Link>
+            <Link href="/signup?from=demo" className="text-[12px] font-semibold text-orange-400 hover:text-orange-300 transition-colors">Begin free trial â†’</Link>
           </div>
         </div>
-      </footer>
+      
+          <p className="text-[11px] text-slate-500 mt-2">Privacy-first by design.</p>
+</footer>
     </div>
   )
 }
@@ -280,3 +282,4 @@ export default function DemoPage() {
     </Suspense>
   )
 }
+

@@ -388,7 +388,7 @@ export default function SignupPage() {
           {confirmed ? (
             <>
               <section id="confirm-email" className="mb-8">
-                <h1 className="text-[24px] font-bold text-slate-900 leading-tight">Check your email</h1>
+                <h2 className="text-[24px] font-bold text-slate-900 leading-tight">Check your email</h2>
                 <p className="text-[13px] text-slate-500 mt-1.5">Confirmation link sent to <span className="font-semibold text-slate-700">{email}</span>.</p>
               </section>
               <div className="bg-white border border-slate-200 rounded p-8">
@@ -408,7 +408,7 @@ export default function SignupPage() {
               <section id="signup-intro" className="mb-8">
                 {situation && SITUATION_COPY[situation] ? (
                   <>
-                    <h1 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h1>
+                    <h2 className="text-[22px] font-bold text-slate-900 leading-tight">{SITUATION_COPY[situation].title}</h2>
                     <p className="text-[13px] text-slate-500 mt-1.5">{SITUATION_COPY[situation].sub}</p>
                       <p className="text-[13px] text-slate-400 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
                     <div className="mt-4 bg-white border border-slate-200 rounded p-3">

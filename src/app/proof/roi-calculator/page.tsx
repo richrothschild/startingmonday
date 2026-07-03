@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { RoiCalculatorClient } from './roi-calculator-client'
 
 export const metadata = {
@@ -11,7 +11,7 @@ export default function RoiCalculatorPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-200">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4 text-[12px]">
@@ -39,7 +39,10 @@ export default function RoiCalculatorPage() {
             to your board-safe claims policy before external reporting.
           </p>
         </section>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

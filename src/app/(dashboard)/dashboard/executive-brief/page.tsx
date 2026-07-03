@@ -148,5 +148,10 @@ export default async function ExecutiveBriefPage() {
     recentInterviewSignals,
   }
 
-  return <ExecutiveBriefHub data={data} />
+  return (
+    <>
+      <h1 className="sr-only">Starting Monday executive brief</h1>
+      <ExecutiveBriefHub data={data} />
+    </>
+  )
 }

@@ -35,6 +35,7 @@ export default function HowCiosFindJobsPage() {
         note: 'Free for 30 days. No credit card.',
       }}
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The answer most people do not say out loud: almost nobody at the CIO level finds their next

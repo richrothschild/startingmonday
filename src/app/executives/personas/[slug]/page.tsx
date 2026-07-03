@@ -57,6 +57,8 @@ export default async function ExecutivePersonaDetailPage({ params }: { params: P
           </TrackLink>
         </div>
       </div>
-    </main>
+    
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
+      </main>
   )
 }

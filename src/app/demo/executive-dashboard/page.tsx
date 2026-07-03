@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { DashboardTopShellSection } from '@/app/(dashboard)/dashboard/dashboard-top-shell-section'
 import { DashboardProfileIntelligenceSection } from '@/app/(dashboard)/dashboard/dashboard-profile-intelligence-section'
 import { DashboardWeeklyPerformanceSection } from '@/app/(dashboard)/dashboard/dashboard-weekly-performance-section'
@@ -135,7 +135,7 @@ export default function ExecutiveDashboardDemoPage() {
     <div className="min-h-screen bg-slate-100 font-sans">
       <header className="bg-slate-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between gap-4">
-          <Link href="/" className="text-[10px] font-bold tracking-[0.16em] uppercase text-slate-200 shrink-0">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-200 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <span className="text-[11px] text-slate-200">Executive dashboard preview</span>
@@ -143,6 +143,7 @@ export default function ExecutiveDashboardDemoPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+        <h1 className="sr-only">Starting Monday</h1>
         <DashboardTopShellSection
           firstName="Richard"
           briefingTimezone="America/New_York"
@@ -310,7 +311,10 @@ export default function ExecutiveDashboardDemoPage() {
           activationResumeDone={true}
           showWrapUpLink={true}
         />
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

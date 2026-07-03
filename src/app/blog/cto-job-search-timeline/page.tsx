@@ -28,6 +28,7 @@ export default function CtoJobSearchTimelinePage() {
       readTime={post.readTime}
       url="https://startingmonday.app/blog/cto-job-search-timeline"
     >
+      <h1 className="sr-only">{post.title}</h1>
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           Ask a company how long a CTO search takes and they will say eight to twelve weeks. That is

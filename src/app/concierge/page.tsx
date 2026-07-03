@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function ConciergePage() {
   return (
     <PHProvider>
+      <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       <section className="sr-only" aria-label="Executive concierge summary">
         <h1>Executive concierge application</h1>
         <p>Trust and confidentiality: application details remain private and are used only for beta or concierge enrollment review.</p>

@@ -305,26 +305,26 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
       ? '/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint'
       : '/concierge?program=beta&from=landing'
   const heroPrimaryLabel = isManagerToolsPage
-    ? 'Try free for 60 days'
+    ? 'Get 60-day access'
     : isExecutivesPage
-      ? 'Start 7-day shortlist sprint'
-      : 'Start Now'
+      ? 'Begin 7-day shortlist sprint'
+      : 'Begin now'
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[14px] sm:text-[15px] lg:text-[16px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
             <Link
               href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup'}
               className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
-              aria-label={isManagerToolsPage ? 'Try free for 60 days' : isHomePage ? 'Try free' : 'Sign up'}
+              aria-label={isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign up'}
             >
-              {isManagerToolsPage ? 'Try free for 60 days' : isHomePage ? 'Try free' : 'Sign Up'}
+              {isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign Up'}
             </Link>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
               Log in
@@ -347,7 +347,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                   <p className="max-w-3xl text-[1.15rem] font-semibold leading-[1.18] tracking-tight text-orange-200/90 sm:text-[1.35rem] lg:text-[1.55rem]">
                     {hero.eyebrow}
                   </p>
-                  <h1 className="mt-4 max-w-4xl text-[2rem] font-bold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
+                  <h1 className="font-display mt-4 max-w-4xl text-[2rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]">
                     {hero.h1Lines.map((line, i) => (
                       <span key={i}>{line}{i < hero.h1Lines.length - 1 && <br />}</span>
                     ))}
@@ -397,9 +397,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
             {experimentVariant === 'proof_first' && proofHighlights && proofHighlights.length > 0 && (
               <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3" data-emi-proof="executive_outcomes_grid">
                 {proofHighlights.map((item) => (
-                  <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-                    <p className="mb-2 text-[12px] font-semibold leading-snug text-orange-100">{item.metric}</p>
-                    <p className="text-[12px] leading-relaxed text-slate-200/90">{item.detail}</p>
+                  <article key={item.metric} className="rounded-2xl border border-white/12 bg-white/[0.07] p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                    <p className="mb-2 text-[13px] font-semibold leading-snug text-orange-100">{item.metric}</p>
+                    <p className="text-[13px] leading-relaxed text-slate-200/90">{item.detail}</p>
                   </article>
                 ))}
               </div>
@@ -432,36 +432,11 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
             )}
 
             {isHomePage && (
-              <section
-                className="mb-12"
-                aria-labelledby="homepage-path-title"
-              >
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Choose your path</p>
-                <h2 id="homepage-path-title" className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Start with the search strategy built to win.
-                </h2>
-                <p className="mb-5 max-w-3xl text-[14px] leading-relaxed text-slate-200/90">Select the leader track or partner workflow aligned to your next move.</p>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  <Link
-                    href="/for-executives"
-                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                  >
-                    Leaders
-                  </Link>
-                  <Link
-                    href="/partners"
-                    className="inline-flex items-center rounded-full border border-orange-300/60 px-4 py-2 text-[12px] font-semibold text-orange-100 transition-colors hover:bg-orange-400/10 hover:text-white"
-                  >
-                    Partners
-                  </Link>
-                  <Link
-                    href="/learn-more"
-                    className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-[12px] font-semibold text-slate-200 transition-colors hover:border-orange-300/70 hover:text-white"
-                  >
-                    Learn how early-role signals work
-                  </Link>
-                </div>
-                <p className="text-[12px] text-slate-300">Free for 30 days. No credit card required.</p>
+              <section className="mb-12" aria-labelledby="homepage-trust-title">
+                <h2 id="homepage-trust-title" className="sr-only">Trust assurance</h2>
+                <p className="max-w-3xl text-[13px] font-semibold uppercase tracking-[0.12em] text-orange-200/90">
+                  Private by default. You control every signal and every share.
+                </p>
               </section>
             )}
 
@@ -559,137 +534,53 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
 
         {isHomePage && (
           <>
-            {/* SIGNAL SECTION: Market opportunity and timing advantage */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_840px]">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_1100px]">
               <div className="mx-auto max-w-5xl">
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">The Signal</p>
-                <p className="mb-6 text-[14px] leading-relaxed text-slate-300">The best opportunities are decided in private before they are posted in public.</p>
-                <p className="mb-12 max-w-3xl text-[16px] leading-relaxed text-slate-200">
-                  By the time a role is posted, the internal conversation has already advanced. Most senior leaders already have deep networks and proven reputations. Starting Monday helps you convert that foundation into action at the exact right moment.
-                </p>
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">How it works</p>
+                <h2 className="font-display mb-4 text-[28px] font-semibold leading-[1.06] text-white sm:text-[36px]">
+                  How The Monday Engine Works
+                </h2>
 
-                <div className="mb-12">
-                  <h3 className="font-serif text-[22px] sm:text-[26px] leading-tight text-white mb-8">Entering before the role opens materially improves your odds.</h3>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden p-6 sm:p-8 animate-in fade-in duration-700">
+                <article className="mb-12">
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">1. Detect readiness early</p>
+                  <p className="mb-4 max-w-3xl text-[15px] leading-relaxed text-slate-200/95">
+                    The best opportunities are decided in private before they are posted in public. Starting Monday helps you act while the mandate is still forming, not after the shortlist hardens.
+                  </p>
+                  <Link
+                    href="/evidence-hub#early-signals"
+                    className="mb-8 inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+                  >
+                    Explore the evidence →
+                  </Link>
+                  <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
                     <OpportunityTimingGapChart />
                   </div>
-                </div>
+                </article>
 
-                <p className="mb-10 text-[14px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white">Why this matters:</span> Instead of competing in the posted job window with dozens of other qualified candidates, you're already in the conversation when decision-makers are shaping your dream role. That's not a disadvantage. That's your entire advantage.
-                </p>
-
-                <Link
-                  href="/evidence-hub#early-signals"
-                  className="inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
-                >
-                  Explore the evidence →
-                </Link>
-              </div>
-            </section>
-
-            {/* ADVOCATES SECTION: Create advocates to get on shortlist */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
-              <div className="mx-auto max-w-5xl">
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Create Advocates</p>
-                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Get on the shortlist through relationships, not job boards.
-                </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Once you see a role taking shape, do not start by applying. Start by building advocates inside the company, before the process formalizes.</p>
-                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Most senior leaders already have strong networks and earned credibility. The difference is direction and timing. Starting Monday helps you identify the people shaping the mandate, engage with relevance, and compound trust before the shortlist hardens.
-                </p>
-
-                <div className="mb-8 space-y-4">
-                  <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Map mandate influence, not job titles.</span> Find budget owners, strategic operators, and trusted advisors shaping the decision before hiring opens.</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Engage early with problem-level context.</span> Show you understand the business pressure behind the role, not just the title.</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Run weekly advocate momentum.</span> Track who is championing you, where conversations are advancing, and which relationship needs the next high-value touch.</span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-[13px] leading-relaxed text-slate-300">
-                  <span className="font-semibold text-white">Why it works:</span> The shortlist is often shaped before the posting goes live. With the right advocates engaged early, you are not entering late. You are already inside the decision.
-                </p>
-              </div>
-            </section>
-
-            {/* MONDAY SECTION: Start Monday - cadence and execution */}
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 animate-in fade-in duration-1000 delay-100 [content-visibility:auto] [contain-intrinsic-size:1px_900px]">
-              <div className="mx-auto max-w-5xl">
-                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Start Monday</p>
-                <h2 className="mb-2 text-[24px] font-bold leading-snug text-white sm:text-[28px]">
-                  Momentum is not random. It is scheduled.
-                </h2>
-                <p className="mb-4 max-w-3xl text-[14px] leading-relaxed text-slate-300">Most searches stall between strong conversations. Starting Monday keeps momentum moving so progress does not reset each week.</p>
-                <p className="mb-4 max-w-3xl text-[13px] leading-relaxed text-slate-300">
-                  Want a concrete walkthrough?{' '}
-                  <Link href="#example-walkthrough" className="underline underline-offset-2 hover:text-white">
-                    See one example
-                  </Link>
-                  .
-                </p>
-                <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  Starting Monday gives you a repeatable rhythm. Revisit priorities weekly, sharpen your message from real feedback, and move key relationships forward with intent.
-                </p>
-
-                <div className="mb-8 space-y-4">
-                  <div className="text-[14px] leading-relaxed text-slate-200 space-y-3">
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">01</span>
-                      <span><span className="font-semibold text-white">Weekly momentum map.</span> See where conversations are advancing and where action is needed now.</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">02</span>
-                      <span><span className="font-semibold text-white">Narrative precision loop.</span> Refine proof points so each conversation is clearer than the last.</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="font-semibold text-orange-300 shrink-0">03</span>
-                      <span><span className="font-semibold text-white">Sponsorship engine.</span> Convert warm interest into active internal support through consistent follow-through.</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-[13px] leading-relaxed text-slate-300">
-                    <span className="font-semibold text-white">The outcome:</span> Your progress becomes cumulative, not cyclical.
+                <article className="mb-12">
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">2. Build internal advocates</p>
+                  <p className="mb-6 max-w-3xl text-[15px] leading-relaxed text-slate-200/95">
+                    Instead of starting with an application, identify the people shaping the role and engage with problem-level context before process formalizes.
                   </p>
-                </div>
-              </div>
-            </section>
-
-            {/* STORY SECTION: Tell your narrative */}
-            <HomepageBriefTeaser />
-
-            <section className="px-4 pb-12 sm:px-6 sm:pb-14">
-              <div className="mx-auto max-w-5xl">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-5 shadow-[0_10px_30px_rgba(2,6,23,0.12)] sm:px-6 sm:py-5">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="max-w-xl">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-200">Try free</p>
-                      <p className="mt-2 text-[14px] leading-relaxed text-slate-200/85">
-                        See if the flow fits your search.
-                      </p>
-                    </div>
-                  <Link
-                    href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup?utm_source=homepage&utm_medium=landing&utm_campaign=homepage_bottom_cta'}
-                    className="inline-flex min-w-[8.75rem] items-center justify-center rounded-full border border-orange-300/70 bg-orange-400 px-6 py-2.5 text-center text-[13px] font-semibold tracking-[0.01em] text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
-                  >
-                    {isManagerToolsPage ? 'Try free for 60 days' : 'Try free'}
-                  </Link>
+                  <div className="space-y-3 text-[14px] leading-relaxed text-slate-200">
+                    <p><span className="font-semibold text-white">Map mandate influence.</span> Focus on budget owners, operators, and advisors shaping the decision.</p>
+                    <p><span className="font-semibold text-white">Engage with relevance.</span> Show command of the business pressure behind the role.</p>
                   </div>
-                </div>
+                </article>
+
+                <article>
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">3. Execute weekly Monday cadence</p>
+                  <p className="mb-6 max-w-3xl text-[15px] leading-relaxed text-slate-200/95">
+                    Progress compounds when momentum is scheduled. Revisit priorities weekly, sharpen narrative from live feedback, and move key relationships forward with intent.
+                  </p>
+                  <blockquote className="font-display border-l-2 border-orange-300/70 pl-4 text-[22px] leading-tight text-white sm:text-[26px]">
+                    Momentum is designed before the first meeting.
+                  </blockquote>
+                </article>
               </div>
             </section>
+
+            <HomepageBriefTeaser />
           </>
         )}
 
@@ -730,7 +621,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                       }}
                       className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                     >
-                        Start 60-day free access
+                      Begin 60-day access
                     </TrackLink>
                     <TrackLink
                       href="/feedback"
@@ -782,7 +673,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                     }}
                     className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                   >
-                    Start your free trial
+                    Begin your free trial
                   </TrackLink>
                   <TrackLink
                     href="/demo/executive-brief"
@@ -806,7 +697,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                   Most leaders search in isolation. Starting Monday helps you build the relationships that matter.
                 </h2>
                 <p className="mb-8 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
-                  You're not casting nets into crowded windows. You're having targeted conversations with decision-makers before the market even knows the role exists. Starting Monday gives you clarity on who shapes real outcomes, focus on genuine relationships over noise, and control over timing when mandates crystallize. The difference feels immediate: by week one, you've moved from overwhelm to confidence, from scattered outreach to relationship leadership that converts.
+                  You are not casting nets into crowded windows. You are having targeted conversations with decision-makers before the market even knows the role exists. Starting Monday gives you clarity on who shapes real outcomes, focus on genuine relationships over noise, and control over timing when mandates crystallize. The difference feels immediate: by week one, you have moved from overwhelm to confidence, from scattered outreach to relationship leadership that converts.
                 </p>
                 <div className="mb-8 space-y-4">
                   <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-orange-200">What shifts</p>
@@ -835,7 +726,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
         <footer className="border-t border-white/10 bg-slate-950/80 px-4 py-10 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className={useCenteredFooter ? 'flex flex-col items-center gap-5' : 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'}>
-              <span className={useCenteredFooter ? 'text-[15px] font-bold tracking-[0.14em] uppercase text-slate-400 text-center' : 'text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400'}>
+              <span className={useCenteredFooter ? 'text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400 text-center' : 'text-[12px] sm:text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400'}>
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
               <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
@@ -851,10 +742,10 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
 
             {useCenteredFooter ? (
               <p className="text-[11px] text-slate-500 mt-5 text-center">
-                Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
+                Privacy-first by design. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.
               </p>
             ) : (
-              <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. No sale of user data, ever. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
+              <p className="text-[11px] text-slate-500 mt-5">Privacy-first by design. {' '}|{' '} &copy; {new Date().getFullYear()} Starting Monday. All rights reserved.</p>
             )}
           </div>
         </footer>

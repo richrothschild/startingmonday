@@ -1,15 +1,15 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 
 const SHORTLIST = [
   {
-    role: 'Salesforce · VP of IT',
+    role: 'Salesforce Â· VP of IT',
     confidence: 'High confidence',
     whyNow: 'Leadership-change and mandate-expansion signals indicate role formation before posting pressure spikes.',
     decisionPath: ['Jordan Lee (SVP Product)', 'Priya Patel (Retained Search)', 'Alex Chen (Former CIO peer)'],
     source: 'Signals: leadership movement, mandate shift, hiring language drift',
   },
   {
-    role: 'ServiceNow · VP Technology Operations',
+    role: 'ServiceNow Â· VP Technology Operations',
     confidence: 'Medium confidence',
     whyNow: 'Platform-integration pressure and role-scope expansion suggest a likely shortlist window soon.',
     decisionPath: ['Rina Das (Platform PMO lead)', 'Mark Evans (Search partner)', 'Elaine Hu (Ops sponsor)'],
@@ -30,7 +30,7 @@ export default function Wedge30SecondDemoPage() {
 
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/78 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.18em] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] transition-opacity hover:opacity-80">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -98,7 +98,10 @@ export default function Wedge30SecondDemoPage() {
             </Link>
           </div>
         </div>
+      
+        <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>
   )
 }
+

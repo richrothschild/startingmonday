@@ -179,11 +179,14 @@ export default async function InternalGuidePage({
   const safeSections = sections.length > 0 ? sections : CORE_INTERNAL_SECTIONS
 
   return (
-    <InternalGuideClient
-      sections={safeSections}
-      initialQuestion={q?.slice(0, 500) ?? ''}
-      staffRole={staffMember.role}
-      guideGeneratedAt={guideGeneratedAt}
-    />
+    <>
+      <h1 className="sr-only">Internal Guide</h1>
+      <InternalGuideClient
+        sections={safeSections}
+        initialQuestion={q?.slice(0, 500) ?? ''}
+        staffRole={staffMember.role}
+        guideGeneratedAt={guideGeneratedAt}
+      />
+    </>
   )
 }
