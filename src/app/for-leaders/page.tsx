@@ -49,7 +49,6 @@ export default async function ForLeadersPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <h1 className="sr-only">Starting Monday for leaders pursuing board-level roles</h1>
       <SiteHeader />
       <main className="min-h-screen bg-slate-950 text-slate-100">
         <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
@@ -57,9 +56,9 @@ export default async function ForLeadersPage() {
           <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-200">For leaders</p>
-              <h2 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
+              <h1 className="mt-4 max-w-2xl text-[34px] font-semibold leading-[1.08] sm:text-[48px]">
                 Create your next role before someone else does.
-              </h2>
+              </h1>
               <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate-200/90">
                 Find the role first. Talk to the right people. Follow a clear plan.
               </p>

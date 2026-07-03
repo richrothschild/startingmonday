@@ -33,7 +33,7 @@ export default function LinkedInExecutiveSearchPage() {
         <p>
           LinkedIn is the only professional platform where retained search partners, board members,
           and CEOs spend time in a professional context. That makes it uniquely valuable for CIO and
-          CTO candidates&mdash;and uniquely easy to misuse.
+          CTO candidates - and uniquely easy to misuse.
         </p>
 
         <p>
@@ -58,7 +58,7 @@ export default function LinkedInExecutiveSearchPage() {
           three roles. Use it differently. Write two to three paragraphs that establish your point of
           view: what you believe about technology leadership at the executive level, where you have
           created the most distinctive value, and what kind of mandate fits you best. Write it the way
-          you would write a paragraph for a board bio&mdash;specific, confident, without hedging.
+          you would write a paragraph for a board bio - specific, confident, without hedging.
         </p>
 
         <p>
@@ -73,12 +73,11 @@ export default function LinkedInExecutiveSearchPage() {
 
         <p>
           Publishing on LinkedIn during an active search serves one purpose: demonstrating that you
-          think at the right level. Not performing expertise&mdash;demonstrating it.
+          think at the right level. Not performing expertise - demonstrating it.
         </p>
 
         <p>
-          A 200-word post that makes a specific, defensible point about technology leadership&mdash;
-          not a general observation, but a claim based on your actual experience&mdash;is read by
+          A 200-word post that makes a specific, defensible point about technology leadership - not a general observation, but a claim based on your actual experience - is read by
           exactly the people you need to reach. The retained search partners who track CIO and CTO
           candidates watch what those candidates publish. A post that shows you think well is worth
           more than ten recruiter emails.
@@ -137,7 +136,7 @@ export default function LinkedInExecutiveSearchPage() {
 
         <p>
           Follow the forty to sixty companies on your target list. Check the feed on a fixed
-          schedule&mdash;twice a week is enough. When something moves, act immediately. The first
+          schedule - twice a week is enough. When something moves, act immediately. The first
           conversation with the right person, at the moment the signal appears, is worth more than
           every application submitted after the role is posted.
         </p>
@@ -145,8 +144,8 @@ export default function LinkedInExecutiveSearchPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What not to do</h2>
 
         <p>
-          The Open to Work badge: do not use it. The signal it sends&mdash;that you are available,
-          publicly, and urgently&mdash;is not the signal you want to lead with at the CIO or CTO
+          The Open to Work badge: do not use it. The signal it sends - that you are available,
+          publicly, and urgently - is not the signal you want to lead with at the CIO or CTO
           level. Search firm partners and board members who see it assume the search has been
           difficult. You can enable the version that is visible only to recruiters, but even that
           is not necessary if the rest of your profile is doing its job.
@@ -169,7 +168,7 @@ export default function LinkedInExecutiveSearchPage() {
         <p>
           Used well, LinkedIn is not just a visibility tool. It is an intelligence infrastructure.
           The companies you follow, the executives you monitor, the organizational changes you catch
-          early&mdash;all of it feeds the target company list that is the foundation of a well-run
+          early - all of it feeds the target company list that is the foundation of a well-run
           search.
         </p>
 

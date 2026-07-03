@@ -54,7 +54,7 @@ export default async function CommunicationsPrepPage() {
             </p>
             <textarea
               id="opening-message"
-              placeholder="Hi [Name], I've been following [Company] for the [reason]. I'm currently exploring [roles/opportunities] in [market]. Would you be open to a quick conversation about [context]?&#10;&#10;— [Your name]"
+              placeholder="Hi [Name], I've been following [Company] for the [reason]. I'm currently exploring [roles/opportunities] in [market]. Would you be open to a quick conversation about [context]?&#10;&#10;- [Your name]"
               rows={6}
               className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 font-mono text-[12px] focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
             />

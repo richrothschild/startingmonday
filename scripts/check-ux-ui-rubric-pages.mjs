@@ -82,8 +82,8 @@ const SPECS = [
 		rules: [
 			{
 				id: 'conversion-cta-copy',
-				description: 'Pricing cards keep Start free trial CTA copy.',
-				matcher: 'Start free trial',
+				description: 'Pricing cards keep a primary signup CTA link.',
+				matcher: /href="\/signup/,
 			},
 			{
 				id: 'conversion-card-alignment',
@@ -119,8 +119,8 @@ const SPECS = [
 			},
 			{
 				id: 'conversion-cta',
-				description: 'Demo includes Start free trial CTA.',
-				matcher: 'Start free trial',
+				description: 'Demo includes a signup CTA routed from demo.',
+				matcher: /href="\/signup\?from=demo"/,
 			},
 		],
 	},

@@ -63,7 +63,7 @@ function buildEmail(
 
 <tr><td style="background:#0f172a;padding:28px 40px;">
   <div style="color:#334155;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;">Starting Monday &middot; Internal</div>
-  <div style="color:#ffffff;font-size:20px;font-weight:700;line-height:1.2;">Action Scores &mdash; ${weekLabel}</div>
+  <div style="color:#ffffff;font-size:20px;font-weight:700;line-height:1.2;">Action Scores - ${weekLabel}</div>
   <div style="color:#475569;font-size:13px;margin-top:6px;">${totalEvents7d} events tracked this week</div>
 </td></tr>
 
@@ -76,7 +76,7 @@ function buildEmail(
 </td></tr>
 
 <tr><td style="padding:20px 40px 8px 40px;">
-  <p style="margin:0 0 4px 0;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#dc2626;">Lowest composite &mdash; review for friction</p>
+  <p style="margin:0 0 4px 0;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#dc2626;">Lowest composite - review for friction</p>
   <p style="margin:0 0 14px 0;font-size:11px;color:#94a3b8;">these interactions have the least net impact</p>
   <table width="100%" cellpadding="0" cellspacing="0">
     ${actionRows(bottom3, '#dc2626')}

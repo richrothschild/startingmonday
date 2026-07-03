@@ -34,9 +34,6 @@ jobs:
       - name: Generate monitoring coverage matrix and harness
         run: npm run monitor:coverage:refresh
 
-      - name: Monitoring coverage check (advisory)
-        run: npm run monitor:matrix:check || true
-
       - name: Upload monitoring coverage artifacts
         if: always()
         uses: actions/upload-artifact@v6
@@ -80,6 +77,21 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+
+      - name: Detect scoped content changes
+        id: scoped
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            guides:
+              - 'docs/**'
+              - 'scripts/user-guide-sync.ts'
+              - 'scripts/internal-guide-sync.ts'
+              - 'scripts/eval-guide-retrieval.ts'
+            outreach:
+              - 'src/lib/outreach/**'
+              - 'scripts/*outreach*'
+              - 'docs/outreach/**'
 
       - uses: actions/setup-node@v5
         with:
@@ -133,6 +145,7 @@ jobs:
         run: npm run guide:user:sync && npm run guide:internal:sync
 
       - name: Guide retrieval evaluation (strict)
+        if: github.event_name != 'pull_request' || steps.scoped.outputs.guides == 'true'
         run: npm run guide:retrieval:eval:strict
 
       - name: Lint
@@ -162,6 +175,7 @@ jobs:
         run: npm run build
 
       - name: Outreach format check
+        if: github.event_name != 'pull_request' || steps.scoped.outputs.outreach == 'true'
         run: node scripts/check-outreach-format.mjs
 
       - name: Executive fit criteria check
@@ -230,12 +244,8 @@ jobs:
           fi
           npm run coverage:diff:check -- --base-ref="$BASE_REF" --head-ref="${GITHUB_SHA}" --min-coverage=90
 
-      - name: Check for em-dashes
-        run: |
-          if grep -rP "\xe2\x80\x94" src/; then
-            echo "Em-dash (—) found in src/. Use a regular hyphen or reword."
-            exit 1
-          fi
+      # Em-dash check moved to ESLint (no-restricted-syntax in eslint.config.mjs)
+      # so violations surface in-editor instead of at CI time.
 
   mobile-ux-contract-and-banned-patterns:
     name: Mobile UX contract and banned patterns
@@ -437,24 +447,28 @@ jobs:
           const luxury = process.env.LUXURY_CHANGED === 'true'
           const synthetic = process.env.SYNTHETIC_CHANGED === 'true'
 
+          // local: true  => render-only suite, runs against the PR's own build
+          // local: false => needs a real backend (auth/signup), runs against staging
           if (full) {
             suites.push({
               name: 'smoke-core',
               command: 'npx playwright test tests/e2e/smoke.spec.ts --project=setup --project=smoke',
+              local: false,
             })
           } else {
-            if (auth) suites.push({ name: 'auth-ux', command: 'npm run test:e2e:auth-ux' })
-            if (luxury) suites.push({ name: 'luxury-ux', command: 'npm run test:e2e:luxury' })
+            if (auth) suites.push({ name: 'auth-ux', command: 'npm run test:e2e:auth-ux', local: true })
+            if (luxury) suites.push({ name: 'luxury-ux', command: 'npm run test:e2e:luxury', local: true })
             if (synthetic) {
               suites.push({
                 name: 'synthetic-10',
                 command: 'npx playwright test tests/e2e/synthetics.spec.ts --project=synthetics --grep "Synthetic-10"',
+                local: false,
               })
             }
           }
 
           if (suites.length === 0) {
-            suites.push({ name: 'focused-default', command: 'npm run test:e2e:auth-ux && npm run test:e2e:luxury' })
+            suites.push({ name: 'focused-default', command: 'npm run test:e2e:auth-ux && npm run test:e2e:luxury', local: true })
           }
 
           process.stdout.write('matrix=' + JSON.stringify(suites) + '\n')
@@ -485,14 +499,49 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      # Render-only suites run against the PR's own build so failures reflect
+      # this change, not the current state of the staging deployment.
+      - name: Generate guide artifacts (local suites)
+        if: matrix.local
+        run: npm run guide:user:sync && npm run guide:internal:sync
+
+      - name: Build PR branch for local E2E
+        if: matrix.local
+        env:
+          MOBILE_ELITE_GATE_STRICT: '0'
+        run: npm run build
+
+      - name: Start app for local E2E
+        if: matrix.local
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next-start.pid
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "App is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          tail -n 200 /tmp/next-start.log || true
+          exit 1
+
       - name: Run E2E tests (${{ matrix.name }})
         run: ${{ matrix.command }}
         env:
-          PLAYWRIGHT_BASE_URL: ${{ needs.playwright-pr-plan.outputs.playwright_base_url }}
+          PLAYWRIGHT_BASE_URL: ${{ matrix.local && 'http://127.0.0.1:3000' || needs.playwright-pr-plan.outputs.playwright_base_url }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
           PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+
+      - name: Stop local app
+        if: always() && matrix.local
+        run: |
+          if [ -f /tmp/next-start.pid ]; then
+            kill "$(cat /tmp/next-start.pid)" || true
+          fi
 
       - name: Upload Playwright report
         if: always()
@@ -571,12 +620,47 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      # On PRs, test the PR's own build (not the deployed staging site) so the
+      # check reflects this change, not whatever staging happens to be serving.
+      - name: Generate guide artifacts (PR local run)
+        if: github.event_name == 'pull_request'
+        run: npm run guide:user:sync && npm run guide:internal:sync
+
+      - name: Build PR branch for local E2E
+        if: github.event_name == 'pull_request'
+        env:
+          MOBILE_ELITE_GATE_STRICT: '0'
+        run: npm run build
+
+      - name: Start app for local E2E
+        if: github.event_name == 'pull_request'
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next-start.pid
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "App is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          tail -n 200 /tmp/next-start.log || true
+          exit 1
+
       - name: Run mobile visual smoke snapshots
         run: npm run test:e2e:mobile-visual:smoke
         env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.PLAYWRIGHT_BASE_URL || 'https://starting-monday-staging.up.railway.app' }}
+          PLAYWRIGHT_BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:3000' || (github.ref == 'refs/heads/main' && secrets.PLAYWRIGHT_BASE_URL || 'https://starting-monday-staging.up.railway.app') }}
           PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+
+      - name: Stop local app
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          if [ -f /tmp/next-start.pid ]; then
+            kill "$(cat /tmp/next-start.pid)" || true
+          fi
 
       - name: Upload mobile visual smoke artifacts
         if: always()
@@ -588,44 +672,9 @@ jobs:
             test-results/
           retention-days: 7
 
-  mobile-visual-regression:
-    name: Mobile visual regression
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
-    needs: [mobile-visual-smoke]
-    continue-on-error: true
-
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install chromium --with-deps
-
-      - name: Run mobile visual regression snapshots
-        run: npm run test:e2e:mobile-visual
-        env:
-          PLAYWRIGHT_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.PLAYWRIGHT_BASE_URL || 'https://starting-monday-staging.up.railway.app' }}
-          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
-          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
-
-      - name: Upload mobile visual artifacts
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: mobile-visual-report
-          path: |
-            playwright-report/
-            test-results/
-          retention-days: 7
+  # mobile-visual-regression job removed: it ran with continue-on-error (could
+  # never fail) which is CI theater. Real visual regression should use a
+  # reviewable-diff tool (Chromatic/Argos) - see docs/engineering notes.
 
   auth-ux-guard:
     name: Auth UX guard
@@ -647,10 +696,44 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      # On PRs, test the PR's own build (not the deployed staging site).
+      - name: Generate guide artifacts (PR local run)
+        if: github.event_name == 'pull_request'
+        run: npm run guide:user:sync && npm run guide:internal:sync
+
+      - name: Build PR branch for local E2E
+        if: github.event_name == 'pull_request'
+        env:
+          MOBILE_ELITE_GATE_STRICT: '0'
+        run: npm run build
+
+      - name: Start app for local E2E
+        if: github.event_name == 'pull_request'
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next-start.pid
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "App is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          tail -n 200 /tmp/next-start.log || true
+          exit 1
+
       - name: Run auth UX guard suite
         run: npm run test:e2e:auth-ux
         env:
-          PLAYWRIGHT_BASE_URL: ${{ ((github.event_name == 'pull_request' && github.head_ref == 'staging') || github.ref == 'refs/heads/staging') && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:3000' || (github.ref == 'refs/heads/staging' && 'https://starting-monday-staging.up.railway.app' || secrets.PLAYWRIGHT_BASE_URL) }}
+
+      - name: Stop local app
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          if [ -f /tmp/next-start.pid ]; then
+            kill "$(cat /tmp/next-start.pid)" || true
+          fi
 
       - name: Upload auth UX artifacts
         if: always()
@@ -756,11 +839,25 @@ jobs:
         continue-on-error: true
         run: npx lhci autorun --config=${{ steps.lighthouse_profile.outputs.config }}
 
-      - name: Enforce Lighthouse gate after retry
-        if: steps.lighthouse_pass_1.outcome == 'failure' && steps.lighthouse_pass_2.outcome == 'failure'
+      # On PRs this gate is advisory: lab perf on shared runners is too noisy
+      # to block merges. Absolute budgets are enforced on main pushes where the
+      # streak-based profile tightening applies.
+      - name: Enforce Lighthouse gate after retry (main/staging push only)
+        if: steps.lighthouse_pass_1.outcome == 'failure' && steps.lighthouse_pass_2.outcome == 'failure' && github.event_name != 'pull_request'
         run: |
           echo "Lighthouse budgets failed on both pass 1 and pass 2."
           exit 1
+
+      - name: Advisory Lighthouse summary (PR)
+        if: steps.lighthouse_pass_1.outcome == 'failure' && steps.lighthouse_pass_2.outcome == 'failure' && github.event_name == 'pull_request'
+        run: |
+          echo "::warning::Lighthouse mobile budgets failed on this PR (advisory). Review the lighthouse-mobile-report artifact before merging."
+          {
+            echo "## Lighthouse mobile budgets (advisory on PR)"
+            echo ""
+            echo "Both passes failed the budget profile. This does not block merge,"
+            echo "but the same budgets ARE enforced on main. Review the artifact."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Notify Slack on Lighthouse failure
         if: failure() && github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -858,9 +955,8 @@ jobs:
     name: Semgrep security scan
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # Non-blocking: findings are reviewed manually, not used as a deploy gate.
-    continue-on-error: true
-    # Run on PRs and main pushes; skip dependabot to avoid noise
+    # High-severity findings block; the full scan remains advisory.
+    # Skip dependabot to avoid noise
     if: github.actor != 'dependabot[bot]'
 
     steps:
@@ -874,7 +970,10 @@ jobs:
       - name: Install Semgrep CLI
         run: python3 -m pip install --upgrade semgrep
 
-      - name: Run Semgrep (custom rules)
+      - name: Run Semgrep high-severity (blocking)
+        run: semgrep scan --config .semgrep.yml --severity ERROR --error --quiet
+
+      - name: Run Semgrep full scan (advisory)
         continue-on-error: true
         run: semgrep scan --config .semgrep.yml --quiet
 
@@ -891,6 +990,42 @@ jobs:
 
           python3 -m pip install --upgrade semgrep
           semgrep ci --config auto
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.actor != 'dependabot[bot]'
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependency-audit:
+    name: Dependency vulnerability audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Audit production dependencies (high/critical)
+        run: npm audit --omit=dev --audit-level=high
 
   notify-failure:
     name: Notify Slack on failure

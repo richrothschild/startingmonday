@@ -142,8 +142,8 @@ export default function CisoInterviewPreparationPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What Starting Monday assembles</h2>
 
         <p>
-          Starting Monday watches for the organizational signals that precede CISO searches&mdash;breach
-          disclosures, regulatory actions, IPO filings, board committee formations&mdash;so you can be in
+          Starting Monday watches for the organizational signals that precede CISO searches - breach
+          disclosures, regulatory actions, IPO filings, board committee formations - so you can be in
           conversation with the right search firm partners before the search is authorized.
         </p>
 

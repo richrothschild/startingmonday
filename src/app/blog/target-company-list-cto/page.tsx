@@ -44,7 +44,7 @@ export default function TargetCompanyListCtoPage() {
         <p>
           At one end, the CTO is the most technical person in the room: responsible for architecture
           decisions, engineering culture, and the integrity of what ships. At the other, the CTO is
-          an external-facing executive&mdash;the public voice of the company&rsquo;s technology
+          an external-facing executive - the public voice of the company&rsquo;s technology
           vision, the strategic partner to the CEO on product direction, the person who represents
           technical conviction to the board and to the market. Some companies want both and give them
           the same title.

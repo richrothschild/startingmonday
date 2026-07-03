@@ -81,14 +81,14 @@ export default function CtoVsVpEngineeringPage() {
         <p>
           If your best work involves building teams, developing engineering managers, creating
           processes that made a hundred engineers more productive, and delivering complex programs
-          reliably at scale&mdash;you are built for the VP Engineering track. The title may
+          reliably at scale - you are built for the VP Engineering track. The title may
           eventually read CTO at a large organization, but the work is VP Engineering.
         </p>
 
         <p>
           If your best work involves setting a technical direction that proved correct over five
           years, representing your company&rsquo;s architecture to investors who then believed in the
-          platform, or making build-versus-buy decisions that shaped what the company became&mdash;you
+          platform, or making build-versus-buy decisions that shaped what the company became - you
           are built for the external CTO track.
         </p>
 
@@ -110,8 +110,8 @@ export default function CtoVsVpEngineeringPage() {
         </p>
 
         <p>
-          Choosing CTO at a growth-stage company&mdash;particularly as the first CTO hire after a
-          Series B&mdash;is the path to maximum ownership and maximum scope ambiguity. You will be
+          Choosing CTO at a growth-stage company - particularly as the first CTO hire after a
+          Series B - is the path to maximum ownership and maximum scope ambiguity. You will be
           everything at once for the first year and have to build the function you want to lead. The
           upside is that you define the role in a way that VP Engineering tracks rarely allow.
         </p>
@@ -138,7 +138,7 @@ export default function CtoVsVpEngineeringPage() {
 
         <p>
           For the CTO track: target companies where the technology decision is genuinely
-          strategic&mdash;where the CEO is looking for a co-pilot, not an operator. This includes
+          strategic - where the CEO is looking for a co-pilot, not an operator. This includes
           growth-stage companies after a Series B, PE-backed software companies with transformation
           mandates, and enterprises where the technology bet will determine the outcome for years.
         </p>
@@ -151,7 +151,7 @@ export default function CtoVsVpEngineeringPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">The clarity that changes everything</h2>
 
         <p>
-          The executives who thrive&mdash;both VPs Engineering and CTOs&mdash;are the ones who know
+          The executives who thrive - both VPs Engineering and CTOs - are the ones who know
           which seat they are in and why. They stop applying to roles that are wrong for them, which
           creates focus. They stop explaining themselves to companies that need something different,
           which creates credibility.

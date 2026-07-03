@@ -1,33 +1,17 @@
 #!/bin/sh
 set -e
 
+# Pre-push policy: only fast, environment-independent checks belong here.
+# Anything requiring secrets, network access, or a full build runs in CI.
+# (Growth gates moved to scheduled workflows; preflight build removed - CI builds every PR.)
+
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
-
-echo "growth council gate..."
-npm run growth:council:strict
-
-echo "growth metrics gate..."
-npm run growth:metrics:strict
 
 echo "ux/ui rubric page gate..."
 npm run ux:rubric:pages
 
 echo "public asset tracking guard..."
 npm run guard:public-assets
-
-echo "push environment-sensitive guard..."
-if [ -n "${NEXT_PUBLIC_SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
-	npm run guard:push:env
-else
-	echo "push environment-sensitive guard... skipped (missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY)"
-fi
-
-if [ "${SKIP_PRE_PUSH_BUILD:-0}" = "1" ]; then
-	echo "skipping Railway preflight build because SKIP_PRE_PUSH_BUILD=1"
-else
-	echo "push Railway preflight build..."
-	npm run railway:preflight
-fi
 
 echo "ok"

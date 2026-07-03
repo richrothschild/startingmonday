@@ -61,6 +61,12 @@ const nextConfig: NextConfig = {
   experimental: {
     inlineCss: true,
   },
+  turbopack: {
+    root: process.cwd(),
+  },
+  images: {
+    qualities: [60, 75],
+  },
   async redirects() {
     return [
       {

@@ -135,7 +135,7 @@ export default function SecurityPage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>
-                <span><strong className="text-slate-800">EU AI Act:</strong> Starting Monday uses AI to generate career documents &mdash; prep briefs, outreach drafts, and strategy summaries. This is an assistive tool that produces draft output for human review. No automated decisions are made about users. All outputs are reviewed and acted on by the user, not by automated systems acting on their behalf.</span>
+                <span><strong className="text-slate-800">EU AI Act:</strong> Starting Monday uses AI to generate career documents - prep briefs, outreach drafts, and strategy summaries. This is an assistive tool that produces draft output for human review. No automated decisions are made about users. All outputs are reviewed and acted on by the user, not by automated systems acting on their behalf.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-slate-200 shrink-0 mt-0.5 font-bold">+</span>

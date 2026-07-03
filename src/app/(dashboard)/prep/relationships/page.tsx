@@ -111,7 +111,7 @@ export default function RelationshipsPage() {
           From coaching research
         </p>
         <p className="text-[15px] leading-relaxed text-slate-100">
-          "The fastest path to an offer is usually through someone already inside. Relationships matter more than cold outreach. Build a list of 8-12 people at each target company—people who can advocate for you, introduce you to hiring managers, or move you through their process faster."
+          "The fastest path to an offer is usually through someone already inside. Relationships matter more than cold outreach. Build a list of 8-12 people at each target company - people who can advocate for you, introduce you to hiring managers, or move you through their process faster."
         </p>
       </div>
 

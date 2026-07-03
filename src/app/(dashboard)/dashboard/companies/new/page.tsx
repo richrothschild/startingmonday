@@ -147,7 +147,7 @@ export default async function AddCompanyPage({
                 placeholder="acme.com or https://acme.com"
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
               />
-              <p className="mt-1.5 text-[12px] text-slate-400">Main URL &mdash; used to discover press room and leadership page</p>
+              <p className="mt-1.5 text-[12px] text-slate-400">Main URL - used to discover press room and leadership page</p>
             </div>
 
             <div>
@@ -160,7 +160,7 @@ export default async function AddCompanyPage({
                 placeholder="acme.com/careers or https://acme.com/careers"
                 className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
               />
-              <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans &mdash; runs Mon / Wed / Fri</p>
+              <p className="mt-1.5 text-[12px] text-slate-400">Used in job scans - runs Mon / Wed / Fri</p>
             </div>
 
             <div>

@@ -217,7 +217,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
             <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-800">
               {trialDaysLeft <= 3
                 ? <><strong>{trialDaysLeft === 0 ? 'Your trial ends today.' : `${trialDaysLeft} day${trialDaysLeft !== 1 ? 's' : ''} left.`}</strong> When it ends, your signal history and company intelligence disappear. Subscribe below to keep everything you have built.</>
-                : <>You are in your free trial &mdash; <strong>{trialDaysLeft} day{trialDaysLeft !== 1 ? 's' : ''} remaining</strong>. The signal history and company intelligence you are building disappears when the trial ends. Subscribe below to keep it.</>
+                : <>You are in your free trial - <strong>{trialDaysLeft} day{trialDaysLeft !== 1 ? 's' : ''} remaining</strong>. The signal history and company intelligence you are building disappears when the trial ends. Subscribe below to keep it.</>
               }
             </div>
           )}
@@ -289,7 +289,7 @@ export function BillingClient({ sub, hasStripeCustomer, accountEmail, accountNam
           </div>
           {sub.isPaid && !paused && hasStripeCustomer && (
             <p className="mt-3 text-[12px] text-slate-400">
-              <strong className="font-semibold text-slate-500">Pause</strong> stops billing temporarily &mdash; your data and pipeline stay intact.{' '}
+              <strong className="font-semibold text-slate-500">Pause</strong> stops billing temporarily - your data and pipeline stay intact.{' '}
               <strong className="font-semibold text-slate-500">Cancel</strong> (via Manage subscription) ends your subscription entirely.
             </p>
           )}

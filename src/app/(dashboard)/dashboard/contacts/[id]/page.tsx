@@ -345,7 +345,7 @@ export default async function ContactDetailPage({
               <div>
                 <p className="text-[14px] text-slate-700 leading-relaxed">{mostRecentSignal.signal_summary}</p>
                 <p className="text-[13px] text-amber-600 mt-1 font-medium">
-                  {fmtDate(mostRecentSignal.signal_date)} &mdash; strong moment to reach out
+                  {fmtDate(mostRecentSignal.signal_date)} - strong moment to reach out
                 </p>
               </div>
             </div>

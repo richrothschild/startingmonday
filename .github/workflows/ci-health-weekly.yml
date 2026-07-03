@@ -1,0 +1,154 @@
+name: CI Health Weekly
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  checks: read
+
+jobs:
+  branch-protection-drift:
+    name: Branch protection drift vs manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Compare required checks against manifest
+        uses: actions/github-script@v8
+        with:
+          # Fine-grained PAT with Administration: Read-only on this repo,
+          # required to read branch protection. Falls back to the default
+          # token (job degrades to a warning) if the secret is absent.
+          github-token: ${{ secrets.CI_HEALTH_PAT || secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs')
+            const manifest = JSON.parse(fs.readFileSync('config/required-checks-manifest.json', 'utf8'))
+
+            let actual = []
+            try {
+              const res = await github.rest.repos.getBranchProtection({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                branch: manifest.branch,
+              })
+              actual = res.data.required_status_checks?.contexts ?? []
+            } catch (error) {
+              core.warning(`Could not read branch protection for ${manifest.branch}: ${error.message}. The default GITHUB_TOKEN may lack admin scope; configure a fine-grained PAT secret if so.`)
+              return
+            }
+
+            const expected = manifest.requiredChecks
+            const missing = expected.filter((c) => !actual.includes(c))
+            const unexpected = actual.filter((c) => !expected.includes(c))
+
+            const lines = [
+              '## Branch protection drift report',
+              '',
+              `Branch: ${manifest.branch}`,
+              `Expected required checks: ${expected.length}`,
+              `Actual required checks: ${actual.length}`,
+              '',
+            ]
+
+            if (missing.length === 0 && unexpected.length === 0) {
+              lines.push('No drift. Branch protection matches the manifest.')
+            } else {
+              if (missing.length > 0) {
+                lines.push('### Missing from branch protection (should be required):')
+                missing.forEach((c) => lines.push(`- ${c}`))
+                lines.push('')
+              }
+              if (unexpected.length > 0) {
+                lines.push('### Required in branch protection but not in manifest:')
+                unexpected.forEach((c) => lines.push(`- ${c}`))
+              }
+            }
+
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n')
+
+            if (missing.length > 0 || unexpected.length > 0) {
+              core.setFailed(`Branch protection drift detected: ${missing.length} missing, ${unexpected.length} unexpected. Align settings or update config/required-checks-manifest.json.`)
+            }
+
+  check-flake-report:
+    name: Required-check pass and flake rates
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Compute per-check health over recent CI runs
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs')
+            const manifest = JSON.parse(fs.readFileSync('config/required-checks-manifest.json', 'utf8'))
+            const watched = new Set([...manifest.requiredChecks, ...manifest.advisoryChecks])
+
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ci.yml',
+              status: 'completed',
+              per_page: 50,
+            })
+
+            const stats = new Map()
+            for (const run of runs.data.workflow_runs ?? []) {
+              const jobs = await github.rest.actions.listJobsForWorkflowRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: run.id,
+                per_page: 100,
+              })
+              for (const job of jobs.data.jobs ?? []) {
+                if (!watched.has(job.name)) continue
+                const entry = stats.get(job.name) ?? { pass: 0, fail: 0, retried: 0 }
+                if (job.conclusion === 'success') entry.pass += 1
+                else if (job.conclusion === 'failure') entry.fail += 1
+                if ((job.run_attempt ?? 1) > 1 && job.conclusion === 'success') entry.retried += 1
+                stats.set(job.name, entry)
+              }
+            }
+
+            const maxFlake = manifest.policy?.maxFlakeRatePercent ?? 5
+            const lines = [
+              '## CI check health (last 50 completed CI runs)',
+              '',
+              '| Check | Pass | Fail | Pass rate | Retry-to-green (flake signal) |',
+              '|---|---:|---:|---:|---:|',
+            ]
+
+            const flaky = []
+            for (const [name, s] of [...stats.entries()].sort()) {
+              const total = s.pass + s.fail
+              const rate = total > 0 ? ((s.pass / total) * 100).toFixed(1) : 'n/a'
+              const flakeRate = total > 0 ? (s.retried / total) * 100 : 0
+              lines.push(`| ${name} | ${s.pass} | ${s.fail} | ${rate}% | ${s.retried} (${flakeRate.toFixed(1)}%) |`)
+              if (manifest.requiredChecks.includes(name) && flakeRate > maxFlake) {
+                flaky.push(`${name} (${flakeRate.toFixed(1)}% > ${maxFlake}%)`)
+              }
+            }
+
+            lines.push('')
+            if (flaky.length > 0) {
+              lines.push(`### Action needed: required checks exceeding flake budget`)
+              flaky.forEach((f) => lines.push(`- ${f}`))
+              lines.push('')
+              lines.push('Per policy: repair or demote these checks. A flaky required check trains bypass behavior.')
+            } else {
+              lines.push('All required checks are within the flake budget.')
+            }
+
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n')
+
+            if (flaky.length > 0) {
+              core.setFailed(`Flaky required checks: ${flaky.join(', ')}`)
+            }

@@ -47,7 +47,7 @@ export default function CioJobSearchTimelinePage() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <p>
           The honest answer most people do not say out loud: six to eighteen months. The range is that wide
-          for a reason, and where you land in it depends on decisions you make before you start&mdash;not after.
+          for a reason, and where you land in it depends on decisions you make before you start - not after.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">The timeline nobody posts</h2>
@@ -84,7 +84,7 @@ export default function CioJobSearchTimelinePage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What determines where you land</h2>
 
         <p>
-          <strong className="text-slate-900">Sector.</strong> Healthcare and financial services run long&mdash;both
+          <strong className="text-slate-900">Sector.</strong> Healthcare and financial services run long - both
           have deeper compliance requirements in the hiring process and more stakeholders in the decision.
           Growth-stage and PE-backed mandates move faster. A PE-backed CIO search can move from first call to
           offer in six weeks when the sponsor has a burning platform and the candidate is already known to the
@@ -125,7 +125,7 @@ export default function CioJobSearchTimelinePage() {
 
         <p>
           The fastest CIO searches are won by executives who were already on the short list when the search
-          opened. That means being known to the right search firm partners before you need them&mdash;not
+          opened. That means being known to the right search firm partners before you need them - not
           calling them when your role is eliminated.
         </p>
 
@@ -137,9 +137,9 @@ export default function CioJobSearchTimelinePage() {
         </p>
 
         <p>
-          Starting Monday tracks the organizational signals that tend to precede CIO searches&mdash;board-level
+          Starting Monday tracks the organizational signals that tend to precede CIO searches - board-level
           technology committee changes, transformation announcements, leadership gaps in technology
-          functions&mdash;so you can watch your target organizations before they post a role. The{' '}
+          functions - so you can watch your target organizations before they post a role. The{' '}
           <Link href="/for-cio" className="text-slate-900 underline hover:text-slate-600 transition-colors">
             prep brief
           </Link>{' '}

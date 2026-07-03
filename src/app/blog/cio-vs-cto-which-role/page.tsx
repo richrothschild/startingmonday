@@ -52,7 +52,7 @@ export default function CioVsCtoPage() {
 
         <p>
           The CIO runs technology as a capability that serves the business. The business has
-          needs&mdash;applications, infrastructure, security, data, process automation&mdash;and the
+          needs - applications, infrastructure, security, data, process automation - and the
           CIO&rsquo;s mandate is to meet those needs reliably, at appropriate cost, and at a quality
           level that does not create organizational drag.
         </p>
@@ -60,7 +60,7 @@ export default function CioVsCtoPage() {
         <p>
           The CIO&rsquo;s primary stakeholders are internal: the CFO who watches technology spending,
           the COO who needs systems that run, the business units that need data and tools. A CIO who
-          is excellent has an organization that does not notice technology&mdash;because it works.
+          is excellent has an organization that does not notice technology - because it works.
         </p>
 
         <p>
@@ -92,16 +92,16 @@ export default function CioVsCtoPage() {
 
         <p>
           Who are you most effective with? The CIO&rsquo;s highest-leverage relationships are
-          internal&mdash;with the CFO negotiating budgets, with the COO aligning on operational
+          internal - with the CFO negotiating budgets, with the COO aligning on operational
           priorities, with the audit committee on risk governance. The CTO&rsquo;s highest-leverage
-          relationships are often external&mdash;with investors articulating a platform vision, with
+          relationships are often external - with investors articulating a platform vision, with
           technical partners building on your APIs, with engineering candidates evaluating whether
           your technical culture is worth joining.
         </p>
 
         <p>
           Where does your best work live? If your career&rsquo;s highest points were delivering major
-          programs&mdash;transformations, integrations, platform modernizations&mdash;on time and at
+          programs - transformations, integrations, platform modernizations - on time and at
           quality, you are wired for the CIO seat. If your career&rsquo;s highest points were making
           architectural bets that proved correct over years and setting technical direction that the
           market eventually validated, you are wired for the CTO seat.
@@ -123,18 +123,18 @@ export default function CioVsCtoPage() {
         </p>
 
         <p>
-          The mismatch shows up immediately. The questions the company is asking&mdash;what should our
+          The mismatch shows up immediately. The questions the company is asking - what should our
           platform architecture be for the next five years, how do we build engineering credibility
-          with investors&mdash;are not questions the candidate has answered before. The company wanted
+          with investors - are not questions the candidate has answered before. The company wanted
           a visionary. They interviewed a manager of technology. Both parties leave the process
           disappointed.
         </p>
 
         <p>
           The reverse happens too. A CTO from a startup who applies for enterprise CIO roles because
-          they want stability. The questions&mdash;what is your approach to managing a $200 million
+          they want stability. The questions - what is your approach to managing a $200 million
           technology budget across forty-five vendors, how would you handle the governance requirements
-          for a publicly traded company&rsquo;s technology function&mdash;are not questions they have
+          for a publicly traded company&rsquo;s technology function - are not questions they have
           answered before either. The title traveled. The experience did not.
         </p>
 
@@ -156,8 +156,8 @@ export default function CioVsCtoPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">The clarity that changes the search</h2>
 
         <p>
-          An executive who knows which seat they are in&mdash;not just by title, but by the work they
-          do best and the stakeholders they serve most effectively&mdash;builds a better target list,
+          An executive who knows which seat they are in - not just by title, but by the work they
+          do best and the stakeholders they serve most effectively - builds a better target list,
           has sharper conversations, and converts faster.
         </p>
 

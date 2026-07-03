@@ -43,7 +43,7 @@ export default function TargetCompanyListPage() {
 
         <p>
           Not a list of job openings. Those are late. A list of forty to sixty organizations where
-          they would say yes before the offer was made&mdash;companies they had studied, understood,
+          they would say yes before the offer was made - companies they had studied, understood,
           and decided they wanted. That list is the instrument. Everything else is the work of
           playing it.
         </p>
@@ -69,8 +69,8 @@ export default function TargetCompanyListPage() {
 
         <p>
           Start with companies you would say yes to before the salary is negotiated. This is a
-          tighter constraint than it sounds. A list built around aspiration&mdash;companies you would
-          accept only under perfect conditions&mdash;produces the same outcome as no list at all.
+          tighter constraint than it sounds. A list built around aspiration - companies you would
+          accept only under perfect conditions - produces the same outcome as no list at all.
         </p>
 
         <p>
@@ -83,8 +83,8 @@ export default function TargetCompanyListPage() {
 
         <p>
           Your sector history sets the second constraint. The scar tissue you carry from fifteen
-          years in a sector&mdash;the vendor relationships, the regulatory patterns, the specific
-          failure modes&mdash;is not easily transferable. A CIO who has spent a career in financial
+          years in a sector - the vendor relationships, the regulatory patterns, the specific
+          failure modes - is not easily transferable. A CIO who has spent a career in financial
           services is a harder case to make in healthcare than one who has been there from the start.
           Be honest about where your record is dense and where it is thin.
         </p>
@@ -113,8 +113,8 @@ export default function TargetCompanyListPage() {
         </p>
 
         <p>
-          Your network first. Ask the fifteen people you trust most&mdash;former CEOs, operating
-          partners, board members, retained search partners&mdash;which organizations they are
+          Your network first. Ask the fifteen people you trust most - former CEOs, operating
+          partners, board members, retained search partners - which organizations they are
           currently watching. Not which ones are hiring. Which ones are moving. These are different
           questions with different answers, and the second produces better intelligence.
         </p>
@@ -146,7 +146,7 @@ export default function TargetCompanyListPage() {
           Sector-specific press fifth. The trade publications for your target industries, read
           specifically for organizational signals: transformation announcements, major system
           implementations, executive quotes about technology investment, M&amp;A activity. Not
-          general business news&mdash;the vertical press, where signals appear six months before they
+          general business news - the vertical press, where signals appear six months before they
           reach broader coverage.
         </p>
 
@@ -179,7 +179,7 @@ export default function TargetCompanyListPage() {
 
         <p>
           The executives who land consistently in their class position themselves as already paying
-          attention&mdash;to the right organizations, at the right moment, for the right reasons.
+          attention - to the right organizations, at the right moment, for the right reasons.
           That attention starts with a list. It is maintained by watching the list. And it culminates
           in being the candidate who was already in motion when the search opened.
         </p>

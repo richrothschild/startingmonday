@@ -54,12 +54,12 @@ export default function HowCiosFindJobsPage() {
           decides they need a new CIO. Before engaging a search firm, the CEO and board make calls
           to people they trust: board members at comparable companies, operating partners at their
           private equity fund, the CEO of a peer organization. Those conversations produce three to
-          seven names&mdash;people who are already known, already credible, and already in some form
+          seven names - people who are already known, already credible, and already in some form
           of relationship with the network around the company.
         </p>
 
         <p>
-          If a retained search firm is engaged&mdash;and at this level they usually are&mdash;the
+          If a retained search firm is engaged - and at this level they usually are - the
           firm conducts its own outreach to its database and existing relationships. The long list is
           fifteen to twenty-five names. Most of them came from the same informal network conversations
           the company was already having.
@@ -76,7 +76,7 @@ export default function HowCiosFindJobsPage() {
           Being known before the search opens is a function of three things: the quality of your
           relationships with retained search partners, your presence in the board and CEO networks
           around your target companies, and your visibility as a specific kind of technology
-          leader&mdash;not a general-purpose executive, but one with a clear and recognizable profile.
+          leader - not a general-purpose executive, but one with a clear and recognizable profile.
         </p>
 
         <p>
@@ -90,12 +90,12 @@ export default function HowCiosFindJobsPage() {
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">The three relationships that determine whether you get the call</h2>
 
         <p>
-          Retained search firm partners. Not recruiters generally&mdash;specific partners at the
+          Retained search firm partners. Not recruiters generally - specific partners at the
           firms that fill CIO mandates in your sectors. Korn Ferry, Spencer Stuart, Heidrick
           &amp; Struggles, Russell Reynolds, and the boutique technology practices are the most active
           at the $300,000 and above level. Each has partners who specialize in specific industries and
           company types. The goal is to be in genuine, current conversation with six to eight of the
-          right ones&mdash;not because you are looking, but because they find the relationship useful.
+          right ones - not because you are looking, but because they find the relationship useful.
           Search partners who find you useful introduce you to searches. Search partners who only hear
           from you when you are searching do not.
         </p>
@@ -114,7 +114,7 @@ export default function HowCiosFindJobsPage() {
           asked for recommendations by search firms and boards regularly. A recommendation from a
           technology executive the board respects carries more weight than almost any other channel.
           Invest in these relationships genuinely, not transactionally. The CIO who recommends you
-          is not doing it as a favor&mdash;they are doing it because they trust your judgment and
+          is not doing it as a favor - they are doing it because they trust your judgment and
           believe it reflects well on them.
         </p>
 
@@ -129,8 +129,8 @@ export default function HowCiosFindJobsPage() {
           A CIO who knows that a company on their target list just named a new CEO from a
           technology-forward background is in a different position than one who finds out when the
           role is posted. The new CEO is having conversations about technology leadership before the
-          search formally opens. Being in that conversation&mdash;because you were already watching
-          the company, already in relationship with someone close to the board&mdash;is the difference
+          search formally opens. Being in that conversation - because you were already watching
+          the company, already in relationship with someone close to the board - is the difference
           between being on the informal short list and being an applicant.
         </p>
 
@@ -139,8 +139,8 @@ export default function HowCiosFindJobsPage() {
           technology investment, a board that adds a technology committee, a PE acquisition in a
           sector with a known technology deficit, a transformation announcement without a clear
           technology leader named. Each of these appears six months to a year before the formal
-          search opens. Watching for them&mdash;systematically, across a list of forty to sixty
-          target companies&mdash;is what puts you in the right conversations at the right moment.
+          search opens. Watching for them - systematically, across a list of forty to sixty
+          target companies - is what puts you in the right conversations at the right moment.
         </p>
 
         <h2 className="text-[22px] font-bold text-slate-900 pt-4">What to do this week</h2>
@@ -153,7 +153,7 @@ export default function HowCiosFindJobsPage() {
 
         <p>
           Reach out to five search firm partners before the end of the month. Not to announce you are
-          looking. To have a useful conversation&mdash;share a specific observation, ask what they are
+          looking. To have a useful conversation - share a specific observation, ask what they are
           seeing in your sectors, be genuinely helpful. The relationship you build in that
           conversation will be current when the search opens.
         </p>
@@ -166,8 +166,8 @@ export default function HowCiosFindJobsPage() {
         </p>
 
         <p>
-          The search that looks effortless from the outside&mdash;the CIO who lands a great role
-          quickly, apparently without trying&mdash;is almost always the product of preparation that
+          The search that looks effortless from the outside - the CIO who lands a great role
+          quickly, apparently without trying - is almost always the product of preparation that
           was invisible because it happened before the urgency was visible. That is the only version
           of this that works reliably.
         </p>

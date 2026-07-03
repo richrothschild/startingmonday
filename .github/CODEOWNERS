@@ -17,3 +17,13 @@
 # Landing page ownership guard
 /src/app/page.tsx @richrothschild
 /src/components/LandingPage.tsx @richrothschild
+
+# Conversion-critical copy: review here replaces exact-string regex CI gates
+/src/app/pricing/ @richrothschild
+/src/app/demo/ @richrothschild
+/src/app/(auth)/ @richrothschild
+/src/components/SiteHeader.tsx @richrothschild
+/src/components/SiteFooter.tsx @richrothschild
+/docs/landing-page-standard.md @richrothschild
+/.githooks/ @richrothschild
+/config/required-checks-manifest.json @richrothschild

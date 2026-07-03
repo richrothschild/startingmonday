@@ -29,6 +29,31 @@ const eslintConfig = defineConfig([
       "@next/next/no-img-element": "warn",
     },
   },
+  {
+    // Editorial standard: no em-dashes in user-facing source. Enforced here
+    // (in-editor, at lint time) instead of a CI grep step so violations are
+    // caught while typing rather than at push time.
+    files: ["src/**/*.{ts,tsx,js,jsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "JSXText[value=/\u2014/]",
+          message: "Em-dash (\u2014) is not allowed in UI copy. Use a regular hyphen or reword.",
+        },
+        {
+          // A standalone em-dash literal ('\u2014') is allowed as an
+          // empty-value placeholder glyph; em-dashes embedded in copy are not.
+          selector: "Literal[value=/./][value=/\u2014/]:not([value='\u2014'])",
+          message: "Em-dash (\u2014) is not allowed in string copy. Use a regular hyphen or reword.",
+        },
+        {
+          selector: "TemplateElement[value.raw=/\u2014/]",
+          message: "Em-dash (\u2014) is not allowed in template copy. Use a regular hyphen or reword.",
+        },
+      ],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -42,6 +67,11 @@ const eslintConfig = defineConfig([
     "run_extract.js",
     // Generated Playwright output — not source, contains minified third-party JS:
     "playwright-report/**",
+    "test-results/**",
+    "coverage/**",
+    "dist/**",
+    "tmp/**",
+    "tmp-run-*-artifacts/**",
   ]),
 ]);
 

@@ -65,7 +65,7 @@ export default function DemoCompaniesPrepPage() {
           </p>
           <div className="pt-4 border-t border-orange-400/20">
             <p className="text-[13px] font-semibold text-orange-300 mb-2">How this helps:</p>
-            <p className="text-[13px] text-orange-300/80">A curated list of 40-60 targets focuses your effort and increases response rates. It signals expertise to recruiters and gives you leverage in conversations—you're selective, not desperate.</p>
+            <p className="text-[13px] text-orange-300/80">A curated list of 40-60 targets focuses your effort and increases response rates. It signals expertise to recruiters and gives you leverage in conversations - you're selective, not desperate.</p>
           </div>
         </div>
 

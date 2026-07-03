@@ -1,0 +1,28 @@
+{
+  "$comment": "Intended required status checks for branch protection on main. The ci-health-weekly workflow compares this manifest against actual branch protection and flags drift. Update this file (with review) before changing branch protection settings.",
+  "branch": "main",
+  "requiredChecks": [
+    "Predeploy gates (lint, typecheck, build, smoke)",
+    "Auth UX guard",
+    "Mobile visual smoke",
+    "First-value synthetic gate",
+    "Semgrep security scan",
+    "Secret scan (gitleaks)",
+    "Dependency vulnerability audit"
+  ],
+  "advisoryChecks": [
+    "Lighthouse mobile budgets",
+    "growth-production-gate (advisory)",
+    "Mobile UX contract and banned patterns",
+    "performance-release-gate"
+  ],
+  "policy": {
+    "maxFlakeRatePercent": 5,
+    "maxBypassesPerWeek": 0,
+    "notes": [
+      "A required check with >5% flake rate must be repaired or demoted to advisory.",
+      "Lighthouse is intentionally advisory on PRs and enforced on main pushes.",
+      "Merge queue should be enforced on main so bypass-merges are unavailable."
+    ]
+  }
+}
