@@ -80,6 +80,21 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/methodology',
+        destination: '/method-and-evidence',
+        permanent: true,
+      },
+      {
+        source: '/favicon.ico',
+        destination: '/icon',
+        permanent: false,
+      },
+      {
+        source: '/icon:variant',
+        destination: '/icon',
+        permanent: false,
+      },
+      {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.startingmonday.app' }],
         destination: 'https://startingmonday.app/:path*',
@@ -91,6 +106,30 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/reports/:path*.pdf',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      {
+        source: '/opengraph-image',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      {
+        source: '/:path*/opengraph-image',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      {
+        source: '/_next/static/media/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      {
+        source: '/icon',
         headers: [
           { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
         ],
