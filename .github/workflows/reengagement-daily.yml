@@ -1,0 +1,39 @@
+name: Re-engagement Daily Cron
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reengagement:
+    name: Trial re-engagement emails
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger re-engagement cron
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          APP_BASE_URL: https://startingmonday.app
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET secret is required"
+            exit 1
+          fi
+
+          URL="${APP_BASE_URL%/}/api/cron/reengagement"
+          echo "Calling $URL"
+          curl --fail --show-error --silent -H "x-cron-secret: ${CRON_SECRET}" "$URL" | tee reengagement.latest.json
+          echo ""
+          cat reengagement.latest.json
+
+      - name: Upload result artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: reengagement-daily
+          path: reengagement.latest.json
+          retention-days: 14
