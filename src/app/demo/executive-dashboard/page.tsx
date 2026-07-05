@@ -151,7 +151,7 @@ export default function ExecutiveDashboardDemoPage() {
           <p className="mt-2 text-[15px] leading-relaxed text-slate-200">Roles forming, sponsor movement, and next-step clarity in one dense executive view.</p>
         </div>
 
-        <h1 className="sr-only">Starting Monday</h1>
+        <p className="sr-only">Starting Monday</p>
         <DashboardTopShellSection
           firstName="Richard"
           briefingTimezone="America/New_York"
