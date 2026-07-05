@@ -277,7 +277,7 @@ export default async function OutreachAnalyticsPage() {
           <div className="bg-white border border-slate-200 rounded p-5">
             <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Delivery Issues (7d)</h2>
             <p className="text-[24px] font-bold text-slate-900">{bounced7d + unconfirmed7d}</p>
-            <p className="text-[13px] text-slate-500 mt-1">Bounced: {bounced7d} Â· Unconfirmed: {unconfirmed7d}</p>
+            <p className="text-[13px] text-slate-500 mt-1">Bounced: {bounced7d} · Unconfirmed: {unconfirmed7d}</p>
           </div>
           <div className="bg-white border border-slate-200 rounded p-5">
             <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Response Rate</h2>
@@ -346,9 +346,9 @@ export default async function OutreachAnalyticsPage() {
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <div>New trial users</div><div className="font-semibold text-right">{newTrialUsers30d}</div>
               <div>New paid users</div><div className="font-semibold text-right">{newPaidUsers30d}</div>
-              <div>New paid Â· Monitor</div><div className="font-semibold text-right">{newPaidByTier.monitor}</div>
-              <div>New paid Â· Search</div><div className="font-semibold text-right">{newPaidByTier.search}</div>
-              <div>New paid Â· Executive</div><div className="font-semibold text-right">{newPaidByTier.executive}</div>
+              <div>New paid · Monitor</div><div className="font-semibold text-right">{newPaidByTier.monitor}</div>
+              <div>New paid · Search</div><div className="font-semibold text-right">{newPaidByTier.search}</div>
+              <div>New paid · Executive</div><div className="font-semibold text-right">{newPaidByTier.executive}</div>
               <div>Potential outreach-attributed signups</div><div className="font-semibold text-right">{outreachAttributed30d}</div>
             </div>
             <div className="px-5 pb-4 text-[13px] text-slate-400">Outreach attribution is email-match based and directional.</div>
@@ -361,9 +361,9 @@ export default async function OutreachAnalyticsPage() {
             <div className="px-5 py-4 text-[13px] text-slate-700 grid grid-cols-2 gap-y-2">
               <div>Trialing now</div><div className="font-semibold text-right">{trialingCount ?? 0}</div>
               <div>Active paid now</div><div className="font-semibold text-right">{activeCount ?? 0}</div>
-              <div>Active Â· Monitor</div><div className="font-semibold text-right">{activeMonitorCount ?? 0}</div>
-              <div>Active Â· Search</div><div className="font-semibold text-right">{activeSearchCount ?? 0}</div>
-              <div>Active Â· Executive</div><div className="font-semibold text-right">{activeExecutiveCount ?? 0}</div>
+              <div>Active · Monitor</div><div className="font-semibold text-right">{activeMonitorCount ?? 0}</div>
+              <div>Active · Search</div><div className="font-semibold text-right">{activeSearchCount ?? 0}</div>
+              <div>Active · Executive</div><div className="font-semibold text-right">{activeExecutiveCount ?? 0}</div>
             </div>
 
             <div className="px-5 pb-4">

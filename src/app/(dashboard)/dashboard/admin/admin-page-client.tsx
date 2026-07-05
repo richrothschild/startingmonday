@@ -82,7 +82,7 @@ export function AdminPageClient(props: AdminPageProps) {
             <Link href="/dashboard/admin/operations" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Operations</Link>
             <Link href="/dashboard/admin/traces" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Traces</Link>
             <Link href="/dashboard/admin/team" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors">Team</Link>
-            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">â† Dashboard</Link>
+            <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Dashboard</Link>
           </div>
         </div>
       </header>

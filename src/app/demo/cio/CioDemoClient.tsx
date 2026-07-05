@@ -508,7 +508,7 @@ export function CioDemoClient() {
             Reciprocity and commitment close: run this with two clients for 30 days, then decide using a weekly scorecard (first signal action, first prep brief before high-stakes conversation, context-rebuild time reduction).
             <span className="inline-block ml-2">
               <Link href="/references" className="underline underline-offset-2 hover:text-slate-800">References</Link>
-              {' Â· '}
+              {' · '}
               <Link href="/evidence-hub" className="underline underline-offset-2 hover:text-slate-800">Evidence Hub</Link>
             </span>
           </div>

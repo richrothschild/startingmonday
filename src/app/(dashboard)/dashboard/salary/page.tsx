@@ -28,7 +28,7 @@ export default async function SalaryPage({
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            â† Dashboard
+            ← Dashboard
           </Link>
         </div>
       </header>
@@ -52,7 +52,7 @@ export default async function SalaryPage({
               href="/settings/billing"
               className="inline-block bg-slate-900 text-white text-[13px] font-semibold px-6 py-2.5 rounded hover:bg-slate-700 transition-colors"
             >
-              Upgrade to Executive â†’
+              Upgrade to Executive →
             </Link>
           </div>
         ) : (

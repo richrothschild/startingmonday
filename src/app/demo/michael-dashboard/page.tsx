@@ -75,7 +75,7 @@ export default function MichaelDashboardPage() {
       <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
         <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5">
           <p className="text-[14px] font-semibold tracking-[0.08em] text-orange-200">Prefilled operating dashboard demo</p>
-          <h1 className="mt-2 font-serif text-[28px] leading-tight text-white sm:text-[34px]">Michael Torres Â· VP of IT transition dashboard</h1>
+          <h1 className="mt-2 font-serif text-[28px] leading-tight text-white sm:text-[34px]">Michael Torres · VP of IT transition dashboard</h1>
           <p className="mt-2 text-[15px] leading-relaxed text-slate-200">New dashboard style with Michael Torres data prefilled for fast walkthrough: priorities, signals, pipeline, and next actions.</p>
         </div>
 
@@ -124,7 +124,7 @@ export default function MichaelDashboardPage() {
             <div className="mt-3 space-y-2.5">
               {PIPELINE.map((item) => (
                 <div key={item.company} className="rounded-xl border border-white/10 bg-slate-950/45 p-3">
-                  <p className="text-[14px] font-semibold text-white">{item.company} Â· {item.stage}</p>
+                  <p className="text-[14px] font-semibold text-white">{item.company} · {item.stage}</p>
                   <p className="mt-1 text-[14px] text-slate-300">Owner: {item.owner}</p>
                   <p className="mt-1 text-[14px] text-slate-200">Next action: {item.nextAction}</p>
                 </div>
@@ -139,7 +139,7 @@ export default function MichaelDashboardPage() {
                 <div key={contact.name} className="rounded-xl border border-white/10 bg-slate-950/45 p-3">
                   <p className="text-[14px] font-semibold text-white">{contact.name}</p>
                   <p className="mt-1 text-[14px] text-slate-300">{contact.role}</p>
-                  <p className="mt-1 text-[14px] text-slate-200">Status: {contact.status} Â· Last touch: {contact.lastTouch}</p>
+                  <p className="mt-1 text-[14px] text-slate-200">Status: {contact.status} · Last touch: {contact.lastTouch}</p>
                 </div>
               ))}
             </div>

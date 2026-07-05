@@ -257,7 +257,7 @@ export default function DiscoverPage() {
                             : 'bg-slate-900 hover:bg-slate-700 text-white'
                       }`}
                     >
-                      {isAdded ? 'âœ“ Added' : isAdding ? 'Adding...' : '+ Add to watchlist'}
+                      {isAdded ? '✓ Added' : isAdding ? 'Adding...' : '+ Add to watchlist'}
                     </button>
                   </div>
                 )

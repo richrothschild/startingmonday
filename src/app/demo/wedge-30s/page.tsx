@@ -2,14 +2,14 @@
 
 const SHORTLIST = [
   {
-    role: 'Salesforce Â· VP of IT',
+    role: 'Salesforce · VP of IT',
     confidence: 'High confidence',
     whyNow: 'Leadership-change and mandate-expansion signals indicate role formation before posting pressure spikes.',
     decisionPath: ['Jordan Lee (SVP Product)', 'Priya Patel (Retained Search)', 'Alex Chen (Former CIO peer)'],
     source: 'Signals: leadership movement, mandate shift, hiring language drift',
   },
   {
-    role: 'ServiceNow Â· VP Technology Operations',
+    role: 'ServiceNow · VP Technology Operations',
     confidence: 'Medium confidence',
     whyNow: 'Platform-integration pressure and role-scope expansion suggest a likely shortlist window soon.',
     decisionPath: ['Rina Das (Platform PMO lead)', 'Mark Evans (Search partner)', 'Elaine Hu (Ops sponsor)'],
