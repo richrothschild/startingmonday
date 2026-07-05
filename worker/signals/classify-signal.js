@@ -1,5 +1,14 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { HAIKU } from '../lib/models.js'
+import { logger } from '../lib/logger.js'
+import { writeIngestDlq } from '../lib/ingest-dlq.js'
+import { recordSourceMetric } from '../lib/source-metrics.js'
+import {
+  CLASSIFY_MAX_TOKENS,
+  buildClassifyPrompt,
+  parseClassifyResponse,
+  normalizeClassification,
+} from './classify-signal-core.js'
 
 let _client = null
 function getClient() {
@@ -18,50 +27,65 @@ const SIGNAL_PRIORITIES = {
   vp_technology:'Technology leadership changes, CIO or CTO role openings, and technology transformation announcements are high-priority signals.',
 }
 
+const MAX_ATTEMPTS = 2
+
 // Classifies a news article as a hiring-relevant signal using Claude Haiku.
-// Returns { is_signal, signal_type, confidence, signal_summary, outreach_angle, focus_tags, evidence_snippets, partner_entities }
-export async function classifySignal(companyName, article, roleType = null) {
+// Retries once on failure; on final failure writes to the ingest DLQ (when a
+// supabase client is provided) instead of dropping the signal silently.
+// Options: { companyContext: { sector, isPublic }, supabase }
+// Returns { is_signal, entity_match, signal_type, confidence, signal_summary,
+//           outreach_angle, focus_tags, evidence_snippets, partner_entities }
+// or { is_signal: false, classification_failed: true } on unrecoverable failure.
+export async function classifySignal(companyName, article, roleType = null, options = {}) {
   const signalPriority = roleType ? (SIGNAL_PRIORITIES[roleType] ?? '') : ''
-  const prompt = `You are analyzing a news article about "${companyName}" to determine if it is a meaningful signal for an executive job seeker targeting this company.
+  const prompt = buildClassifyPrompt(
+    companyName,
+    article,
+    roleType,
+    options.companyContext ?? null,
+    signalPriority,
+  )
 
-Article title: ${article.title}
-Description: ${article.description || '(none)'}
-Published: ${article.pubDate || 'unknown'}${signalPriority ? `\n\nCandidate context: ${signalPriority}` : ''}
-
-Output JSON only, no markdown fences:
-{
-  "is_signal": true or false,
-  "signal_type": one of: funding, exec_departure, exec_hire, acquisition, expansion, layoffs, ipo, new_product, award, breach_disclosure, regulatory_change, data_platform, ai_investment, board_change, transformation_budget, partnership, or null if not a signal,
-  "confidence": integer 0-100,
-  "signal_summary": "one factual sentence describing what happened - specific, no filler",
-  "outreach_angle": "one sentence on how this news creates an opening for an executive candidate - concrete and specific to this signal type",
-  "focus_tags": ["up to 3 short tags from this set: growth, governance, leadership, restructuring, product, security, data, ai, compliance, partnership, operations"],
-  "evidence_snippets": ["up to 2 short factual snippets copied/paraphrased from title/description"],
-  "partner_entities": ["up to 3 partner/company names if this is a partnership signal, else []"]
-}
-
-Strong signals (set is_signal=true): funding rounds, executive departures or new hires, acquisitions, market expansion, layoffs (which often precede leadership restructuring), IPO filings, major product launches, security breaches or data incidents (breach_disclosure), new compliance or regulatory requirements affecting the company's sector (regulatory_change), data infrastructure investments such as Snowflake, Databricks, or data lakehouse announcements (data_platform), AI initiative announcements or AI leadership hires (ai_investment), board member additions or departures especially those with technology or transformation backgrounds (board_change), major technology or digital transformation budget commitments and multi-year program launches (transformation_budget), and material partnerships (partnership) such as ERP platform deals, major supply agreements, strategic channel partnerships, and multi-year implementation contracts.
-Weak or no signal: general earnings coverage, minor partnerships, routine product updates, industry commentary not specific to this company.
-Confidence below 60 means you are uncertain this is actually about the named company or genuinely newsworthy.`
-
-  try {
-    const message = await getClient().messages.create({
-      model: HAIKU,
-      max_tokens: 256,
-      messages: [{ role: 'user', content: prompt }],
-    })
-    const raw = message.content[0]?.text?.trim() ?? '{}'
-    const cleaned = raw.replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
-    const parsed = JSON.parse(cleaned)
-    return {
-      ...parsed,
-      focus_tags: Array.isArray(parsed.focus_tags) ? parsed.focus_tags.slice(0, 3) : [],
-      evidence_snippets: Array.isArray(parsed.evidence_snippets) ? parsed.evidence_snippets.slice(0, 2) : [],
-      partner_entities: Array.isArray(parsed.partner_entities) ? parsed.partner_entities.slice(0, 3) : [],
+  let lastError = null
+  recordSourceMetric(options.sourceKey ?? 'classify', 'classify_calls')
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const message = await getClient().messages.create({
+        model: HAIKU,
+        max_tokens: CLASSIFY_MAX_TOKENS,
+        messages: [{ role: 'user', content: prompt }],
+      })
+      const raw = message.content[0]?.text?.trim() ?? ''
+      return normalizeClassification(parseClassifyResponse(raw))
+    } catch (err) {
+      lastError = err
+      logger.warn('classify-signal: attempt failed', {
+        company: companyName,
+        attempt,
+        error: err.message,
+      })
     }
-  } catch (err) {
-    const logger = (await import('../lib/logger.js')).logger
-    logger.warn('classify-signal: failed', { company: companyName, error: err.message })
-    return { is_signal: false }
   }
+
+  logger.error('classify-signal: all attempts failed', {
+    company: companyName,
+    error: lastError?.message,
+  })
+  recordSourceMetric(options.sourceKey ?? 'classify', 'classify_failures')
+
+  if (options.supabase) {
+    await writeIngestDlq(options.supabase, {
+      source: 'classify-signal',
+      companyName,
+      payload: {
+        title: article?.title ?? null,
+        link: article?.link ?? null,
+        pubDate: article?.pubDate ?? null,
+        roleType,
+      },
+      error: lastError?.message ?? 'unknown classification failure',
+    })
+  }
+
+  return { is_signal: false, classification_failed: true }
 }

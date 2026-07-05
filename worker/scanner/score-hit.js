@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { HAIKU } from '../lib/models.js';
 import { logger } from '../lib/logger.js';
 
 // Lazy client so the API key is read at call time, not module load time.
@@ -45,7 +46,7 @@ Respond with JSON only:
 
   try {
     const response = await getClient().messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: HAIKU,
       max_tokens: 200,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: userPrompt }],

@@ -180,8 +180,8 @@ async function fetchProxySnippet(docUrl) {
 
     const html = await res.text()
     const text = html
-      .replace(/<style[\s\S]*?<\/style>/gi, '')
-      .replace(/<script[\s\S]*?<\/script>/gi, '')
+      .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, '')
+      .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, '')
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim()

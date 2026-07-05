@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updatedAt": "2026-06-18",
+  "version": 2,
+  "updatedAt": "2026-07-05",
   "reviewCadenceDays": 30,
   "sources": [
     {
@@ -10,7 +10,9 @@
       "accessMethod": "rss_or_web",
       "rightsStatus": "public",
       "status": "active",
-      "lastReviewedAt": "2026-06-18",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
     },
     {
@@ -20,8 +22,106 @@
       "accessMethod": "api",
       "rightsStatus": "public",
       "status": "active",
-      "lastReviewedAt": "2026-06-18",
+      "implemented": true,
+      "freshnessSloHours": 24,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "google_news",
+      "name": "Google News company coverage",
+      "category": "announcements",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "pr_wire",
+      "name": "PR wire services",
+      "category": "announcements",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "business_journals",
+      "name": "Business journals network",
+      "category": "announcements",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "delivery_leadership"]
+    },
+    {
+      "key": "trade_press",
+      "name": "Technology trade press",
+      "category": "announcements",
+      "accessMethod": "rss_or_web",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["technical_leadership", "leadership"]
+    },
+    {
+      "key": "regulatory_calendar",
+      "name": "Regulatory calendar",
+      "category": "compliance",
+      "accessMethod": "curated",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership"]
+    },
+    {
+      "key": "crunchbase_funding",
+      "name": "Crunchbase funding rounds",
+      "category": "funding",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "predictleads_events",
+      "name": "PredictLeads company events",
+      "category": "org_changes",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "leadership_changes",
+      "name": "Leadership changes (exec snapshot diffs)",
+      "category": "org_changes",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 192,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "delivery_leadership"]
     },
     {
       "key": "earnings_call_transcripts",
@@ -29,8 +129,10 @@
       "category": "financial_calls",
       "accessMethod": "licensed_feed",
       "rightsStatus": "licensed",
-      "status": "pilot",
-      "lastReviewedAt": "2026-06-10",
+      "status": "planned",
+      "implemented": false,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["leadership", "delivery_leadership"]
     },
     {
@@ -39,8 +141,10 @@
       "category": "technical_updates",
       "accessMethod": "rss_or_web",
       "rightsStatus": "public",
-      "status": "active",
-      "lastReviewedAt": "2026-06-18",
+      "status": "planned",
+      "implemented": false,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["technical_leadership", "delivery_leadership"]
     },
     {
@@ -48,20 +152,12 @@
       "name": "Job posting velocity",
       "category": "hiring_signals",
       "accessMethod": "api",
-      "rightsStatus": "licensed",
-      "status": "active",
-      "lastReviewedAt": "2026-06-18",
+      "rightsStatus": "public",
+      "status": "planned",
+      "implemented": false,
+      "freshnessSloHours": 72,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
-    },
-    {
-      "key": "leadership_changes",
-      "name": "Leadership changes",
-      "category": "org_changes",
-      "accessMethod": "api",
-      "rightsStatus": "licensed",
-      "status": "active",
-      "lastReviewedAt": "2026-06-17",
-      "roleFamilies": ["leadership", "delivery_leadership"]
     },
     {
       "key": "incident_postmortems",
@@ -69,8 +165,10 @@
       "category": "reliability",
       "accessMethod": "web",
       "rightsStatus": "public",
-      "status": "pilot",
-      "lastReviewedAt": "2026-06-09",
+      "status": "planned",
+      "implemented": false,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["technical_leadership", "delivery_leadership"]
     },
     {
@@ -79,8 +177,10 @@
       "category": "technical_updates",
       "accessMethod": "api",
       "rightsStatus": "public",
-      "status": "pilot",
-      "lastReviewedAt": "2026-06-08",
+      "status": "planned",
+      "implemented": false,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
       "roleFamilies": ["technical_leadership"]
     }
   ]
