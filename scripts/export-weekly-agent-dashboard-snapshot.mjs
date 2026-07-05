@@ -248,31 +248,31 @@ function buildTrailingFilter(endDate, trailingDays) {
   return `timestamp >= toDateTime('${isoUtc(start)}') AND timestamp < toDateTime('${isoUtc(endDate)}')`
 }
 
-async function getPosthogMetric(metricKey, ctx) {
+async function getPosthogMetric(metricId, ctx) {
   const weekFilter = buildTimeFilter(ctx.weekStart, ctx.weekEnd)
   const trailing4w = buildTrailingFilter(ctx.weekEnd, 28)
 
-  if (metricKey === 'global_week2_activation' || metricKey === 'lifecycle_week2_activation') {
+  if (metricId === 'global_week2_activation' || metricId === 'lifecycle_week2_activation') {
     const activated = Number(firstValue(await runPosthogQuery(ctx, `SELECT uniq(distinct_id) FROM events WHERE event='week2_activated' AND ${weekFilter}`), 0) ?? 0)
     const trialUsers = Number(firstValue(await runPosthogQuery(ctx, `SELECT uniq(distinct_id) FROM events WHERE event='trial_started' AND ${weekFilter}`), 0) ?? 0)
     if (trialUsers <= 0) return 0
     return Number(((activated / trialUsers) * 100).toFixed(2))
   }
 
-  if (metricKey === 'analytics_event_coverage') {
+  if (metricId === 'analytics_event_coverage') {
     const eventList = REQUIRED_POSTHOG_EVENTS.map((event) => `'${event.replace(/'/g, "\\'")}'`).join(',')
     const seenCount = Number(firstValue(await runPosthogQuery(ctx, `SELECT uniq(event) FROM events WHERE event IN (${eventList}) AND ${weekFilter}`), 0) ?? 0)
     return Number(((seenCount / REQUIRED_POSTHOG_EVENTS.length) * 100).toFixed(2))
   }
 
-  if (metricKey === 'analytics_attribution_complete') {
+  if (metricId === 'analytics_attribution_complete') {
     const total = Number(firstValue(await runPosthogQuery(ctx, `SELECT count() FROM events WHERE event IN ('marketing_page_viewed','demo_brief_generated','signup_completed','trial_started') AND ${weekFilter}`), 0) ?? 0)
     if (total <= 0) return 0
     const tagged = Number(firstValue(await runPosthogQuery(ctx, `SELECT count() FROM events WHERE event IN ('marketing_page_viewed','demo_brief_generated','signup_completed','trial_started') AND ${weekFilter} AND length(trim(toString(properties.utm_source))) > 0`), 0) ?? 0)
     return Number(((tagged / total) * 100).toFixed(2))
   }
 
-  if (metricKey === 'analytics_break_detect_time') {
+  if (metricId === 'analytics_break_detect_time') {
     const rows = await runPosthogQuery(ctx, `
       SELECT max(gap_hours)
       FROM (
@@ -286,7 +286,7 @@ async function getPosthogMetric(metricKey, ctx) {
     return Number.isFinite(maxGap) ? Number(maxGap.toFixed(2)) : 0
   }
 
-  if (metricKey === 'proof_conversion_lift') {
+  if (metricId === 'proof_conversion_lift') {
     const withProof = Number(firstValue(await runPosthogQuery(ctx, `SELECT count() FROM events WHERE event='trial_started' AND ${trailing4w} AND toInt(properties.proof_variant_seen)=1`), 0) ?? 0)
     const withoutProof = Number(firstValue(await runPosthogQuery(ctx, `SELECT count() FROM events WHERE event='trial_started' AND ${trailing4w} AND toInt(properties.proof_variant_seen)=0`), 0) ?? 0)
     if (withoutProof <= 0) return 0
@@ -907,13 +907,13 @@ function unix(date) {
   return Math.floor(date.getTime() / 1000)
 }
 
-async function getStripeMetric(metricKey, ctx) {
+async function getStripeMetric(metricId, ctx) {
   const trailing4wStart = new Date(ctx.weekEnd)
   trailing4wStart.setUTCDate(trailing4wStart.getUTCDate() - 28)
 
   const subs = await listStripeSubscriptions(ctx, unix(trailing4wStart), unix(ctx.weekEnd))
 
-  if (metricKey === 'global_trial_to_paid' || metricKey === 'lifecycle_trial_paid') {
+  if (metricId === 'global_trial_to_paid' || metricId === 'lifecycle_trial_paid') {
     const trialSubs = subs.filter((sub) => sub.trial_start && sub.trial_end)
     const converted = trialSubs.filter((sub) => {
       const activeLike = ['active', 'past_due', 'unpaid'].includes(sub.status)
@@ -923,7 +923,7 @@ async function getStripeMetric(metricKey, ctx) {
     return Number(((converted.length / trialSubs.length) * 100).toFixed(2))
   }
 
-  if (metricKey === 'global_30d_churn') {
+  if (metricId === 'global_30d_churn') {
     const paidSubs = subs.filter((sub) => !sub.trial_start || sub.status !== 'trialing')
     if (paidSubs.length === 0) return 0
     const churned = paidSubs.filter((sub) => sub.canceled_at && sub.created && (sub.canceled_at - sub.created) <= (30 * 24 * 60 * 60))
