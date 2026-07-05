@@ -65,6 +65,7 @@ export type UserEventName =
   | 'outreach_review_required'
   | 'outreach_review_confirmed'
   | 'prep_brief_reviewed'
+  | 'prep_outcome_logged'
   | PMFEventName
 
 type EventProperties = Record<string, string | number | boolean | null>

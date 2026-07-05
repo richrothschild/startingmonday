@@ -5,6 +5,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { COMPETITIVE_SYSTEM } from '@/lib/prompts'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
+import { assessPrepGrounding, prepGroundingNotice } from '@/lib/prep-grounding'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
@@ -60,6 +61,12 @@ export async function GET(
     return new Response(stream, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
 
+  const grounding = assessPrepGrounding({
+    hasCompanyNotes: Boolean(company.notes?.trim()),
+    signalCount: signals?.length ?? 0,
+    documentCount: 0,
+  })
+
   const signalSection = (signals ?? []).length > 0
     ? '\n\nRECENT SIGNALS\n' + signals!.map(s => {
         const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -90,6 +97,18 @@ How the candidate should use this competitive context in the interview. Specific
 
 Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on what you actually know. Be honest if specific details about a private company are unavailable, but always provide what you can.`
 
+  const groundingInstruction = grounding.isGrounded
+    ? ''
+    : `
+
+GROUNDING MODE
+Evidence is below threshold for verified company-specific competitive claims.
+- Use pattern language and sector-level dynamics instead of naming unverified competitors.
+- If you reference a specific competitor, it must be explicitly present in COMPANY notes, documents, or signals.
+- Be explicit when details are unavailable.`
+
+  const groundedUserPrompt = `${userPrompt}${groundingInstruction}`
+
   const encoder = new TextEncoder()
   const readable = new ReadableStream({
     async start(controller) {
@@ -99,8 +118,11 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
           max_tokens: 1200,
 
           system: COMPETITIVE_SYSTEM,
-          messages: [{ role: 'user', content: userPrompt }],
+          messages: [{ role: 'user', content: groundedUserPrompt }],
         })
+        if (!grounding.isGrounded) {
+          controller.enqueue(encoder.encode(`${prepGroundingNotice()}\n\n`))
+        }
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
         controller.close()
@@ -115,6 +137,10 @@ Tone: direct, senior-to-senior. Short paragraphs. No em dashes. No hedging on wh
   })
 
   return new Response(readable, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'x-prep-grounding-mode': grounding.isGrounded ? 'grounded' : 'pattern',
+      'x-prep-evidence-count': String(grounding.evidenceCount),
+    },
   })
 }

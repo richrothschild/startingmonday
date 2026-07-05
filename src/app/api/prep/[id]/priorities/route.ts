@@ -6,6 +6,7 @@ import { DOC_CHARS } from '@/lib/ai-limits'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
+import { assessPrepGrounding, prepGroundingNotice } from '@/lib/prep-grounding'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
@@ -55,6 +56,12 @@ export async function GET(
     return new Response(stream, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
 
+  const grounding = assessPrepGrounding({
+    hasCompanyNotes: Boolean(company.notes?.trim()),
+    signalCount: signals?.length ?? 0,
+    documentCount: documents?.length ?? 0,
+  })
+
   const signalSection = (signals ?? []).length > 0
     ? '\n\nRECENT SIGNALS\n' + signals!.map(s => {
         const date = new Date(s.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -95,6 +102,18 @@ Format each as:
 
 Tone: strategy advisor voice. Evidence-based. No em dashes. No generic observations.`
 
+  const groundingInstruction = grounding.isGrounded
+    ? ''
+    : `
+
+GROUNDING MODE
+Evidence is below threshold for verified company-specific strategic-priority claims.
+- Use pattern language based on stage and sector patterns.
+- Do not state internal strategic decisions as facts unless supported by supplied notes, signals, or documents.
+- Label uncertainty directly.`
+
+  const groundedUserPrompt = `${userPrompt}${groundingInstruction}`
+
   const encoder = new TextEncoder()
   const readable = new ReadableStream({
     async start(controller) {
@@ -104,8 +123,11 @@ Tone: strategy advisor voice. Evidence-based. No em dashes. No generic observati
           max_tokens: 1000,
 
           system: SYSTEM,
-          messages: [{ role: 'user', content: userPrompt }],
+          messages: [{ role: 'user', content: groundedUserPrompt }],
         })
+        if (!grounding.isGrounded) {
+          controller.enqueue(encoder.encode(`${prepGroundingNotice()}\n\n`))
+        }
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
         controller.close()
@@ -117,5 +139,11 @@ Tone: strategy advisor voice. Evidence-based. No em dashes. No generic observati
     },
   })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  return new Response(readable, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'x-prep-grounding-mode': grounding.isGrounded ? 'grounded' : 'pattern',
+      'x-prep-evidence-count': String(grounding.evidenceCount),
+    },
+  })
 }

@@ -54,6 +54,7 @@ export const PAGE_GROUPS: PageGroup[] = [
       { path: '/dashboard/admin/wedge-funnels', label: 'Wedge Funnel Monitor', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/feedback', label: 'Feedback Queue', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
       { path: '/dashboard/admin/traces', label: 'LLM Traces / Evals', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
+      { path: '/dashboard/admin/prep-efficacy', label: 'Prep Efficacy', owner: 'rw', admin: 'rw', viewer: '-', priority: 'advanced' },
     ],
   },
   {

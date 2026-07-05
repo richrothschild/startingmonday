@@ -1,9 +1,48 @@
 ﻿import { type NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/require-auth'
+import { createClient } from '@/lib/supabase/server'
+import { buildPrepClaimProvenance, type PrepClaimProvenance } from '@/lib/prep-provenance'
+import { scorePrepBriefConfidence } from '@/lib/prep-confidence'
 import {
   Document, Packer, Paragraph, TextRun, HeadingLevel,
   AlignmentType, convertInchesToTwip,
 } from 'docx'
+
+type DownloadBody = {
+  text?: unknown
+  title?: unknown
+  brief_id?: unknown
+  low_confidence_acknowledged?: unknown
+}
+
+function toClaimList(value: unknown): PrepClaimProvenance[] {
+  if (!Array.isArray(value)) return []
+  return value.filter((item): item is PrepClaimProvenance => {
+    if (!item || typeof item !== 'object') return false
+    const record = item as Record<string, unknown>
+    return typeof record.claimText === 'string' && typeof record.originClass === 'string'
+  })
+}
+
+function buildProvenanceAppendix(
+  claims: PrepClaimProvenance[],
+  confidenceBand: 'high' | 'medium' | 'low',
+  generatedAtIso: string,
+): Paragraph[] {
+  const userProvided = claims.filter((c) => c.originClass === 'user_provided').length
+  const systemDetected = claims.filter((c) => c.originClass === 'system_detected').length
+  const inferred = claims.filter((c) => c.originClass === 'inferred').length
+
+  return [
+    new Paragraph({ text: '', spacing: { before: 180, after: 60 } }),
+    new Paragraph({ text: 'Sources and Confidence Appendix', heading: HeadingLevel.HEADING_2, spacing: { before: 260, after: 80 } }),
+    new Paragraph({ text: `Generated: ${new Date(generatedAtIso).toLocaleString('en-US')}`, spacing: { after: 60 } }),
+    new Paragraph({ text: `Confidence band: ${confidenceBand}`, spacing: { after: 60 } }),
+    new Paragraph({ text: `User provided claims: ${userProvided}`, spacing: { after: 60 } }),
+    new Paragraph({ text: `System detected claims: ${systemDetected}`, spacing: { after: 60 } }),
+    new Paragraph({ text: `Inferred claims: ${inferred}`, spacing: { after: 60 } }),
+  ]
+}
 
 function parseLine(line: string): Paragraph {
   if (line.startsWith('## ')) {
@@ -39,7 +78,7 @@ export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
   if (!auth.ok) return auth.response
 
-  let body: { text?: unknown; title?: unknown }
+  let body: DownloadBody
   try {
     body = await request.json()
   } catch {
@@ -48,8 +87,63 @@ export async function POST(request: NextRequest) {
 
   const text = (typeof body.text === 'string' ? body.text : '').trim()
   const title = (typeof body.title === 'string' ? body.title : 'Prep Brief').trim()
+  const briefId = typeof body.brief_id === 'string' ? body.brief_id : null
+  const lowConfidenceAcknowledged = body.low_confidence_acknowledged === true
 
   if (!text) return NextResponse.json({ error: 'text is required' }, { status: 400 })
+
+  const supabase = await createClient()
+  let savedCreatedAt: string | null = null
+  let savedClaims: PrepClaimProvenance[] = []
+
+  if (briefId) {
+    const { data: brief } = await supabase
+      .from('briefs')
+      .select('id, type, created_at, claim_provenance')
+      .eq('id', briefId)
+      .eq('user_id', auth.userId)
+      .single()
+
+    if (!brief) {
+      return NextResponse.json({ error: 'Brief not found for export' }, { status: 404 })
+    }
+
+    savedCreatedAt = brief.created_at
+    savedClaims = toClaimList(brief.claim_provenance)
+  }
+
+  const claims = savedClaims.length > 0 ? savedClaims : buildPrepClaimProvenance(text)
+  const sensitiveClaims = claims.filter((claim) => (claim.sensitivePolicyHooks?.length ?? 0) > 0)
+  if (sensitiveClaims.length > 0) {
+    const sensitiveHookCounts = sensitiveClaims.reduce<Record<string, number>>((acc, claim) => {
+      for (const hook of claim.sensitivePolicyHooks ?? []) {
+        acc[hook] = (acc[hook] ?? 0) + 1
+      }
+      return acc
+    }, {})
+
+    return NextResponse.json(
+      {
+        error: 'Export blocked: sensitive claims require review before export.',
+        sensitive_claim_count: sensitiveClaims.length,
+        sensitive_hook_counts: sensitiveHookCounts,
+        sample_claims: sensitiveClaims.slice(0, 3).map((claim) => claim.claimText),
+      },
+      { status: 412 },
+    )
+  }
+
+  const confidence = scorePrepBriefConfidence(text)
+  if (confidence.band === 'low' && !lowConfidenceAcknowledged) {
+    return NextResponse.json(
+      {
+        error: 'Export blocked: low-confidence brief requires acknowledgment.',
+        confidence_band: confidence.band,
+        remediation: confidence.remediation,
+      },
+      { status: 412 },
+    )
+  }
 
   const lines = text.split('\n')
   const children: Paragraph[] = [
@@ -59,6 +153,7 @@ export async function POST(request: NextRequest) {
       spacing: { after: 240 },
     }),
     ...lines.map(parseLine),
+    ...buildProvenanceAppendix(claims, confidence.band, savedCreatedAt ?? new Date().toISOString()),
   ]
 
   const doc = new Document({
