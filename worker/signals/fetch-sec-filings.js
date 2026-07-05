@@ -293,7 +293,7 @@ async function fetchDocSnippet(url) {
     if (!res.ok) return ''
     const html = await res.text()
     const text = html
-      .replace(/<style[\s\S]*?<\/style>/gi, '')
+      .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, '')
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim()
