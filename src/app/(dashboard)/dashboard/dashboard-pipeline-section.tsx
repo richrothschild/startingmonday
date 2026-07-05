@@ -71,7 +71,7 @@ export function DashboardPipelineSection(props: Props) {
           </span>
           <Link
             href="/dashboard/companies/new"
-            className="inline-flex min-h-[44px] items-center text-[12px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 rounded transition-colors"
+            className="inline-flex min-h-[44px] items-center rounded border border-slate-600 bg-slate-800 px-3 text-[12px] font-semibold text-slate-100 transition-colors hover:border-slate-500 hover:bg-slate-700"
           >
             Companies
           </Link>
