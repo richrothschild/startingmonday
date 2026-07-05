@@ -57,6 +57,7 @@ export const PrepClaimProvenanceSchema = z.object({
   section: z.string().trim().min(1).max(120).nullable(),
   sensitivePolicyHooks: z.array(PrepSensitivePolicyHookSchema).max(6).default([]),
   sourceEvidence: z.array(PrepSourceEvidenceSchema).max(12).default([]),
+  sourceContextIds: z.array(z.string().trim().min(1).max(120)).max(24).optional(),
 })
 
 export const BriefSaveBodySchema = z.object({
@@ -67,6 +68,7 @@ export const BriefSaveBodySchema = z.object({
   section_name: z.string().trim().max(120).optional(),
   provenance_version: z.number().int().positive().optional(),
   claim_provenance: z.array(PrepClaimProvenanceSchema).max(120).optional(),
+  attributionContextIds: z.array(z.string().trim().min(1).max(120)).max(400).optional(),
 })
 
 export const BriefLifecycleUpdateBodySchema = z.object({

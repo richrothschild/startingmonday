@@ -46,6 +46,8 @@ type StallLaneSnapshot = {
 type GeneratedBriefing = {
   briefing: BriefingJson
   usedFallback: boolean
+  modelTier: 'haiku' | 'sonnet'
+  fallbackReason: 'credits_exhausted' | 'json_parse_error' | null
 }
 
 type WeeklyPulse = {
@@ -364,10 +366,13 @@ Tone: direct, precise, senior-to-senior. Short sentences. No em dashes. No fille
 Keep the full JSON under 1600 characters.
 Output valid JSON only, no markdown fences.`
 
+  const modelTier: 'haiku' | 'sonnet' = (signals.length > 0 || newMatches.length > 0) ? 'sonnet' : 'haiku'
+  const model = modelTier === 'sonnet' ? MODELS.sonnet : MODELS.haiku
+
   let message
   try {
     message = await anthropic.messages.create({
-      model: MODELS.haiku,
+      model,
       max_tokens: 4096,
       messages: [{ role: 'user', content: prompt }],
     })
@@ -383,7 +388,7 @@ Output valid JSON only, no markdown fences.`
         level: 'warning',
         extra: {
           errorType: 'anthropic_insufficient_credits',
-          model: MODELS.haiku,
+          model,
           status,
         },
       })
@@ -397,6 +402,8 @@ Output valid JSON only, no markdown fences.`
           closing: `${totalCompanies} companies in your pipeline.`,
         },
         usedFallback: true,
+        modelTier,
+        fallbackReason: 'credits_exhausted',
       }
     }
     // Re-throw other API errors
@@ -404,7 +411,7 @@ Output valid JSON only, no markdown fences.`
   }
 
   if (message.stop_reason === 'max_tokens') {
-    Sentry.captureMessage('Briefing generation truncated by max_tokens', { level: 'warning', extra: { model: MODELS.haiku } })
+    Sentry.captureMessage('Briefing generation truncated by max_tokens', { level: 'warning', extra: { model } })
   }
 
   const raw = (message.content[0] as { type: string; text?: string })?.text?.trim() ?? '{}'
@@ -413,9 +420,11 @@ Output valid JSON only, no markdown fences.`
     return {
       briefing: JSON.parse(cleaned) as BriefingJson,
       usedFallback: false,
+      modelTier,
+      fallbackReason: null,
     }
   } catch (err) {
-    Sentry.captureException(err, { extra: { model: MODELS.haiku, rawLength: raw.length } })
+    Sentry.captureException(err, { extra: { model, rawLength: raw.length } })
     return {
       briefing: {
         intro: `Here is your search update for ${todayStr}.`,
@@ -425,6 +434,8 @@ Output valid JSON only, no markdown fences.`
         closing: `${totalCompanies} companies in your pipeline.`,
       },
       usedFallback: true,
+      modelTier,
+      fallbackReason: 'json_parse_error',
     }
   }
 }
@@ -476,6 +487,8 @@ async function BriefingBody({
   const generated = context.hasContent ? await generateBriefing(context) : null
   const briefing = generated?.briefing ?? null
   const usedFallback = generated?.usedFallback ?? false
+  const modelTier = generated?.modelTier ?? 'haiku'
+  const fallbackReason = generated?.fallbackReason ?? null
   const maxItems = mode === 'focused' ? 1 : 3
   const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
   const matchInsights = (briefing?.matchInsights ?? []).slice(0, maxItems)
@@ -503,12 +516,20 @@ async function BriefingBody({
         <>
           {usedFallback && (
             <div className="mb-8 rounded-2xl border border-amber-300/20 bg-amber-500/10 p-5 backdrop-blur-md">
-              <p className="text-[12px] font-semibold text-amber-100 mb-1.5">Briefing generated in safe mode</p>
+              <p className="text-[12px] font-semibold text-amber-100 mb-1.5">Fallback briefing from live data</p>
               <p className="text-[13px] text-amber-100/80 leading-relaxed">
-                We had a temporary formatting issue while building your AI summary. The actions below are still valid from your live data.
+                {fallbackReason === 'credits_exhausted'
+                  ? 'AI generation credits were unavailable. This briefing is a deterministic summary of your current signals, matches, and follow-ups.'
+                  : 'AI output formatting failed validation. This briefing is a deterministic summary of your current signals, matches, and follow-ups.'}
               </p>
             </div>
           )}
+
+          <div className="mb-6">
+            <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-slate-400">
+              Model tier: {modelTier === 'sonnet' ? 'Sonnet (signal day)' : 'Haiku (quiet day)'}
+            </p>
+          </div>
 
           <section id="what-matters-now" className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-md">
             <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-3">Strategic framing</h2>

@@ -25,6 +25,7 @@ export type PrepClaimProvenance = {
   section: string | null
   sensitivePolicyHooks: SensitivePolicyHook[]
   sourceEvidence: SourceEvidenceKind[]
+  sourceContextIds?: string[]
 }
 
 export type PrepProvenanceValidationError = {
@@ -33,6 +34,7 @@ export type PrepProvenanceValidationError = {
     | 'missing_claim_text'
     | 'missing_origin_class'
     | 'invalid_origin_class'
+    | 'invalid_source_context_ids'
     | 'sensitive_inferred_block'
     | 'sensitive_requires_evidence'
   message: string
@@ -171,6 +173,23 @@ function detectSensitivePolicyHooks(claimText: string): SensitivePolicyHook[] {
   return hooks
 }
 
+function contextIdsFromEvidence(sourceEvidence: SourceEvidenceKind[]): string[] {
+  const ids = new Set<string>()
+  for (const evidence of sourceEvidence) {
+    if (evidence === 'career_history') ids.add('ctx_career_history')
+    if (evidence === 'resume_text') ids.add('ctx_resume_text')
+    if (evidence === 'star_story') ids.add('ctx_star_story')
+    if (evidence === 'company_signals') ids.add('ctx_company_signals')
+    if (evidence === 'scan_results') ids.add('ctx_scan_results')
+    if (evidence === 'company_notes') ids.add('ctx_company_notes')
+    if (evidence === 'interview_notes') ids.add('ctx_interview_notes')
+    if (evidence === 'contact_records') ids.add('ctx_contact_records')
+    if (evidence === 'company_documents') ids.add('ctx_company_documents')
+    if (evidence === 'job_description') ids.add('ctx_job_description')
+  }
+  return Array.from(ids)
+}
+
 export function buildPrepClaimProvenance(outputText: string): PrepClaimProvenance[] {
   const lines = outputText.split('\n')
   const claims: PrepClaimProvenance[] = []
@@ -197,6 +216,7 @@ export function buildPrepClaimProvenance(outputText: string): PrepClaimProvenanc
       section: currentSection,
       sensitivePolicyHooks: detectSensitivePolicyHooks(claimText),
       sourceEvidence,
+      sourceContextIds: contextIdsFromEvidence(sourceEvidence),
     })
 
     if (claims.length >= 80) break
@@ -235,6 +255,16 @@ export function validatePrepClaimProvenance(claims: PrepClaimProvenance[]): Prep
       continue
     }
 
+    if ('sourceContextIds' in claim && claim.sourceContextIds !== undefined) {
+      if (!Array.isArray(claim.sourceContextIds) || claim.sourceContextIds.some((id) => typeof id !== 'string' || !id.trim())) {
+        errors.push({
+          index,
+          code: 'invalid_source_context_ids',
+          message: 'sourceContextIds must be an array of non-empty strings when provided.',
+        })
+      }
+    }
+
     if ((claim.sensitivePolicyHooks?.length ?? 0) > 0 && claim.originClass === 'inferred') {
       errors.push({
         index,
@@ -266,4 +296,32 @@ export function validatePrepClaimProvenance(claims: PrepClaimProvenance[]): Prep
   }
 
   return errors
+}
+
+export function applyAttributionV2(
+  claims: PrepClaimProvenance[],
+  allowedContextIds: string[],
+): PrepClaimProvenance[] {
+  const allowed = new Set(allowedContextIds.map((id) => id.trim()).filter(Boolean))
+
+  return claims.map((claim) => {
+    const candidateIds = (claim.sourceContextIds ?? []).map((id) => id.trim()).filter(Boolean)
+    const matchedIds = candidateIds.filter((id) => allowed.has(id))
+
+    if (matchedIds.length === 0) {
+      return {
+        ...claim,
+        originClass: 'inferred',
+        sourceEvidence: [],
+        sensitivePolicyHooks: [],
+        sourceContextIds: [],
+      }
+    }
+
+    return {
+      ...claim,
+      originClass: claim.originClass === 'inferred' ? 'system_detected' : claim.originClass,
+      sourceContextIds: matchedIds,
+    }
+  })
 }

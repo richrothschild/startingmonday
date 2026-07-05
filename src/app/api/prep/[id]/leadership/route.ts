@@ -5,6 +5,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
+import { assessPrepGrounding, prepGroundingNotice } from '@/lib/prep-grounding'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
@@ -46,6 +47,13 @@ export async function GET(
     return new Response(stream, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
 
+  const grounding = assessPrepGrounding({
+    hasCompanyNotes: Boolean(company.notes?.trim()),
+    signalCount: signals?.length ?? 0,
+    documentCount: 0,
+    contactCount: contacts?.length ?? 0,
+  })
+
   const knownContacts = (contacts ?? []).length > 0
     ? '\n\nKNOWN CONTACTS AT THIS COMPANY\n' + contacts!.map(c => {
         const parts = [c.title, c.firm].filter(Boolean).join(' at ')
@@ -83,6 +91,18 @@ Format each person as:
 
 Tone: direct, senior-to-senior. Specific over general. No em dashes.`
 
+  const groundingInstruction = grounding.isGrounded
+    ? ''
+    : `
+
+GROUNDING MODE
+Evidence is below threshold for verified company-specific leadership claims.
+- Do not name specific people unless already present in KNOWN CONTACTS.
+- Use pattern language: "companies at this stage typically..." and "leaders in this sector often...".
+- Be explicit about uncertainty and avoid fabricated specificity.`
+
+  const groundedUserPrompt = `${userPrompt}${groundingInstruction}`
+
   const encoder = new TextEncoder()
   const readable = new ReadableStream({
     async start(controller) {
@@ -92,8 +112,11 @@ Tone: direct, senior-to-senior. Specific over general. No em dashes.`
           max_tokens: 1000,
 
           system: SYSTEM,
-          messages: [{ role: 'user', content: userPrompt }],
+          messages: [{ role: 'user', content: groundedUserPrompt }],
         })
+        if (!grounding.isGrounded) {
+          controller.enqueue(encoder.encode(`${prepGroundingNotice()}\n\n`))
+        }
         stream.on('text', text => controller.enqueue(encoder.encode(text)))
         const final = await stream.finalMessage()
         controller.close()
@@ -105,5 +128,11 @@ Tone: direct, senior-to-senior. Specific over general. No em dashes.`
     },
   })
 
-  return new Response(readable, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
+  return new Response(readable, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'x-prep-grounding-mode': grounding.isGrounded ? 'grounded' : 'pattern',
+      'x-prep-evidence-count': String(grounding.evidenceCount),
+    },
+  })
 }

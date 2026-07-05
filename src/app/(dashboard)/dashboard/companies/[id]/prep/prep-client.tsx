@@ -203,6 +203,45 @@ function renderBrief(
   })
 }
 
+function extractSection(text: string, section: string): string {
+  const pattern = new RegExp(`##\\s+${section.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}\\n([\\s\\S]*?)(?:\\n##\\s+|$)`, 'i')
+  const match = text.match(pattern)
+  return match?.[1]?.trim() ?? ''
+}
+
+function buildTonightView(text: string): string {
+  const bottomLine = extractSection(text, 'Bottom Line')
+  const pushback = extractSection(text, 'Anticipated Pushback')
+  const likelyQuestions = extractSection(text, 'Likely Questions')
+  const close = extractSection(text, 'How to Close')
+
+  const blocks: string[] = ['## Tonight Brief']
+
+  if (bottomLine) {
+    blocks.push('## Bottom Line')
+    blocks.push(bottomLine)
+  }
+
+  if (pushback) {
+    blocks.push('## Top Pushbacks')
+    const lines = pushback.split('\n').filter((line) => line.trim()).slice(0, 8)
+    blocks.push(lines.join('\n'))
+  }
+
+  if (likelyQuestions) {
+    blocks.push('## Likely Questions')
+    const lines = likelyQuestions.split('\n').filter((line) => line.trim()).slice(0, 10)
+    blocks.push(lines.join('\n'))
+  }
+
+  if (close) {
+    blocks.push('## How to Close')
+    blocks.push(close)
+  }
+
+  return blocks.join('\n\n')
+}
+
 function ResourcePanel({ brief }: { brief: string }) {
   const resources: Resource[] = brief.length > 0
     ? getRelevantResources(brief, 3)
@@ -249,10 +288,17 @@ async function streamResponse(res: Response, onChunk: (text: string) => void) {
   }
 }
 
-async function saveBrief(type: string, text: string, companyId?: string, sectionName?: string): Promise<string | null> {
+async function saveBrief(
+  type: string,
+  text: string,
+  companyId?: string,
+  sectionName?: string,
+  attributionContextIds?: string[],
+): Promise<string | null> {
   try {
     const isPrepType = type === 'prep' || type === 'prep_section'
     const claimProvenance = isPrepType ? buildPrepClaimProvenance(text) : undefined
+    const useAttributionV2 = isPrepType && (attributionContextIds?.length ?? 0) > 0
     const res = await fetch('/api/briefs/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -261,8 +307,9 @@ async function saveBrief(type: string, text: string, companyId?: string, section
         text,
         company_id: companyId,
         section_name: sectionName,
-        provenance_version: isPrepType ? PREP_PROVENANCE_VERSION : undefined,
+        provenance_version: isPrepType ? (useAttributionV2 ? 2 : PREP_PROVENANCE_VERSION) : undefined,
         claim_provenance: claimProvenance,
+        attributionContextIds: useAttributionV2 ? attributionContextIds : undefined,
       }),
     })
     if (!res.ok) return null
@@ -278,12 +325,16 @@ function useOnDemand(url: string, companyId: string, sectionName: string) {
   const [briefId, setBriefId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [groundingMode, setGroundingMode] = useState<'grounded' | 'pattern' | null>(null)
+  const [evidenceCount, setEvidenceCount] = useState<number | null>(null)
 
   async function generate() {
     setLoading(true)
     setContent('')
     setBriefId(null)
     setError('')
+    setGroundingMode(null)
+    setEvidenceCount(null)
     try {
       const res = await fetch(url)
       if (!res.ok) {
@@ -291,6 +342,11 @@ function useOnDemand(url: string, companyId: string, sectionName: string) {
         setError(body?.error ?? `Request failed (${res.status})`)
         return
       }
+      const mode = res.headers.get('x-prep-grounding-mode')
+      setGroundingMode(mode === 'grounded' || mode === 'pattern' ? mode : null)
+      const countRaw = res.headers.get('x-prep-evidence-count')
+      const parsedCount = Number(countRaw)
+      setEvidenceCount(Number.isFinite(parsedCount) ? parsedCount : null)
       let fullText = ''
       await streamResponse(res, chunk => { fullText += chunk; setContent(fullText) })
       if (fullText.startsWith('__ERROR__')) {
@@ -307,7 +363,7 @@ function useOnDemand(url: string, companyId: string, sectionName: string) {
     }
   }
 
-  return { content, briefId, loading, error, generate }
+  return { content, briefId, loading, error, groundingMode, evidenceCount, generate }
 }
 
 function OnDemandPanel({
@@ -318,6 +374,9 @@ function OnDemandPanel({
   loading,
   error,
   onGenerate,
+  groundingMode,
+  evidenceCount,
+  addEvidenceHref,
   traceFilter,
   onTraceLabelClick,
   onLegendFilter,
@@ -329,6 +388,9 @@ function OnDemandPanel({
   loading: boolean
   error: string
   onGenerate: () => void
+  groundingMode?: 'grounded' | 'pattern' | null
+  evidenceCount?: number | null
+  addEvidenceHref?: string
   traceFilter: TraceFilter
   onTraceLabelClick: (originClass: ClaimOriginClass) => void
   onLegendFilter: (next: TraceFilter) => void
@@ -366,6 +428,23 @@ function OnDemandPanel({
       )}
       {(content || (loading && content)) && (
         <div className="px-6 py-5">
+          {groundingMode === 'pattern' && (
+            <div className="mb-4 rounded border border-amber-200 bg-amber-50 px-4 py-3">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700">Pattern Analysis, Not Verified Intel</p>
+              <p className="mt-1 text-[12px] text-amber-800 leading-relaxed">
+                This section used limited evidence{typeof evidenceCount === 'number' ? ` (${evidenceCount} source${evidenceCount === 1 ? '' : 's'})` : ''}.
+                Add notes, documents, contacts, or fresh signals and regenerate for company-verified specificity.
+              </p>
+              <div className="mt-2">
+                <Link
+                  href={addEvidenceHref ?? '#'}
+                  className="text-[11px] font-semibold text-amber-800 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors"
+                >
+                  Add evidence
+                </Link>
+              </div>
+            </div>
+          )}
           <SourceLegend
             traceFilter={traceFilter}
             counts={claimOriginCounts}
@@ -452,7 +531,11 @@ export function PrepClient({
   const [lowConfidenceAcknowledged, setLowConfidenceAcknowledged] = useState(false)
   const [reviewedBriefId, setReviewedBriefId] = useState<string | null>(null)
   const [markingReviewed, setMarkingReviewed] = useState(false)
+  const [outcomeLogging, setOutcomeLogging] = useState<null | 'advanced' | 'rejected' | 'offer'>(null)
+  const [outcomeLogged, setOutcomeLogged] = useState<null | 'advanced' | 'rejected' | 'offer'>(null)
   const [traceFilter, setTraceFilter] = useState<TraceFilter>('all')
+  const [briefViewMode, setBriefViewMode] = useState<'tonight' | 'full'>('tonight')
+    const [prepAttributionContextIds, setPrepAttributionContextIds] = useState<string[]>([])
   const ph = usePostHog()
   // Chat state
   type ChatMessage = { role: 'user' | 'assistant'; content: string }
@@ -460,6 +543,11 @@ export function PrepClient({
   const [chatInput, setChatInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
+  const [exportGateError, setExportGateError] = useState<null | {
+    type: 'sensitive' | 'low_confidence' | 'generic'
+    message: string
+    remediation: string[]
+  }>(null)
   const refineRef = useRef<HTMLTextAreaElement>(null)
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
   const autoStarted = useRef(false)
@@ -525,7 +613,10 @@ export function PrepClient({
     setLoading(true)
     setBrief('')
     setBriefId(null)
+    setBriefViewMode('tonight')
     setReviewedBriefId(null)
+    setOutcomeLogged(null)
+    setPrepAttributionContextIds([])
     setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
@@ -535,18 +626,34 @@ export function PrepClient({
       url.searchParams.set('interview_stage', interviewStage)
       url.searchParams.set('role_mode', roleMode)
       const res = await fetch(url.toString())
+
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         setError(body?.error ?? `Request failed (${res.status})`)
         return
       }
+
+      const attributionHeader = res.headers.get('x-prep-attribution-context-ids')
+      let nextAttributionContextIds: string[] = []
+      if (attributionHeader) {
+        try {
+          const parsed = JSON.parse(attributionHeader) as string[]
+          nextAttributionContextIds = Array.isArray(parsed)
+            ? parsed.filter((id) => typeof id === 'string' && id.trim())
+            : []
+        } catch {
+          nextAttributionContextIds = []
+        }
+      }
+      setPrepAttributionContextIds(nextAttributionContextIds)
+
       let fullText = ''
       await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
       if (fullText.startsWith('__ERROR__')) {
         setError(fullText.slice(9))
         setBrief('')
       } else {
-        const id = await saveBrief('prep', fullText, companyId)
+        const id = await saveBrief('prep', fullText, companyId, undefined, nextAttributionContextIds)
         setBriefId(id)
         const confidence = scorePrepBriefConfidence(fullText)
         await emitPmfEvent(PMF_EVENTS.prep.prep_brief_generated, {
@@ -571,7 +678,9 @@ export function PrepClient({
     setRefining(true)
     setBrief('')
     setBriefId(null)
+    setBriefViewMode('tonight')
     setReviewedBriefId(null)
+    setOutcomeLogged(null)
     setTraceFilter('all')
     setLowConfidenceAcknowledged(false)
     setError('')
@@ -593,7 +702,7 @@ export function PrepClient({
         setBrief('')
       } else {
         setRefineInput('')
-        const id = await saveBrief('prep', fullText, companyId)
+        const id = await saveBrief('prep', fullText, companyId, undefined, prepAttributionContextIds)
         setBriefId(id)
         const confidence = scorePrepBriefConfidence(fullText)
         await emitPmfEvent(PMF_EVENTS.prep.prep_brief_refined, {
@@ -706,14 +815,64 @@ export function PrepClient({
   async function handleDownload() {
     if (downloading || !brief) return
     setDownloading(true)
+    setExportGateError(null)
     try {
       const title = `${companyName} - Prep Brief`
       const res = await fetch('/api/briefs/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: brief, title }),
+        body: JSON.stringify({
+          text: brief,
+          title,
+          brief_id: briefId,
+          low_confidence_acknowledged: lowConfidenceAcknowledged,
+        }),
       })
-      if (!res.ok) return
+      if (!res.ok) {
+        const payload = await res.json().catch(() => ({})) as {
+          error?: string
+          remediation?: string[]
+          sample_claims?: string[]
+          sensitive_hook_counts?: Record<string, number>
+        }
+
+        if (res.status === 412) {
+          const hasSensitive = typeof payload.error === 'string' && payload.error.toLowerCase().includes('sensitive')
+          if (hasSensitive) {
+            const hookSummary = Object.entries(payload.sensitive_hook_counts ?? {})
+              .map(([hook, count]) => `${hook.replace(/_/g, ' ')}: ${count}`)
+            const sampleClaims = (payload.sample_claims ?? []).map((claim) => `Rewrite or source: ${claim}`)
+            setExportGateError({
+              type: 'sensitive',
+              message: payload.error ?? 'Export blocked on sensitive claims.',
+              remediation: [
+                ...hookSummary,
+                ...sampleClaims,
+                'Remove unsourced compensation, legal, or security assertions.',
+                'Regenerate this brief after adding evidence in company notes, documents, or signals.',
+              ],
+            })
+            return
+          }
+
+          setExportGateError({
+            type: 'low_confidence',
+            message: payload.error ?? 'Export blocked until low-confidence acknowledgment is complete.',
+            remediation: payload.remediation ?? [
+              'Acknowledge low confidence in this screen before exporting.',
+              'Add more evidence and regenerate to improve confidence.',
+            ],
+          })
+          return
+        }
+
+        setExportGateError({
+          type: 'generic',
+          message: payload.error ?? `Download failed (${res.status}).`,
+          remediation: ['Retry export in a moment.'],
+        })
+        return
+      }
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -749,6 +908,22 @@ export function PrepClient({
     window.print()
   }
 
+  async function handleLogOutcome(outcome: 'advanced' | 'rejected' | 'offer') {
+    if (!briefId || outcomeLogging) return
+    setOutcomeLogging(outcome)
+    try {
+      const res = await fetch(`/api/briefs/${briefId}/outcome`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ outcome }),
+      })
+      if (!res.ok) return
+      setOutcomeLogged(outcome)
+    } finally {
+      setOutcomeLogging(null)
+    }
+  }
+
   async function handleMarkReviewed() {
     if (!brief || markingReviewed) return
     if (briefId && reviewedBriefId === briefId) return
@@ -773,6 +948,10 @@ export function PrepClient({
     if (!brief) return null
     return scorePrepBriefConfidence(brief)
   }, [brief])
+  const displayedBrief = useMemo(() => {
+    if (!brief) return ''
+    return briefViewMode === 'tonight' ? buildTonightView(brief) : brief
+  }, [brief, briefViewMode])
   const isLowConfidence = briefConfidence?.band === 'low'
   const exportBlockedByConfidence = isLowConfidence && !lowConfidenceAcknowledged
 
@@ -929,6 +1108,32 @@ export function PrepClient({
           </div>
         )}
 
+        {exportGateError && (
+          <div className={`mb-4 rounded border px-5 py-4 ${exportGateError.type === 'sensitive' ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'}`}>
+            <p className="text-[12px] font-semibold text-slate-900">{exportGateError.message}</p>
+            <ul className="mt-2 space-y-1.5 text-[12px] text-slate-700">
+              {exportGateError.remediation.slice(0, 6).map((item) => (
+                <li key={item}>- {item}</li>
+              ))}
+            </ul>
+            <div className="mt-3 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setBriefViewMode('full')}
+                className="text-[11px] font-semibold border border-slate-300 rounded px-2.5 py-1 hover:border-slate-500"
+              >
+                Review full brief
+              </button>
+              <Link
+                href={`/dashboard/companies/${companyId}`}
+                className="text-[11px] font-semibold border border-slate-300 rounded px-2.5 py-1 hover:border-slate-500"
+              >
+                Add evidence
+              </Link>
+            </div>
+          </div>
+        )}
+
         {error && (
           <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
             {error}
@@ -1030,6 +1235,22 @@ export function PrepClient({
 
         {brief && briefConfidence && !busy && (
           <div className={`mb-4 rounded border px-5 py-4 ${isLowConfidence ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200'}`}>
+            <div className="mb-3 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setBriefViewMode('tonight')}
+                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'tonight' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-300 hover:border-slate-500'}`}
+              >
+                Tonight view
+              </button>
+              <button
+                type="button"
+                onClick={() => setBriefViewMode('full')}
+                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'full' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-300 hover:border-slate-500'}`}
+              >
+                Full dossier
+              </button>
+            </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Brief confidence</p>
@@ -1074,10 +1295,10 @@ export function PrepClient({
           <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
             <SourceLegend
               traceFilter={traceFilter}
-              counts={buildClaimOriginCounts(brief)}
+              counts={buildClaimOriginCounts(displayedBrief)}
               onChangeFilter={handleLegendFilter}
             />
-            {renderBrief(brief, traceFilter, handleTraceLabelClick)}
+            {renderBrief(displayedBrief, traceFilter, handleTraceLabelClick)}
             {busy && (
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
@@ -1092,6 +1313,42 @@ export function PrepClient({
         {briefId && !busy && (
           <div className="mb-4 flex justify-end no-print">
             <BriefRating briefId={briefId} />
+          </div>
+        )}
+
+        {briefId && !busy && (
+          <div className="mb-4 rounded border border-slate-200 bg-white p-4 no-print">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Post-interview outcome</p>
+            <p className="mt-1 text-[13px] text-slate-600">Log the result after this conversation to improve efficacy tracking.</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => { void handleLogOutcome('advanced') }}
+                disabled={!!outcomeLogging}
+                className="text-[12px] font-semibold border border-emerald-300 text-emerald-700 rounded px-3 py-1.5 hover:bg-emerald-50 disabled:opacity-50"
+              >
+                {outcomeLogging === 'advanced' ? 'Saving…' : 'Advanced'}
+              </button>
+              <button
+                type="button"
+                onClick={() => { void handleLogOutcome('offer') }}
+                disabled={!!outcomeLogging}
+                className="text-[12px] font-semibold border border-blue-300 text-blue-700 rounded px-3 py-1.5 hover:bg-blue-50 disabled:opacity-50"
+              >
+                {outcomeLogging === 'offer' ? 'Saving…' : 'Offer'}
+              </button>
+              <button
+                type="button"
+                onClick={() => { void handleLogOutcome('rejected') }}
+                disabled={!!outcomeLogging}
+                className="text-[12px] font-semibold border border-amber-300 text-amber-700 rounded px-3 py-1.5 hover:bg-amber-50 disabled:opacity-50"
+              >
+                {outcomeLogging === 'rejected' ? 'Saving…' : 'Rejected'}
+              </button>
+            </div>
+            {outcomeLogged && (
+              <p className="mt-2 text-[12px] text-slate-500">Outcome saved: {outcomeLogged}.</p>
+            )}
           </div>
         )}
 
@@ -1158,6 +1415,9 @@ export function PrepClient({
               loading={leadership.loading}
               error={leadership.error}
               onGenerate={leadership.generate}
+              groundingMode={leadership.groundingMode}
+              evidenceCount={leadership.evidenceCount}
+              addEvidenceHref={`/dashboard/companies/${companyId}`}
               traceFilter={traceFilter}
               onTraceLabelClick={handleTraceLabelClick}
               onLegendFilter={handleLegendFilter}
@@ -1170,6 +1430,9 @@ export function PrepClient({
               loading={priorities.loading}
               error={priorities.error}
               onGenerate={priorities.generate}
+              groundingMode={priorities.groundingMode}
+              evidenceCount={priorities.evidenceCount}
+              addEvidenceHref={`/dashboard/companies/${companyId}`}
               traceFilter={traceFilter}
               onTraceLabelClick={handleTraceLabelClick}
               onLegendFilter={handleLegendFilter}
@@ -1182,6 +1445,9 @@ export function PrepClient({
               loading={challenges.loading}
               error={challenges.error}
               onGenerate={challenges.generate}
+              groundingMode={challenges.groundingMode}
+              evidenceCount={challenges.evidenceCount}
+              addEvidenceHref={`/dashboard/companies/${companyId}`}
               traceFilter={traceFilter}
               onTraceLabelClick={handleTraceLabelClick}
               onLegendFilter={handleLegendFilter}
@@ -1194,6 +1460,9 @@ export function PrepClient({
               loading={competitive.loading}
               error={competitive.error}
               onGenerate={competitive.generate}
+              groundingMode={competitive.groundingMode}
+              evidenceCount={competitive.evidenceCount}
+              addEvidenceHref={`/dashboard/companies/${companyId}`}
               traceFilter={traceFilter}
               onTraceLabelClick={handleTraceLabelClick}
               onLegendFilter={handleLegendFilter}

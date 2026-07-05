@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  applyAttributionV2,
   buildPrepClaimProvenance,
   validatePrepClaimProvenance,
   type PrepClaimProvenance,
@@ -63,5 +64,40 @@ describe('prep provenance', () => {
 
     const errors = validatePrepClaimProvenance(claims)
     expect(errors.some((e) => e.code === 'sensitive_requires_evidence')).toBe(true)
+  })
+
+  it('downgrades claims to inferred when attribution context ids do not match', () => {
+    const claims: PrepClaimProvenance[] = [
+      {
+        claimText: 'Claim linked to missing context id.',
+        originClass: 'system_detected',
+        section: 'Bottom Line',
+        sensitivePolicyHooks: [],
+        sourceEvidence: ['company_signals'],
+        sourceContextIds: ['ctx_missing'],
+      },
+    ]
+
+    const normalized = applyAttributionV2(claims, ['ctx_available'])
+    expect(normalized[0]?.originClass).toBe('inferred')
+    expect(normalized[0]?.sourceEvidence).toEqual([])
+    expect(normalized[0]?.sourceContextIds).toEqual([])
+  })
+
+  it('keeps claims grounded when attribution context ids match', () => {
+    const claims: PrepClaimProvenance[] = [
+      {
+        claimText: 'Claim linked to available context id.',
+        originClass: 'system_detected',
+        section: 'Bottom Line',
+        sensitivePolicyHooks: [],
+        sourceEvidence: ['company_signals'],
+        sourceContextIds: ['ctx_available', 'ctx_other'],
+      },
+    ]
+
+    const normalized = applyAttributionV2(claims, ['ctx_available'])
+    expect(normalized[0]?.originClass).toBe('system_detected')
+    expect(normalized[0]?.sourceContextIds).toEqual(['ctx_available'])
   })
 })

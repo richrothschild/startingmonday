@@ -528,6 +528,19 @@ export async function GET(
 
   const userPrompt = buildContext(company, profile as ProfileRow | null, scanResults, contacts, allDocuments, signals, interviewStage, interviewLogs as InterviewLogRow[] | null, roleMode)
 
+  const attributionContextIds = [
+    (profile?.career_history_json ? 'ctx_career_history' : null),
+    (profile?.resume_text ? 'ctx_resume_text' : null),
+    (profile?.star_stories ? 'ctx_star_story' : null),
+    ((signals?.length ?? 0) > 0 ? 'ctx_company_signals' : null),
+    ((scanResults?.length ?? 0) > 0 ? 'ctx_scan_results' : null),
+    (company.notes ? 'ctx_company_notes' : null),
+    (((interviewLogs?.length ?? 0) > 0 || company.interview_notes) ? 'ctx_interview_notes' : null),
+    ((contacts?.length ?? 0) > 0 ? 'ctx_contact_records' : null),
+    ((allDocuments?.length ?? 0) > 0 ? 'ctx_company_documents' : null),
+    ((allDocuments ?? []).some((doc) => doc.label === 'job_description') ? 'ctx_job_description' : null),
+  ].filter((id): id is string => Boolean(id))
+
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
     8000,
@@ -548,7 +561,10 @@ export async function GET(
   )
 
   return new Response(readable, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'x-prep-attribution-context-ids': JSON.stringify(attributionContextIds),
+    },
   })
 }
 

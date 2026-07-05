@@ -9,9 +9,12 @@ import { apiError } from '@/lib/api-error'
 import { BriefSaveBodySchema, firstZodError } from '@/lib/schemas'
 import {
   PREP_PROVENANCE_VERSION,
+  applyAttributionV2,
+  buildPrepClaimProvenance,
   type PrepClaimProvenance,
   validatePrepClaimProvenance,
 } from '@/lib/prep-provenance'
+import { enforcePrepSpecificityGuard } from '@/lib/prep-specificity-guard'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -24,11 +27,21 @@ export async function POST(request: NextRequest) {
     return apiError(firstZodError(parsedBody.error), 400)
   }
 
-  const { type, text, company_id, contact_id, section_name, claim_provenance, provenance_version } = parsedBody.data
+  const {
+    type,
+    text,
+    company_id,
+    contact_id,
+    section_name,
+    claim_provenance,
+    provenance_version,
+    attributionContextIds,
+  } = parsedBody.data
 
 
   const isPrepType = type === 'prep' || type === 'prep_section'
   let validatedClaimProvenance: PrepClaimProvenance[] | null = null
+  let persistedText = text
 
   if (isPrepType) {
     if (!Array.isArray(claim_provenance)) {
@@ -48,6 +61,33 @@ export async function POST(request: NextRequest) {
     }
 
     validatedClaimProvenance = claim_provenance
+
+    if ((provenance_version ?? PREP_PROVENANCE_VERSION) >= 2) {
+      const allowedContextIds = attributionContextIds ?? []
+      validatedClaimProvenance = applyAttributionV2(validatedClaimProvenance, allowedContextIds)
+
+      const attributionErrors = validatePrepClaimProvenance(validatedClaimProvenance)
+      if (attributionErrors.length > 0) {
+        return NextResponse.json(
+          { error: 'Invalid claim_provenance after attribution v2 normalization', details: attributionErrors.slice(0, 3) },
+          { status: 400 },
+        )
+      }
+    }
+
+    const guarded = enforcePrepSpecificityGuard(text, validatedClaimProvenance)
+    if (guarded.wasSanitized) {
+      persistedText = guarded.text
+      validatedClaimProvenance = buildPrepClaimProvenance(guarded.text)
+
+      const postGuardErrors = validatePrepClaimProvenance(validatedClaimProvenance)
+      if (postGuardErrors.length > 0) {
+        return NextResponse.json(
+          { error: 'Invalid claim_provenance after specificity guard', details: postGuardErrors.slice(0, 3) },
+          { status: 400 },
+        )
+      }
+    }
   }
 
   const supabase = await createClient()
@@ -57,7 +97,7 @@ export async function POST(request: NextRequest) {
     .insert({
       user_id: userId,
       type,
-      output_text: watermarkText(text, userId),
+      output_text: watermarkText(persistedText, userId),
       company_id: company_id ?? null,
       contact_id: contact_id ?? null,
       section_name: section_name ?? null,
