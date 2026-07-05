@@ -127,18 +127,17 @@ export function DashboardIntelSetupSections(props: Props) {
                   <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-700 text-[12px] font-bold shrink-0 mt-0.5">
                     {wp.contactName[0].toUpperCase()}
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <Link
+                    href={`/dashboard/companies/${wp.companyId}`}
+                    className="flex-1 min-w-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80"
+                  >
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <Link href={`/dashboard/contacts/${wp.contactId}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                        {wp.contactName}
-                      </Link>
+                      <span className="text-[14px] font-semibold text-slate-900">{wp.contactName}</span>
                       {wp.contactTitle && (
                         <span className="text-[12px] text-slate-400">{wp.contactTitle}</span>
                       )}
                       <span className="text-[12px] text-slate-400">at</span>
-                      <Link href={`/dashboard/companies/${wp.companyId}`} className="text-[12px] font-semibold text-slate-600 hover:text-slate-900">
-                        {wp.companyName}
-                      </Link>
+                      <span className="text-[12px] font-semibold text-slate-600">{wp.companyName}</span>
                       <span
                         className={[
                           'text-[10px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-full',
@@ -150,7 +149,7 @@ export function DashboardIntelSetupSections(props: Props) {
                       <span className="text-[11px] text-slate-400">{dateLabel}</span>
                     </div>
                     <p className="text-[13px] text-slate-500 leading-relaxed truncate">{wp.signal.signal_summary}</p>
-                  </div>
+                  </Link>
                   <Link
                     href={`/dashboard/contacts/${wp.contactId}/outreach`}
                     className="shrink-0 text-[12px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
@@ -182,25 +181,28 @@ export function DashboardIntelSetupSections(props: Props) {
               const patternName = colonIdx > -1 ? sig.signal_summary.slice(0, colonIdx) : 'Pattern Alert'
               const patternBody = colonIdx > -1 ? sig.signal_summary.slice(colonIdx + 2) : sig.signal_summary
               const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+              const detailsHref = co ? `/dashboard/companies/${co.id}` : '/dashboard/signals'
               return (
                 <div key={sig.id} className="px-6 py-5">
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {co && (
-                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                          {co.name}
-                        </Link>
-                      )}
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
-                        {patternName}
-                      </span>
+                  <Link href={detailsHref} className="block rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/80">
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {co && (
+                          <span className="text-[14px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
+                            {co.name}
+                          </span>
+                        )}
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-600">
+                          {patternName}
+                        </span>
+                      </div>
+                      <span className="text-[12px] text-slate-400 shrink-0">{dateLabel}</span>
                     </div>
-                    <span className="text-[12px] text-slate-400 shrink-0">{dateLabel}</span>
-                  </div>
-                  <p className="text-[13px] text-slate-700 leading-relaxed mb-1.5">{patternBody}</p>
-                  {sig.outreach_angle && (
-                    <p className="text-[12px] text-slate-500 italic leading-relaxed">{sig.outreach_angle}</p>
-                  )}
+                    <p className="text-[13px] text-slate-700 leading-relaxed mb-1.5">{patternBody}</p>
+                    {sig.outreach_angle && (
+                      <p className="text-[12px] text-slate-500 italic leading-relaxed">{sig.outreach_angle}</p>
+                    )}
+                  </Link>
                   <form action={addSignalFollowUp} className="mt-2">
                     <input type="hidden" name="company_name" value={co?.name ?? ''} />
                     <input type="hidden" name="signal_summary" value={patternBody} />
@@ -231,23 +233,26 @@ export function DashboardIntelSetupSections(props: Props) {
               const co = sig.companies
               const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
               const typeLabel = sig.signal_type.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+              const detailsHref = co ? `/dashboard/companies/${co.id}` : '/dashboard/signals'
               return (
                 <div key={sig.id} className="px-6 py-4">
-                  <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                    {co && (
-                      <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">
-                        {co.name}
-                      </Link>
+                  <Link href={detailsHref} className="block rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/80">
+                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                      {co && (
+                        <span className="text-[14px] font-semibold text-slate-900 hover:text-slate-600 transition-colors">
+                          {co.name}
+                        </span>
+                      )}
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
+                        {typeLabel}
+                      </span>
+                      <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
+                    </div>
+                    <p className="text-[13px] text-slate-700 leading-relaxed">{sig.signal_summary}</p>
+                    {sig.outreach_angle && (
+                      <p className="text-[12px] text-slate-400 italic mt-1 leading-relaxed">{sig.outreach_angle}</p>
                     )}
-                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
-                      {typeLabel}
-                    </span>
-                    <span className="text-[12px] text-slate-400 ml-auto">{dateLabel}</span>
-                  </div>
-                  <p className="text-[13px] text-slate-700 leading-relaxed">{sig.signal_summary}</p>
-                  {sig.outreach_angle && (
-                    <p className="text-[12px] text-slate-400 italic mt-1 leading-relaxed">{sig.outreach_angle}</p>
-                  )}
+                  </Link>
                   <form action={addSignalFollowUp} className="mt-2">
                     <input type="hidden" name="company_name" value={co?.name ?? ''} />
                     <input type="hidden" name="signal_summary" value={sig.signal_summary} />

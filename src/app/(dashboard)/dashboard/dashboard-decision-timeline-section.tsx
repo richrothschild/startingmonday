@@ -84,26 +84,32 @@ export function DashboardDecisionTimelineSection({
               className={`rounded-lg border p-3 ${item.stalled ? 'border-amber-300/40 bg-amber-500/10' : 'border-white/15 bg-slate-900/70'}`}
             >
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-[13px] font-semibold text-slate-100">{item.name}</p>
-                  <p className="text-[12px] text-slate-300">Stage: {item.stageLabel}</p>
-                </div>
+                <Link href={item.href} className="rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70">
+                  <p className="text-[13px] font-semibold text-slate-100 hover:text-orange-200 transition-colors">{item.name}</p>
+                  <p className="text-[12px] text-slate-300 hover:text-slate-100 transition-colors">Stage: {item.stageLabel}</p>
+                </Link>
                 <div className="text-[12px] text-slate-300">
                   <span className="font-semibold text-slate-200">Owner:</span> {item.ownerLabel}
                 </div>
               </div>
 
-              <div className="mt-2 rounded border border-white/15 bg-slate-950/70 px-2.5 py-2">
+              <Link
+                href={item.href}
+                className="mt-2 block rounded border border-white/15 bg-slate-950/70 px-2.5 py-2 transition-colors hover:border-orange-300/40 hover:bg-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70"
+              >
                 <p className="text-[10px] uppercase tracking-[0.08em] text-slate-400 font-bold mb-1">Next irreversible decision marker</p>
                 <p className="text-[13px] text-slate-100 leading-relaxed">{item.nextDecisionMarker}</p>
-              </div>
+              </Link>
 
-              <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+              <Link
+                href={item.href}
+                className="mt-2 flex flex-col gap-1 rounded-sm sm:flex-row sm:items-center sm:justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70"
+              >
                 <p className="text-[12px] text-slate-300">Decision window: {item.decisionWindowLabel}</p>
                 <p className={`text-[12px] ${item.stalled ? 'text-amber-200 font-semibold' : 'text-slate-300'}`}>
                   Last moved: {item.daysSinceUpdate === null ? 'Unknown' : `${item.daysSinceUpdate} day${item.daysSinceUpdate === 1 ? '' : 's'} ago`}
                 </p>
-              </div>
+              </Link>
 
               <form action={updateDecisionOwner} className="mt-2 flex items-center gap-2">
                 <input type="hidden" name="company_id" value={item.id} />
@@ -123,7 +129,7 @@ export function DashboardDecisionTimelineSection({
               </form>
 
               <Link href={item.href} className="inline-block mt-2 text-[12px] font-semibold text-slate-100 underline underline-offset-2 hover:text-orange-300">
-                Open campaign
+                Edit campaign details
               </Link>
             </article>
           ))}

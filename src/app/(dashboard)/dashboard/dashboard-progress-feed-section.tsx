@@ -139,16 +139,16 @@ export function DashboardProgressFeedSection(props: Props) {
       <div className="divide-y divide-slate-100">
         {items.map((item) => (
           <div key={item.id} className="px-6 py-4 flex items-start gap-4">
-            <div className="min-w-0 flex-1">
+            <Link href={item.href} className="min-w-0 flex-1 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300/90">
               <div className="flex items-center gap-2 flex-wrap mb-1.5">
                 <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold tracking-[0.04em] ${item.badgeClassName}`}>
                   {item.badge}
                 </span>
                 <span className="text-[12px] text-slate-400">{item.meta}</span>
               </div>
-              <p className="text-[14px] font-semibold text-slate-900">{item.title}</p>
+              <p className="text-[14px] font-semibold text-slate-900 hover:text-slate-700 transition-colors">{item.title}</p>
               <p className="text-[13px] text-slate-500 leading-relaxed mt-1">{item.body}</p>
-            </div>
+            </Link>
             <Link
               href={item.href}
               className="shrink-0 text-[12px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded transition-colors"
