@@ -235,6 +235,49 @@ export default async function AdminIntelligencePage() {
   const corroborationRate = events30d > 0 ? corroborated30d / events30d : 0
   const dlqDepth = dlqDepthRes?.count ?? 0
 
+  // Outcome labels (moat metrics).
+  type OpeningRow = { label_source: string; canonical_company_id: string }
+  type PrecursorRow = {
+    event_type: string
+    sector: string | null
+    role_family: string | null
+    n_events: number
+    n_preceded: number
+    hit_rate: number
+    median_days_to_opening: number | null
+  }
+  const [openingsRes, labeledEventsRes, canonicalCompaniesRes, precursorRes] = await Promise.all([
+    (admin as any)
+      .from('role_openings')
+      .select('label_source, canonical_company_id')
+      .limit(5000),
+    (admin as any)
+      .from('event_outcome_labels')
+      .select('id', { count: 'exact', head: true }),
+    (admin as any)
+      .from('canonical_companies')
+      .select('id', { count: 'exact', head: true }),
+    (admin as any)
+      .from('precursor_stats')
+      .select('event_type, sector, role_family, n_events, n_preceded, hit_rate, median_days_to_opening')
+      .is('sector', null)
+      .is('role_family', null)
+      .gte('n_events', 5)
+      .order('hit_rate', { ascending: false })
+      .limit(5),
+  ])
+
+  const openingRows: OpeningRow[] = (openingsRes?.data ?? []) as OpeningRow[]
+  const openingsBySource = openingRows.reduce<Record<string, number>>((acc, row) => {
+    acc[row.label_source] = (acc[row.label_source] ?? 0) + 1
+    return acc
+  }, {})
+  const labeledCompanies = new Set(openingRows.map(r => r.canonical_company_id)).size
+  const canonicalCompanyCount = canonicalCompaniesRes?.count ?? 0
+  const labelCoverage = canonicalCompanyCount > 0 ? labeledCompanies / canonicalCompanyCount : 0
+  const labeledEventCount = labeledEventsRes?.count ?? 0
+  const topPrecursors: PrecursorRow[] = (precursorRes?.data ?? []) as PrecursorRow[]
+
   // For each company, fetch signal count and recent tokens
   const companyData = await Promise.all(
     (companies ?? []).map(async co => {
@@ -418,6 +461,66 @@ export default async function AdminIntelligencePage() {
             </div>
           ) : (
             <p className="text-[12px] text-slate-500 mt-3">No pipeline runs recorded yet. Metrics appear after the next signal-job run on the canonical event layer.</p>
+          )}
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 mt-5">
+          <h2 className="text-[15px] font-bold text-slate-900 mb-4">Outcome labels (prediction loop)</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Role Openings</div>
+              <div className="text-[18px] font-bold text-slate-900">{openingRows.length}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Label Coverage</div>
+              <div className="text-[18px] font-bold text-slate-900">{Math.round(labelCoverage * 100)}%</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Labeled Events</div>
+              <div className="text-[18px] font-bold text-slate-900">{labeledEventCount}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Career Scan</div>
+              <div className="text-[18px] font-bold text-slate-900">{openingsBySource.career_scan ?? 0}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Exec Hire</div>
+              <div className="text-[18px] font-bold text-slate-900">{openingsBySource.exec_hire ?? 0}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Proxy Diff</div>
+              <div className="text-[18px] font-bold text-slate-900">{openingsBySource.proxy_diff ?? 0}</div>
+            </div>
+          </div>
+
+          {topPrecursors.length > 0 ? (
+            <div className="mt-4 overflow-x-auto">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Top precursors (90-day window, n ≥ 5) — internal only</p>
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Event Type</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">N</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Preceded</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Hit Rate</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Median Days</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topPrecursors.map(row => (
+                    <tr key={row.event_type} className="border-b border-slate-100">
+                      <td className="py-2 pr-4 text-[12px] font-semibold text-slate-900">{row.event_type}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.n_events}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.n_preceded}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{(row.hit_rate * 100).toFixed(1)}%</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.median_days_to_opening ?? '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-[12px] text-slate-500 mt-3">No precursor stats yet. Aggregates appear after the nightly precursor-stats job runs with closed-window labeled events.</p>
           )}
         </div>
       </section>

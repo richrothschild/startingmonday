@@ -44,6 +44,8 @@ import { runApolloQualityAuditJob } from './jobs/apollo-quality-audit-job.js'
 import { runEnrichmentContactRetentionJob } from './jobs/enrichment-contact-retention-job.js'
 import { runDlqMonitorJob } from './jobs/dlq-monitor-job.js'
 import { runCanonicalBackfillJob } from './jobs/canonical-backfill-job.js'
+import { runOutcomeLabelBackfillJob } from './jobs/outcome-label-backfill-job.js'
+import { runPrecursorStatsJob } from './jobs/precursor-stats-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -322,6 +324,12 @@ cron.schedule('25 * * * *', () => runJob('dlq-monitor-job', runDlqMonitorJob))
 
 // Canonical event backfill: daily at 02:40 - clusters historical signals into events until done.
 cron.schedule('40 2 * * *', () => runJob('canonical-backfill-job', runCanonicalBackfillJob))
+
+// Outcome label backfill: daily at 03:10 - exec_hire, pipeline-stage, and proxy-diff labelers.
+cron.schedule('10 3 * * *', () => runJob('outcome-label-backfill-job', runOutcomeLabelBackfillJob))
+
+// Precursor stats: nightly at 03:40 - recomputes calibration aggregates from labeled outcomes.
+cron.schedule('40 3 * * *', () => runJob('precursor-stats-job', runPrecursorStatsJob))
 
 // Apollo recommendation quality audit: every 6 hours - validates error rate and enrichment quality signals.
 cron.schedule('20 */6 * * *', () => runJob('apollo-quality-audit-job', runApolloQualityAuditJob))

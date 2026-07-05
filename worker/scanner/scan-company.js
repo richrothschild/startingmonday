@@ -5,6 +5,8 @@ import { detectRoles } from './detect-roles.js'
 import { scoreHit } from './score-hit.js'
 import { wasRecentlyScanned, getPreviousHitTitles } from './deduplicate.js'
 import { writeScanResult, updateCompanyScanTime, writeScanBlocked, writeScanError, checkAndAlertScanFailures } from './write-results.js'
+import { resolveCanonicalCompany } from '../lib/canonical-company.js'
+import { recordRoleOpening, inferRoleFamilyFromTitle, isLeadershipTitle } from '../lib/outcome-labels.js'
 import { logger } from '../lib/logger.js'
 
 // Scans one company's career page end-to-end and writes a single scan_results row.
@@ -67,6 +69,17 @@ export async function scanCompany(supabase, company, userProfile) {
     checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
 
     const newMatchTitles = newHits.filter(h => h.is_match).map(h => h.title)
+
+    // Outcome labeling (T2.1): every newly detected leadership posting is
+    // ground truth that a role opened. Back-label the preceding event window.
+    // Fire-and-forget — labeling must never affect scan results.
+    for (const title of newMatchTitles) {
+      if (!isLeadershipTitle(title)) continue
+      labelDetectedOpening(supabase, company, title).catch(err =>
+        logger.warn('scanner: outcome labeling failed', { companyId, title, error: err.message })
+      )
+    }
+
     logger.info('scanner: scan complete', { companyId, userId, companyName: name, matchCount: matches.length, newHitCount: newHits.length })
     return { hits: scoredHits.length, matches: matches.length, newHits: newHits.length, newMatchTitles }
   } catch (error) {
@@ -82,4 +95,18 @@ export async function scanCompany(supabase, company, userProfile) {
     checkAndAlertScanFailures(supabase, { companyId, companyName: name, userId }).catch(() => {})
     return { error: error.message }
   }
+}
+
+// Resolves the canonical company and records a career_scan role opening.
+async function labelDetectedOpening(supabase, company, title) {
+  const canonicalCompanyId = await resolveCanonicalCompany(supabase, company)
+  if (!canonicalCompanyId) return
+  await recordRoleOpening(supabase, {
+    canonicalCompanyId,
+    roleFamily: inferRoleFamilyFromTitle(title),
+    roleTitle: title,
+    openedOn: new Date().toISOString().slice(0, 10),
+    labelSource: 'career_scan',
+    sourceRef: `${company.id}:${title.toLowerCase()}`,
+  })
 }
