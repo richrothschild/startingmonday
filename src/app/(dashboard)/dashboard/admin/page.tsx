@@ -879,7 +879,7 @@ export default async function AdminPage() {
             <span className="text-[13px] text-slate-200">
               Executive research refresh{' '}
               {latestExecutiveResearchRun
-                ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago â€¢ checked ${latestExecutiveResearchRun.checked_count ?? 0} â€¢ changed ${latestExecutiveResearchRun.changed_count ?? 0}`
+                ? `-- last run ${executiveResearchHoursAgo ?? '-'}h ago - checked ${latestExecutiveResearchRun.checked_count ?? 0} - changed ${latestExecutiveResearchRun.changed_count ?? 0}`
                 : '-- no runs yet'}
             </span>
             <span className={`text-[13px] font-bold px-2 py-0.5 rounded ${
@@ -894,7 +894,7 @@ export default async function AdminPage() {
               {executiveResearchStatus.toUpperCase()}
             </span>
             <span className="text-[13px] text-slate-300">
-              Sources: {executiveResearchSourceCount ?? 0} â€¢ Failures: {executiveResearchFailureCount ?? 0}
+              Sources: {executiveResearchSourceCount ?? 0} - Failures: {executiveResearchFailureCount ?? 0}
             </span>
           </div>
           <p className="text-[13px] text-slate-300 mt-2">

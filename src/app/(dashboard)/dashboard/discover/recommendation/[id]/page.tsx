@@ -102,7 +102,7 @@ export default async function RecommendationDetailPage({
             <h2 className="text-[13px] tracking-[0.08em] text-slate-400 font-bold mb-2">Key Signals</h2>
             <ul className="space-y-2">
               {(row.key_signals ?? []).map((signal: string) => (
-                <li key={signal} className="text-[14px] text-slate-700">â€¢ {signal}</li>
+                <li key={signal} className="text-[14px] text-slate-700">- {signal}</li>
               ))}
             </ul>
           </section>
@@ -111,7 +111,7 @@ export default async function RecommendationDetailPage({
             <h2 className="text-[13px] tracking-[0.08em] text-slate-400 font-bold mb-2">Key Attributes Match</h2>
             <ul className="space-y-2">
               {(row.key_attributes ?? []).map((attribute: string) => (
-                <li key={attribute} className="text-[14px] text-slate-700">â€¢ {attribute}</li>
+                <li key={attribute} className="text-[14px] text-slate-700">- {attribute}</li>
               ))}
             </ul>
           </section>

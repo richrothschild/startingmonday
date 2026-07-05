@@ -21,7 +21,7 @@ Formatting rules (absolute):
 - NEVER use --- or ___ for horizontal rules.
 - NEVER use # or ## for headers inside the resume body.
 - Section headers (EXPERIENCE, EDUCATION, CORE CAPABILITIES, etc.) in ALL CAPS, nothing else.
-- Bullet points use a hyphen and space: "- " not "* " or "â€¢".
+- Bullet points use a hyphen and space: "- " not "* " or "-".
 - Blank line between sections. That is all the formatting there is.
 
 Output format - use these exact headers:

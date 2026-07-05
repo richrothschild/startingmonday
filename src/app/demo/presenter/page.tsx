@@ -25,10 +25,10 @@ const STEPS = [
 ]
 
 const TALK_TRACK = [
-  '1. â€œThis is the infrastructure layer for a CIO search.â€',
-  '2. â€œIt tells you what changed, who to contact, and how to prep before the meeting.â€',
-  '3. â€œThe brief auto-generates, so the team is never building this from scratch.â€',
-  '4. â€œThe goal is a better search campaign, not another job board.â€',
+  '1. "This is the infrastructure layer for a CIO search."',
+  '2. "It tells you what changed, who to contact, and how to prep before the meeting."',
+  '3. "The brief auto-generates, so the team is never building this from scratch."',
+  '4. "The goal is a better search campaign, not another job board."',
 ]
 
 export default function PresenterDemoPage() {

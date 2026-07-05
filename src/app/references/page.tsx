@@ -132,7 +132,7 @@ export default function ReferencesPage() {
                 <p className="text-[14px] font-semibold text-slate-900 mb-2">{row.claim}</p>
                 <p className="text-[13px] text-slate-600 leading-relaxed mb-2">{row.basis}</p>
                 <p className="text-[12px] text-slate-500 mb-3">
-                  Source type: <span className="font-medium text-slate-700">{row.sourceType}</span> Â· Confidence: <span className="font-medium text-slate-700">{row.confidence}</span>
+                  Source type: <span className="font-medium text-slate-700">{row.sourceType}</span>  -  Confidence: <span className="font-medium text-slate-700">{row.confidence}</span>
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-2">
                   {row.links.map(link => (
@@ -188,7 +188,7 @@ export default function ReferencesPage() {
                 </tr>
                 <tr>
                   <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Weak signals can appear before formal market visibility.</td>
-                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the productâ€™s edge: it helps users act before the search is obvious to everyone else.</td>
+                  <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Signal tracking is the product's edge: it helps users act before the search is obvious to everyone else.</td>
                   <td className="px-5 py-4 text-[13px] text-slate-700 leading-relaxed">Ansoff (1975)</td>
                 </tr>
                 <tr>

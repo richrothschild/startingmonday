@@ -29,6 +29,17 @@ function BoldText({ text }: { text: string }) {
   )
 }
 
+function normalizePrepDisplayText(text: string) {
+  return text
+    .replace(/\u00e2\u20ac\u00a2\s*/g, '- ')
+    .replace(/\u00e2\u20ac\u201d\s*/g, ' - ')
+    .replace(/\u00e2\u20ac\u201c\s*/g, ' - ')
+    .replace(/\u00e2\u20ac\u2122/g, "'")
+    .replace(/\u00e2\u20ac\u0153|\u00e2\u20ac\u009c/g, '"')
+    .replace(/\u00e2\u20ac\u009d|\u00e2\u20ac\u009d/g, '"')
+    .replace(/\u00e2\u20ac\u00a6/g, '...')
+}
+
 function normalizeClaimText(line: string) {
   return line
     .replace(/^[-*]\s+/, '')
@@ -159,8 +170,9 @@ function renderBrief(
   traceFilter: TraceFilter,
   onTraceLabelClick: (originClass: ClaimOriginClass) => void,
 ) {
-  const claimOriginLookup = buildClaimOriginLookup(text)
-  return text.split('\n').map((line, i) => {
+  const normalizedText = normalizePrepDisplayText(text)
+  const claimOriginLookup = buildClaimOriginLookup(normalizedText)
+  return normalizedText.split('\n').map((line, i) => {
     if (line.startsWith('# ')) return null
     if (line.trim() === '---' || line.trim() === '***') return null
     if (line.startsWith('## ')) {

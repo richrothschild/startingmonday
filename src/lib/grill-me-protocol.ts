@@ -68,7 +68,7 @@ export function slugifyBrainstorm(topic: string): string {
 
 export function initialArtifactMarkdown(topic: string, goal: string, firstQuestion: string): string {
   return `# ${topic}: Brainstorm / Discovery Notes
-Date: ${new Date().toISOString().slice(0, 10)} Â· Goal: ${goal}
+Date: ${new Date().toISOString().slice(0, 10)}  -  Goal: ${goal}
 
 <!-- STATE -->
 next_id: Q-001
@@ -81,34 +81,34 @@ ceo_summary_updated: false
 ---
 
 ## CEO Summary
-Last updated: â€”
-Current stance: â€”
-Confidence: â€”
-Primary thesis: â€”
-Biggest open risk: â€”
-Single most important next action: â€”
-Council consensus: â€”
-Council conflicts: â€”
+Last updated: -
+Current stance: -
+Confidence: -
+Primary thesis: -
+Biggest open risk: -
+Single most important next action: -
+Council consensus: -
+Council conflicts: -
 
 ---
 
 ## Council Verdicts Dashboard
 | Seat | Stance | Last updated |
 |------|--------|-------------|
-| ðŸ”§ Operator | ðŸŸ¡ | â€” |
-| ðŸ’° Capitalist | ðŸŸ¡ | â€” |
-| ðŸ» Skeptic | ðŸŸ¡ | â€” |
-| ðŸ-ï¸ Builder | ðŸŸ¡ | â€” |
-| ðŸ“£ Storyteller | ðŸŸ¡ | â€” |
-| ðŸ“Š Numbers Person | ðŸŸ¡ | â€” |
-| âš–ï¸ Ethicist/Risk | ðŸŸ¡ | â€” |
-| ðŸŽ¯ Domain Expert | ðŸŸ¡ | â€” |
-| âš”ï¸ Competitor | ðŸŸ¡ | â€” |
-| ðŸ”® Dalio | ðŸŸ¡ | â€” |
-| ðŸŽ² Duke | ðŸŸ¡ | â€” |
-| ðŸ§  Munger | ðŸŸ¡ | â€” |
-| ðŸ“¦ Bezos | ðŸŸ¡ | â€” |
-| ðŸªž Kahneman | ðŸŸ¡ | â€” |
+| Operator | Yellow | - |
+| Capitalist | Yellow | - |
+| Skeptic | Yellow | - |
+| Builder | Yellow | - |
+| Storyteller | Yellow | - |
+| Numbers Person | Yellow | - |
+| Ethicist/Risk | Yellow | - |
+| Domain Expert | Yellow | - |
+| Competitor | Yellow | - |
+| Dalio | Yellow | - |
+| Duke | Yellow | - |
+| Munger | Yellow | - |
+| Bezos | Yellow | - |
+| Kahneman | Yellow | - |
 
 ---
 
@@ -121,14 +121,14 @@ Council conflicts: â€”
 
 ## Q&A Log
 
-### Q-001 â€” Intent and thesis
+### Q-001 - Intent and thesis
 - **Asked:** ${firstQuestion}
-- **Captured:** â€”
+- **Captured:** -
 - **Council voices:**
   > **Operator:** *Name the owner and deliverable for this decision.*
 - **2nd/3rd order consequences:**
-  - 1st: â€” â†’ 2nd: â€” â†’ 3rd: â€” *(tagged: Operator)*
-- **Flags:** â€”
+  - 1st: - -> 2nd: - -> 3rd: - *(tagged: Operator)*
+- **Flags:** -
 
 ---
 
@@ -175,31 +175,31 @@ export function renderArtifactMarkdown(args: {
   const openFlags = args.flags.filter(flag => flag.status === 'open')
 
   const verdictRows = [
-    ['ðŸ”§ Operator', councilEmoji(args.councilVerdicts.Operator), args.ceoSummary.lastUpdated],
-    ['ðŸ’° Capitalist', councilEmoji(args.councilVerdicts.Capitalist), args.ceoSummary.lastUpdated],
-    ['ðŸ» Skeptic', councilEmoji(args.councilVerdicts.Skeptic), args.ceoSummary.lastUpdated],
-    ['ðŸ-ï¸ Builder', councilEmoji(args.councilVerdicts.Builder), args.ceoSummary.lastUpdated],
-    ['ðŸ“£ Storyteller', councilEmoji(args.councilVerdicts.Storyteller), args.ceoSummary.lastUpdated],
-    ['ðŸ“Š Numbers Person', councilEmoji(args.councilVerdicts['Numbers Person']), args.ceoSummary.lastUpdated],
-    ['âš–ï¸ Ethicist/Risk', councilEmoji(args.councilVerdicts['Ethicist/Risk']), args.ceoSummary.lastUpdated],
-    ['ðŸŽ¯ Domain Expert', councilEmoji(args.councilVerdicts['Domain Expert']), args.ceoSummary.lastUpdated],
-    ['âš”ï¸ Competitor', councilEmoji(args.councilVerdicts.Competitor), args.ceoSummary.lastUpdated],
-    ['ðŸ”® Dalio', councilEmoji(args.councilVerdicts.Dalio), args.ceoSummary.lastUpdated],
-    ['ðŸŽ² Duke', councilEmoji(args.councilVerdicts.Duke), args.ceoSummary.lastUpdated],
-    ['ðŸ§  Munger', councilEmoji(args.councilVerdicts.Munger), args.ceoSummary.lastUpdated],
-    ['ðŸ“¦ Bezos', councilEmoji(args.councilVerdicts.Bezos), args.ceoSummary.lastUpdated],
-    ['ðŸªž Kahneman', councilEmoji(args.councilVerdicts.Kahneman), args.ceoSummary.lastUpdated],
+    ['Operator', councilEmoji(args.councilVerdicts.Operator), args.ceoSummary.lastUpdated],
+    ['Capitalist', councilEmoji(args.councilVerdicts.Capitalist), args.ceoSummary.lastUpdated],
+    ['Skeptic', councilEmoji(args.councilVerdicts.Skeptic), args.ceoSummary.lastUpdated],
+    ['Builder', councilEmoji(args.councilVerdicts.Builder), args.ceoSummary.lastUpdated],
+    ['Storyteller', councilEmoji(args.councilVerdicts.Storyteller), args.ceoSummary.lastUpdated],
+    ['Numbers Person', councilEmoji(args.councilVerdicts['Numbers Person']), args.ceoSummary.lastUpdated],
+    ['Ethicist/Risk', councilEmoji(args.councilVerdicts['Ethicist/Risk']), args.ceoSummary.lastUpdated],
+    ['Domain Expert', councilEmoji(args.councilVerdicts['Domain Expert']), args.ceoSummary.lastUpdated],
+    ['Competitor', councilEmoji(args.councilVerdicts.Competitor), args.ceoSummary.lastUpdated],
+    ['Dalio', councilEmoji(args.councilVerdicts.Dalio), args.ceoSummary.lastUpdated],
+    ['Duke', councilEmoji(args.councilVerdicts.Duke), args.ceoSummary.lastUpdated],
+    ['Munger', councilEmoji(args.councilVerdicts.Munger), args.ceoSummary.lastUpdated],
+    ['Bezos', councilEmoji(args.councilVerdicts.Bezos), args.ceoSummary.lastUpdated],
+    ['Kahneman', councilEmoji(args.councilVerdicts.Kahneman), args.ceoSummary.lastUpdated],
   ]
 
   const qBlocks = args.entries.map(entry => {
     const voices = entry.council_voices.map(voice => `  > **${voice.seat}:** *${voice.reaction}*`).join('\n') || '  > **Operator:** *No council reaction recorded.*'
-    const consequences = entry.consequence_chains.map(chain => `  - 1st: ${chain.first} â†’ 2nd: ${chain.second} â†’ 3rd: ${chain.third} *(tagged: ${chain.owner}, risk: ${chain.risk})*`).join('\n') || '  - 1st: â€” â†’ 2nd: â€” â†’ 3rd: â€” *(tagged: Operator)*'
+    const consequences = entry.consequence_chains.map(chain => `  - 1st: ${chain.first} -> 2nd: ${chain.second} -> 3rd: ${chain.third} *(tagged: ${chain.owner}, risk: ${chain.risk})*`).join('\n') || '  - 1st: - -> 2nd: - -> 3rd: - *(tagged: Operator)*'
     const entryFlags = args.flags.filter(flag => flag.flag_id && entry.captured.includes(flag.flag_id))
     const flagText = entryFlags.length > 0
-      ? entryFlags.map(flag => `${flag.flag_id} â€” ${flag.description} â†’ ${flag.owner} Â· status: ${flag.status}`).join('; ')
-      : 'â€”'
+      ? entryFlags.map(flag => `${flag.flag_id} - ${flag.description} -> ${flag.owner}  -  status: ${flag.status}`).join('; ')
+      : '-'
 
-    return `### ${entry.question_id} â€” Session checkpoint
+    return `### ${entry.question_id} - Session checkpoint
 - **Asked:** ${entry.asked}
 - **Founder answer:** ${entry.answer}
 - **Captured:** ${entry.captured}
@@ -211,13 +211,13 @@ ${consequences}
   }).join('\n\n')
 
   const openFlagLines = openFlags.length > 0
-    ? openFlags.map(flag => `- ${flag.flag_id} â€” ${flag.description} â†’ ${flag.owner} Â· status: ${flag.status}`).join('\n')
+    ? openFlags.map(flag => `- ${flag.flag_id} - ${flag.description} -> ${flag.owner}  -  status: ${flag.status}`).join('\n')
     : '- None'
 
   const verdictTableRows = verdictRows.map(row => `| ${row[0]} | ${row[1]} | ${row[2]} |`).join('\n')
 
   return `# ${args.topic}: Brainstorm / Discovery Notes
-Date: ${new Date().toISOString().slice(0, 10)} Â· Goal: ${args.goal}
+Date: ${new Date().toISOString().slice(0, 10)}  -  Goal: ${args.goal}
 
 <!-- STATE -->
 next_id: ${args.nextQuestionId}
@@ -281,7 +281,7 @@ export function defaultCouncilVerdicts(): Record<string, 'green' | 'yellow' | 'r
 export function councilEmoji(value?: 'green' | 'yellow' | 'red'): string {
   if (value === 'green') return 'ðŸŸ¢'
   if (value === 'red') return 'ðŸ”´'
-  return 'ðŸŸ¡'
+  return 'Yellow'
 }
 
 

@@ -318,7 +318,7 @@ export default function DashboardPlanPage() {
               disabled={!canSave || loading || saving}
               className="inline-flex min-h-[44px] items-center rounded bg-orange-500 px-4 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400 disabled:opacity-50"
             >
-              {saving ? 'Savingâ€¦' : 'Save weekly plan'}
+              {saving ? 'Saving...' : 'Save weekly plan'}
             </button>
             <button
               type="button"
@@ -326,7 +326,7 @@ export default function DashboardPlanPage() {
               disabled={loading || saving}
               className="inline-flex min-h-[44px] items-center rounded border border-white/15 bg-white/5 px-4 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10 disabled:opacity-50"
             >
-              {saving ? 'Workingâ€¦' : 'Regenerate suggestions'}
+              {saving ? 'Working...' : 'Regenerate suggestions'}
             </button>
             <p className="text-[13px] text-slate-300">Regenerate and history actions land in the next sprint tickets.</p>
           </div>
@@ -343,7 +343,7 @@ export default function DashboardPlanPage() {
                   <ul className="mt-2 space-y-1">
                     {item.actions.map((action, index) => (
                       <li key={`${item.week_start}-${index}`} className="text-[13px] text-slate-200">
-                        {item.completions[index] ? 'âœ“' : 'â€¢'} {action}
+                        {item.completions[index] ? '[x]' : '-'} {action}
                       </li>
                     ))}
                   </ul>

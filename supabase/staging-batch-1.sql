@@ -1,4 +1,4 @@
-﻿-- Starting Monday â€” Initial Schema
+﻿-- Starting Monday - Initial Schema
 -- Reflects actual deployed schema as of 2026-04-30.
 -- Run in Supabase SQL Editor on a fresh project.
 
@@ -346,7 +346,7 @@ alter table public.user_profiles
   add column if not exists dream_companies         text,
   add column if not exists onboarding_completed_at timestamptz;
 
--- Existing users are already set up â€” don't redirect them to onboarding.
+-- Existing users are already set up - don't redirect them to onboarding.
 update public.user_profiles
   set onboarding_completed_at = now()
   where onboarding_completed_at is null;
@@ -420,7 +420,7 @@ create table if not exists public.processed_stripe_events (
   processed_at timestamptz not null default now()
 );
 
--- Service role only â€” no user access
+-- Service role only - no user access
 alter table public.processed_stripe_events enable row level security;
 
 -- Fix trial backfill: some existing users had trial_ends_at set in the past

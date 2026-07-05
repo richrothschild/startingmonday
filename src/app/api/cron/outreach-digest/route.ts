@@ -40,7 +40,7 @@ function channelLabel(channel: string | null): string {
     outplacement_firms: 'Outplacement',
     executives: 'Executives',
   }
-  return map[channel ?? ''] ?? channel ?? 'â€”'
+  return map[channel ?? ''] ?? channel ?? '-'
 }
 
 function buildDigestHtml(
@@ -57,10 +57,10 @@ function buildDigestHtml(
     if (rows.length === 0) return '<tr><td colspan="5" style="padding:12px;color:#94a3b8;font-size:13px;">None</td></tr>'
     return rows.map(r => `
       <tr style="border-bottom:1px solid #f1f5f9;">
-        <td style="padding:8px 12px;font-size:13px;color:#0f172a;">${r.recipient_name ?? 'â€”'}</td>
-        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.recipient_email ?? 'â€”'}</td>
+        <td style="padding:8px 12px;font-size:13px;color:#0f172a;">${r.recipient_name ?? '-'}</td>
+        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.recipient_email ?? '-'}</td>
         <td style="padding:8px 12px;font-size:12px;color:#475569;">${channelLabel(r.outreach_channel)}</td>
-        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.subject ?? 'â€”'}</td>
+        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.subject ?? '-'}</td>
         ${showStatus ? `<td style="padding:8px 12px;">${statusBadge(r.delivery_status)}</td>` : ''}
       </tr>`).join('')
   }
@@ -68,12 +68,12 @@ function buildDigestHtml(
   const alertBanner = (bounced.length > 0 || stuck.length > 0)
     ? `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:12px 16px;margin-bottom:20px;">
         <span style="font-size:13px;font-weight:600;color:#dc2626;">
-          âš  Action needed: ${bounced.length} bounce${bounced.length !== 1 ? 's' : ''}, 
+          ALERT Action needed: ${bounced.length} bounce${bounced.length !== 1 ? 's' : ''}, 
           ${stuck.length} send${stuck.length !== 1 ? 's' : ''} unconfirmed after 24h
         </span>
        </div>`
     : `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:12px 16px;margin-bottom:20px;">
-        <span style="font-size:13px;font-weight:600;color:#15803d;">âœ“ All recent sends confirmed delivered</span>
+        <span style="font-size:13px;font-weight:600;color:#15803d;">[x] All recent sends confirmed delivered</span>
        </div>`
 
   return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
@@ -121,7 +121,7 @@ function buildDigestHtml(
 
     ${stuck.length > 0 ? `
     <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:8px;">
-      Unconfirmed after 24h (${stuck.length}) â€” verify in Resend dashboard
+      Unconfirmed after 24h (${stuck.length}) - verify in Resend dashboard
     </div>
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #fde68a;border-radius:4px;margin-bottom:24px;">
       <thead>
@@ -137,7 +137,7 @@ function buildDigestHtml(
     </table>` : ''}
 
     <p style="font-size:11px;color:#94a3b8;margin-top:16px;">
-      Outreach send digest Â· startingmonday.app Â· Since ${since}
+      Outreach send digest  -  startingmonday.app  -  Since ${since}
     </p>
   </td></tr>
 </table>
@@ -196,8 +196,8 @@ export async function GET(request: NextRequest) {
   }
 
   const subject = bounced.length > 0 || stuck.length > 0
-    ? `âš  Outreach alert: ${bounced.length} bounce, ${stuck.length} unconfirmed â€” ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
-    : `Outreach digest: ${liveRows.length} send${liveRows.length !== 1 ? 's' : ''} â€” ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+    ? `ALERT Outreach alert: ${bounced.length} bounce, ${stuck.length} unconfirmed - ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+    : `Outreach digest: ${liveRows.length} send${liveRows.length !== 1 ? 's' : ''} - ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
 
   const html = buildDigestHtml(liveRows, stuck, bounced, sinceLabel)
 

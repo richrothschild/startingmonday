@@ -350,7 +350,7 @@ export default async function AdminMicroProductCatalogPage() {
                   {entitlement.partner_id ? `partner:${entitlement.partner_id}` : `user:${entitlement.user_id}`}
                   {entitlement.source_bundle_id ? ` via ${bundleNameById.get(entitlement.source_bundle_id) ?? entitlement.source_bundle_id}` : ''}
                 </p>
-                <p className="text-slate-500">{entitlement.entitlement_key} â€¢ seats {entitlement.seat_limit} â€¢ {entitlement.status}</p>
+                <p className="text-slate-500">{entitlement.entitlement_key} - seats {entitlement.seat_limit} - {entitlement.status}</p>
               </div>
             ))}
           </div>
