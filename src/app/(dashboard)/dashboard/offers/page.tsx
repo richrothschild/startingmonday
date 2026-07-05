@@ -72,7 +72,7 @@ export default async function OffersPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            â† Dashboard
+            ← Dashboard
           </Link>
         </div>
       </header>
@@ -94,7 +94,7 @@ export default async function OffersPage() {
               href="/dashboard/briefing"
               className="text-[13px] font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded transition-colors"
             >
-              Open daily briefing â†’
+              Open daily briefing →
             </Link>
           </div>
         ) : offers.length === 1 ? (
@@ -111,14 +111,14 @@ export default async function OffersPage() {
                     href={`/dashboard/salary?company=${encodeURIComponent(offers[0].name)}&role=${encodeURIComponent(offers[0].offer_role_title)}`}
                     className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors"
                   >
-                    Get negotiation script â†’
+                    Get negotiation script →
                   </a>
                 )}
                 <Link
                   href={`/dashboard/companies/${offers[0].id}`}
                   className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors"
                 >
-                  View company â†’
+                  View company →
                 </Link>
               </div>
             </div>
@@ -189,14 +189,14 @@ export default async function OffersPage() {
                               href={`/dashboard/salary?company=${encodeURIComponent(o.name)}&role=${encodeURIComponent(o.offer_role_title)}`}
                               className="text-[13px] font-semibold text-green-700 hover:text-green-900 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded transition-colors inline-block"
                             >
-                              Negotiate â†’
+                              Negotiate →
                             </a>
                           )}
                           <Link
                             href={`/dashboard/companies/${o.id}`}
                             className="text-[13px] font-semibold text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded transition-colors inline-block"
                           >
-                            Details â†’
+                            Details →
                           </Link>
                         </div>
                       </td>

@@ -106,7 +106,7 @@ export default async function StartPage() {
       title: 'Generate your first prep brief',
       body: 'Open a target company and generate the prep brief. It surfaces leadership signals, likely objections, and your best outreach angle - specific to that company and your background.',
       cta: 'Go to companies',
-      href: '/dashboard',
+      href: firstCompany?.id ? `/dashboard/companies/${firstCompany.id}/prep` : '/dashboard/companies/new',
       doneNote: 'Prep brief generated',
     },
     {

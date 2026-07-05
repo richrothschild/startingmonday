@@ -256,11 +256,11 @@ export default async function DashboardPage({
   const lastActivityMs = allActivityDates.length > 0 ? Math.max(...allActivityDates.map(d => new Date(d).getTime())) : 0
   const daysSinceLastAction = lastActivityMs > 0 ? Math.floor((Date.now() - lastActivityMs) / 86400000) : null
 
-  // Nurture path � derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
+  // Nurture path - derived from profile; showNurtureWelcome computed after totalCount and daysSinceOnboard
   const searchPath = profile?.search_path ?? null
   const isNurturePath = searchPath === 'nurture'
 
-  // Stall detection � pattern-specific nudge shown after 14 days of low activity
+  // Stall detection - pattern-specific nudge shown after 14 days of low activity
   type StallNudge = { headline: string; body: string; action: string; href: string } | null
   let stallNudge: StallNudge = null
   const dismissedAt = profile?.stall_nudge_dismissed_at
@@ -285,7 +285,7 @@ export default async function DashboardPage({
         headline: 'No activity in two weeks.',
         body: hasSummary
           ? 'You have contacts to work but nothing has moved. Run a strategy brief to see where the gap is.'
-          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back � you are not sure what to say yet.',
+          : 'You have contacts to work but no positioning summary. That is usually what holds the first outreach back - you are not sure what to say yet.',
         action: hasSummary ? 'Run strategy brief' : 'Add your positioning',
         href: hasSummary ? '/dashboard/strategy' : '/dashboard/profile',
       }

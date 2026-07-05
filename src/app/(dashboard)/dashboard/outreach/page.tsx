@@ -317,7 +317,7 @@ export default async function OutreachHubPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link href="/dashboard" className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition-colors">
-            â† Dashboard
+            ← Dashboard
           </Link>
         </div>
       </header>

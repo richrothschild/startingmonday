@@ -829,7 +829,7 @@ function StepCompanies({
           onClick={discover}
           className="text-[13px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
         >
-          {discoverError ? 'Could not load suggestions - try again â†’' : 'Not sure where to start? Discover companies with AI â†’'}
+          {discoverError ? 'Could not load suggestions - try again ->' : 'Not sure where to start? Discover companies with AI ->'}
         </button>
       )}
 
@@ -863,7 +863,7 @@ function StepCompanies({
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  {added ? 'âœ“ ' : '+ '}{co.name}
+                  {added ? '\u2713 ' : '+ '}{co.name}
                 </button>
               )
             })}

@@ -79,7 +79,7 @@ export default async function AdminOperationsPage() {
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/revenue" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
             <Link href="/dashboard/admin/product" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Product</Link>
-            <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">â† Admin</Link>
+            <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Admin</Link>
           </div>
         </div>
       </header>

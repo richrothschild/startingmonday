@@ -24,7 +24,7 @@ export default async function AdminSalesEnablementPage() {
           </span>
           <div className="flex items-center gap-4">
             <Link href="/dashboard/admin/revenue" className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">Revenue</Link>
-            <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">â† Admin</Link>
+            <Link href="/dashboard/admin" className="text-[13px] text-slate-300 hover:text-white transition-colors">← Admin</Link>
           </div>
         </div>
       </header>

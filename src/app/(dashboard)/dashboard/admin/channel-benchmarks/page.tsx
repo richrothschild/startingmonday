@@ -166,7 +166,7 @@ export default async function ChannelBenchmarksPage() {
             <span className="text-white">Starting </span><span className="text-orange-300">Monday</span>
           </span>
           <Link href="/dashboard/admin" className="text-[13px] font-semibold text-slate-400 hover:text-slate-200 transition-colors">
-            â† Admin
+            ← Admin
           </Link>
         </div>
       </header>

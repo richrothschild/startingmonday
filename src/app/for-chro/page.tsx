@@ -167,7 +167,7 @@ export default function ChroSponsorPage() {
               <details key={item.q} className="rounded-xl border border-slate-200 overflow-hidden group">
                 <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none">
                   <p className="text-[14px] font-semibold text-slate-900">{item.q}</p>
-                  <span className="text-slate-400 flex-shrink-0 mt-0.5 group-open:rotate-180 transition-transform">â†“</span>
+                  <span className="text-slate-400 flex-shrink-0 mt-0.5 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <div className="px-5 pb-5 border-t border-slate-100">
                   <p className="text-[13px] text-slate-600 leading-relaxed pt-3">{item.a}</p>

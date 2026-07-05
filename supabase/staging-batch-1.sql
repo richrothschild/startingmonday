@@ -2,7 +2,7 @@
 -- Reflects actual deployed schema as of 2026-04-30.
 -- Run in Supabase SQL Editor on a fresh project.
 
--- â”€â”€ Utility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Utility ───────────────────────────────────────────────────────────────────
 
 create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
@@ -12,7 +12,7 @@ begin
 end;
 $$;
 
--- â”€â”€ Users â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Users ─────────────────────────────────────────────────────────────────────
 -- subscription_tier: free | pro | executive
 -- subscription_status: inactive | trialing | active | past_due | canceled
 
@@ -25,7 +25,7 @@ create table public.users (
   created_at timestamptz not null default now()
 );
 
--- â”€â”€ User profiles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── User profiles ─────────────────────────────────────────────────────────────
 -- search_status: active | paused | closed
 -- briefing_days: array of day names, e.g. {Monday,Wednesday,Friday}
 
@@ -50,7 +50,7 @@ create table public.user_profiles (
   updated_at timestamptz not null default now()
 );
 
--- â”€â”€ Companies â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Companies ─────────────────────────────────────────────────────────────────
 -- stage: watching | researching | applied | interviewing | offer
 -- alert_threshold: minimum ai_score (0-100) to trigger a match alert
 -- fit_score: manually set fit rating
@@ -72,7 +72,7 @@ create table public.companies (
   updated_at timestamptz not null default now()
 );
 
--- â”€â”€ Scan results â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Scan results ──────────────────────────────────────────────────────────────
 -- One row per company scan (not per job posting).
 -- raw_hits: [{title, score, is_match, summary, is_new}]
 -- status: success | error
@@ -90,7 +90,7 @@ create table public.scan_results (
   error_message text
 );
 
--- â”€â”€ Contacts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Contacts ──────────────────────────────────────────────────────────────────
 -- channel: linkedin | referral | cold | inbound | event
 -- status: active | archived
 
@@ -110,7 +110,7 @@ create table public.contacts (
   updated_at timestamptz not null default now()
 );
 
--- â”€â”€ Follow-ups â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Follow-ups ────────────────────────────────────────────────────────────────
 -- status: pending | done | snoozed
 
 create table public.follow_ups (
@@ -125,7 +125,7 @@ create table public.follow_ups (
   created_at timestamptz not null default now()
 );
 
--- â”€â”€ Conversations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Conversations ─────────────────────────────────────────────────────────────
 -- messages: full conversation history [{role, content, ts}]
 
 create table public.conversations (
@@ -137,7 +137,7 @@ create table public.conversations (
   updated_at timestamptz not null default now()
 );
 
--- â”€â”€ Drafts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Drafts ────────────────────────────────────────────────────────────────────
 -- draft_type: cover_letter | email | linkedin_message | follow_up
 
 create table public.drafts (
@@ -152,7 +152,7 @@ create table public.drafts (
   created_at timestamptz not null default now()
 );
 
--- â”€â”€ Company signals â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Company signals ───────────────────────────────────────────────────────────
 -- signal_type: hiring_surge | funding | exec_move | expansion | award
 
 create table public.company_signals (
@@ -168,7 +168,7 @@ create table public.company_signals (
   detected_at timestamptz not null default now()
 );
 
--- â”€â”€ Momentum scores â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Momentum scores ───────────────────────────────────────────────────────────
 -- Weekly score (0-100). components: breakdown by factor.
 
 create table public.momentum_scores (
@@ -181,7 +181,7 @@ create table public.momentum_scores (
   unique (user_id, week_of)
 );
 
--- â”€â”€ Pipeline audit log â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Pipeline audit log ────────────────────────────────────────────────────────
 -- initiated_by: 'user' | 'worker' | 'system'
 
 create table public.pipeline_audit_log (
@@ -196,7 +196,7 @@ create table public.pipeline_audit_log (
   created_at timestamptz not null default now()
 );
 
--- â”€â”€ Auth trigger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Auth trigger ──────────────────────────────────────────────────────────────
 
 create or replace function public.handle_new_auth_user()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -211,7 +211,7 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_auth_user();
 
--- â”€â”€ Updated_at triggers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Updated_at triggers ───────────────────────────────────────────────────────
 
 create trigger set_updated_at before update on public.user_profiles
   for each row execute procedure public.set_updated_at();
@@ -222,7 +222,7 @@ create trigger set_updated_at before update on public.contacts
 create trigger set_updated_at before update on public.conversations
   for each row execute procedure public.set_updated_at();
 
--- â”€â”€ Indexes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Indexes ───────────────────────────────────────────────────────────────────
 
 create index idx_companies_user_active on public.companies(user_id) where archived_at is null;
 create index idx_scan_results_unnotified on public.scan_results(user_id, scanned_at) where notified_at is null;
@@ -231,7 +231,7 @@ create index idx_follow_ups_pending on public.follow_ups(user_id, due_date) wher
 create index idx_contacts_user_active on public.contacts(user_id) where status = 'active';
 create index idx_company_signals_company on public.company_signals(company_id, signal_date desc);
 
--- â”€â”€ Row Level Security â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+-- ── Row Level Security ────────────────────────────────────────────────────────
 
 alter table public.users enable row level security;
 alter table public.user_profiles enable row level security;

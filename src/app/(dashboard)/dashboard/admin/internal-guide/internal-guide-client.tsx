@@ -387,7 +387,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
               <a href="/dashboard/admin/diagrams" className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-left hover:border-orange-400 hover:bg-orange-50 transition-colors">
                 <p className="text-[12px] font-semibold text-slate-900">Architecture Diagrams</p>
                 <p className="text-[11px] text-slate-600 mt-1">10 Mermaid diagrams covering auth, onboarding, billing, signals, integrations, and SRE.</p>
-                <p className="text-[11px] text-orange-500 mt-1">View diagrams â†’</p>
+                <p className="text-[11px] text-orange-500 mt-1">View diagrams →</p>
               </a>
             </div>
           </div>
@@ -402,7 +402,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
                 <p className="text-[12px] font-semibold text-slate-900">{entry.title}</p>
                 <p className="text-[12px] text-slate-500 mt-1">Covers {entry.sectionSummary}.</p>
                 <p className="text-[11px] text-slate-500 mt-1">Why: use this when you want the broad overview before drilling into functions.</p>
-                <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions Â· {entry.itemCount} items</p>
+                <p className="text-[11px] text-slate-500 mt-1">{entry.functionCount} functions · {entry.itemCount} items</p>
               </button>
             ))}
           </div>
@@ -417,7 +417,7 @@ export function InternalGuideClient({ sections, initialQuestion = '', staffRole,
                   <p className="text-[12px] font-semibold text-slate-900">{entry.functionKey}</p>
                   <p className="text-[12px] text-slate-500 mt-1">Covers {entry.summary}.</p>
                   <p className="text-[11px] text-slate-500 mt-1">Why: this groups the related items you would usually review together.</p>
-                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` Â· updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
+                  <p className="text-[11px] text-slate-500 mt-1">{entry.items.length} items{entry.lastModifiedAt ? ` · updated ${formatDate(entry.lastModifiedAt)}` : ''}</p>
                 </button>
               ))}
             </div>

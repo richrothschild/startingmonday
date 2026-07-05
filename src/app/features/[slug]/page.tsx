@@ -78,7 +78,7 @@ export default async function FeatureDocPage({ params }: FeatureDocPageProps) {
             </div>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-white">{doc.title}</h1>
             <p className="mt-2 text-[14px] text-slate-300">{doc.summary}</p>
-            <p className="mt-2 text-[12px] text-slate-400">{doc.lineCount} lines Â· {doc.headingCount} headings Â· updated {formatDate(doc.updatedAt)}</p>
+            <p className="mt-2 text-[12px] text-slate-400">{doc.lineCount} lines · {doc.headingCount} headings · updated {formatDate(doc.updatedAt)}</p>
           </div>
 
           <MarkdownArticle markdown={doc.content} />
