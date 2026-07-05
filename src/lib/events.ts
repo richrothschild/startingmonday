@@ -20,6 +20,7 @@ export type UserEventName =
   | 'pipeline_stage_changed'
   | 'brief_rated'
   | 'activation_complete'
+  | 'activation_reached'
   | 'offer_accepted'
   | 'onboarding_completed'
   | 'positioning_saved'

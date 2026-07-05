@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { getManagerToolsBridge, getRecruiterToolkit, getRoleLaneTutorials } from '@/lib/role-lane-learning'
 import {
-  suggestedDecisionMakersForCompany,
+  decisionRoleTargetsForCompany,
   firstNoteDraftForCompany,
   followUpSequenceForWeekOne,
 } from '@/app/onboarding/onboarding-helpers'
@@ -149,7 +149,7 @@ export default async function StartPage() {
     : null
   const firstCompanyName = firstCompany?.name ?? null
   const weekOnePeople = firstCompanyName
-    ? suggestedDecisionMakersForCompany(firstCompanyName, 'csuite', profile?.current_title ?? '')
+    ? decisionRoleTargetsForCompany(firstCompanyName, 'csuite', profile?.current_title ?? '')
     : []
   const weekOneDraft = firstCompanyName
     ? firstNoteDraftForCompany(firstCompanyName, profile?.current_title ?? '')
@@ -291,15 +291,21 @@ export default async function StartPage() {
         {isFirstRunArrival && firstCompanyName && (
           <section className="mb-8 rounded border border-slate-200 bg-white p-5">
             <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Week-one relationship bridge</p>
-            <p className="text-[13px] text-slate-500 mb-3">Suggested decision-makers at {firstCompanyName}</p>
-            <div className="space-y-2 mb-4">
-              {weekOnePeople.map((person) => (
-                <div key={`${person.name}-${person.title}`} className="rounded border border-slate-200 px-3 py-2">
-                  <p className="text-[13px] font-semibold text-slate-900">{person.name} - {person.title}</p>
-                  <p className="text-[12px] text-slate-500 mt-0.5">{person.why}</p>
+            <p className="text-[13px] text-slate-500 mb-3">Seats to map first at {firstCompanyName}</p>
+            <div className="space-y-2 mb-3">
+              {weekOnePeople.map((seat) => (
+                <div key={seat.title} className="rounded border border-slate-200 px-3 py-2">
+                  <p className="text-[13px] font-semibold text-slate-900">{seat.title}</p>
+                  <p className="text-[12px] text-slate-500 mt-0.5">{seat.why}</p>
                 </div>
               ))}
             </div>
+            <Link
+              href="/prep/relationships"
+              className="inline-block mb-4 text-[12px] font-semibold text-slate-800 underline hover:text-slate-600 transition-colors"
+            >
+              Find the actual people in these seats &rarr;
+            </Link>
             <p className="text-[12px] font-semibold text-slate-700 mb-1">First-note draft</p>
             <p className="text-[12px] text-slate-600 leading-relaxed mb-3">{weekOneDraft}</p>
             <ul className="space-y-1.5">

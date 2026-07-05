@@ -6,11 +6,9 @@ export type SuggestedCompany = {
   roleHint: string
 }
 
-export type DecisionMakerSuggestion = {
-  name: string
+export type DecisionRoleTarget = {
   title: string
   why: string
-  source: 'apollo' | 'signal'
 }
 
 const SUGGESTIONS_BY_PERSONA: Record<SearchPersona, string[]> = {
@@ -49,13 +47,72 @@ function whyLineForCompany(name: string, persona: SearchPersona | '', currentTit
   return `${name} feels relevant ${hint}. ${common}`
 }
 
-export function suggestedCompaniesForProfile(persona: SearchPersona | '', currentTitle: string): SuggestedCompany[] {
+export function suggestedCompaniesForProfile(persona: SearchPersona | '', currentTitle: string, resumeText = ''): SuggestedCompany[] {
   const lane = persona || 'csuite'
-  return (SUGGESTIONS_BY_PERSONA[lane] ?? []).slice(0, 5).map((name) => ({
+  const sector = detectSectorFromText(`${currentTitle} ${resumeText}`)
+  const sectorPool = sector ? (SUGGESTIONS_BY_SECTOR[sector] ?? []) : []
+  const personaPool = SUGGESTIONS_BY_PERSONA[lane] ?? []
+
+  const merged: string[] = []
+  for (const name of [...sectorPool, ...personaPool]) {
+    if (!merged.includes(name)) merged.push(name)
+    if (merged.length >= 5) break
+  }
+
+  return merged.map((name) => ({
     name,
     roleHint: roleHintForPersona(lane),
-    why: whyLineForCompany(name, lane, currentTitle),
+    why: sectorPool.includes(name) && sector
+      ? `${name} sits in ${SECTOR_LABELS[sector]}, which matches the experience in your profile. ${whyTailForPersona(lane)}`
+      : whyLineForCompany(name, lane, currentTitle),
   }))
+}
+
+type SectorKey = 'fintech' | 'healthcare' | 'security' | 'infrastructure' | 'retail' | 'data_ai'
+
+const SECTOR_LABELS: Record<SectorKey, string> = {
+  fintech: 'financial technology',
+  healthcare: 'healthcare and life sciences',
+  security: 'security',
+  infrastructure: 'cloud and infrastructure',
+  retail: 'retail and consumer',
+  data_ai: 'data and AI',
+}
+
+const SECTOR_PATTERNS: Record<SectorKey, RegExp> = {
+  fintech: /\b(fintech|payments?|banking|financial services|trading|lending|insurance|insurtech)\b/i,
+  healthcare: /\b(healthcare|health care|hospital|clinical|pharma|biotech|life sciences|medical|payer|provider)\b/i,
+  security: /\b(cyber ?security|infosec|security operations|soc|zero trust|threat|siem|appsec)\b/i,
+  infrastructure: /\b(cloud|infrastructure|devops|platform engineering|sre|kubernetes|data center|networking)\b/i,
+  retail: /\b(retail|e-?commerce|consumer goods|cpg|merchandising|omnichannel|supply chain)\b/i,
+  data_ai: /\b(machine learning|artificial intelligence|\bai\b|\bml\b|data platform|analytics|data science|llm)\b/i,
+}
+
+const SUGGESTIONS_BY_SECTOR: Record<SectorKey, string[]> = {
+  fintech: ['Stripe', 'Plaid', 'Adyen', 'Ramp', 'Brex'],
+  healthcare: ['Oscar Health', 'Tempus', 'Datavant', 'Komodo Health', 'Veeva'],
+  security: ['Crowdstrike', 'Palo Alto Networks', 'Okta', 'Snyk', 'Wiz'],
+  infrastructure: ['Cloudflare', 'HashiCorp', 'Datadog', 'Snowflake', 'Vercel'],
+  retail: ['Shopify', 'Instacart', 'Chewy', 'Wayfair', 'Faire'],
+  data_ai: ['Databricks', 'Anthropic', 'Scale AI', 'Hugging Face', 'Pinecone'],
+}
+
+export function detectSectorFromText(text: string): SectorKey | null {
+  if (!text.trim()) return null
+  let best: { key: SectorKey; hits: number } | null = null
+  for (const key of Object.keys(SECTOR_PATTERNS) as SectorKey[]) {
+    const matches = text.match(new RegExp(SECTOR_PATTERNS[key].source, 'gi'))
+    const hits = matches?.length ?? 0
+    if (hits > 0 && (!best || hits > best.hits)) best = { key, hits }
+  }
+  return best?.key ?? null
+}
+
+function whyTailForPersona(persona: SearchPersona | ''): string {
+  if (persona === 'board') return 'Organizations here often want board-level context, not generic search noise.'
+  if (persona === 'vp') return 'This profile usually rewards operators who build momentum early.'
+  if (persona === 'director') return 'A strong match when you need influence, not just visibility.'
+  return 'A strong fit when the role is still taking shape and timing matters.'
 }
 
 function leaderTitlesForPersona(persona: SearchPersona | ''): string[] {
@@ -65,29 +122,23 @@ function leaderTitlesForPersona(persona: SearchPersona | ''): string[] {
   return ['Chief People Officer', 'SVP, Engineering', 'Chief of Staff']
 }
 
-export function suggestedDecisionMakersForCompany(companyName: string, persona: SearchPersona | '', currentTitle: string): DecisionMakerSuggestion[] {
+export function decisionRoleTargetsForCompany(companyName: string, persona: SearchPersona | '', currentTitle: string): DecisionRoleTarget[] {
   if (!companyName.trim()) return []
   const titles = leaderTitlesForPersona(persona)
   const lane = currentTitle.trim() || 'your role lane'
 
   return [
     {
-      name: `Morgan Lee`,
-      title: `${titles[0]}, ${companyName}`,
-      why: `Likely sponsor for mandates shaped around ${lane}.`,
-      source: 'apollo',
+      title: titles[0],
+      why: `This seat typically sponsors mandates shaped around ${lane}.`,
     },
     {
-      name: `Jordan Patel`,
-      title: `${titles[1]}, ${companyName}`,
-      why: 'Signal activity suggests this function is close to headcount decisions.',
-      source: 'signal',
+      title: titles[1],
+      why: 'This function is usually closest to headcount and backfill decisions.',
     },
     {
-      name: `Casey Rivera`,
-      title: `${titles[2]}, ${companyName}`,
-      why: 'Strong bridge contact when search windows are forming but not posted.',
-      source: 'apollo',
+      title: titles[2],
+      why: 'A strong bridge seat when search windows are forming but not posted.',
     },
   ]
 }

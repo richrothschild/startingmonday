@@ -7,7 +7,7 @@ import {
   type SearchPersona,
   seededCompaniesFor,
   suggestedCompaniesForProfile,
-  suggestedDecisionMakersForCompany,
+  decisionRoleTargetsForCompany,
   firstNoteDraftForCompany,
   followUpSequenceForWeekOne,
 } from './onboarding-helpers'
@@ -514,6 +514,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onChange={setCompanyNames}
               persona={searchPersona}
               currentTitle={currentTitle}
+              resumeText={resumeText}
               isPassive={isPassive}
               onTitle={setCurrentTitle}
             />
@@ -684,6 +685,7 @@ function StepCompanies({
   onChange,
   persona,
   currentTitle,
+  resumeText = '',
   isPassive,
   onTitle,
 }: {
@@ -691,10 +693,11 @@ function StepCompanies({
   onChange: (v: string[]) => void
   persona: SearchPersona | ''
   currentTitle: string
+  resumeText?: string
   isPassive?: boolean
   onTitle?: (v: string) => void
 }) {
-  const suggestions = suggestedCompaniesForProfile(persona, currentTitle)
+  const suggestions = suggestedCompaniesForProfile(persona, currentTitle, resumeText)
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
   const filled = names.filter(n => n.trim()).length
 
@@ -967,7 +970,7 @@ function StepDone({
   }
 
   const firstCompany = companies[0] ?? ''
-  const decisionMakers = suggestedDecisionMakersForCompany(firstCompany, 'csuite', currentTitle)
+  const roleTargets = decisionRoleTargetsForCompany(firstCompany, 'csuite', currentTitle)
   const firstNoteDraft = firstCompany ? firstNoteDraftForCompany(firstCompany, currentTitle) : ''
   const followUps = firstCompany ? followUpSequenceForWeekOne(firstCompany) : []
 
@@ -1015,18 +1018,18 @@ function StepDone({
           </div>
         )}
 
-        {!isPassive && firstCompany && decisionMakers.length > 0 && (
+        {!isPassive && firstCompany && roleTargets.length > 0 && (
           <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">People to meet first at {firstCompany}</p>
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Seats to map first at {firstCompany}</p>
             <div className="space-y-2">
-              {decisionMakers.map((person) => (
-                <div key={`${person.name}-${person.title}`} className="rounded border border-slate-200 bg-white px-3 py-2">
-                  <p className="text-[13px] font-semibold text-slate-900">{person.name} - {person.title}</p>
-                  <p className="text-[12px] text-slate-500 mt-0.5">{person.why}</p>
-                  <p className="text-[11px] text-slate-400 mt-1">Source: {person.source === 'apollo' ? 'Apollo enrichment' : 'Signal scanner'}</p>
+              {roleTargets.map((seat) => (
+                <div key={seat.title} className="rounded border border-slate-200 bg-white px-3 py-2">
+                  <p className="text-[13px] font-semibold text-slate-900">{seat.title}</p>
+                  <p className="text-[12px] text-slate-500 mt-0.5">{seat.why}</p>
                 </div>
               ))}
             </div>
+            <p className="text-[11px] text-slate-400 mt-2">These are the seats that typically shape the shortlist. From your dashboard, relationship enrichment finds the actual people in them.</p>
           </div>
         )}
 

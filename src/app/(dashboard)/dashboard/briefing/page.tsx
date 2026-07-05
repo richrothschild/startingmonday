@@ -754,6 +754,21 @@ export default async function BriefingPage({
     total_companies: context.totalCompanies,
   })
 
+  // Activation milestone: first brief viewed with at least one company tracked. Logged once per user.
+  if (context.totalCompanies >= 1) {
+    const { count: activationCount } = await supabase
+      .from('user_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('event_name', 'activation_reached')
+    if ((activationCount ?? 0) === 0) {
+      await logEvent(user.id, 'activation_reached', {
+        total_companies: context.totalCompanies,
+        signals: context.signals.length,
+      })
+    }
+  }
+
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const todayLabel = new Date(context.todayStr + 'T12:00:00Z').toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
