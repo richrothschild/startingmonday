@@ -29,6 +29,7 @@ import { decisionMarkerForStage, extractDecisionOwnerFromNotes } from './dashboa
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 import { greetingInTz, fullDateInTz } from '@/lib/date'
+import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -371,6 +372,7 @@ export default async function DashboardPage({
     safeTimelinePage * timelinePageSize,
     safeTimelinePage * timelinePageSize + timelinePageSize,
   )
+  const isFirstRunDashboard = totalCount === 0 && !!profile?.onboarding_completed_at && !profile?.placed_at
 
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
@@ -513,6 +515,20 @@ export default async function DashboardPage({
           href: '/dashboard/contacts',
           cta: 'Contacts',
         }
+
+  const rolesFormingCard = warmPaths[0]
+    ? {
+        companyName: warmPaths[0].companyName,
+        summary: warmPaths[0].signal.signal_summary,
+        href: '/dashboard/signals',
+      }
+    : signalCount > 0
+      ? {
+          companyName: null,
+          summary: 'Open the freshest company signal and turn it into a relationship move before the posting becomes public.',
+          href: '/dashboard/signals',
+        }
+      : null
 
   const readinessAction: DailyMomentumAction = interviewingCompany
     ? {
@@ -742,6 +758,18 @@ export default async function DashboardPage({
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      {isFirstRunDashboard && (
+        <FirstMileTelemetry
+          eventName="dashboard_first_run_viewed"
+          pageName="dashboard_first_run"
+          properties={{
+            company_count: totalCount,
+            contact_count: contactCount,
+            has_advanced_stage: hasAdvancedStage,
+            onboarding_completed: true,
+          }}
+        />
+      )}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
       {/* Nav */}
@@ -809,6 +837,9 @@ export default async function DashboardPage({
           offerCount={offerCompanies.length}
           offerName={offerCompanies[0]?.name ?? null}
           offerCompanyName={offerCompany?.name ?? null}
+          rolesFormingCompanyName={rolesFormingCard?.companyName ?? null}
+          rolesFormingSummary={rolesFormingCard?.summary ?? null}
+          rolesFormingHref={rolesFormingCard?.href ?? '/dashboard/signals'}
           onMarkPlaced={markPlaced}
           activationComplete={activation.isComplete}
           activationCompletedCount={activation.completedCount}

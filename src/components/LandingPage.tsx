@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import Image from 'next/image'
 import { TrackLink } from '@/components/TrackLink'
+import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
 import { HomepageBriefTeaser } from '@/components/HomepageBriefTeaser'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
@@ -312,6 +313,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      {isHomePage && <FirstMileTelemetry eventName="homepage_viewed" pageName="homepage" />}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
@@ -319,13 +321,20 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
-            <Link
+            <TrackLink
               href={isManagerToolsPage ? MANAGERTOOLS_SIGNUP_URL : '/signup'}
+              event={isHomePage ? 'homepage_cta_clicked' : EVENT_NAMES.channelEntryClicked}
+              logToUserEvents
+              properties={{
+                channel: 'executives',
+                cta_label: isManagerToolsPage ? 'nav_manager_tools_signup' : isHomePage ? 'nav_home_signup' : 'nav_signup',
+                source_page: sourcePage,
+              }}
               className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
               aria-label={isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign up'}
             >
               {isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign Up'}
-            </Link>
+            </TrackLink>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
               Log in
             </Link>
@@ -334,7 +343,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
       </nav>
 
       <main className="relative">
-        <section id="core-clarity" data-emi-section="clarity_block" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
+        <section id="core-clarity" data-emi-section="clarity_block" data-first-mile-section="homepage_hero" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
             {isManagerToolsPage && (
               <p className="mb-5 text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
@@ -534,7 +543,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
 
         {isHomePage && (
           <>
-            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_1100px]">
+            <section className="border-b border-white/10 bg-slate-950/80 px-4 py-16 sm:px-6 sm:py-24 [content-visibility:auto] [contain-intrinsic-size:1px_1100px]" data-first-mile-section="homepage_how_it_works">
               <div className="mx-auto max-w-5xl">
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">How it works</p>
                 <h2 className="font-display mb-4 text-[28px] font-semibold leading-[1.06] text-white sm:text-[36px]">
@@ -546,12 +555,19 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                   <p className="mb-4 max-w-3xl text-[15px] leading-relaxed text-slate-200/95">
                     The best opportunities are decided in private before they are posted in public. Starting Monday helps you act while the mandate is still forming, not after the shortlist hardens.
                   </p>
-                  <Link
+                  <TrackLink
                     href="/evidence-hub#early-signals"
+                    event="homepage_cta_clicked"
+                    logToUserEvents
+                    properties={{
+                      channel: 'executives',
+                      cta_label: 'homepage_evidence_explore',
+                      source_page: sourcePage,
+                    }}
                     className="mb-8 inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
                   >
                     Explore the evidence →
-                  </Link>
+                  </TrackLink>
                   <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
                     <OpportunityTimingGapChart />
                   </div>
@@ -585,7 +601,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
         )}
 
         {!isHomePage && (
-          <section id="next-step" data-emi-section="next_step_block" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
+          <section id="next-step" data-emi-section="next_step_block" data-first-mile-section="homepage_next_step" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
             <div className="max-w-5xl mx-auto">
               {isManagerToolsPage ? (
                 <>

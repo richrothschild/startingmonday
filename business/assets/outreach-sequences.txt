@@ -1,0 +1,29 @@
+Outreach Sequences
+
+Sequence A - Warm LinkedIn DM (2-touch)
+Message 1:
+"[Name], we have a lot of overlap in [context]. I built Starting Monday for senior tech leaders running active transitions. If useful, I can generate one sample brief for a target company you care about."
+
+Message 2 (3-4 days later):
+"Quick nudge - happy to run the sample brief if you want to see the output quality before trying anything."
+
+Sequence B - Signal-triggered cold email (3-touch)
+Subject: Quick thought on [company] timing
+Email 1:
+"Hi [Name], saw [signal event] at [company].
+For VP/C-suite transitions, these windows often move before public postings.
+If useful, I can share a one-page role and outreach brief for [company] based on your background.
+- Richard"
+
+Email 2 (4 days later):
+"Following up in case timing is relevant. Happy to send the brief with no sign-up required."
+
+Email 3 (7 days later):
+"Last ping - if now is not the right moment, I can close the loop and reconnect later."
+
+Sequence C - Coach partner intro (2-touch)
+Message 1:
+"I work with exec-transition operators and built a coach seat model so clients execute between sessions, not just during calls. If you want, I can show you the co-branded weekly output in 15 minutes."
+
+Message 2:
+"If helpful, I can also set up a no-risk pilot with 1-2 clients so you can evaluate fit without changing your workflow."

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function HomepageBriefTeaser() {
   return (
-    <section id="example-walkthrough" className="border-y border-white/10 bg-slate-950/50 px-4 py-14 sm:px-6 sm:py-20 [content-visibility:auto] [contain-intrinsic-size:1px_360px]">
+    <section id="example-walkthrough" data-first-mile-section="homepage_brief_teaser" className="border-y border-white/10 bg-slate-950/50 px-4 py-14 sm:px-6 sm:py-20 [content-visibility:auto] [contain-intrinsic-size:1px_360px]">
       <div className="mx-auto max-w-5xl">
         <div className="max-w-3xl">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-orange-200">Illustrative Example</p>

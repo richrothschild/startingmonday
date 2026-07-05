@@ -1,0 +1,6 @@
+id,risk,likelihood,impact,owner,leading_indicator,trigger_threshold,mitigation,contingency,status
+R1,Trial to paid below target,High,High,Founder,trial_to_paid_pct,<15%,Tighten onboarding and founder-led closes,Pause traffic scale and fix activation flow,Open
+R2,Sales bandwidth collapse,Medium,High,Founder,founder_sales_hours,<10 hours for 2 weeks,Protect daily sales block and delegate ops,Cut non-critical dev work immediately,Open
+R3,LinkedIn outreach fatigue/restriction,Medium,High,Founder,dm_to_call_pct,<5%,Lower volume and increase personalization,Shift more volume to referrals/email,Open
+R4,Analytics blind spots,High,High,Engineering,event_coverage_pct,<95%,Implement and QA event taxonomy,Freeze experiments until instrumentation is fixed,Open
+R5,No social proof velocity,Medium,Medium,VA,reviews_total,<15 by Aug 31,Automate review asks after third brief,Use anonymized case vignettes and coach proof,Open

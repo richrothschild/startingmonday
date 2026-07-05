@@ -32,6 +32,9 @@ type DashboardTopShellSectionProps = {
   offerCount: number
   offerName: string | null
   offerCompanyName: string | null
+  rolesFormingCompanyName?: string | null
+  rolesFormingSummary?: string | null
+  rolesFormingHref?: string
   onMarkPlaced: (formData: FormData) => void | Promise<void>
   activationComplete: boolean
   activationCompletedCount: number
@@ -49,9 +52,9 @@ type DashboardTopShellSectionProps = {
 
 export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
   const riskTone = {
-    low: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    medium: 'bg-amber-50 text-amber-700 border-amber-200',
-    high: 'bg-red-50 text-red-700 border-red-200',
+    low: 'bg-white/6 text-emerald-200 border-emerald-300/20 shadow-[0_10px_26px_rgba(15,23,42,0.15)]',
+    medium: 'bg-white/6 text-amber-200 border-amber-300/20 shadow-[0_10px_26px_rgba(15,23,42,0.15)]',
+    high: 'bg-white/8 text-rose-100 border-rose-300/25 shadow-[0_12px_30px_rgba(15,23,42,0.2)]',
   } as const
 
   return (
@@ -103,6 +106,25 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
         <p className="text-[14px] text-slate-200 mt-2.5 leading-relaxed max-w-3xl">
           Your position is built one clear move at a time. Start with the briefing, move one relationship, then protect follow-through.
         </p>
+        {(props.rolesFormingCompanyName || props.rolesFormingSummary) && (
+          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-orange-200/90 mb-1">Roles forming now</p>
+            <p className="text-[14px] font-semibold text-white">
+              {props.rolesFormingCompanyName ? `${props.rolesFormingCompanyName} may be moving toward a role window.` : 'A role window may be forming.'}
+            </p>
+            {props.rolesFormingSummary && (
+              <p className="text-[13px] text-slate-200 mt-1.5 leading-relaxed">
+                {props.rolesFormingSummary}
+              </p>
+            )}
+            <Link
+              href={props.rolesFormingHref ?? '/dashboard/signals'}
+              className="inline-flex min-h-[40px] items-center mt-2 text-[13px] font-semibold text-orange-200 hover:text-orange-100"
+            >
+              Review signals →
+            </Link>
+          </div>
+        )}
       </section>
 
       <DashboardPrimaryNavSections

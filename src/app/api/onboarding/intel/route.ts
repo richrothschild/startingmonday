@@ -39,10 +39,11 @@ export async function POST(request: NextRequest) {
 
 The user is a ${personaLabel} and has added "${companyName}" as a target company.
 
-Write a 3-paragraph company intelligence snapshot covering:
+Write a 4-paragraph company intelligence snapshot covering:
 1. What this company is focused on right now: strategic priorities, growth phase, or transformation agenda
 2. Organizational dynamics worth watching: recent leadership changes, restructuring signals, or mandate shifts
-3. Why a ${personaLabel} should be watching this company: the specific opportunity angle
+3. People and decision-makers shaping the opportunity: what kinds of leaders likely influence the shortlist or backfill path
+4. Why a ${personaLabel} should be watching this company: the specific opportunity angle and likely timing window
 
 Rules:
 - Be specific and credible. If you are uncertain about a specific fact, speak in patterns ("companies at this stage typically...") rather than fabricating.

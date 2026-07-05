@@ -124,6 +124,8 @@ export default async function SignalsPage({
       return b._score - a._score
     })
 
+  const rolesFormingSignal = signalList[0] ?? null
+
   const suppressedCount = Math.max(0, rawSignalList.length - rankedSignals.length)
 
   function buildUrl(params: Record<string, string | undefined>) {
@@ -172,6 +174,21 @@ export default async function SignalsPage({
             Back to dashboard
           </Link>
         </div>
+
+        {rolesFormingSignal && (
+          <div className="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-emerald-700 mb-1">Roles forming now</p>
+            <p className="text-[15px] font-semibold text-emerald-950">
+              {rolesFormingSignal.companies ? `${Array.isArray(rolesFormingSignal.companies) ? rolesFormingSignal.companies[0]?.name : rolesFormingSignal.companies.name} may be opening a role window.` : 'A role window may be opening.'}
+            </p>
+            <p className="text-[12px] text-emerald-900/80 mt-1.5 leading-relaxed">
+              {rolesFormingSignal.signal_summary}
+            </p>
+            <p className="text-[12px] text-emerald-900/70 mt-1.5">
+              Use this as a hypothesis, then move through a relationship before the posting becomes public.
+            </p>
+          </div>
+        )}
 
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-6">

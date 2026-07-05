@@ -1,0 +1,50 @@
+metric_key,notion_database,notion_property,notion_type,hubspot_object,hubspot_property,hubspot_type,sync_direction,update_frequency,calculation_rule
+week_start,Weekly Agent Dashboard,Week Start,date,none,none,none,notion_only,weekly,manual input each Monday
+status,Weekly Agent Dashboard,Status,select,none,none,none,notion_only,daily,formula from threshold comparison
+variance_to_threshold,Weekly Agent Dashboard,Variance,number,none,none,none,notion_only,daily,actual-threshold for >= metrics and threshold-actual for <= metrics
+global_new_sales_calls,Weekly Agent Dashboard,Global - New Sales Calls,number,meetings,count_meetings_held,number,hubspot_to_notion,daily,count of meetings outcome=held in week
+global_trial_starts,Weekly Agent Dashboard,Global - Trial Starts,number,deals,count_trial_started,number,hubspot_to_notion,daily,count deals entering Trial Started stage
+global_trial_to_paid,Weekly Agent Dashboard,Global - Trial to Paid 4W,number,subscriptions,trial_to_paid_pct_4wk,number,hubspot_to_notion,weekly,(paid_from_trial_4w/trials_4w)*100
+global_week2_activation,Weekly Agent Dashboard,Global - Week2 Activation,number,events,week2_activated_pct,number,posthog_to_notion,daily,activated_week2_users/trial_users*100
+global_outreach_to_call,Weekly Agent Dashboard,Global - Outreach to Call,number,activities,outreach_to_call_pct,number,hubspot_to_notion,daily,calls_booked/outreach_touches*100
+global_30d_churn,Weekly Agent Dashboard,Global - 30D Churn,number,subscriptions,churn_30d_pct,number,stripe_to_notion,weekly,cancelled_within_30d/new_paid_30d*100
+revops_required_fields,Weekly Agent Dashboard,RevOps - Required Fields Complete,number,contacts+deals,required_fields_complete_pct,number,hubspot_to_notion,daily,records_with_required_fields/records_total*100
+revops_next_step_set,Weekly Agent Dashboard,RevOps - Next Step Populated,number,deals,next_step_with_date_pct,number,hubspot_to_notion,daily,open_deals_with_nextstep_and_date/open_deals*100
+revops_followup_sla,Weekly Agent Dashboard,RevOps - Followup SLA 24h,number,tasks,followup_sla_24h_pct,number,hubspot_to_notion,daily,followups_completed_24h/followups_due*100
+revops_stalled_deals,Weekly Agent Dashboard,RevOps - Stalled Deals 7D,number,deals,stalled_deals_7d_count,number,hubspot_to_notion,daily,count open deals without stage movement 7+ days
+prospecting_icp_pass,Weekly Agent Dashboard,Prospecting - ICP Pass Count,number,leads,icp_qa_pass_count,number,hubspot_to_notion,daily,count leads that pass ICP QA
+prospecting_invalid_rate,Weekly Agent Dashboard,Prospecting - Invalid Contact Rate,number,emails,invalid_contact_pct,number,hubspot_to_notion,daily,invalid_contacts/new_contacts*100
+prospecting_lead_reply,Weekly Agent Dashboard,Prospecting - Lead Reply Rate,number,activities,lead_reply_pct,number,hubspot_to_notion,daily,replies/new_outreach*100
+prospecting_personalization,Weekly Agent Dashboard,Prospecting - Personalization Signal Coverage,number,contacts,personalization_signal_pct,number,hubspot_to_notion,daily,contacts_with_signal/new_contacts*100
+outreach_touch_volume,Weekly Agent Dashboard,Outreach - Touch Volume,number,activities,outreach_touch_count,number,hubspot_to_notion,daily,count outreach touches in week
+outreach_positive_reply,Weekly Agent Dashboard,Outreach - Positive Reply Rate,number,activities,positive_reply_pct,number,hubspot_to_notion,daily,positive_replies/outreach_touches*100
+outreach_call_booked,Weekly Agent Dashboard,Outreach - Call Booked Rate,number,activities,call_booked_pct,number,hubspot_to_notion,daily,calls_booked/outreach_touches*100
+outreach_compliance_incidents,Weekly Agent Dashboard,Outreach - Compliance Incidents,number,activities,compliance_incident_count,number,hubspot_to_notion,daily,count incident flags in week
+enablement_brief_delivery,Weekly Agent Dashboard,Enablement - Prep Brief Delivery,number,none,none,none,notion_only,daily,calls_with_prep_brief/total_calls*100
+enablement_same_day_recap,Weekly Agent Dashboard,Enablement - Same Day Recap,number,activities,same_day_recap_pct,number,hubspot_to_notion,daily,qualified_calls_with_recap/qualified_calls*100
+enablement_objection_improve,Weekly Agent Dashboard,Enablement - Objection Win Improvement 4W,number,deals,objection_close_improve_pct,number,hubspot_to_notion,weekly,delta close rate top objections vs prior 4w
+enablement_time_saved,Weekly Agent Dashboard,Enablement - Founder Hours Saved,number,none,none,none,notion_only,weekly,manual estimate from delegated prep tasks
+analytics_event_coverage,Weekly Agent Dashboard,Analytics - Event Coverage,number,events,event_coverage_pct,number,posthog_to_notion,daily,captured_required_events/required_events*100
+analytics_attribution_complete,Weekly Agent Dashboard,Analytics - UTM Completeness,number,events,utm_known_pct,number,posthog_to_notion,daily,events_with_utm/events_total*100
+analytics_break_detect_time,Weekly Agent Dashboard,Analytics - Data Break Detection Hours,number,alerts,data_break_detection_hours,number,posthog_to_notion,daily,hours from break start to first alert
+analytics_friday_dashboard,Weekly Agent Dashboard,Analytics - Friday Dashboard On Time,number,none,none,none,notion_only,weekly,1 if published before Friday review else 0 then *100
+lifecycle_week2_activation,Weekly Agent Dashboard,Lifecycle - Week2 Activation,number,events,week2_activated_pct,number,posthog_to_notion,daily,activated_week2_users/trial_users*100
+lifecycle_delivery_success,Weekly Agent Dashboard,Lifecycle - Nudge Delivery Success,number,emails,nudge_delivery_success_pct,number,resend_to_notion,daily,delivered_nudges/sent_nudges*100
+lifecycle_human_assist,Weekly Agent Dashboard,Lifecycle - Human Assist Coverage,number,activities,human_assist_touch_pct,number,hubspot_to_notion,daily,trials_with_human_touch/trials_total*100
+lifecycle_trial_paid,Weekly Agent Dashboard,Lifecycle - Trial to Paid 4W,number,subscriptions,trial_to_paid_pct_4wk,number,stripe_to_notion,weekly,paid_from_trial_4w/trials_4w*100
+experiments_preregistered,Weekly Agent Dashboard,Experiments - Preregistered Metrics,number,none,none,none,notion_only,weekly,tests_with_preregistered_metric/tests_launched*100
+experiments_conflicts,Weekly Agent Dashboard,Experiments - Conflicting Tests Count,number,none,none,none,notion_only,weekly,count tests overlapping same audience+kpi
+experiments_idea_to_launch,Weekly Agent Dashboard,Experiments - Idea to Launch Days,number,none,none,none,notion_only,weekly,median days from backlog approved to launch
+experiments_decisive_rate,Weekly Agent Dashboard,Experiments - Decisive Result Rate,number,none,none,none,notion_only,weekly,tests_with_clear_result/tests_closed*100
+proof_new_assets,Weekly Agent Dashboard,Proof - New Assets Weekly,number,none,none,none,notion_only,weekly,count new testimonial/case assets
+proof_trigger_send,Weekly Agent Dashboard,Proof - Trigger Send Rate,number,workflows,review_trigger_send_pct,number,hubspot_to_notion,daily,eligible_users_sent_review_ask/eligible_users*100
+proof_freshness,Weekly Agent Dashboard,Proof - Freshness 14D,number,none,none,none,notion_only,weekly,1 if refreshed <=14 days else 0 then *100
+proof_conversion_lift,Weekly Agent Dashboard,Proof - Conversion Lift 8W,number,funnels,proof_conversion_lift_pct,number,posthog_to_notion,weekly,conversion_with_proof-conversion_without_proof
+partner_meetings,Weekly Agent Dashboard,Partner - Meetings Held,number,meetings,partner_meetings_count,number,hubspot_to_notion,daily,count partner meetings held
+partner_meeting_to_pilot,Weekly Agent Dashboard,Partner - Meeting to Pilot %,number,deals,partner_meeting_to_pilot_pct,number,hubspot_to_notion,weekly,partner_pilots_started/partner_meetings*100
+partner_seat_growth,Weekly Agent Dashboard,Partner - Seat Net Growth Monthly,number,seats,partner_seat_growth_monthly,number,hubspot_to_notion,weekly,current_month_partner_seats-last_month_partner_seats
+partner_inactive_30d,Weekly Agent Dashboard,Partner - Inactive Accounts 30D,number,accounts,inactive_partner_30d_count,number,hubspot_to_notion,weekly,count partner accounts with no activity 30+ days
+controltower_brief_on_time,Weekly Agent Dashboard,Control Tower - Friday Brief On Time,number,none,none,none,notion_only,weekly,1 if briefing timestamp <= deadline else 0 then *100
+controltower_breach_escalation,Weekly Agent Dashboard,Control Tower - Breach Escalation <=24h,number,none,none,none,notion_only,weekly,breaches_escalated_24h/breaches_total*100
+controltower_decision_log,Weekly Agent Dashboard,Control Tower - Decision Log Completeness,number,none,none,none,notion_only,weekly,decisions_with_owner_and_date/decisions_total*100
+controltower_unowned_actions,Weekly Agent Dashboard,Control Tower - Unowned Actions,number,none,none,none,notion_only,weekly,count open actions with empty owner
