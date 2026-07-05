@@ -124,6 +124,42 @@
       "roleFamilies": ["leadership", "delivery_leadership"]
     },
     {
+      "key": "wayback_gdelt_timelines",
+      "name": "Wayback + GDELT timeline reconstruction",
+      "category": "backtest_inputs",
+      "accessMethod": "api",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 168,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "ats_json_boards",
+      "name": "ATS JSON boards (Greenhouse, Lever, Ashby)",
+      "category": "hiring_signals",
+      "accessMethod": "api",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 24,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
+      "key": "warn_notices",
+      "name": "State WARN notices",
+      "category": "org_changes",
+      "accessMethod": "api_or_csv",
+      "rightsStatus": "public",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 24,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+    },
+    {
       "key": "earnings_call_transcripts",
       "name": "Earnings call transcripts",
       "category": "financial_calls",

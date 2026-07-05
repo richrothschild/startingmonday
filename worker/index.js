@@ -46,6 +46,11 @@ import { runDlqMonitorJob } from './jobs/dlq-monitor-job.js'
 import { runCanonicalBackfillJob } from './jobs/canonical-backfill-job.js'
 import { runOutcomeLabelBackfillJob } from './jobs/outcome-label-backfill-job.js'
 import { runPrecursorStatsJob } from './jobs/precursor-stats-job.js'
+import { runCohortBuilderJob } from './jobs/cohort-builder-job.js'
+import { runPatternBacktestJob } from './jobs/pattern-backtest-job.js'
+import { runAtsPollerJob } from './jobs/ats-poller-job.js'
+import { runScannerMissVerifierJob } from './jobs/scanner-miss-verifier-job.js'
+import { runWarnIngestionJob } from './jobs/warn-ingestion-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -331,6 +336,21 @@ cron.schedule('10 3 * * *', () => runJob('outcome-label-backfill-job', runOutcom
 // Precursor stats: nightly at 03:40 - recomputes calibration aggregates from labeled outcomes.
 cron.schedule('40 3 * * *', () => runJob('precursor-stats-job', runPrecursorStatsJob))
 
+// Cohort builder: nightly at 04:10 - reconstructs opening cohorts and matched controls.
+cron.schedule('10 4 * * *', () => runJob('cohort-builder-job', runCohortBuilderJob))
+
+// Pattern backtest replay: nightly at 04:40 - computes precision/recall and lead-time metrics.
+cron.schedule('40 4 * * *', () => runJob('pattern-backtest-job', runPatternBacktestJob))
+
+// ATS structured poller: every 8 hours - Greenhouse/Lever/Ashby role openings.
+cron.schedule('15 */8 * * *', () => runJob('ats-poller-job', runAtsPollerJob))
+
+// Missed-role verifier: hourly - verifies user-reported misses and labels confirmed openings.
+cron.schedule('35 * * * *', () => runJob('scanner-miss-verifier-job', runScannerMissVerifierJob))
+
+// WARN ingestion: daily at 05:20 UTC - ingests state WARN notices and writes layoff events.
+cron.schedule('20 5 * * *', () => runJob('warn-ingestion-job', runWarnIngestionJob))
+
 // Apollo recommendation quality audit: every 6 hours - validates error rate and enrichment quality signals.
 cron.schedule('20 */6 * * *', () => runJob('apollo-quality-audit-job', runApolloQualityAuditJob))
 
@@ -430,7 +450,7 @@ cron.schedule('0 9 1 * *', () => runJob('ideas-monthly-job', runIdeasMonthlyJob)
 setTimeout(() => runDemoCheck().catch(err => logger.error('check-demo: failed', { error: err.message })), 10_000)
 
 logger.info('worker: cron schedules registered', {
-  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'person-signal-job', 'edgar-freshness-audit-job', 'edgar-watchdog-job', 'apollo-quality-audit-job', 'enrichment-contact-retention-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
+  jobs: ['scan-job', 'executive-scan-job', 'executive-evening-scan', 'signal-job', 'person-signal-job', 'edgar-freshness-audit-job', 'edgar-watchdog-job', 'dlq-monitor-job', 'canonical-backfill-job', 'outcome-label-backfill-job', 'precursor-stats-job', 'cohort-builder-job', 'pattern-backtest-job', 'ats-poller-job', 'scanner-miss-verifier-job', 'warn-ingestion-job', 'apollo-quality-audit-job', 'enrichment-contact-retention-job', 'briefing-job', 'followup-job', 'momentum-job', 'momentum-nudge-job', 'market-digest-job', 'weekly-report-job', 'usage-monitor-job', 'trial-reminder-job', 'offer-email-job', 'reactivation-job', 'activation-reminder-job', 'cleanup-job', 'pulse-job', 'briefing-watchdog-job', 'industry-pulse-job', 'opportunity-radar-job', 'concierge-prep-job', 'outreach-digest-job', 'outreach-reconcile-job', 'onboarding-video-job', 'lead-scoring-job', 'social-post-job', 'google-calendar-sync-job', 'ui-ux-weekly-review-job', 'link-integrity-weekly-review-job', 'outreach-tone-presend-job', 'outreach-tone-guard-job', 'ideas-monthly-job'],
 })
 bootPhase = 'ready'
 

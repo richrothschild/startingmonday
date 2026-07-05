@@ -41,6 +41,9 @@ const FETCHER_MODULES: Record<string, string[]> = {
     'worker/signals/fetch-pdl-execs.js',
     'worker/signals/diff-exec-snapshot.js',
   ],
+  wayback_gdelt_timelines: ['worker/lib/backtest-cohort-builder.js'],
+  ats_json_boards: ['worker/signals/fetch-ats-json.js'],
+  warn_notices: ['worker/signals/fetch-warn-notices.js'],
 }
 
 describe('signal source catalog', () => {

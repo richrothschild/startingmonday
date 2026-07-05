@@ -8,7 +8,7 @@ function getClient() {
 }
 
 // Named patterns per role type. Claude must match one of these or return detected=false.
-const PATTERN_LIBRARY = {
+export const PATTERN_LIBRARY = {
   cio: [
     {
       name: 'Leadership Transition Window',
@@ -182,7 +182,7 @@ const PATTERN_LIBRARY = {
   ],
 }
 
-const GENERIC_PATTERNS = [
+export const GENERIC_PATTERNS = [
   { name: 'Leadership Transition', match: 'Executive departures combined with new hires. Direct opening for external candidates before the search is formalized.' },
   { name: 'Growth Phase', match: 'Funding combined with exec hires and expansion. Company needs experienced leaders to scale through an inflection point.' },
   { name: 'M&A Integration', match: 'Acquisition combined with leadership change. Integration mandate creates executive openings with clear scope.' },

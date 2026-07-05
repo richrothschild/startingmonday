@@ -458,3 +458,44 @@ export async function removeDocument(documentId: string, companyId: string) {
 
   revalidatePath(`/dashboard/companies/${companyId}`)
 }
+
+export async function reportMissedRole(companyId: string, formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const roleUrl = normalizeUrl(str(formData, 'role_url'))
+  const roleTitle = str(formData, 'role_title') || null
+
+  if (!roleUrl) {
+    redirect(`/dashboard/companies/${companyId}?missed_error=required`)
+  }
+
+  const { data: company } = await supabase
+    .from('companies')
+    .select('id')
+    .eq('id', companyId)
+    .eq('user_id', user.id)
+    .is('archived_at', null)
+    .maybeSingle()
+
+  if (!company) {
+    redirect('/dashboard')
+  }
+
+  await (supabase as any)
+    .from('scanner_misses')
+    .upsert(
+      {
+        user_id: user.id,
+        company_id: companyId,
+        role_url: roleUrl,
+        role_title: roleTitle,
+        status: 'new',
+      },
+      { onConflict: 'user_id,company_id,role_url' },
+    )
+
+  revalidatePath(`/dashboard/companies/${companyId}`)
+  redirect(`/dashboard/companies/${companyId}?missed=1#job-scan`)
+}
