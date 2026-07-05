@@ -1,0 +1,40 @@
+Email Nurture Sequence (Trial + Pre-Trial)
+
+Email 1 - Immediate (Welcome + first action)
+Subject: Start here: your first 15-minute win
+Body:
+- Confirm value promise in one sentence.
+- Ask user to add 10 target companies now.
+- CTA: Build first brief.
+
+Email 2 - Day 2 (Activation nudge)
+Subject: Your next move to get signal, not noise
+Body:
+- Explain one signal pattern and why timing matters.
+- CTA: Generate one brief from top target.
+
+Email 3 - Day 5 (Proof)
+Subject: What users do before they get traction
+Body:
+- Share one short customer vignette.
+- CTA: Complete optimize review + compare output.
+
+Email 4 - Day 9 (Objection handling)
+Subject: "I can do this manually" - true, but costly
+Body:
+- Reframe speed and consistency value.
+- CTA: Book 20-minute optimization call.
+
+Email 5 - Day 14 (Decision checkpoint)
+Subject: Keep momentum: lock your workflow
+Body:
+- Ask if user reached activation milestones.
+- Offer recommended plan path.
+- CTA: Choose plan or book quick consult.
+
+Email 6 - Day 25 (Save + convert)
+Subject: Before trial ends: keep your pipeline live
+Body:
+- Summarize what they built during trial.
+- Present plan options plus alumni fallback if not ready.
+- CTA: Activate paid plan.

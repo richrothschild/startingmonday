@@ -1,0 +1,25 @@
+Issue Type,Issue Key,Summary,Epic Link,Labels,Sprint,Priority
+Epic,SMK-402,Epic: Measurement and Standards,,first-mile sprint-1 epic standards,Sprint 1,High
+Epic,SMK-403,Epic: First Mile Onboarding,,first-mile sprint-2 epic onboarding,Sprint 2,High
+Epic,SMK-405,Epic: Signal-to-Role Discovery,,first-mile sprint-3 epic signals,Sprint 3,High
+Epic,SMK-404,Epic: Relationships and Communications,,first-mile sprint-4 epic relationships,Sprint 4,High
+Epic,SMK-406,Epic: First-Run Arrival,,first-mile sprint-5 epic arrival,Sprint 5,High
+Epic,SMK-407,Epic: Visual System and Proof,,first-mile sprint-6 epic visual-design,Sprint 6,High
+Story,SMK-411,Instrument first-mile funnel events,SMK-402,first-mile sprint-1 measurement,Sprint 1,High
+Story,SMK-410,Define first-mile KPIs and weekly baseline report,SMK-402,first-mile sprint-1 metrics,Sprint 1,High
+Story,SMK-409,Update standards contracts for first-mile flow,SMK-402,first-mile sprint-1 standards,Sprint 1,High
+Story,SMK-412,Build resume/LinkedIn reflection summary,SMK-403,first-mile sprint-2 onboarding,Sprint 2,High
+Story,SMK-408,Replace static company seeds with personalized suggestions,SMK-403,first-mile sprint-2 company-suggestions,Sprint 2,High
+Story,SMK-413,Add payoff screens and numbered value milestones,SMK-403,first-mile sprint-2 ux,Sprint 2,High
+Story,SMK-414,Show live signal snapshots after company acceptance,SMK-405,first-mile sprint-3 signals,Sprint 3,High
+Story,SMK-416,Build Roles Forming surface with confidence language,SMK-405,first-mile sprint-3 signals,Sprint 3,High
+Story,SMK-418,Trigger scans on company acceptance and add claim-integrity copy,SMK-405,first-mile sprint-3 signals,Sprint 3,High
+Story,SMK-417,Surface decision-makers for the first company,SMK-404,first-mile sprint-4 relationships,Sprint 4,High
+Story,SMK-415,Add first-note draft and follow-up sequence,SMK-404,first-mile sprint-4 outreach,Sprint 4,High
+Story,SMK-419,Add week-1 relationship action surface,SMK-404,first-mile sprint-4 relationships,Sprint 4,High
+Story,SMK-423,Replace empty dashboard charts with an itinerary-style first-run view,SMK-406,first-mile sprint-5 arrival,Sprint 5,High
+Story,SMK-424,Show the first brief the first companies and one suggested action,SMK-406,first-mile sprint-5 arrival,Sprint 5,High
+Story,SMK-420,Add a return ritual and better onboarding nudges,SMK-406,first-mile sprint-5 arrival,Sprint 5,High
+Story,SMK-421,Define and source a small photography system for public pages,SMK-407,first-mile sprint-6 visual-design,Sprint 6,High
+Story,SMK-422,Promote the live demo as proof at the first skepticism moment,SMK-407,first-mile sprint-6 proof,Sprint 6,High
+Story,SMK-425,Write the optional proof film brief and quality gate,SMK-407,first-mile sprint-6 proof,Sprint 6,High

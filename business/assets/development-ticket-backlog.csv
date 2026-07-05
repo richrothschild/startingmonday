@@ -1,0 +1,11 @@
+ticket_id,phase,priority,title,owner,estimate_days,dependency,done_definition,status
+DEV-001,Phase1,P0,Mount PostHog provider on all public routes,Engineering,2,None,Public pages emit page view and key CTA events with UTMs,Planned
+DEV-002,Phase1,P0,Implement core event taxonomy in app flows,Engineering,3,DEV-001,All events in taxonomy captured and visible in funnel dashboard,Planned
+DEV-003,Phase1,P0,Stripe founding offer and payment links,Engineering,2,None,Founding links work in test and production modes,Planned
+DEV-004,Phase1,P1,Exit-intent lead capture modal and handoff,Engineering,2,DEV-001,Modal triggers once per session and submits to CRM,Planned
+DEV-005,Phase1,P1,In-app review ask trigger after third brief,Engineering,2,DEV-002,Users receive request at right milestone with no duplicate spam,Planned
+DEV-006,Phase1,P1,Day-2/day-5/day-9 activation nudges,Engineering,3,DEV-002,Nudges send on schedule and clicks are tracked,Planned
+DEV-007,Phase2,P1,Referral gift-link flow,Engineering,4,DEV-002,Customers can send referral links and conversion attribution works,Planned
+DEV-008,Phase2,P1,Alumni downgrade flow and plan mapping,Engineering,3,DEV-003,Cancel flow offers alumni plan and webhook handles transition,Planned
+DEV-009,Phase2,P2,Proof block CMS/admin workflow,Engineering,3,None,Team can add/update proof snippets without deploy,Planned
+DEV-010,Phase3,P1,Trial expiry save workflow improvements,Engineering,2,DEV-006,Day-25 save flow sends and logs outcomes by segment,Planned

@@ -49,9 +49,9 @@ export function DashboardWeeklyPerformanceSection({
   offerCockpit,
 }: DashboardWeeklyPerformanceSectionProps) {
   const riskTone = {
-    low: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-    medium: 'border-amber-200 bg-amber-50 text-amber-700',
-    high: 'border-red-200 bg-red-50 text-red-700',
+    low: 'border-cyan-300/20 bg-cyan-950/20 text-cyan-100 shadow-[0_12px_30px_rgba(2,6,23,0.18)]',
+    medium: 'border-amber-300/30 bg-amber-900/28 text-amber-100 shadow-[0_12px_30px_rgba(2,6,23,0.18)]',
+    high: 'border-rose-300/20 bg-rose-950/28 text-rose-100 shadow-[0_12px_30px_rgba(2,6,23,0.2)]',
   } as const
 
   const quickActions = isExecutiveMode
@@ -208,11 +208,11 @@ export function DashboardWeeklyPerformanceSection({
             {riskItems.map((risk) => (
               <div key={risk.id} className={`border rounded p-3 ${riskTone[risk.level]}`}>
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-[12px] font-semibold">{risk.label}</p>
-                  <span className="text-[12px] font-semibold">{risk.level}</span>
+                    <p className="text-[12px] font-semibold tracking-[0.01em]">{risk.label}</p>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.08em] opacity-90">{risk.level}</span>
                 </div>
-                <p className="text-[12px] mt-1.5 leading-relaxed">{risk.detail}</p>
-                <Link href={risk.href} className="inline-flex mt-2 text-[12px] font-semibold underline">
+                <p className="text-[12px] mt-1.5 leading-relaxed text-current/90">{risk.detail}</p>
+                <Link href={risk.href} className="inline-flex mt-2 text-[12px] font-semibold underline decoration-current/40 underline-offset-4 hover:decoration-current">
                   {risk.cta}
                 </Link>
               </div>

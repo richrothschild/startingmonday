@@ -1,0 +1,30 @@
+VA Daily Checklist (Mon-Fri)
+
+Daily (must-do)
+1. Build/refresh 20-30 targeted leads in HubSpot list for next sales block.
+2. Ensure all new calls from yesterday have Otter summary pasted into HubSpot notes.
+3. Queue draft social posts for founder approval (at least 2 days ahead).
+4. Run review-request list from activated users and send follow-up reminders.
+5. Update tracker files:
+   - weekly-scorecard-template.csv
+   - risk-register.csv
+
+Monday
+- Prepare weekly lead packs from Sales Navigator and Apollo.
+- Verify booking link placement in all active outreach scripts.
+
+Tuesday
+- Prepare coach outreach list and first-touch drafts.
+- Compile objection snippets from recent calls.
+
+Wednesday
+- Monitor HARO/Qwoted opportunities and draft responses.
+- Prepare one podcast pitch batch (3 targets).
+
+Thursday
+- Verify UTM consistency in all outbound links this week.
+- Update proof asset tracker (reviews, case snippets, mentions).
+
+Friday
+- Assemble Friday scorecard pre-read for founder + consultant.
+- Flag any kill-criteria threshold risks.

@@ -20,6 +20,30 @@ This file is the canonical source of truth for sitewide editorial standards.
 - Trust assurance appears before the final conversion decision point.
 - Proof/evidence CTA appears at first skepticism moment, not only at footer depth.
 
+### Choice Curation Contract
+
+- No more than three primary options should be visible at one decision moment on Tier 0 routes.
+- Additional options must be behind one intentional interaction, not presented as a wall of equal choices.
+- Personalized options should carry a short why-line when the user is being asked to choose.
+
+### Arrival Contract
+
+- First-run authenticated surfaces must show at least one already-earned value moment.
+- First-run authenticated surfaces must not present more than one empty data visualization at a time.
+- Each first-run screen must include exactly one clear next action.
+
+### Value-Moment Contract
+
+- Every setup step on Tier 0 authenticated routes must end with a visible payoff.
+- Setup steps must never end with a bare form submission state when a meaningful result is already available.
+- Week-one guidance should surface one suggested action per day, not a queue of competing tasks.
+
+### Claim-Integrity Contract
+
+- Any capability stated on public routes must be experientially visible within the first session or softened in the copy.
+- Public claims about timing, role discovery, or relationship readiness must be backed by an in-session surface.
+- If a claim cannot be shown yet, the product should say what it can show today.
+
 ### Brand Lockup Contract
 
 - Header and footer wordmark sizing must remain legible at mobile and desktop breakpoints.
@@ -29,10 +53,10 @@ This file is the canonical source of truth for sitewide editorial standards.
 
 - 100% route inventory coverage is required for compliance reports.
 - A compliance report is valid only when:
-	- all discovered routes are tested,
-	- untested routes = 0,
-	- global typography contract checks pass,
-	- per-route standards checks pass or are explicitly reported as failing.
+  - all discovered routes are tested,
+  - untested routes = 0,
+  - global typography contract checks pass,
+  - per-route standards checks pass or are explicitly reported as failing.
 
 ## Why This Standard Exists
 
@@ -87,17 +111,17 @@ All metrics are release gates unless marked advisory.
 - Token drift: 0 critical token violations on Tier 0 and Tier 1 routes.
 - Shell parity: 100% of routes mapped to approved shell family.
 - Visual diff threshold:
-	- Tier 0: <= 0.5% pixel delta
-	- Tier 1: <= 1.0% pixel delta
-	- Tier 2/3: <= 1.5% pixel delta
+  - Tier 0: <= 0.5% pixel delta
+  - Tier 1: <= 1.0% pixel delta
+  - Tier 2/3: <= 1.5% pixel delta
 - Typography contract: heading/body scale and contrast pass for all pages.
 
 ### UX and Interaction Metrics
 
 - Action wiring: 100% of primary CTA controls verified actionable.
 - Primary task completion (synthetic):
-	- Tier 0/Tier 1: >= 99% pass rate
-	- Tier 2/3: >= 97% pass rate
+  - Tier 0/Tier 1: >= 99% pass rate
+  - Tier 2/3: >= 97% pass rate
 - Navigation continuity: no dead-end or self-loop without explicit intent.
 
 ### Accessibility Metrics
@@ -110,8 +134,8 @@ All metrics are release gates unless marked advisory.
 ### Performance Metrics
 
 - LCP budget:
-	- Public Tier 0/Tier 1: <= 2.5s (P75)
-	- Authenticated Tier 0/Tier 1: <= 3.0s (P75)
+  - Public Tier 0/Tier 1: <= 2.5s (P75)
+  - Authenticated Tier 0/Tier 1: <= 3.0s (P75)
 - CLS budget: <= 0.10 (P75)
 - INP budget: <= 200ms (P75)
 - JS error budget: no sustained regression week over week.
@@ -184,14 +208,14 @@ If any required gate fails, release is blocked.
 
 - Full strict audits run twice daily.
 - Tier 0 and Tier 1 failures trigger immediate Slack alert with:
-	- failing route list
-	- failed checks
-	- run URL and artifact links
-	- owner and expected resolution time
+  - failing route list
+  - failed checks
+  - run URL and artifact links
+  - owner and expected resolution time
 - Resolution SLA:
-	- Tier 0: same business day
-	- Tier 1: within 24 hours
-	- Tier 2/3: within 3 business days
+  - Tier 0: same business day
+  - Tier 1: within 24 hours
+  - Tier 2/3: within 3 business days
 
 ## Definition of Done for Page Changes
 

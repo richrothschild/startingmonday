@@ -132,17 +132,25 @@ async function noopAction(_formData: FormData) {
 
 export default function ExecutiveDashboardDemoPage() {
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="bg-slate-950">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between gap-4">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
+
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:gap-6 sm:px-6">
           <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-200 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
-          <span className="text-[11px] text-slate-200">Executive dashboard preview</span>
+          <span className="text-[11px] text-slate-300">Executive dashboard preview</span>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
+        <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+          <p className="text-[14px] font-semibold tracking-[0.08em] text-orange-200">Prefilled operating dashboard demo</p>
+          <h1 className="mt-2 font-serif text-[28px] leading-tight text-white sm:text-[34px]">Executive decision dashboard</h1>
+          <p className="mt-2 text-[15px] leading-relaxed text-slate-200">Roles forming, sponsor movement, and next-step clarity in one dense executive view.</p>
+        </div>
+
         <h1 className="sr-only">Starting Monday</h1>
         <DashboardTopShellSection
           firstName="Richard"
@@ -206,9 +214,9 @@ export default function ExecutiveDashboardDemoPage() {
           prospectContactCount={2}
           companiesWithoutBrief={[{ name: 'HashiCorp' }]}
           opportunityRadar={
-            <section className="mb-8 rounded border border-slate-200 bg-white p-5">
-              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-200 mb-2">Opportunity radar</h2>
-              <p className="text-[13px] text-slate-600 leading-relaxed">
+            <section className="mb-8 rounded border border-white/10 bg-white/[0.04] p-5">
+              <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-orange-200 mb-2">Opportunity radar</h2>
+              <p className="text-[13px] text-slate-200 leading-relaxed">
                 Infrastructure cost pressure and board visibility remain the strongest market angles for this search. Keep the target list tight and sponsor-led.
               </p>
             </section>
@@ -311,7 +319,8 @@ export default function ExecutiveDashboardDemoPage() {
           activationResumeDone={true}
           showWrapUpLink={true}
         />
-      
+
+
         <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
       </main>
     </div>

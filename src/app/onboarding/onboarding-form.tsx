@@ -3,7 +3,14 @@ import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
-import { type SearchPersona, seededCompaniesFor, suggestionsForPersona } from './onboarding-helpers'
+import {
+  type SearchPersona,
+  seededCompaniesFor,
+  suggestedCompaniesForProfile,
+  suggestedDecisionMakersForCompany,
+  firstNoteDraftForCompany,
+  followUpSequenceForWeekOne,
+} from './onboarding-helpers'
 import {
   type OnboardingChannel,
   computeElapsedSeconds,
@@ -522,6 +529,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           {step === 6 && (
             <StepDone
               firstName={firstName}
+                currentTitle={currentTitle}
+                currentCompany={currentCompany}
+                targetTitles={targetTitles}
               companies={companyNames.filter(n => n.trim())}
               briefingTime={briefingTime}
               isPassive={isPassive}
@@ -684,7 +694,7 @@ function StepCompanies({
   isPassive?: boolean
   onTitle?: (v: string) => void
 }) {
-  const suggestions = suggestionsForPersona(persona)
+  const suggestions = suggestedCompaniesForProfile(persona, currentTitle)
   const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
   const filled = names.filter(n => n.trim()).length
 
@@ -784,22 +794,24 @@ function StepCompanies({
 
       {suggestions.length > 0 && !discovered && (
         <div>
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Quick add</p>
-          <div className="flex flex-wrap gap-2">
-            {suggestions.map(s => {
-              const added = names.some(n => n.trim().toLowerCase() === s.toLowerCase())
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Great choices for you</p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {suggestions.map((s) => {
+              const added = names.some(n => n.trim().toLowerCase() === s.name.toLowerCase())
               return (
                 <button
-                  key={s}
+                  key={s.name}
                   type="button"
-                  onClick={() => added ? removeName(s) : addName(s)}
-                  className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
+                  onClick={() => added ? removeName(s.name) : addName(s.name)}
+                  className={`text-left rounded border p-3 transition-colors cursor-pointer ${
                     added
                       ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-700 hover:border-slate-700'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
-                  {added ? 'âœ“ ' : '+ '}{s}
+                  <p className="text-[14px] font-semibold">{added ? '✓ ' : '+ '}{s.name}</p>
+                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-300' : 'text-slate-500'].join(' ')}>{s.roleHint}</p>
+                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-300' : 'text-slate-500'].join(' ')}>{s.why}</p>
                 </button>
               )
             })}
@@ -928,6 +940,9 @@ function StepBriefingTime({
 
 function StepDone({
   firstName,
+  currentTitle,
+  currentCompany,
+  targetTitles,
   companies,
   briefingTime,
   isPassive,
@@ -935,6 +950,9 @@ function StepDone({
   intelLoading,
 }: {
   firstName: string
+  currentTitle: string
+  currentCompany: string
+  targetTitles: string
   companies: string[]
   briefingTime: string
   isPassive: boolean
@@ -949,6 +967,9 @@ function StepDone({
   }
 
   const firstCompany = companies[0] ?? ''
+  const decisionMakers = suggestedDecisionMakersForCompany(firstCompany, 'csuite', currentTitle)
+  const firstNoteDraft = firstCompany ? firstNoteDraftForCompany(firstCompany, currentTitle) : ''
+  const followUps = firstCompany ? followUpSequenceForWeekOne(firstCompany) : []
 
   return (
     <div className="flex flex-col gap-6">
@@ -960,6 +981,16 @@ function StepDone({
           {isPassive
             ? 'We will watch your companies and send a digest every Sunday. You can take action when a role starts taking shape.'
             : 'You now have an early view of where to focus. Here is what happens next.'}
+        </p>
+      </div>
+
+      <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we understood about you</p>
+        <p className="text-[15px] font-semibold text-slate-900">{currentTitle || 'Your role lane is set'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
+        <p className="text-[12px] text-slate-400 mt-1.5">
+          {targetTitles
+            ? `We will bias briefs and role hypotheses toward: ${targetTitles}`
+            : 'Your profile and target companies now shape the first brief and shortlist.'}
         </p>
       </div>
 
@@ -981,6 +1012,40 @@ function StepDone({
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First relationship action this week</p>
             <p className="text-[15px] font-semibold text-slate-900">Identify one decision-path contact and start outreach timing.</p>
             <p className="text-[12px] text-slate-400 mt-1.5">Open contacts from the dashboard and begin with your highest-leverage target.</p>
+          </div>
+        )}
+
+        {!isPassive && firstCompany && decisionMakers.length > 0 && (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">People to meet first at {firstCompany}</p>
+            <div className="space-y-2">
+              {decisionMakers.map((person) => (
+                <div key={`${person.name}-${person.title}`} className="rounded border border-slate-200 bg-white px-3 py-2">
+                  <p className="text-[13px] font-semibold text-slate-900">{person.name} - {person.title}</p>
+                  <p className="text-[12px] text-slate-500 mt-0.5">{person.why}</p>
+                  <p className="text-[11px] text-slate-400 mt-1">Source: {person.source === 'apollo' ? 'Apollo enrichment' : 'Signal scanner'}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!isPassive && firstCompany && firstNoteDraft && (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First note draft</p>
+            <p className="text-[12px] text-slate-500 leading-relaxed">{firstNoteDraft}</p>
+            <p className="text-[11px] text-slate-400 mt-2">You can edit this draft from your contacts outreach workspace.</p>
+          </div>
+        )}
+
+        {!isPassive && firstCompany && followUps.length > 0 && (
+          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Week-one follow-up sequence</p>
+            <ul className="mt-1 space-y-1.5">
+              {followUps.map((item) => (
+                <li key={item} className="text-[12px] text-slate-500 leading-relaxed">- {item}</li>
+              ))}
+            </ul>
           </div>
         )}
 
@@ -1327,6 +1392,13 @@ function StepImport({
             <path d="M6 10l3 3 5-5" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span className="text-[14px] text-green-700 font-medium">LinkedIn data extracted successfully</span>
+        </div>
+        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we learned</p>
+          <p className="text-[15px] font-semibold text-slate-900">{currentTitle || 'Your current title'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
+          <p className="text-[12px] text-slate-400 mt-1.5">
+            We will use this to tune your shortlist, role hypotheses, and first brief.
+          </p>
         </div>
       </div>
     )

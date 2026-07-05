@@ -3,6 +3,11 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { getManagerToolsBridge, getRecruiterToolkit, getRoleLaneTutorials } from '@/lib/role-lane-learning'
+import {
+  suggestedDecisionMakersForCompany,
+  firstNoteDraftForCompany,
+  followUpSequenceForWeekOne,
+} from '@/app/onboarding/onboarding-helpers'
 
 export const metadata = {
   title: 'Get Started - Starting Monday',
@@ -15,7 +20,7 @@ export default async function StartPage() {
 
   const { data: profile, error: profileError } = await supabase
     .from('user_profiles')
-    .select('full_name, resume_text, positioning_summary, briefing_time, briefing_timezone, onboarding_completed_at, role_family, role_title')
+    .select('full_name, current_title, resume_text, positioning_summary, briefing_time, briefing_timezone, onboarding_completed_at, role_family, role_title')
     .eq('user_id', user.id)
     .single()
 
@@ -30,6 +35,8 @@ export default async function StartPage() {
     { count: contactCount },
     { count: prepBriefCount },
     { count: followUpCount },
+    { data: latestPrepBrief },
+    { data: firstCompany },
   ] = await Promise.all([
     supabase
       .from('companies')
@@ -49,6 +56,22 @@ export default async function StartPage() {
       .from('follow_ups')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', user.id),
+    supabase
+      .from('briefs')
+      .select('id, output_text, company_id, created_at')
+      .eq('user_id', user.id)
+      .eq('type', 'prep')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from('companies')
+      .select('id, name')
+      .eq('user_id', user.id)
+      .is('archived_at', null)
+      .order('created_at', { ascending: true })
+      .limit(1)
+      .maybeSingle(),
   ])
 
   const hasResume    = (profile?.resume_text?.length ?? 0) >= 200 || (profile?.positioning_summary?.length ?? 0) >= 100
@@ -117,7 +140,21 @@ export default async function StartPage() {
 
   const doneCount = tasks.filter(t => t.done).length
   const allDone = doneCount === tasks.length
+  const nextTask = tasks.find((task) => !task.done) ?? null
+  const isFirstRunArrival = doneCount <= 2
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
+  const earnedBriefText = latestPrepBrief?.output_text?.trim() ?? ''
+  const earnedBriefPreview = earnedBriefText
+    ? `${earnedBriefText.slice(0, 220)}${earnedBriefText.length > 220 ? '...' : ''}`
+    : null
+  const firstCompanyName = firstCompany?.name ?? null
+  const weekOnePeople = firstCompanyName
+    ? suggestedDecisionMakersForCompany(firstCompanyName, 'csuite', profile?.current_title ?? '')
+    : []
+  const weekOneDraft = firstCompanyName
+    ? firstNoteDraftForCompany(firstCompanyName, profile?.current_title ?? '')
+    : ''
+  const weekOneFollowUps = firstCompanyName ? followUpSequenceForWeekOne(firstCompanyName) : []
 
   function formatBriefingTime(t: string | null | undefined) {
     if (!t) return null
@@ -221,6 +258,58 @@ export default async function StartPage() {
           )}
         </div>
 
+        {isFirstRunArrival && nextTask && (
+          <section className="mb-8 rounded border border-slate-200 bg-white p-5">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Your first-run itinerary</p>
+            <h2 className="text-[20px] font-bold text-slate-900 leading-tight">Today&rsquo;s one action: {nextTask.title}</h2>
+            <p className="text-[13px] text-slate-500 mt-2 leading-relaxed">{nextTask.body}</p>
+            <Link
+              href={nextTask.href}
+              className="inline-block mt-4 bg-slate-900 text-white text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-700 transition-colors"
+            >
+              {nextTask.cta} &rarr;
+            </Link>
+          </section>
+        )}
+
+        {(earnedBriefPreview || firstCompanyName) && (
+          <section className="mb-8 rounded border border-slate-200 bg-white p-5">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Value already earned</p>
+            {earnedBriefPreview ? (
+              <>
+                <p className="text-[14px] font-semibold text-slate-900">Your latest prep brief is ready.</p>
+                <p className="text-[13px] text-slate-600 mt-2 leading-relaxed">{earnedBriefPreview}</p>
+              </>
+            ) : (
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Your onboarding profile is complete. The next step unlocks your first full prep brief.
+              </p>
+            )}
+          </section>
+        )}
+
+        {isFirstRunArrival && firstCompanyName && (
+          <section className="mb-8 rounded border border-slate-200 bg-white p-5">
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Week-one relationship bridge</p>
+            <p className="text-[13px] text-slate-500 mb-3">Suggested decision-makers at {firstCompanyName}</p>
+            <div className="space-y-2 mb-4">
+              {weekOnePeople.map((person) => (
+                <div key={`${person.name}-${person.title}`} className="rounded border border-slate-200 px-3 py-2">
+                  <p className="text-[13px] font-semibold text-slate-900">{person.name} - {person.title}</p>
+                  <p className="text-[12px] text-slate-500 mt-0.5">{person.why}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[12px] font-semibold text-slate-700 mb-1">First-note draft</p>
+            <p className="text-[12px] text-slate-600 leading-relaxed mb-3">{weekOneDraft}</p>
+            <ul className="space-y-1.5">
+              {weekOneFollowUps.map((item) => (
+                <li key={item} className="text-[12px] text-slate-500">• {item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {/* Next scheduled events */}
         {(briefingDisplay || (companyCount ?? 0) > 0) && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -273,7 +362,7 @@ export default async function StartPage() {
                       ? 'bg-emerald-500 text-white'
                       : 'bg-slate-100 text-slate-400'
                   }`}>
-                    {task.done ? '?' : task.num}
+                    {task.done ? '✓' : task.num}
                   </div>
 
                   <div className="flex-1 min-w-0">

@@ -1,0 +1,99 @@
+Starting Monday Development Plan (Jul-Dec 2026)
+Goal: Enable repeatable acquisition and conversion operations to reach 200 paying customers by 2026-12-31.
+
+Principles
+1. Build only conversion-critical features.
+2. Instrument before scaling traffic.
+3. Ship in weekly increments with hard gates.
+4. Freeze non-GTM feature work unless it directly improves trial-to-paid conversion.
+
+North Star Targets
+- Paying customers: 25 by 2026-08-31, 100 by 2026-10-31, 200 by 2026-12-31.
+- MRR target at 200: 34000+.
+- Trial->Paid conversion: >= 20%.
+- Week-2 activation: >= 60%.
+
+Phase 1: Prove (Jul-Aug)
+Outcome: Reliable early funnel + first 25 paying customers.
+
+Sprint 1 (Jul 8-Jul 14)
+- Stripe founding-offer product/coupon live.
+- PostHog provider mounted on public pages.
+- Core event taxonomy implemented.
+- HubSpot pipeline stages finalized with consultant.
+- Sales call booking link placed in all owned surfaces.
+
+Sprint 2 (Jul 15-Jul 21)
+- Exit-intent lead capture + nurture sequence live.
+- Proof block shipped on homepage and pricing.
+- Demo->signup CTA optimization shipped.
+- In-app review request trigger after 3rd brief shipped.
+
+Sprint 3 (Jul 22-Jul 28)
+- Funnel dashboards validated (traffic, signup, activation, paid).
+- Founding-offer sales scripts and call workflow stabilized.
+- QA and event-data integrity pass.
+
+Sprint 4 (Jul 29-Aug 4)
+- Activation nudges for day-2/day-5/day-9 live.
+- Trial expiry conversion workflow (day-25 save) live.
+- KPI review and decision checkpoint.
+
+Sprint 5 (Aug 5-Aug 18)
+- Coach seat onboarding polish and co-branded reporting QA.
+- CRM automations for follow-ups and lifecycle tasks.
+- Improve objection handling assets from call transcripts.
+
+Sprint 6 (Aug 19-Aug 31)
+- Stabilization and bug burn-down.
+- PMF mini-survey at customer #25.
+- Gate review: if <10 payers after 100 sales calls, pause scale and rework offer/activation.
+
+Phase 2: Systematize (Sep-Oct)
+Outcome: Repeatable acquisition and conversion operations; reach 100 paying.
+
+Sprint 7 (Sep 1-Sep 14)
+- Data report landing page and distribution kit live.
+- Campaign source UTM enforcement in all channels.
+- Cold outreach tracking integrated into HubSpot.
+
+Sprint 8 (Sep 15-Sep 30)
+- Alumni downgrade flow live.
+- Referral gift-link flow live.
+- First partner performance review.
+
+Sprint 9 (Oct 1-Oct 14)
+- Content production pipeline fully delegated to VA + templates.
+- Dashboard reliability and metric SLA checks.
+- Conversion experiment batch 2 (hero, proof, offer framing).
+
+Sprint 10 (Oct 15-Oct 31)
+- Harden best-performing funnels; remove underperforming paths.
+- Gate review for 100-customer milestone.
+
+Phase 3: Compound (Nov-Dec)
+Outcome: Maximize close rate and retention to finish at 200 paying.
+
+Sprint 11 (Nov 1-Nov 15)
+- Jan-wave urgency campaign assets shipped.
+- Annual plan conversion workflow tuned.
+- Sales capacity support assets refreshed from latest objections.
+
+Sprint 12 (Nov 16-Nov 30)
+- Retention + churn-save workflows tuned.
+- Partner referrals and internal introductions push.
+
+Sprint 13 (Dec 1-Dec 15)
+- Conversion war room cadence: daily checkpoint on trial and close rates.
+- Fast patch releases for funnel blockers.
+
+Sprint 14 (Dec 16-Dec 31)
+- Year-end close sequence.
+- 2027 plan drafting based on actual funnel economics.
+- Final performance review and postmortem.
+
+Definition of Done per Sprint
+- All planned tickets shipped to production.
+- KPI dashboard updated and reviewed.
+- No critical analytics data gaps.
+- Sales enablement assets refreshed from real calls.

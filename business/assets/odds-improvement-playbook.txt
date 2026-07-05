@@ -1,0 +1,45 @@
+How To Improve Odds of Success (Practical Levers)
+
+1) Enforce kill criteria every Friday
+- If DM->call < 5% for 2 weeks, rewrite positioning + list quality before increasing volume.
+- If trial->paid < 15% for 2 weeks, pause acquisition spend and focus activation + sales process.
+- If week-2 activation < 50%, treat onboarding as the product bottleneck and reprioritize roadmap.
+
+2) Protect founder sales time as a non-negotiable
+- Minimum 10 hours/week of direct sales calls and follow-ups.
+- Delegate everything else that does not directly improve conversion.
+
+3) Narrow ICP aggressively
+- Focus on one wedge at a time (example: VP Product in transition in B2B SaaS).
+- Run 2-week messaging sprint per wedge; keep only messages with strong reply rates.
+
+4) Build trust velocity
+- Ask for review/testimonial after third successful brief.
+- Convert each win into one micro-case snippet (problem, action, result).
+- Use snippets across landing pages, outreach, and call decks.
+
+5) Introduce offer urgency without discount addiction
+- Keep founding offer capacity-limited and time-boxed.
+- Shift urgency messaging from price to outcomes and timing windows.
+
+6) Tighten data discipline
+- No campaign runs without UTM tags.
+- No experiment considered valid without event integrity checks.
+- Single dashboard reviewed weekly with hard decisions.
+
+7) Increase close probability through process
+- Every call ends with one explicit next step and date.
+- Send recap with payment link same day when there is buying intent.
+- Add 7-day check-in meeting at trial start to reduce drift.
+
+8) Build channel optionality early
+- Keep direct founder-led sales primary through customer #100.
+- Develop coach partner channel in parallel as secondary compounding source.
+
+9) Add a simple board of advisors rhythm
+- Monthly 45-minute review with 2-3 trusted operators.
+- Bring scorecard, bottlenecks, and one hard decision to force clarity.
+
+10) Pre-commit to downside protection
+- Define max monthly spend cap and runway guardrails.
+- Trigger immediate cost reductions if two key funnel metrics miss for 4 weeks.

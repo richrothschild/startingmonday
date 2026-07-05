@@ -1,0 +1,44 @@
+Stripe Setup Checklist (Execution Plan)
+
+Goal
+Ensure pricing, offer mechanics, and conversion links are production-safe and aligned with code.
+
+1) Verify live products/prices match code
+- Monitor: monthly 49, quarterly 132, annual 470
+- Active: monthly 199, quarterly 469, annual 2030
+- Executive: monthly 499, quarterly 1200, annual 4790
+- Concierge: monthly 499, annual 4990
+
+2) Verify environment mappings
+- STRIPE_PRICE_PASSIVE
+- STRIPE_PRICE_PASSIVE_QUARTERLY
+- STRIPE_PRICE_PASSIVE_ANNUAL
+- STRIPE_PRICE_ACTIVE
+- STRIPE_PRICE_ACTIVE_QUARTERLY
+- STRIPE_PRICE_ACTIVE_ANNUAL
+- STRIPE_PRICE_EXECUTIVE
+- STRIPE_PRICE_EXECUTIVE_QUARTERLY
+- STRIPE_PRICE_EXECUTIVE_ANNUAL
+- STRIPE_PRICE_CONCIERGE
+- STRIPE_PRICE_CONCIERGE_ANNUAL
+
+3) Founding offer setup
+- Create founding coupon or dedicated founding prices
+- Set max redemptions: 50
+- Set expiration: 2026-12-31
+- Generate payment links for monthly and annual founding options
+
+4) Alumni downgrade setup
+- Create alumni monitor product/price (target 19/mo)
+- Verify checkout flow and webhook handling
+
+5) Webhook verification
+- checkout.session.completed triggers trial_converted event
+- subscription.updated handled
+- subscription.deleted handled
+- No failing webhook deliveries in Stripe dashboard
+
+6) QA
+- Test card flow in test mode for each plan
+- Confirm trial start + convert event appears in PostHog
+- Confirm HubSpot record update after conversion

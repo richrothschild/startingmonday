@@ -1,0 +1,58 @@
+{
+  "pipelines": [
+    {
+      "name": "B2C Direct",
+      "stages": [
+        "Lead",
+        "DM Sent",
+        "Replied",
+        "Call Booked",
+        "Call Held",
+        "Trial Started",
+        "Activated Week 2",
+        "Payment Link Sent",
+        "Paid",
+        "Alumni",
+        "Churned"
+      ],
+      "requiredProperties": [
+        "persona",
+        "source_channel",
+        "utm_source",
+        "utm_campaign",
+        "signal_trigger",
+        "trial_start_date",
+        "activation_week2",
+        "payment_link_type",
+        "plan_type"
+      ]
+    },
+    {
+      "name": "Coach Partners",
+      "stages": [
+        "Prospect",
+        "Intro Sent",
+        "Meeting Booked",
+        "Meeting Held",
+        "Partner Terms Sent",
+        "Signed",
+        "First Seat Activated",
+        "3+ Seats Active",
+        "Expansion",
+        "Inactive"
+      ],
+      "requiredProperties": [
+        "partner_type",
+        "seat_price",
+        "rev_share",
+        "active_seats",
+        "monthly_partner_revenue"
+      ]
+    }
+  ],
+  "taskAutomation": {
+    "afterCall": "Create follow-up task due in 24 hours",
+    "afterTrialStart": "Create activation check task due in 48 hours",
+    "day25Trial": "Create save-call task"
+  }
+}

@@ -81,6 +81,8 @@
         "growth:council:strict": "node scripts/growth-synthetic-council-audit.mjs --strict",
         "growth:metrics:export": "node scripts/export-growth-weekly-metrics.mjs",
         "growth:metrics:export:strict": "node scripts/export-growth-weekly-metrics.mjs --strict",
+        "growth:agent-dashboard:snapshot": "node scripts/export-weekly-agent-dashboard-snapshot.mjs",
+        "growth:agent-dashboard:snapshot:strict": "node scripts/export-weekly-agent-dashboard-snapshot.mjs --strict",
         "growth:metrics:gate": "node scripts/check-growth-metrics-gate.mjs",
         "growth:metrics:strict": "node scripts/check-growth-metrics-gate.mjs --strict",
         "growth:weekly-outputs:check": "node scripts/check-growth-weekly-outputs.mjs",

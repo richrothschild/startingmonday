@@ -1,0 +1,33 @@
+{
+  "events": [
+    { "name": "marketing_page_viewed", "owner": "Growth", "properties": ["path", "utm_source", "utm_campaign"] },
+    { "name": "demo_brief_generated", "owner": "Growth", "properties": ["role", "company", "source"] },
+    { "name": "demo_cta_clicked", "owner": "Growth", "properties": ["cta_name", "path"] },
+    { "name": "optimize_review_completed", "owner": "Growth", "properties": ["score_band", "source"] },
+    { "name": "signup_started", "owner": "Growth", "properties": ["entry_source", "persona"] },
+    { "name": "signup_completed", "owner": "Growth", "properties": ["method", "entry_source"] },
+    { "name": "trial_started", "owner": "Product", "properties": ["plan", "billing_period"] },
+    { "name": "activation_target_list_built", "owner": "Product", "properties": ["company_count"] },
+    { "name": "activation_first_brief", "owner": "Product", "properties": ["role"] },
+    { "name": "week2_activated", "owner": "Product", "properties": ["within_days"] },
+    { "name": "payment_link_sent", "owner": "Sales", "properties": ["link_type", "plan"] },
+    { "name": "trial_converted", "owner": "Sales", "properties": ["plan", "billing_period"] },
+    { "name": "subscription_cancelled", "owner": "CS", "properties": ["reason"] },
+    { "name": "alumni_downgrade", "owner": "CS", "properties": ["from_plan"] },
+    { "name": "referral_link_sent", "owner": "Growth", "properties": ["referral_type"] }
+  ],
+  "funnels": [
+    {
+      "name": "Traffic to Trial",
+      "steps": ["marketing_page_viewed", "demo_brief_generated", "signup_completed", "trial_started"]
+    },
+    {
+      "name": "Trial to Paid",
+      "steps": ["trial_started", "week2_activated", "payment_link_sent", "trial_converted"]
+    },
+    {
+      "name": "Retention and Referral",
+      "steps": ["trial_converted", "alumni_downgrade", "referral_link_sent"]
+    }
+  ]
+}
