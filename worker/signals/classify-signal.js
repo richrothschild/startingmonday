@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { HAIKU } from '../lib/models.js'
 import { logger } from '../lib/logger.js'
 import { writeIngestDlq } from '../lib/ingest-dlq.js'
+import { recordSourceMetric } from '../lib/source-metrics.js'
 import {
   CLASSIFY_MAX_TOKENS,
   buildClassifyPrompt,
@@ -46,6 +47,7 @@ export async function classifySignal(companyName, article, roleType = null, opti
   )
 
   let lastError = null
+  recordSourceMetric(options.sourceKey ?? 'classify', 'classify_calls')
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
       const message = await getClient().messages.create({
@@ -69,6 +71,7 @@ export async function classifySignal(companyName, article, roleType = null, opti
     company: companyName,
     error: lastError?.message,
   })
+  recordSourceMetric(options.sourceKey ?? 'classify', 'classify_failures')
 
   if (options.supabase) {
     await writeIngestDlq(options.supabase, {

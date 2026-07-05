@@ -30,6 +30,8 @@ import {
 import { getJobCheckpoint, saveJobCheckpoint, clearJobCheckpoint } from '../lib/job-checkpoint.js'
 import { enqueueHeavyJob, processHeavyJobs } from '../lib/heavy-job-queue.js'
 import { startSecIngestionRun, finishSecIngestionRun } from '../lib/sec-ingestion-tracker.js'
+import { startRunMetrics, finishRunMetrics } from '../lib/source-metrics.js'
+import { clearCanonicalCache } from '../lib/canonical-company.js'
 
 const CONFIDENCE_THRESHOLD = 60
 const DELAY_MS = 600 // between companies to avoid hammering Google News
@@ -196,6 +198,9 @@ export async function runSignalJob() {
     logger.warn('signal-job: another instance running — skipping')
     return
   }
+
+  startRunMetrics(CHECKPOINT_JOB_NAME)
+  clearCanonicalCache()
 
   try {
     const cycleKey = new Date().toISOString().slice(0, 10)
@@ -906,6 +911,7 @@ export async function runSignalJob() {
 
     logger.info('signal-job: complete', { companiesScanned, signalsFound, usersProcessed, pagesProcessed })
   } finally {
+    await finishRunMetrics(supabase)
     await supabase.rpc('advisory_unlock', { p_key: SIGNAL_LOCK_KEY })
   }
 }

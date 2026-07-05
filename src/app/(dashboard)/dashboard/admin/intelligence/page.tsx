@@ -169,6 +169,72 @@ export default async function AdminIntelligencePage() {
   const conversionScore = Math.max(0, Math.min(100, activeCampaigns * 2))
   const adminCampaignHealthScore = Math.round((cadenceScore * 0.4) + (followThroughScore * 0.35) + (conversionScore * 0.25))
 
+  // Signal pipeline health (canonical event layer, last 30 days).
+  type SourceMetricRow = {
+    source_key: string
+    classify_calls: number
+    classify_failures: number
+    signals_written: number
+    signals_skipped: number
+    events_created: number
+    events_merged: number
+  }
+  const [sourceMetricsRes, eventsCreatedRes, eventsCorroboratedRes, dlqDepthRes] = await Promise.all([
+    (admin as any)
+      .from('source_run_metrics')
+      .select('source_key, classify_calls, classify_failures, signals_written, signals_skipped, events_created, events_merged')
+      .gte('run_started_at', thirtyDaysAgo)
+      .limit(2000),
+    (admin as any)
+      .from('company_events')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', thirtyDaysAgo),
+    (admin as any)
+      .from('company_events')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', thirtyDaysAgo)
+      .gt('corroboration_count', 1),
+    (admin as any)
+      .from('ingest_dlq')
+      .select('id', { count: 'exact', head: true })
+      .is('resolved_at', null),
+  ])
+
+  const sourceMetricRows: SourceMetricRow[] = (sourceMetricsRes?.data ?? []) as SourceMetricRow[]
+  const pipelineBySource = new Map<string, SourceMetricRow>()
+  for (const row of sourceMetricRows) {
+    const existing = pipelineBySource.get(row.source_key)
+    if (existing) {
+      existing.classify_calls += row.classify_calls ?? 0
+      existing.classify_failures += row.classify_failures ?? 0
+      existing.signals_written += row.signals_written ?? 0
+      existing.signals_skipped += row.signals_skipped ?? 0
+      existing.events_created += row.events_created ?? 0
+      existing.events_merged += row.events_merged ?? 0
+    } else {
+      pipelineBySource.set(row.source_key, { ...row })
+    }
+  }
+  const pipelineSources = [...pipelineBySource.values()].sort((a, b) => b.signals_written - a.signals_written)
+  const pipelineTotals = pipelineSources.reduce(
+    (acc, row) => ({
+      classifyCalls: acc.classifyCalls + row.classify_calls,
+      classifyFailures: acc.classifyFailures + row.classify_failures,
+      signalsWritten: acc.signalsWritten + row.signals_written,
+      signalsSkipped: acc.signalsSkipped + row.signals_skipped,
+      eventsCreated: acc.eventsCreated + row.events_created,
+      eventsMerged: acc.eventsMerged + row.events_merged,
+    }),
+    { classifyCalls: 0, classifyFailures: 0, signalsWritten: 0, signalsSkipped: 0, eventsCreated: 0, eventsMerged: 0 },
+  )
+  const eventVolume = pipelineTotals.eventsCreated + pipelineTotals.eventsMerged
+  const dedupMergeRate = eventVolume > 0 ? pipelineTotals.eventsMerged / eventVolume : 0
+  const classifyFailureRate = pipelineTotals.classifyCalls > 0 ? pipelineTotals.classifyFailures / pipelineTotals.classifyCalls : 0
+  const events30d = eventsCreatedRes?.count ?? 0
+  const corroborated30d = eventsCorroboratedRes?.count ?? 0
+  const corroborationRate = events30d > 0 ? corroborated30d / events30d : 0
+  const dlqDepth = dlqDepthRes?.count ?? 0
+
   // For each company, fetch signal count and recent tokens
   const companyData = await Promise.all(
     (companies ?? []).map(async co => {
@@ -292,6 +358,67 @@ export default async function AdminIntelligencePage() {
             Open-to-add conversion: {discoverSummary.openedEvents30d > 0 ? Math.round((discoverSummary.addedCompanies30d / discoverSummary.openedEvents30d) * 100) : 0}%
             {discoverSummary.watchlistLiftVsBaselinePct === null ? ' (set DISCOVER_ADD_TO_WATCHLIST_BASELINE_RATE to enable lift calculation)' : ''}
           </p>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 mt-5">
+          <h2 className="text-[15px] font-bold text-slate-900 mb-4">Signal pipeline health (last 30 days)</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Canonical Events</div>
+              <div className="text-[18px] font-bold text-slate-900">{events30d}</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Dedup Merge Rate</div>
+              <div className="text-[18px] font-bold text-slate-900">{Math.round(dedupMergeRate * 100)}%</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Corroborated Events</div>
+              <div className="text-[18px] font-bold text-slate-900">{Math.round(corroborationRate * 100)}%</div>
+            </div>
+            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Signals Written</div>
+              <div className="text-[18px] font-bold text-slate-900">{pipelineTotals.signalsWritten}</div>
+            </div>
+            <div className={`rounded-lg border px-3 py-2.5 ${classifyFailureRate <= 0.03 ? 'border-slate-200 bg-slate-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Classify Failure Rate</div>
+              <div className="text-[18px] font-bold text-slate-900">{(classifyFailureRate * 100).toFixed(1)}%</div>
+            </div>
+            <div className={`rounded-lg border px-3 py-2.5 ${dlqDepth <= 50 ? 'border-slate-200 bg-slate-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">DLQ Depth</div>
+              <div className="text-[18px] font-bold text-slate-900">{dlqDepth}</div>
+            </div>
+          </div>
+
+          {pipelineSources.length > 0 ? (
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Source</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Classified</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Written</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Skipped</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Events New</th>
+                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Events Merged</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pipelineSources.slice(0, 12).map(row => (
+                    <tr key={row.source_key} className="border-b border-slate-100">
+                      <td className="py-2 pr-4 text-[12px] font-semibold text-slate-900">{row.source_key}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.classify_calls}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.signals_written}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.signals_skipped}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.events_created}</td>
+                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.events_merged}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-[12px] text-slate-500 mt-3">No pipeline runs recorded yet. Metrics appear after the next signal-job run on the canonical event layer.</p>
+          )}
         </div>
       </section>
 

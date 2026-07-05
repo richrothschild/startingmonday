@@ -43,6 +43,7 @@ import { runEdgarWatchdogJob } from './jobs/edgar-watchdog-job.js'
 import { runApolloQualityAuditJob } from './jobs/apollo-quality-audit-job.js'
 import { runEnrichmentContactRetentionJob } from './jobs/enrichment-contact-retention-job.js'
 import { runDlqMonitorJob } from './jobs/dlq-monitor-job.js'
+import { runCanonicalBackfillJob } from './jobs/canonical-backfill-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -318,6 +319,9 @@ cron.schedule('10 * * * *', () => runJob('edgar-watchdog-job', runEdgarWatchdogJ
 
 // Ingest DLQ monitor: hourly - alerts when classification failures pile up or go stale.
 cron.schedule('25 * * * *', () => runJob('dlq-monitor-job', runDlqMonitorJob))
+
+// Canonical event backfill: daily at 02:40 - clusters historical signals into events until done.
+cron.schedule('40 2 * * *', () => runJob('canonical-backfill-job', runCanonicalBackfillJob))
 
 // Apollo recommendation quality audit: every 6 hours - validates error rate and enrichment quality signals.
 cron.schedule('20 */6 * * *', () => runJob('apollo-quality-audit-job', runApolloQualityAuditJob))
