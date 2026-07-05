@@ -3,6 +3,7 @@ import { getSupabase } from '../lib/supabase.js'
 import { sendSignalAlert } from '../lib/signal-alert.js'
 import { fetchCompanyNews } from '../signals/fetch-company-news.js'
 import { classifySignal } from '../signals/classify-signal.js'
+import { classifyCompanyContext } from '../signals/classify-signal-core.js'
 import { writeSignal } from '../signals/write-signal.js'
 import { fetchCrunchbaseFunding, formatFundingSignal } from '../signals/fetch-crunchbase-funding.js'
 import { findPressRoomArticles } from '../signals/fetch-press-room.js'
@@ -87,7 +88,7 @@ async function retrySignalCompanyById(supabase, payload) {
       .maybeSingle(),
     supabase
       .from('companies')
-      .select('id, name, user_id')
+      .select('id, name, user_id, sector, is_public_company')
       .eq('id', companyId)
       .eq('user_id', userId)
       .is('archived_at', null)
@@ -108,10 +109,11 @@ async function retrySignalCompanyById(supabase, payload) {
   }
 
   const roleType = profile?.role_type ?? null
+  const classifyOptions = { supabase, companyContext: classifyCompanyContext(company) }
   const articles = await fetchCompanyNews(company.name)
 
   for (const article of articles) {
-    const result = await classifySignal(company.name, article, roleType)
+    const result = await classifySignal(company.name, article, roleType, classifyOptions)
     const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
     const inferredPartnership = inferredPartners.length > 0
     const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -259,11 +261,12 @@ export async function runSignalJob() {
 
       for (const company of companies) {
         companiesScanned++
+        const classifyOptions = { supabase, companyContext: classifyCompanyContext(company) }
         try {
           // Google News — classify articles via Claude Haiku
           const articles = await fetchCompanyNews(company.name)
           for (const article of articles) {
-            const result = await classifySignal(company.name, article, roleType)
+            const result = await classifySignal(company.name, article, roleType, classifyOptions)
             const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
             const inferredPartnership = inferredPartners.length > 0
             const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -305,7 +308,7 @@ export async function runSignalJob() {
           if (company.company_url) {
             const pressArticles = await findPressRoomArticles(company.company_url)
             for (const article of pressArticles) {
-              const result = await classifySignal(company.name, article, roleType)
+              const result = await classifySignal(company.name, article, roleType, classifyOptions)
               const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
               const inferredPartnership = inferredPartners.length > 0
               const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -356,7 +359,7 @@ export async function runSignalJob() {
           let secSignalsEmitted = 0
 
           for (const article of secResult.articles) {
-            const result = await classifySignal(company.name, article, roleType)
+            const result = await classifySignal(company.name, article, roleType, classifyOptions)
             if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
             if (!result.signal_type || !result.signal_summary) continue
 
@@ -499,7 +502,7 @@ export async function runSignalJob() {
           // PR wire — prnewswire, businesswire, globenewswire via Google News RSS
           const prArticles = await fetchPrWire(company.name)
           for (const article of prArticles) {
-            const result = await classifySignal(company.name, article, roleType)
+            const result = await classifySignal(company.name, article, roleType, classifyOptions)
             const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
             const inferredPartnership = inferredPartners.length > 0
             const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -539,7 +542,7 @@ export async function runSignalJob() {
           // Business journals — Bizjournals.com network (private + mid-market coverage)
           const bizArticles = await fetchBizJournalMentions(company.name)
           for (const article of bizArticles) {
-            const result = await classifySignal(company.name, article, roleType)
+            const result = await classifySignal(company.name, article, roleType, classifyOptions)
             const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
             const inferredPartnership = inferredPartners.length > 0
             const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -579,7 +582,7 @@ export async function runSignalJob() {
           // Tech trade press — CIO/CTO/CISO-focused publications
           const tradeArticles = await fetchTradePressArticles(company.name)
           for (const article of tradeArticles) {
-            const result = await classifySignal(company.name, article, roleType)
+            const result = await classifySignal(company.name, article, roleType, classifyOptions)
             const inferredPartners = extractPartnershipEntities(article, result.partner_entities ?? [])
             const inferredPartnership = inferredPartners.length > 0
             const isStrongSignal = (result.is_signal && (result.confidence ?? 0) >= CONFIDENCE_THRESHOLD) || inferredPartnership
@@ -643,7 +646,7 @@ export async function runSignalJob() {
             for (const article of plArticles) {
               // PredictLeads signals are already typed — use the mapped type directly
               // and run classify only to generate the signal_summary and outreach_angle.
-              const result = await classifySignal(company.name, article, roleType)
+              const result = await classifySignal(company.name, article, roleType, classifyOptions)
               if (!result.is_signal || (result.confidence ?? 0) < CONFIDENCE_THRESHOLD) continue
               if (!result.signal_summary) continue
 

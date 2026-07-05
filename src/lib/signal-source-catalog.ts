@@ -1,6 +1,6 @@
 import signalSourceCatalog from '../../config/signal-source-catalog.json'
 
-export type SignalSourceStatus = 'active' | 'pilot' | 'deprecated'
+export type SignalSourceStatus = 'active' | 'pilot' | 'planned' | 'deprecated'
 export type SignalSourceRoleFamily = 'leadership' | 'technical_leadership' | 'delivery_leadership'
 
 export type SignalSource = {
@@ -10,6 +10,8 @@ export type SignalSource = {
   accessMethod: string
   rightsStatus: string
   status: SignalSourceStatus
+  implemented: boolean
+  freshnessSloHours: number
   lastReviewedAt: string
   roleFamilies: SignalSourceRoleFamily[]
 }
@@ -27,13 +29,19 @@ export function getSignalSourceCatalog(): SignalSourceCatalog {
 
 export function getActiveSourcesByRoleFamily(roleFamily: SignalSourceRoleFamily): SignalSource[] {
   const catalog = getSignalSourceCatalog()
-  return catalog.sources.filter((source) => source.status !== 'deprecated' && source.roleFamilies.includes(roleFamily))
+  return catalog.sources.filter(
+    (source) =>
+      source.status !== 'deprecated' &&
+      source.status !== 'planned' &&
+      source.roleFamilies.includes(roleFamily)
+  )
 }
 
 export function getCatalogGovernanceSummary(now = new Date()): {
   sourceCount: number
   activeCount: number
   pilotCount: number
+  plannedCount: number
   deprecatedCount: number
   dueForReview: SignalSource[]
 } {
@@ -51,6 +59,7 @@ export function getCatalogGovernanceSummary(now = new Date()): {
     sourceCount: catalog.sources.length,
     activeCount: catalog.sources.filter((source) => source.status === 'active').length,
     pilotCount: catalog.sources.filter((source) => source.status === 'pilot').length,
+    plannedCount: catalog.sources.filter((source) => source.status === 'planned').length,
     deprecatedCount: catalog.sources.filter((source) => source.status === 'deprecated').length,
     dueForReview,
   }
