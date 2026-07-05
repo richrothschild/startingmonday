@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
       current_question: firstQuestion,
       council_verdicts: defaultCouncilVerdicts(),
       ceo_summary: {
-        lastUpdated: 'â€”',
+        lastUpdated: '-',
         currentStance: 'WATCHING',
         confidencePct: 0,
         primaryThesis: 'Pending first founder answer.',

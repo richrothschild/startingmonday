@@ -119,7 +119,7 @@ export default async function AdminRevenuePage() {
         <div className={ADMIN_DARK_TABLE_PANEL}>
           <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
             <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Revenue alert panel</p>
-            <Link href="/guide" className="text-[13px] text-slate-300 hover:text-white">Runbook â†’</Link>
+            <Link href="/guide" className="text-[13px] text-slate-300 hover:text-white">Runbook {'->'}</Link>
           </div>
           {(recentAlerts ?? []).length === 0 ? (
             <p className="px-5 py-4 text-[13px] text-slate-300">No open revenue alerts.</p>
@@ -133,7 +133,7 @@ export default async function AdminRevenuePage() {
                       alert.severity === 'high' ? 'bg-red-500/15 text-red-100 border border-red-300/25' : alert.severity === 'medium' ? 'bg-amber-500/15 text-amber-100 border border-amber-300/25' : 'bg-white/10 text-slate-300 border border-white/10'
                     }`}>{alert.severity}</span>
                   </div>
-                  <p className="text-[13px] text-slate-400 mt-1 font-mono">{alert.source_table} â€¢ {new Date(alert.created_at).toLocaleString()}</p>
+                  <p className="text-[13px] text-slate-400 mt-1 font-mono">{alert.source_table} - {new Date(alert.created_at).toLocaleString()}</p>
                 </div>
               ))}
             </div>

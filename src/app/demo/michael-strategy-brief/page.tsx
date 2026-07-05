@@ -67,7 +67,7 @@ export default function MichaelStrategyBriefPage() {
             <ul className="space-y-2.5">
               {POSITIONING.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-orange-500 mt-0.5">â€¢</span>
+                  <span className="text-orange-500 mt-0.5">-</span>
                   <span>{item}</span>
                 </li>
               ))}

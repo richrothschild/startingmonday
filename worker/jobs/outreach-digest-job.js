@@ -23,7 +23,7 @@ function channelLabel(channel) {
     outplacement_firms: 'Outplacement',
     executives: 'Executives',
   }
-  return map[channel ?? ''] ?? channel ?? 'â€”'
+  return map[channel ?? ''] ?? channel ?? '-'
 }
 
 function buildHtml(sends24h, stuck, bounced, sinceLabel) {
@@ -37,10 +37,10 @@ function buildHtml(sends24h, stuck, bounced, sinceLabel) {
     }
     return items.map(r => `
       <tr style="border-bottom:1px solid #f1f5f9;">
-        <td style="padding:8px 12px;font-size:13px;color:#0f172a;">${r.recipient_name ?? 'â€”'}</td>
-        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.recipient_email ?? 'â€”'}</td>
+        <td style="padding:8px 12px;font-size:13px;color:#0f172a;">${r.recipient_name ?? '-'}</td>
+        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.recipient_email ?? '-'}</td>
         <td style="padding:8px 12px;font-size:12px;color:#475569;">${channelLabel(r.outreach_channel)}</td>
-        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.subject ?? 'â€”'}</td>
+        <td style="padding:8px 12px;font-size:12px;color:#475569;">${r.subject ?? '-'}</td>
         <td style="padding:8px 12px;">${statusBadge(r.delivery_status)}</td>
       </tr>`).join('')
   }
@@ -70,7 +70,7 @@ function buildHtml(sends24h, stuck, bounced, sinceLabel) {
     </table>` : ''
 
   const stuckSection = stuck.length > 0 ? `
-    <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:8px;">Unconfirmed after 24h (${stuck.length}) â€” verify in Resend dashboard</div>
+    <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:8px;">Unconfirmed after 24h (${stuck.length}) - verify in Resend dashboard</div>
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #fde68a;border-radius:4px;margin-bottom:24px;">
       <thead><tr style="background:#fffbeb;">
         <th style="padding:8px 12px;text-align:left;font-size:11px;color:#92400e;">NAME</th>
@@ -104,7 +104,7 @@ function buildHtml(sends24h, stuck, bounced, sinceLabel) {
     </table>
     ${bouncedSection}
     ${stuckSection}
-    <p style="font-size:11px;color:#94a3b8;margin-top:16px;">Outreach send digest Â· startingmonday.app Â· Since ${sinceLabel}</p>
+    <p style="font-size:11px;color:#94a3b8;margin-top:16px;">Outreach send digest  -  startingmonday.app  -  Since ${sinceLabel}</p>
   </td></tr>
 </table>
 </body></html>`
@@ -112,7 +112,7 @@ function buildHtml(sends24h, stuck, bounced, sinceLabel) {
 
 export async function runOutreachDigestJob() {
   if (!OWNER_EMAIL) {
-    logger.warn('outreach-digest-job: NOTIFY_EMAIL not set â€” skipping')
+    logger.warn('outreach-digest-job: NOTIFY_EMAIL not set - skipping')
     return
   }
 
@@ -157,13 +157,13 @@ export async function runOutreachDigestJob() {
   const stuck = stuckRows ?? []
 
   if (rows24h.length === 0 && stuck.length === 0) {
-    logger.info('outreach-digest-job: no outreach activity in last 24h â€” skipping digest')
+    logger.info('outreach-digest-job: no outreach activity in last 24h - skipping digest')
     return
   }
 
   const subject = bounced.length > 0 || stuck.length > 0
-    ? `âš  Outreach alert: ${bounced.length} bounce, ${stuck.length} unconfirmed â€” ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
-    : `Outreach digest: ${rows24h.length} send${rows24h.length !== 1 ? 's' : ''} â€” ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+    ? `ALERT Outreach alert: ${bounced.length} bounce, ${stuck.length} unconfirmed - ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+    : `Outreach digest: ${rows24h.length} send${rows24h.length !== 1 ? 's' : ''} - ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
 
   const html = buildHtml(rows24h, stuck, bounced, sinceLabel)
 

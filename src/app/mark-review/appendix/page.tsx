@@ -160,7 +160,7 @@ export default function MarkReviewAppendixPage() {
                   <div className="space-y-2.5">
                     {TRANSITION_JOURNEY_DETAIL.map((item) => (
                       <div key={item} className="text-[13px] text-slate-700 leading-relaxed flex items-start gap-2">
-                        <span className="text-orange-500 mt-0.5">â€¢</span>
+                        <span className="text-orange-500 mt-0.5">-</span>
                         <span>{item}</span>
                       </div>
                     ))}
@@ -210,7 +210,7 @@ export default function MarkReviewAppendixPage() {
                   <ul className="space-y-2">
                     {section.points.map((point) => (
                       <li key={point} className="text-[13px] text-slate-700 leading-relaxed flex items-start gap-2">
-                        <span className="text-orange-500 mt-0.5">â€¢</span>
+                        <span className="text-orange-500 mt-0.5">-</span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -295,7 +295,7 @@ export default function MarkReviewAppendixPage() {
             <ul className="space-y-2.5">
               {MARK_DILIGENCE_GAPS.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-blue-700 mt-0.5">â€¢</span>
+                  <span className="text-blue-700 mt-0.5">-</span>
                   <span>{item}</span>
                 </li>
               ))}

@@ -187,7 +187,7 @@ export default async function AdminOnboardingVideoRunsPage({ searchParams }: Run
                         <td className="px-4 py-2 text-slate-700">{flow}</td>
                         <td className="px-4 py-2 text-slate-600">{eventName}</td>
                         <td className="px-4 py-2 text-slate-700">{run.provider}</td>
-                        <td className="px-4 py-2 text-slate-500 font-mono">{run.user_id.slice(0, 8)}â€¦</td>
+                        <td className="px-4 py-2 text-slate-500 font-mono">{run.user_id.slice(0, 8)}...</td>
                         <td className="px-4 py-2 text-right text-slate-700">{run.retry_count}/{run.max_retries}</td>
                         <td className="px-4 py-2 text-slate-500">{new Date(run.created_at).toLocaleString()}</td>
                       </tr>

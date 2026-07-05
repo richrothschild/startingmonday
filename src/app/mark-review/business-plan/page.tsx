@@ -254,7 +254,7 @@ export default function MarkBusinessPlanPage() {
             <ul className="space-y-2.5">
               {MISSING_FOR_DECISION.map((item) => (
                 <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                  <span className="text-blue-700 mt-0.5">â€¢</span>
+                  <span className="text-blue-700 mt-0.5">-</span>
                   <span>{item}</span>
                 </li>
               ))}

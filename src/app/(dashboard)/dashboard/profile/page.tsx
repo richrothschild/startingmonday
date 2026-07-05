@@ -163,15 +163,15 @@ export default async function ProfilePage({
             <section id="section-targets">
               <h2 className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Targets</h2>
               <label htmlFor="target_titles" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target titles</label>
-              <TagInput id="target_titles" name="target_titles" defaultValue={targetTitles} placeholder="Type a title and press Enter - CIO, VP of Technologyâ€¦" />
+              <TagInput id="target_titles" name="target_titles" defaultValue={targetTitles} placeholder="Type a title and press Enter - CIO, VP of Technology..." />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
                   <label htmlFor="target_sectors" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target sectors</label>
-                  <TagInput id="target_sectors" name="target_sectors" defaultValue={targetSectors} placeholder="Healthcare, Fintech, SaaSâ€¦" />
+                  <TagInput id="target_sectors" name="target_sectors" defaultValue={targetSectors} placeholder="Healthcare, Fintech, SaaS..." />
                 </div>
                 <div>
                   <label htmlFor="target_locations" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">Target locations</label>
-                  <TagInput id="target_locations" name="target_locations" defaultValue={targetLocations} placeholder="New York, Remote, Dallasâ€¦" />
+                  <TagInput id="target_locations" name="target_locations" defaultValue={targetLocations} placeholder="New York, Remote, Dallas..." />
                 </div>
               </div>
             </section>

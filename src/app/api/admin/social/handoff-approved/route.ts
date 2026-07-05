@@ -45,7 +45,7 @@ function safeSummary(summary: string | undefined, fallback: string): string {
 
 function truncate(text: string, max = 900): string {
   if (text.length <= max) return text
-  return `${text.slice(0, max - 1).trimEnd()}â€¦`
+  return `${text.slice(0, max - 1).trimEnd()}...`
 }
 
 function buildVariants(body: ApprovedHandoffBody, count: number): string[] {

@@ -260,7 +260,7 @@ export default function StuartMeyerReviewPage() {
               <ul className="mt-3 space-y-2.5">
                 {EXEC_KEY_VALUES.map((item) => (
                   <li key={item} className="text-[14px] text-slate-800 leading-relaxed flex items-start gap-2.5">
-                    <span className="text-orange-500 mt-0.5">â€¢</span>
+                    <span className="text-orange-500 mt-0.5">-</span>
                     <span>{item}</span>
                   </li>
                 ))}
