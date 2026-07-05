@@ -29,6 +29,61 @@ function parseArgs(argv) {
   return args
 }
 
+function gitRefExists(ref) {
+  if (!ref) return false
+  try {
+    execSync(`git rev-parse --verify --quiet ${ref}`, {
+      stdio: ['ignore', 'ignore', 'ignore'],
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function isAncestor(baseRef, headRef) {
+  try {
+    execSync(`git merge-base --is-ancestor ${baseRef} ${headRef}`, {
+      stdio: ['ignore', 'ignore', 'ignore'],
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function resolveDiffScope(baseRef, headRef) {
+  if (!baseRef) {
+    return { effectiveBaseRef: '', skip: false }
+  }
+
+  if (!gitRefExists(headRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `head ref not found: ${headRef}`,
+    }
+  }
+
+  if (!gitRefExists(baseRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `base ref not found: ${baseRef}`,
+    }
+  }
+
+  if (!isAncestor(baseRef, headRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `base ref is not an ancestor of head (${baseRef} !< ${headRef})`,
+    }
+  }
+
+  return { effectiveBaseRef: baseRef, skip: false }
+}
+
 function normalizePath(input) {
   return input.replace(/\\/g, '/').replace(/^\.\//, '')
 }
@@ -137,12 +192,18 @@ function getDiff(baseRef, headRef) {
 
 function main() {
   const { baseRef, headRef, minCoverage, lcovPath, includePrefix } = parseArgs(process.argv)
+  const { effectiveBaseRef, skip, reason } = resolveDiffScope(baseRef, headRef)
+
+  if (skip) {
+    console.log(`diff-coverage: skipping gate for stale diff scope (${reason})`)
+    process.exit(0)
+  }
 
   if (!fs.existsSync(lcovPath)) {
     throw new Error(`Coverage file not found: ${lcovPath}. Run vitest with coverage before this check.`)
   }
 
-  const diffText = getDiff(baseRef, headRef)
+  const diffText = getDiff(effectiveBaseRef, headRef)
   const changed = parseUnifiedZeroDiff(diffText, includePrefix)
 
   if (changed.size === 0) {
@@ -189,7 +250,7 @@ function main() {
   const overallPct = totalLines === 0 ? 100 : (coveredLines / totalLines) * 100
 
   console.log('diff-coverage summary')
-  console.log(`- base: ${baseRef || '(working tree/head)'}`)
+  console.log(`- base: ${effectiveBaseRef || '(working tree/head)'}`)
   console.log(`- head: ${headRef}`)
   console.log(`- include prefix: ${includePrefix}`)
   console.log(`- covered lines: ${coveredLines}/${totalLines} (${overallPct.toFixed(2)}%)`)

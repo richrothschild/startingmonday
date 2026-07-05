@@ -28,6 +28,61 @@ function parseArgs(argv) {
   return args
 }
 
+function gitRefExists(ref) {
+  if (!ref) return false
+  try {
+    execSync(`git rev-parse --verify --quiet ${ref}`, {
+      stdio: ['ignore', 'ignore', 'ignore'],
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function isAncestor(baseRef, headRef) {
+  try {
+    execSync(`git merge-base --is-ancestor ${baseRef} ${headRef}`, {
+      stdio: ['ignore', 'ignore', 'ignore'],
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function resolveDiffScope(baseRef, headRef) {
+  if (!baseRef) {
+    return { effectiveBaseRef: '', skip: false }
+  }
+
+  if (!gitRefExists(headRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `head ref not found: ${headRef}`,
+    }
+  }
+
+  if (!gitRefExists(baseRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `base ref not found: ${baseRef}`,
+    }
+  }
+
+  if (!isAncestor(baseRef, headRef)) {
+    return {
+      effectiveBaseRef: '',
+      skip: true,
+      reason: `base ref is not an ancestor of head (${baseRef} !< ${headRef})`,
+    }
+  }
+
+  return { effectiveBaseRef: baseRef, skip: false }
+}
+
 function getChangedFiles(baseRef, headRef) {
   const range = baseRef ? `${baseRef}...${headRef}` : headRef
   const cmd = `git diff --name-only --no-color ${range} -- "src/**/*.ts" "src/**/*.tsx"`
@@ -165,6 +220,12 @@ function readConfig(configPath) {
 
 function main() {
   const { lcovPath, configPath, baseRef, headRef } = parseArgs(process.argv)
+  const { effectiveBaseRef, skip, reason } = resolveDiffScope(baseRef, headRef)
+
+  if (skip) {
+    console.log(`coverage-thresholds: skipping gate for stale diff scope (${reason})`)
+    process.exit(0)
+  }
 
   if (!fs.existsSync(lcovPath)) {
     throw new Error(`Coverage file not found: ${lcovPath}`)
@@ -177,7 +238,7 @@ function main() {
   const config = readConfig(configPath)
   const files = parseLcov(fs.readFileSync(lcovPath, 'utf8'))
 
-  const changedFiles = getChangedFiles(baseRef, headRef)
+  const changedFiles = getChangedFiles(effectiveBaseRef, headRef)
 
   if (files.length === 0) {
     throw new Error('No file coverage records found in lcov')
@@ -194,19 +255,19 @@ function main() {
   console.log(`- global statements: ${globalResult.metrics.statements}%`) 
   console.log(`- global branches: ${globalResult.metrics.branches}%`) 
 
-  if (baseRef) {
-    console.log(`- diff scope: ${baseRef}...${headRef}`)
+  if (effectiveBaseRef) {
+    console.log(`- diff scope: ${effectiveBaseRef}...${headRef}`)
     console.log(`- changed files in scope: ${changedFiles.length}`)
   }
 
-  if (baseRef) {
+  if (effectiveBaseRef) {
     console.log('- global threshold enforcement: skipped in diff-scoped mode')
   } else {
     failures.push(...globalResult.failures)
   }
 
   for (const folderRule of config.folders) {
-    if (baseRef) {
+    if (effectiveBaseRef) {
       const folderTouched = changedFiles.some((filePath) => filePath.startsWith(folderRule.prefix))
       if (!folderTouched) {
         console.log(`- ${folderRule.prefix} skipped (no changed files in diff scope)`)
