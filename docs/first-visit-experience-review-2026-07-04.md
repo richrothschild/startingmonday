@@ -1,6 +1,7 @@
 # First-Visit Experience Review: Visits 1-3
 
 Date: 2026-07-04
+Re-audited: 2026-07-04, revision 7, after first-mile Sprints 1-5 landed on staging (commits ffcc2893..cf1ca2d5).
 Scope: The pages a new user encounters on their first one to three visits to Starting Monday.
 Standard of record: docs/landing-page-standard.md (canonical, v1.0) plus the editorial standards in repo memory.
 Target sensibility: Ritz-Carlton and Four Seasons service posture. Gucci restraint. Vogue editorial structure.
@@ -14,21 +15,22 @@ Evidence labels used throughout, per the repo truthfulness contract:
 
 ## 1. Executive Summary
 
-The site already speaks in a confident, editorial register and holds a consistent dark luxury visual system across every public route. Verified (source). What it does not yet do is behave like a luxury service. A Four Seasons does not hand you a map of the property and wish you luck. It anticipates. The current experience is strongest at the top of the funnel (homepage narrative) and weakest exactly where a luxury brand would invest most: the arrival moment after signup, the first empty dashboard, and the second visit.
+The site already speaks in a confident, editorial register and holds a consistent dark luxury visual system across every public route. Verified (source). Since the original pass, the first-mile sprints have materially closed the arrival and measurement gaps: the funnel is instrumented end to end, onboarding now ends in payoffs rather than form submissions, and the first dashboard visit presents an itinerary with one action and already-earned value. Verified (source, re-audit).
 
-Three structural findings:
+Four structural findings as of revision 7:
 
 1. The first ten seconds are well served. The hero communicates the value proposition immediately, which research shows is the single highest-leverage moment of a page visit. Verified (source, research: Nielsen/NN/g).
-2. Choice load is un-luxury. Six persona cards on the homepage, nine situation options at signup, six FAQs. Luxury brands present few options with total confidence. The current experience presents many options and asks the guest to self-triage. Verified (source).
-3. The arrival experience breaks the spell. After a strong editorial funnel, the new user lands on an empty pipeline table with no concierge moment, no guided first action, and no analytics instrumentation to even know where they stall. Verified (source).
+2. Choice load remains un-luxury. Six persona cards on the homepage, nine situation options at signup, six FAQs. This is the largest surviving gap from the original review; the Choice Curation Contract now exists in the standard but has not yet been applied to these surfaces. Verified (source, re-audit).
+3. The arrival experience is substantially repaired. `/dashboard/start` now opens with a first-run itinerary (one suggested action), a "Value already earned" section surfacing the user's real latest prep brief, and a week-one relationship bridge. The dashboard fires `dashboard_first_run_viewed` and surfaces a "Roles forming now" callout. Verified (source, re-audit). Remaining: the main `/dashboard` route still shows empty charts on first run; the itinerary lives on `/start` only.
+4. NEW, claim-integrity flag: the onboarding "People to meet first" cards and the `/dashboard/start` week-one bridge render placeholder people (fixed names generated in `onboarding-helpers.ts`) labeled "Source: Apollo enrichment" and "Signal scanner." These are illustrative, not real enrichment output, which violates the standard's own Claim-Integrity Contract. They must be wired to the real Apollo enrichment path (which exists at `/api/prep/relationships/enrich`) or relabeled as illustrative before production exposure. Verified (source, re-audit).
 
 ---
 
 ## 2. Method
 
-- Full source audit of `/`, `/learn-more`, `/pricing`, `/signup`, `/login`, `/onboarding`, `/dashboard`, `/demo`, `/features`, `/search-firms`, including composed shell components, verbatim copy, section order, imagery, and PostHog instrumentation. Verified (source).
+- Full source audit of `/`, `/learn-more`, `/pricing`, `/signup`, `/login`, `/onboarding`, `/dashboard`, `/demo`, `/features`, `/search-firms`, including composed shell components, verbatim copy, section order, imagery, and PostHog instrumentation. Verified (source). Re-run in full for revision 7 against staging HEAD.
 - External research pulled and read this turn: NN/g page-dwell research (Weibull analysis of 205,873 pages), NN/g mobile onboarding component analysis, NN/g instructional video guidelines, Userpilot 2024 activation benchmark report (62 B2B companies). Verified (research).
-- Rendered-state checks (visual diff, LCP, a11y) were not run this turn. All rendered claims below are Unverified until the standard gates (`npm run gate:standards:staging`, `npm run ux:landing-standard:strict`) are executed.
+- Rendered-state and gate checks, revision 7 status: `ux:landing-standard:strict` run and passing (292 routes, 0 failing, after correcting a dual-H1 violation on `/demo/executive-dashboard`); UX/UI rubric page gate 10/10; copy/CTA drift guard 6/6; visual darkness gate 6/6; luxury static gates passing; typecheck and build passing; CI mobile visual smoke passing on PR #177. Verified (gates, this session). Still Unverified: live field LCP/CLS/INP and actual funnel conversion numbers (instrumentation is live but no baseline window has elapsed).
 
 ---
 
@@ -48,7 +50,7 @@ What fails the luxury bar:
 - Six situation cards is a menu, not a concierge. Vogue does not open with six cover stories. Gucci does not show you six handbags on arrival. Recommend a maximum of three, or one rotating editorial "situation of the moment" with a quiet "see other situations" path. Verified (source) for the current count; the recommendation is judgment grounded in choice-load research.
 - Body copy at 1.35-2.24rem serif semibold competes with the H1. Luxury typography is hierarchical and restrained; only one voice speaks loudly. Verified (source) for the current sizing.
 - Zero social proof. The FAQ says "built by search leaders" and points to the Evidence Hub, but there is no named human anywhere on the first visit. Ritz-Carlton is a brand built entirely on reputation transferred through people. Verified (source).
-- Zero PostHog capture calls on the homepage. We are flying blind on the most important page of the funnel. Verified (source).
+- RESOLVED since revision 6: homepage instrumentation now exists. `FirstMileTelemetry` fires `homepage_viewed`, 10s/30s dwell heartbeats, and per-section dwell; CTAs fire `homepage_cta_clicked` through `TrackLink`. The funnel is no longer blind at the top. Verified (source, re-audit).
 
 #### Learn-More `/learn-more`
 Verified (source): H1 "The difference lives in the details." Citation superscripts, comparison table, brief showcase.
@@ -85,10 +87,16 @@ What works: This is a legitimately well-designed activation flow. It matches NN/
 
 What fails: Nothing structural. Two refinements: the 8-minute nudge fires without offering a shortcut ("finish the rest later, see your brief now"), and step 5 (positioning summary) is the likeliest abandonment point because it demands the most typing. Verified (source) for the mechanics; the abandonment hypothesis is Unverified until funnel data exists.
 
-#### First Dashboard `/dashboard`
-Verified (source): Redirect gates work. Sections: welcome nudge, profile intelligence, pipeline (empty), activity chart (empty), velocity (empty), momentum plan, decision timeline. No first-run overlay, no guided first action, no PostHog instrumentation.
+Revision 7 additions, all Verified (source, re-audit):
+- Step 4 company suggestions now render as cards with a role hint and a per-company why-line via `suggestedCompaniesForProfile`. The why-lines are the right pattern, but the underlying lists remain static persona seeds (persona + current title only); the resume-informed engine from Phase 3 item 2 is still open.
+- The final step now shows a "What we understood about you" reflection card, satisfying the Value-Moment payoff pattern for step 1 of the itinerary.
+- The streamed intel brief expanded from 3 to 4 paragraphs, adding people/decision-makers and an explicit timing-window sentence, strengthening the one genuine value moment in setup.
+- The final step also surfaces "People to meet first," a "First note draft," and a "Week-one follow-up sequence." Structure is correct; the people are placeholders (see the Section 1 claim-integrity flag).
 
-This is the biggest failure of the review. The user has just completed a beautifully choreographed arrival and is shown an empty hotel lobby. Three empty data visualizations on first run actively communicate "you have not done enough yet," which is the emotional opposite of the brand promise. A luxury arrival would be: your first brief is already here, your three companies are already being watched, here is the one thing to do before Monday. Verified (source) for the empty state composition; the emotional read is expert judgment.
+#### First Dashboard `/dashboard` and `/dashboard/start`
+Revision 7 status, Verified (source, re-audit): Onboarding completion now redirects to `/dashboard/start`, which opens with (a) "Your first-run itinerary" naming today's one action with a single CTA, (b) "Value already earned" showing a preview of the user's real latest prep brief or the profile-complete state, and (c) a "Week-one relationship bridge" with suggested decision-makers, a first-note draft, and a follow-up cadence. The dashboard fires `dashboard_first_run_viewed`, and the hero shell plus `/dashboard/signals` both carry a "Roles forming now" callout with honest confidence language ("may be moving toward a role window").
+
+This largely delivers the concierge arrival the original review demanded. Two gaps remain: the main `/dashboard` route still presents its empty pipeline/activity/velocity visualizations to a first-run user who navigates past `/start` (the Arrival Contract's one-empty-visualization rule is not yet enforced there), and the relationship bridge's people are placeholders pending real Apollo wiring. The original "empty hotel lobby" finding is superseded for the `/start` path and retained for direct `/dashboard` entry.
 
 ### Visit 3: Return (Login → Briefing)
 
@@ -96,7 +104,7 @@ Verified (source): Login redirects to `/dashboard/briefing` by default. The dail
 
 What works: Routing the returning user straight to the brief, not the dashboard, is exactly right. The brief is the product's ritual, and rituals are what luxury brands sell. Verified (source).
 
-What fails (Unverified, requires session data): There is no instrumentation to know whether visit-2-to-visit-3 return actually happens, at what rate, or whether the brief was consumed. The dashboard and briefing routes have zero PostHog capture. We cannot manage what we do not measure, and right now day-1 and day-7 retention for this funnel is unmeasurable from product analytics.
+What fails: RESOLVED in structure since revision 6. The briefing route now logs `briefing_viewed` server-side on render, briefing actions fire `briefing_action_clicked` (server and client), and the dashboard fires `dashboard_first_run_viewed`. Verified (source, re-audit). D1-D3 return and week-1 ritual adoption are now computable from these events; the actual rates remain Unverified until a two-week baseline is read.
 
 ---
 
@@ -104,17 +112,17 @@ What fails (Unverified, requires session data): There is no instrumentation to k
 
 Scored against the sensibility brief (Ritz-Carlton, Four Seasons, Gucci, Vogue):
 
-| Dimension | Current state | Grade |
+| Dimension | Current state (revision 7) | Grade |
 |---|---|---|
-| Voice and copy register | Confident, specific, unhurried on `/` and `/learn-more`; generic on `/pricing` | B+ |
-| Typographic discipline | Contract honored; hero body competes with H1 | B |
-| Restraint / choice curation | 6 cards + 9 situations + 6 FAQs = department store, not boutique | C |
-| Anticipatory service | Signup handoff copy excellent; arrival (dashboard) absent | C+ |
-| Photography / art direction | One static sketch image sitewide; no photographic identity | D |
-| Proof through people | No named humans, no testimonials, no editor's-letter voice | D |
-| Ritual and return | Daily brief concept is strong; unmeasured and unmerchandised | B- |
+| Voice and copy register | Confident, specific, unhurried on `/` and `/learn-more`; generic on `/pricing` (unchanged) | B+ |
+| Typographic discipline | Contract honored; hero body still competes with H1 (unchanged) | B |
+| Restraint / choice curation | 6 cards + 9 situations + 6 FAQs, all unchanged; Choice Curation Contract written but unapplied | C |
+| Anticipatory service | Signup handoff excellent; arrival itinerary, earned-value surface, and one-action guidance now shipped on `/start` | B |
+| Photography / art direction | One static sketch image sitewide; no photographic identity (unchanged) | D |
+| Proof through people | No named humans; new relationship cards use placeholder people, which is a liability not an asset until wired to real data | D |
+| Ritual and return | Daily brief routing plus `briefing_viewed`/`dashboard_first_run_viewed` instrumentation; ritual is now measurable | B |
 
-The gap is not in the words. It is in imagery, curation, and the arrival moment.
+The surviving gap is in imagery, choice curation, the pricing-page voice, and honest data behind the new relationship surfaces.
 
 ---
 
@@ -146,14 +154,14 @@ Benchmarks and targets, each tied to an instrumentable event:
 
 | Metric | Definition | Industry benchmark | Starting Monday target | Instrument |
 |---|---|---|---|---|
-| 10-second survival | Visitors still on `/` at 10s | First 10s is peak abandonment; clear value prop is the gate (NN/g) | ≥ 65% of non-bounce sessions reach 30s | New `landing_dwell` events |
-| Homepage → signup click-through | CTA clicks / homepage sessions | Typically low single digits for cold traffic; no verified universal number, treat as baseline-and-improve | Establish baseline in weeks 1-2, then +20% | New `landing_cta_clicked` |
+| 10-second survival | Visitors still on `/` at 10s | First 10s is peak abandonment; clear value prop is the gate (NN/g) | ≥ 65% of non-bounce sessions reach 30s | SHIPPED: `homepage_dwell_10s` / `homepage_dwell_30s` |
+| Homepage → signup click-through | CTA clicks / homepage sessions | Typically low single digits for cold traffic; no verified universal number, treat as baseline-and-improve | Establish baseline in weeks 1-2, then +20% | SHIPPED: `homepage_cta_clicked` |
 | Signup completion | `signup_completed` / signup page sessions | n/a (form-length dependent) | ≥ 60% | Exists (partial) |
 | Onboarding completion | Completed step 7 / `onboarding_started` | n/a | ≥ 75%; low-energy path ≥ 85% | Exists |
 | Time to first value | `onboarding_first_value_ready` elapsed | "Reduce time to value" is the consensus activation lever (Userpilot) | Median ≤ 8 minutes, `under_ten_minutes` ≥ 80% | Exists |
-| Activation rate | New users reaching the activation milestone (first brief viewed + ≥1 company tracked) | Median 37% across 62 B2B SaaS companies; ~36% per Lenny Rachitsky's report; PLG average 34.6% (Userpilot 2024) | ≥ 45% (we are high-intent, niche, personalized) | New `activation_reached` |
-| Visit-2 return (D1-D3) | Users who return within 72h of signup | No single verified benchmark; measure and improve | ≥ 50% of activated users | New `briefing_viewed` |
-| Week-1 ritual adoption | ≥3 brief views in first 7 days | n/a | ≥ 35% of activated users | New `briefing_viewed` |
+| Activation rate | New users reaching the activation milestone (first brief viewed + ≥1 company tracked) | Median 37% across 62 B2B SaaS companies; ~36% per Lenny Rachitsky's report; PLG average 34.6% (Userpilot 2024) | ≥ 45% (we are high-intent, niche, personalized) | STILL OPEN: `activation_reached` composite event not yet created |
+| Visit-2 return (D1-D3) | Users who return within 72h of signup | No single verified benchmark; measure and improve | ≥ 50% of activated users | SHIPPED: `briefing_viewed` (server-logged) |
+| Week-1 ritual adoption | ≥3 brief views in first 7 days | n/a | ≥ 35% of activated users | SHIPPED: `briefing_viewed` |
 
 All benchmark figures above are Verified (research) where a source is named; targets are proposals for approval.
 
@@ -187,14 +195,14 @@ Deep source audit of the onboarding and week-1 product surfaces, 2026-07-04. All
 
 ### What a day-1 user actually experiences today
 
-| Setup moment | Current reality | Value felt by the user |
+| Setup moment | Reality at revision 7 | Value felt by the user |
 |---|---|---|
-| Suggested companies (step 4) | Static persona-seeded lists in onboarding-helpers.ts (csuite: Microsoft, Salesforce, ServiceNow...; vp: Stripe, Snowflake, Figma...) | Low. Generic lists, no "why", no personalization beyond persona pick |
-| Resume upload | Claude extracts raw text, stores it, shows "Resume extracted - text populated below." | Near zero. Extraction is not understanding; no reflection back to the user |
-| LinkedIn upload | Same: raw text extraction, no synthesis shown | Near zero |
-| Unposted roles | Career-page scans run 2x daily only AFTER manual company add; signals page shows company events, not role hypotheses | Zero on day 1. The flagship feature is invisible at the moment of highest attention |
-| Relationships | Apollo decision-maker enrichment, scanner-suggested people, and outreach templates all exist, but none is surfaced during setup | Zero during onboarding; discoverable later only by navigating |
-| Intel brief (step 6) | Real streamed 3-paragraph brief: company focus, org dynamics, opportunity timing | High. The one genuine value moment in setup, and it works |
+| Suggested companies (step 4) | Persona-seeded lists now rendered as cards with role hints and per-company why-lines; lists themselves still static (persona + title, not resume-informed) | Medium. The why-line pattern shipped; the "great choices for me" recognition still requires the resume-informed engine |
+| Resume upload | Extraction unchanged, but the final step now reflects "What we understood about you" (title, company, target bias) | Low-medium. Reflection exists at the end of the flow; not yet immediately after upload |
+| LinkedIn upload | Same as resume: extraction plus end-of-flow reflection | Low-medium |
+| Unposted roles | "Roles forming now" callouts now live on the dashboard hero shell and `/dashboard/signals`, translating real signals into honest role-window hypotheses | Medium on day 1. The flagship claim now has a visible bridge surface; population depends on the user's companies having signals |
+| Relationships | Decision-makers, a first-note draft, and a week-one follow-up sequence now surface in onboarding completion and on `/dashboard/start`; the people shown are placeholders labeled as Apollo/scanner output | Structure high, integrity failing. Must wire to real enrichment or relabel before production |
+| Intel brief (step 6) | Expanded to 4 paragraphs: focus, org dynamics, people/decision-makers, and an explicit timing window | High. Strengthened; remains the anchor value moment |
 
 ### The integrity flag (important)
 
@@ -243,18 +251,20 @@ The machinery exists (Apollo enrichment, scanner-suggested people, message templ
 
 ---
 
-## 9. The Plan (Version 6, Delivered)
+## 9. The Plan (Version 6, Delivered; Phase Statuses Updated in Revision 7)
 
 Sequencing rule: measure → words → first mile → arrival → image → film. Each phase has an owner-assignable scope, a success gate, and a kill criterion.
 
-### Phase 1: See Clearly (Week 1-2)
-1. Instrument the funnel end to end: `landing_dwell` (10s/30s heartbeats), `landing_cta_clicked`, `situation_card_selected`, `demo_started` / `demo_completed`, `activation_reached` (first brief viewed + ≥1 company tracked), `briefing_viewed` on the dashboard/briefing routes. The dashboard currently has zero capture calls (Verified source).
+### Phase 1: See Clearly (Week 1-2) — STATUS: substantially shipped
+Shipped (Verified source, re-audit): homepage dwell heartbeats and CTA events, section dwell, `dashboard_first_run_viewed`, server-logged `briefing_viewed`, onboarding funnel events, and the standard-gate runs. Open: the `activation_reached` composite event and the two-week baseline read.
+1. Instrument the funnel end to end: `landing_dwell` (10s/30s heartbeats), `landing_cta_clicked`, `situation_card_selected`, `demo_started` / `demo_completed`, `activation_reached` (first brief viewed + ≥1 company tracked), `briefing_viewed` on the dashboard/briefing routes.
 2. Run the existing standard gates (`gate:standards:staging`, `ux:landing-standard:strict`, mobile visual suite) to convert this review's rendered-state Unverifieds into Verifieds.
 3. Two-week baseline read. Publish a one-page metrics baseline against the Section 6 table.
 - Success gate: every Section 6 metric has a live number.
 - Kill criterion: none; this phase is unconditional.
 
-### Phase 2: Say Less, More Beautifully (Week 2-4)
+### Phase 2: Say Less, More Beautifully (Week 2-4) — STATUS: not started
+Re-audit confirms all four items remain open: pricing H1 is still "Pricing", learn-more still says "Typical spray-and-pray", homepage still shows six situation cards with competing hero body sizing, signup still presents nine situations flat. Verified (source, re-audit).
 1. Pricing page: replace the H1 "Pricing" with an editorial headline in the house voice (candidate: "The terms of engagement." or "What membership costs."), keep the existing first-week-outcomes section, add the trust line before the decision point per the narrative contract.
 2. Learn-more: rename "Typical spray-and-pray" column to a composed label ("The conventional search").
 3. Homepage: reduce hero body copy weight/size so one voice leads; curate situation cards from six visible to three (entry-source aware), with a quiet path to the rest.
@@ -262,7 +272,8 @@ Sequencing rule: measure → words → first mile → arrival → image → film
 - Success gate: signup completion and homepage→signup CTR at or above baseline after 2 weeks; visual diff within Tier 0 threshold (≤0.5%).
 - Kill criterion: if curated cards drop situation-selection rate by >15% vs. baseline, restore density on that surface and keep the typography fix.
 
-### Phase 3: The First Mile (Week 3-7)
+### Phase 3: The First Mile (Week 3-7) — STATUS: partially shipped
+Shipped: why-line suggestion cards (item 2, pattern only), Roles Forming surfaces (item 4), end-of-flow understanding reflection (item 1, partial placement), relationship moment structure (item 6, placeholder data). Open: resume-informed suggestion engine, in-flow signal snapshots and scan-at-acceptance (item 3), itinerary spine inside onboarding itself (item 5), all choice-load reductions (item 7), and wiring item 6 to real Apollo enrichment (blocking, see Section 1 claim-integrity flag). Verified (source, re-audit).
 The setup flow becomes the first taste of the product, structured as the four-step itinerary from Section 8.5.
 1. Positioning reflection: after resume/LinkedIn upload, synthesize and show "what we understood about you" (level, function, positioning angle) instead of raw text alone. First personalization payoff; also feeds company suggestions. The extraction pipeline already exists (Verified source); this adds the synthesis-and-display step.
 2. Suggested companies, upgraded: replace static persona lists with resume-plus-persona informed suggestions, each carrying a one-line signal-sourced "why". Five to seven suggestions, one-tap accept. Success is the user thinking "these are great choices for me."
@@ -274,7 +285,8 @@ The setup flow becomes the first taste of the product, structured as the four-st
 - Success gate: suggested-company acceptance ≥ 60% (proxy for "great choices for me"); onboarding completion ≥ 75%; activation rate ≥ 45%.
 - Kill criterion: if resume-informed suggestions do not beat the static lists on acceptance rate within 4 weeks, keep the why-lines and revert the suggestion engine.
 
-### Phase 4: The Arrival (Week 5-8)
+### Phase 4: The Arrival (Week 5-8) — STATUS: partially shipped
+Shipped: first-run itinerary with one action and "Value already earned" on `/dashboard/start` (item 1, on the start route). Open: Arrival Contract enforcement on direct `/dashboard` entry (empty charts still render), the 8-minute nudge shortcut (item 2), step-5 friction reduction (item 3), and the next-appointment return-ritual line (item 4). Verified (source, re-audit).
 1. First-run dashboard state: replace the three empty visualizations with the itinerary view. Your first brief (already generated in onboarding, Verified source) front and center; your companies "now being watched" with their signal snapshots; exactly one suggested action. Empty charts appear only after there is data to chart. Full navigation progressively revealed across week 1.
 2. Onboarding nudge upgrade: at 8 minutes, offer the shortcut ("See your brief now, finish setup later") instead of a bare nudge.
 3. Step-5 friction reduction: make LinkedIn import the visually primary path, manual paste secondary.
@@ -282,26 +294,27 @@ The setup flow becomes the first taste of the product, structured as the four-st
 - Success gate: D1-D3 return ≥ 50% of activated users; week-1 ritual adoption ≥ 35%.
 - Kill criterion: if arrival redesign moves activation by <3 points after 4 weeks, stop investing in first-run surface polish and move budget to brief quality.
 
-### Phase 5: The Image System (Week 7-10, budget-gated)
+### Phase 5: The Image System (Week 7-10, budget-gated) — STATUS: not started
 1. Commission/curate 4-6 photographs to the art direction in Section 5. Grade for slate-950. One per scroll band on `/`, `/learn-more`, `/pricing`.
 2. Performance budget is non-negotiable: LCP ≤ 2.5s P75 on public Tier 0/1 per the canonical standard; images ship AVIF/WebP with strict sizing.
 - Success gate: 10s→30s dwell survival improves vs. Phase 1 baseline; LCP budget holds.
 - Kill criterion: any LCP P75 regression beyond budget reverts the offending image the same business day (Tier 0 SLA).
 
-### Phase 6: The Film (Week 10+, optional, quality-gated)
+### Phase 6: The Film (Week 10+, optional, quality-gated) — STATUS: not started, default no-ship
 1. One 60-90 second captioned film, "a Monday brief, made," placed at the top of the proof/demo section only. Duration displayed, honest thumbnail, never the sole carrier of any information (all per verified NN/g video guidelines).
 2. Ships only if production quality reaches campaign grade. Default outcome is that this phase does not ship and the live demo remains the proof centerpiece, promoted to the first-skepticism position on `/` per the narrative contract.
 - Success gate: demo/proof section engagement up, with no drop in CTA progression.
 - Kill criterion: if a draft cut would embarrass a fashion house, it does not ship. No B-minus video.
 
-### Standards Refinements Proposed (pending your approval before edits to docs/landing-page-standard.md)
-- Add a Choice Curation Contract: no more than three primary options visible per decision moment on Tier 0 routes; additional options behind one intentional interaction.
-- Add an Arrival Contract: no Tier 0 authenticated first-run surface may present more than one empty data visualization; first-run must surface at least one piece of already-generated value and exactly one suggested action.
-- Add an Imagery Contract: photographic assets must pass the art-direction spec and route-tier LCP budgets; no stock corporate imagery.
-- Add a Video Contract: video is supplementary, captioned, duration-visible, comprehensive for its placement, campaign-grade or absent.
-- Add a Value-Moment Contract: every setup step on Tier 0 authenticated routes must end with a payoff shown to the user, never a bare form submission; each first-week day surfaces exactly one suggested action.
-- Add a Claim-Integrity Contract: any capability stated on public routes must be experientially visible within the first session (the "roles before they are posted" claim requires the Roles Forming surface or softened copy).
-- Correct the stale hero copy in repo memory (memory file still records "Be the conversation before the posting"; live source is "Be on the shortlist before the role is posted", Verified source).
+### Standards Refinements — STATUS: approved and landed in docs/landing-page-standard.md (Verified source, re-audit)
+The Choice Curation, Arrival, Value-Moment, and Claim-Integrity contracts now exist in the canonical standard. Remaining from this list: the Imagery and Video contracts (deferred with Phases 5-6) and the repo-memory hero-copy correction.
+- Add a Choice Curation Contract: no more than three primary options visible per decision moment on Tier 0 routes; additional options behind one intentional interaction. LANDED.
+- Add an Arrival Contract: no Tier 0 authenticated first-run surface may present more than one empty data visualization; first-run must surface at least one piece of already-generated value and exactly one suggested action. LANDED (enforcement on direct `/dashboard` entry still open).
+- Add an Imagery Contract: photographic assets must pass the art-direction spec and route-tier LCP budgets; no stock corporate imagery. DEFERRED with Phase 5.
+- Add a Video Contract: video is supplementary, captioned, duration-visible, comprehensive for its placement, campaign-grade or absent. DEFERRED with Phase 6.
+- Add a Value-Moment Contract: every setup step on Tier 0 authenticated routes must end with a payoff shown to the user, never a bare form submission; each first-week day surfaces exactly one suggested action. LANDED.
+- Add a Claim-Integrity Contract: any capability stated on public routes must be experientially visible within the first session (the "roles before they are posted" claim requires the Roles Forming surface or softened copy). LANDED; the Roles Forming surface now exists, and the placeholder-people finding is the first violation this contract has caught.
+- Correct the stale hero copy in repo memory (memory file still records "Be the conversation before the posting"; live source is "Be on the shortlist before the role is posted", Verified source). OPEN.
 
 ---
 
@@ -313,6 +326,7 @@ The setup flow becomes the first taste of the product, structured as the four-st
 - Pass 4: Added kill criteria to every phase (the standard's anti-pattern list forbids waiving failures without owner/rationale/expiry; kill criteria are the proactive version). Video demoted from "recommended" to "optional, quality-gated, default no-ship" after re-reading the NN/g video findings against team production capacity.
 - Pass 5: Reconciled the plan with the canonical standard's existing gates and SLAs so nothing in the plan invents parallel process: visual diff thresholds, LCP budgets, and Tier 0 same-day SLA are cited from docs/landing-page-standard.md rather than restated ad hoc. Added the standards-refinement proposals as explicit approval items rather than silent edits.
 - Pass 6 (delivered): Deep audit of the actual first-mile product surfaces (suggested-company seeding, resume/LinkedIn extraction, signal surfaces, relationship features). Found the flagship "roles before posted" experience invisible on day 1 and the company suggestions static; added Section 8.5, a new Phase 3 (The First Mile) built around four value-milestone steps, the Roles Forming bridge surface, the "great choices for me" suggestion upgrade, a relationship/communication moment in week 1, the choice-load simplification map, and two new standards contracts (Value-Moment, Claim-Integrity). Answered the step-visuals question: itinerary-style value milestones yes, tutorial cards no (NN/g-verified distinction).
+- Pass 7 (re-audit after Sprints 1-5, 2026-07-04): Re-verified every Verified (source) claim against staging HEAD. Confirmed shipped: full funnel instrumentation (`homepage_viewed`, dwell heartbeats, section dwell, `homepage_cta_clicked`, `dashboard_first_run_viewed`, server-logged `briefing_viewed`), onboarding payoffs (understanding reflection, why-line suggestion cards, 4-paragraph intel brief with people and timing), the Roles Forming bridge on dashboard and signals, the `/dashboard/start` first-run itinerary with earned-value surface, and the four new standards contracts in docs/landing-page-standard.md. Confirmed still open: choice curation (6/9/6 unchanged), pricing H1, learn-more comparison label, hero body sizing, photography system, `activation_reached` composite event, resume-informed suggestions, and Arrival Contract enforcement on direct `/dashboard` entry. Raised one new blocking finding: placeholder decision-maker people presented with real-source labels (Claim-Integrity Contract violation); remediation is to wire `/api/prep/relationships/enrich` data into the onboarding and start surfaces or relabel as illustrative.
 
 ---
 
@@ -326,4 +340,4 @@ Verified (research), fetched and read 2026-07-04:
 
 Verified (source), this repository, 2026-07-04: route audits of src/app/page.tsx and LandingPage.tsx, learn-more, pricing, (auth)/signup and login, onboarding/onboarding-form.tsx, (dashboard)/dashboard/page.tsx, demo, features, search-firms; PostHog capture inventory; onboarding event API.
 
-Unverified pending gate runs: rendered visual parity, live LCP/CLS/INP, current funnel conversion numbers.
+Unverified pending data: live field LCP/CLS/INP and actual funnel conversion rates (instrumentation shipped in revision 7 scope; no baseline window has elapsed yet). Rendered visual parity and landing-standard compliance are Verified (gates) as of the revision 7 session.

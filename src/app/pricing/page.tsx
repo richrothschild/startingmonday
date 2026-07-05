@@ -56,7 +56,7 @@ export default function PricingPage() {
       <main className={`max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 ${premiumEnabled ? 'text-slate-100' : ''}`}>
         <div className="text-center mb-11">
           <h1 className={`text-[38px] sm:text-[48px] font-bold leading-[1.05] tracking-tight ${premiumEnabled ? 'text-white' : 'text-slate-900'}`}>
-            Pricing
+            The terms of engagement.
           </h1>
           <p className={`text-[16px] mt-4 max-w-lg mx-auto leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-500'}`}>
             30-day free trial. No credit card. Choose based on search intensity, not job-board volume.

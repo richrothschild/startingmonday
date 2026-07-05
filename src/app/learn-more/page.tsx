@@ -66,7 +66,7 @@ export default function LearnMorePage() {
         <div className="mt-8 overflow-hidden rounded-xl border border-white/10">
           <div className="grid grid-cols-1 bg-slate-900/35 text-[12px] font-semibold uppercase tracking-[0.08em] sm:grid-cols-[1fr_1.2fr_1.2fr]">
             <p className="px-4 py-3 text-slate-300">Decision area</p>
-            <p className="border-t border-white/10 px-4 py-3 text-slate-300 sm:border-l sm:border-t-0">Typical spray-and-pray</p>
+            <p className="border-t border-white/10 px-4 py-3 text-slate-300 sm:border-l sm:border-t-0">The conventional search</p>
             <p className="border-t border-white/10 px-4 py-3 text-orange-100 sm:border-l sm:border-t-0">Starting Monday</p>
           </div>
           {COMPARISON_ROWS.map((row) => (
