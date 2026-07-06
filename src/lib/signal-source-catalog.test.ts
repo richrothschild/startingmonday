@@ -41,6 +41,10 @@ const FETCHER_MODULES: Record<string, string[]> = {
     'worker/signals/fetch-pdl-execs.js',
     'worker/signals/diff-exec-snapshot.js',
   ],
+  pdl_executive_snapshot: [
+    'worker/signals/fetch-pdl-execs.js',
+    'worker/signals/diff-exec-snapshot.js',
+  ],
 }
 
 describe('signal source catalog', () => {
