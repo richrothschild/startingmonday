@@ -54,6 +54,20 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  {
+    // Intelligence Scanner: model centralization enforcement (Epic E0 T0.3).
+    // No hardcoded model strings in worker/ — must use worker/lib/models.js HAIKU/SONNET.
+    files: ["worker/**/*.{js,ts}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "Literal[value=/claude-(haiku|sonnet)/]",
+          message: "Hardcoded model name found. Use HAIKU or SONNET from worker/lib/models.js instead.",
+        },
+      ],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
