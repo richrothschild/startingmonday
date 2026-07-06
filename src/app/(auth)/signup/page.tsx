@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -148,12 +148,19 @@ export default function SignupPage() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [agreeTerms, setAgreeTerms] = useState(false)
   const [agreePrivacy, setAgreePrivacy] = useState(false)
+  // Error shown next to the social sign-in buttons. Without this, clicking
+  // "Continue with Google" before checking the consent boxes rendered an
+  // error far below the fold and the button appeared to silently do nothing.
+  const [socialError, setSocialError] = useState<string | null>(null)
+  const consentSectionRef = useRef<HTMLDivElement | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
 
   function ensurePolicyConsent(): boolean {
     if (agreeTerms && agreePrivacy) return true
     setError('You must agree to the Terms and Privacy Policy to create an account.')
+    setSocialError('Please check the Terms and Privacy Policy boxes below first.')
+    consentSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     return false
   }
 
@@ -178,12 +185,15 @@ export default function SignupPage() {
     if (!TURNSTILE_ENABLED) return ''
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
+      setSocialError('Complete the security check below before continuing.')
+      consentSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return null
     }
     return captchaToken
   }
 
   async function handleGoogle() {
+    setSocialError(null)
     if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
@@ -219,6 +229,7 @@ export default function SignupPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Google sign-in')
+        setSocialError(data.error || 'Failed to start Google sign-in. Please try again.')
         setGoogleLoading(false)
         return
       }
@@ -226,11 +237,13 @@ export default function SignupPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
+      setSocialError('Something went wrong starting Google sign-in. Please try again.')
       setGoogleLoading(false)
     }
   }
 
   async function handleApple() {
+    setSocialError(null)
     if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
@@ -266,6 +279,7 @@ export default function SignupPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Apple sign-in')
+        setSocialError(data.error || 'Failed to start Apple sign-in. Please try again.')
         setAppleLoading(false)
         return
       }
@@ -273,6 +287,7 @@ export default function SignupPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
+      setSocialError('Something went wrong starting Apple sign-in. Please try again.')
       setAppleLoading(false)
     }
   }
@@ -440,6 +455,9 @@ export default function SignupPage() {
 
                 <section id="social-signin" className="mb-5">
                 <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
+                {socialError && (
+                  <p role="alert" className="mb-3 rounded border border-red-200 bg-red-50 px-3 py-2 text-[13px] text-red-700">{socialError}</p>
+                )}
                 <button
                   type="button"
                   onClick={handleGoogle}
@@ -553,12 +571,12 @@ export default function SignupPage() {
 
                   {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
 
-                  <div className="rounded border border-slate-200 bg-slate-50 p-3">
+                  <div ref={consentSectionRef} className="rounded border border-slate-200 bg-slate-50 p-3">
                     <label className="flex items-start gap-2 text-[13px] text-slate-700">
                       <input
                         type="checkbox"
                         checked={agreeTerms}
-                        onChange={(e) => setAgreeTerms(e.target.checked)}
+                        onChange={(e) => { setAgreeTerms(e.target.checked); if (e.target.checked) setSocialError(null) }}
                         className="mt-0.5"
                       />
                       <span>
@@ -569,7 +587,7 @@ export default function SignupPage() {
                       <input
                         type="checkbox"
                         checked={agreePrivacy}
-                        onChange={(e) => setAgreePrivacy(e.target.checked)}
+                        onChange={(e) => { setAgreePrivacy(e.target.checked); if (e.target.checked) setSocialError(null) }}
                         className="mt-0.5"
                       />
                       <span>
