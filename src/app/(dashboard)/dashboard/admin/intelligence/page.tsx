@@ -246,15 +246,6 @@ export default async function AdminIntelligencePage() {
     hit_rate: number
     median_days_to_opening: number | null
   }
-  type PatternBacktestRow = {
-    pattern_name: string
-    role_family: string | null
-    support_n: number
-    precision: number
-    recall: number
-    fp_rate: number
-    median_lead_time_days: number | null
-  }
   const [openingsRes, labeledEventsRes, canonicalCompaniesRes, precursorRes] = await Promise.all([
     (admin as any)
       .from('role_openings')
@@ -286,64 +277,6 @@ export default async function AdminIntelligencePage() {
   const labelCoverage = canonicalCompanyCount > 0 ? labeledCompanies / canonicalCompanyCount : 0
   const labeledEventCount = labeledEventsRes?.count ?? 0
   const topPrecursors: PrecursorRow[] = (precursorRes?.data ?? []) as PrecursorRow[]
-
-  // Backtest harness + source expansion (E3).
-  const [cohortCountRes, controlCountRes, patternRowsRes, replayRunRes, scannerMissQueueRes, scannerMissVerifiedRes, atsOpenRes, atsRowsRes, warnRes] = await Promise.all([
-    (admin as any)
-      .from('backtest_cohorts')
-      .select('id', { count: 'exact', head: true }),
-    (admin as any)
-      .from('backtest_controls')
-      .select('id', { count: 'exact', head: true }),
-    (admin as any)
-      .from('pattern_backtests')
-      .select('pattern_name, role_family, support_n, precision, recall, fp_rate, median_lead_time_days')
-      .order('precision', { ascending: false })
-      .limit(8),
-    (admin as any)
-      .from('backtest_replay_runs')
-      .select('status, cohort_count, control_count, finished_at')
-      .order('started_at', { ascending: false })
-      .limit(1)
-      .maybeSingle(),
-    (admin as any)
-      .from('scanner_misses')
-      .select('id', { count: 'exact', head: true })
-      .in('status', ['new', 'pending_review']),
-    (admin as any)
-      .from('scanner_misses')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'verified')
-      .gte('verified_at', thirtyDaysAgo),
-    (admin as any)
-      .from('ats_role_openings')
-      .select('id', { count: 'exact', head: true })
-      .eq('is_open', true),
-    (admin as any)
-      .from('ats_role_openings')
-      .select('source_platform')
-      .eq('is_open', true)
-      .limit(2000),
-    (admin as any)
-      .from('warn_notices')
-      .select('id', { count: 'exact', head: true })
-      .gte('event_date', thirtyDaysAgo.slice(0, 10)),
-  ])
-
-  const cohortCount = cohortCountRes?.count ?? 0
-  const controlCount = controlCountRes?.count ?? 0
-  const patternRows: PatternBacktestRow[] = (patternRowsRes?.data ?? []) as PatternBacktestRow[]
-  const latestReplay = replayRunRes?.data ?? null
-  const scannerMissQueue = scannerMissQueueRes?.count ?? 0
-  const scannerMissVerified30d = scannerMissVerifiedRes?.count ?? 0
-  const atsOpenCount = atsOpenRes?.count ?? 0
-  const warnNotices30d = warnRes?.count ?? 0
-  const atsRows = (atsRowsRes?.data ?? []) as Array<{ source_platform?: string }>
-  const atsByPlatform = atsRows.reduce((acc: Record<string, number>, row) => {
-    const key = row?.source_platform ?? 'unknown'
-    acc[key] = (acc[key] ?? 0) + 1
-    return acc
-  }, {})
 
   // For each company, fetch signal count and recent tokens
   const companyData = await Promise.all(
@@ -588,91 +521,6 @@ export default async function AdminIntelligencePage() {
             </div>
           ) : (
             <p className="text-[12px] text-slate-500 mt-3">No precursor stats yet. Aggregates appear after the nightly precursor-stats job runs with closed-window labeled events.</p>
-          )}
-        </div>
-
-        <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 mt-5">
-          <h2 className="text-[15px] font-bold text-slate-900 mb-4">Backtest + source expansion (E3)</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Cohorts</div>
-              <div className="text-[18px] font-bold text-slate-900">{cohortCount}</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Matched Controls</div>
-              <div className="text-[18px] font-bold text-slate-900">{controlCount}</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Pattern Rows</div>
-              <div className="text-[18px] font-bold text-slate-900">{patternRows.length}</div>
-            </div>
-            <div className={`rounded-lg border px-3 py-2.5 ${scannerMissQueue === 0 ? 'border-slate-200 bg-slate-50' : 'border-amber-200 bg-amber-50'}`}>
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Miss Queue</div>
-              <div className="text-[18px] font-bold text-slate-900">{scannerMissQueue}</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">ATS Openings</div>
-              <div className="text-[18px] font-bold text-slate-900">{atsOpenCount}</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">WARN Notices 30d</div>
-              <div className="text-[18px] font-bold text-slate-900">{warnNotices30d}</div>
-            </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Replay Status</div>
-              <div className="text-[14px] font-semibold text-slate-900">{latestReplay?.status ?? 'No run yet'}</div>
-              <div className="text-[11px] text-slate-500 mt-1">{latestReplay?.finished_at ? `Finished ${new Date(latestReplay.finished_at).toLocaleString('en-US')}` : 'Awaiting first replay run'}</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">Verified Misses 30d</div>
-              <div className="text-[14px] font-semibold text-slate-900">{scannerMissVerified30d}</div>
-              <div className="text-[11px] text-slate-500 mt-1">User-reported roles confirmed by verifier</div>
-            </div>
-            <div className="rounded-lg border border-slate-200 px-3 py-2.5 bg-slate-50">
-              <div className="text-[10px] tracking-[0.08em] text-slate-400 font-bold">ATS Platform Mix</div>
-              <div className="text-[14px] font-semibold text-slate-900">
-                {Object.keys(atsByPlatform).length
-                  ? Object.entries(atsByPlatform).map(([k, v]) => `${k}:${v}`).join(' · ')
-                  : 'No ATS openings yet'}
-              </div>
-            </div>
-          </div>
-
-          {patternRows.length > 0 ? (
-            <div className="mt-4 overflow-x-auto">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Calibration panel (pattern replay)</p>
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Pattern</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Role Family</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Support</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Precision</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Recall</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">FP Rate</th>
-                    <th className="py-2 pr-4 text-[10px] tracking-[0.08em] text-slate-400 font-bold uppercase">Median Lead (days)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {patternRows.map((row) => (
-                    <tr key={`${row.pattern_name}-${row.role_family ?? 'all'}`} className="border-b border-slate-100">
-                      <td className="py-2 pr-4 text-[12px] font-semibold text-slate-900">{row.pattern_name}</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600">{row.role_family ?? 'all'}</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.support_n}</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{(row.precision * 100).toFixed(1)}%</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{(row.recall * 100).toFixed(1)}%</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{(row.fp_rate * 100).toFixed(1)}%</td>
-                      <td className="py-2 pr-4 text-[12px] text-slate-600 tabular-nums">{row.median_lead_time_days ?? '—'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="text-[12px] text-slate-500 mt-3">No backtest metrics yet. Run cohort-builder + pattern-backtest jobs to populate calibration panels.</p>
           )}
         </div>
       </section>
