@@ -73,7 +73,12 @@ Include only individuals explicitly identified as executive officers with a titl
     })
     const raw = (message.content[0]?.text ?? '[]').trim()
       .replace(/^```json\n?/, '').replace(/^```\n?/, '').replace(/\n?```$/, '').trim()
-    const parsed = JSON.parse(raw)
+    // The model sometimes wraps the array in prose or trails commentary after
+    // it; extract the outermost JSON array before parsing.
+    const start = raw.indexOf('[')
+    const end = raw.lastIndexOf(']')
+    const jsonText = start !== -1 && end > start ? raw.slice(start, end + 1) : raw
+    const parsed = JSON.parse(jsonText)
     if (!Array.isArray(parsed)) return []
     return parsed
       .filter(o => o?.name && o?.title)
