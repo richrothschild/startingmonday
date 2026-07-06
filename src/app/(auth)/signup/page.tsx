@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -146,16 +146,13 @@ export default function SignupPage() {
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-  const [agreeTerms, setAgreeTerms] = useState(false)
-  const [agreePrivacy, setAgreePrivacy] = useState(false)
+  // Error shown next to the social sign-in buttons so failures are visible
+  // at the click site (captcha not ready, backend errors). Previously the
+  // only error element rendered below the fold and the buttons looked dead.
+  const [socialError, setSocialError] = useState<string | null>(null)
+  const captchaSectionRef = useRef<HTMLDivElement | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
-
-  function ensurePolicyConsent(): boolean {
-    if (agreeTerms && agreePrivacy) return true
-    setError('You must agree to the Terms and Privacy Policy to create an account.')
-    return false
-  }
 
   function getSelfReportedSource(): string | null {
     if (!heardAbout) return null
@@ -178,13 +175,15 @@ export default function SignupPage() {
     if (!TURNSTILE_ENABLED) return ''
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
+      setSocialError('Complete the security check below before continuing.')
+      captchaSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return null
     }
     return captchaToken
   }
 
   async function handleGoogle() {
-    if (!ensurePolicyConsent()) return
+    setSocialError(null)
     const token = requireCaptchaToken()
     if (token == null) return
     setGoogleLoading(true)
@@ -219,6 +218,7 @@ export default function SignupPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Google sign-in')
+        setSocialError(data.error || 'Failed to start Google sign-in. Please try again.')
         setGoogleLoading(false)
         return
       }
@@ -226,12 +226,13 @@ export default function SignupPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
+      setSocialError('Something went wrong starting Google sign-in. Please try again.')
       setGoogleLoading(false)
     }
   }
 
   async function handleApple() {
-    if (!ensurePolicyConsent()) return
+    setSocialError(null)
     const token = requireCaptchaToken()
     if (token == null) return
     setAppleLoading(true)
@@ -266,6 +267,7 @@ export default function SignupPage() {
 
       if (!response.ok || !data.ok || !data.url) {
         setError(data.error || 'Failed to start Apple sign-in')
+        setSocialError(data.error || 'Failed to start Apple sign-in. Please try again.')
         setAppleLoading(false)
         return
       }
@@ -273,13 +275,13 @@ export default function SignupPage() {
       window.location.href = data.url
     } catch {
       setError('Something went wrong. Please try again.')
+      setSocialError('Something went wrong starting Apple sign-in. Please try again.')
       setAppleLoading(false)
     }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setLoading(true)
@@ -440,6 +442,9 @@ export default function SignupPage() {
 
                 <section id="social-signin" className="mb-5">
                 <h2 className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Social sign-in</h2>
+                {socialError && (
+                  <p role="alert" className="mb-3 rounded border border-red-200 bg-red-50 px-3 py-2 text-[13px] text-red-700">{socialError}</p>
+                )}
                 <button
                   type="button"
                   onClick={handleGoogle}
@@ -466,6 +471,9 @@ export default function SignupPage() {
                   </svg>
                   {appleLoading ? 'Redirecting…' : 'Continue with Apple'}
                 </button>
+                <p className="text-[12px] text-slate-500 leading-relaxed">
+                  By continuing, you agree to our <Link href="/terms" className="underline hover:text-slate-700">Terms and Conditions</Link> and <Link href="/privacy" className="underline hover:text-slate-700">Privacy Policy</Link>.
+                </p>
                 </section>
 
                 <div className="flex items-center gap-3 mb-5">
@@ -551,42 +559,20 @@ export default function SignupPage() {
                     <p className="text-[13px] text-red-600">{error}</p>
                   )}
 
-                  {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
-
-                  <div className="rounded border border-slate-200 bg-slate-50 p-3">
-                    <label className="flex items-start gap-2 text-[13px] text-slate-700">
-                      <input
-                        type="checkbox"
-                        checked={agreeTerms}
-                        onChange={(e) => setAgreeTerms(e.target.checked)}
-                        className="mt-0.5"
-                      />
-                      <span>
-                        I agree to the <Link href="/terms" className="underline hover:text-slate-900">Terms and Conditions</Link>.
-                      </span>
-                    </label>
-                    <label className="mt-2 flex items-start gap-2 text-[13px] text-slate-700">
-                      <input
-                        type="checkbox"
-                        checked={agreePrivacy}
-                        onChange={(e) => setAgreePrivacy(e.target.checked)}
-                        className="mt-0.5"
-                      />
-                      <span>
-                        I agree to the <Link href="/privacy" className="underline hover:text-slate-900">Privacy Policy</Link>.
-                      </span>
-                    </label>
+                  <div ref={captchaSectionRef}>
+                    {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
                   </div>
-
-
 
                   <button
                     type="submit"
-                    disabled={loading || !agreeTerms || !agreePrivacy}
+                    disabled={loading}
                     className="w-full flex items-center justify-center bg-slate-900 text-white text-[14px] font-semibold min-h-[44px] rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
+                  <p className="text-[12px] text-slate-500 leading-relaxed text-center">
+                    By creating an account, you agree to our <Link href="/terms" className="underline hover:text-slate-700">Terms and Conditions</Link> and <Link href="/privacy" className="underline hover:text-slate-700">Privacy Policy</Link>.
+                  </p>
                   <p id="signup-trust" className="text-center text-[13px] text-slate-400">
                     Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
                     <Link href="/privacy" className="inline-flex items-center min-h-[44px] underline hover:text-slate-600">Privacy policy &rarr;</Link>

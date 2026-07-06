@@ -167,7 +167,10 @@ function withNormalizedKeys(record) {
     out.warn_notice_received,
     out.first_layoff_date,
     out.notification_date_s,
-    out.notice_received_date
+    out.notice_received_date,
+    out.received_date,
+    out.date_received,
+    out.notice_date
   )
   out.job_losses = coalesce(
     out.job_losses,
@@ -176,6 +179,7 @@ function withNormalizedKeys(record) {
     out.total_number_of_affected_employees,
     out.cumulative_scheduled_layoff,
     out.employees_affected,
+    out.affected_employees,
     out.number_of_employees
   )
   out.source_url = coalesce(out.source_url, out.url, out.notice_url)
