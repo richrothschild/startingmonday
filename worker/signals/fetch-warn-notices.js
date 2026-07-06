@@ -436,71 +436,70 @@ function feedEnvVar(stateCode) {
 }
 
 async function fetchCADataRows(feedUrl) {
-  // California EDD publishes WARN data as JSON via their data portal
-  // Attempt multiple endpoints for robustness
-  const candidateUrls = [
-    feedUrl, // Primary URL from env
-    'https://data.ca.gov/api/3/action/datastore_search?resource_id=f3d5a4d5-a8ea-4e14-b8f2-f1e3b1c0d8a0&limit=10000',
-  ]
+  // California EDD publishes WARN data as XLSX file
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
 
-  for (const url of candidateUrls) {
-    try {
-      const response = await fetch(url, { signal: withTimeout() })
-      if (!response.ok) continue
-
-      const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
-      if (contentType.includes('json')) {
-        const data = await response.json()
-
-        // Handle CKAN datastore response format
-        if (data?.result?.records) {
-          return data.result.records.map((record) => ({
-            notice_id: record.id || record.notice_id || '',
-            company_name: record.company_name || record.employer_name || record.employer || '',
-            received_date: record.received_date || record.date_received || record.date_filed || '',
-            job_losses: record.affected_employees || record.job_losses || 0,
-            city: record.city || '',
-            county: record.county || '',
-            industry: record.industry || record.industry_name || '',
-          }))
-        }
-
-        // Handle direct array response
-        if (Array.isArray(data)) {
-          return data
-        }
-
-        // Handle wrapped data
-        if (data?.data) {
-          return Array.isArray(data.data) ? data.data : []
-        }
-      }
-    } catch (err) {
-      // Continue to next URL
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    
+    // Handle XLSX
+    if (contentType.includes('spreadsheet') || contentType.includes('excel') || feedUrl.includes('.xlsx')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
     }
-  }
 
-  return []
+    // Handle JSON
+    if (contentType.includes('json')) {
+      const data = await response.json()
+
+      // Handle CKAN datastore response format
+      if (data?.result?.records) {
+        return data.result.records
+      }
+
+      // Handle direct array response
+      if (Array.isArray(data)) {
+        return data
+      }
+
+      // Handle wrapped data
+      if (data?.data) {
+        return Array.isArray(data.data) ? data.data : []
+      }
+    }
+
+    // Try CSV as fallback
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
 }
 
 function mapCaliforniaRows(rows) {
   return rows
     .map((row) => {
-      const noticeId = stableNoticeId(
-        'CA',
-        String(row.company_name || row.employer_name || '').trim(),
-        parseDateValue(row.received_date || row.date_filed || row.date_received || '')
+      // Handle various column name variations in CA data
+      const employer = String(row.company_name || row.employer_name || row.employer || row['Company Name'] || row['Employer Name'] || '').trim()
+      const eventDate = parseDateValue(
+        row.received_date || row.date_filed || row.date_received || 
+        row['Date Received'] || row['Date Filed'] || row['Received Date'] || ''
       )
+      
+      if (!employer || !eventDate) return null
+      
+      const noticeId = stableNoticeId('CA', employer, eventDate)
 
       return {
         notice_id: noticeId,
-        employer_name: String(row.company_name || row.employer_name || row.employer || '').trim(),
-        event_date: parseDateValue(row.received_date || row.date_filed || row.date_received || ''),
-        job_losses: toWholeNumber(row.job_losses || row.affected_employees || ''),
-        location: [row.city, row.county].filter(Boolean).join(', ') || null,
+        employer_name: employer,
+        event_date: eventDate,
+        job_losses: toWholeNumber(row.job_losses || row.affected_employees || row['Job Losses'] || row['Affected Employees'] || ''),
+        location: [row.city || row['City'] || '', row.county || row['County'] || ''].filter(Boolean).join(', ') || null,
       }
     })
-    .filter((row) => row.employer_name && row.event_date)
+    .filter(Boolean)
 }
 
 async function fetchTXDataRows(feedUrl) {
