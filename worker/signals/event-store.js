@@ -3,7 +3,7 @@
 // PredictLeads) merges into one row with an incremented corroboration count.
 
 import crypto from 'crypto'
-import { logger } from './logger.js'
+import { logger } from '../lib/logger.js'
 import {
   DEDUP_DATE_WINDOW_DAYS,
   normalizeSummary,
