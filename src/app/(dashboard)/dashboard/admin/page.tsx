@@ -347,6 +347,38 @@ export default async function AdminPage() {
     }
   }
 
+  const partnerAttributedUsersTotal = Object.values(attributionsByPartner).reduce((sum, row) => sum + row.total, 0)
+  const partnerActiveAttributedUsersTotal = Object.values(attributionsByPartner).reduce((sum, row) => sum + row.active, 0)
+  const partnerAttributedMrrTotal = Object.values(attributionsByPartner).reduce((sum, row) => sum + row.mrr, 0)
+  const topPartnersByAttribution = partners
+    .map((partner) => {
+      const metrics = attributionsByPartner[partner.id] ?? { total: 0, active: 0, mrr: 0 }
+      return {
+        id: partner.id,
+        name: partner.name,
+        referralCode: partner.referral_code,
+        total: metrics.total,
+        active: metrics.active,
+        mrr: metrics.mrr,
+      }
+    })
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 5)
+
+  const { data: referralUsers30d } = await adminClient
+    .from('users')
+    .select('id, referral_source')
+    .gte('created_at', since30d)
+    .not('referral_source', 'is', null)
+    .limit(5000)
+  const referralSourceUserIds30d = new Set((referralUsers30d ?? []).map((row: { id: string }) => row.id))
+  const { data: referralAttributions30d } = await adminClient
+    .from('referral_attributions')
+    .select('signup_user_id')
+    .limit(5000)
+  const attributedUserIds30d = new Set((referralAttributions30d ?? []).map((row: { signup_user_id: string }) => row.signup_user_id))
+  const missingAttributionCount30d = [...referralSourceUserIds30d].filter((id) => !attributedUserIds30d.has(id)).length
+
   // B2B accounts: seat owners and their member counts
   const { data: allSeatsRows } = await adminClient
     .from('team_seats')
@@ -1183,6 +1215,58 @@ export default async function AdminPage() {
             <div className="border border-white/10 rounded px-3 py-2">B2B accounts: <span className="font-semibold">{b2bAccounts.length}</span></div>
             <div className="border border-white/10 rounded px-3 py-2">Placements: <span className="font-semibold">{placements.length}</span></div>
             <div className="border border-white/10 rounded px-3 py-2">Avg context: <span className="font-semibold">{avgContextScore ?? 'N/A'}</span></div>
+          </div>
+
+          <div className="mt-4 rounded-xl border border-white/10 bg-slate-950/30 p-4">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400">Referral attribution (30d)</p>
+              <a href="/api/admin/referrals/report?lookbackDays=30" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200" target="_blank" rel="noreferrer">
+                Open JSON report
+              </a>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
+              <div className="border border-white/10 rounded px-3 py-2">Referral-source users: <span className="font-semibold">{referralSourceUserIds30d.size}</span></div>
+              <div className="border border-white/10 rounded px-3 py-2">Attributed users: <span className="font-semibold">{attributedUserIds30d.size}</span></div>
+              <div className="border border-white/10 rounded px-3 py-2">Missing attribution: <span className={`font-semibold ${missingAttributionCount30d > 0 ? 'text-amber-300' : 'text-emerald-300'}`}>{missingAttributionCount30d}</span></div>
+              <div className="border border-white/10 rounded px-3 py-2">Attributed MRR: <span className="font-semibold">${partnerAttributedMrrTotal}</span></div>
+            </div>
+
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="text-left text-slate-400 border-b border-white/10">
+                    <th className="py-2 pr-3 font-semibold">Partner</th>
+                    <th className="py-2 pr-3 font-semibold">Code</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Attributed</th>
+                    <th className="py-2 pr-3 font-semibold text-right">Active</th>
+                    <th className="py-2 font-semibold text-right">MRR</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {topPartnersByAttribution.length === 0 ? (
+                    <tr>
+                      <td className="py-3 text-slate-400" colSpan={5}>No attributed partner signups yet.</td>
+                    </tr>
+                  ) : topPartnersByAttribution.map((row) => (
+                    <tr key={row.id}>
+                      <td className="py-2.5 pr-3 text-slate-200">{row.name}</td>
+                      <td className="py-2.5 pr-3 text-slate-300">{row.referralCode}</td>
+                      <td className="py-2.5 pr-3 text-right text-slate-200">{row.total}</td>
+                      <td className="py-2.5 pr-3 text-right text-slate-200">{row.active}</td>
+                      <td className="py-2.5 text-right text-slate-200">${row.mrr}</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr className="border-t border-white/10 text-slate-300 font-semibold">
+                    <td className="py-2.5 pr-3" colSpan={2}>Total</td>
+                    <td className="py-2.5 pr-3 text-right">{partnerAttributedUsersTotal}</td>
+                    <td className="py-2.5 pr-3 text-right">{partnerActiveAttributedUsersTotal}</td>
+                    <td className="py-2.5 text-right">${partnerAttributedMrrTotal}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </section>
 

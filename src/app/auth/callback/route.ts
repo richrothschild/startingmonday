@@ -82,12 +82,13 @@ export async function GET(request: NextRequest) {
       const userId = user.id
       const userEmail = user.email
       const utmSource = searchParams.get('utm_source')
+      const refCode = searchParams.get('ref_code')?.trim() || null
       const selfReportedSource = searchParams.get('self_reported_source')
       const utmMedium = searchParams.get('utm_medium')
       const acceptedTermsVersion = searchParams.get('accepted_terms_version')
       const acceptedPrivacyVersion = searchParams.get('accepted_privacy_version')
       const policyAcceptedAt = searchParams.get('policy_accepted_at')
-      const source = utmSource ?? selfReportedSource
+      const source = utmSource ?? selfReportedSource ?? refCode
       const managerToolsSource = (source ?? '').trim().toLowerCase() === 'managertools'
       const managerToolsTrialEndsAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
       const consentAcceptedAt = (() => {
@@ -106,8 +107,7 @@ export async function GET(request: NextRequest) {
       const isNewUser = user.created_at
         ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
-      // utm_source carries the referral code when signup came through a partner link (?ref=CODE)
-      const refCode = utmSource && /^[A-Z0-9]{6,12}$/.test(utmSource) ? utmSource : null
+      const normalizedRefCode = refCode ? refCode.toUpperCase() : null
       await Promise.all([
         supabase.from('user_profiles').upsert(
           { user_id: userId, ...(refCode ? { referred_by: refCode } : {}) },
@@ -137,13 +137,13 @@ export async function GET(request: NextRequest) {
               }),
             }).catch(() => {})
           : Promise.resolve(),
-        isNewUser && refCode
+        isNewUser && normalizedRefCode
           ? (async () => {
               const admin = createAdminClient()
               const { data: partner } = await admin
                 .from('partners')
                 .select('id')
-                .eq('referral_code', refCode)
+          .eq('referral_code', normalizedRefCode)
                 .eq('is_active', true)
                 .maybeSingle()
               if (partner) {
