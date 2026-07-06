@@ -46,6 +46,7 @@ import { runDlqMonitorJob } from './jobs/dlq-monitor-job.js'
 import { runCanonicalBackfillJob } from './jobs/canonical-backfill-job.js'
 import { runOutcomeLabelBackfillJob } from './jobs/outcome-label-backfill-job.js'
 import { runPrecursorStatsJob } from './jobs/precursor-stats-job.js'
+import { runAtsPollerJob } from './jobs/ats-poller-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -327,6 +328,10 @@ cron.schedule('40 2 * * *', () => runJob('canonical-backfill-job', runCanonicalB
 
 // Outcome label backfill: daily at 03:10 - exec_hire, pipeline-stage, and proxy-diff labelers.
 cron.schedule('10 3 * * *', () => runJob('outcome-label-backfill-job', runOutcomeLabelBackfillJob))
+
+// ATS poller: daily at 02:15 - polls Greenhouse/Lever/Ashby JSON boards for leadership
+// postings and feeds the outcome labeler (runs before label backfill and precursor stats).
+cron.schedule('15 2 * * *', () => runJob('ats-poller-job', runAtsPollerJob))
 
 // Precursor stats: nightly at 03:40 - recomputes calibration aggregates from labeled outcomes.
 cron.schedule('40 3 * * *', () => runJob('precursor-stats-job', runPrecursorStatsJob))

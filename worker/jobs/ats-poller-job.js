@@ -1,11 +1,19 @@
+// T3.4 — ATS poller: polls Greenhouse/Lever/Ashby JSON boards for leadership
+// postings. Board discovery is cached in ats_boards: companies are probed at
+// most MAX_PROBE_ATTEMPTS times (URL detection first, then token probing),
+// after which known boards are polled directly every run. Companies without a
+// career_page_url are still covered via domain/name token probing.
+
 import { logger } from '../lib/logger.js'
 import { getSupabase } from '../lib/supabase.js'
-import { resolveCanonicalCompany, clearCanonicalCache } from '../lib/canonical-company.js'
-import { fetchAtsOpenings } from '../signals/fetch-ats-json.js'
+import { resolveCanonicalCompany, clearCanonicalCache, extractDomain } from '../lib/canonical-company.js'
+import { probeAtsBoard, fetchBoardOpenings } from '../signals/fetch-ats-json.js'
 import { inferRoleFamilyFromTitle, recordRoleOpening } from '../lib/outcome-labels.js'
 
 const ATS_POLLER_LOCK_KEY = 9315702442n
 const ATS_COMPANY_BATCH = Number(process.env.ATS_POLLER_COMPANY_BATCH ?? 300)
+const ATS_PROBE_BUDGET = Number(process.env.ATS_POLLER_PROBE_BUDGET ?? 40)
+const MAX_PROBE_ATTEMPTS = Number(process.env.ATS_POLLER_MAX_PROBE_ATTEMPTS ?? 2)
 
 export async function runAtsPollerJob() {
   const supabase = getSupabase()
@@ -20,7 +28,9 @@ export async function runAtsPollerJob() {
 
   const stats = {
     companies: 0,
-    fetched: 0,
+    probed: 0,
+    boardsDetected: 0,
+    boardsPolled: 0,
     openingsSeen: 0,
     openingsUpserted: 0,
     openingsClosed: 0,
@@ -32,7 +42,6 @@ export async function runAtsPollerJob() {
       .from('companies')
       .select('id, name, user_id, company_url, sector, is_public_company, sec_cik_padded, canonical_company_id, career_page_url')
       .is('archived_at', null)
-      .not('career_page_url', 'is', null)
       .limit(ATS_COMPANY_BATCH)
 
     if (error) {
@@ -42,71 +51,145 @@ export async function runAtsPollerJob() {
 
     stats.companies = companies?.length ?? 0
 
+    // Deduplicate to one representative per canonical company.
+    const byCanonical = new Map()
     for (const company of companies ?? []) {
-      const { provider, openings } = await fetchAtsOpenings(company.career_page_url)
-      if (!provider) continue
-
-      stats.fetched += 1
-      stats.openingsSeen += openings.length
-
       const canonicalCompanyId = await resolveCanonicalCompany(supabase, company)
       if (!canonicalCompanyId) continue
+      if (!byCanonical.has(canonicalCompanyId)) byCanonical.set(canonicalCompanyId, company)
+    }
 
-      const activeUrls = new Set()
-      for (const opening of openings) {
-        const openedOn = opening.opened_on ?? new Date().toISOString().slice(0, 10)
-        activeUrls.add(opening.role_url)
+    let probesUsed = 0
+    for (const [canonicalCompanyId, company] of byCanonical) {
+      const board = await getOrDetectBoard(supabase, canonicalCompanyId, company, stats, () => {
+        if (probesUsed >= ATS_PROBE_BUDGET) return false
+        probesUsed++
+        return true
+      })
+      if (!board) continue
 
-        const { error: upsertError } = await supabase
-          .from('ats_role_openings')
-          .upsert(
-            {
-              canonical_company_id: canonicalCompanyId,
-              source_platform: provider,
-              role_title: opening.role_title,
-              role_family: inferRoleFamilyFromTitle(opening.role_title),
-              role_url: opening.role_url,
-              opened_on: openedOn,
-              is_open: true,
-              closed_on: null,
-              raw_payload: opening.raw ?? {},
-              fetched_at: new Date().toISOString(),
-            },
-            { onConflict: 'canonical_company_id,source_platform,role_url' },
-          )
-
-        if (!upsertError) stats.openingsUpserted += 1
-
-        const label = await recordRoleOpening(supabase, {
-          canonicalCompanyId,
-          roleFamily: inferRoleFamilyFromTitle(opening.role_title),
-          roleTitle: opening.role_title,
-          openedOn,
-          labelSource: 'ats_json',
-          sourceRef: `${provider}:${opening.role_url}`,
-        })
-        if (label.openingId && !label.existing) stats.roleLabels += 1
-      }
-
-      const { data: currentlyOpen } = await supabase
-        .from('ats_role_openings')
-        .select('id, role_url')
-        .eq('canonical_company_id', canonicalCompanyId)
-        .eq('source_platform', provider)
-        .eq('is_open', true)
-
-      for (const row of currentlyOpen ?? []) {
-        if (activeUrls.has(row.role_url)) continue
-        const { error: closeError } = await supabase
-          .from('ats_role_openings')
-          .update({ is_open: false, closed_on: new Date().toISOString().slice(0, 10), fetched_at: new Date().toISOString() })
-          .eq('id', row.id)
-        if (!closeError) stats.openingsClosed += 1
-      }
+      await pollBoard(supabase, canonicalCompanyId, board, stats)
     }
 
     logger.info('ats-poller-job: complete', stats)
   } finally {
     await supabase.rpc('advisory_unlock', { p_key: ATS_POLLER_LOCK_KEY })
   }
+}
+
+// Returns { provider, token } for a known active board, probing (budget
+// permitting) when the company has not been resolved yet. Null when no board.
+async function getOrDetectBoard(supabase, canonicalCompanyId, company, stats, takeProbeSlot) {
+  const { data: existing } = await supabase
+    .from('ats_boards')
+    .select('id, provider, board_token, status, probe_attempts')
+    .eq('canonical_company_id', canonicalCompanyId)
+    .maybeSingle()
+
+  if (existing?.status === 'active' && existing.provider && existing.board_token) {
+    return { provider: existing.provider, token: existing.board_token }
+  }
+  if (existing && existing.probe_attempts >= MAX_PROBE_ATTEMPTS) return null
+  if (!takeProbeSlot()) return null
+
+  stats.probed++
+  const detected = await probeAtsBoard({
+    name: company.name,
+    domain: extractDomain(company.company_url),
+    careerPageUrl: company.career_page_url,
+  })
+
+  const now = new Date().toISOString()
+  const row = {
+    canonical_company_id: canonicalCompanyId,
+    provider: detected?.provider ?? null,
+    board_token: detected?.token ?? null,
+    status: detected ? 'active' : 'not_found',
+    detected_via: detected?.via ?? null,
+    probe_attempts: (existing?.probe_attempts ?? 0) + 1,
+    last_probed_at: now,
+    updated_at: now,
+  }
+  const { error: upsertError } = await supabase
+    .from('ats_boards')
+    .upsert(row, { onConflict: 'canonical_company_id' })
+  if (upsertError) {
+    logger.warn('ats-poller-job: board upsert failed', { canonicalCompanyId, error: upsertError.message })
+  }
+
+  if (!detected) return null
+  stats.boardsDetected++
+  logger.info('ats-poller-job: board detected', {
+    canonicalCompanyId,
+    companyName: company.name,
+    provider: detected.provider,
+    token: detected.token,
+    via: detected.via,
+  })
+  return { provider: detected.provider, token: detected.token }
+}
+
+// Polls one board: upserts leadership postings, labels openings, closes
+// postings that disappeared from the feed.
+async function pollBoard(supabase, canonicalCompanyId, board, stats) {
+  const openings = await fetchBoardOpenings(board.provider, board.token)
+  stats.boardsPolled++
+  stats.openingsSeen += openings.length
+
+  const activeUrls = new Set()
+  for (const opening of openings) {
+    const openedOn = opening.opened_on ?? new Date().toISOString().slice(0, 10)
+    activeUrls.add(opening.role_url)
+
+    const { error: upsertError } = await supabase
+      .from('ats_role_openings')
+      .upsert(
+        {
+          canonical_company_id: canonicalCompanyId,
+          source_platform: board.provider,
+          role_title: opening.role_title,
+          role_family: inferRoleFamilyFromTitle(opening.role_title),
+          role_url: opening.role_url,
+          opened_on: openedOn,
+          is_open: true,
+          closed_on: null,
+          raw_payload: opening.raw ?? {},
+          fetched_at: new Date().toISOString(),
+        },
+        { onConflict: 'canonical_company_id,source_platform,role_url' },
+      )
+
+    if (!upsertError) stats.openingsUpserted += 1
+
+    const label = await recordRoleOpening(supabase, {
+      canonicalCompanyId,
+      roleFamily: inferRoleFamilyFromTitle(opening.role_title),
+      roleTitle: opening.role_title,
+      openedOn,
+      labelSource: 'ats_json',
+      sourceRef: `${board.provider}:${opening.role_url}`,
+    })
+    if (label.openingId && !label.existing) stats.roleLabels += 1
+  }
+
+  const { data: currentlyOpen } = await supabase
+    .from('ats_role_openings')
+    .select('id, role_url')
+    .eq('canonical_company_id', canonicalCompanyId)
+    .eq('source_platform', board.provider)
+    .eq('is_open', true)
+
+  for (const row of currentlyOpen ?? []) {
+    if (activeUrls.has(row.role_url)) continue
+    const { error: closeError } = await supabase
+      .from('ats_role_openings')
+      .update({ is_open: false, closed_on: new Date().toISOString().slice(0, 10), fetched_at: new Date().toISOString() })
+      .eq('id', row.id)
+    if (!closeError) stats.openingsClosed += 1
+  }
+
+  await supabase
+    .from('ats_boards')
+    .update({ last_polled_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+    .eq('canonical_company_id', canonicalCompanyId)
 }
