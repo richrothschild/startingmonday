@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument } from './actions'
+import { updateCompany, archiveCompany, addFollowUp, markFollowUpDone, addContact, archiveContact, addDocument, removeDocument, reportMissedRole } from './actions'
 import { todayInTz } from '@/lib/date'
 import { PREVIEW_CHARS } from '@/lib/ai-limits'
 import { LogSignalForm } from '@/components/LogSignalForm'
@@ -53,10 +53,10 @@ export default async function CompanyPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ error?: string; saved?: string; scanning?: string; stage_up?: string }>
+  searchParams: Promise<{ error?: string; saved?: string; scanning?: string; stage_up?: string; missed?: string; missed_error?: string }>
 }) {
   const { id } = await params
-  const { error, saved, scanning, stage_up: stageUp } = await searchParams
+  const { error, saved, scanning, stage_up: stageUp, missed, missed_error: missedError } = await searchParams
   const isScanning = scanning === '1' && true
 
   const supabase = await createClient()
@@ -166,6 +166,12 @@ export default async function CompanyPage({
     error === 'duplicate' ? 'A company with that name is already in your pipeline.' :
     error === 'required'  ? 'Company name is required.' :
     null
+
+  const missedRoleMsg = missed === '1'
+    ? 'Thanks. We queued this role URL for verification and backfill.'
+    : missedError === 'required'
+      ? 'Paste a job URL so we can verify the missed role.'
+      : null
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
@@ -695,6 +701,37 @@ export default async function CompanyPage({
             isVpUser={isVpUser}
             scanHistory={scanHistory}
           />
+
+          <div className="px-6 py-5 border-t border-slate-100 bg-slate-50/60">
+            <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Report a role we missed</p>
+            <p className="text-[13px] text-slate-500 mb-3">Paste a leadership role URL. We verify it and feed confirmed misses back into scanner training.</p>
+            {missedRoleMsg ? (
+              <p className={`mb-3 text-[13px] ${missed === '1' ? 'text-emerald-700' : 'text-red-600'}`}>
+                {missedRoleMsg}
+              </p>
+            ) : null}
+            <form action={reportMissedRole.bind(null, id)} className="grid grid-cols-1 sm:grid-cols-[1fr_220px_auto] gap-2">
+              <input
+                type="text"
+                name="role_url"
+                placeholder="https://boards.greenhouse.io/company/jobs/12345"
+                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+                required
+              />
+              <input
+                type="text"
+                name="role_title"
+                placeholder="Optional title"
+                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+              />
+              <button
+                type="submit"
+                className="px-3 py-2 text-[13px] font-semibold text-white bg-slate-900 rounded border border-slate-900 hover:bg-slate-800"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </details>
 
         {/* Signals */}
