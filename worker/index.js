@@ -47,6 +47,9 @@ import { runCanonicalBackfillJob } from './jobs/canonical-backfill-job.js'
 import { runOutcomeLabelBackfillJob } from './jobs/outcome-label-backfill-job.js'
 import { runPrecursorStatsJob } from './jobs/precursor-stats-job.js'
 import { runAtsPollerJob } from './jobs/ats-poller-job.js'
+import { runWarnIngestionJob } from './jobs/warn-ingestion-job.js'
+import { runCohortBuilderJob } from './jobs/cohort-builder-job.js'
+import { runPatternBacktestJob } from './jobs/pattern-backtest-job.js'
 import { notify } from './lib/notify.js'
 
 // ── Sentry ────────────────────────────────────────────────────────────────────
@@ -332,6 +335,18 @@ cron.schedule('10 3 * * *', () => runJob('outcome-label-backfill-job', runOutcom
 // ATS poller: daily at 02:15 - polls Greenhouse/Lever/Ashby JSON boards for leadership
 // postings and feeds the outcome labeler (runs before label backfill and precursor stats).
 cron.schedule('15 2 * * *', () => runJob('ats-poller-job', runAtsPollerJob))
+
+// WARN ingestion: daily at 01:50 - state WARN notices become layoff_warn company events
+// (runs before canonical backfill and the labelers that consume events).
+cron.schedule('50 1 * * *', () => runJob('warn-ingestion-job', runWarnIngestionJob))
+
+// Backtest cohort builder: daily at 04:10 - builds cohorts + matched controls from
+// labeled openings (runs after outcome labels and precursor stats).
+cron.schedule('10 4 * * *', () => runJob('cohort-builder-job', runCohortBuilderJob))
+
+// Pattern backtest replay: weekly Sunday 04:40 - replays pattern library against
+// cohorts/controls and refreshes pattern_backtests precision metrics.
+cron.schedule('40 4 * * 0', () => runJob('pattern-backtest-job', runPatternBacktestJob))
 
 // Precursor stats: nightly at 03:40 - recomputes calibration aggregates from labeled outcomes.
 cron.schedule('40 3 * * *', () => runJob('precursor-stats-job', runPrecursorStatsJob))
