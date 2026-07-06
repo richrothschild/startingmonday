@@ -2,7 +2,7 @@ import { logger } from '../lib/logger.js'
 import { getSupabase } from '../lib/supabase.js'
 import { normalizeCompanyName } from '../lib/canonical-company.js'
 import { fetchWarnNoticesForState } from '../signals/fetch-warn-notices.js'
-import { upsertCompanyEvent } from '../lib/event-store.js'
+import { upsertCompanyEvent } from '../signals/event-store.js'
 
 const WARN_INGESTION_LOCK_KEY = 4478201955n
 const DEFAULT_TOP_STATES = ['CA', 'TX', 'FL', 'NY', 'PA', 'IL', 'OH', 'GA', 'NC', 'MI']
