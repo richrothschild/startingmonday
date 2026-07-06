@@ -819,6 +819,7 @@ export default async function DashboardPage({
       </header>
 
       <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+      <h1 className="sr-only">Dashboard</h1>
         <DashboardTopShellSection
           firstName={firstName}
             briefingTimezone={profile?.briefing_timezone ?? null}

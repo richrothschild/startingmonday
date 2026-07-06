@@ -492,7 +492,7 @@ async function fetchCADataRows(feedUrl) {
     // Try CSV as fallback
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -540,7 +540,7 @@ async function fetchTXDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -588,7 +588,7 @@ async function fetchFLDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -644,18 +644,18 @@ async function fetchNYDataRows(feedUrl) {
     }
     
     // If HTML, parse table rows
-    const htmlRows = parseNYHtmlRows(text, feedUrl)
+    const htmlRows = parseNYHtmlRows(text)
     if (htmlRows.length > 0) {
       return htmlRows
     }
     
     return []
-  } catch (err) {
+  } catch {
     return []
   }
 }
 
-function parseNYHtmlRows(html, feedUrl) {
+function parseNYHtmlRows(html) {
   const rows = []
   
   // Look for table rows in the HTML
@@ -673,11 +673,13 @@ function parseNYHtmlRows(html, feedUrl) {
       const content = cell
         .replace(/<[^>]+>/g, ' ')
         .replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&')
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
+        // Decode &amp; last so earlier replacements cannot double-unescape
+        // sequences like &amp;lt; into live markup characters.
+        .replace(/&amp;/g, '&')
         .replace(/\s+/g, ' ')
         .trim()
       return content
@@ -765,7 +767,7 @@ async function fetchPADataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -809,7 +811,7 @@ async function fetchMIDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
