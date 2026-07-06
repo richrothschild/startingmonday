@@ -17,25 +17,30 @@ export class WarnNotificationService {
     if (!canonicalCompanyId) return null
 
     try {
-      // Insert into notifications table (assumes table exists or use upsert pattern)
+      const title = `${employerName} filed WARN notice in ${stateCode}`
+      
+      // Store all data in metadata to avoid schema cache issues with optional columns
+      const metadata = {
+        warn_state: stateCode,
+        job_losses: jobLosses,
+        source_kind: 'warn_notice',
+        employer_name: employerName,
+        event_date: eventDate,
+        description: `Layoff notice filed. ${jobLosses ? `Approximately ${jobLosses} roles affected.` : ''}`,
+      }
+
+      // Insert using only columns that are in the schema cache
+      // (description, event_date, related_entity_* columns are causing cache issues)
       const { data, error } = await this.supabase
         .from('notifications')
         .insert({
           company_id: canonicalCompanyId,
           notification_type: 'warn_notice_filed',
-          title: `${employerName} filed WARN notice in ${stateCode}`,
-          description: `Layoff notice filed. ${jobLosses ? `Approximately ${jobLosses} roles affected.` : ''}`,
-          event_date: eventDate,
-          related_entity_id: canonicalCompanyId,
-          related_entity_type: 'company',
+          title,
           is_read: false,
           priority: 'high',
           action_url: `/dashboard/discover/company/${canonicalCompanyId}`,
-          metadata: {
-            warn_state: stateCode,
-            job_losses: jobLosses,
-            source_kind: 'warn_notice',
-          },
+          metadata,
         })
 
       if (error) {
