@@ -5,12 +5,26 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import type { EmailOtpType } from '@supabase/supabase-js'
 import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/policy-versions'
 
+function getSafeNextPath(nextParam: string | null): string {
+  if (!nextParam) return '/dashboard/briefing'
+  if (!nextParam.startsWith('/')) return '/dashboard/briefing'
+  if (nextParam.startsWith('//')) return '/dashboard/briefing'
+  return nextParam
+}
+
+function createClientRedirectResponse(path: string): NextResponse {
+  return new NextResponse(
+    `<!DOCTYPE html><html><head><meta charset="utf-8"><script>location.replace(${JSON.stringify(path)})</script></head><body></body></html>`,
+    { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+  )
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const tokenHash = searchParams.get('token_hash')
   const tokenType = searchParams.get('type')
-  const next = searchParams.get('next') ?? '/dashboard/briefing'
+  const nextPath = getSafeNextPath(searchParams.get('next'))
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
   // x-forwarded-host contains the real public hostname (startingmonday.app).
@@ -24,11 +38,9 @@ export async function GET(request: NextRequest) {
     // Use a JS redirect (location.replace) instead of an HTTP 302 so the
     // OAuth callback URL is replaced in browser history rather than pushed.
     // Pressing Back will skip past the Google account chooser entirely.
-    const destination = `${publicOrigin}${next}`
-    const response = new NextResponse(
-      `<!DOCTYPE html><html><head><meta charset="utf-8"><script>location.replace(${JSON.stringify(destination)})</script></head><body></body></html>`,
-      { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
-    )
+    // Keep this redirect path-relative to avoid host normalization mismatches
+    // (for example www vs apex) dropping auth cookies after OAuth.
+    const response = createClientRedirectResponse(nextPath)
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -147,5 +159,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(`${publicOrigin}/login?error=oauth`)
+  const loginPath = `/login?error=oauth&next=${encodeURIComponent(nextPath)}`
+  return createClientRedirectResponse(loginPath)
 }
