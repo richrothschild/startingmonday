@@ -436,7 +436,7 @@ function feedEnvVar(stateCode) {
 }
 
 async function fetchCADataRows(feedUrl) {
-  // California EDD publishes WARN data as XLSX file
+  // California EDD publishes WARN data as XLSX file with complex headers
   try {
     const response = await fetch(feedUrl, { signal: withTimeout() })
     if (!response.ok) return []
@@ -446,27 +446,47 @@ async function fetchCADataRows(feedUrl) {
     // Handle XLSX
     if (contentType.includes('spreadsheet') || contentType.includes('excel') || feedUrl.includes('.xlsx')) {
       const bytes = Buffer.from(await response.arrayBuffer())
-      return parseExcelRows(bytes)
+      const workbook = XLSX.read(bytes, { type: 'buffer' })
+      
+      // CA XLSX has multiple sheets - use "Detailed WARN Report"
+      const targetSheet = workbook.SheetNames.find((name) =>
+        String(name).toLowerCase().includes('detailed')
+      ) || workbook.SheetNames[2]
+      
+      if (!targetSheet) return []
+      const sheet = workbook.Sheets[targetSheet]
+      
+      // Parse cells directly to handle complex headers
+      const range = XLSX.utils.decode_range(sheet['!ref'] || 'A1:I1600')
+      const rows = []
+      
+      // Start from row 3 (skip description headers at rows 1-2)
+      for (let row = 3; row <= range.e.r; row++) {
+        const company = sheet[XLSX.utils.encode_cell({ r: row, c: 4 })]?.v
+        if (!company) continue
+        
+        rows.push({
+          county: sheet[XLSX.utils.encode_cell({ r: row, c: 0 })]?.v || '',
+          notice_date: sheet[XLSX.utils.encode_cell({ r: row, c: 1 })]?.v,
+          processed_date: sheet[XLSX.utils.encode_cell({ r: row, c: 2 })]?.v,
+          effective_date: sheet[XLSX.utils.encode_cell({ r: row, c: 3 })]?.v,
+          company: company,
+          layoff_closure: sheet[XLSX.utils.encode_cell({ r: row, c: 5 })]?.v || '',
+          employees: sheet[XLSX.utils.encode_cell({ r: row, c: 6 })]?.v || 0,
+          address: sheet[XLSX.utils.encode_cell({ r: row, c: 7 })]?.v || '',
+          industry: sheet[XLSX.utils.encode_cell({ r: row, c: 8 })]?.v || '',
+        })
+      }
+      
+      return rows
     }
 
     // Handle JSON
     if (contentType.includes('json')) {
       const data = await response.json()
-
-      // Handle CKAN datastore response format
-      if (data?.result?.records) {
-        return data.result.records
-      }
-
-      // Handle direct array response
-      if (Array.isArray(data)) {
-        return data
-      }
-
-      // Handle wrapped data
-      if (data?.data) {
-        return Array.isArray(data.data) ? data.data : []
-      }
+      if (data?.result?.records) return data.result.records
+      if (Array.isArray(data)) return data
+      if (data?.data) return Array.isArray(data.data) ? data.data : []
     }
 
     // Try CSV as fallback
@@ -480,23 +500,22 @@ async function fetchCADataRows(feedUrl) {
 function mapCaliforniaRows(rows) {
   return rows
     .map((row) => {
-      // Handle various column name variations in CA data
-      const employer = String(row.company_name || row.employer_name || row.employer || row['Company Name'] || row['Employer Name'] || '').trim()
+      const employer = String(row.company || row.employer_name || row['Company Name'] || '').trim()
       const eventDate = parseDateValue(
-        row.received_date || row.date_filed || row.date_received || 
-        row['Date Received'] || row['Date Filed'] || row['Received Date'] || ''
+        row.notice_date || row.processed_date || row.date_received || row['Date Received'] || ''
       )
       
       if (!employer || !eventDate) return null
       
       const noticeId = stableNoticeId('CA', employer, eventDate)
+      const jobLosses = toWholeNumber(row.employees || row.job_losses || row['No. Of Employees'] || '')
 
       return {
         notice_id: noticeId,
         employer_name: employer,
         event_date: eventDate,
-        job_losses: toWholeNumber(row.job_losses || row.affected_employees || row['Job Losses'] || row['Affected Employees'] || ''),
-        location: [row.city || row['City'] || '', row.county || row['County'] || ''].filter(Boolean).join(', ') || null,
+        job_losses: jobLosses,
+        location: row.county || row.address || null,
       }
     })
     .filter(Boolean)
@@ -529,21 +548,25 @@ async function fetchTXDataRows(feedUrl) {
 function mapTexasRows(rows) {
   return rows
     .map((row) => {
-      const noticeId = stableNoticeId(
-        'TX',
-        String(row.company_name || row.employer || row.business_name || '').trim(),
-        parseDateValue(row.notice_date || row.received_date || row.date || '')
-      )
+      // TX XLSX columns: NOTICE_DATE, JOB_SITE_NAME, COUNTY_NAME, WDA_NAME, TOTAL_LAYOFF_NUMBER, LayOff_Date, WFDD_RECEIVED_DATE, CITY_NAME
+      const employer = String(row.JOB_SITE_NAME || row.company_name || row.employer || '').trim()
+      const noticeDate = row.NOTICE_DATE || row.WFDD_RECEIVED_DATE || row.notice_date || row.received_date
+      const eventDate = parseDateValue(noticeDate)
+      
+      if (!employer || !eventDate) return null
+      
+      const noticeId = stableNoticeId('TX', employer, eventDate)
+      const jobLosses = toWholeNumber(row.TOTAL_LAYOFF_NUMBER || row.workers_affected || row.job_losses || '')
 
       return {
         notice_id: noticeId,
-        employer_name: String(row.company_name || row.employer || row.business_name || '').trim(),
-        event_date: parseDateValue(row.notice_date || row.received_date || row.date || ''),
-        job_losses: toWholeNumber(row.workers_affected || row.job_losses || row.employees || ''),
-        location: String(row.city || row.location || '').trim() || null,
+        employer_name: employer,
+        event_date: eventDate,
+        job_losses: jobLosses,
+        location: String(row.CITY_NAME || row.COUNTY_NAME || row.city || '').trim() || null,
       }
     })
-    .filter((row) => row.employer_name && row.event_date)
+    .filter(Boolean)
 }
 
 async function fetchFLDataRows(feedUrl) {
