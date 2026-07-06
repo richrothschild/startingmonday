@@ -202,4 +202,142 @@ describe('fetchWarnNoticesForState adapter coverage', () => {
     expect(rows[0].event_date).toBe('2026-06-15')
     expect(rows[0].job_losses).toBe(1247)
   })
+
+  it('parses Texas CSV WARN data', async () => {
+    process.env.WARN_FEED_TX = 'https://www.twc.texas.gov/warn-notices.csv'
+
+    const txCsv = [
+      'company_name,notice_date,workers_affected,city',
+      'Exxon Mobil,2026-05-20,340,Houston',
+      'AT&T Services,2026-06-10,215,Dallas',
+    ].join('\n')
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('twc.texas.gov')) {
+        return new Response(txCsv, { status: 200, headers: { 'content-type': 'text/csv' } })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('TX')
+    expect(rows.length).toBeGreaterThanOrEqual(2)
+    expect(rows[0].state_code).toBe('TX')
+    expect(rows[0].employer_name).toBe('Exxon Mobil')
+    expect(rows[0].job_losses).toBe(340)
+  })
+
+  it('parses Florida Excel WARN data', async () => {
+    process.env.WARN_FEED_FL = 'https://www.floridajobs.org/warn-data.xlsx'
+
+    const flWorkbook = buildWorkbookBuffer([
+      {
+        employer_name: 'Walt Disney World',
+        received_date: '2026-05-25',
+        affected_workers: 560,
+        county: 'Orange',
+      },
+      {
+        employer_name: 'Royal Caribbean',
+        received_date: '2026-06-01',
+        job_losses: 320,
+        county: 'Miami-Dade',
+      },
+    ])
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('floridajobs.org')) {
+        return new Response(flWorkbook, {
+          status: 200,
+          headers: { 'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+        })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('FL')
+    expect(rows.length).toBeGreaterThanOrEqual(2)
+    expect(rows[0].state_code).toBe('FL')
+    expect(rows[0].employer_name).toBe('Walt Disney World')
+    expect(rows[0].job_losses).toBe(560)
+  })
+
+  it('parses New York CSV WARN database', async () => {
+    process.env.WARN_FEED_NY = 'https://www.dol.ny.gov/warn-notices'
+
+    const nyCsv = [
+      'employer,date_received,number_of_employees,county',
+      'JPMorgan Chase,2026-05-15,890,New York',
+      'Goldman Sachs,2026-06-05,450,New York',
+    ].join('\n')
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('dol.ny.gov')) {
+        return new Response(nyCsv, { status: 200, headers: { 'content-type': 'text/csv' } })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('NY')
+    expect(rows.length).toBeGreaterThanOrEqual(2)
+    expect(rows[0].state_code).toBe('NY')
+    expect(rows[0].employer_name).toBe('JPMorgan Chase')
+    expect(rows[0].job_losses).toBe(890)
+  })
+
+  it('parses Pennsylvania Excel WARN notices', async () => {
+    process.env.WARN_FEED_PA = 'https://www.pa.gov/warn-data.xlsx'
+
+    const paWorkbook = buildWorkbookBuffer([
+      {
+        company_name: 'US Steel',
+        notice_received: '2026-04-28',
+        number_affected: 410,
+        county: 'Allegheny',
+      },
+    ])
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('pa.gov')) {
+        return new Response(paWorkbook, {
+          status: 200,
+          headers: { 'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+        })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('PA')
+    expect(rows.length).toBeGreaterThanOrEqual(1)
+    expect(rows[0].state_code).toBe('PA')
+    expect(rows[0].employer_name).toBe('US Steel')
+    expect(rows[0].job_losses).toBe(410)
+  })
+
+  it('parses Michigan CSV WARN dataset', async () => {
+    process.env.WARN_FEED_MI = 'https://www.michigan.gov/warn-notices.csv'
+
+    const miCsv = [
+      'employer_name,date_received,workers_affected,county',
+      'Ford Motor,2026-06-08,780,Wayne',
+      'General Motors,2026-06-12,920,Genesee',
+    ].join('\n')
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('michigan.gov')) {
+        return new Response(miCsv, { status: 200, headers: { 'content-type': 'text/csv' } })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('MI')
+    expect(rows.length).toBeGreaterThanOrEqual(2)
+    expect(rows[0].state_code).toBe('MI')
+    expect(rows[0].employer_name).toBe('Ford Motor')
+    expect(rows[0].job_losses).toBe(780)
+  })
 })
