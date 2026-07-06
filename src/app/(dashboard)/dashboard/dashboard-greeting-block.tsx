@@ -23,9 +23,11 @@ export function DashboardGreetingBlock({ firstName, briefingTimezone }: Dashboar
   return (
     <>
       <p className="text-[13px] font-semibold text-orange-300 mb-2">This week&apos;s operating rhythm</p>
-      <h1 className="text-[26px] sm:text-[32px] font-bold text-white leading-tight">
+      {/* Visual greeting only — the page h1 is the sr-only "Dashboard" heading
+          in page.tsx (landing-standard h1_contract + single-h1 a11y rule). */}
+      <p className="text-[26px] sm:text-[32px] font-bold text-white leading-tight">
         {greeting}, {firstName}.
-      </h1>
+      </p>
       <p className="text-[13px] text-slate-300 mt-1.5">{today}</p>
     </>
   )

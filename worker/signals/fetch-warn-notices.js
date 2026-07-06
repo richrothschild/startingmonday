@@ -492,7 +492,7 @@ async function fetchCADataRows(feedUrl) {
     // Try CSV as fallback
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -540,7 +540,7 @@ async function fetchTXDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -588,7 +588,7 @@ async function fetchFLDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -616,7 +616,12 @@ function mapFloridaRows(rows) {
 async function fetchNYDataRows(feedUrl) {
   // New York Department of Labor publishes WARN data via their public database
   try {
-    const response = await fetch(feedUrl, { signal: withTimeout() })
+    const response = await fetch(feedUrl, { 
+      signal: withTimeout(),
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    })
     if (!response.ok) return []
 
     const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
@@ -631,10 +636,96 @@ async function fetchNYDataRows(feedUrl) {
     }
 
     const text = await response.text()
-    return parseCsvRows(text)
-  } catch (err) {
+    
+    // Try to parse as CSV first (for direct exports)
+    const csvRows = parseCsvRows(text)
+    if (csvRows.length > 0) {
+      return csvRows
+    }
+    
+    // If HTML, parse table rows
+    const htmlRows = parseNYHtmlRows(text)
+    if (htmlRows.length > 0) {
+      return htmlRows
+    }
+    
+    return []
+  } catch {
     return []
   }
+}
+
+function parseNYHtmlRows(html) {
+  const rows = []
+  
+  // Look for table rows in the HTML
+  const tableMatches = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || []
+  
+  if (tableMatches.length === 0) return rows
+  
+  for (const rowHtml of tableMatches) {
+    // Extract cells from row
+    const cellMatches = rowHtml.match(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi) || []
+    if (cellMatches.length === 0) continue
+    
+    // Clean cell content
+    const cells = cellMatches.map(cell => {
+      const content = cell
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        // Decode &amp; last so earlier replacements cannot double-unescape
+        // sequences like &amp;lt; into live markup characters.
+        .replace(/&amp;/g, '&')
+        .replace(/\s+/g, ' ')
+        .trim()
+      return content
+    }).filter(Boolean)
+    
+    if (cells.length < 3) continue // Skip rows with too few cells
+    
+    // Try to extract employer name (usually first or second column)
+    // WARN data typically has: Employer | Date | Location | Affected
+    let employer = ''
+    let dateStr = ''
+    let affected = ''
+    
+    // Simple heuristic: look for date patterns
+    for (let i = 0; i < cells.length; i++) {
+      const cell = cells[i]
+      // Check if looks like a date
+      if (/\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b|\b\d{4}-\d{2}-\d{2}\b|\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i.test(cell)) {
+        dateStr = cell
+        // Employer is usually before date
+        if (i > 0 && !employer) {
+          employer = cells[i - 1]
+        }
+      }
+      // Check if looks like a number (affected workers)
+      if (/^\d{1,5}(\s|,|$)/.test(cell) && !affected && cell.length < 10) {
+        affected = cell
+      }
+    }
+    
+    // Fallback: use first cell as employer if not found
+    if (!employer) {
+      employer = cells[0]
+    }
+    
+    if (!employer || !dateStr) continue
+    
+    rows.push({
+      employer_name: employer,
+      event_date: dateStr,
+      job_losses: affected || null,
+      location: cells.length > 3 ? cells[2] : null,
+    })
+  }
+  
+  return rows
 }
 
 function mapNewYorkRows(rows) {
@@ -676,7 +767,7 @@ async function fetchPADataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -720,7 +811,7 @@ async function fetchMIDataRows(feedUrl) {
 
     const text = await response.text()
     return parseCsvRows(text)
-  } catch (err) {
+  } catch {
     return []
   }
 }

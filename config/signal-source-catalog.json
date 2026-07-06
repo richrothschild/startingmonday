@@ -37,7 +37,13 @@
       "implemented": true,
       "freshnessSloHours": 72,
       "lastReviewedAt": "2026-07-05",
-      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"],
+      "complianceAudit": {
+        "lastReviewedAt": "2026-07-05",
+        "requiresPaidTier": false,
+        "paidTierRequiredDate": "2026-10-01",
+        "notes": "GNews free tier for research; paid tier required for commercial product launch. Article text republishing prohibited."
+      }
     },
     {
       "key": "pr_wire",
@@ -100,6 +106,27 @@
       "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
     },
     {
+      "key": "pdl_executive_snapshot",
+      "name": "PDL Executive Enrichment",
+      "category": "org_changes",
+      "accessMethod": "api",
+      "rightsStatus": "licensed",
+      "status": "active",
+      "implemented": true,
+      "freshnessSloHours": 192,
+      "lastReviewedAt": "2026-07-05",
+      "roleFamilies": ["leadership", "technical_leadership"],
+      "complianceAudit": {
+        "lastReviewedAt": "2026-07-05",
+        "vendor": "People Data Labs",
+        "preventDerivedAggregation": true,
+        "restrictions": "Section 3.2 (Enterprise Agreement): derivative datasets and aggregate products prohibited. Section 4.3: published predictive models prohibited.",
+        "notes": "Use for internal labeling (career_scan source). Exclude from precursor_stats aggregates. Cannot publish calibration rates based on PDL-enriched signals.",
+        "applicableToPublicStats": false,
+        "workaround": "Label separately; aggregate internal-only calibration metrics."
+      }
+    },
+    {
       "key": "predictleads_events",
       "name": "PredictLeads company events",
       "category": "org_changes",
@@ -109,7 +136,14 @@
       "implemented": true,
       "freshnessSloHours": 72,
       "lastReviewedAt": "2026-07-05",
-      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"]
+      "roleFamilies": ["leadership", "technical_leadership", "delivery_leadership"],
+      "complianceAudit": {
+        "lastReviewedAt": "2026-07-05",
+        "requiresAttribution": true,
+        "attributionText": "PredictLeads hiring intent signals included in precursor analysis",
+        "restrictions": "Section 2.3: Cannot resell data or models. Section 3.1: Attribution required in any published analysis.",
+        "notes": "Full feature set allowed with attribution. Usable in internal precursor_stats and public scorecard with proper citation."
+      }
     },
     {
       "key": "leadership_changes",
@@ -121,7 +155,17 @@
       "implemented": true,
       "freshnessSloHours": 192,
       "lastReviewedAt": "2026-07-05",
-      "roleFamilies": ["leadership", "delivery_leadership"]
+      "roleFamilies": ["leadership", "delivery_leadership"],
+      "complianceAudit": {
+        "lastReviewedAt": "2026-07-05",
+        "vendor": "Apollo",
+        "restrictPublicAggregation": true,
+        "preventUserFacing": true,
+        "restrictions": "Section 3.2-c: derivative products and published models cannot be redistributed. Section 3.4: org-diff insights cannot be published; selling org-change trends prohibited.",
+        "notes": "Internal precursor_stats allowed. Hiring-DNA user-facing panel requires written exception from Apollo. Exclude from public aggregates without approval.",
+        "actionRequired": "Request written approval from Apollo legal (legal@apollo.io) for user-facing org-expansion forecasting panel",
+        "escalationStatus": "Pending"
+      }
     },
     {
       "key": "earnings_call_transcripts",

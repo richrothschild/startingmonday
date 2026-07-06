@@ -495,7 +495,7 @@ export default async function AdminIntelligencePage() {
 
           {topPrecursors.length > 0 ? (
             <div className="mt-4 overflow-x-auto">
-              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Top precursors (90-day window, n ≥ 5) — internal only</p>
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Top precursors (90-day window, n ≥ 5), internal only</p>
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b border-slate-200">

@@ -1,3 +1,12 @@
+// T3.4 — ATS JSON pollers (Greenhouse, Lever, Ashby). Structured job feeds
+// replace HTML scraping where available: postings carry stable URLs and
+// open timestamps that feed the outcome labeler directly.
+//
+// Detection happens two ways:
+// 1. career_page_url already points at an ATS-hosted board (fast path)
+// 2. token probing — candidate board tokens derived from the company name
+//    and domain are probed against each provider's public JSON endpoint
+
 import { isLeadershipTitle } from '../lib/outcome-labels.js'
 
 function parseUrl(value) {
@@ -18,29 +27,56 @@ async function fetchJson(url) {
   return response.json()
 }
 
-function detectProvider(careerPageUrl) {
+// True when the hostname is the given domain or a subdomain of it.
+// Exact suffix matching prevents spoofed hosts like "greenhouse.io.evil.com".
+function isHostOrSubdomain(host, domain) {
+  return host === domain || host.endsWith(`.${domain}`)
+}
+
+// Detects an ATS provider when the career page URL is ATS-hosted. Pure.
+export function detectProviderFromUrl(careerPageUrl) {
   const parsed = parseUrl(careerPageUrl)
   if (!parsed) return null
 
   const host = parsed.hostname.toLowerCase()
   const pathParts = parsed.pathname.split('/').filter(Boolean)
 
-  if (host.includes('greenhouse.io')) {
+  if (isHostOrSubdomain(host, 'greenhouse.io')) {
     const boardToken = pathParts[pathParts.length - 1]
     return boardToken ? { provider: 'greenhouse', token: boardToken } : null
   }
 
-  if (host.includes('lever.co')) {
+  if (isHostOrSubdomain(host, 'lever.co')) {
     const account = pathParts[0]
     return account ? { provider: 'lever', token: account } : null
   }
 
-  if (host.includes('ashbyhq.com')) {
+  if (isHostOrSubdomain(host, 'ashbyhq.com')) {
     const org = pathParts[0]
     return org ? { provider: 'ashby', token: org } : null
   }
 
   return null
+}
+
+// Candidate board tokens for probing, derived from company name and domain.
+// Pure. Ordered most-likely first; deduplicated.
+export function candidateTokens({ name, domain }) {
+  const tokens = []
+  const domainLabel = (domain ?? '').split('.')[0]?.toLowerCase() ?? ''
+  if (domainLabel && domainLabel.length > 1) tokens.push(domainLabel)
+
+  const base = (name ?? '')
+    .toLowerCase()
+    .replace(/\b(inc|llc|ltd|corp|corporation|company|co|group|holdings|technologies|labs)\b\.?/g, ' ')
+    .trim()
+  if (base) {
+    const squashed = base.replace(/[^a-z0-9]/g, '')
+    const hyphenated = base.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    if (squashed.length > 1) tokens.push(squashed)
+    if (hyphenated.length > 1 && hyphenated !== squashed) tokens.push(hyphenated)
+  }
+  return [...new Set(tokens)]
 }
 
 async function fetchGreenhouse(boardToken) {
@@ -64,33 +100,66 @@ async function fetchLever(account) {
 }
 
 async function fetchAshby(org) {
-  const payload = await fetchJson(`https://jobs.ashbyhq.com/api/non-user-portal/${encodeURIComponent(org)}/job-posting`)
-  const postings = payload.jobs ?? payload.openings ?? []
+  // Official public posting API: https://developers.ashbyhq.com/docs/public-job-posting-api
+  const payload = await fetchJson(`https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(org)}`)
+  const postings = payload.jobs ?? []
   return (Array.isArray(postings) ? postings : []).map((job) => ({
     role_title: job.title,
-    role_url: job.absoluteUrl ?? job.url,
-    opened_on: job.publishedDate ? new Date(job.publishedDate).toISOString().slice(0, 10) : null,
+    role_url: job.jobUrl ?? job.applyUrl ?? job.url,
+    opened_on: (job.publishedAt ?? job.publishedDate)
+      ? new Date(job.publishedAt ?? job.publishedDate).toISOString().slice(0, 10)
+      : null,
     raw: job,
   }))
 }
 
-export async function fetchAtsOpenings(careerPageUrl) {
-  const source = detectProvider(careerPageUrl)
-  if (!source) return { provider: null, openings: [] }
+const FETCHERS = {
+  greenhouse: fetchGreenhouse,
+  lever: fetchLever,
+  ashby: fetchAshby,
+}
 
+const PROVIDERS = Object.keys(FETCHERS)
+
+// Fetches all postings for a known board; returns leadership postings only.
+// Never throws — an unreachable board yields an empty list.
+export async function fetchBoardOpenings(provider, token) {
+  const fetcher = FETCHERS[provider]
+  if (!fetcher || !token) return []
   try {
-    let openings = []
-    if (source.provider === 'greenhouse') openings = await fetchGreenhouse(source.token)
-    else if (source.provider === 'lever') openings = await fetchLever(source.token)
-    else if (source.provider === 'ashby') openings = await fetchAshby(source.token)
-
-    return {
-      provider: source.provider,
-      openings: openings
-        .filter((opening) => opening.role_title && opening.role_url)
-        .filter((opening) => isLeadershipTitle(opening.role_title)),
-    }
+    const openings = await fetcher(token)
+    return openings
+      .filter((opening) => opening.role_title && opening.role_url)
+      .filter((opening) => isLeadershipTitle(opening.role_title))
   } catch {
-    return { provider: source.provider, openings: [] }
+    return []
   }
+}
+
+// Probes for an ATS board: URL detection first, then token probing across
+// providers. Returns { provider, token, via } or null. Never throws.
+export async function probeAtsBoard({ name, domain, careerPageUrl }) {
+  const fromUrl = detectProviderFromUrl(careerPageUrl)
+  if (fromUrl) return { ...fromUrl, via: 'career_page_url' }
+
+  for (const token of candidateTokens({ name, domain })) {
+    for (const provider of PROVIDERS) {
+      try {
+        const openings = await FETCHERS[provider](token)
+        // A live board returns an array (possibly empty). Errors throw above.
+        if (Array.isArray(openings)) return { provider, token, via: 'probe' }
+      } catch {
+        // 404 / non-JSON → not this provider+token; keep probing
+      }
+    }
+  }
+  return null
+}
+
+// Back-compat: single-call fetch for an ATS-hosted career page URL.
+export async function fetchAtsOpenings(careerPageUrl) {
+  const source = detectProviderFromUrl(careerPageUrl)
+  if (!source) return { provider: null, openings: [] }
+  const openings = await fetchBoardOpenings(source.provider, source.token)
+  return { provider: source.provider, openings }
 }

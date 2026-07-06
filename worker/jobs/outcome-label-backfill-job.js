@@ -15,13 +15,15 @@ import {
   recordRoleOpening,
   inferRoleFamilyFromTitle,
   roleFamilyForRoleType,
+  isLeadershipTitle,
 } from '../lib/outcome-labels.js'
 import { getOfficerAppointments } from '../signals/fetch-sec-officers.js'
 
 const OUTCOME_BACKFILL_LOCK_KEY = 6472913850n
 const EXEC_HIRE_BATCH = Number(process.env.OUTCOME_EXEC_HIRE_BATCH ?? 200)
 const PIPELINE_BATCH = Number(process.env.OUTCOME_PIPELINE_BATCH ?? 200)
-const PROXY_DIFF_BATCH = Number(process.env.OUTCOME_PROXY_DIFF_BATCH ?? 10)
+const PROXY_DIFF_BATCH = Number(process.env.OUTCOME_PROXY_DIFF_BATCH ?? 50)
+const CAREER_SCAN_BATCH = Number(process.env.OUTCOME_CAREER_SCAN_BATCH ?? 1000)
 
 export async function runOutcomeLabelBackfillJob() {
   const supabase = getSupabase()
@@ -33,15 +35,94 @@ export async function runOutcomeLabelBackfillJob() {
   }
 
   clearCanonicalCache()
-  const totals = { execHire: 0, pipeline: 0, proxy: 0, labeledEvents: 0 }
+  const totals = { execHire: 0, pipeline: 0, proxy: 0, careerScan: 0, labeledEvents: 0 }
 
   try {
     await backfillExecHires(supabase, totals)
     await backfillPipelineStages(supabase, totals)
     await backfillProxyDiffs(supabase, totals)
+    await backfillCareerScans(supabase, totals)
     logger.info('outcome-label-backfill-job: complete', totals)
   } finally {
     await supabase.rpc('advisory_unlock', { p_key: OUTCOME_BACKFILL_LOCK_KEY })
+  }
+}
+
+// T2.1 retro — historical scan matches were never labeled: the live labeler
+// only fires on hits flagged is_new at scan time. Back-label every leadership
+// match found in scan_results, using the same source_ref format as the live
+// labeler (`${companyId}:${title.toLowerCase()}`) so the two paths dedup.
+async function backfillCareerScans(supabase, totals) {
+  const { data: scans, error } = await supabase
+    .from('scan_results')
+    .select('company_id, scanned_at, raw_hits')
+    .eq('status', 'success')
+    .order('scanned_at', { ascending: true })
+    .limit(CAREER_SCAN_BATCH)
+
+  if (error) {
+    logger.warn('outcome-label-backfill-job: career_scan fetch failed', { error: error.message })
+    return
+  }
+
+  // Earliest scan date per unique (company, title) leadership match.
+  const earliestByPair = new Map()
+  for (const scan of scans ?? []) {
+    const hits = Array.isArray(scan.raw_hits) ? scan.raw_hits : []
+    for (const hit of hits) {
+      if (!hit?.is_match || !hit?.title) continue
+      if (!isLeadershipTitle(hit.title)) continue
+      const sourceRef = `${scan.company_id}:${hit.title.toLowerCase()}`
+      if (!earliestByPair.has(sourceRef)) {
+        earliestByPair.set(sourceRef, {
+          companyId: scan.company_id,
+          title: hit.title,
+          scannedAt: scan.scanned_at,
+        })
+      }
+    }
+  }
+  if (earliestByPair.size === 0) return
+
+  const companyIds = [...new Set([...earliestByPair.values()].map(p => p.companyId))]
+  const { data: companies, error: companiesError } = await supabase
+    .from('companies')
+    .select('id, name, company_url, sector, sec_cik_padded, canonical_company_id')
+    .in('id', companyIds)
+  if (companiesError) {
+    logger.warn('outcome-label-backfill-job: career_scan companies fetch failed', { error: companiesError.message })
+    return
+  }
+  const companyById = new Map((companies ?? []).map(c => [c.id, c]))
+
+  for (const [sourceRef, pair] of earliestByPair) {
+    const company = companyById.get(pair.companyId)
+    if (!company) continue
+
+    const { data: existing } = await supabase
+      .from('role_openings')
+      .select('id')
+      .eq('label_source', 'career_scan')
+      .eq('source_ref', sourceRef)
+      .limit(1)
+      .maybeSingle()
+    if (existing) continue
+
+    const canonicalCompanyId = await resolveCanonicalCompany(supabase, company)
+    if (!canonicalCompanyId) continue
+
+    const result = await recordRoleOpening(supabase, {
+      canonicalCompanyId,
+      roleFamily: inferRoleFamilyFromTitle(pair.title),
+      roleTitle: pair.title,
+      openedOn: (pair.scannedAt ?? new Date().toISOString()).slice(0, 10),
+      labelSource: 'career_scan',
+      sourceRef,
+    })
+    if (result.openingId && !result.existing) {
+      totals.careerScan++
+      totals.labeledEvents += result.labeledEvents
+    }
   }
 }
 
