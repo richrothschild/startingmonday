@@ -3,6 +3,12 @@
 // most MAX_PROBE_ATTEMPTS times (URL detection first, then token probing),
 // after which known boards are polled directly every run. Companies without a
 // career_page_url are still covered via domain/name token probing.
+//
+// Coverage comes from two pools:
+// 1. User watchlists (companies table) — probed first, they matter most.
+// 2. The reference_companies base set (1,791 Crunchbase-ranked companies,
+//    most prominent first) — fills the remaining probe budget each run, so
+//    label volume grows independently of user activity.
 
 import { logger } from '../lib/logger.js'
 import { getSupabase } from '../lib/supabase.js'
@@ -14,6 +20,7 @@ const ATS_POLLER_LOCK_KEY = 9315702442n
 const ATS_COMPANY_BATCH = Number(process.env.ATS_POLLER_COMPANY_BATCH ?? 300)
 const ATS_PROBE_BUDGET = Number(process.env.ATS_POLLER_PROBE_BUDGET ?? 40)
 const MAX_PROBE_ATTEMPTS = Number(process.env.ATS_POLLER_MAX_PROBE_ATTEMPTS ?? 2)
+const ATS_REFERENCE_BATCH = Number(process.env.ATS_POLLER_REFERENCE_BATCH ?? 400)
 
 export async function runAtsPollerJob() {
   const supabase = getSupabase()
@@ -28,6 +35,7 @@ export async function runAtsPollerJob() {
 
   const stats = {
     companies: 0,
+    referenceCompanies: 0,
     probed: 0,
     boardsDetected: 0,
     boardsPolled: 0,
@@ -52,11 +60,37 @@ export async function runAtsPollerJob() {
     stats.companies = companies?.length ?? 0
 
     // Deduplicate to one representative per canonical company.
+    // User companies first — they take probe-budget priority.
     const byCanonical = new Map()
     for (const company of companies ?? []) {
       const canonicalCompanyId = await resolveCanonicalCompany(supabase, company)
       if (!canonicalCompanyId) continue
       if (!byCanonical.has(canonicalCompanyId)) byCanonical.set(canonicalCompanyId, company)
+    }
+
+    // Base-set expansion: reference_companies (most prominent first) fill the
+    // remaining probe budget so coverage grows without user activity.
+    const { data: referenceCompanies, error: refError } = await supabase
+      .from('reference_companies')
+      .select('id, name, industries')
+      .order('cb_rank', { ascending: true })
+      .limit(ATS_REFERENCE_BATCH)
+    if (refError) {
+      logger.warn('ats-poller-job: reference companies fetch failed', { error: refError.message })
+    }
+    for (const ref of referenceCompanies ?? []) {
+      const pseudoCompany = {
+        id: ref.id,
+        name: ref.name,
+        company_url: null,
+        sector: Array.isArray(ref.industries) ? (ref.industries[0] ?? null) : null,
+      }
+      const canonicalCompanyId = await resolveCanonicalCompany(supabase, pseudoCompany)
+      if (!canonicalCompanyId) continue
+      if (!byCanonical.has(canonicalCompanyId)) {
+        byCanonical.set(canonicalCompanyId, pseudoCompany)
+        stats.referenceCompanies++
+      }
     }
 
     let probesUsed = 0
