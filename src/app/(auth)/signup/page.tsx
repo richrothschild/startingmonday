@@ -191,10 +191,12 @@ export default function SignupPage() {
       ph?.capture('signup_completed', { method: 'google' })
     } catch { /* analytics must not block */ }
     const params = new URLSearchParams(window.location.search)
-    const utmSource = params.get('utm_source') || params.get('ref') || null
+    const utmSource = params.get('utm_source') || null
+    const refCode = params.get('ref') || null
     const selfReportedSource = getSelfReportedSource()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
+    if (refCode) callbackUrl.searchParams.set('ref_code', refCode)
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
@@ -240,10 +242,12 @@ export default function SignupPage() {
       ph?.capture('signup_completed', { method: 'apple' })
     } catch { /* analytics must not block */ }
     const params = new URLSearchParams(window.location.search)
-    const utmSource = params.get('utm_source') || params.get('ref') || null
+    const utmSource = params.get('utm_source') || null
+    const refCode = params.get('ref') || null
     const selfReportedSource = getSelfReportedSource()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
+    if (refCode) callbackUrl.searchParams.set('ref_code', refCode)
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
