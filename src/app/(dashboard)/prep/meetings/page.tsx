@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { CultureFitRetentionSignalsCard } from '@/components/CultureFitRetentionSignalsCard'
+import { MeetingDebriefPersistencePanel } from '@/components/MeetingDebriefPersistencePanel'
 
 export const metadata = {
   title: 'Meetings Strategy - Starting Monday',
@@ -186,6 +188,8 @@ export default async function MeetingsPrepPage() {
             Phase 4: Offer & Decision
           </legend>
 
+          <CultureFitRetentionSignalsCard />
+
           <div>
             <label htmlFor="eval-criteria" className="block text-[13px] font-semibold text-slate-200 mb-2">
               How you'll evaluate an offer
@@ -215,6 +219,14 @@ export default async function MeetingsPrepPage() {
               className="w-full rounded-lg bg-slate-950/50 border border-slate-700/50 px-4 py-3 text-[14px] text-white placeholder-slate-500 focus:border-orange-400/50 focus:outline-none focus:ring-1 focus:ring-orange-400/30"
             />
           </div>
+        </fieldset>
+
+        <fieldset className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 sm:p-8 space-y-6">
+          <legend className="text-[13px] font-semibold uppercase tracking-[0.1em] text-slate-300 mb-4">
+            Meeting Debrief (Any Meeting)
+          </legend>
+
+          <MeetingDebriefPersistencePanel />
         </fieldset>
 
         {/* Actions */}
