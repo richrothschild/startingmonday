@@ -15,6 +15,10 @@ type DebriefPayload = {
   overallReview?: unknown
 }
 
+type DebriefDeletePayload = {
+  ids?: unknown
+}
+
 type DebriefRow = {
   id: string
   meeting_name: string
@@ -206,6 +210,47 @@ export async function POST(request: NextRequest) {
 
   return withAuthCookies(
     NextResponse.json({ ok: true, item: data }),
+    auth,
+  )
+}
+
+export async function DELETE(request: NextRequest) {
+  const auth = await requireAuth(request)
+  if (!auth.ok) return auth.response
+
+  const body = (await request.json().catch(() => null)) as DebriefDeletePayload | null
+  const idsRaw = Array.isArray(body?.ids) ? body?.ids : []
+  const ids = idsRaw
+    .filter((value): value is string => typeof value === 'string')
+    .map((value) => value.trim())
+    .filter((value) => value.length > 0)
+    .slice(0, 50)
+
+  if (ids.length === 0) {
+    return withAuthCookies(
+      NextResponse.json({ error: 'At least one debrief id is required' }, { status: 400 }),
+      auth,
+    )
+  }
+
+  const supabase = await createClient()
+  const db = supabase as any
+  const { data, error } = await db
+    .from('meeting_debriefs')
+    .delete()
+    .in('id', ids)
+    .eq('user_id', auth.userId)
+    .select('id')
+
+  if (error) {
+    return withAuthCookies(
+      NextResponse.json({ error: 'Failed to delete debriefs' }, { status: 500 }),
+      auth,
+    )
+  }
+
+  return withAuthCookies(
+    NextResponse.json({ ok: true, deletedIds: (data ?? []).map((row: { id: string }) => row.id) }),
     auth,
   )
 }
