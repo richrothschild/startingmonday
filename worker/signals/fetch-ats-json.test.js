@@ -32,6 +32,12 @@ describe('detectProviderFromUrl', () => {
     expect(detectProviderFromUrl('not a url')).toBeNull()
     expect(detectProviderFromUrl(null)).toBeNull()
   })
+
+  it('rejects spoofed hosts that embed ATS domains', () => {
+    expect(detectProviderFromUrl('https://greenhouse.io.evil.com/acme')).toBeNull()
+    expect(detectProviderFromUrl('https://evil-lever.co.attacker.net/acme')).toBeNull()
+    expect(detectProviderFromUrl('https://notashbyhq.com/acme')).toBeNull()
+  })
 })
 
 describe('candidateTokens', () => {

@@ -27,6 +27,12 @@ async function fetchJson(url) {
   return response.json()
 }
 
+// True when the hostname is the given domain or a subdomain of it.
+// Exact suffix matching prevents spoofed hosts like "greenhouse.io.evil.com".
+function isHostOrSubdomain(host, domain) {
+  return host === domain || host.endsWith(`.${domain}`)
+}
+
 // Detects an ATS provider when the career page URL is ATS-hosted. Pure.
 export function detectProviderFromUrl(careerPageUrl) {
   const parsed = parseUrl(careerPageUrl)
@@ -35,17 +41,17 @@ export function detectProviderFromUrl(careerPageUrl) {
   const host = parsed.hostname.toLowerCase()
   const pathParts = parsed.pathname.split('/').filter(Boolean)
 
-  if (host.includes('greenhouse.io')) {
+  if (isHostOrSubdomain(host, 'greenhouse.io')) {
     const boardToken = pathParts[pathParts.length - 1]
     return boardToken ? { provider: 'greenhouse', token: boardToken } : null
   }
 
-  if (host.includes('lever.co')) {
+  if (isHostOrSubdomain(host, 'lever.co')) {
     const account = pathParts[0]
     return account ? { provider: 'lever', token: account } : null
   }
 
-  if (host.includes('ashbyhq.com')) {
+  if (isHostOrSubdomain(host, 'ashbyhq.com')) {
     const org = pathParts[0]
     return org ? { provider: 'ashby', token: org } : null
   }
