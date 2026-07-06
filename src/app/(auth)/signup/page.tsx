@@ -146,23 +146,13 @@ export default function SignupPage() {
   const [googleLoading, setGoogleLoading] = useState(false)
   const [appleLoading, setAppleLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-  const [agreeTerms, setAgreeTerms] = useState(false)
-  const [agreePrivacy, setAgreePrivacy] = useState(false)
-  // Error shown next to the social sign-in buttons. Without this, clicking
-  // "Continue with Google" before checking the consent boxes rendered an
-  // error far below the fold and the button appeared to silently do nothing.
+  // Error shown next to the social sign-in buttons so failures are visible
+  // at the click site (captcha not ready, backend errors). Previously the
+  // only error element rendered below the fold and the buttons looked dead.
   const [socialError, setSocialError] = useState<string | null>(null)
-  const consentSectionRef = useRef<HTMLDivElement | null>(null)
+  const captchaSectionRef = useRef<HTMLDivElement | null>(null)
 
   const authBusy = googleLoading || appleLoading || loading
-
-  function ensurePolicyConsent(): boolean {
-    if (agreeTerms && agreePrivacy) return true
-    setError('You must agree to the Terms and Privacy Policy to create an account.')
-    setSocialError('Please check the Terms and Privacy Policy boxes below first.')
-    consentSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    return false
-  }
 
   function getSelfReportedSource(): string | null {
     if (!heardAbout) return null
@@ -186,7 +176,7 @@ export default function SignupPage() {
     if (!captchaToken) {
       setError('Complete the security check before continuing.')
       setSocialError('Complete the security check below before continuing.')
-      consentSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      captchaSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return null
     }
     return captchaToken
@@ -194,7 +184,6 @@ export default function SignupPage() {
 
   async function handleGoogle() {
     setSocialError(null)
-    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setGoogleLoading(true)
@@ -244,7 +233,6 @@ export default function SignupPage() {
 
   async function handleApple() {
     setSocialError(null)
-    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setAppleLoading(true)
@@ -294,7 +282,6 @@ export default function SignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!ensurePolicyConsent()) return
     const token = requireCaptchaToken()
     if (token == null) return
     setLoading(true)
@@ -484,6 +471,9 @@ export default function SignupPage() {
                   </svg>
                   {appleLoading ? 'Redirecting…' : 'Continue with Apple'}
                 </button>
+                <p className="text-[12px] text-slate-500 leading-relaxed">
+                  By continuing, you agree to our <Link href="/terms" className="underline hover:text-slate-700">Terms and Conditions</Link> and <Link href="/privacy" className="underline hover:text-slate-700">Privacy Policy</Link>.
+                </p>
                 </section>
 
                 <div className="flex items-center gap-3 mb-5">
@@ -569,42 +559,20 @@ export default function SignupPage() {
                     <p className="text-[13px] text-red-600">{error}</p>
                   )}
 
-                  {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
-
-                  <div ref={consentSectionRef} className="rounded border border-slate-200 bg-slate-50 p-3">
-                    <label className="flex items-start gap-2 text-[13px] text-slate-700">
-                      <input
-                        type="checkbox"
-                        checked={agreeTerms}
-                        onChange={(e) => { setAgreeTerms(e.target.checked); if (e.target.checked) setSocialError(null) }}
-                        className="mt-0.5"
-                      />
-                      <span>
-                        I agree to the <Link href="/terms" className="underline hover:text-slate-900">Terms and Conditions</Link>.
-                      </span>
-                    </label>
-                    <label className="mt-2 flex items-start gap-2 text-[13px] text-slate-700">
-                      <input
-                        type="checkbox"
-                        checked={agreePrivacy}
-                        onChange={(e) => { setAgreePrivacy(e.target.checked); if (e.target.checked) setSocialError(null) }}
-                        className="mt-0.5"
-                      />
-                      <span>
-                        I agree to the <Link href="/privacy" className="underline hover:text-slate-900">Privacy Policy</Link>.
-                      </span>
-                    </label>
+                  <div ref={captchaSectionRef}>
+                    {TURNSTILE_ENABLED ? <TurnstileWidget onTokenChange={setCaptchaToken} /> : null}
                   </div>
-
-
 
                   <button
                     type="submit"
-                    disabled={loading || !agreeTerms || !agreePrivacy}
+                    disabled={loading}
                     className="w-full flex items-center justify-center bg-slate-900 text-white text-[14px] font-semibold min-h-[44px] rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
                   </button>
+                  <p className="text-[12px] text-slate-500 leading-relaxed text-center">
+                    By creating an account, you agree to our <Link href="/terms" className="underline hover:text-slate-700">Terms and Conditions</Link> and <Link href="/privacy" className="underline hover:text-slate-700">Privacy Policy</Link>.
+                  </p>
                   <p id="signup-trust" className="text-center text-[13px] text-slate-400">
                     Private by default. We do not share your data with recruiters, employers, or third parties.{' '}
                     <Link href="/privacy" className="inline-flex items-center min-h-[44px] underline hover:text-slate-600">Privacy policy &rarr;</Link>
