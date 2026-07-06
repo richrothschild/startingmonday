@@ -19,6 +19,8 @@ type ReferralAttributionRow = {
 type UserProfileReferralRow = {
   user_id: string
   referred_by: string | null
+  referred_by_name: string | null
+  referred_by_company: string | null
 }
 
 export async function GET(request: NextRequest) {
@@ -30,17 +32,18 @@ export async function GET(request: NextRequest) {
   if (!staff) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const admin = createAdminClient()
+  const adminAny = admin as any
   const lookbackDaysRaw = Number(request.nextUrl.searchParams.get('lookbackDays') ?? '30')
   const lookbackDays = Number.isFinite(lookbackDaysRaw) ? Math.min(Math.max(Math.round(lookbackDaysRaw), 1), 365) : 30
   const sinceIso = new Date(Date.now() - lookbackDays * 24 * 60 * 60 * 1000).toISOString()
 
   const [{ data: users }, { data: attributions }] = await Promise.all([
-    admin
+    adminAny
       .from('users')
       .select('id, created_at, referral_source, signup_source, acquisition_channel')
       .gte('created_at', sinceIso)
       .limit(5000),
-    admin
+    adminAny
       .from('referral_attributions')
       .select('signup_user_id, partner_id')
       .limit(5000),
@@ -55,24 +58,31 @@ export async function GET(request: NextRequest) {
 
   let profileRows: UserProfileReferralRow[] = []
   if (referralUserIds.length > 0) {
-    const { data: profiles } = await admin
+    const { data: profiles } = await adminAny
       .from('user_profiles')
-      .select('user_id, referred_by')
+      .select('user_id, referred_by, referred_by_name, referred_by_company')
       .in('user_id', referralUserIds)
       .limit(5000)
     profileRows = (profiles ?? []) as UserProfileReferralRow[]
   }
-  const profileByUser = new Map(profileRows.map((row) => [row.user_id, row.referred_by]))
+  const profileByUser = new Map(profileRows.map((row) => [
+    row.user_id,
+    {
+      referred_by: row.referred_by,
+      referred_by_name: row.referred_by_name,
+      referred_by_company: row.referred_by_company,
+    },
+  ]))
 
   const partnerIds = [...new Set(attributionRows.map((row) => row.partner_id))]
   let partnerById = new Map<string, { name: string | null; referral_code: string | null }>()
   if (partnerIds.length > 0) {
-    const { data: partners } = await admin
+    const { data: partnersData } = await adminAny
       .from('partners')
       .select('id, name, referral_code')
       .in('id', partnerIds)
       .limit(5000)
-    partnerById = new Map((partners ?? []).map((row: { id: string; name: string | null; referral_code: string | null }) => [
+    partnerById = new Map((partnersData ?? []).map((row: { id: string; name: string | null; referral_code: string | null }) => [
       row.id,
       { name: row.name, referral_code: row.referral_code },
     ]))
@@ -80,7 +90,7 @@ export async function GET(request: NextRequest) {
 
   const missingAttribution = referralUsers.filter((row) => !attributedUserIds.has(row.id))
   const profileReferralSetCount = referralUsers.filter((row) => {
-    const referredBy = profileByUser.get(row.id)
+    const referredBy = profileByUser.get(row.id)?.referred_by
     return typeof referredBy === 'string' && referredBy.trim().length > 0
   }).length
 
@@ -104,7 +114,9 @@ export async function GET(request: NextRequest) {
         referral_source: userRow?.referral_source ?? null,
         signup_source: userRow?.signup_source ?? null,
         acquisition_channel: userRow?.acquisition_channel ?? null,
-        profile_referred_by: profileByUser.get(row.signup_user_id) ?? null,
+        profile_referred_by: profileByUser.get(row.signup_user_id)?.referred_by ?? null,
+        profile_referred_by_name: profileByUser.get(row.signup_user_id)?.referred_by_name ?? null,
+        profile_referred_by_company: profileByUser.get(row.signup_user_id)?.referred_by_company ?? null,
       }
     })
 
@@ -123,7 +135,9 @@ export async function GET(request: NextRequest) {
       referral_source: row.referral_source,
       signup_source: row.signup_source,
       acquisition_channel: row.acquisition_channel,
-      profile_referred_by: profileByUser.get(row.id) ?? null,
+      profile_referred_by: profileByUser.get(row.id)?.referred_by ?? null,
+      profile_referred_by_name: profileByUser.get(row.id)?.referred_by_name ?? null,
+      profile_referred_by_company: profileByUser.get(row.id)?.referred_by_company ?? null,
     })),
     recentAttributions,
   })

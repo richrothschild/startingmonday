@@ -84,6 +84,8 @@ export async function GET(request: NextRequest) {
       const utmSource = searchParams.get('utm_source')
       const refCode = searchParams.get('ref_code')?.trim() || null
       const selfReportedSource = searchParams.get('self_reported_source')
+      const referrerName = searchParams.get('referrer_name')?.trim().slice(0, 120) || null
+      const referrerCompany = searchParams.get('referrer_company')?.trim().slice(0, 160) || null
       const utmMedium = searchParams.get('utm_medium')
       const acceptedTermsVersion = searchParams.get('accepted_terms_version')
       const acceptedPrivacyVersion = searchParams.get('accepted_privacy_version')
@@ -110,7 +112,12 @@ export async function GET(request: NextRequest) {
       const normalizedRefCode = refCode ? refCode.toUpperCase() : null
       await Promise.all([
         supabase.from('user_profiles').upsert(
-          { user_id: userId, ...(refCode ? { referred_by: refCode } : {}) },
+          {
+            user_id: userId,
+            ...(refCode ? { referred_by: refCode } : {}),
+            ...(referrerName ? { referred_by_name: referrerName } : {}),
+            ...(referrerCompany ? { referred_by_company: referrerCompany } : {}),
+          },
           { onConflict: 'user_id', ignoreDuplicates: true }
         ),
         source

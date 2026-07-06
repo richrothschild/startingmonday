@@ -124,6 +124,8 @@ export default function SignupPage() {
   const [managerToolsOffer, setManagerToolsOffer] = useState(false)
   const [heardAbout, setHeardAbout] = useState<HeardAboutOption | ''>('')
   const [heardAboutOther, setHeardAboutOther] = useState('')
+  const [referrerName, setReferrerName] = useState('')
+  const [referrerCompany, setReferrerCompany] = useState('')
   const [heardAboutLocked, setHeardAboutLocked] = useState(false)
 
    
@@ -163,6 +165,16 @@ export default function SignupPage() {
     return heardAbout
   }
 
+  function getReferrerName(): string | null {
+    const value = referrerName.trim()
+    return value ? value.slice(0, 120) : null
+  }
+
+  function getReferrerCompany(): string | null {
+    const value = referrerCompany.trim()
+    return value ? value.slice(0, 160) : null
+  }
+
   function isManagerToolsSource(source: string | null | undefined): boolean {
     return (source ?? '').trim().toLowerCase() === 'managertools'
   }
@@ -194,10 +206,14 @@ export default function SignupPage() {
     const utmSource = params.get('utm_source') || null
     const refCode = params.get('ref') || null
     const selfReportedSource = getSelfReportedSource()
+    const referrerNameValue = getReferrerName()
+    const referrerCompanyValue = getReferrerCompany()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
     if (refCode) callbackUrl.searchParams.set('ref_code', refCode)
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
+    if (referrerNameValue) callbackUrl.searchParams.set('referrer_name', referrerNameValue)
+    if (referrerCompanyValue) callbackUrl.searchParams.set('referrer_company', referrerCompanyValue)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
     callbackUrl.searchParams.set('accepted_terms_version', TERMS_VERSION)
@@ -245,10 +261,14 @@ export default function SignupPage() {
     const utmSource = params.get('utm_source') || null
     const refCode = params.get('ref') || null
     const selfReportedSource = getSelfReportedSource()
+    const referrerNameValue = getReferrerName()
+    const referrerCompanyValue = getReferrerCompany()
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
     if (utmSource) callbackUrl.searchParams.set('utm_source', utmSource)
     if (refCode) callbackUrl.searchParams.set('ref_code', refCode)
     if (selfReportedSource) callbackUrl.searchParams.set('self_reported_source', selfReportedSource)
+    if (referrerNameValue) callbackUrl.searchParams.set('referrer_name', referrerNameValue)
+    if (referrerCompanyValue) callbackUrl.searchParams.set('referrer_company', referrerCompanyValue)
     const utmMedium = params.get('utm_medium')
     if (utmMedium) callbackUrl.searchParams.set('utm_medium', utmMedium)
     callbackUrl.searchParams.set('accepted_terms_version', TERMS_VERSION)
@@ -326,12 +346,20 @@ export default function SignupPage() {
         const utmCampaign = params.get('utm_campaign') || null
         const fromSituation = params.get('from') || null
         const selfReportedSource = getSelfReportedSource()
+        const referrerNameValue = getReferrerName()
+        const referrerCompanyValue = getReferrerCompany()
         const signupSource = selfReportedSource ?? utmSource ?? ref ?? (fromSituation ? `situation:${fromSituation}` : null)
         const managerToolsSource = isManagerToolsSource(signupSource)
         const acceptedAt = new Date().toISOString()
         await Promise.all([
           supabase.from('user_profiles').upsert(
-            { user_id: data.user.id, briefing_timezone: tz, ...(ref ? { referred_by: ref } : {}) },
+            {
+              user_id: data.user.id,
+              briefing_timezone: tz,
+              ...(ref ? { referred_by: ref } : {}),
+              ...(referrerNameValue ? { referred_by_name: referrerNameValue } : {}),
+              ...(referrerCompanyValue ? { referred_by_company: referrerCompanyValue } : {}),
+            },
             { onConflict: 'user_id' }
           ),
           supabase.from('users').update({
@@ -558,6 +586,35 @@ export default function SignupPage() {
                       />
                     </div>
                   ) : null}
+
+                  <div>
+                    <label htmlFor="referrer-name" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                      Referrer name (optional)
+                    </label>
+                    <input
+                      id="referrer-name"
+                      type="text"
+                      value={referrerName}
+                      onChange={(e) => setReferrerName(e.target.value)}
+                      placeholder="Who referred you?"
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="referrer-company" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                      Referrer company (optional)
+                    </label>
+                    <input
+                      id="referrer-company"
+                      type="text"
+                      value={referrerCompany}
+                      onChange={(e) => setReferrerCompany(e.target.value)}
+                      placeholder="Company or firm name"
+                      className="w-full border border-slate-200 rounded px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                    />
+                    <p className="mt-1.5 text-[13px] text-slate-400">Used for partner referral fee and commission tracking.</p>
+                  </div>
 
                   {error && (
                     <p className="text-[13px] text-red-600">{error}</p>
