@@ -1,0 +1,76 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Epic E2 Validation Checkpoint//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Epic E2 Validation Checkpoint
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+UID:epic-e2-validation-checkpoint-1@startingmonday.dev
+DTSTART:20260706T101500Z
+DTEND:20260706T102000Z
+SUMMARY:Epic E2 Validation: Check outcome-label-backfill-job (>= 500 openings)
+DESCRIPTION:✅ CHECKPOINT 1: Verify outcome-label-backfill-job ran successfully\n\nRan at 10:03 UTC. Check by:\n\n1. Review logs:\n   railway logs --service worker | grep "outcome-label-backfill-job"\n\n2. Expected output:\n   outcome-label-backfill-job: exec_hire labeler fetched N events\n   outcome-label-backfill-job: pipeline labeler fetched M companies\n   outcome-label-backfill-job: proxy_diff labeler processed K CIKs\n   outcome-label-backfill-job: complete { execHire: A, pipeline: B, proxy: C, labeledEvents: D }\n\n3. Query database:\n   SELECT label_source, COUNT(*) as count\n   FROM role_openings\n   WHERE created_at > now() - interval '7 days'\n   GROUP BY label_source\n   ORDER BY count DESC;\n\n4. SUCCESS CRITERIA: >= 500 total openings (sum of all sources)\n\nNote: Job scheduled daily @10:03 UTC. Manual trigger: railway run node worker/jobs/outcome-label-backfill-job.js
+LOCATION:Production Database / Railway Logs
+STATUS:CONFIRMED
+SEQUENCE:0
+CATEGORIES:Epic E2 Validation,Intelligence Scanner
+PRIORITY:9
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Epic E2 Validation: Check outcome-label-backfill-job logs
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:epic-e2-validation-checkpoint-2@startingmonday.dev
+DTSTART:20260706T105000Z
+DTEND:20260706T105500Z
+SUMMARY:Epic E2 Validation: Check precursor-stats-job (hit_rate computation)
+DESCRIPTION:✅ CHECKPOINT 2: Verify precursor-stats-job ran successfully\n\nRan at 10:40 UTC. Check by:\n\n1. Review logs:\n   railway logs --service worker | grep "precursor-stats-job"\n\n2. Expected output:\n   precursor-stats-job: running aggregation\n   precursor-stats-job: complete { inserted: N, updated: M, rows: X }\n\n3. Query database:\n   SELECT \n     event_type, \n     sector, \n     role_family,\n     n_events,\n     n_preceded,\n     ROUND(hit_rate::numeric, 4) as hit_rate,\n     median_days_to_opening\n   FROM precursor_stats\n   ORDER BY computed_at DESC\n   LIMIT 20;\n\n4. SUCCESS CRITERIA:\n   - n_preceded > 0 (some labeled outcomes exist)\n   - hit_rate between 0 and 1 (valid Laplace smoothed value)\n   - median_days_to_opening > 0 (positive lead time)\n   - >= 10 rows for different event_type/sector/family combinations\n\nNote: Job scheduled daily @10:40 UTC. Manual trigger: railway run node worker/jobs/precursor-stats-job.js
+LOCATION:Production Database / Railway Logs
+STATUS:CONFIRMED
+SEQUENCE:0
+CATEGORIES:Epic E2 Validation,Intelligence Scanner
+PRIORITY:9
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Epic E2 Validation: Check precursor-stats-job logs
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:epic-e2-validation-checkpoint-3@startingmonday.dev
+DTSTART:20260706T110000Z
+DTEND:20260706T110500Z
+SUMMARY:Epic E2 Validation: Test admin API endpoint
+DESCRIPTION:✅ CHECKPOINT 3: Verify admin API endpoint functional\n\nAfter both jobs complete. Test by:\n\n1. Query metrics API:\n   curl -H "Authorization: Bearer $ADMIN_TOKEN" \\\n     https://api.startingmonday.com/api/admin/intelligence/label-metrics \\\n     | jq '.'\n\n2. Expected response structure:\n   {\n     "stats": {\n       "totalCompanies": N,\n       "companiesWithLabels": M,\n       "coveragePercent": X.X,\n       "medianDaysToOpening": Y,\n       "openingsBySource": { ... },\n       "openingsByFamily": { ... },\n       "openingsBySector": { ... },\n       "sourceDetails": [ ... ]\n     },\n     "gate": {\n       "target": ">= 500 labeled openings",\n       "current": Z,\n       "status": "pass" | "in_progress"\n     }\n   }\n\n3. SUCCESS CRITERIA:\n   - HTTP 200 response\n   - gate.current >= 500\n   - gate.status = "pass"\n   - medianDaysToOpening > 0\n   - sourceDetails array has 4 sources (career_scan, exec_hire, user_pipeline, proxy_diff)\n\nLocal test (dev environment):\n  curl http://localhost:3000/api/admin/intelligence/label-metrics | jq '.gate'\n\nExpected gate response: { "target": ">= 500 labeled openings", "current": 500+, "status": "pass" }
+LOCATION:Admin Dashboard / API Endpoint
+STATUS:CONFIRMED
+SEQUENCE:0
+CATEGORIES:Epic E2 Validation,Intelligence Scanner
+PRIORITY:9
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Epic E2 Validation: Test admin API endpoint
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:epic-e2-validation-decision-point@startingmonday.dev
+DTSTART:20260706T120000Z
+DTEND:20260706T130000Z
+SUMMARY:Epic E2 Validation: DECISION POINT — Proceed to E3 or troubleshoot?
+DESCRIPTION:🎯 DECISION POINT: Gate Criteria Assessment\n\nAfter all 3 checkpoints complete, assess results:\n\n✅ IF all pass:\n   - role_openings >= 500 total\n   - precursor_stats populated with valid hit_rate\n   - Admin API returns gate.status = "pass"\n\n   THEN: Promote staging → main branch\n   - git checkout main\n   - git pull\n   - git merge staging\n   - git push origin main\n   - Railway auto-deploys\n   - Proceed to Epic E3 (Backtest Harness + Free Sources, Weeks 5-6)\n\n❌ IF any fail:\n   - role_openings < 500: Check outcome-label-backfill-job logs for errors\n   - precursor_stats empty: Check precursor-stats-job logs; verify event_outcome_labels has labeled events\n   - API not responding: Check /api/admin/intelligence/label-metrics route for errors\n\n   THEN: Troubleshoot\n   - Review worker logs\n   - Check canonical_company_id resolution (write-signal.js)\n   - Verify role_openings table has write permissions\n   - Manually trigger jobs: railway run node worker/jobs/outcome-label-backfill-job.js\n   - Retest after fix\n\n🔧 ROLLBACK AVAILABLE:\n   If needed: git revert <commit-hash> && git push origin main && railway deploy\n\nNEXT: Contact team with gate status (pass/fail) and decision on E3 start date.
+LOCATION:Team Decision / Deployment\n\nRelated: docs/epic-e2-deployment-checklist.md (production validation procedures)\nRelated: staging branch commit 101d32ba (E2 implementation)
+STATUS:CONFIRMED
+SEQUENCE:0
+CATEGORIES:Epic E2 Validation,Intelligence Scanner,Decision Point
+PRIORITY:10
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Epic E2 Validation: Review all checkpoint results & decide E3 start
+END:VALARM
+END:VEVENT
+END:VCALENDAR
