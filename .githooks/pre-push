@@ -5,6 +5,9 @@ set -e
 # Anything requiring secrets, network access, or a full build runs in CI.
 # (Growth gates moved to scheduled workflows; preflight build removed - CI builds every PR.)
 
+echo "branch push policy guard..."
+node scripts/check-no-direct-main-push.mjs
+
 echo "push clean-worktree guard..."
 npm run guard:push-clean-worktree
 
