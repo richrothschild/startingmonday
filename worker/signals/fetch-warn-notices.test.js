@@ -155,4 +155,51 @@ describe('fetchWarnNoticesForState adapter coverage', () => {
     expect(rows[0].event_date).toBe('2026-08-28')
     expect(rows[0].job_losses).toBe(16)
   })
+
+  it('parses California JSON data portal response', async () => {
+    process.env.WARN_FEED_CA = 'https://data.ca.gov/api/3/action/datastore_search'
+
+    const caPayload = {
+      result: {
+        records: [
+          {
+            id: 'CA202600445',
+            company_name: 'Tesla Gigafactory',
+            received_date: '2026-06-15',
+            affected_employees: 1247,
+            city: 'Sparks',
+            county: 'Washoe',
+            industry_name: 'Manufacturing',
+          },
+          {
+            id: 'CA202600446',
+            company_name: 'Apple Inc',
+            date_received: '2026-06-16',
+            job_losses: 850,
+            city: 'Cupertino',
+            county: 'Santa Clara',
+            industry: 'Technology',
+          },
+        ],
+      },
+    }
+
+    const fetchMock = vi.fn(async (url) => {
+      if (String(url).includes('data.ca.gov')) {
+        return new Response(JSON.stringify(caPayload), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        })
+      }
+      throw new Error(`Unexpected URL: ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchWarnNoticesForState('CA')
+    expect(rows.length).toBeGreaterThanOrEqual(2)
+    expect(rows[0].state_code).toBe('CA')
+    expect(rows[0].employer_name).toBe('Tesla Gigafactory')
+    expect(rows[0].event_date).toBe('2026-06-15')
+    expect(rows[0].job_losses).toBe(1247)
+  })
 })
