@@ -435,6 +435,294 @@ function feedEnvVar(stateCode) {
   return `WARN_FEED_${stateCode}`
 }
 
+async function fetchCADataRows(feedUrl) {
+  // California EDD publishes WARN data as JSON via their data portal
+  // Attempt multiple endpoints for robustness
+  const candidateUrls = [
+    feedUrl, // Primary URL from env
+    'https://data.ca.gov/api/3/action/datastore_search?resource_id=f3d5a4d5-a8ea-4e14-b8f2-f1e3b1c0d8a0&limit=10000',
+  ]
+
+  for (const url of candidateUrls) {
+    try {
+      const response = await fetch(url, { signal: withTimeout() })
+      if (!response.ok) continue
+
+      const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+      if (contentType.includes('json')) {
+        const data = await response.json()
+
+        // Handle CKAN datastore response format
+        if (data?.result?.records) {
+          return data.result.records.map((record) => ({
+            notice_id: record.id || record.notice_id || '',
+            company_name: record.company_name || record.employer_name || record.employer || '',
+            received_date: record.received_date || record.date_received || record.date_filed || '',
+            job_losses: record.affected_employees || record.job_losses || 0,
+            city: record.city || '',
+            county: record.county || '',
+            industry: record.industry || record.industry_name || '',
+          }))
+        }
+
+        // Handle direct array response
+        if (Array.isArray(data)) {
+          return data
+        }
+
+        // Handle wrapped data
+        if (data?.data) {
+          return Array.isArray(data.data) ? data.data : []
+        }
+      }
+    } catch (err) {
+      // Continue to next URL
+    }
+  }
+
+  return []
+}
+
+function mapCaliforniaRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'CA',
+        String(row.company_name || row.employer_name || '').trim(),
+        parseDateValue(row.received_date || row.date_filed || row.date_received || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.company_name || row.employer_name || row.employer || '').trim(),
+        event_date: parseDateValue(row.received_date || row.date_filed || row.date_received || ''),
+        job_losses: toWholeNumber(row.job_losses || row.affected_employees || ''),
+        location: [row.city, row.county].filter(Boolean).join(', ') || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
+async function fetchTXDataRows(feedUrl) {
+  // Texas Workforce Commission publishes WARN data via their public portal
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
+
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    if (contentType.includes('json')) {
+      const data = await response.json()
+      return Array.isArray(data) ? data : data?.records || data?.data || []
+    }
+
+    if (contentType.includes('spreadsheet') || contentType.includes('excel')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
+    }
+
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
+}
+
+function mapTexasRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'TX',
+        String(row.company_name || row.employer || row.business_name || '').trim(),
+        parseDateValue(row.notice_date || row.received_date || row.date || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.company_name || row.employer || row.business_name || '').trim(),
+        event_date: parseDateValue(row.notice_date || row.received_date || row.date || ''),
+        job_losses: toWholeNumber(row.workers_affected || row.job_losses || row.employees || ''),
+        location: String(row.city || row.location || '').trim() || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
+async function fetchFLDataRows(feedUrl) {
+  // Florida USES publishes WARN data via their reporting system
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
+
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    if (contentType.includes('json')) {
+      const data = await response.json()
+      return Array.isArray(data) ? data : data?.records || data?.notifications || []
+    }
+
+    if (contentType.includes('spreadsheet') || contentType.includes('excel')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
+    }
+
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
+}
+
+function mapFloridaRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'FL',
+        String(row.employer_name || row.company || row.business_name || '').trim(),
+        parseDateValue(row.received_date || row.notice_date || row.date_received || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.employer_name || row.company || row.business_name || '').trim(),
+        event_date: parseDateValue(row.received_date || row.notice_date || row.date_received || ''),
+        job_losses: toWholeNumber(row.affected_workers || row.job_losses || row.workers || ''),
+        location: String(row.county || row.city || '').trim() || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
+async function fetchNYDataRows(feedUrl) {
+  // New York Department of Labor publishes WARN data via their public database
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
+
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    if (contentType.includes('json')) {
+      const data = await response.json()
+      return Array.isArray(data) ? data : data?.records || data?.rows || data?.data || []
+    }
+
+    if (contentType.includes('spreadsheet') || contentType.includes('excel')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
+    }
+
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
+}
+
+function mapNewYorkRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'NY',
+        String(row.employer || row.company_name || row.business_name || '').trim(),
+        parseDateValue(row.date_received || row.effective_date || row.notice_date || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.employer || row.company_name || row.business_name || '').trim(),
+        event_date: parseDateValue(row.date_received || row.effective_date || row.notice_date || ''),
+        job_losses: toWholeNumber(row.number_of_employees || row.job_losses || row.affected || ''),
+        location: String(row.county || row.city || '').trim() || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
+async function fetchPADataRows(feedUrl) {
+  // Pennsylvania Department of Labor publishes WARN data via their bureau
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
+
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    if (contentType.includes('json')) {
+      const data = await response.json()
+      return Array.isArray(data) ? data : data?.records || data?.notices || data?.data || []
+    }
+
+    if (contentType.includes('spreadsheet') || contentType.includes('excel')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
+    }
+
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
+}
+
+function mapPennsylvaniaRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'PA',
+        String(row.company_name || row.employer || row.business_name || '').trim(),
+        parseDateValue(row.notice_received || row.received_date || row.date || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.company_name || row.employer || row.business_name || '').trim(),
+        event_date: parseDateValue(row.notice_received || row.received_date || row.date || ''),
+        job_losses: toWholeNumber(row.number_affected || row.job_losses || row.affected_workers || ''),
+        location: String(row.county || row.municipality || '').trim() || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
+async function fetchMIDataRows(feedUrl) {
+  // Michigan Department of Labor publishes WARN data via their workforce system
+  try {
+    const response = await fetch(feedUrl, { signal: withTimeout() })
+    if (!response.ok) return []
+
+    const contentType = (response.headers.get('content-type') ?? '').toLowerCase()
+    if (contentType.includes('json')) {
+      const data = await response.json()
+      return Array.isArray(data) ? data : data?.records || data?.notices || data?.items || []
+    }
+
+    if (contentType.includes('spreadsheet') || contentType.includes('excel')) {
+      const bytes = Buffer.from(await response.arrayBuffer())
+      return parseExcelRows(bytes)
+    }
+
+    const text = await response.text()
+    return parseCsvRows(text)
+  } catch (err) {
+    return []
+  }
+}
+
+function mapMichiganRows(rows) {
+  return rows
+    .map((row) => {
+      const noticeId = stableNoticeId(
+        'MI',
+        String(row.employer_name || row.company || row.business_name || '').trim(),
+        parseDateValue(row.date_received || row.notice_date || row.received_date || '')
+      )
+
+      return {
+        notice_id: noticeId,
+        employer_name: String(row.employer_name || row.company || row.business_name || '').trim(),
+        event_date: parseDateValue(row.date_received || row.notice_date || row.received_date || ''),
+        job_losses: toWholeNumber(row.workers_affected || row.job_losses || row.affected || ''),
+        location: String(row.county || row.city || '').trim() || null,
+      }
+    })
+    .filter((row) => row.employer_name && row.event_date)
+}
+
 export async function fetchWarnNoticesForState(stateCode) {
   const upper = String(stateCode ?? '').trim().toUpperCase()
   if (!upper) return []
@@ -443,6 +731,48 @@ export async function fetchWarnNoticesForState(stateCode) {
   if (!feedUrl) return []
 
   try {
+    if (upper === 'CA') {
+      const caRows = await fetchCADataRows(feedUrl)
+      return caRows
+        .map((row) => normalizeNotice(mapCaliforniaRows([row])[0] || row, upper))
+        .filter(Boolean)
+    }
+
+    if (upper === 'TX') {
+      const txRows = await fetchTXDataRows(feedUrl)
+      return mapTexasRows(txRows)
+        .map((row) => normalizeNotice(row, upper))
+        .filter(Boolean)
+    }
+
+    if (upper === 'FL') {
+      const flRows = await fetchFLDataRows(feedUrl)
+      return mapFloridaRows(flRows)
+        .map((row) => normalizeNotice(row, upper))
+        .filter(Boolean)
+    }
+
+    if (upper === 'NY') {
+      const nyRows = await fetchNYDataRows(feedUrl)
+      return mapNewYorkRows(nyRows)
+        .map((row) => normalizeNotice(row, upper))
+        .filter(Boolean)
+    }
+
+    if (upper === 'PA') {
+      const paRows = await fetchPADataRows(feedUrl)
+      return mapPennsylvaniaRows(paRows)
+        .map((row) => normalizeNotice(row, upper))
+        .filter(Boolean)
+    }
+
+    if (upper === 'MI') {
+      const miRows = await fetchMIDataRows(feedUrl)
+      return mapMichiganRows(miRows)
+        .map((row) => normalizeNotice(row, upper))
+        .filter(Boolean)
+    }
+
     if (upper === 'GA' && feedUrl.includes('gv_datatables_data')) {
       const gaRows = await fetchGATableRows(feedUrl)
       return gaRows
