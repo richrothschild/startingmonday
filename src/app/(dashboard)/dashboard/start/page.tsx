@@ -252,7 +252,7 @@ export default async function StartPage() {
                 {firstName}, your search is live.
               </h2>
               <p className="text-[14px] text-slate-500 leading-relaxed">
-                A few more things to finish. Each one makes the platform measurably more useful.
+                Focus on one next best action. The list below is your progress tracker, not six things to do right now.
               </p>
             </>
           )}
@@ -260,7 +260,7 @@ export default async function StartPage() {
 
         {isFirstRunArrival && nextTask && (
           <section className="mb-8 rounded border border-slate-200 bg-white p-5">
-            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Your first-run itinerary</p>
+            <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Next best action</p>
             <h2 className="text-[20px] font-bold text-slate-900 leading-tight">Today&rsquo;s one action: {nextTask.title}</h2>
             <p className="text-[13px] text-slate-500 mt-2 leading-relaxed">{nextTask.body}</p>
             <Link
@@ -353,6 +353,9 @@ export default async function StartPage() {
 
         {/* Task list */}
         <div className="flex flex-col gap-3 mb-8">
+          {!allDone && (
+            <p className="text-[12px] text-slate-400">After you complete today&rsquo;s action, return here for the next one.</p>
+          )}
           {tasks.map(task => (
             <div
               key={task.num}

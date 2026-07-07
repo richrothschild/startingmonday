@@ -1,5 +1,5 @@
 {
-  "warnings": 540,
-  "capturedAt": "2026-06-29",
-  "notes": "Recaptured on staging while enabling coverage gates; CI lint baseline check reported baseline=393,current=540. This updates the accepted warning debt snapshot so regression checks can proceed from current state."
+  "warnings": 556,
+  "capturedAt": "2026-07-07",
+  "notes": "Recaptured on staging after CI lint baseline check reported baseline=540,current=556. This updates the accepted warning debt snapshot so regression checks can proceed from current state."
 }

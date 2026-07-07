@@ -7,9 +7,15 @@ const state = vi.hoisted(() => ({
   upsert: vi.fn(),
   update: vi.fn(),
   eq: vi.fn(),
+  maybeSingle: vi.fn(),
+  logEvent: vi.fn(),
   cookieSet: vi.fn(),
   partnerMaybeSingle: vi.fn(),
   adminUpsert: vi.fn(),
+}))
+
+vi.mock('@/lib/events', () => ({
+  logEvent: state.logEvent,
 }))
 
 vi.mock('@supabase/ssr', () => ({
@@ -18,10 +24,23 @@ vi.mock('@supabase/ssr', () => ({
       exchangeCodeForSession: state.exchangeCodeForSession,
       verifyOtp: state.verifyOtp,
     },
-    from: () => ({
-      upsert: state.upsert,
-      update: state.update,
-    }),
+    from: (table: string) => {
+      if (table === 'user_profiles') {
+        return {
+          upsert: state.upsert,
+          select: () => ({
+            eq: () => ({
+              maybeSingle: state.maybeSingle,
+            }),
+          }),
+        }
+      }
+
+      return {
+        upsert: state.upsert,
+        update: state.update,
+      }
+    },
   }),
 }))
 
@@ -75,6 +94,8 @@ describe('auth callback route', () => {
     state.eq.mockResolvedValue({ error: null })
     state.partnerMaybeSingle.mockResolvedValue({ data: null })
     state.adminUpsert.mockResolvedValue({ error: null })
+    state.maybeSingle.mockResolvedValue({ data: { onboarding_completed_at: '2026-01-02T00:00:00.000Z' } })
+    state.logEvent.mockResolvedValue(undefined)
     state.exchangeCodeForSession.mockResolvedValue({
       data: {
         session: { access_token: 'token' },
@@ -119,6 +140,24 @@ describe('auth callback route', () => {
     expect(state.exchangeCodeForSession).toHaveBeenCalledWith('oauth-code')
     expect(html).toContain('location.replace("/dashboard/briefing")')
     expect(html).not.toContain('https://startingmonday.app/dashboard/briefing')
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_path_routed',
+      expect.objectContaining({
+        route: 'auth_callback',
+        path_category: 'callback',
+        auth_method: 'oauth_code',
+      })
+    )
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_callback_completed',
+      expect.objectContaining({
+        redirect_path: '/dashboard/briefing',
+        explicit_next: true,
+        first_login_needs_onboarding: false,
+      })
+    )
   })
 
   it('sanitizes unsafe next destinations and falls back to the briefing route', async () => {
@@ -128,6 +167,75 @@ describe('auth callback route', () => {
 
     expect(res.status).toBe(200)
     expect(html).toContain('location.replace("/dashboard/briefing")')
+  })
+
+  it('sends first-login users with no explicit next path directly to onboarding', async () => {
+    state.maybeSingle.mockResolvedValueOnce({ data: { onboarding_completed_at: null } })
+
+    const req = new NextRequest('https://startingmonday.app/auth/callback?code=oauth-code')
+    const res = await GET(req)
+    const html = await res.text()
+
+    expect(res.status).toBe(200)
+    expect(html).toContain('location.replace("/onboarding")')
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_path_routed',
+      expect.objectContaining({
+        route: 'auth_callback',
+        path_category: 'callback',
+        auth_method: 'oauth_code',
+      })
+    )
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_callback_completed',
+      expect.objectContaining({
+        redirect_path: '/onboarding',
+        explicit_next: false,
+        first_login_needs_onboarding: true,
+      })
+    )
+  })
+
+  it('logs profile lookup failure telemetry and still emits completion telemetry', async () => {
+    state.maybeSingle.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'temporary profile read error' },
+    })
+
+    const req = new NextRequest('https://startingmonday.app/auth/callback?code=oauth-code')
+    const res = await GET(req)
+    const html = await res.text()
+
+    expect(res.status).toBe(200)
+    expect(html).toContain('location.replace("/onboarding")')
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_path_routed',
+      expect.objectContaining({
+        route: 'auth_callback',
+        path_category: 'callback',
+        auth_method: 'oauth_code',
+      })
+    )
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_callback_profile_lookup_failed',
+      expect.objectContaining({
+        explicit_next: false,
+        requested_next_path: null,
+        fallback_redirect_path: '/dashboard/briefing',
+      })
+    )
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'user_1',
+      'auth_callback_completed',
+      expect.objectContaining({
+        redirect_path: '/onboarding',
+        explicit_next: false,
+      })
+    )
   })
 
   it('writes referral attribution for new OAuth users with a valid referral code', async () => {

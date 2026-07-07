@@ -1,0 +1,83 @@
+{
+  "window": {
+    "generated_at": "2026-07-07T01:52:28.555Z",
+    "week_start": "2026-07-06",
+    "week_end": "2026-07-13T00:00:00.000Z",
+    "baseline_start": "2026-06-29T00:00:00.000Z",
+    "baseline_end": "2026-07-06T00:00:00.000Z"
+  },
+  "summary": {
+    "started_users": 0,
+    "completed_users": 0,
+    "transition_first_completed": 0,
+    "median_seconds_to_first_value": 0,
+    "under_ten_min_rate": 0,
+    "avg_manual_fields_reduction_rate": 0,
+    "low_energy_mode_rate": 0,
+    "nudge_coverage_rate": 0,
+    "channel_mix": {},
+    "persona_mix": {}
+  },
+  "auth_paths": {
+    "total": 0,
+    "by_path_category": {}
+  },
+  "journey_health": {
+    "snapshot": {
+      "generated_at": "2026-07-07T01:52:28.555Z",
+      "total_users": 2,
+      "onboarding_started_users": 0,
+      "onboarding_completed_users": 0,
+      "onboarding_first_value_ready_users": 0,
+      "start_to_complete_conversion": null,
+      "start_to_first_value_conversion": null,
+      "ttfv_p50_minutes": null,
+      "ttfv_p90_minutes": null,
+      "under_ten_minutes_share": null,
+      "step_coverage": [],
+      "largest_step_abandonment_change": null,
+      "briefing_viewed_users": 2,
+      "guided_briefing_users": 0,
+      "guided_share_among_briefings": 0,
+      "day1_return_rate": null,
+      "day7_return_rate": null
+    },
+    "findings": []
+  },
+  "integrity": {
+    "snapshot": {
+      "counts_by_event": {
+        "briefing_viewed": 240
+      },
+      "previous_counts_by_event": {
+        "briefing_viewed": 841,
+        "onboarding_step_completed": 41,
+        "onboarding_started": 15,
+        "onboarding_first_value_ready": 8,
+        "onboarding_completed": 6
+      },
+      "generated_at": "2026-07-07T01:52:28.555Z"
+    },
+    "findings": [
+      {
+        "finding_id": "volume-zero-auth_callback_completed",
+        "generated_at": "2026-07-07T01:52:29.013Z",
+        "severity": "critical",
+        "event_name": "auth_callback_completed",
+        "check_name": "volume_sanity",
+        "anomaly_rate": 100,
+        "sample_size": 0,
+        "expected_contract_version": "onboarding-contract-v1-2026-07-06",
+        "recommendation": "Critical onboarding event auth_callback_completed has been zero for two consecutive runs. Check the emitter and deployment health."
+      }
+    ]
+  },
+  "overall": {
+    "readiness": "degraded",
+    "critical_findings": 1,
+    "warning_findings": 0
+  },
+  "notes": [
+    "CRITICAL: volume_sanity - Critical onboarding event auth_callback_completed has been zero for two consecutive runs. Check the emitter and deployment health."
+  ]
+}

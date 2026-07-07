@@ -6,6 +6,8 @@ import { classifyGraphStalls } from '@/lib/action-scores'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
+import { isEnabledFlag } from '@/lib/feature-flags'
+import { shouldShowFirstSessionGuidedBriefing } from '@/lib/briefing-first-session'
 import { logBriefingAction, saveBriefingDailyNote } from './actions'
 import { LogoutButton } from '../logout-button'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
@@ -194,7 +196,8 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .from('companies')
       .select('id, name, stage')
       .eq('user_id', userId)
-      .is('archived_at', null),
+      .is('archived_at', null)
+      .order('created_at', { ascending: true }),
     supabase
       .from('scan_results')
       .select('company_id, scanned_at, ai_score, ai_summary, raw_hits')
@@ -310,6 +313,7 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
     userName: profile?.full_name ?? 'there',
     targetTitles: (profile?.target_titles as string[] | null) ?? [],
     totalCompanies: companies.length,
+    trackedCompanies: companies.map((company) => ({ id: company.id, name: company.name })),
     newMatches,
     followUps,
     signals,
@@ -743,6 +747,69 @@ async function BriefingBody({
   )
 }
 
+function FirstSessionGuidedState({
+  firstName,
+  companyName,
+  companySignals,
+  prepHref,
+}: {
+  firstName: string
+  companyName: string | null
+  companySignals: Array<{ signalType: string; summary: string; signalDate: string }>
+  prepHref: string
+}) {
+  return (
+    <section className="rounded-2xl border border-white/15 bg-white/5 px-5 py-6 sm:px-8 sm:py-8 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+      <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-3">Guided first session</p>
+      <h2 className="text-[22px] sm:text-[24px] font-bold text-white leading-tight mb-2">
+        {firstName}, here is your first move.
+      </h2>
+      <p className="text-[14px] text-slate-300 leading-relaxed mb-6">
+        Start with one company and one prep brief so today&apos;s outreach is specific, calm, and timely.
+      </p>
+
+      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4 sm:p-5 mb-5">
+        <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400 mb-1">Company being watched</p>
+        <p className="text-[16px] font-semibold text-white">{companyName ?? 'Add your first company'}</p>
+      </div>
+
+      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-4 sm:p-5 mb-6">
+        <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400 mb-2">Live signals</p>
+        {companySignals.length === 0 ? (
+          <p className="text-[14px] text-slate-300 leading-relaxed">
+            No fresh signal yet. Generate your prep brief now so you are ready when the next change appears.
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {companySignals.map((signal, index) => (
+              <li key={`${signal.signalDate}-${index}`} className="text-[14px] text-slate-200 leading-relaxed">
+                <span className="font-semibold text-white">{SIGNAL_LABELS[signal.signalType] ?? signal.signalType}:</span>{' '}
+                {signal.summary}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <form action={logBriefingAction}>
+        <input type="hidden" name="section" value="first_session_guided" />
+        <input type="hidden" name="action" value="primary_prep_cta_clicked" />
+        <input type="hidden" name="target" value={prepHref} />
+        <button
+          type="submit"
+          className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-orange-400 px-6 py-3 text-[13px] font-semibold text-slate-950 hover:bg-orange-300 transition-colors"
+        >
+          Generate prep brief now
+        </button>
+      </form>
+
+      <p className="text-[12px] text-slate-400 mt-4">
+        Your full briefing unlocks as your search builds.
+      </p>
+    </section>
+  )
+}
+
 // --- Page - shell renders immediately, body streams in ------------------------
 
 export default async function BriefingPage({
@@ -768,12 +835,33 @@ export default async function BriefingPage({
   const tz = profile?.briefing_timezone ?? 'UTC'
   const context = await assembleBriefing(supabase, user.id, tz)
 
+  const guidedRolloutEnabled = isEnabledFlag(process.env.FF_BRIEFING_FIRST_SESSION_GUIDED_BRIEFING)
+  const showGuidedFirstSessionState = shouldShowFirstSessionGuidedBriefing({
+    userId: user.id,
+    accountCreatedAt: user.created_at ?? null,
+    totalCompanies: context.totalCompanies,
+    rolloutEnabled: guidedRolloutEnabled,
+    rolloutPercentage: 50,
+    maxAccountAgeHours: 48,
+  })
+
   await logEvent(user.id, 'briefing_viewed', {
     signals: context.signals.length,
     matches: context.newMatches.length,
     due_today: context.followUps.length,
     total_companies: context.totalCompanies,
+    first_session_guided_state: showGuidedFirstSessionState,
   })
+
+  if (showGuidedFirstSessionState) {
+    await logEvent(user.id, 'briefing_first_session_guided_viewed', {
+      total_companies: context.totalCompanies,
+      account_age_hours: user.created_at
+        ? Math.round((Date.now() - new Date(user.created_at).getTime()) / 3600000)
+        : null,
+      rollout_percentage: 50,
+    })
+  }
 
   // Activation milestone: first brief viewed with at least one company tracked. Logged once per user.
   if (context.totalCompanies >= 1) {
@@ -791,6 +879,13 @@ export default async function BriefingPage({
   }
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
+  const firstTrackedCompany = context.trackedCompanies[0] ?? null
+  const firstCompanySignals = firstTrackedCompany
+    ? context.signals.filter((signal) => signal.companyName === firstTrackedCompany.name).slice(0, 2)
+    : []
+  const guidedPrepHref = firstTrackedCompany?.id
+    ? `/dashboard/companies/${firstTrackedCompany.id}/prep`
+    : '/dashboard/companies/new'
   const todayLabel = new Date(context.todayStr + 'T12:00:00Z').toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
   })
@@ -908,26 +1003,37 @@ export default async function BriefingPage({
 
 
 
-        <section id="briefing-mode" className="rounded-2xl border border-white/15 bg-white/5 px-5 sm:px-8 py-3 flex items-center gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-          <h2 className="text-[11px] font-semibold text-slate-300">View:</h2>
-          <Link
-            href="/dashboard/briefing?mode=focused"
-            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'focused' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
-          >
-            Focused
-          </Link>
-          <Link
-            href="/dashboard/briefing?mode=full"
-            className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'full' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
-          >
-            Full
-          </Link>
-        </section>
+        {showGuidedFirstSessionState ? (
+          <FirstSessionGuidedState
+            firstName={firstName}
+            companyName={firstTrackedCompany?.name ?? null}
+            companySignals={firstCompanySignals}
+            prepHref={guidedPrepHref}
+          />
+        ) : (
+          <>
+            <section id="briefing-mode" className="rounded-2xl border border-white/15 bg-white/5 px-5 sm:px-8 py-3 flex items-center gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <h2 className="text-[11px] font-semibold text-slate-300">View:</h2>
+              <Link
+                href="/dashboard/briefing?mode=focused"
+                className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'focused' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
+              >
+                Focused
+              </Link>
+              <Link
+                href="/dashboard/briefing?mode=full"
+                className={`inline-flex items-center min-h-[44px] px-3 text-[11px] font-semibold border rounded transition-colors ${mode === 'full' ? 'text-slate-950 bg-orange-400 border-orange-400' : 'text-slate-200 border-white/15 hover:border-white/30 hover:bg-white/5'}`}
+              >
+                Full
+              </Link>
+            </section>
 
-        {/* Briefing body - streams in after Claude call completes */}
-        <Suspense fallback={<BriefingBodySkeleton />}>
-          <BriefingBody context={context} mode={mode} />
-        </Suspense>
+            {/* Briefing body - streams in after Claude call completes */}
+            <Suspense fallback={<BriefingBodySkeleton />}>
+              <BriefingBody context={context} mode={mode} />
+            </Suspense>
+          </>
+        )}
 
         <p className="text-center text-[11px] text-slate-400 mt-4">
           Starting Monday &middot; Daily Intelligence Briefing

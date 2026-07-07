@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase/admin'
 import type { EmailOtpType } from '@supabase/supabase-js'
 import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/policy-versions'
+import { logEvent } from '@/lib/events'
 
 function getSafeNextPath(nextParam: string | null): string {
   if (!nextParam) return '/dashboard/briefing'
@@ -24,7 +25,9 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const tokenHash = searchParams.get('token_hash')
   const tokenType = searchParams.get('type')
-  const nextPath = getSafeNextPath(searchParams.get('next'))
+  const rawNextParam = searchParams.get('next')
+  const nextPath = getSafeNextPath(rawNextParam)
+  const hasExplicitNext = !!rawNextParam
 
   // Railway proxies requests: request.url uses the internal localhost:8080 address.
   // x-forwarded-host contains the real public hostname (startingmonday.app).
@@ -35,12 +38,10 @@ export async function GET(request: NextRequest) {
   if (code || (tokenHash && tokenType)) {
     const cookieStore = await cookies()
 
-    // Use a JS redirect (location.replace) instead of an HTTP 302 so the
-    // OAuth callback URL is replaced in browser history rather than pushed.
-    // Pressing Back will skip past the Google account chooser entirely.
-    // Keep this redirect path-relative to avoid host normalization mismatches
-    // (for example www vs apex) dropping auth cookies after OAuth.
-    const response = createClientRedirectResponse(nextPath)
+    // Resolve redirect after session exchange so first-login users with no
+    // explicit next path can be sent directly to onboarding in one hop.
+    let resolvedNextPath = nextPath
+    let response = createClientRedirectResponse(resolvedNextPath)
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -110,6 +111,35 @@ export async function GET(request: NextRequest) {
         ? (Date.now() - new Date(user.created_at).getTime()) < 60_000
         : false
       const normalizedRefCode = refCode ? refCode.toUpperCase() : null
+      let firstLoginNeedsOnboarding = false
+
+      await logEvent(userId, 'auth_path_routed', {
+        route: 'auth_callback',
+        path_category: 'callback',
+        auth_method: code ? 'oauth_code' : 'otp_magic_link',
+      })
+
+      if (!hasExplicitNext) {
+        const { data: onboardingProfile, error: onboardingProfileError } = await supabase
+          .from('user_profiles')
+          .select('onboarding_completed_at')
+          .eq('user_id', userId)
+          .maybeSingle()
+        if (onboardingProfileError) {
+          await logEvent(userId, 'auth_callback_profile_lookup_failed', {
+            explicit_next: hasExplicitNext,
+            requested_next_path: rawNextParam,
+            fallback_redirect_path: nextPath,
+            auth_method: code ? 'oauth_code' : 'otp_magic_link',
+          })
+        }
+        if (!onboardingProfile?.onboarding_completed_at) {
+          resolvedNextPath = '/onboarding'
+          firstLoginNeedsOnboarding = true
+          response = createClientRedirectResponse(resolvedNextPath)
+        }
+      }
+
       await Promise.all([
         supabase.from('user_profiles').upsert(
           {
@@ -161,6 +191,14 @@ export async function GET(request: NextRequest) {
               }
             })().catch(() => {})
           : Promise.resolve(),
+        logEvent(userId, 'auth_callback_completed', {
+          redirect_path: resolvedNextPath,
+          explicit_next: hasExplicitNext,
+          requested_next_path: rawNextParam,
+          first_login_needs_onboarding: firstLoginNeedsOnboarding,
+          auth_method: code ? 'oauth_code' : 'otp_magic_link',
+          new_user_window: isNewUser,
+        }),
       ])
       return response
     }

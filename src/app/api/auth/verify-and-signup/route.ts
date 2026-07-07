@@ -3,6 +3,7 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { logEvent } from '@/lib/events'
 
 export const runtime = 'nodejs'
 
@@ -112,6 +113,12 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    await logEvent(signInData.user?.id ?? adminData.user.id, 'auth_path_routed', {
+      route: 'verify-and-signup',
+      path_category: 'direct_admin',
+      auth_method: 'admin_created_password',
+    })
 
     return NextResponse.json(
       {

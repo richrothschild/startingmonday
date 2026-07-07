@@ -5,9 +5,11 @@ const state = vi.hoisted(() => ({
   guard: vi.fn(),
   signInWithPassword: vi.fn(),
   upsert: vi.fn(),
+  logEvent: vi.fn(),
 }))
 
 vi.mock('@/lib/public-endpoint-guard', () => ({ enforcePublicEndpointGuard: state.guard }))
+vi.mock('@/lib/events', () => ({ logEvent: state.logEvent }))
 vi.mock('@supabase/ssr', () => ({
   createServerClient: () => ({
     auth: { signInWithPassword: state.signInWithPassword },
@@ -29,6 +31,7 @@ describe('verify-and-signin route', () => {
     state.guard.mockResolvedValue(null)
     state.upsert.mockResolvedValue({ error: null })
     state.signInWithPassword.mockResolvedValue({ data: { user: { id: 'u1' }, session: { access_token: 't' } }, error: null })
+    state.logEvent.mockResolvedValue(undefined)
   })
 
   it('returns guard response when throttled', async () => {
@@ -66,5 +69,14 @@ describe('verify-and-signin route', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
     expect(state.upsert).toHaveBeenCalled()
+    expect(state.logEvent).toHaveBeenCalledWith(
+      'u1',
+      'auth_path_routed',
+      expect.objectContaining({
+        route: 'verify-and-signin',
+        path_category: 'direct_password',
+        auth_method: 'password',
+      })
+    )
   })
 })

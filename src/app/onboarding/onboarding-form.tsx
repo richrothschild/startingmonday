@@ -594,7 +594,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 onClick={() => { setAdvancedSetup(false); goTo(1) }}
                 className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
-                Generate my shortlist (under 10 minutes)
+                Start setup
               </button>
             )}
             {step === 1 && (
@@ -765,6 +765,9 @@ function StepCompanies({
             ? 'We scan their career pages and alert you when something worth knowing appears.'
             : 'Add at least one. We scan their career pages and alert you when a matching role appears.'}
         </p>
+        <p className="text-[12px] text-slate-400 mt-1.5">
+          Why this matters: these are the companies where we help you take your place before competition sees the opening.
+        </p>
       </div>
 
       {isPassive && onTitle && (
@@ -913,6 +916,9 @@ function StepBriefingTime({
         </h1>
         <p className="text-[15px] text-slate-500">
           Each morning: signals from your target companies, actions due, and your search momentum - assembled overnight.
+        </p>
+        <p className="text-[12px] text-slate-400 mt-1.5">
+          Why this matters: consistent timing turns insight into action before opportunities cool off.
         </p>
       </div>
 
@@ -1134,10 +1140,10 @@ function StepName({
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
-          What do we call you?
+          Let&apos;s find roles before the crowd sees them.
         </h1>
         <p className="text-[15px] text-slate-500">
-          You are already signed up. Add your name for personalized messaging, or skip and keep moving.
+          Two minutes of setup. Your first company scan starts before you finish.
         </p>
       </div>
       <input
@@ -1150,6 +1156,9 @@ function StepName({
         autoComplete="name"
         className="w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[16px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
       />
+      <p className="text-[12px] text-slate-400">
+        Add your name now or skip. Either way, we move straight to your target shortlist.
+      </p>
     </div>
   )
 }
@@ -1169,6 +1178,9 @@ function StepLevel({
         </h1>
         <p className="text-[15px] text-slate-500">
           This sets your workflow, messaging, and signal prioritization.
+        </p>
+        <p className="text-[12px] text-slate-400 mt-1.5">
+          Why this matters: we use this to surface the earliest opportunities that match your next move.
         </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
@@ -1229,6 +1241,9 @@ function StepSituation({
         </h1>
         <p className="text-[15px] text-slate-500">
           Helps calibrate the urgency and tone of your intelligence.
+        </p>
+        <p className="text-[12px] text-slate-400 mt-1.5">
+          Why this matters: we tune timing so you see what needs action now versus what can wait.
         </p>
       </div>
       <div className="flex flex-col gap-4">
