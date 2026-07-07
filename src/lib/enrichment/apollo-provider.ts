@@ -1,12 +1,51 @@
 import type { EnrichmentContext, EnrichmentProvider, SuggestedPerson } from './types'
 
+const APOLLO_BASE = 'https://api.apollo.io/api/v1'
+
 function clampConfidence(value: number): number {
   if (!Number.isFinite(value)) return 0.5
   return Math.min(0.99, Math.max(0.2, value))
 }
 
+function personTitlesFor(persona?: string): string[] {
+  return persona === 'board'
+    ? ['Board Member', 'Advisor', 'Independent Director']
+    : ['Chief Executive Officer', 'Chief Operating Officer', 'Chief Human Resources Officer', 'Chief Information Officer']
+}
+
+type ApolloPerson = {
+  first_name?: string
+  last_name_obfuscated?: string
+  title?: string
+  organization?: { name?: string }
+  seniority?: string
+}
+
 export class ApolloEnrichmentProvider implements EnrichmentProvider {
   readonly providerName = 'apollo' as const
+
+  private headers(apiKey: string) {
+    return { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'X-Api-Key': apiKey }
+  }
+
+  // Resolve a company's Apollo organization id from its domain. This lets people
+  // search be scoped to the exact organization (organization_ids) instead of a fuzzy
+  // company-name match, which otherwise picks the wrong company when names collide
+  // (e.g. "Agio", "Abacus", "Logically"). Uses org enrich, which does not spend
+  // people-reveal credits. Returns null on any failure so we fall back to name search.
+  private async resolveOrgId(domain: string, apiKey: string): Promise<string | null> {
+    try {
+      const res = await fetch(`${APOLLO_BASE}/organizations/enrich?domain=${encodeURIComponent(domain)}`, {
+        method: 'GET',
+        headers: this.headers(apiKey),
+      })
+      if (!res.ok) return null
+      const data = await res.json() as { organization?: { id?: string } }
+      return data.organization?.id ?? null
+    } catch {
+      return null
+    }
+  }
 
   async enrichPeople(context: EnrichmentContext): Promise<SuggestedPerson[]> {
     const apiKey = process.env.APOLLO_API_KEY
@@ -17,19 +56,8 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
     try {
       const response = await fetch('https://api.apollo.io/api/v1/mixed_people/api_search', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache',
-          'X-Api-Key': apiKey,
-        },
-        body: JSON.stringify({
-          q_organization_name: context.companyName,
-          person_titles: context.persona === 'board'
-            ? ['Board Member', 'Advisor', 'Independent Director']
-            : ['Chief Executive Officer', 'Chief Operating Officer', 'Chief Human Resources Officer', 'Chief Information Officer'],
-          page: 1,
-          per_page: 3,
-        }),
+        headers: this.headers(apiKey),
+        body: JSON.stringify(searchBody),
       })
 
       if (!response.ok) return []
