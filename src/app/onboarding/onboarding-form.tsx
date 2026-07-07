@@ -84,6 +84,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [searchPersona, setSearchPersona]     = useState<SearchPersona | ''>('')
   const [roleFamily, setRoleFamily]           = useState<RoleFamily | ''>('')
   const [roleTitle, setRoleTitle]             = useState<RoleTitle | ''>('')
+  const [roleTitles, setRoleTitles]           = useState<RoleTitle[]>([])
   const [employmentStatus, setEmploymentStatus] = useState('')
   const [searchTimeline, setSearchTimeline]   = useState('')
   const [searchDriver, setSearchDriver]       = useState('')
@@ -178,7 +179,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [onboardingStartedAt, onboardingChannel, lowEnergyMode])
 
   useEffect(() => {
-    if (step === 3 && isPassive && !manualMode) {
+    if (step === 1 && isPassive && !manualMode) {
       const timeoutId = window.setTimeout(() => setManualMode(true), 0)
       return () => window.clearTimeout(timeoutId)
     }
@@ -291,34 +292,50 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function advance() {
-    if (lowEnergyMode && step === 1) { goTo(4); return }
-    if (lowEnergyMode && step === 4) {
-      if (isPassive) setBriefingFrequency('weekly')
-      goTo(6)
+    if (step === 0) { goTo(1); return }
+    if (step === 1) { goTo(2); return }
+    if (step === 2) {
+      if (advancedSetup && !lowEnergyMode) { goTo(3); return }
+      goTo(4)
       return
     }
-    if (!advancedSetup && step === 1) { goTo(4); return }
-    if (!advancedSetup && step === 4) {
-      if (isPassive) setBriefingFrequency('weekly')
-      goTo(6)
+    if (step === 3) { goTo(4); return }
+    if (step === 4) {
+      if (lowEnergyMode || !advancedSetup || isPassive) {
+        if (isPassive) setBriefingFrequency('weekly')
+        goTo(6)
+        return
+      }
+      goTo(5)
       return
     }
-    if (isPassive && step === 2) { goTo(4); return }
-    if (isPassive && step === 4) { setBriefingFrequency('weekly'); goTo(6); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
-    if (!advancedSetup && step === 4) return 1
-    if (isPassive && step === 4) return 2
-    if (isPassive && step === 6) return 4
+    if (step === 4) return advancedSetup && !lowEnergyMode ? 3 : 2
+    if (step === 6) return (isPassive || !advancedSetup || lowEnergyMode) ? 4 : 5
     return step - 1
+  }
+
+  function toggleRoleTrack(opt: RoleTrackOption) {
+    setRoleTitles(prev => {
+      const next = prev.includes(opt.value)
+        ? prev.filter(v => v !== opt.value)
+        : [...prev, opt.value]
+      const primary = ROLE_TRACK_OPTIONS.find(o => o.value === next[0]) ?? null
+      setRoleTitle(primary?.value ?? '')
+      setRoleFamily(primary?.roleFamily ?? '')
+      setSearchPersona(primary?.persona ?? '')
+      return next
+    })
   }
 
   function quickStart() {
     if (!searchPersona) setSearchPersona('csuite')
     if (!roleFamily) setRoleFamily('leadership')
     if (!roleTitle) setRoleTitle('executive')
+    if (roleTitles.length === 0) setRoleTitles(['executive'])
     if (!companyNames.some(n => n.trim())) {
       const seeded = seededCompaniesFor(searchPersona || 'csuite')
       setCompanyNames([...seeded, ''])
@@ -328,9 +345,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   function progressIndex() {
     if (advancedSetup) return step
-    if (step <= 1) return step
-    if (step <= 4) return 2
-    if (step === 5) return 3
+    if (step <= 2) return step
+    if (step <= 4) return 3
     return 4
   }
 
@@ -419,6 +435,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="search_persona"      value={searchPersona} />
         <input type="hidden" name="role_family"         value={roleFamily} />
         <input type="hidden" name="role_title"          value={roleTitle} />
+        <input type="hidden" name="target_role_tracks"  value={JSON.stringify(roleTitles)} />
         <input type="hidden" name="onboarding_channel"  value={onboardingChannel} />
         <input type="hidden" name="onboarding_low_energy" value={lowEnergyMode ? 'true' : 'false'} />
         <input type="hidden" name="onboarding_started_at" value={onboardingStartedAt} />
@@ -464,29 +481,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           )}
 
           {step === 1 && (
-            <StepLevel
-              roleTitle={roleTitle}
-              onSelect={(selection) => {
-                setRoleTitle(selection.value)
-                setRoleFamily(selection.roleFamily)
-                setSearchPersona(selection.persona)
-                setTimeout(advance, 220)
-              }}
-            />
-          )}
-
-          {step === 2 && (
-            <StepSituation
-              status={employmentStatus}
-              timeline={searchTimeline}
-              driver={searchDriver}
-              onStatus={setEmploymentStatus}
-              onTimeline={setSearchTimeline}
-              onDriver={setSearchDriver}
-            />
-          )}
-
-          {step === 3 && (
             <StepImport
               importDone={importDone}
               importThin={importThin}
@@ -505,6 +499,24 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onTitle={setCurrentTitle}
               onCompany={setCurrentCompany}
               onLinkedinUrl={setLinkedinUrl}
+            />
+          )}
+
+          {step === 2 && (
+            <StepLevel
+              roleTitles={roleTitles}
+              onToggle={toggleRoleTrack}
+            />
+          )}
+
+          {step === 3 && (
+            <StepSituation
+              status={employmentStatus}
+              timeline={searchTimeline}
+              driver={searchDriver}
+              onStatus={setEmploymentStatus}
+              onTimeline={setSearchTimeline}
+              onDriver={setSearchDriver}
             />
           )}
 
@@ -601,30 +613,41 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <div className="flex flex-col items-end gap-2">
                 <button
                   type="button"
+                  onClick={advance}
+                  className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+                >
+                  Continue
+                </button>
+                {!importDone && (
+                  <button
+                    type="button"
+                    onClick={advance}
+                    className="text-[12px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0"
+                  >
+                    Skip import for now
+                  </button>
+                )}
+              </div>
+            )}
+            {step === 2 && (
+              <div className="flex flex-col items-end gap-2">
+                <button
+                  type="button"
                   onClick={() => { setAdvancedSetup(false); advance() }}
-                  disabled={!roleTitle}
+                  disabled={roleTitles.length === 0}
                   className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
                 >
                   Continue to shortlist
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setAdvancedSetup(true); goTo(2) }}
-                  disabled={lowEnergyMode}
+                  onClick={() => { setAdvancedSetup(true); goTo(3) }}
+                  disabled={lowEnergyMode || roleTitles.length === 0}
                   className="text-[12px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0"
                 >
                   {lowEnergyMode ? 'Context optional in low-energy mode' : 'Add search context first'}
                 </button>
               </div>
-            )}
-            {step === 2 && (
-              <button
-                type="button"
-                onClick={advance}
-                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
-              >
-                Continue
-              </button>
             )}
             {step === 3 && (
               <button
@@ -757,7 +780,7 @@ function StepCompanies({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           {isPassive ? 'Which companies do you want to monitor?' : 'Which companies are you targeting?'}
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -911,7 +934,7 @@ function StepBriefingTime({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           When do you want your daily briefing?
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -983,7 +1006,7 @@ function StepDone({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           {firstName}, your likely-to-open shortlist is live.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1139,7 +1162,7 @@ function StepName({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Let&apos;s find roles before the crowd sees them.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1164,54 +1187,62 @@ function StepName({
 }
 
 function StepLevel({
-  roleTitle,
-  onSelect,
+  roleTitles,
+  onToggle,
 }: {
-  roleTitle: RoleTitle | ''
-  onSelect: (v: RoleTrackOption) => void
+  roleTitles: RoleTitle[]
+  onToggle: (v: RoleTrackOption) => void
 }) {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
-          Which role lane are you targeting?
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
+          Which role lanes are you targeting?
         </h1>
         <p className="text-[15px] text-slate-300">
-          This sets your workflow, messaging, and signal prioritization.
+          Choose every lane you want us to watch. Your first pick leads the workflow.
         </p>
         <p className="text-[12px] text-slate-400 mt-1.5">
-          Why this matters: we use this to surface the earliest opportunities that match your next move.
+          Why this matters: we use these lanes to surface the earliest opportunities that match your next move.
         </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        {ROLE_TRACK_OPTIONS.map(opt => (
-          <button
-            key={opt.value}
-            type="button"
-            onClick={() => onSelect(opt)}
-            className={[
-              'text-left border rounded-lg px-5 py-4 flex items-center justify-between transition-all cursor-pointer',
-              roleTitle === opt.value
-                ? 'border-orange-400/70 bg-orange-500/20 text-white'
-                : 'border-white/15 bg-white/5 hover:border-white/35',
-            ].join(' ')}
-          >
-            <div>
-              <div className={['text-[15px] font-semibold', roleTitle === opt.value ? 'text-white' : 'text-white'].join(' ')}>
-                {opt.label}
+        {ROLE_TRACK_OPTIONS.map(opt => {
+          const selected = roleTitles.includes(opt.value)
+          const isPrimary = roleTitles[0] === opt.value
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onToggle(opt)}
+              aria-pressed={selected}
+              className={[
+                'text-left border rounded-lg px-5 py-4 flex items-center justify-between transition-all cursor-pointer',
+                selected
+                  ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                  : 'border-white/15 bg-white/5 hover:border-white/35',
+              ].join(' ')}
+            >
+              <div>
+                <div className="text-[15px] font-semibold text-white">
+                  {opt.label}
+                  {isPrimary && roleTitles.length > 1 && (
+                    <span className="ml-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-orange-200">Primary</span>
+                  )}
+                </div>
+                <div className={['text-[13px] mt-0.5', selected ? 'text-slate-200' : 'text-slate-400'].join(' ')}>
+                  {opt.sub}
+                </div>
               </div>
-              <div className={['text-[13px] mt-0.5', roleTitle === opt.value ? 'text-slate-200' : 'text-slate-400'].join(' ')}>
-                {opt.sub}
-              </div>
-            </div>
-            {roleTitle === opt.value && (
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 ml-4">
-                <circle cx="9" cy="9" r="9" fill="white" fillOpacity="0.2" />
-                <path d="M5 9l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            )}
-          </button>
-        ))}
+              {selected && (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 ml-4">
+                  <circle cx="9" cy="9" r="9" fill="white" fillOpacity="0.2" />
+                  <path d="M5 9l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </button>
+          )
+        })}
       </div>
     </div>
   )
@@ -1236,7 +1267,7 @@ function StepSituation({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Where are you in your search?
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1347,20 +1378,20 @@ function StepImport({
       return (
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+            <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
               Background text saved.
             </h1>
             <p className="text-[15px] text-slate-300">
               We saved your profile text but could not automatically extract your title and company. Add them below so briefings and prep briefs are personalized correctly.
             </p>
           </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 flex items-start gap-3">
+          <div className="bg-amber-500/10 border border-amber-300/40 rounded-lg px-5 py-4 flex items-start gap-3">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0 mt-0.5">
-              <circle cx="10" cy="10" r="10" fill="#fef3c7" />
-              <path d="M10 6v5" stroke="#d97706" strokeWidth="1.8" strokeLinecap="round" />
-              <circle cx="10" cy="14" r="1" fill="#d97706" />
+              <circle cx="10" cy="10" r="10" fill="#f59e0b" fillOpacity="0.2" />
+              <path d="M10 6v5" stroke="#fbbf24" strokeWidth="1.8" strokeLinecap="round" />
+              <circle cx="10" cy="14" r="1" fill="#fbbf24" />
             </svg>
-            <span className="text-[13px] text-amber-800 leading-relaxed">
+            <span className="text-[13px] text-amber-200 leading-relaxed">
               Title and company not detected. Fill them in now or update your profile later.
             </span>
           </div>
@@ -1397,19 +1428,19 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+          <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
             Profile imported.
           </h1>
           <p className="text-[15px] text-slate-300">
             Your signals, briefings, and prep briefs are now personalized to your background. You can review and edit your profile anytime from settings.
           </p>
         </div>
-        <div className="bg-green-50 border border-green-200 rounded-lg px-5 py-4 flex items-center gap-3">
+        <div className="bg-emerald-500/10 border border-emerald-300/40 rounded-lg px-5 py-4 flex items-center gap-3">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="10" fill="#dcfce7" />
-            <path d="M6 10l3 3 5-5" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="10" cy="10" r="10" fill="#10b981" fillOpacity="0.2" />
+            <path d="M6 10l3 3 5-5" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="text-[14px] text-green-700 font-medium">LinkedIn data extracted successfully</span>
+          <span className="text-[14px] text-emerald-200 font-medium">LinkedIn data extracted successfully</span>
         </div>
         <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we learned</p>
@@ -1426,7 +1457,7 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+          <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
             Tell us a bit more.
           </h1>
           <p className="text-[15px] text-slate-300">
@@ -1478,7 +1509,7 @@ function StepImport({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Build your profile.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1487,7 +1518,7 @@ function StepImport({
       </div>
 
       {importError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-[13px] text-red-700">
+        <div className="bg-red-500/10 border border-red-300/40 rounded-lg px-4 py-3 text-[13px] text-red-200">
           {importError}
         </div>
       )}

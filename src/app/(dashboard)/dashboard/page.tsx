@@ -33,11 +33,11 @@ import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
-  watching:     { label: 'Watching',     cls: 'bg-slate-100 text-slate-500' },
-  researching:  { label: 'Researching',  cls: 'bg-blue-50 text-blue-700' },
-  applied:      { label: 'In Process',   cls: 'bg-indigo-50 text-indigo-700' },
-  interviewing: { label: 'Interviewing', cls: 'bg-amber-50 text-amber-700' },
-  offer:        { label: 'Offer',        cls: 'bg-green-50 text-green-700' },
+  watching:     { label: 'Watching',     cls: 'bg-white/10 text-slate-300' },
+  researching:  { label: 'Researching',  cls: 'bg-blue-500/15 text-blue-200' },
+  applied:      { label: 'In Process',   cls: 'bg-indigo-500/15 text-indigo-200' },
+  interviewing: { label: 'Interviewing', cls: 'bg-amber-500/15 text-amber-200' },
+  offer:        { label: 'Offer',        cls: 'bg-emerald-500/15 text-emerald-200' },
 }
 
 const PAGE_SIZE = 50

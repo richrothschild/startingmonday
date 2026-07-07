@@ -54,14 +54,7 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
     // Apollo API usage is intentionally resilient: if request shape changes or fails,
     // discovery continues with model-derived suggestions.
     try {
-      // Prefer an exact org-id scope when a domain is available; otherwise fall back
-      // to fuzzy company-name search (which can match the wrong same-named company).
-      const orgId = context.domain ? await this.resolveOrgId(context.domain, apiKey) : null
-      const searchBody = orgId
-        ? { organization_ids: [orgId], person_titles: personTitlesFor(context.persona), page: 1, per_page: 3 }
-        : { q_organization_name: context.companyName, person_titles: personTitlesFor(context.persona), page: 1, per_page: 3 }
-
-      const response = await fetch(`${APOLLO_BASE}/mixed_people/api_search`, {
+      const response = await fetch('https://api.apollo.io/api/v1/mixed_people/api_search', {
         method: 'POST',
         headers: this.headers(apiKey),
         body: JSON.stringify(searchBody),
@@ -73,7 +66,15 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
       // only. Full name, email, and LinkedIn require a separate People Enrichment
       // (people/match) call that consumes Apollo credits, so discovery intentionally
       // stops at name + title here and defers reveal to the outreach step.
-      const data = await response.json() as { people?: ApolloPerson[] }
+      const data = await response.json() as {
+        people?: Array<{
+          first_name?: string
+          last_name_obfuscated?: string
+          title?: string
+          organization?: { name?: string }
+          seniority?: string
+        }>
+      }
 
       const people = Array.isArray(data.people) ? data.people : []
       return people
