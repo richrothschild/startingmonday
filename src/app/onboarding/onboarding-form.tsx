@@ -18,6 +18,7 @@ import {
   isTransitionFirstCohort,
 } from '@/lib/onboarding-speed'
 import { type RoleFamily, type RoleTitle } from '@/lib/role-taxonomy'
+import { ScanProgressPanel, type ScanStatusPayload } from './scan-progress-panel'
 
 type ImportResult = {
   full_name?: string | null
@@ -102,6 +103,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   const [intelContent, setIntelContent] = useState('')
   const [intelLoading, setIntelLoading] = useState(false)
+
+  const [scanStarted, setScanStarted] = useState(false)
+  const [scanProgress, setScanProgress] = useState<ScanStatusPayload | null>(null)
+  const [extraCompany, setExtraCompany] = useState('')
+  const [addingCompany, setAddingCompany] = useState(false)
 
   const firstName = fullName.trim().split(' ')[0] || 'there'
 
@@ -291,6 +297,58 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     }, 180)
   }
 
+  function startFirstScan(names: string[]) {
+    const filtered = names.map(n => n.trim()).filter(Boolean)
+    if (filtered.length === 0 || scanStarted) return
+    setScanStarted(true)
+    fetch('/api/onboarding/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ companyNames: filtered }),
+    }).catch(() => {})
+  }
+
+  async function addCompanyDuringScan() {
+    const name = extraCompany.trim()
+    if (!name || addingCompany) return
+    if (companyNames.filter(n => n.trim()).length >= 8) return
+    setAddingCompany(true)
+    try {
+      await fetch('/api/onboarding/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ companyNames: [name] }),
+      })
+      setCompanyNames(prev => [...prev.filter(n => n.trim()), name, ''])
+      setExtraCompany('')
+    } catch { /* leave input intact for retry */ } finally {
+      setAddingCompany(false)
+    }
+  }
+
+  useEffect(() => {
+    if (step !== 6 || !scanStarted) return
+    let cancelled = false
+    let ticks = 0
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch('/api/onboarding/scan')
+        if (!res.ok) return
+        const data = await res.json() as ScanStatusPayload
+        if (cancelled) return
+        setScanProgress(data)
+        if (data?.progress?.done) window.clearInterval(id)
+      } catch { /* keep polling */ }
+    }
+    const id = window.setInterval(() => {
+      ticks += 1
+      if (ticks > 30) { window.clearInterval(id); return }
+      void fetchStatus()
+    }, 4000)
+    void fetchStatus()
+    return () => { cancelled = true; window.clearInterval(id) }
+  }, [step, scanStarted])
+
   function advance() {
     if (step === 0) { goTo(1); return }
     if (step === 1) { goTo(2); return }
@@ -301,6 +359,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     }
     if (step === 3) { goTo(4); return }
     if (step === 4) {
+      startFirstScan(companyNames)
       if (lowEnergyMode || !advancedSetup || isPassive) {
         if (isPassive) setBriefingFrequency('weekly')
         goTo(6)
@@ -540,17 +599,28 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           )}
 
           {step === 6 && (
-            <StepDone
-              firstName={firstName}
-                currentTitle={currentTitle}
-                currentCompany={currentCompany}
-                targetTitles={targetTitles}
-              companies={companyNames.filter(n => n.trim())}
-              briefingTime={briefingTime}
-              isPassive={isPassive}
-              intelContent={intelContent}
-              intelLoading={intelLoading}
-            />
+            <>
+              <StepDone
+                firstName={firstName}
+                  currentTitle={currentTitle}
+                  currentCompany={currentCompany}
+                  targetTitles={targetTitles}
+                companies={companyNames.filter(n => n.trim())}
+                briefingTime={briefingTime}
+                isPassive={isPassive}
+                intelContent={intelContent}
+                intelLoading={intelLoading}
+              />
+              <ScanProgressPanel
+                scanStarted={scanStarted}
+                progress={scanProgress}
+                extraCompany={extraCompany}
+                addingCompany={addingCompany}
+                canAddMore={companyNames.filter(n => n.trim()).length < 8}
+                onExtraCompany={setExtraCompany}
+                onAddCompany={addCompanyDuringScan}
+              />
+            </>
           )}
         </div>
 
