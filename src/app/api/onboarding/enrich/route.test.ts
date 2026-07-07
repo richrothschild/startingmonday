@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const state = vi.hoisted(() => ({
   createClient: vi.fn(),
   getUser: vi.fn(),
+  upsertCompanies: vi.fn(),
   listCompanies: vi.fn(),
   listContacts: vi.fn(),
   insertContacts: vi.fn(),
@@ -22,6 +23,7 @@ function buildSupabase() {
     from: vi.fn((table: string) => {
       if (table === 'companies') {
         return {
+          upsert: state.upsertCompanies,
           select: vi.fn(() => ({
             eq: vi.fn(() => ({
               is: vi.fn(() => ({
@@ -57,6 +59,7 @@ describe('src/app/api/onboarding/enrich/route.ts', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     state.getUser.mockResolvedValue({ data: { user: { id: 'user-1' } } })
+    state.upsertCompanies.mockResolvedValue({ error: null })
     state.listCompanies.mockResolvedValue({
       data: [
         { id: 'c1', name: 'Acme' },
@@ -101,6 +104,7 @@ describe('src/app/api/onboarding/enrich/route.ts', () => {
     )
 
     expect(res.status).toBe(202)
+    expect(state.upsertCompanies).toHaveBeenCalledTimes(1)
     expect(state.provider.enrichPeople).toHaveBeenCalledTimes(2)
     expect(state.insertContacts).toHaveBeenCalledTimes(1)
     await expect(res.json()).resolves.toMatchObject({ ok: true, contactsInserted: 2, provider: 'apollo' })
