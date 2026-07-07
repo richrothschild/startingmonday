@@ -68,13 +68,13 @@ describe('feedback items route', () => {
   it('returns unauthorized when no user is present', async () => {
     state.createClient.mockResolvedValueOnce({ auth: { getUser: vi.fn().mockResolvedValue({ data: { user: null } }) } })
 
-    const response = await GET(new NextRequest('https://startingmonday.app/api/feedback/items'))
+    const response = await GET(new NextRequest('https://startingmonday.app/api/feedback/items'), {})
 
     expect(response.status).toBe(401)
   })
 
   it('returns feedback items with vote state', async () => {
-    const response = await GET(new NextRequest('https://startingmonday.app/api/feedback/items?search=Great'))
+    const response = await GET(new NextRequest('https://startingmonday.app/api/feedback/items?search=Great'), {})
 
     expect(response.status).toBe(200)
     expect(await response.json()).toEqual({
@@ -87,7 +87,7 @@ describe('feedback items route', () => {
     const invalid = await POST(new NextRequest('https://startingmonday.app/api/feedback/items', {
       method: 'POST',
       body: JSON.stringify({ title: 'Bad', body: 'short', category: 'bug' }),
-    }))
+    }), {})
 
     expect(invalid.status).toBe(400)
 
@@ -98,7 +98,7 @@ describe('feedback items route', () => {
         body: 'This would help a lot and is long enough.',
         category: 'feature_request',
       }),
-    }))
+    }), {})
 
     expect(response.status).toBe(201)
     const payload = await response.json()

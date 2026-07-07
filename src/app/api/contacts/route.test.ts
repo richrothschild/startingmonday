@@ -50,7 +50,7 @@ describe('contacts route', () => {
     const response = await POST(new NextRequest('https://startingmonday.app/api/contacts', {
       method: 'POST',
       body: JSON.stringify({ name: 'Ada' }),
-    }))
+    }), {})
 
     expect(response.status).toBe(401)
   })
@@ -59,7 +59,7 @@ describe('contacts route', () => {
     const response = await POST(new NextRequest('https://startingmonday.app/api/contacts', {
       method: 'POST',
       body: JSON.stringify({ name: '   ' }),
-    }))
+    }), {})
 
     expect(response.status).toBe(400)
     expect(await response.json()).toEqual({ error: 'Name is required' })
@@ -69,7 +69,7 @@ describe('contacts route', () => {
     const response = await POST(new NextRequest('https://startingmonday.app/api/contacts', {
       method: 'POST',
       body: JSON.stringify({ name: 'Ada Lovelace', source: 'manual' }),
-    }))
+    }), {})
 
     expect(response.status).toBe(201)
     expect(await response.json()).toEqual({ id: 'contact-1', contact: { id: 'contact-1', name: 'Ada' } })
