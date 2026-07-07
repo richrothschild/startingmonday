@@ -88,7 +88,7 @@ export default function HealthcareSandboxPage() {
     <main className="min-h-screen bg-slate-950 text-slate-100">
       <div className="mx-auto max-w-5xl px-6 py-10 sm:py-14">
         <header className="mb-10">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-emerald-300">Private demo sandbox</p>
+          <p className="text-[11px] tracking-[0.08em] text-emerald-300">Private demo sandbox</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
             Healthcare Executive Search Proof Sandbox
           </h1>
@@ -99,13 +99,14 @@ export default function HealthcareSandboxPage() {
           <p className="mt-2 text-xs text-slate-400">
             Built for private pilot discussions and evidence walkthroughs with executive coaches and recruiting partners.
           </p>
+          <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>
         </header>
 
         <section className="mb-8 rounded-xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-300">Cohort profile</h2>
+          <h2 className="text-sm font-semibold tracking-[0.08em] text-emerald-300">Cohort profile</h2>
           <div className="mt-4 grid gap-6 sm:grid-cols-3">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Target roles</h3>
+              <h3 className="text-xs font-semibold tracking-[0.08em] text-slate-400">Target roles</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {COHORT_PROFILE.targetRoles.map((item) => (
                   <li key={item}>- {item}</li>
@@ -113,7 +114,7 @@ export default function HealthcareSandboxPage() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Differentiators</h3>
+              <h3 className="text-xs font-semibold tracking-[0.08em] text-slate-400">Differentiators</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {COHORT_PROFILE.differentiators.map((item) => (
                   <li key={item}>- {item}</li>
@@ -121,7 +122,7 @@ export default function HealthcareSandboxPage() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Search constraints</h3>
+              <h3 className="text-xs font-semibold tracking-[0.08em] text-slate-400">Search constraints</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {COHORT_PROFILE.constraints.map((item) => (
                   <li key={item}>- {item}</li>
@@ -132,7 +133,7 @@ export default function HealthcareSandboxPage() {
         </section>
 
         <section className="mb-8 rounded-xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-300">Role-fit scoreboard</h2>
+          <h2 className="text-sm font-semibold tracking-[0.08em] text-emerald-300">Role-fit scoreboard</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[680px] border-collapse text-left text-sm">
               <thead>
@@ -156,7 +157,7 @@ export default function HealthcareSandboxPage() {
         </section>
 
         <section className="mb-8 rounded-xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-300">
+          <h2 className="text-sm font-semibold tracking-[0.08em] text-emerald-300">
             Healthcare signal board
           </h2>
           <div className="mt-4 space-y-4">
@@ -181,7 +182,7 @@ export default function HealthcareSandboxPage() {
         </section>
 
         <section className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-5 sm:p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-300">Pilot script cue card</h2>
+          <h2 className="text-sm font-semibold tracking-[0.08em] text-emerald-300">Pilot script cue card</h2>
           <ol className="mt-3 space-y-2 text-sm text-slate-200">
             <li>1. Lead with one role-fit claim and one signal-backed timing claim.</li>
             <li>2. Show one healthcare case from the 20-case draw with source transparency.</li>
@@ -190,13 +191,13 @@ export default function HealthcareSandboxPage() {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/demo"
-              className="inline-flex items-center rounded-full bg-emerald-400 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-950 hover:bg-emerald-300"
+              className="inline-flex items-center rounded-full bg-emerald-400 px-4 py-2 text-xs font-semibold tracking-[0.04em] text-slate-950 hover:bg-emerald-300"
             >
               Return to main demo
             </Link>
             <Link
               href="/signup?from=demo"
-              className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white hover:border-white/40"
+              className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-xs font-semibold tracking-[0.04em] text-white hover:border-white/40"
             >
               Start trial
             </Link>
