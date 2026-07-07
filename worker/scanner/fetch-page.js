@@ -29,6 +29,41 @@ const BROWSER_HEADERS = {
   'Upgrade-Insecure-Requests': '1',
 }
 
+// Career boards on these hosts render listings client-side (JS SPAs). A plain fetch
+// returns an app shell with no job text, so always route them through Browserless.
+const SPA_HOSTS = [
+  'bamboohr.com', 'lever.co', 'myworkdayjobs.com', 'ashbyhq.com', 'rippling.com',
+  'smartrecruiters.com', 'workforcenow.adp.com', 'saashr.com', 'icims.com',
+  'ultipro.com', 'jobvite.com', 'applytojob.com', 'workable.com',
+]
+
+// Minimum visible (non-markup) text for a plain-fetch page to be trusted as rendered.
+const MIN_VISIBLE_TEXT = 800
+
+export function hostOf(url) {
+  try { return new URL(url).hostname.toLowerCase() } catch { return '' }
+}
+
+export function isSpaHost(url) {
+  const h = hostOf(url)
+  return SPA_HOSTS.some((s) => h === s || h.endsWith(`.${s}`))
+}
+
+// Strip scripts/styles/tags/entities and return the length of the residual visible text.
+// Raw HTML length is misleading for SPAs: their shell ships large inline scripts but
+// almost no rendered text, so length alone reads as "substantial" while it is empty.
+export function visibleTextLength(html) {
+  if (typeof html !== 'string') return 0
+  const text = html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z#0-9]+;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return text.length
+}
+
 // Sites that actively block bots — 403 from these means don't bother retrying.
 const BLOCKED_STATUSES = new Set([401, 403, 451])
 
@@ -66,13 +101,18 @@ export async function fetchPage(url) {
 
     if (res.ok) {
       const html = await res.text()
-      // Substantial content means the page isn't just a JS shell — use it.
-      if (html.length > 2000) {
+      // Trust the plain-fetch HTML only when it is NOT a known JS-SPA host and it
+      // carries enough *visible* text. A large shell with no rendered jobs must still
+      // escalate to Browserless (raw length alone would wrongly accept it).
+      if (!isSpaHost(url) && visibleTextLength(html) >= MIN_VISIBLE_TEXT) {
         logger.info('fetch-page: plain fetch used', { url, htmlLength: html.length })
         return html
       }
+      logger.info('fetch-page: shell/SPA detected, escalating to browserless', {
+        url, host: hostOf(url), htmlLength: html.length, visibleText: visibleTextLength(html),
+      })
     }
-    // Got 2xx but sparse HTML — probably a JS-rendered SPA. Fall through to Browserless.
+    // Got 2xx but a JS shell / sparse content — fall through to Browserless.
   } catch (err) {
     if (err.blocked) throw err  // BlockedError: propagate immediately, skip Browserless
     // Other error (timeout, ENOTFOUND, etc.) — try Browserless
