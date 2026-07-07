@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "description": "Luxury page sentinel rubric. Every route in the site inventory is scored against these dimensions on every run. A page passes only when all blocking dimensions pass.",
+  "palette": {
+    "requiredShellMarkers": [
+      "bg-slate-950",
+      "bg-slate-900"
+    ],
+    "bannedShellMarkers": [
+      "bg-slate-100",
+      "bg-slate-50",
+      "bg-gray-50",
+      "bg-gray-100"
+    ],
+    "accentMarkers": [
+      "orange-500",
+      "orange-400",
+      "orange-300",
+      "orange-200"
+    ]
+  },
+  "runtime": {
+    "allowedStatusCodes": [200],
+    "notFoundMarkers": [
+      ">Page not found<",
+      ">This page doesn't exist or has been moved<"
+    ],
+    "maxResponseMs": 8000
+  },
+  "dimensions": [
+    {
+      "id": "availability",
+      "blocking": true,
+      "metric": "HTTP status is 200 and body does not contain 404 markers"
+    },
+    {
+      "id": "palette-conformance",
+      "blocking": true,
+      "metric": "Page source uses the dark luxury shell (required markers present at shell level, banned light-shell markers absent)"
+    },
+    {
+      "id": "dead-link-hygiene",
+      "blocking": true,
+      "metric": "Internal links on the page resolve to routes that exist in the route inventory"
+    },
+    {
+      "id": "latency",
+      "blocking": false,
+      "metric": "Response time under maxResponseMs"
+    }
+  ],
+  "reporting": {
+    "channel": "slack",
+    "cadence": "hourly",
+    "escalation": "Any blocking dimension failure produces a Slack alert naming the exact route, dimension, and evidence"
+  }
+}

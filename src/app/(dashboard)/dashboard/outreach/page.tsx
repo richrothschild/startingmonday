@@ -1,5 +1,5 @@
 ﻿import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { OutreachHubClient } from './outreach-hub-client'
 import { getStaffMember } from '@/lib/staff'
@@ -45,7 +45,10 @@ export default async function OutreachHubPage() {
     ?? process.env.NEXT_PUBLIC_BUILD_SHA
     ?? 'local').slice(0, 8)
   const staff = await getStaffMember(user.email ?? '')
-  if (!staff) notFound()
+  // Outreach Hub is a staff-only operations surface. Regular users can still
+  // reach this URL from shared links, so send them to their contacts workflow
+  // instead of rendering a dead-end 404.
+  if (!staff) redirect('/dashboard/contacts')
 
   const { data: roleProfile } = await supabase
     .from('user_profiles')
