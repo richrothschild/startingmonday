@@ -18,6 +18,8 @@ import {
   isTransitionFirstCohort,
 } from '@/lib/onboarding-speed'
 import { type RoleFamily, type RoleTitle } from '@/lib/role-taxonomy'
+import { ScanProgressPanel, type ScanStatusPayload } from './scan-progress-panel'
+import { RelationshipProgressPanel, type RelationshipStatusPayload } from './relationship-progress-panel'
 
 type ImportResult = {
   full_name?: string | null
@@ -50,8 +52,8 @@ const ROLE_TRACK_OPTIONS: RoleTrackOption[] = [
   { value: 'project_manager', roleFamily: 'delivery_leadership', persona: 'director', label: 'Project Manager', sub: 'Execution-focused delivery leadership path' },
 ]
 
-const STEP_COUNT = 7
-const QUICK_PATH_STEP_COUNT = 5
+const STEP_COUNT = 8
+const QUICK_PATH_STEP_COUNT = 6
 
 
 function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
@@ -71,12 +73,21 @@ function Dots({ current, total = STEP_COUNT }: { current: number; total?: number
 }
 
 export function OnboardingForm({ profile }: { profile: { full_name?: string | null; current_title?: string | null; current_company?: string | null } | null }) {
+  const onboardingParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
+  const channelParam = onboardingParams?.get('channel')
+  const lowEnergyParam = onboardingParams?.get('mode') === 'low_energy' || onboardingParams?.get('from') === 'low-energy'
+
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState<'forward' | 'back'>('forward')
   const [animating, setAnimating] = useState(false)
   const [advancedSetup, setAdvancedSetup] = useState(false)
-  const [onboardingChannel, setOnboardingChannel] = useState<OnboardingChannel>('executives')
-  const [lowEnergyMode, setLowEnergyMode] = useState(false)
+  const [onboardingChannel] = useState<OnboardingChannel>(() => {
+    if (channelParam && ['executives', 'coaches', 'outplacement', 'search_firms'].includes(channelParam)) {
+      return channelParam as OnboardingChannel
+    }
+    return 'executives'
+  })
+  const [lowEnergyMode] = useState(lowEnergyParam)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [onboardingStartedAt] = useState(() => new Date().toISOString())
 
@@ -103,6 +114,18 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [intelContent, setIntelContent] = useState('')
   const [intelLoading, setIntelLoading] = useState(false)
 
+  const [scanStarted, setScanStarted] = useState(false)
+  const [scanProgress, setScanProgress] = useState<ScanStatusPayload | null>(null)
+  const [extraCompany, setExtraCompany] = useState('')
+  const [addingCompany, setAddingCompany] = useState(false)
+
+  const [enrichmentStarted, setEnrichmentStarted] = useState(false)
+  const [relationshipProgress, setRelationshipProgress] = useState<RelationshipStatusPayload | null>(null)
+  const [contactName, setContactName] = useState('')
+  const [contactTitle, setContactTitle] = useState('')
+  const [selectedCompanyId, setSelectedCompanyId] = useState('')
+  const [addingContact, setAddingContact] = useState(false)
+
   const firstName = fullName.trim().split(' ')[0] || 'there'
 
   const isPassive = employmentStatus === 'employed_exploring' && searchTimeline === 'opportunistic'
@@ -117,7 +140,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   const linkedinPdfRef = useRef<HTMLInputElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
-  const step6FetchStarted = useRef(false)
+  const step7FetchStarted = useRef(false)
   const nudgeLogged = useRef(false)
   const startLogged = useRef(false)
   const firstValueLogged = useRef(false)
@@ -133,20 +156,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     importedProfile: importDone,
     lowEnergyMode,
   })
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const ch = params.get('channel') as OnboardingChannel | null
-    if (ch && ['executives', 'coaches', 'outplacement', 'search_firms'].includes(ch)) {
-      setOnboardingChannel(ch)
-    }
-    const mode = params.get('mode')
-    const from = params.get('from')
-    if (mode === 'low_energy' || from === 'low-energy') {
-      setLowEnergyMode(true)
-      setAdvancedSetup(false)
-    }
-  }, [])
 
   useEffect(() => {
     if (step === 0) nameRef.current?.focus()
@@ -195,7 +204,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, advancedSetup, companyNames, searchPersona])
 
   useEffect(() => {
-    if (step < 6 || firstValueLogged.current) return
+    if (step < 7 || firstValueLogged.current) return
     firstValueLogged.current = true
     fetch('/api/onboarding/events', {
       method: 'POST',
@@ -218,7 +227,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, elapsedSeconds, companyNames, transitionFirst, lowEnergyMode])
 
   useEffect(() => {
-    if (step >= 6 || elapsedSeconds < 480 || nudgeLogged.current) return
+    if (step >= 7 || elapsedSeconds < 480 || nudgeLogged.current) return
     nudgeLogged.current = true
     fetch('/api/onboarding/events', {
       method: 'POST',
@@ -258,10 +267,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, lowEnergyMode, onboardingChannel, onboardingStartedAt])
 
   useEffect(() => {
-    if (step !== 6) return
+    if (step !== 7) return
     const firstCompany = companyNames.find(n => n.trim())
-    if (!firstCompany || intelContent || intelLoading || step6FetchStarted.current) return
-    step6FetchStarted.current = true
+    if (!firstCompany || intelContent || intelLoading || step7FetchStarted.current) return
+    step7FetchStarted.current = true
     setIntelLoading(true)
     fetch('/api/onboarding/intel', {
       method: 'POST',
@@ -291,6 +300,127 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     }, 180)
   }
 
+  function startFirstScan(names: string[]) {
+    const filtered = names.map(n => n.trim()).filter(Boolean)
+    if (filtered.length === 0 || scanStarted) return
+    setScanStarted(true)
+    fetch('/api/onboarding/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ companyNames: filtered }),
+    }).catch(() => {})
+  }
+
+  function startRelationshipEnrichment(names: string[]) {
+    const filtered = names.map(n => n.trim()).filter(Boolean)
+    if (filtered.length === 0 || enrichmentStarted) return
+    setEnrichmentStarted(true)
+    fetch('/api/onboarding/enrich', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ companyNames: filtered }),
+    }).catch(() => {})
+  }
+
+  async function addCompanyDuringScan() {
+    const name = extraCompany.trim()
+    if (!name || addingCompany) return
+    if (companyNames.filter(n => n.trim()).length >= 8) return
+    setAddingCompany(true)
+    try {
+      await fetch('/api/onboarding/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ companyNames: [name] }),
+      })
+      setCompanyNames(prev => [...prev.filter(n => n.trim()), name, ''])
+      setExtraCompany('')
+    } catch { /* leave input intact for retry */ } finally {
+      setAddingCompany(false)
+    }
+  }
+
+  async function addContactDuringEnrichment() {
+    const name = contactName.trim()
+    if (!name || !selectedCompanyId || addingContact) return
+    setAddingContact(true)
+    try {
+      await fetch('/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          title: contactTitle.trim() || null,
+          company_id: selectedCompanyId,
+          source: 'onboarding_relationship_step',
+          enrichment_source: 'manual',
+        }),
+      })
+      setContactName('')
+      setContactTitle('')
+      const res = await fetch('/api/onboarding/enrich')
+      if (res.ok) {
+        const payload = await res.json() as RelationshipStatusPayload
+        setRelationshipProgress(payload)
+      }
+    } catch {
+      // Keep values for retry.
+    } finally {
+      setAddingContact(false)
+    }
+  }
+
+  useEffect(() => {
+    if (step < 6 || !scanStarted) return
+    let cancelled = false
+    let ticks = 0
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch('/api/onboarding/scan')
+        if (!res.ok) return
+        const data = await res.json() as ScanStatusPayload
+        if (cancelled) return
+        setScanProgress(data)
+        if (data?.progress?.done) window.clearInterval(id)
+      } catch { /* keep polling */ }
+    }
+    const id = window.setInterval(() => {
+      ticks += 1
+      if (ticks > 30) { window.clearInterval(id); return }
+      void fetchStatus()
+    }, 4000)
+    void fetchStatus()
+    return () => { cancelled = true; window.clearInterval(id) }
+  }, [step, scanStarted])
+
+  useEffect(() => {
+    if (step < 6 || !enrichmentStarted) return
+    let cancelled = false
+    let ticks = 0
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch('/api/onboarding/enrich')
+        if (!res.ok) return
+        const data = await res.json() as RelationshipStatusPayload
+        if (cancelled) return
+        setRelationshipProgress(data)
+        if (!selectedCompanyId && data.companies.length > 0) {
+          setSelectedCompanyId(data.companies[0].companyId)
+        }
+        if (data?.progress?.done) window.clearInterval(id)
+      } catch {
+        // Keep polling while onboarding is active.
+      }
+    }
+    const id = window.setInterval(() => {
+      ticks += 1
+      if (ticks > 30) { window.clearInterval(id); return }
+      void fetchStatus()
+    }, 4000)
+    void fetchStatus()
+    return () => { cancelled = true; window.clearInterval(id) }
+  }, [step, enrichmentStarted, selectedCompanyId])
+
   function advance() {
     if (step === 0) { goTo(1); return }
     if (step === 1) { goTo(2); return }
@@ -301,6 +431,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     }
     if (step === 3) { goTo(4); return }
     if (step === 4) {
+      startFirstScan(companyNames)
+      startRelationshipEnrichment(companyNames)
       if (lowEnergyMode || !advancedSetup || isPassive) {
         if (isPassive) setBriefingFrequency('weekly')
         goTo(6)
@@ -309,12 +441,19 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       goTo(5)
       return
     }
+    if (step === 5) {
+      startRelationshipEnrichment(companyNames)
+      goTo(6)
+      return
+    }
+    if (step === 6) { goTo(7); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
   function prevStep() {
     if (step === 4) return advancedSetup && !lowEnergyMode ? 3 : 2
     if (step === 6) return (isPassive || !advancedSetup || lowEnergyMode) ? 4 : 5
+    if (step === 7) return 6
     return step - 1
   }
 
@@ -346,8 +485,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   function progressIndex() {
     if (advancedSetup) return step
     if (step <= 2) return step
-    if (step <= 4) return 3
-    return 4
+    if (step === 4) return 3
+    if (step === 6) return 4
+    return 5
   }
 
   function applyImport(data: ImportResult) {
@@ -540,17 +680,43 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           )}
 
           {step === 6 && (
-            <StepDone
-              firstName={firstName}
-                currentTitle={currentTitle}
-                currentCompany={currentCompany}
-                targetTitles={targetTitles}
-              companies={companyNames.filter(n => n.trim())}
-              briefingTime={briefingTime}
-              isPassive={isPassive}
-              intelContent={intelContent}
-              intelLoading={intelLoading}
+            <RelationshipProgressPanel
+              enrichmentStarted={enrichmentStarted}
+              progress={relationshipProgress}
+              contactName={contactName}
+              contactTitle={contactTitle}
+              selectedCompanyId={selectedCompanyId}
+              addingContact={addingContact}
+              onContactName={setContactName}
+              onContactTitle={setContactTitle}
+              onSelectedCompany={setSelectedCompanyId}
+              onAddContact={addContactDuringEnrichment}
             />
+          )}
+
+          {step === 7 && (
+            <>
+              <StepDone
+                firstName={firstName}
+                  currentTitle={currentTitle}
+                  currentCompany={currentCompany}
+                  targetTitles={targetTitles}
+                companies={companyNames.filter(n => n.trim())}
+                briefingTime={briefingTime}
+                isPassive={isPassive}
+                intelContent={intelContent}
+                intelLoading={intelLoading}
+              />
+              <ScanProgressPanel
+                scanStarted={scanStarted}
+                progress={scanProgress}
+                extraCompany={extraCompany}
+                addingCompany={addingCompany}
+                canAddMore={companyNames.filter(n => n.trim()).length < 8}
+                onExtraCompany={setExtraCompany}
+                onAddCompany={addCompanyDuringScan}
+              />
+            </>
           )}
         </div>
 
@@ -594,7 +760,9 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 ? 'Fast path: see your likely-to-open shortlist in minutes.'
                 : step <= 4
                 ? 'You are one step away from first value.'
-                : 'Next: shortlist preview, then relationship actions.'}
+                : step === 6
+                ? 'Add one contact while enrichment maps decision paths.'
+                : 'Next: launch your dashboard with relationships in motion.'}
             </p>
           </div>
 
@@ -678,6 +846,15 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               </button>
             )}
             {step === 6 && (
+              <button
+                type="button"
+                onClick={advance}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+              >
+                Continue
+              </button>
+            )}
+            {step === 7 && (
               <button
                 type="submit"
                 form="onboarding-form"
@@ -1215,7 +1392,6 @@ function StepLevel({
               key={opt.value}
               type="button"
               onClick={() => onToggle(opt)}
-              aria-pressed={selected}
               className={[
                 'text-left border rounded-lg px-5 py-4 flex items-center justify-between transition-all cursor-pointer',
                 selected
