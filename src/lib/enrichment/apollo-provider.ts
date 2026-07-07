@@ -15,7 +15,7 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
     // Apollo API usage is intentionally resilient: if request shape changes or fails,
     // discovery continues with model-derived suggestions.
     try {
-      const response = await fetch('https://api.apollo.io/api/v1/mixed_people/search', {
+      const response = await fetch('https://api.apollo.io/api/v1/mixed_people/api_search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,9 +34,14 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
 
       if (!response.ok) return []
 
+      // The people search API (api_search) returns first name + an obfuscated last name
+      // only. Full name, email, and LinkedIn require a separate People Enrichment
+      // (people/match) call that consumes Apollo credits, so discovery intentionally
+      // stops at name + title here and defers reveal to the outreach step.
       const data = await response.json() as {
         people?: Array<{
-          name?: string
+          first_name?: string
+          last_name_obfuscated?: string
           title?: string
           organization?: { name?: string }
           seniority?: string
@@ -45,15 +50,20 @@ export class ApolloEnrichmentProvider implements EnrichmentProvider {
 
       const people = Array.isArray(data.people) ? data.people : []
       return people
-        .filter((person) => person.name && person.title)
+        .filter((person) => person.first_name && person.title)
         .slice(0, 3)
-        .map((person, index) => ({
-          name: person.name as string,
-          title: person.title as string,
-          reason: `Apollo match for ${context.companyName}; likely stakeholder based on title seniority.`,
-          source: 'apollo' as const,
-          confidence: clampConfidence(0.82 - index * 0.07),
-        }))
+        .map((person, index) => {
+          const lastInitial = person.last_name_obfuscated
+            ? ` ${person.last_name_obfuscated.charAt(0)}.`
+            : ''
+          return {
+            name: `${person.first_name}${lastInitial}`,
+            title: person.title as string,
+            reason: `Apollo-verified ${person.seniority ?? 'senior'} contact at ${context.companyName}; full details revealed at outreach.`,
+            source: 'apollo' as const,
+            confidence: clampConfidence(0.82 - index * 0.07),
+          }
+        })
     } catch {
       return []
     }
