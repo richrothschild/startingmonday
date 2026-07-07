@@ -88,7 +88,10 @@ function nearestRoute(relativePath) {
   return '(shared-component)'
 }
 
-const tsxFiles = collectTsxFiles(appDir).map((f) => path.relative(ROOT, f).replace(/\\/g, '/'))
+const tsxFiles = [
+  ...collectTsxFiles(appDir),
+  ...collectTsxFiles(path.join(ROOT, 'src', 'components')),
+].map((f) => path.relative(ROOT, f).replace(/\\/g, '/'))
 const paletteViolations = []
 for (const relativePath of tsxFiles) {
   const source = fs.readFileSync(path.join(ROOT, relativePath), 'utf8')
