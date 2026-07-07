@@ -15,7 +15,7 @@ vi.mock('@/lib/owner-email', () => ({ getOwnerEmail: state.getOwnerEmail }))
 
 import { GET } from './route'
 
-describe('src/app/api/cron/scan-alert/route.ts placeholder coverage', () => {
+describe('src/app/api/cron/scan-alert/route.ts', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     state.validateCronRequest.mockReturnValue(true)

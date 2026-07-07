@@ -53,4 +53,17 @@ describe('coach handoff preview route', () => {
     const res = await POST(req)
     expect(res.status).toBe(400)
   })
+
+  it('returns 413 when payload exceeds body size limit', async () => {
+    const oversized = 'x'.repeat(70 * 1024)
+    const req = new NextRequest('https://startingmonday.app/api/coach-handoff/preview', {
+      method: 'POST',
+      body: JSON.stringify({
+        careerVisionStatement: oversized,
+      }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(413)
+  })
 })
