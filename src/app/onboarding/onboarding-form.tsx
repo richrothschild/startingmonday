@@ -62,7 +62,7 @@ function Dots({ current, total = STEP_COUNT }: { current: number; total?: number
           key={i}
           className={[
             'rounded-full transition-all duration-300',
-            i === current ? 'w-5 h-1.5 bg-slate-900' : i < current ? 'w-1.5 h-1.5 bg-slate-400' : 'w-1.5 h-1.5 bg-slate-200',
+            i === current ? 'w-5 h-1.5 bg-orange-500' : i < current ? 'w-1.5 h-1.5 bg-slate-500' : 'w-1.5 h-1.5 bg-white/15',
           ].join(' ')}
         />
       ))}
@@ -441,10 +441,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="briefing_frequency"   value={briefingFrequency} />
       </form>
 
-      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-white/95 p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-6">
+      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-6">
         {/* Wordmark */}
         <div className="text-center mb-10">
-          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-slate-900">Starting </span><span className="text-orange-500">Monday</span></span>
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
         </div>
 
         {/* Step content */}
@@ -550,7 +550,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <button
                 type="button"
                 onClick={() => goTo(prevStep())}
-                className="text-[13px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
+                className="text-[13px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0"
               >
                 Back
               </button>
@@ -559,7 +559,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               type="submit"
               form="onboarding-form"
               formAction={skipOnboarding}
-              className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
+              className="text-[12px] text-slate-500 hover:text-slate-300 bg-transparent border-0 cursor-pointer p-0"
             >
               Skip setup
             </button>
@@ -567,7 +567,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <button
                 type="button"
                 onClick={quickStart}
-                className="text-[12px] text-slate-300 hover:text-slate-500 bg-transparent border-0 cursor-pointer p-0"
+                className="text-[12px] text-slate-500 hover:text-slate-300 bg-transparent border-0 cursor-pointer p-0"
               >
                 Quick start
               </button>
@@ -611,7 +611,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                   type="button"
                   onClick={() => { setAdvancedSetup(true); goTo(2) }}
                   disabled={lowEnergyMode}
-                  className="text-[12px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0"
+                  className="text-[12px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0"
                 >
                   {lowEnergyMode ? 'Context optional in low-energy mode' : 'Add search context first'}
                 </button>
@@ -698,7 +698,7 @@ function StepCompanies({
   onTitle?: (v: string) => void
 }) {
   const suggestions = suggestedCompaniesForProfile(persona, currentTitle, resumeText)
-  const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
+  const inputCls = 'w-full border border-white/15 rounded-lg px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60'
   const filled = names.filter(n => n.trim()).length
 
   const [discovering, setDiscovering] = useState(false)
@@ -757,10 +757,10 @@ function StepCompanies({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           {isPassive ? 'Which companies do you want to monitor?' : 'Which companies are you targeting?'}
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           {isPassive
             ? 'We scan their career pages and alert you when something worth knowing appears.'
             : 'Add at least one. We scan their career pages and alert you when a matching role appears.'}
@@ -811,13 +811,13 @@ function StepCompanies({
                   onClick={() => added ? removeName(s.name) : addName(s.name)}
                   className={`text-left rounded border p-3 transition-colors cursor-pointer ${
                     added
-                      ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-700 hover:border-slate-700'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                      ? 'border-orange-400/70 bg-orange-500/20 text-white hover:bg-orange-500/25 hover:border-orange-300'
+                      : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35'
                   }`}
                 >
                   <p className="text-[14px] font-semibold">{added ? '✓ ' : '+ '}{s.name}</p>
-                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-300' : 'text-slate-500'].join(' ')}>{s.roleHint}</p>
-                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-300' : 'text-slate-500'].join(' ')}>{s.why}</p>
+                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-200' : 'text-slate-400'].join(' ')}>{s.roleHint}</p>
+                  <p className={['mt-1 text-[12px] leading-relaxed', added ? 'text-slate-200' : 'text-slate-400'].join(' ')}>{s.why}</p>
                 </button>
               )
             })}
@@ -830,7 +830,7 @@ function StepCompanies({
         <button
           type="button"
           onClick={discover}
-          className="text-[13px] text-slate-400 hover:text-slate-700 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
+          className="text-[13px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0 text-left transition-colors"
         >
           {discoverError ? 'Could not load suggestions - try again ->' : 'Not sure where to start? Discover companies with AI ->'}
         </button>
@@ -847,7 +847,7 @@ function StepCompanies({
             <button
               type="button"
               onClick={() => { setDiscovered(null); setDiscoverError(false) }}
-              className="text-[11px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0 transition-colors"
+              className="text-[11px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0 transition-colors"
             >
               Clear
             </button>
@@ -862,8 +862,8 @@ function StepCompanies({
                   onClick={() => added ? removeName(co.name) : addName(co.name)}
                   className={`text-[13px] px-3 py-1.5 rounded border transition-colors cursor-pointer ${
                     added
-                      ? 'border-slate-900 bg-slate-900 text-white hover:bg-slate-700 hover:border-slate-700'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'
+                      ? 'border-orange-400/70 bg-orange-500/20 text-white hover:bg-orange-500/25 hover:border-orange-300'
+                      : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35'
                   }`}
                 >
                   {added ? '\u2713 ' : '+ '}{co.name}
@@ -911,10 +911,10 @@ function StepBriefingTime({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           When do you want your daily briefing?
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           Each morning: signals from your target companies, actions due, and your search momentum - assembled overnight.
         </p>
         <p className="text-[12px] text-slate-400 mt-1.5">
@@ -931,8 +931,8 @@ function StepBriefingTime({
             className={[
               'border rounded-lg px-4 py-3.5 text-[15px] font-semibold transition-all cursor-pointer',
               value === t.value
-                ? 'border-slate-900 bg-slate-900 text-white'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400',
+                ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35',
             ].join(' ')}
           >
             {t.label}
@@ -983,19 +983,19 @@ function StepDone({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           {firstName}, your likely-to-open shortlist is live.
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           {isPassive
             ? 'We will watch your companies and send a digest every Sunday. You can take action when a role starts taking shape.'
             : 'You now have an early view of where to focus. Here is what happens next.'}
         </p>
       </div>
 
-      <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+      <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
         <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we understood about you</p>
-        <p className="text-[15px] font-semibold text-slate-900">{currentTitle || 'Your role lane is set'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
+        <p className="text-[15px] font-semibold text-white">{currentTitle || 'Your role lane is set'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
         <p className="text-[12px] text-slate-400 mt-1.5">
           {targetTitles
             ? `We will bias briefs and role hypotheses toward: ${targetTitles}`
@@ -1004,12 +1004,12 @@ function StepDone({
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+        <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Companies being watched</p>
           {companies.length === 0 ? (
-            <p className="text-[14px] text-slate-500">None yet - add them from your dashboard.</p>
+            <p className="text-[14px] text-slate-300">None yet - add them from your dashboard.</p>
           ) : (
-            <p className="text-[15px] font-semibold text-slate-900">{companies.join(', ')}</p>
+            <p className="text-[15px] font-semibold text-white">{companies.join(', ')}</p>
           )}
           <p className="text-[12px] text-slate-400 mt-1.5">
             This powers your first likely-to-open role shortlist and signal feed.
@@ -1017,21 +1017,21 @@ function StepDone({
         </div>
 
         {!isPassive && (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First relationship action this week</p>
-            <p className="text-[15px] font-semibold text-slate-900">Identify one decision-path contact and start outreach timing.</p>
+            <p className="text-[15px] font-semibold text-white">Identify one decision-path contact and start outreach timing.</p>
             <p className="text-[12px] text-slate-400 mt-1.5">Open contacts from the dashboard and begin with your highest-leverage target.</p>
           </div>
         )}
 
         {!isPassive && firstCompany && roleTargets.length > 0 && (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Seats to map first at {firstCompany}</p>
             <div className="space-y-2">
               {roleTargets.map((seat) => (
-                <div key={seat.title} className="rounded border border-slate-200 bg-white px-3 py-2">
-                  <p className="text-[13px] font-semibold text-slate-900">{seat.title}</p>
-                  <p className="text-[12px] text-slate-500 mt-0.5">{seat.why}</p>
+                <div key={seat.title} className="rounded border border-white/10 bg-white/5 px-3 py-2">
+                  <p className="text-[13px] font-semibold text-white">{seat.title}</p>
+                  <p className="text-[12px] text-slate-300 mt-0.5">{seat.why}</p>
                 </div>
               ))}
             </div>
@@ -1040,45 +1040,45 @@ function StepDone({
         )}
 
         {!isPassive && firstCompany && firstNoteDraft && (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First note draft</p>
-            <p className="text-[12px] text-slate-500 leading-relaxed">{firstNoteDraft}</p>
+            <p className="text-[12px] text-slate-300 leading-relaxed">{firstNoteDraft}</p>
             <p className="text-[11px] text-slate-400 mt-2">You can edit this draft from your contacts outreach workspace.</p>
           </div>
         )}
 
         {!isPassive && firstCompany && followUps.length > 0 && (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Week-one follow-up sequence</p>
             <ul className="mt-1 space-y-1.5">
               {followUps.map((item) => (
-                <li key={item} className="text-[12px] text-slate-500 leading-relaxed">- {item}</li>
+                <li key={item} className="text-[12px] text-slate-300 leading-relaxed">- {item}</li>
               ))}
             </ul>
           </div>
         )}
 
         {isPassive ? (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Weekly digest</p>
-            <p className="text-[15px] font-semibold text-slate-900">Every Sunday morning</p>
+            <p className="text-[15px] font-semibold text-white">Every Sunday morning</p>
             <p className="text-[12px] text-slate-400 mt-1.5">
               Scan matches, exec moves, funding signals - delivered once a week. No daily noise.
             </p>
           </div>
         ) : (
-          <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
-            <p className="text-[15px] font-semibold text-slate-900">Tomorrow at {formatTime(briefingTime)}</p>
+            <p className="text-[15px] font-semibold text-white">Tomorrow at {formatTime(briefingTime)}</p>
             <p className="text-[12px] text-slate-400 mt-1.5">
               New role matches, company signals, and your next actions - every morning.
             </p>
           </div>
         )}
 
-        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+        <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First career page scan</p>
-          <p className="text-[15px] font-semibold text-slate-900">Next Monday, Wednesday, or Friday at 8 AM UTC</p>
+          <p className="text-[15px] font-semibold text-white">Next Monday, Wednesday, or Friday at 8 AM UTC</p>
           <p className="text-[12px] text-slate-400 mt-1.5">
             We scan career pages 3x per week and flag matching roles before they reach LinkedIn.
           </p>
@@ -1086,8 +1086,8 @@ function StepDone({
       </div>
 
       {firstCompany && (intelLoading || intelContent) && (
-        <div className="bg-slate-900 rounded-lg px-5 py-5">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">
+        <div className="bg-slate-950/70 border border-white/10 rounded-lg px-5 py-5">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-3">
             {firstCompany} - intelligence preview
           </p>
           {intelLoading && !intelContent && (
@@ -1105,18 +1105,18 @@ function StepDone({
               )}
             </p>
           )}
-          <p className="text-[11px] text-slate-600 mt-3">
+          <p className="text-[11px] text-slate-300 mt-3">
             This is a preview. Your first full briefing includes live scan results and signal history.
           </p>
         </div>
       )}
 
-      <div className="border border-slate-200 rounded-lg px-5 py-4 bg-white">
+      <div className="border border-white/10 rounded-lg px-5 py-4 bg-white/5">
         <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Optional next step</p>
-        <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+        <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
           Want better prep quality? Add LinkedIn and profile detail after launch.
         </p>
-        <Link href="/dashboard/start" className="text-[13px] font-semibold text-slate-800 underline hover:text-slate-600 transition-colors">
+        <Link href="/dashboard/start" className="text-[13px] font-semibold text-orange-300 underline hover:text-orange-200 transition-colors">
           Complete profile from dashboard start page
         </Link>
       </div>
@@ -1139,10 +1139,10 @@ function StepName({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           Let&apos;s find roles before the crowd sees them.
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           Two minutes of setup. Your first company scan starts before you finish.
         </p>
       </div>
@@ -1154,7 +1154,7 @@ function StepName({
         onKeyDown={e => e.key === 'Enter' && onNext()}
         placeholder="Your full name"
         autoComplete="name"
-        className="w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[16px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
+        className="w-full border border-white/15 rounded-lg px-4 py-3.5 text-[16px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60"
       />
       <p className="text-[12px] text-slate-400">
         Add your name now or skip. Either way, we move straight to your target shortlist.
@@ -1173,10 +1173,10 @@ function StepLevel({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           Which role lane are you targeting?
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           This sets your workflow, messaging, and signal prioritization.
         </p>
         <p className="text-[12px] text-slate-400 mt-1.5">
@@ -1192,15 +1192,15 @@ function StepLevel({
             className={[
               'text-left border rounded-lg px-5 py-4 flex items-center justify-between transition-all cursor-pointer',
               roleTitle === opt.value
-                ? 'border-slate-900 bg-slate-900 text-white'
-                : 'border-slate-200 bg-white hover:border-slate-400',
+                ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                : 'border-white/15 bg-white/5 hover:border-white/35',
             ].join(' ')}
           >
             <div>
-              <div className={['text-[15px] font-semibold', roleTitle === opt.value ? 'text-white' : 'text-slate-900'].join(' ')}>
+              <div className={['text-[15px] font-semibold', roleTitle === opt.value ? 'text-white' : 'text-white'].join(' ')}>
                 {opt.label}
               </div>
-              <div className={['text-[13px] mt-0.5', roleTitle === opt.value ? 'text-slate-300' : 'text-slate-400'].join(' ')}>
+              <div className={['text-[13px] mt-0.5', roleTitle === opt.value ? 'text-slate-200' : 'text-slate-400'].join(' ')}>
                 {opt.sub}
               </div>
             </div>
@@ -1232,14 +1232,14 @@ function StepSituation({
   onTimeline: (v: string) => void
   onDriver: (v: string) => void
 }) {
-  const selectCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white appearance-none cursor-pointer'
+  const selectCls = 'w-full border border-white/15 rounded-lg px-4 py-3.5 text-[15px] text-slate-100 focus:outline-none focus:border-white/40 bg-slate-950/60 appearance-none cursor-pointer'
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           Where are you in your search?
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           Helps calibrate the urgency and tone of your intelligence.
         </p>
         <p className="text-[12px] text-slate-400 mt-1.5">
@@ -1292,7 +1292,7 @@ function StepSituation({
             value={driver}
             onChange={e => onDriver(e.target.value)}
             placeholder="e.g. My role was eliminated. / I want to move from VP to CIO."
-            className="w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+            className="w-full border border-white/15 rounded-lg px-4 py-3.5 text-[15px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60"
           />
         </div>
       </div>
@@ -1340,17 +1340,17 @@ function StepImport({
   onCompany: (v: string) => void
   onLinkedinUrl: (v: string) => void
 }) {
-  const inputCls = 'w-full border border-slate-200 rounded-lg px-4 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white'
+  const inputCls = 'w-full border border-white/15 rounded-lg px-4 py-3.5 text-[15px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60'
 
   if (importDone) {
     if (importThin) {
       return (
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+            <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
               Background text saved.
             </h1>
-            <p className="text-[15px] text-slate-500">
+            <p className="text-[15px] text-slate-300">
               We saved your profile text but could not automatically extract your title and company. Add them below so briefings and prep briefs are personalized correctly.
             </p>
           </div>
@@ -1397,10 +1397,10 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
             Profile imported.
           </h1>
-          <p className="text-[15px] text-slate-500">
+          <p className="text-[15px] text-slate-300">
             Your signals, briefings, and prep briefs are now personalized to your background. You can review and edit your profile anytime from settings.
           </p>
         </div>
@@ -1411,9 +1411,9 @@ function StepImport({
           </svg>
           <span className="text-[14px] text-green-700 font-medium">LinkedIn data extracted successfully</span>
         </div>
-        <div className="bg-slate-50 border border-slate-200 rounded-lg px-5 py-4">
+        <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we learned</p>
-          <p className="text-[15px] font-semibold text-slate-900">{currentTitle || 'Your current title'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
+          <p className="text-[15px] font-semibold text-white">{currentTitle || 'Your current title'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
           <p className="text-[12px] text-slate-400 mt-1.5">
             We will use this to tune your shortlist, role hypotheses, and first brief.
           </p>
@@ -1426,10 +1426,10 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
             Tell us a bit more.
           </h1>
-          <p className="text-[15px] text-slate-500">
+          <p className="text-[15px] text-slate-300">
             You can add your full background from your profile later.
           </p>
         </div>
@@ -1478,10 +1478,10 @@ function StepImport({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
           Build your profile.
         </h1>
-        <p className="text-[15px] text-slate-500">
+        <p className="text-[15px] text-slate-300">
           Import from LinkedIn for the best experience. It fills in your background automatically.
         </p>
       </div>
@@ -1493,26 +1493,26 @@ function StepImport({
       )}
 
       {/* PDF tile */}
-      <div className="border border-slate-200 rounded-lg bg-white p-5 flex flex-col gap-3">
-        <div className="text-[14px] font-semibold text-slate-800">Upload your LinkedIn PDF</div>
+      <div className="border border-white/10 rounded-lg bg-white/5 p-5 flex flex-col gap-3">
+        <div className="text-[14px] font-semibold text-slate-200">Upload your LinkedIn PDF</div>
         <div className="text-[13px] text-slate-400 leading-relaxed">
-          On your LinkedIn profile: find the <span className="font-medium text-slate-500">More</span> or <span className="font-medium text-slate-500">Resources</span> button, then choose <span className="font-medium text-slate-500">Save to PDF</span>.
+          On your LinkedIn profile: find the <span className="font-medium text-slate-300">More</span> or <span className="font-medium text-slate-300">Resources</span> button, then choose <span className="font-medium text-slate-300">Save to PDF</span>.
         </div>
         <button
           type="button"
           onClick={onPdfClick}
           disabled={extracting || importing}
-          className="self-start bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:opacity-40"
+          className="self-start bg-orange-500 hover:bg-orange-400 text-slate-950 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:opacity-40"
         >
           {extracting ? 'Reading PDF...' : importing ? 'Extracting...' : 'Upload PDF'}
         </button>
       </div>
 
       {/* Paste tile */}
-      <div className="border border-slate-200 rounded-lg bg-white p-5 flex flex-col gap-3">
-        <div className="text-[14px] font-semibold text-slate-800">Paste profile text</div>
+      <div className="border border-white/10 rounded-lg bg-white/5 p-5 flex flex-col gap-3">
+        <div className="text-[14px] font-semibold text-slate-200">Paste profile text</div>
         <div className="text-[13px] text-slate-400">
-          Open your LinkedIn profile, press <span className="font-medium text-slate-500">Cmd+A</span> then <span className="font-medium text-slate-500">Cmd+C</span>, and paste below.
+          Open your LinkedIn profile, press <span className="font-medium text-slate-300">Cmd+A</span> then <span className="font-medium text-slate-300">Cmd+C</span>, and paste below.
         </div>
         <textarea
           value={pasteText}
@@ -1520,13 +1520,13 @@ function StepImport({
           placeholder="Paste your LinkedIn profile here..."
           rows={3}
           disabled={importing}
-          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none leading-relaxed disabled:opacity-50 bg-white"
+          className="w-full border border-white/15 rounded px-3 py-2.5 text-[14px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 resize-none leading-relaxed disabled:opacity-50 bg-slate-950/60"
         />
         <button
           type="button"
           onClick={onImport}
           disabled={importing || !pasteText.trim()}
-          className="self-start bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:opacity-40"
+          className="self-start bg-orange-500 hover:bg-orange-400 text-slate-950 text-[13px] font-semibold px-5 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:opacity-40"
         >
           {importing ? 'Extracting...' : 'Extract profile'}
         </button>
@@ -1535,7 +1535,7 @@ function StepImport({
       <button
         type="button"
         onClick={onManual}
-        className="text-[13px] text-slate-400 hover:text-slate-600 bg-transparent border-0 cursor-pointer p-0 text-left"
+        className="text-[13px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0 text-left"
       >
         Skip LinkedIn import. I&apos;ll enter my details manually.
       </button>

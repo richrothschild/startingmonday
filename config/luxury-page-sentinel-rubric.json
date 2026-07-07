@@ -10,7 +10,8 @@
       "bg-slate-100",
       "bg-slate-50",
       "bg-gray-50",
-      "bg-gray-100"
+      "bg-gray-100",
+      "bg-white/95 (opaque light card on dark shell)"
     ],
     "accentMarkers": [
       "orange-500",
