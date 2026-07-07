@@ -1,0 +1,46 @@
+name: Luxury Page Sentinel
+
+on:
+  schedule:
+    - cron: '30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sentinel:
+    name: Audit every page for luxury standard conformance
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Validate Slack webhook secret
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "Missing required secret: SLACK_WEBHOOK_URL"
+            exit 1
+          fi
+
+      - name: Run luxury page sentinel against production
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SENTINEL_BASE_URL: https://startingmonday.app
+        run: node scripts/luxury-page-sentinel.mjs --output-json=tmp/luxury-page-sentinel.json
+
+      - name: Upload sentinel report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: luxury-page-sentinel-${{ github.run_number }}
+          path: tmp/luxury-page-sentinel.json
+          if-no-files-found: warn
+          retention-days: 14
