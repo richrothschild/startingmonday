@@ -63,15 +63,42 @@ const inventory = pageFiles.map((relativePath) => {
 
 // ── 1. Source palette audit ──────────────────────────────────────────────────
 const LIGHT_SHELL_RE = /className\s*=\s*["'`][^"'`]*min-h-screen[^"'`]*(bg-slate-50|bg-slate-100|bg-gray-50|bg-gray-100)[^"'`]*["'`]|className\s*=\s*["'`][^"'`]*(bg-slate-50|bg-slate-100|bg-gray-50|bg-gray-100)[^"'`]*min-h-screen[^"'`]*["'`]/
+// Light opaque card containers on the dark shell (e.g. bg-white/95 onboarding card).
+const LIGHT_CARD_RE = /className\s*=\s*["'`][^"'`]*bg-white\/9[05][^"'`]*["'`]/
 
+// Scan every non-test .tsx under src/app so client components cannot hide drift.
+function collectTsxFiles(dir, acc = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) collectTsxFiles(full, acc)
+    else if (entry.name.endsWith('.tsx') && !entry.name.includes('.test.')) acc.push(full)
+  }
+  return acc
+}
+
+function nearestRoute(relativePath) {
+  // Attribute a component file to the closest ancestor directory containing page.tsx
+  let dir = path.posix.dirname(relativePath)
+  while (dir.startsWith('src/app')) {
+    if (fs.existsSync(path.join(ROOT, dir, 'page.tsx'))) {
+      return routeFromFile(`${dir}/page.tsx`) || '/'
+    }
+    dir = path.posix.dirname(dir)
+  }
+  return '(shared-component)'
+}
+
+const tsxFiles = collectTsxFiles(appDir).map((f) => path.relative(ROOT, f).replace(/\\/g, '/'))
 const paletteViolations = []
-for (const page of inventory) {
-  const source = fs.readFileSync(path.join(ROOT, page.relativePath), 'utf8')
-  const match = source.match(LIGHT_SHELL_RE)
+for (const relativePath of tsxFiles) {
+  const source = fs.readFileSync(path.join(ROOT, relativePath), 'utf8')
+  const shellMatch = source.match(LIGHT_SHELL_RE)
+  const cardMatch = source.match(LIGHT_CARD_RE)
+  const match = shellMatch ?? cardMatch
   if (match) {
     paletteViolations.push({
-      route: page.route,
-      relativePath: page.relativePath,
+      route: nearestRoute(relativePath),
+      relativePath,
       dimension: 'palette-conformance',
       evidence: match[0].slice(0, 160),
     })
