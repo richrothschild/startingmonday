@@ -52,6 +52,18 @@ export async function completeOnboarding(formData: FormData) {
 
   const briefingTime        = (formData.get('briefing_time') as string ?? '').trim() || null
   const briefingFrequency   = (formData.get('briefing_frequency') as string ?? '').trim() || 'daily'
+  const roleTracksRaw       = (formData.get('target_role_tracks') as string ?? '').trim()
+  let targetRoleTracks: string[] = []
+  if (roleTracksRaw) {
+    try {
+      const parsed = JSON.parse(roleTracksRaw)
+      if (Array.isArray(parsed)) {
+        targetRoleTracks = parsed
+          .filter((s): s is string => typeof s === 'string' && s.trim().length > 0)
+          .slice(0, 10)
+      }
+    } catch { /* ignore */ }
+  }
   const companyNamesRaw     = (formData.get('company_names') as string ?? '').trim()
   let companyNamesList: string[] = []
   if (companyNamesRaw) {
@@ -95,6 +107,7 @@ export async function completeOnboarding(formData: FormData) {
       role_title:               resolvedRole.roleTitle,
       role_seniority:           resolvedRole.roleSeniority,
       workflow_variant:         resolvedRole.workflowVariant,
+      target_role_tracks:       targetRoleTracks.length > 0 ? targetRoleTracks : null,
       full_name:                fullName,
       current_title:            currentTitle,
       current_company:          currentCompany,

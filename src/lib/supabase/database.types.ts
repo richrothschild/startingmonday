@@ -553,6 +553,7 @@ export type Database = {
           target_titles: string[] | null
           target_sectors: string[] | null
           target_locations: string[] | null
+          target_role_tracks: string[] | null
           positioning_summary: string | null
           linkedin_headline: string | null
           linkedin_about: string | null
