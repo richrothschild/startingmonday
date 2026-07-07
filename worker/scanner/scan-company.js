@@ -1,6 +1,7 @@
 import { isAllowedByRobots } from './robots-check.js'
 import { fetchPage, BlockedError } from './fetch-page.js'
 import { extractText } from './extract-text.js'
+import { fetchAtsJobs, jobsToText } from './ats-adapters.js'
 import { detectRoles } from './detect-roles.js'
 import { scoreHit } from './score-hit.js'
 import { wasRecentlyScanned, getPreviousHitTitles } from './deduplicate.js'
@@ -32,10 +33,19 @@ export async function scanCompany(supabase, company, userProfile) {
       return { blocked: true }
     }
 
-    // 3. Fetch + extract
-    logger.info('scanner: fetching career page', { companyId, userId, companyName: name, careerPageUrl: career_page_url })
-    const html = await fetchPage(career_page_url)
-    const text = extractText(html)
+    // 3. Get job text. Prefer a structured ATS JSON feed (Greenhouse, Lever,
+    //    SmartRecruiters, BambooHR) — reliable and cheap. Fall back to fetching and
+    //    extracting the career page (with Browserless render) for non-ATS boards.
+    let text
+    const atsFeed = await fetchAtsJobs(career_page_url)
+    if (atsFeed && atsFeed.jobs.length) {
+      logger.info('scanner: using ATS feed', { companyId, userId, companyName: name, ats: atsFeed.ats, jobCount: atsFeed.jobs.length })
+      text = jobsToText(atsFeed.jobs)
+    } else {
+      logger.info('scanner: fetching career page', { companyId, userId, companyName: name, careerPageUrl: career_page_url })
+      const html = await fetchPage(career_page_url)
+      text = extractText(html)
+    }
 
     // 4. Detect candidate titles
     const candidates = detectRoles(text, userProfile)
