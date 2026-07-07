@@ -51,6 +51,13 @@ export default defineConfig({
       },
     },
     {
+      name: 'onboarding-live',
+      testMatch: /onboarding-live\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
       name: 'outreach-canary',
       testMatch: /outreach-canary\.spec\.ts/,
       dependencies: ['setup'],

@@ -49,6 +49,16 @@ jobs:
             exit 1
           fi
 
+      - name: Validate onboarding live probe credentials
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "Missing onboarding-live credentials. Configure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY secrets."
+            exit 1
+          fi
+
       - name: Run synthetic tests
         id: synthetics
         env:
@@ -57,8 +67,10 @@ jobs:
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
           PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          npx playwright test --project=synthetics \
+          npx playwright test --project=synthetics --project=onboarding-live \
             --reporter=json 2>/dev/null > synthetic-results.json || true
 
           # Parse results for step summary and alert

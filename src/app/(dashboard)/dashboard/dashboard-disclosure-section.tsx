@@ -16,12 +16,12 @@ export function DashboardDisclosureSection({
   const panelId = `${id}-panel`
 
   return (
-    <details id={id} open={defaultOpen} className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden scroll-mt-24">
+    <details id={id} open={defaultOpen} className="mb-6 sm:mb-8 rounded border border-white/10 bg-slate-900/70 overflow-hidden scroll-mt-24 shadow-[0_14px_34px_rgba(2,6,23,0.35)]">
       <summary
-        className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between"
+        className="cursor-pointer list-none px-5 py-4 border-b border-white/10 flex items-center justify-between"
         aria-controls={panelId}
       >
-        <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">{title}</span>
+        <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-300">{title}</span>
         <span className="text-[11px] text-slate-400">Expand</span>
       </summary>
       <div id={panelId} className="px-5 py-5">

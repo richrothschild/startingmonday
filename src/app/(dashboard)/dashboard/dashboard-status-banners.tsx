@@ -31,10 +31,10 @@ export function DashboardStatusBanners({
         <div
           className={`mb-4 px-5 py-3 rounded flex items-center justify-between gap-4 text-[13px] ${
             trialDaysLeft <= 3
-              ? 'bg-red-50 border border-red-200 text-red-800'
+              ? 'bg-red-500/10 border border-red-300/40 text-red-200'
               : trialDaysLeft <= 7
-                ? 'bg-amber-50 border border-amber-200 text-amber-800'
-                : 'bg-slate-100 border border-slate-200 text-slate-600'
+                ? 'bg-amber-500/10 border border-amber-300/40 text-amber-200'
+                : 'bg-white/5 border border-white/10 text-slate-300'
           }`}
         >
           <span>
@@ -51,14 +51,14 @@ export function DashboardStatusBanners({
       )}
 
       {offerCount > 0 && !isExecutiveMode && (
-        <div className="mb-4 px-5 py-3.5 rounded bg-green-50 border border-green-200 flex items-center justify-between gap-4">
+        <div className="mb-4 px-5 py-3.5 rounded bg-emerald-500/10 border border-emerald-300/40 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0" />
-            <span className="text-[13px] font-semibold text-green-900">
+            <span className="inline-block w-2 h-2 rounded-full bg-emerald-300 shrink-0" />
+            <span className="text-[13px] font-semibold text-emerald-100">
               {offerCount === 1 ? `${offerName ?? 'Offer'} - offer in hand` : `${offerCount} offers in flight`}
             </span>
           </div>
-          <Link href="/dashboard/offers" className="text-[12px] font-semibold text-green-700 hover:text-green-900 shrink-0">
+          <Link href="/dashboard/offers" className="text-[12px] font-semibold text-emerald-200 hover:text-emerald-100 shrink-0">
             Offers
           </Link>
         </div>
@@ -86,19 +86,19 @@ export function DashboardStatusBanners({
       )}
 
       {!activationComplete && (
-        <div className="mb-4 bg-white border border-slate-200 rounded px-5 py-3 flex items-center justify-between gap-4">
+        <div className="mb-4 bg-white/5 border border-white/10 rounded px-5 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className="flex items-center gap-1 shrink-0">
               {Array.from({ length: 6 }, (_, i) => (
                 <div
                   key={i}
-                  className={`h-1.5 w-5 rounded-full ${i < activationCompletedCount ? 'bg-slate-900' : 'bg-slate-200'}`}
+                  className={`h-1.5 w-5 rounded-full ${i < activationCompletedCount ? 'bg-orange-400' : 'bg-white/20'}`}
                 />
               ))}
             </div>
-            <span className="text-[12px] text-slate-500 font-semibold shrink-0">{activationCompletedCount} of 6 steps complete</span>
+            <span className="text-[12px] text-slate-300 font-semibold shrink-0">{activationCompletedCount} of 6 steps complete</span>
           </div>
-          <Link href="/dashboard/start" className="text-[12px] font-semibold text-slate-900 hover:underline shrink-0">
+          <Link href="/dashboard/start" className="text-[12px] font-semibold text-orange-200 hover:underline shrink-0">
             Setup
           </Link>
         </div>

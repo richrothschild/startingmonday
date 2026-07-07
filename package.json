@@ -128,6 +128,7 @@
         "test:e2e:mobile-elite-visual": "playwright test tests/e2e/mobile-elite-visual.spec.ts --project=mobile-iphone --project=mobile-android --workers=1",
         "mobile:elite:gate": "node scripts/check-mobile-elite-visual-gate.mjs",
         "test:e2e:auth-ux": "playwright test tests/e2e/auth-ux.spec.ts --project=auth-ux",
+        "test:e2e:onboarding-live": "playwright test tests/e2e/onboarding-live.spec.ts --project=onboarding-live",
         "test:e2e:mobile-routes": "node scripts/run-mobile-key-routes-report.mjs",
         "report:e2e:mobile-routes:coverage": "node scripts/generate-mobile-route-coverage-report.mjs",
         "ux:rubric:pages": "node scripts/check-ux-ui-rubric-pages.mjs",

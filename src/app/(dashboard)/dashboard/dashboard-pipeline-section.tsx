@@ -56,8 +56,8 @@ export function DashboardPipelineSection(props: Props) {
   } = props
 
   return (
-    <section id="pipeline" className="bg-white border border-slate-200 rounded overflow-hidden">
-      <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+    <section id="pipeline" className="rounded border border-white/10 bg-slate-900/70 overflow-hidden shadow-[0_14px_34px_rgba(2,6,23,0.35)]">
+      <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
         <h2 className="text-[13px] font-semibold text-slate-400">
           Pipeline
         </h2>
@@ -83,7 +83,7 @@ export function DashboardPipelineSection(props: Props) {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200">
+            <tr className="bg-slate-950/70 border-b border-white/10">
               <th className="py-2.5 pl-6 pr-4 text-left text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
                 Company
               </th>
@@ -124,7 +124,7 @@ export function DashboardPipelineSection(props: Props) {
                       {q && (
                         <a
                           href={`/dashboard/companies/new?name=${encodeURIComponent(q)}`}
-                          className="mt-3 inline-block text-[13px] font-semibold text-slate-900 hover:underline"
+                          className="mt-3 inline-block text-[13px] font-semibold text-orange-200 hover:underline"
                         >
                           Use &ldquo;{q}&rdquo; as pipeline draft →
                         </a>
@@ -140,13 +140,13 @@ export function DashboardPipelineSection(props: Props) {
                 return (
                   <tr
                     key={co.id}
-                    className={i < filtered.length - 1 ? 'border-b border-slate-50' : ''}
+                    className={i < filtered.length - 1 ? 'border-b border-white/5' : ''}
                   >
                     <td className="py-3.5 pl-6 pr-4">
                       <div className="flex items-center gap-2">
-                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-900 hover:text-slate-600">{co.name}</Link>
+                        <Link href={`/dashboard/companies/${co.id}`} className="text-[14px] font-semibold text-slate-100 hover:text-white">{co.name}</Link>
                         {contactCount > 0 && (
-                          <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full shrink-0">
+                          <span className="text-[10px] font-semibold text-slate-300 bg-white/10 px-1.5 py-0.5 rounded-full shrink-0 border border-white/10">
                             {contactCount} {contactCount === 1 ? 'contact' : 'contacts'}
                           </span>
                         )}
@@ -165,7 +165,7 @@ export function DashboardPipelineSection(props: Props) {
                         {s.label}
                       </span>
                     </td>
-                    <td className="py-3.5 pl-4 pr-6 text-right text-[14px] font-bold text-slate-900">
+                    <td className="py-3.5 pl-4 pr-6 text-right text-[14px] font-bold text-slate-100">
                       {co.fit_score ?? '-'}
                     </td>
                   </tr>
@@ -177,7 +177,7 @@ export function DashboardPipelineSection(props: Props) {
       </div>
 
       {totalPages > 1 && (
-        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
+        <div className="px-6 py-4 border-t border-white/10 flex items-center justify-between">
           <span className="text-[12px] text-slate-400">
             Page {page + 1} of {totalPages}
           </span>
@@ -185,7 +185,7 @@ export function DashboardPipelineSection(props: Props) {
             {page > 0 && (
               <a
                 href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page - 1) }).toString()}`}
-                className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
+                className="text-[12px] font-semibold text-slate-200 border border-white/15 rounded px-3 py-1.5 hover:border-white/30"
               >
                   Previous
               </a>
@@ -193,7 +193,7 @@ export function DashboardPipelineSection(props: Props) {
             {page < totalPages - 1 && (
               <a
                 href={`/dashboard?${new URLSearchParams({ ...(q ? { q } : {}), ...(stage ? { stage } : {}), page: String(page + 1) }).toString()}`}
-                className="text-[12px] font-semibold text-slate-600 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400"
+                className="text-[12px] font-semibold text-slate-200 border border-white/15 rounded px-3 py-1.5 hover:border-white/30"
               >
                   Next
               </a>
@@ -207,7 +207,7 @@ export function DashboardPipelineSection(props: Props) {
         <div className="mt-10 text-center">
           <Link
             href="/dashboard/wrap-up"
-            className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors"
+            className="text-[12px] text-slate-400 hover:text-slate-200 transition-colors"
           >
             Did your search wrap up? Mark it complete.
           </Link>
