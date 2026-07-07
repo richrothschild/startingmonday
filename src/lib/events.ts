@@ -2,6 +2,9 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import type { PMFEventName } from '@/lib/pmf-event-taxonomy'
 
 export type UserEventName =
+  | 'auth_path_routed'
+  | 'auth_callback_completed'
+  | 'auth_callback_profile_lookup_failed'
   | 'resume_uploaded'
   | 'linkedin_imported'
   | 'company_added'
@@ -27,6 +30,7 @@ export type UserEventName =
   | 'signal_outreach_generated'
   | 'signals_page_viewed'
   | 'briefing_viewed'
+  | 'briefing_first_session_guided_viewed'
   | 'briefing_action_clicked'
   | 'search_paused'
   | 'search_resumed'

@@ -49,6 +49,7 @@
         "monitor:matrix:check:strict": "node scripts/check-monitoring-coverage.mjs --strict",
         "monitor:harness:generate": "node scripts/generate-monitoring-harness.mjs",
         "monitor:coverage:refresh": "npm run monitor:matrix:generate && npm run monitor:harness:generate",
+        "smoke:auth-paths": "npx tsx tmp/auth-path-smoke.ts",
         "guard:landing-page-approval": "node scripts/check-landing-page-change-approval.mjs",
         "seo:crawl:audit": "node scripts/seo/run-crawl-index-audit.mjs",
         "seo:crawl:audit:quick": "node scripts/seo/run-crawl-index-audit.mjs --max-urls 100",

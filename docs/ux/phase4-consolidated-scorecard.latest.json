@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-07-07T00:52:23.068Z",
+  "sources": {
+    "sus_csv": "docs/ux/phase4-sus-score-template-2026-07-06.csv",
+    "heuristic_md": "docs/ux/phase4-heuristic-evaluation-template-2026-07-06.md",
+    "first_click_md": "docs/ux/phase4-first-click-test-template-2026-07-06.md"
+  },
+  "sus": {
+    "template_rows": 5,
+    "completed_questionnaires": 0,
+    "scored_responses": 0,
+    "computed_scores_count": 0,
+    "mean": null,
+    "median": null,
+    "std_dev": null,
+    "above_85_count": 0,
+    "above_85_share_pct": null
+  },
+  "heuristics": {
+    "findings_total": 5,
+    "findings_with_severity": 0,
+    "severity_counts": {
+      "sev0": 0,
+      "sev1": 0,
+      "sev2": 0,
+      "sev3": 0,
+      "sev4": 0
+    },
+    "unresolved_severity_3_count": 0,
+    "severity_4_count": 0
+  },
+  "first_click": {
+    "metrics": [
+      {
+        "metric": "First-click success",
+        "result_raw": "",
+        "target_raw": ">= 80%",
+        "result_numeric": null,
+        "result_unit": null,
+        "target_operator": ">=",
+        "target_threshold": 80,
+        "pass": null
+      },
+      {
+        "metric": "Median time to click",
+        "result_raw": "",
+        "target_raw": "<= 10s",
+        "result_numeric": null,
+        "result_unit": null,
+        "target_operator": "<=",
+        "target_threshold": 10,
+        "pass": null
+      },
+      {
+        "metric": "5-second next-action recall",
+        "result_raw": "",
+        "target_raw": ">= 80%",
+        "result_numeric": null,
+        "result_unit": null,
+        "target_operator": ">=",
+        "target_threshold": 80,
+        "pass": null
+      },
+      {
+        "metric": "5-second value recall",
+        "result_raw": "",
+        "target_raw": ">= 70%",
+        "result_numeric": null,
+        "result_unit": null,
+        "target_operator": ">=",
+        "target_threshold": 70,
+        "pass": null
+      }
+    ],
+    "first_click_success_pct": null,
+    "first_click_success_pass": null
+  },
+  "overall": {
+    "sus_target_pass": null,
+    "first_click_target_pass": null,
+    "heuristic_target_pass": null
+  },
+  "readiness": "awaiting_data"
+}

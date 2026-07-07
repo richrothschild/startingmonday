@@ -424,11 +424,18 @@ export default function SignupPage() {
               <section id="confirm-email" className="mb-8">
                 <h2 className="text-[24px] font-bold text-slate-900 leading-tight">Check your email</h2>
                 <p className="text-[13px] text-slate-500 mt-1.5">Confirmation link sent to <span className="font-semibold text-slate-700">{email}</span>.</p>
+                <p className="text-[13px] text-slate-500 mt-1">Most emails arrive in under 2 minutes.</p>
               </section>
               <div className="bg-white border border-slate-200 rounded p-8">
                 <p className="text-[14px] text-slate-600 leading-relaxed">
-                  Open the email, click the link, and finish setup. If it is not there, check spam.
+                  Open the email, click the link, and finish setup. If it is not there after a few minutes, check spam or promotions.
                 </p>
+                <p className="text-[13px] text-slate-500 leading-relaxed mt-3">
+                  While you wait, you can preview the workflow and come back once your email is confirmed.
+                </p>
+                <Link href="/demo" className="inline-block mt-3 text-[13px] font-semibold text-slate-700 underline hover:text-slate-900">
+                  Explore the demo while waiting &rarr;
+                </Link>
               </div>
               <p className="text-center text-[13px] text-slate-400 mt-5">
                 Already confirmed?{' '}

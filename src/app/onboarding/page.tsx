@@ -22,7 +22,7 @@ export default async function OnboardingPage() {
         <h1>Onboarding</h1>
         <p>Private by default. We do not share your data with recruiters, employers, or third parties.</p>
         <p>Trust and confidentiality: your onboarding responses stay private inside your account and are used only for briefing personalization.</p>
-        <p>Outcome: completing onboarding typically improves signal relevance and prep brief quality by at least 25%.</p>
+        <p>Outcome: completing onboarding personalizes your briefings and prep briefs to your role and target companies.</p>
         <Link href="/dashboard">Get started in your dashboard</Link>
       </section>
       <OnboardingForm profile={profile} />

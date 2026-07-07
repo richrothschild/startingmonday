@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
+import { logEvent } from '@/lib/events'
 
 export const runtime = 'nodejs'
 
@@ -88,6 +89,12 @@ export async function POST(request: NextRequest) {
         { user_id: data.user.id, briefing_timezone: tz },
         { onConflict: 'user_id' }
       )
+
+      await logEvent(data.user.id, 'auth_path_routed', {
+        route: 'verify-and-signin',
+        path_category: 'direct_password',
+        auth_method: 'password',
+      })
     }
 
     return NextResponse.json(

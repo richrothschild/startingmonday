@@ -85,12 +85,20 @@ This runbook is for customer-observable failures detected by synthetic monitorin
 - Cookie/session parsing regression.
 - Middleware auth guard mismatch.
 - Supabase auth token refresh failure.
+- OAuth callback regression: redirect history behavior changed (for example `location.replace` removed).
+- OAuth callback host normalization drift (forwarded host/proto handling causes cookie domain mismatch).
+- Unsafe or malformed `next` parameter causing repeated bounce between auth routes.
 
 ### Immediate Actions (Auth Loop)
 
 1. Verify login session in `tests/e2e/.auth/user.json` setup flow.
 2. Confirm middleware and server auth checks are aligned.
 3. Validate protected route load manually and via Playwright.
+4. Validate callback behavior directly:
+   - `/auth/callback?code=probe&next=/dashboard/briefing` returns a path-only client redirect (`location.replace("/dashboard/briefing")`).
+   - Invalid `next` values (absolute URLs) are sanitized back to `/dashboard/briefing`.
+5. Re-run targeted callback regression tests:
+   - `npx vitest run src/app/auth/callback/route.test.ts`
 
 ## Failure Class: Blank Render
 

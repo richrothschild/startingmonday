@@ -73,6 +73,18 @@
       "startedAt": "2026-06-24"
     },
     {
+      "id": "briefing-first-session-progressive-disclosure-2026-07",
+      "description": "Phase 3 guided first-session briefing state for new users (<=1 tracked company and account age under 48 hours), with deterministic 50/50 rollout by user id hash.",
+      "paths": [
+        "src/app/(dashboard)/dashboard/briefing/**",
+        "src/lib/briefing-first-session.ts"
+      ],
+      "phase": "percentage rollout",
+      "rollbackPath": "Set FF_BRIEFING_FIRST_SESSION_GUIDED_BRIEFING=off to return all users to the full briefing layout.",
+      "killSwitch": "Disable FF_BRIEFING_FIRST_SESSION_GUIDED_BRIEFING.",
+      "startedAt": "2026-07-06"
+    },
+    {
       "id": "ci-playwright-hardening-2026-06",
       "description": "Harden Playwright base URL fallback and deterministic signup consent in CI synthetic tests",
       "paths": [
