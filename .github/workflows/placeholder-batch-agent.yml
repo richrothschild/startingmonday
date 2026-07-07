@@ -1,0 +1,130 @@
+name: Placeholder Batch Agent
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: "Number of placeholder tests to process"
+        required: false
+        default: "4"
+
+env:
+  BATCH_OUTPUT: tmp/placeholder-batch.current.json
+  BATCH_PROMPT: tmp/placeholder-batch.prompt.txt
+  BATCH_STATE: docs/status/placeholder-batch-agent.state.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: placeholder-batch-agent-staging
+  cancel-in-progress: false
+
+jobs:
+  run-batch:
+    name: Process placeholder test batch
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v5
+        with:
+          ref: staging
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Select next placeholder batch
+        id: select
+        shell: bash
+        run: |
+          set -euo pipefail
+          COUNT="${{ github.event.inputs.batch_size || '4' }}"
+          node scripts/select-placeholder-batch.mjs --count "$COUNT" --state "$BATCH_STATE" --output "$BATCH_OUTPUT"
+
+          node -e "const fs=require('node:fs'); const p=JSON.parse(fs.readFileSync(process.env.BATCH_OUTPUT,'utf8')); fs.appendFileSync(process.env.GITHUB_OUTPUT, 'selected_count=' + p.selectedCount + '\n'); fs.appendFileSync(process.env.GITHUB_OUTPUT, 'remaining_count=' + p.remainingCount + '\n');"
+
+      - name: Publish empty-batch summary
+        if: steps.select.outputs.selected_count == '0'
+        run: |
+          echo "No placeholder tests remaining under src/app/api." >> "$GITHUB_STEP_SUMMARY"
+          echo "Remaining count: 0" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Install Claude Code
+        if: steps.select.outputs.selected_count != '0'
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build coding prompt
+        if: steps.select.outputs.selected_count != '0'
+        run: node scripts/build-placeholder-agent-prompt.mjs --batch "$BATCH_OUTPUT" --prompt "$BATCH_PROMPT"
+
+      - name: Apply batch edits with Claude
+        if: steps.select.outputs.selected_count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "ANTHROPIC_API_KEY secret is required for placeholder batch agent"
+            exit 1
+          fi
+
+          PROMPT="$(cat "$BATCH_PROMPT")"
+          claude --allowedTools "Read,Write,Glob,Grep" --print "$PROMPT"
+
+      - name: Run focused Vitest for selected files
+        if: steps.select.outputs.selected_count != '0'
+        run: |
+          node -e "const fs=require('node:fs'); const cp=require('node:child_process'); const p=JSON.parse(fs.readFileSync(process.env.BATCH_OUTPUT,'utf8')); const args=['vitest','run',...p.selected]; const r=cp.spawnSync('npx', args, {stdio:'inherit'}); process.exit(r.status ?? 1);"
+
+      - name: Run required gates
+        if: steps.select.outputs.selected_count != '0'
+        run: |
+          npm run lint:any-diff-gate
+          npm run audit:debt-ratchet
+
+      - name: Commit and push to staging
+        if: steps.select.outputs.selected_count != '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CHANGED=$(node -e "const fs=require('node:fs'); const cp=require('node:child_process'); const p=JSON.parse(fs.readFileSync(process.env.BATCH_OUTPUT,'utf8')); let changed=false; for (const file of p.selected){ const r=cp.spawnSync('git',['diff','--quiet','--',file]); if(r.status!==0){ changed=true; break; }} process.stdout.write(changed ? '1' : '0');")
+
+          if [ "$CHANGED" != "1" ]; then
+            echo "No selected test files were modified; skipping commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          node -e "const fs=require('node:fs'); const cp=require('node:child_process'); const p=JSON.parse(fs.readFileSync(process.env.BATCH_OUTPUT,'utf8')); const stage=[...p.selected, process.env.BATCH_STATE, 'docs/status/debt-ratchet.baseline.json']; for (const file of stage){ cp.spawnSync('git',['add','--',file], {stdio:'inherit'}); }"
+
+          if git diff --staged --quiet; then
+            echo "No staged changes after guardrails; skipping commit."
+            exit 0
+          fi
+
+          COUNT="${{ steps.select.outputs.selected_count }}"
+          REMAINING="${{ steps.select.outputs.remaining_count }}"
+          git commit -m "test(agent): replace ${COUNT} placeholder tests [skip ci]"
+          git push origin HEAD:staging
+
+          {
+            echo "### Placeholder Batch Agent"
+            echo ""
+            echo "Committed ${COUNT} test files to staging."
+            echo "Remaining placeholder files (pre-run estimate): ${REMAINING}."
+          } >> "$GITHUB_STEP_SUMMARY"

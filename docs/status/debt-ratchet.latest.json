@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-07-07T19:55:46.186Z",
+  "passed": true,
+  "baseline": {
+    "metrics": {
+      "placeholderCount": 147,
+      "lintWarnings": 554,
+      "anyCount": 154,
+      "maxFileLines": 1723,
+      "filesOver800": 18
+    }
+  },
+  "current": {
+    "metrics": {
+      "placeholderCount": 147,
+      "lintWarnings": 554,
+      "anyCount": 154,
+      "maxFileLines": 1723,
+      "filesOver800": 18
+    },
+    "lintErrors": 0
+  },
+  "regressions": [],
+  "improvements": [],
+  "baselineUpdated": false,
+  "overrideEnabled": false
+}

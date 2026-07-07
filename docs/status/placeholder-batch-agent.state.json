@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-07T19:49:46.089Z",
+  "runs": 1,
+  "lastRun": {
+    "at": "2026-07-07T19:49:46.089Z",
+    "selectedCount": 4,
+    "remainingCount": 69,
+    "selected": [
+      "src/app/api/admin/automation/onboarding/video-queue/[runId]/route.test.ts",
+      "src/app/api/admin/automation/reporting/daily-operating-snapshots/route.test.ts",
+      "src/app/api/admin/automation/reporting/exception-lists/route.test.ts",
+      "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.test.ts"
+    ]
+  },
+  "history": [
+    {
+      "at": "2026-07-07T19:49:46.089Z",
+      "selectedCount": 4,
+      "remainingCount": 69,
+      "selected": [
+        "src/app/api/admin/automation/onboarding/video-queue/[runId]/route.test.ts",
+        "src/app/api/admin/automation/reporting/daily-operating-snapshots/route.test.ts",
+        "src/app/api/admin/automation/reporting/exception-lists/route.test.ts",
+        "src/app/api/admin/automation/reporting/intelligence-qa-scorecard/route.test.ts"
+      ]
+    }
+  ]
+}
