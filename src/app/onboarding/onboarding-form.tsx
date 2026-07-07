@@ -757,7 +757,7 @@ function StepCompanies({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           {isPassive ? 'Which companies do you want to monitor?' : 'Which companies are you targeting?'}
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -911,7 +911,7 @@ function StepBriefingTime({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           When do you want your daily briefing?
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -983,7 +983,7 @@ function StepDone({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           {firstName}, your likely-to-open shortlist is live.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1139,7 +1139,7 @@ function StepName({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Let&apos;s find roles before the crowd sees them.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1173,7 +1173,7 @@ function StepLevel({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Which role lane are you targeting?
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1236,7 +1236,7 @@ function StepSituation({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Where are you in your search?
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1347,20 +1347,20 @@ function StepImport({
       return (
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+            <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
               Background text saved.
             </h1>
             <p className="text-[15px] text-slate-300">
               We saved your profile text but could not automatically extract your title and company. Add them below so briefings and prep briefs are personalized correctly.
             </p>
           </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-5 py-4 flex items-start gap-3">
+          <div className="bg-amber-500/10 border border-amber-300/40 rounded-lg px-5 py-4 flex items-start gap-3">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0 mt-0.5">
-              <circle cx="10" cy="10" r="10" fill="#fef3c7" />
-              <path d="M10 6v5" stroke="#d97706" strokeWidth="1.8" strokeLinecap="round" />
-              <circle cx="10" cy="14" r="1" fill="#d97706" />
+              <circle cx="10" cy="10" r="10" fill="#f59e0b" fillOpacity="0.2" />
+              <path d="M10 6v5" stroke="#fbbf24" strokeWidth="1.8" strokeLinecap="round" />
+              <circle cx="10" cy="14" r="1" fill="#fbbf24" />
             </svg>
-            <span className="text-[13px] text-amber-800 leading-relaxed">
+            <span className="text-[13px] text-amber-200 leading-relaxed">
               Title and company not detected. Fill them in now or update your profile later.
             </span>
           </div>
@@ -1397,19 +1397,19 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+          <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
             Profile imported.
           </h1>
           <p className="text-[15px] text-slate-300">
             Your signals, briefings, and prep briefs are now personalized to your background. You can review and edit your profile anytime from settings.
           </p>
         </div>
-        <div className="bg-green-50 border border-green-200 rounded-lg px-5 py-4 flex items-center gap-3">
+        <div className="bg-emerald-500/10 border border-emerald-300/40 rounded-lg px-5 py-4 flex items-center gap-3">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="10" fill="#dcfce7" />
-            <path d="M6 10l3 3 5-5" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="10" cy="10" r="10" fill="#10b981" fillOpacity="0.2" />
+            <path d="M6 10l3 3 5-5" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="text-[14px] text-green-700 font-medium">LinkedIn data extracted successfully</span>
+          <span className="text-[14px] text-emerald-200 font-medium">LinkedIn data extracted successfully</span>
         </div>
         <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we learned</p>
@@ -1426,7 +1426,7 @@ function StepImport({
     return (
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+          <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
             Tell us a bit more.
           </h1>
           <p className="text-[15px] text-slate-300">
@@ -1478,7 +1478,7 @@ function StepImport({
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[28px] font-bold text-white leading-tight mb-2">
+        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
           Build your profile.
         </h1>
         <p className="text-[15px] text-slate-300">
@@ -1487,7 +1487,7 @@ function StepImport({
       </div>
 
       {importError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-[13px] text-red-700">
+        <div className="bg-red-500/10 border border-red-300/40 rounded-lg px-4 py-3 text-[13px] text-red-200">
           {importError}
         </div>
       )}
