@@ -1,5 +1,4 @@
-﻿'use client'
-import Link from 'next/link'
+'use client'
 import { useState, useRef, useEffect } from 'react'
 import { completeOnboarding, skipOnboarding } from './actions'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
@@ -7,9 +6,6 @@ import {
   type SearchPersona,
   seededCompaniesFor,
   suggestedCompaniesForProfile,
-  decisionRoleTargetsForCompany,
-  firstNoteDraftForCompany,
-  followUpSequenceForWeekOne,
 } from './onboarding-helpers'
 import {
   type OnboardingChannel,
@@ -20,6 +16,8 @@ import {
 import { type RoleFamily, type RoleTitle } from '@/lib/role-taxonomy'
 import { ScanProgressPanel, type ScanStatusPayload } from './scan-progress-panel'
 import { RelationshipProgressPanel, type RelationshipStatusPayload } from './relationship-progress-panel'
+import { OnboardingContextStep } from './onboarding-context-step'
+import { OnboardingDoneStep } from './onboarding-done-step'
 
 type ImportResult = {
   full_name?: string | null
@@ -52,8 +50,8 @@ const ROLE_TRACK_OPTIONS: RoleTrackOption[] = [
   { value: 'project_manager', roleFamily: 'delivery_leadership', persona: 'director', label: 'Project Manager', sub: 'Execution-focused delivery leadership path' },
 ]
 
-const STEP_COUNT = 8
-const QUICK_PATH_STEP_COUNT = 6
+const STEP_COUNT = 9
+const QUICK_PATH_STEP_COUNT = 7
 
 
 function Dots({ current, total = STEP_COUNT }: { current: number; total?: number }) {
@@ -125,6 +123,11 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [contactTitle, setContactTitle] = useState('')
   const [selectedCompanyId, setSelectedCompanyId] = useState('')
   const [addingContact, setAddingContact] = useState(false)
+
+  const [targetLocations, setTargetLocations] = useState<string[]>([])
+  const [targetSectors, setTargetSectors] = useState<string[]>([])
+  const [compPreference, setCompPreference] = useState<string[]>([])
+  const [positioningStyle, setPositioningStyle] = useState<string[]>([])
 
   const firstName = fullName.trim().split(' ')[0] || 'there'
 
@@ -204,7 +207,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, advancedSetup, companyNames, searchPersona])
 
   useEffect(() => {
-    if (step < 7 || firstValueLogged.current) return
+    if (step < 8 || firstValueLogged.current) return
     firstValueLogged.current = true
     fetch('/api/onboarding/events', {
       method: 'POST',
@@ -227,7 +230,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, elapsedSeconds, companyNames, transitionFirst, lowEnergyMode])
 
   useEffect(() => {
-    if (step >= 7 || elapsedSeconds < 480 || nudgeLogged.current) return
+    if (step >= 8 || elapsedSeconds < 480 || nudgeLogged.current) return
     nudgeLogged.current = true
     fetch('/api/onboarding/events', {
       method: 'POST',
@@ -267,7 +270,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, lowEnergyMode, onboardingChannel, onboardingStartedAt])
 
   useEffect(() => {
-    if (step !== 7) return
+    if (step !== 8) return
     const firstCompany = companyNames.find(n => n.trim())
     if (!firstCompany || intelContent || intelLoading || step7FetchStarted.current) return
     step7FetchStarted.current = true
@@ -342,7 +345,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   async function addContactDuringEnrichment() {
     const name = contactName.trim()
-    if (!name || !selectedCompanyId || addingContact) return
+    const companyId = selectedCompanyId || relationshipProgress?.companies?.[0]?.companyId || ''
+    if (!name || !companyId || addingContact) return
     setAddingContact(true)
     try {
       await fetch('/api/contacts', {
@@ -351,7 +355,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         body: JSON.stringify({
           name,
           title: contactTitle.trim() || null,
-          company_id: selectedCompanyId,
+          company_id: companyId,
           source: 'onboarding_relationship_step',
           enrichment_source: 'manual',
         }),
@@ -447,6 +451,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       return
     }
     if (step === 6) { goTo(7); return }
+    if (step === 7) { goTo(8); return }
     if (step < STEP_COUNT - 1) goTo(step + 1)
   }
 
@@ -454,6 +459,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (step === 4) return advancedSetup && !lowEnergyMode ? 3 : 2
     if (step === 6) return (isPassive || !advancedSetup || lowEnergyMode) ? 4 : 5
     if (step === 7) return 6
+    if (step === 8) return 7
     return step - 1
   }
 
@@ -487,7 +493,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (step <= 2) return step
     if (step === 4) return 3
     if (step === 6) return 4
-    return 5
+    if (step === 7) return 5
+    return 6
   }
 
   function applyImport(data: ImportResult) {
@@ -596,6 +603,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="company_names"        value={JSON.stringify(companyNames.filter(n => n.trim()))} />
         <input type="hidden" name="briefing_time"        value={briefingTime} />
         <input type="hidden" name="briefing_frequency"   value={briefingFrequency} />
+        <input type="hidden" name="target_locations"     value={targetLocations.join(',')} />
+        <input type="hidden" name="target_sectors"       value={targetSectors.join(',')} />
+        <input type="hidden" name="target_comp"          value={compPreference.join(',')} />
+        <input type="hidden" name="positioning_style"    value={positioningStyle.join(',')} />
       </form>
 
       <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl p-5 shadow-[0_20px_60px_rgba(2,6,23,0.45)] sm:p-6">
@@ -695,8 +706,21 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           )}
 
           {step === 7 && (
+            <OnboardingContextStep
+              targetLocations={targetLocations}
+              sectors={targetSectors}
+              compensation={compPreference}
+              positioning={positioningStyle}
+              onTargetLocations={setTargetLocations}
+              onSectors={setTargetSectors}
+              onCompensation={setCompPreference}
+              onPositioning={setPositioningStyle}
+            />
+          )}
+
+          {step === 8 && (
             <>
-              <StepDone
+              <OnboardingDoneStep
                 firstName={firstName}
                   currentTitle={currentTitle}
                   currentCompany={currentCompany}
@@ -762,6 +786,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
                 ? 'You are one step away from first value.'
                 : step === 6
                 ? 'Add one contact while enrichment maps decision paths.'
+                : step === 7
+                ? 'Optional context improves rankings and outreach suggestions.'
                 : 'Next: launch your dashboard with relationships in motion.'}
             </p>
           </div>
@@ -855,6 +881,24 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               </button>
             )}
             {step === 7 && (
+              <div className="flex flex-col items-end gap-2">
+                <button
+                  type="button"
+                  onClick={advance}
+                  className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+                >
+                  Continue
+                </button>
+                <button
+                  type="button"
+                  onClick={advance}
+                  className="text-[12px] text-slate-400 hover:text-slate-200 bg-transparent border-0 cursor-pointer p-0"
+                >
+                  Skip context for now
+                </button>
+              </div>
+            )}
+            {step === 8 && (
               <button
                 type="submit"
                 form="onboarding-form"
@@ -1146,184 +1190,6 @@ function StepBriefingTime({
     </div>
   )
 }
-
-function StepDone({
-  firstName,
-  currentTitle,
-  currentCompany,
-  targetTitles,
-  companies,
-  briefingTime,
-  isPassive,
-  intelContent,
-  intelLoading,
-}: {
-  firstName: string
-  currentTitle: string
-  currentCompany: string
-  targetTitles: string
-  companies: string[]
-  briefingTime: string
-  isPassive: boolean
-  intelContent: string
-  intelLoading: boolean
-}) {
-  function formatTime(val: string) {
-    const [h, m] = val.split(':').map(Number)
-    const ampm = h >= 12 ? 'PM' : 'AM'
-    const hour = h % 12 || 12
-    return `${hour}:${String(m).padStart(2, '0')} ${ampm}`
-  }
-
-  const firstCompany = companies[0] ?? ''
-  const roleTargets = decisionRoleTargetsForCompany(firstCompany, 'csuite', currentTitle)
-  const firstNoteDraft = firstCompany ? firstNoteDraftForCompany(firstCompany, currentTitle) : ''
-  const followUps = firstCompany ? followUpSequenceForWeekOne(firstCompany) : []
-
-  return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-[28px] font-serif font-bold text-white leading-tight mb-2">
-          {firstName}, your likely-to-open shortlist is live.
-        </h1>
-        <p className="text-[15px] text-slate-300">
-          {isPassive
-            ? 'We will watch your companies and send a digest every Sunday. You can take action when a role starts taking shape.'
-            : 'You now have an early view of where to focus. Here is what happens next.'}
-        </p>
-      </div>
-
-      <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">What we understood about you</p>
-        <p className="text-[15px] font-semibold text-white">{currentTitle || 'Your role lane is set'}{currentCompany ? ` at ${currentCompany}` : ''}</p>
-        <p className="text-[12px] text-slate-400 mt-1.5">
-          {targetTitles
-            ? `We will bias briefs and role hypotheses toward: ${targetTitles}`
-            : 'Your profile and target companies now shape the first brief and shortlist.'}
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Companies being watched</p>
-          {companies.length === 0 ? (
-            <p className="text-[14px] text-slate-300">None yet - add them from your dashboard.</p>
-          ) : (
-            <p className="text-[15px] font-semibold text-white">{companies.join(', ')}</p>
-          )}
-          <p className="text-[12px] text-slate-400 mt-1.5">
-            This powers your first likely-to-open role shortlist and signal feed.
-          </p>
-        </div>
-
-        {!isPassive && (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First relationship action this week</p>
-            <p className="text-[15px] font-semibold text-white">Identify one decision-path contact and start outreach timing.</p>
-            <p className="text-[12px] text-slate-400 mt-1.5">Open contacts from the dashboard and begin with your highest-leverage target.</p>
-          </div>
-        )}
-
-        {!isPassive && firstCompany && roleTargets.length > 0 && (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Seats to map first at {firstCompany}</p>
-            <div className="space-y-2">
-              {roleTargets.map((seat) => (
-                <div key={seat.title} className="rounded border border-white/10 bg-white/5 px-3 py-2">
-                  <p className="text-[13px] font-semibold text-white">{seat.title}</p>
-                  <p className="text-[12px] text-slate-300 mt-0.5">{seat.why}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[11px] text-slate-400 mt-2">These are the seats that typically shape the shortlist. From your dashboard, relationship enrichment finds the actual people in them.</p>
-          </div>
-        )}
-
-        {!isPassive && firstCompany && firstNoteDraft && (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First note draft</p>
-            <p className="text-[12px] text-slate-300 leading-relaxed">{firstNoteDraft}</p>
-            <p className="text-[11px] text-slate-400 mt-2">You can edit this draft from your contacts outreach workspace.</p>
-          </div>
-        )}
-
-        {!isPassive && firstCompany && followUps.length > 0 && (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Week-one follow-up sequence</p>
-            <ul className="mt-1 space-y-1.5">
-              {followUps.map((item) => (
-                <li key={item} className="text-[12px] text-slate-300 leading-relaxed">- {item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {isPassive ? (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Weekly digest</p>
-            <p className="text-[15px] font-semibold text-white">Every Sunday morning</p>
-            <p className="text-[12px] text-slate-400 mt-1.5">
-              Scan matches, exec moves, funding signals - delivered once a week. No daily noise.
-            </p>
-          </div>
-        ) : (
-          <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First briefing</p>
-            <p className="text-[15px] font-semibold text-white">Tomorrow at {formatTime(briefingTime)}</p>
-            <p className="text-[12px] text-slate-400 mt-1.5">
-              New role matches, company signals, and your next actions - every morning.
-            </p>
-          </div>
-        )}
-
-        <div className="bg-white/5 border border-white/10 rounded-lg px-5 py-4">
-          <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">First career page scan</p>
-          <p className="text-[15px] font-semibold text-white">Next Monday, Wednesday, or Friday at 8 AM UTC</p>
-          <p className="text-[12px] text-slate-400 mt-1.5">
-            We scan career pages 3x per week and flag matching roles before they reach LinkedIn.
-          </p>
-        </div>
-      </div>
-
-      {firstCompany && (intelLoading || intelContent) && (
-        <div className="bg-slate-950/70 border border-white/10 rounded-lg px-5 py-5">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-300 mb-3">
-            {firstCompany} - intelligence preview
-          </p>
-          {intelLoading && !intelContent && (
-            <div className="flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse" />
-              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse [animation-delay:150ms]" />
-              <span className="w-1 h-1 rounded-full bg-slate-500 animate-pulse [animation-delay:300ms]" />
-            </div>
-          )}
-          {intelContent && (
-            <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">
-              {intelContent}
-              {intelLoading && (
-                <span className="inline-block w-0.5 h-3.5 bg-slate-400 animate-pulse ml-0.5 align-middle" />
-              )}
-            </p>
-          )}
-          <p className="text-[11px] text-slate-300 mt-3">
-            This is a preview. Your first full briefing includes live scan results and signal history.
-          </p>
-        </div>
-      )}
-
-      <div className="border border-white/10 rounded-lg px-5 py-4 bg-white/5">
-        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1">Optional next step</p>
-        <p className="text-[13px] text-slate-300 leading-relaxed mb-3">
-          Want better prep quality? Add LinkedIn and profile detail after launch.
-        </p>
-        <Link href="/dashboard/start" className="text-[13px] font-semibold text-orange-300 underline hover:text-orange-200 transition-colors">
-          Complete profile from dashboard start page
-        </Link>
-      </div>
-    </div>
-  )
-}
-
 
 function StepName({
   value,

@@ -39,6 +39,22 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as { companyNames?: unknown }
   const requestedNames = parseCompanyNames(body.companyNames)
 
+  if (requestedNames.length > 0) {
+    const companyRows = requestedNames.map((name) => ({
+      user_id: user.id,
+      name,
+      stage: 'target',
+    }))
+
+    const { error: upsertError } = await supabase
+      .from('companies')
+      .upsert(companyRows, { onConflict: 'user_id,name', ignoreDuplicates: true })
+
+    if (upsertError) {
+      return NextResponse.json({ error: 'Failed to save companies for enrichment' }, { status: 500 })
+    }
+  }
+
   let companiesQuery = supabase
     .from('companies')
     .select('id, name')
@@ -114,7 +130,7 @@ export async function POST(request: Request) {
   }
 
   if (rowsToInsert.length > 0) {
-    const { error: insertError } = await supabase.from('contacts').insert(rowsToInsert as any)
+    const { error: insertError } = await supabase.from('contacts').insert(rowsToInsert)
     if (insertError) {
       return NextResponse.json({ error: 'Failed to save enriched contacts' }, { status: 500 })
     }
