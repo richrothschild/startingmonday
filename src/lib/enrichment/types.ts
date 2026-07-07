@@ -20,6 +20,11 @@ export type EnrichmentContext = {
   companyName: string
   sector: string
   persona?: string
+  // Optional company domain. When present, the Apollo provider resolves the exact
+  // organization id from it before searching people, avoiding wrong-company matches
+  // on colliding names. Discovery candidates are model-generated and usually have no
+  // domain, so the provider falls back to name search in that case.
+  domain?: string
 }
 
 export interface EnrichmentProvider {
