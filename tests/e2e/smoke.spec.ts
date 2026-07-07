@@ -13,7 +13,7 @@ test('dashboard loads and shows pipeline', async ({ page }) => {
   await skipIfAuthUnavailable(page)
   await page.goto('/dashboard')
   await expect(page.locator('h1')).toBeVisible()
-  await expect(page.getByText('Company Pipeline')).toBeVisible()
+  await expect(page.getByRole('heading', { name: /^Pipeline$/i })).toBeVisible()
 })
 
 test('outreach coach compose pane blocks legacy stale markers', async ({ page }) => {
