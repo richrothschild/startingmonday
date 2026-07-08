@@ -22,10 +22,12 @@ export function RelationshipProgressPanel({
   progress,
   contactName,
   contactTitle,
+  contactCompanyName,
   selectedCompanyId,
   addingContact,
   onContactName,
   onContactTitle,
+  onContactCompanyName,
   onSelectedCompany,
   onAddContact,
 }: {
@@ -33,10 +35,12 @@ export function RelationshipProgressPanel({
   progress: RelationshipStatusPayload | null
   contactName: string
   contactTitle: string
+  contactCompanyName: string
   selectedCompanyId: string
   addingContact: boolean
   onContactName: (value: string) => void
   onContactTitle: (value: string) => void
+  onContactCompanyName: (value: string) => void
   onSelectedCompany: (value: string) => void
   onAddContact: () => void
 }) {
@@ -44,6 +48,7 @@ export function RelationshipProgressPanel({
   const done = progress?.progress?.done ?? false
   const canAdd = rows.length > 0
   const effectiveSelectedCompanyId = selectedCompanyId || rows[0]?.companyId || ''
+  const canSubmit = Boolean(contactName.trim()) && (canAdd ? Boolean(effectiveSelectedCompanyId) : Boolean(contactCompanyName.trim()))
 
   return (
     <div className="flex flex-col gap-6">
@@ -112,27 +117,42 @@ export function RelationshipProgressPanel({
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2.5 sm:items-center">
-          <select
-            value={effectiveSelectedCompanyId}
-            onChange={(event) => onSelectedCompany(event.target.value)}
-            aria-label="Company for contact"
-            className="flex-1 border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/40 bg-slate-950/60"
-            disabled={!canAdd}
-          >
-            <option value="">Choose a company</option>
-            {rows.map((row) => (
-              <option key={row.companyId} value={row.companyId}>{row.name}</option>
-            ))}
-          </select>
+          {canAdd ? (
+            <select
+              value={effectiveSelectedCompanyId}
+              onChange={(event) => onSelectedCompany(event.target.value)}
+              aria-label="Company for contact"
+              className="flex-1 border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/40 bg-slate-950/60"
+            >
+              <option value="">Choose a company</option>
+              {rows.map((row) => (
+                <option key={row.companyId} value={row.companyId}>{row.name}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="text"
+              value={contactCompanyName}
+              onChange={(event) => onContactCompanyName(event.target.value)}
+              placeholder="Company name"
+              aria-label="Company for contact"
+              className="flex-1 border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60"
+            />
+          )}
           <button
             type="button"
             onClick={onAddContact}
-            disabled={addingContact || !contactName.trim() || !effectiveSelectedCompanyId}
+            disabled={addingContact || !canSubmit}
             className="bg-white/10 hover:bg-white/15 text-slate-100 text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border border-white/15 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {addingContact ? 'Adding...' : 'Add contact'}
           </button>
         </div>
+        {!canAdd && (
+          <p className="text-[12px] text-slate-400">
+            Company list is still loading. Type the company name and we will create it with your contact.
+          </p>
+        )}
       </div>
     </div>
   )

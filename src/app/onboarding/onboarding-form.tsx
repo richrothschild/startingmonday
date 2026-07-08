@@ -121,6 +121,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [relationshipProgress, setRelationshipProgress] = useState<RelationshipStatusPayload | null>(null)
   const [contactName, setContactName] = useState('')
   const [contactTitle, setContactTitle] = useState('')
+  const [contactCompanyName, setContactCompanyName] = useState('')
   const [selectedCompanyId, setSelectedCompanyId] = useState('')
   const [addingContact, setAddingContact] = useState(false)
 
@@ -345,10 +346,31 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
 
   async function addContactDuringEnrichment() {
     const name = contactName.trim()
-    const companyId = selectedCompanyId || relationshipProgress?.companies?.[0]?.companyId || ''
-    if (!name || !companyId || addingContact) return
+    if (!name || addingContact) return
+    let companyId = selectedCompanyId || relationshipProgress?.companies?.[0]?.companyId || ''
+    // Recovery path: no companies loaded yet but the user typed one inline.
+    const typedCompany = contactCompanyName.trim()
+    if (!companyId && !typedCompany) return
     setAddingContact(true)
     try {
+      if (!companyId && typedCompany) {
+        const created = await fetch('/api/onboarding/enrich', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ companyNames: [typedCompany] }),
+        })
+        if (created.ok) {
+          const statusRes = await fetch('/api/onboarding/enrich')
+          if (statusRes.ok) {
+            const payload = await statusRes.json() as RelationshipStatusPayload
+            setRelationshipProgress(payload)
+            companyId = payload.companies.find(c => c.name.toLowerCase() === typedCompany.toLowerCase())?.companyId
+              ?? payload.companies[0]?.companyId ?? ''
+            if (companyId) setSelectedCompanyId(companyId)
+          }
+        }
+      }
+      if (!companyId) return
       await fetch('/api/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -362,6 +384,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
       })
       setContactName('')
       setContactTitle('')
+      setContactCompanyName('')
       const res = await fetch('/api/onboarding/enrich')
       if (res.ok) {
         const payload = await res.json() as RelationshipStatusPayload
@@ -401,6 +424,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     if (step < 6 || !enrichmentStarted) return
     let cancelled = false
     let ticks = 0
+    let retriedStart = false
     const fetchStatus = async () => {
       try {
         const res = await fetch('/api/onboarding/enrich')
@@ -410,6 +434,21 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         setRelationshipProgress(data)
         if (!selectedCompanyId && data.companies.length > 0) {
           setSelectedCompanyId(data.companies[0].companyId)
+        }
+        // Self-heal: if the initial fire-and-forget POST failed (network blip,
+        // auth race), the status will report zero companies even though the
+        // user entered names. Re-trigger enrichment once so the contact form
+        // does not dead-end with a disabled company select.
+        if (data.companies.length === 0 && !retriedStart) {
+          retriedStart = true
+          const names = companyNames.map(n => n.trim()).filter(Boolean)
+          if (names.length > 0) {
+            fetch('/api/onboarding/enrich', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ companyNames: names }),
+            }).catch(() => {})
+          }
         }
         if (data?.progress?.done) window.clearInterval(id)
       } catch {
@@ -683,10 +722,12 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               progress={relationshipProgress}
               contactName={contactName}
               contactTitle={contactTitle}
+              contactCompanyName={contactCompanyName}
               selectedCompanyId={selectedCompanyId}
               addingContact={addingContact}
               onContactName={setContactName}
               onContactTitle={setContactTitle}
+              onContactCompanyName={setContactCompanyName}
               onSelectedCompany={setSelectedCompanyId}
               onAddContact={addContactDuringEnrichment}
             />
