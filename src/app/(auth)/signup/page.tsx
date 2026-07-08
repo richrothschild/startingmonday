@@ -180,7 +180,7 @@ export default function SignupPage() {
   }
 
   function managerToolsTrialEndsAt(): string {
-    return new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
+    return new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString()
   }
 
   function requireCaptchaToken(): string | null {
@@ -451,7 +451,7 @@ export default function SignupPage() {
                   <>
                     <h2 className="text-[22px] font-bold text-white leading-tight">{SITUATION_COPY[situation].title}</h2>
                     <p className="text-[13px] text-slate-100 mt-1.5">{SITUATION_COPY[situation].sub}</p>
-                      <p className="text-[13px] text-slate-100 mt-3">Create your account. {managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
+                      <p className="text-[13px] text-slate-100 mt-3">Create your account. {managerToolsOffer ? '60 days free' : '30 days free'}. No credit card.</p>
                     <div className="mt-4 rounded border border-white/10 bg-slate-900/70 p-3">
                       <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-100 mb-2">Your first steps</p>
                       <ol className="space-y-1.5 text-[13px] text-slate-100 leading-relaxed">
@@ -464,7 +464,7 @@ export default function SignupPage() {
                 ) : (
                   <>
                     <h1 className="text-[24px] font-bold text-white leading-tight">Create your account</h1>
-                    <p className="text-[13px] text-slate-100 mt-1.5">{managerToolsOffer ? '90 days free' : '30 days free'}. No credit card.</p>
+                    <p className="text-[13px] text-slate-100 mt-1.5">{managerToolsOffer ? '60 days free' : '30 days free'}. No credit card.</p>
                   </>
                 )}
                 {entrySource && ENTRY_HANDOFF[entrySource] && (
