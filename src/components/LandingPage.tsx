@@ -61,7 +61,7 @@ type ExecutiveLaneBrand = {
   proofToneClass: string
 }
 
-const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-june2026'
+const MANAGERTOOLS_SIGNUP_URL = '/signup?utm_source=managertools&utm_medium=newsletter&utm_campaign=horstman-july2026'
 
 const EXECUTIVE_LANE_BRANDS: Record<ExecutiveLaneBrand['key'], ExecutiveLaneBrand> = {
   leadership: {
@@ -306,7 +306,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
       ? '/shortlist-sprint?utm_source=executives&utm_medium=landing&utm_campaign=shortlist-sprint'
       : '/concierge?program=beta&from=landing'
   const heroPrimaryLabel = isManagerToolsPage
-    ? 'Get 60-day access'
+    ? 'Get 60 days free'
     : isExecutivesPage
       ? 'Begin 7-day shortlist sprint'
       : 'Begin now'
@@ -331,9 +331,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                 source_page: sourcePage,
               }}
               className="inline-flex items-center justify-center bg-orange-500 text-slate-900 text-[13px] font-bold px-3.5 min-h-[48px] rounded hover:bg-orange-600 transition-colors"
-              aria-label={isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign up'}
+              aria-label={isManagerToolsPage ? 'Get 60 days free' : isHomePage ? 'Get access' : 'Sign up'}
             >
-              {isManagerToolsPage ? 'Get 60-day access' : isHomePage ? 'Get access' : 'Sign Up'}
+              {isManagerToolsPage ? 'Get 60 days free' : isHomePage ? 'Get access' : 'Sign Up'}
             </TrackLink>
             <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition-colors inline-flex items-center min-h-[48px] px-3" aria-label="Log in">
               Log in
@@ -347,7 +347,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
           <div className="mx-auto max-w-5xl">
             {isManagerToolsPage && (
               <p className="mb-5 text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
-                Welcome Manager Tools
+                Welcome, Manager Tools community
               </p>
             )}
             {isHomePage ? (
@@ -414,8 +414,8 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
               </div>
             )}
 
-            {!isHomePage && (
-              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row">
+            {(!isHomePage || isManagerToolsPage) && (
+              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <TrackLink
                   href={heroPrimaryHref}
                   event={EVENT_NAMES.channelEntryClicked}
@@ -431,6 +431,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                 >
                   {heroPrimaryLabel}
                 </TrackLink>
+                {isManagerToolsPage && (
+                  <p className="max-w-md text-[12px] leading-relaxed text-slate-400">{hero.trialNote}</p>
+                )}
               </div>
             )}
 
@@ -564,7 +567,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                       cta_label: 'homepage_evidence_explore',
                       source_page: sourcePage,
                     }}
-                    className="mb-8 inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+                    className={isManagerToolsPage
+                      ? 'mb-8 inline-flex items-center text-[14px] font-semibold text-orange-200 underline underline-offset-4 transition-colors hover:text-white'
+                      : 'mb-8 inline-flex items-center rounded-full bg-orange-500 px-6 py-3 text-[14px] font-semibold text-slate-950 transition-colors hover:bg-orange-600'}
                   >
                     Explore the evidence →
                   </TrackLink>
@@ -600,7 +605,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
           </>
         )}
 
-        {!isHomePage && (
+        {(!isHomePage || isManagerToolsPage) && (
           <section id="next-step" data-emi-section="next_step_block" data-first-mile-section="homepage_next_step" className="border-b border-white/10 bg-slate-950/80 px-4 py-14 sm:px-6 sm:py-20">
             <div className="max-w-5xl mx-auto">
               {isManagerToolsPage ? (
@@ -625,6 +630,16 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                       <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
                     </TrackLink>
                   </div>
+                  {faqs && faqs.length > 0 && (
+                    <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {faqs.map((faq) => (
+                        <article key={faq.question} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                          <p className="text-[13px] font-semibold text-white">{faq.question}</p>
+                          <p className="mt-1 text-[12px] leading-relaxed text-slate-300">{faq.answer}</p>
+                        </article>
+                      ))}
+                    </div>
+                  )}
                   <div className="flex flex-col sm:flex-row gap-3">
                     <TrackLink
                       href={MANAGERTOOLS_SIGNUP_URL}
@@ -637,7 +652,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                       }}
                       className="inline-flex items-center justify-center rounded-full bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
                     >
-                      Begin 60-day access
+                      Get 60 days free
                     </TrackLink>
                     <TrackLink
                       href="/feedback"
