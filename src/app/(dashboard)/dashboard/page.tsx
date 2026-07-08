@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getActivationStatus } from '@/lib/activation'
@@ -24,6 +25,7 @@ import { DashboardTopShellSection } from './dashboard-top-shell-section'
 import { DashboardActivitySnooze } from './dashboard-activity-snooze'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
+import { OnDemandScanButton, OnDemandEnrichButton } from './dashboard-on-demand-actions'
 import { updateDecisionOwner } from './actions'
 import { decisionMarkerForStage, extractDecisionOwnerFromNotes } from './dashboard-decision-timeline-utils'
 import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
@@ -41,6 +43,16 @@ const STAGE: Record<string, { label: string; cls: string }> = {
 }
 
 const PAGE_SIZE = 50
+
+export const metadata = { title: 'Dashboard' }
+
+export function shouldRedirectToStartDashboard(opts: {
+  isFirstRunDashboard: boolean
+  hasSeenFirstRun: boolean
+  focus: string | undefined
+}) {
+  return opts.isFirstRunDashboard && !opts.hasSeenFirstRun && opts.focus !== 'main'
+}
 
 type ProfileRow = {
   full_name: string | null
@@ -85,6 +97,12 @@ type CompanyRow = {
   fit_score: number | null
   notes: string | null
   updated_at: string | null
+  career_page_url?: string | null
+}
+
+type ContactStatRow = {
+  company_id: string | null
+  enrichment_source?: string | null
 }
 
 export default async function DashboardPage({
@@ -133,7 +151,7 @@ export default async function DashboardPage({
   // Build filtered company query (server-side) with pagination
   let companyQuery = supabase
     .from('companies')
-    .select('id, name, sector, stage, fit_score, notes, updated_at', { count: 'planned' })
+    .select('id, name, sector, stage, fit_score, notes, updated_at, career_page_url', { count: 'planned' })
     .eq('user_id', user.id)
     .is('archived_at', null)
     .order('fit_score', { ascending: false, nullsFirst: false })
@@ -147,7 +165,7 @@ export default async function DashboardPage({
   // Stats query: total + active count (unfiltered)
   const statsQuery = supabase
     .from('companies')
-    .select('id, stage, name, notes, updated_at')
+    .select('id, stage, name, notes, updated_at, career_page_url')
     .eq('user_id', user.id)
     .is('archived_at', null)
 
@@ -169,7 +187,7 @@ export default async function DashboardPage({
       .eq('is_active', true)
   ).then(r => (r.count ?? 0) > 0).catch(() => false)
 
-  const [{ data: rawCompanies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: rawUserRow }, { data: rawSignals }, { data: rawPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }, { count: prospectContactCount }, { data: briefedCompanyRows }] = await Promise.all([
+  const [{ data: rawCompanies, count: filteredCount }, { data: allCompanies }, { data: followUps }, { data: rawUserRow }, { data: rawSignals }, { data: rawPatternAlerts }, activation, { data: momentumData }, { data: contactRows }, { data: enrichmentRows }, { count: draftReadyCount }, { data: actCompanies }, { data: actContacts }, { data: actBriefs }, { data: actFollowUps }, { count: outreachThisWeek }, { count: prospectContactCount }, { data: briefedCompanyRows }] = await Promise.all([
     companyQuery,
     statsQuery,
     supabase
@@ -214,6 +232,15 @@ export default async function DashboardPage({
       .eq('user_id', user.id)
       .eq('status', 'active')
       .not('company_id', 'is', null),
+    // Enrichment stats are best-effort: the enrichment_source column ships in a
+    // later migration, so this query may fail on older databases. It must never
+    // poison the core contact counts above.
+    supabase
+      .from('contacts')
+      .select('company_id, enrichment_source' as never)
+      .eq('user_id', user.id)
+      .eq('status', 'active')
+      .not('company_id', 'is', null),
     supabase
       .from('company_signals')
       .select('id', { count: 'exact', head: true })
@@ -234,6 +261,8 @@ export default async function DashboardPage({
   const userRow   = rawUserRow as UserRow | null
   const signals   = (rawSignals ?? []) as unknown as SignalRow[]
   const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
+  const contactStatRows = (contactRows ?? []) as unknown as ContactStatRow[]
+  const enrichmentStatRows = (enrichmentRows ?? []) as unknown as ContactStatRow[]
 
   // Build weekly activity chart data (last 10 weeks)
   const weekSlots: WeekActivity[] = []
@@ -267,7 +296,7 @@ export default async function DashboardPage({
   const dismissedDaysAgo = dismissedAt ? Math.floor((Date.now() - new Date(dismissedAt).getTime()) / 86400000) : Infinity
   const searchStartedAt = profile?.search_started_at ? new Date(profile.search_started_at) : null
   const daysSinceStart = searchStartedAt ? Math.floor((Date.now() - searchStartedAt.getTime()) / 86400000) : null
-  const contactCount = (contactRows ?? []).length
+  const contactCount = contactStatRows.length
   const totalCompanies = (allCompanies ?? []).length
   const hasAdvancedStage = (allCompanies ?? []).some(c => ['interviewing', 'applied', 'offer'].includes(c.stage))
 
@@ -311,7 +340,28 @@ export default async function DashboardPage({
   const isPartner = await isPartnerPromise
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
   const allList = allCompanies ?? []
-  const totalCount = allList.length
+    const totalCount = allList.length
+    const scannableCount = allList.filter((c) => Boolean(c.career_page_url)).length
+    let scannerCompletedCount = 0
+    if (allList.length > 0) {
+      const companyIds = allList.map((c) => c.id)
+      const { data: latestScans } = await supabase
+        .from('scan_results')
+        .select('company_id, scanned_at')
+        .in('company_id', companyIds)
+        .order('scanned_at', { ascending: false })
+        .limit(companyIds.length * 3)
+      scannerCompletedCount = new Set((latestScans ?? []).map((row) => row.company_id)).size
+    }
+
+    const enrichedContactRows = enrichmentStatRows.filter((row) => row.enrichment_source === 'apollo' || row.enrichment_source === 'anthropic')
+    const enrichedCompanyIds = new Set(
+      enrichedContactRows
+        .map((row) => row.company_id)
+        .filter((value): value is string => typeof value === 'string' && value.length > 0),
+    )
+    const enrichmentQueueCount = Math.max(0, totalCount - enrichedCompanyIds.size)
+
   const activeCount = allList.filter(c =>
     ['interviewing', 'applied', 'offer'].includes(c.stage)
   ).length
@@ -332,10 +382,9 @@ export default async function DashboardPage({
   const followThroughScore = Math.max(0, 100 - overdueCount * 15)
   const conversionScore = totalCount > 0 ? Math.min(100, Math.round((activeCount / totalCount) * 100)) : 0
   const campaignHealthScore = Math.round((cadenceScore * 0.4) + (followThroughScore * 0.35) + (conversionScore * 0.25))
-  const campaignHealthBand = campaignHealthScore >= 75 ? 'Strong' : campaignHealthScore >= 50 ? 'Watch' : 'At risk'
+  const campaignHealthBand = campaignHealthScore >= 75 ? 'Strong' : campaignHealthScore >= 50 ? 'Watch' : 'Needs cadence'
   const topStalledCampaigns = stalledCampaignRows.slice(0, 5)
 
-  const timelineOwnerLabel = profile?.full_name ?? user.email ?? 'Account owner'
   const decisionTimelineItemsAll = (allList ?? [])
     .map((company) => {
       const stageLabel = STAGE[company.stage]?.label ?? company.stage
@@ -343,7 +392,7 @@ export default async function DashboardPage({
       const daysSinceUpdate = updatedAtMs ? Math.floor((Date.now() - updatedAtMs) / 86400000) : null
       const stalled = (daysSinceUpdate ?? 0) >= 14
       const marker = decisionMarkerForStage(company.stage)
-      const assignedOwner = extractDecisionOwnerFromNotes(company.notes) ?? timelineOwnerLabel
+      const assignedOwner = extractDecisionOwnerFromNotes(company.notes) ?? 'Account owner'
 
       return {
         id: company.id,
@@ -373,6 +422,12 @@ export default async function DashboardPage({
     safeTimelinePage * timelinePageSize + timelinePageSize,
   )
   const isFirstRunDashboard = totalCount === 0 && !!profile?.onboarding_completed_at && !profile?.placed_at
+  const cookieStore = await cookies()
+  const hasSeenFirstRun = cookieStore.get('sm_first_run_seen')?.value === '1'
+
+  if (shouldRedirectToStartDashboard({ isFirstRunDashboard, hasSeenFirstRun, focus })) {
+    redirect('/dashboard/start')
+  }
 
   // Warm paths: contacts at companies with recent signals
   const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
@@ -409,7 +464,7 @@ export default async function DashboardPage({
   }
 
   const contactCountMap = new Map<string, number>()
-  for (const row of (contactRows ?? [])) {
+  for (const row of contactStatRows) {
     if (row.company_id) {
       contactCountMap.set(row.company_id, (contactCountMap.get(row.company_id) ?? 0) + 1)
     }
@@ -462,7 +517,7 @@ export default async function DashboardPage({
     { value: totalCount,   label: 'Companies',   alert: false,            amber: false,              href: '#pipeline' },
     { value: activeCount,  label: 'Active',       alert: false,            amber: activeCount > 0,    href: '#pipeline' },
     { value: signalCount,  label: 'Signals',      alert: false,            amber: signalCount > 0,    href: '/dashboard/signals' },
-    { value: overdueCount, label: 'Due Today',    alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
+    { value: overdueCount, label: 'Due Now',      alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
   ]
 
   const offerCompany = !profile?.placed_at
@@ -491,7 +546,7 @@ export default async function DashboardPage({
         id: 'relationship-action',
         track: 'relationship',
         title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
-        body: `${warmPaths[0].signal.signal_summary} gives you a concrete reason to re-engage. Use that signal while it is still fresh.`,
+        body: `Use this while it is fresh — a concrete reason to re-engage: ${warmPaths[0].signal.signal_summary}`,
         effortMinutes: 15,
         href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
         cta: 'Outreach',
@@ -516,10 +571,21 @@ export default async function DashboardPage({
           cta: 'Contacts',
         }
 
+  const rolesFormingStageLabel = warmPaths[0]
+    ? STAGE[allList.find((c) => c.id === warmPaths[0].companyId)?.stage ?? '']?.label ?? null
+    : null
+  const rolesFormingIsLive = warmPaths[0]
+    ? ['applied', 'interviewing', 'offer'].includes(allList.find((c) => c.id === warmPaths[0].companyId)?.stage ?? '')
+    : false
+  const rolesFormingHeadline = warmPaths[0]
+    ? rolesFormingIsLive
+      ? `New leverage for your live ${warmPaths[0].companyName} process (${rolesFormingStageLabel}).`
+      : `${warmPaths[0].companyName} may be moving toward a role window.`
+    : null
   const rolesFormingCard = warmPaths[0]
     ? {
         companyName: warmPaths[0].companyName,
-        summary: warmPaths[0].signal.signal_summary,
+        summary: `${warmPaths[0].signal.signal_summary}${!rolesFormingIsLive && rolesFormingStageLabel ? ` Already in your pipeline at the ${rolesFormingStageLabel} stage.` : ''}`,
         href: '/dashboard/signals',
       }
     : signalCount > 0
@@ -783,15 +849,11 @@ export default async function DashboardPage({
             <CmdKButton />
             <Link href="/dashboard/chat" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
             <Link href="/dashboard/contacts" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/feedback" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Feedback</Link>
             <Link href="/dashboard/briefing" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
             <Link href="/dashboard/calendar" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
             {canUseOutreachHub && (
               <Link href="/dashboard/outreach" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
             )}
-            <Link href="/optimize" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">LinkedIn</Link>
-            <Link href="/dashboard/invite" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Invite</Link>
-            <Link href="/guide" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Guide</Link>
             <Link href="/dashboard/help" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
             {isRothschildAdmin && (
               <Link href="/dashboard/admin" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
@@ -838,6 +900,7 @@ export default async function DashboardPage({
           offerName={offerCompanies[0]?.name ?? null}
           offerCompanyName={offerCompany?.name ?? null}
           rolesFormingCompanyName={rolesFormingCard?.companyName ?? null}
+          rolesFormingHeadline={rolesFormingHeadline}
           rolesFormingSummary={rolesFormingCard?.summary ?? null}
           rolesFormingHref={rolesFormingCard?.href ?? '/dashboard/signals'}
           onMarkPlaced={markPlaced}
@@ -850,12 +913,96 @@ export default async function DashboardPage({
           executiveDecisionBrief={executiveDecisionBrief}
         />
 
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-6 items-start mb-6">
+          <aside className="hidden lg:block rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md lg:sticky lg:top-24">
+            <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-3">On this page</p>
+            <nav className="flex flex-col gap-2.5 text-[13px]">
+              <a href="#start-here" className="text-slate-300 hover:text-white">Start here</a>
+              <a href="#today-digest" className="text-slate-200 hover:text-white">Today</a>
+              <a href="#companies-panel" className="text-slate-300 hover:text-white">Companies</a>
+              <a href="#relationships-panel" className="text-slate-300 hover:text-white">Relationships</a>
+              <a href="#week-tasks-panel" className="text-slate-300 hover:text-white">Follow-ups</a>
+              <a href="#pipeline" className="text-slate-300 hover:text-white">Pipeline</a>
+              <a href="/dashboard?focus=health#health-modules" className="text-slate-400 hover:text-slate-200">Health modules</a>
+            </nav>
+          </aside>
+
+          <div className="space-y-4">
+            <section id="today-digest" className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-1">Today digest</p>
+              <h2 className="text-[24px] sm:text-[28px] font-serif font-bold text-white leading-tight">Today at a glance</h2>
+              <p className="text-[13px] text-slate-300 mt-1.5">{today}</p>
+            </section>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <section id="companies-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Companies</p>
+                <p className="text-[20px] font-bold text-white">{totalCount}</p>
+                <p className="text-[12px] text-slate-300 mt-2">
+                  Scanner status: {scannableCount > 0 ? `${scannerCompletedCount}/${scannableCount} scanned` : 'Waiting for career-page URLs'}
+                </p>
+                <p className="text-[12px] text-slate-400 mt-1">Signals this week: {signalCount}</p>
+                <OnDemandScanButton companyNames={allList.slice(0, 8).map((c) => c.name)} />
+                <Link href="/dashboard/signals" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open signals →</Link>
+              </section>
+
+              <section id="relationships-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Relationships</p>
+                <p className="text-[20px] font-bold text-white">{contactCount}</p>
+                <p className="text-[12px] text-slate-300 mt-2">{enrichmentQueueCount} compan{enrichmentQueueCount === 1 ? 'y' : 'ies'} not yet enriched</p>
+                <p className="text-[12px] text-slate-400 mt-1">
+                  {contactCount === 0
+                    ? 'While enrichment runs, adding one contact you already know unblocks outreach today.'
+                    : enrichedContactRows.length > 0
+                      ? `Enriched contacts: ${enrichedContactRows.length}`
+                      : `${contactCount} active contact${contactCount === 1 ? '' : 's'} across ${contactCountMap.size} compan${contactCountMap.size === 1 ? 'y' : 'ies'}`}
+                </p>
+                {totalCount > 0 && enrichedContactRows.length === 0 && <OnDemandEnrichButton />}
+                <Link href="/dashboard/contacts" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">
+                  {contactCount === 0 ? 'Add a contact →' : 'Open contacts →'}
+                </Link>
+              </section>
+
+              <section id="week-tasks-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Follow-ups due</p>
+                {(followUps ?? []).length > 0 ? (
+                  <ul className="space-y-2 mt-2">
+                    {((followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>).slice(0, 3).map((item) => {
+                      const dueLabel = new Date(`${item.due_date}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                      const daysOverdue = Math.max(0, Math.floor((new Date(`${todayISO}T12:00:00Z`).getTime() - new Date(`${item.due_date}T12:00:00Z`).getTime()) / 86400000))
+                      return (
+                        <li key={item.id} className="rounded border border-white/10 bg-white/5 px-3 py-2">
+                          <p className="text-[12px] font-semibold text-white">{item.action}</p>
+                          <p className="text-[11px] text-slate-400 mt-0.5">
+                            {item.companies?.name ?? 'General'} · {daysOverdue > 0 ? `${dueLabel} · ${daysOverdue} day${daysOverdue === 1 ? '' : 's'} overdue` : 'due today'}
+                          </p>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                ) : (
+                  <p className="text-[12px] text-slate-300 mt-2">Nothing due today. Your follow-through is clean.</p>
+                )}
+                <Link href="/dashboard/calendar" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open calendar →</Link>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <DashboardDisclosureSection
+          id="health-modules"
+          title="Campaign health and decision timeline"
+          defaultOpen={focus === 'health'}
+        >
         <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-[13px] font-semibold text-orange-200/90">Campaign health</p>
-              <h2 className="text-[20px] font-bold text-white mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-300">{campaignHealthBand}</span></h2>
+              <h2 className="text-[13px] font-semibold text-orange-200/90">Campaign health</h2>
+              <p className="text-[20px] font-bold text-white mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-300">{campaignHealthBand}</span></p>
               <p className="text-[13px] text-slate-200 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
+              {cadenceScore === 0 && (
+                <p className="text-[12px] text-slate-400 mt-1">Cadence only counts outreach sent this week — signal review and prep work do not register here.</p>
+              )}
             </div>
             <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
               <div className="rounded border border-white/15 bg-white/5 px-3 py-2">
@@ -896,6 +1043,7 @@ export default async function DashboardPage({
           totalPages={timelineTotalPages}
           updateDecisionOwner={updateDecisionOwner}
         />
+        </DashboardDisclosureSection>
 
         {/* Pipeline */}
         <DashboardPipelineSection

@@ -25,17 +25,6 @@ export function DashboardPrimaryNavSections({
           <p className="text-[13px] text-slate-200 leading-relaxed mt-1">
             This is your executive operating console. Make one high-quality move in each lane, then stop.
           </p>
-          <div className="mt-3 grid grid-cols-1 gap-2 text-[12px] text-slate-200 sm:grid-cols-3">
-            <p className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-              <span className="font-semibold text-white">Find roles first:</span> identify the highest-value opportunity window now.
-            </p>
-            <p className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-              <span className="font-semibold text-white">Talk to the right people:</span> move one warm relationship that can change your odds.
-            </p>
-            <p className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
-              <span className="font-semibold text-white">Follow a clear plan:</span> close one next step to keep weekly momentum steady.
-            </p>
-          </div>
         </div>
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
@@ -48,8 +37,8 @@ export function DashboardPrimaryNavSections({
           </article>
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
             <p className="text-[13px] font-medium text-orange-200">Talk to the right people</p>
-            <p className="mt-1 text-[14px] font-semibold text-white">{overdueCount} relationship moves ready</p>
-            <p className="mt-1 text-[13px] text-slate-300">Advance one warm path before noon.</p>
+            <p className="mt-1 text-[14px] font-semibold text-white">{overdueCount} follow-up{overdueCount === 1 ? '' : 's'} due now</p>
+            <p className="mt-1 text-[13px] text-slate-300">Advance one warm path today.</p>
             <Link href="/dashboard/contacts" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
               Relationships
             </Link>

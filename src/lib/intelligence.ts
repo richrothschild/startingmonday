@@ -166,3 +166,22 @@ export const SIGNAL_COLORS: Record<string, string> = {
   activist_entry: 'bg-rose-50 text-rose-700',
   insider_sale:   'bg-stone-100 text-stone-700',
 }
+
+// Dark-surface variants for the premium dashboard theme.
+export const SIGNAL_COLORS_DARK: Record<string, string> = {
+  funding:        'bg-emerald-500/15 text-emerald-200',
+  exec_departure: 'bg-amber-500/15 text-amber-200',
+  exec_hire:      'bg-blue-500/15 text-blue-200',
+  acquisition:    'bg-purple-500/15 text-purple-200',
+  expansion:      'bg-teal-500/15 text-teal-200',
+  layoffs:        'bg-rose-500/15 text-rose-200',
+  ipo:            'bg-orange-500/15 text-orange-200',
+  new_product:    'bg-indigo-500/15 text-indigo-200',
+  award:          'bg-yellow-500/15 text-yellow-200',
+  filing_trend:   'bg-white/10 text-slate-300',
+  partnership:    'bg-cyan-500/15 text-cyan-200',
+  board_change:   'bg-violet-500/15 text-violet-200',
+  regulatory_change: 'bg-fuchsia-500/15 text-fuchsia-200',
+  activist_entry: 'bg-rose-500/15 text-rose-200',
+  insider_sale:   'bg-white/10 text-slate-300',
+}

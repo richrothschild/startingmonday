@@ -6,6 +6,13 @@ type ContextOption = {
   hint: string
 }
 
+type ContextCard = {
+  id: string
+  title: string
+  status: string
+  complete: boolean
+}
+
 const LOCATION_OPTIONS: ContextOption[] = [
   { key: 'new_york', label: 'New York', hint: 'In-person heavy opportunities' },
   { key: 'bay_area', label: 'Bay Area', hint: 'Platform and product-heavy roles' },
@@ -31,6 +38,13 @@ const POSITIONING_OPTIONS: ContextOption[] = [
   { key: 'transformer', label: 'Transformation Lead', hint: 'Drive change across functions' },
   { key: 'builder', label: 'Builder', hint: 'Create new systems and foundations' },
   { key: 'stabilizer', label: 'Stabilizer', hint: 'Calm complexity and de-risk operations' },
+]
+
+const BRIEFING_OPTIONS: ContextOption[] = [
+  { key: '06:00', label: '6:00 AM', hint: 'Early-market open' },
+  { key: '07:00', label: '7:00 AM', hint: 'Default daily cadence' },
+  { key: '08:00', label: '8:00 AM', hint: 'Pre-meeting planning' },
+  { key: '09:00', label: '9:00 AM', hint: 'Start-of-day review' },
 ]
 
 function OptionGroup({
@@ -80,19 +94,23 @@ export function OnboardingContextStep({
   sectors,
   compensation,
   positioning,
+  briefingTime,
   onTargetLocations,
   onSectors,
   onCompensation,
   onPositioning,
+  onBriefingTime,
 }: {
   targetLocations: string[]
   sectors: string[]
   compensation: string[]
   positioning: string[]
+  briefingTime: string
   onTargetLocations: (v: string[]) => void
   onSectors: (v: string[]) => void
   onCompensation: (v: string[]) => void
   onPositioning: (v: string[]) => void
+  onBriefingTime: (v: string) => void
 }) {
   const toggleMulti = (items: string[], key: string, setter: (v: string[]) => void) => {
     if (items.includes(key)) {
@@ -111,7 +129,41 @@ export function OnboardingContextStep({
     sectors.length > 0,
     compensation.length > 0,
     positioning.length > 0,
+    !!briefingTime,
   ].filter(Boolean).length
+
+  const cards: ContextCard[] = [
+    {
+      id: 'target-locations',
+      title: 'Target locations',
+      status: targetLocations.length > 0 ? `${targetLocations.length} selected` : 'Not set',
+      complete: targetLocations.length > 0,
+    },
+    {
+      id: 'preferred-sectors',
+      title: 'Preferred sectors',
+      status: sectors.length > 0 ? `${sectors.length} selected` : 'Not set',
+      complete: sectors.length > 0,
+    },
+    {
+      id: 'compensation-preference',
+      title: 'Comp preference',
+      status: compensation.length > 0 ? 'Selected' : 'Not set',
+      complete: compensation.length > 0,
+    },
+    {
+      id: 'briefing-time',
+      title: 'Briefing time',
+      status: briefingTime ? `${briefingTime} configured` : 'Not set',
+      complete: !!briefingTime,
+    },
+    {
+      id: 'positioning-style',
+      title: 'Positioning style',
+      status: positioning.length > 0 ? 'Selected' : 'Not set',
+      complete: positioning.length > 0,
+    },
+  ]
 
   return (
     <div className="flex flex-col gap-6">
@@ -124,40 +176,91 @@ export function OnboardingContextStep({
         </p>
       </div>
 
-      <OptionGroup
-        title="Target locations"
-        options={LOCATION_OPTIONS}
-        selected={targetLocations}
-        onToggle={(key) => toggleMulti(targetLocations, key, onTargetLocations)}
-        multi
-      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        {cards.map((card) => (
+          <a
+            key={card.id}
+            href={`#${card.id}`}
+            className={[
+              'rounded border px-4 py-3 transition-colors',
+              card.complete
+                ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35',
+            ].join(' ')}
+          >
+            <p className="text-[12px] font-bold tracking-[0.08em] uppercase">{card.title}</p>
+            <p className="text-[12px] mt-1 opacity-90">{card.complete ? `Complete - ${card.status}` : card.status}</p>
+          </a>
+        ))}
+      </div>
 
-      <OptionGroup
-        title="Preferred sectors"
-        options={SECTOR_OPTIONS}
-        selected={sectors}
-        onToggle={(key) => toggleMulti(sectors, key, onSectors)}
-        multi
-      />
+      <section id="target-locations">
+        <OptionGroup
+          title="Target locations"
+          options={LOCATION_OPTIONS}
+          selected={targetLocations}
+          onToggle={(key) => toggleMulti(targetLocations, key, onTargetLocations)}
+          multi
+        />
+      </section>
 
-      <OptionGroup
-        title="Compensation preference"
-        options={COMP_OPTIONS}
-        selected={compensation}
-        onToggle={(key) => toggleSingle(compensation, key, onCompensation)}
-        multi={false}
-      />
+      <section id="preferred-sectors">
+        <OptionGroup
+          title="Preferred sectors"
+          options={SECTOR_OPTIONS}
+          selected={sectors}
+          onToggle={(key) => toggleMulti(sectors, key, onSectors)}
+          multi
+        />
+      </section>
 
-      <OptionGroup
-        title="Positioning style"
-        options={POSITIONING_OPTIONS}
-        selected={positioning}
-        onToggle={(key) => toggleSingle(positioning, key, onPositioning)}
-        multi={false}
-      />
+      <section id="compensation-preference">
+        <OptionGroup
+          title="Compensation preference"
+          options={COMP_OPTIONS}
+          selected={compensation}
+          onToggle={(key) => toggleSingle(compensation, key, onCompensation)}
+          multi={false}
+        />
+      </section>
+
+      <section id="briefing-time" className="flex flex-col gap-2.5">
+        <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">Briefing time</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {BRIEFING_OPTIONS.map((opt) => {
+            const active = briefingTime === opt.key
+            return (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => onBriefingTime(opt.key)}
+                className={[
+                  'text-left rounded border px-3 py-3 transition-colors cursor-pointer',
+                  active
+                    ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                    : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35',
+                ].join(' ')}
+              >
+                <p className="text-[13px] font-semibold">{opt.label}</p>
+                <p className={['text-[11px] mt-1', active ? 'text-slate-200' : 'text-slate-400'].join(' ')}>{opt.hint}</p>
+              </button>
+            )
+          })}
+        </div>
+      </section>
+
+      <section id="positioning-style">
+        <OptionGroup
+          title="Positioning style"
+          options={POSITIONING_OPTIONS}
+          selected={positioning}
+          onToggle={(key) => toggleSingle(positioning, key, onPositioning)}
+          multi={false}
+        />
+      </section>
 
       <p className="text-[12px] text-slate-400">
-        {completedCount}/4 context blocks selected. More context improves ranking precision but is optional.
+        {completedCount}/5 context blocks selected. More context improves ranking precision but is optional.
       </p>
     </div>
   )

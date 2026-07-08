@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
 import { getRecruiterToolkit, getRoleLaneTutorials } from '@/lib/role-lane-learning'
+import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
+import { FirstRunSeenCookie } from './first-run-seen-cookie'
 import {
   decisionRoleTargetsForCompany,
   firstNoteDraftForCompany,
@@ -196,6 +198,19 @@ export default async function StartPage() {
 
   return (
     <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
+      <FirstRunSeenCookie />
+      {isFirstRunArrival && (
+        <FirstMileTelemetry
+          eventName="dashboard_first_run_viewed"
+          pageName="dashboard_first_run"
+          properties={{
+            completed_tasks: doneCount,
+            total_tasks: tasks.length,
+            has_earned_brief: !!earnedBriefPreview,
+            has_companies: !!firstCompanyName,
+          }}
+        />
+      )}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
       {/* Nav */}
@@ -205,7 +220,7 @@ export default async function StartPage() {
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
+            <Link href="/dashboard?focus=main" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">
               Skip to dashboard
             </Link>
             <LogoutButton label="Sign out" />

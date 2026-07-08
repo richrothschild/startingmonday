@@ -43,7 +43,7 @@ const SCAN_FALLBACKS: Record<string, string> = {
   cdo_digital:  'Chief Digital Officer searches are often run confidentially. Use company notes and sector context to infer the digital transformation agenda.',
   ciso:         'CISO searches frequently run through retained search and may post under VP Information Security or Director of Cybersecurity. Use sector, regulatory context, and signals to infer the mandate.',
   cpo:          'CPO searches are often unlisted or posted under Head of Product or General Manager. Use company notes and product signals to infer the product mandate.',
-  coo:          'COO mandates are created around specific operational challenges, not posted roles. Add notes describing the operational situation this company is navigating to generate a mandate-specific brief.',
+  coo:          'COO mandates are created around specific operational challenges, not posted roles. Add notes describing the operational situation this company is navigating, then prioritize M&A and operational-announcement signals to infer mandate timing.',
   vp_technology:'Technology leadership roles may post under VP Engineering, IT Director, or similar titles. Use company notes to confirm the role scope.',
 }
 

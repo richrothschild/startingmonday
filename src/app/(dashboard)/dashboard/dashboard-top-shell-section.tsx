@@ -33,6 +33,7 @@ type DashboardTopShellSectionProps = {
   offerName: string | null
   offerCompanyName: string | null
   rolesFormingCompanyName?: string | null
+  rolesFormingHeadline?: string | null
   rolesFormingSummary?: string | null
   rolesFormingHref?: string
   onMarkPlaced: (formData: FormData) => void | Promise<void>
@@ -110,7 +111,7 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
           <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-orange-200/90 mb-1">Roles forming now</p>
             <p className="text-[14px] font-semibold text-white">
-              {props.rolesFormingCompanyName ? `${props.rolesFormingCompanyName} may be moving toward a role window.` : 'A role window may be forming.'}
+              {props.rolesFormingHeadline ?? (props.rolesFormingCompanyName ? `${props.rolesFormingCompanyName} may be moving toward a role window.` : 'A role window may be forming.')}
             </p>
             {props.rolesFormingSummary && (
               <p className="text-[13px] text-slate-200 mt-1.5 leading-relaxed">

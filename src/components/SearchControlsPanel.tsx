@@ -102,23 +102,23 @@ export function SearchControlsPanel({
   }
 
   return (
-    <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
+    <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8">
       <div className="flex items-center justify-between gap-3 mb-3">
         <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Search controls</p>
         <TrackLink
           href="/settings/billing"
           event="search_controls_clicked"
           properties={{ target: 'billing' }}
-          className="text-[12px] text-slate-400 hover:text-slate-600 transition-colors"
+          className="text-[12px] text-slate-400 hover:text-slate-200 transition-colors"
         >
-          Billing &amp; settings -&gt;
+          Billing &amp; settings →
         </TrackLink>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="border border-slate-200 rounded p-4">
-          <p className="text-[12px] font-semibold text-slate-900 mb-2">Pause search</p>
-          <p className="text-[12px] text-slate-500 leading-relaxed mb-3">
+        <div className="border border-white/15 rounded p-4">
+          <p className="text-[12px] font-semibold text-white mb-2">Pause search</p>
+          <p className="text-[12px] text-slate-400 leading-relaxed mb-3">
             Keep major alerts and low-frequency digest active while you take a break.
           </p>
           {!paused ? (
@@ -127,7 +127,7 @@ export function SearchControlsPanel({
                 value={days}
                 onChange={e => setDays(Number(e.target.value))}
                 aria-label="Pause duration"
-                className="border border-slate-200 rounded px-2.5 py-2 text-[12px] text-slate-700 bg-white"
+                className="border border-white/20 rounded px-2.5 py-2 text-[12px] text-slate-100 bg-slate-900"
                 disabled={pausing}
               >
                 <option value={7}>7 days</option>
@@ -138,7 +138,7 @@ export function SearchControlsPanel({
                 type="button"
                 onClick={handlePause}
                 disabled={pausing}
-                className="text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors disabled:opacity-50 cursor-pointer"
+                className="text-[12px] font-semibold text-slate-100 border border-white/20 rounded px-3 py-2 hover:border-white/40 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {pausing ? 'Pausing...' : 'Pause search'}
               </button>
@@ -148,20 +148,20 @@ export function SearchControlsPanel({
               type="button"
               onClick={handleResume}
               disabled={resuming}
-              className="text-[12px] font-semibold text-white bg-slate-900 rounded px-3 py-2 hover:bg-slate-700 transition-colors disabled:opacity-50 cursor-pointer border-0"
+              className="text-[12px] font-semibold text-slate-950 bg-orange-500 rounded px-3 py-2 hover:bg-orange-400 transition-colors disabled:opacity-50 cursor-pointer border-0"
             >
               {resuming ? 'Resuming...' : 'Resume search'}
             </button>
           )}
-          {pauseMessage && <p className="text-[12px] text-green-700 mt-2">{pauseMessage}</p>}
+          {pauseMessage && <p className="text-[12px] text-emerald-300 mt-2">{pauseMessage}</p>}
           {pauseError && (
             <div className="mt-2">
-              <p className="text-[12px] text-red-700">{pauseError}</p>
+              <p className="text-[12px] text-rose-300">{pauseError}</p>
               <button
                 type="button"
                 onClick={paused ? handleResume : handlePause}
                 disabled={pausing || resuming}
-                className="mt-1 text-[11px] font-semibold text-red-700 border border-red-200 rounded px-2 py-1 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+                className="mt-1 text-[11px] font-semibold text-rose-300 border border-rose-300/40 rounded px-2 py-1 hover:bg-rose-500/10 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Retry
               </button>
@@ -169,10 +169,10 @@ export function SearchControlsPanel({
           )}
         </div>
 
-        <div className="border border-slate-200 rounded p-4">
-          <p className="text-[12px] font-semibold text-slate-900 mb-2">Digest preferences</p>
+        <div className="border border-white/15 rounded p-4">
+          <p className="text-[12px] font-semibold text-white mb-2">Digest preferences</p>
           <div className="flex items-center gap-3 mb-3">
-            <label className="text-[12px] text-slate-600">
+            <label className="text-[12px] text-slate-300">
               <input
                 type="radio"
                 name="frequency"
@@ -182,7 +182,7 @@ export function SearchControlsPanel({
               />
               Daily briefing
             </label>
-            <label className="text-[12px] text-slate-600">
+            <label className="text-[12px] text-slate-300">
               <input
                 type="radio"
                 name="frequency"
@@ -194,36 +194,36 @@ export function SearchControlsPanel({
             </label>
           </div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[12px] text-slate-500">Time:</span>
+            <span className="text-[12px] text-slate-400">Time:</span>
             <input
               type="time"
               value={briefingTime}
               onChange={e => setBriefingTime(e.target.value)}
               disabled={frequency === 'weekly'}
               aria-label="Daily briefing time"
-              className="border border-slate-200 rounded px-2 py-1.5 text-[12px] text-slate-700 bg-white disabled:text-slate-300"
+              className="border border-white/20 rounded px-2 py-1.5 text-[12px] text-slate-100 bg-slate-900 disabled:text-slate-600"
             />
           </div>
           <button
             type="button"
             onClick={saveBriefingPrefs}
             disabled={canSavePrefs}
-            className="text-[12px] font-semibold text-slate-700 border border-slate-200 rounded px-3 py-2 hover:border-slate-400 transition-colors disabled:opacity-50 cursor-pointer"
+            className="text-[12px] font-semibold text-slate-100 border border-white/20 rounded px-3 py-2 hover:border-white/40 transition-colors disabled:opacity-50 cursor-pointer"
           >
             {savingPrefs ? 'Saving...' : 'Save preferences'}
           </button>
           {frequency === 'daily' && !validTime && (
-            <p className="text-[12px] text-amber-700 mt-2">Enter a valid daily time before saving.</p>
+            <p className="text-[12px] text-amber-300 mt-2">Enter a valid daily time before saving.</p>
           )}
-          {prefsMessage && <p className="text-[12px] text-green-700 mt-2">{prefsMessage}</p>}
+          {prefsMessage && <p className="text-[12px] text-emerald-300 mt-2">{prefsMessage}</p>}
           {prefsError && (
             <div className="mt-2">
-              <p className="text-[12px] text-red-700">{prefsError}</p>
+              <p className="text-[12px] text-rose-300">{prefsError}</p>
               <button
                 type="button"
                 onClick={saveBriefingPrefs}
                 disabled={savingPrefs}
-                className="mt-1 text-[11px] font-semibold text-red-700 border border-red-200 rounded px-2 py-1 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+                className="mt-1 text-[11px] font-semibold text-rose-300 border border-rose-300/40 rounded px-2 py-1 hover:bg-rose-500/10 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Retry save
               </button>
@@ -232,16 +232,16 @@ export function SearchControlsPanel({
         </div>
       </div>
 
-      <div className="mt-4 border border-slate-200 rounded p-4">
-        <p className="text-[12px] font-semibold text-slate-900 mb-2">Power views</p>
+      <div className="mt-4 border border-white/15 rounded p-4">
+        <p className="text-[12px] font-semibold text-white mb-2">Power views</p>
         <div className="flex flex-wrap gap-2">
-          <TrackLink href="/dashboard?stage=interviewing" event="power_view_clicked" properties={{ target: 'interviewing' }} className="text-[12px] text-slate-700 border border-slate-200 rounded px-2.5 py-1.5 hover:border-slate-400 transition-colors">
+          <TrackLink href="/dashboard?stage=interviewing" event="power_view_clicked" properties={{ target: 'interviewing' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
             Interviewing pipeline
           </TrackLink>
-          <TrackLink href="/dashboard?stage=applied" event="power_view_clicked" properties={{ target: 'applied' }} className="text-[12px] text-slate-700 border border-slate-200 rounded px-2.5 py-1.5 hover:border-slate-400 transition-colors">
+          <TrackLink href="/dashboard?stage=applied" event="power_view_clicked" properties={{ target: 'applied' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
             Applied pipeline
           </TrackLink>
-          <TrackLink href="/dashboard/briefing?mode=focused" event="power_view_clicked" properties={{ target: 'briefing_focused' }} className="text-[12px] text-slate-700 border border-slate-200 rounded px-2.5 py-1.5 hover:border-slate-400 transition-colors">
+          <TrackLink href="/dashboard/briefing?mode=focused" event="power_view_clicked" properties={{ target: 'briefing_focused' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
             Focused briefing
           </TrackLink>
         </div>

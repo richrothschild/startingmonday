@@ -198,7 +198,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }, [step, isPassive, manualMode])
 
   useEffect(() => {
-    if (step !== 4 || advancedSetup) return
+    if (step !== 3 || advancedSetup) return
     if (companyNames.some(n => n.trim())) return
     const seeded = seededCompaniesFor(searchPersona)
     if (seeded.length === 0) return
@@ -428,13 +428,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   function advance() {
     if (step === 0) { goTo(1); return }
     if (step === 1) { goTo(2); return }
-    if (step === 2) {
-      if (advancedSetup && !lowEnergyMode) { goTo(3); return }
-      goTo(4)
-      return
-    }
-    if (step === 3) { goTo(4); return }
-    if (step === 4) {
+    if (step === 2) { goTo(3); return }
+    if (step === 3) {
       startFirstScan(companyNames)
       startRelationshipEnrichment(companyNames)
       if (lowEnergyMode || !advancedSetup || isPassive) {
@@ -442,9 +437,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         goTo(6)
         return
       }
-      goTo(5)
+      goTo(4)
       return
     }
+    if (step === 4) { goTo(5); return }
     if (step === 5) {
       startRelationshipEnrichment(companyNames)
       goTo(6)
@@ -456,8 +452,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   }
 
   function prevStep() {
-    if (step === 4) return advancedSetup && !lowEnergyMode ? 3 : 2
-    if (step === 6) return (isPassive || !advancedSetup || lowEnergyMode) ? 4 : 5
+    if (step === 3) return 2
+    if (step === 4) return 3
+    if (step === 5) return 4
+    if (step === 6) return (isPassive || !advancedSetup || lowEnergyMode) ? 3 : 5
     if (step === 7) return 6
     if (step === 8) return 7
     return step - 1
@@ -476,22 +474,10 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
     })
   }
 
-  function quickStart() {
-    if (!searchPersona) setSearchPersona('csuite')
-    if (!roleFamily) setRoleFamily('leadership')
-    if (!roleTitle) setRoleTitle('executive')
-    if (roleTitles.length === 0) setRoleTitles(['executive'])
-    if (!companyNames.some(n => n.trim())) {
-      const seeded = seededCompaniesFor(searchPersona || 'csuite')
-      setCompanyNames([...seeded, ''])
-    }
-    goTo(4)
-  }
-
   function progressIndex() {
     if (advancedSetup) return step
     if (step <= 2) return step
-    if (step === 4) return 3
+    if (step === 3) return 3
     if (step === 6) return 4
     if (step === 7) return 5
     return 6
@@ -661,6 +647,19 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
           )}
 
           {step === 3 && (
+            <StepCompanies
+              names={companyNames}
+              onChange={setCompanyNames}
+              persona={searchPersona}
+              currentTitle={currentTitle}
+              targetTitles={targetTitles}
+              resumeText={resumeText}
+              isPassive={isPassive}
+              onTitle={setCurrentTitle}
+            />
+          )}
+
+          {step === 4 && (
             <StepSituation
               status={employmentStatus}
               timeline={searchTimeline}
@@ -668,18 +667,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               onStatus={setEmploymentStatus}
               onTimeline={setSearchTimeline}
               onDriver={setSearchDriver}
-            />
-          )}
-
-          {step === 4 && (
-            <StepCompanies
-              names={companyNames}
-              onChange={setCompanyNames}
-              persona={searchPersona}
-              currentTitle={currentTitle}
-              resumeText={resumeText}
-              isPassive={isPassive}
-              onTitle={setCurrentTitle}
             />
           )}
 
@@ -711,10 +698,12 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               sectors={targetSectors}
               compensation={compPreference}
               positioning={positioningStyle}
+              briefingTime={briefingTime}
               onTargetLocations={setTargetLocations}
               onSectors={setTargetSectors}
               onCompensation={setCompPreference}
               onPositioning={setPositioningStyle}
+              onBriefingTime={setBriefingTime}
             />
           )}
 
@@ -765,15 +754,6 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             >
               Skip setup
             </button>
-            {step === 0 && (
-              <button
-                type="button"
-                onClick={quickStart}
-                className="text-[12px] text-slate-500 hover:text-slate-300 bg-transparent border-0 cursor-pointer p-0"
-              >
-                Quick start
-              </button>
-            )}
           </div>
 
           {/* Dots */}
@@ -847,7 +827,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <button
                 type="button"
                 onClick={advance}
-                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
+                disabled={!companyNames.some(n => n.trim())}
+                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
@@ -856,8 +837,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
               <button
                 type="button"
                 onClick={advance}
-                disabled={!companyNames.some(n => n.trim())}
-                className="bg-orange-500 hover:bg-orange-600 disabled:opacity-30 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0 disabled:cursor-not-allowed"
+                className="bg-orange-500 hover:bg-orange-600 text-white text-[14px] font-semibold px-6 py-2.5 rounded transition-colors cursor-pointer border-0"
               >
                 Continue
               </button>
@@ -929,6 +909,7 @@ function StepCompanies({
   onChange,
   persona,
   currentTitle,
+  targetTitles = '',
   resumeText = '',
   isPassive,
   onTitle,
@@ -937,6 +918,7 @@ function StepCompanies({
   onChange: (v: string[]) => void
   persona: SearchPersona | ''
   currentTitle: string
+  targetTitles?: string
   resumeText?: string
   isPassive?: boolean
   onTitle?: (v: string) => void
@@ -944,6 +926,8 @@ function StepCompanies({
   const suggestions = suggestedCompaniesForProfile(persona, currentTitle, resumeText)
   const inputCls = 'w-full border border-white/15 rounded-lg px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-white/40 bg-slate-950/60'
   const filled = names.filter(n => n.trim()).length
+  const cooSignalContext = `${currentTitle} ${targetTitles}`.toLowerCase()
+  const isCooTrack = /\bcoo\b|chief\s+operating\s+officer/.test(cooSignalContext)
 
   const [discovering, setDiscovering] = useState(false)
   const [discovered, setDiscovered] = useState<{ name: string; sector: string; fit: number }[] | null>(null)
@@ -1012,6 +996,11 @@ function StepCompanies({
         <p className="text-[12px] text-slate-400 mt-1.5">
           Why this matters: these are the companies where we help you take your place before competition sees the opening.
         </p>
+        {isCooTrack && (
+          <p className="text-[12px] text-orange-200 mt-2">
+            COO note: these mandates are rarely posted. Prioritize companies where you already have relationships, and watch M&amp;A and operational-announcement signals to spot mandate creation early.
+          </p>
+        )}
       </div>
 
       {isPassive && onTitle && (
