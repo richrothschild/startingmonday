@@ -281,7 +281,8 @@ jobs:
         with:
           filters: |
             risky:
-              - 'src/app/(auth)/**'
+              - 'src/app/[(]auth[)]/**'
+              - 'src/app/auth/**'
               - 'src/app/for-coaches/**'
               - 'src/app/pricing/**'
               - 'src/app/demo/**'
