@@ -65,7 +65,7 @@ function welcomeHtml(firstName: string): string {
       Welcome from the Manager Tools community, ${firstName}.
     </p>
     <p style="font-family:sans-serif;font-size:14px;color:#334155;line-height:1.7;margin:0 0 12px 0;">
-      You now have a 30-day window to run a disciplined executive search rhythm: target list, signal timing, and prep briefs tied to real opportunities.
+      You now have a 60-day window to run a disciplined executive search rhythm: target list, signal timing, and prep briefs tied to real opportunities.
     </p>
     <p style="font-family:sans-serif;font-size:14px;color:#334155;line-height:1.7;margin:0 0 16px 0;">
       Start with one target company today and generate your first prep brief. That single action usually creates momentum fast.
@@ -97,10 +97,10 @@ function day7Html(firstName: string): string {
 function day30Html(firstName: string): string {
   return `
     <p style="font-family:sans-serif;font-size:14px;color:#0f172a;line-height:1.7;margin:0 0 12px 0;">
-      Your trial is ending, ${firstName}. Keep your momentum running.
+      You are halfway through your trial, ${firstName}. Keep your momentum running.
     </p>
     <p style="font-family:sans-serif;font-size:14px;color:#334155;line-height:1.7;margin:0 0 12px 0;">
-      Your Manager Tools cohort trial is at the day-30 point. If the pipeline and brief workflow have been helping, keep everything live by upgrading to Active.
+      Your Manager Tools cohort trial is at the day-30 midpoint of your 60 free days. If the pipeline and brief workflow have been helping, you can lock in continuity now by upgrading to Active.
     </p>
     <p style="font-family:sans-serif;font-size:14px;color:#334155;line-height:1.7;margin:0 0 16px 0;">
       Active is $199/month and keeps your signal history, prep context, and operating cadence intact.
@@ -207,7 +207,7 @@ export async function GET(request: NextRequest) {
       },
       {
         action: 'managertools_day30_conversion_sent',
-        subject: 'Your trial is ending - keep your momentum',
+        subject: 'Halfway through your trial - keep your momentum',
         html: day30Html(firstName),
         allowed: shouldSendDay30(daysOld) && (user.subscription_status ?? 'trialing') === 'trialing',
       },

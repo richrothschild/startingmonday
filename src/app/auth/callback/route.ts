@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
       const policyAcceptedAt = searchParams.get('policy_accepted_at')
       const source = utmSource ?? selfReportedSource ?? refCode
       const managerToolsSource = (source ?? '').trim().toLowerCase() === 'managertools'
-      const managerToolsTrialEndsAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
+      const managerToolsTrialEndsAt = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString()
       const consentAcceptedAt = (() => {
         if (!policyAcceptedAt) return new Date().toISOString()
         const parsed = Date.parse(policyAcceptedAt)
