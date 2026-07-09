@@ -1167,7 +1167,7 @@ export function PrepClient({
           const warnings: { key: string; label: string; message: string; href: string; cta: string }[] = []
           if (!hasCareerHistory) warnings.push({
             key: 'career',
-            label: 'No career history',
+            label: 'Career history missing',
             message: 'The brief cannot personalize your background. Add verified career history on your profile.',
             href: '/dashboard/profile',
             cta: 'Add career history',

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { OutreachClient } from './outreach-client'
 
-export const metadata = { title: 'Draft Outreach - Starting Monday' }
+export const metadata = { title: 'Draft Outreach' }
 
 export default async function OutreachPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -60,7 +60,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
 
   return (
     <main>
-      <h1 className="sr-only">Outreach Drafting</h1>
+      <p className="sr-only">Outreach Drafting</p>
       <nav className="sr-only" aria-label="Outreach quick actions">
         <Link href="/dashboard/contacts">Back to contacts</Link>
         {companyId ? <Link href={`/dashboard/companies/${companyId}`}>Open company page</Link> : null}
@@ -78,6 +78,7 @@ export default async function OutreachPage({ params }: { params: Promise<{ id: s
           email: c.email ?? null,
           linkedin_url: c.linkedin_url ?? null,
         }}
+        companyId={companyId}
         history={(history ?? []).map(h => ({
           id: h.id,
           text: h.output_text,

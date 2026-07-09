@@ -96,12 +96,15 @@ export function DashboardPipelineSection(props: Props) {
               <th className="py-2.5 pl-4 pr-6 text-right text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
                 Fit <span className="normal-case font-normal text-slate-500">/10</span>
               </th>
+              <th className="py-2.5 pl-2 pr-6 text-right text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
+                Brief
+              </th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={4}>
+                <td colSpan={5}>
                   {totalCount === 0 ? (
                     !activationResumeDone ? (
                       <EmptyState
@@ -167,6 +170,14 @@ export function DashboardPipelineSection(props: Props) {
                     </td>
                     <td className="py-3.5 pl-4 pr-6 text-right text-[14px] font-bold text-slate-100">
                       {co.fit_score ?? '-'}
+                    </td>
+                    <td className="py-3.5 pl-2 pr-6 text-right">
+                      <Link
+                        href={`/dashboard/companies/${co.id}/prep`}
+                        className="inline-flex min-h-[36px] items-center rounded border border-white/20 px-3 text-[12px] font-semibold text-slate-100 hover:border-white/35"
+                      >
+                        Get brief
+                      </Link>
                     </td>
                   </tr>
                 )

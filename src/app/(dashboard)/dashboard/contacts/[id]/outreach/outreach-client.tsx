@@ -69,7 +69,23 @@ const CHANNEL_LABELS: Record<string, string> = {
 
 type RecentSignal = { signalType: string; summary: string; date: string }
 
-export function OutreachClient({ contact, history, profileScore, roleType, fullName, recentSignals = [] }: { contact: Contact; history: DraftHistory[]; profileScore: number; roleType: string | null; fullName: string | null; recentSignals?: RecentSignal[] }) {
+export function OutreachClient({
+  contact,
+  companyId,
+  history,
+  profileScore,
+  roleType,
+  fullName,
+  recentSignals = [],
+}: {
+  contact: Contact
+  companyId: string | null
+  history: DraftHistory[]
+  profileScore: number
+  roleType: string | null
+  fullName: string | null
+  recentSignals?: RecentSignal[]
+}) {
   const [goal, setGoal] = useState(GOALS[0])
   const [customGoal, setCustomGoal] = useState('')
   const [additionalContext, setAdditionalContext] = useState('')
@@ -227,6 +243,35 @@ export function OutreachClient({ contact, history, profileScore, roleType, fullN
             {subtitle ? <span className="text-slate-400"> · {subtitle}</span> : null}
           </p>
         </div>
+
+        {companyId && contact.company_name && (
+          <div className="mb-5 rounded border border-slate-200 bg-white px-5 py-4">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Brief launcher</p>
+            <p className="text-[13px] text-slate-600 leading-relaxed mb-3">
+              Before you send this note, open the prep brief for {contact.company_name} so your outreach lands with company-specific context.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href={`/dashboard/companies/${companyId}/prep`}
+                className="inline-flex min-h-[40px] items-center rounded bg-slate-900 px-3 text-[12px] font-semibold text-white hover:bg-slate-700"
+              >
+                Open company brief
+              </Link>
+              <Link
+                href={`/dashboard/companies/${companyId}`}
+                className="inline-flex min-h-[40px] items-center rounded border border-slate-300 bg-white px-3 text-[12px] font-semibold text-slate-700 hover:border-slate-400"
+              >
+                Open company page
+              </Link>
+              <Link
+                href="/dashboard/briefing"
+                className="inline-flex min-h-[40px] items-center rounded border border-slate-300 bg-white px-3 text-[12px] font-semibold text-slate-700 hover:border-slate-400"
+              >
+                Open daily briefing
+              </Link>
+            </div>
+          </div>
+        )}
 
         {recentSignals.length > 0 && (
           <div className="mb-5 bg-amber-50 border border-amber-200 rounded px-5 py-4">
