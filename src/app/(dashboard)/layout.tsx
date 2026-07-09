@@ -18,11 +18,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <PHProvider>
         <>
           {isDemo && <DemoBanner />}
-          {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
           {!isDemo && user?.email && <WatermarkOverlay email={user.email} />}
           <div className="nav-content-spacer">
             {children}
           </div>
+          {!isDemo && user?.email && <PersonalEmailNudge email={user.email} />}
           <BottomNav />
           <CommandPalette />
         </>

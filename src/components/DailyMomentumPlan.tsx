@@ -28,7 +28,7 @@ type DailyMomentumState = {
 
 const STATUS_COPY: Record<DailyMomentumPlanProps['status'], { chip: string; accent: string; body: string }> = {
   low: {
-    chip: 'Low momentum',
+    chip: 'Steady start',
     accent: 'border-slate-300/35 bg-white/10 text-slate-100',
     body: 'Keep today narrow. Finish two actions and leave the rest for tomorrow.',
   },
@@ -286,7 +286,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
         <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start">
           <div className="rounded-2xl border border-white/15 bg-white/5 px-4 py-4">
             <label className="block text-[13px] font-medium text-slate-200 mb-2" htmlFor="daily-reflection-prompt">
-              End-of-day reflection
+              Daily reflection
             </label>
             <textarea
               id="daily-reflection-prompt"

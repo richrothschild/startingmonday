@@ -102,14 +102,14 @@ export function DashboardWeeklyPerformanceSection({
         if (goal) {
           const remaining = Math.max(0, goal - done)
           return (
-            <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
+            <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
               <div className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-                done >= goal ? 'text-green-600' : done > 0 ? 'text-amber-500' : 'text-slate-300'
+                done >= goal ? 'text-emerald-300' : done > 0 ? 'text-amber-300' : 'text-slate-500'
               }`}>
                 {done}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">
+                <div className="text-[13px] font-semibold text-white">
                   {done >= goal
                     ? 'Weekly goal hit. Strong week.'
                     : `${remaining} outreach draft${remaining === 1 ? '' : 's'} left to hit your goal.`}
@@ -118,7 +118,7 @@ export function DashboardWeeklyPerformanceSection({
               </div>
               <form action={onSaveWeeklyGoal} className="shrink-0">
                 <input type="hidden" name="weekly_goal" value={goal === 1 ? 1 : goal + 1} />
-                <button type="submit" className="text-[11px] text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-2.5 py-1 cursor-pointer bg-transparent transition-colors">
+                <button type="submit" className="text-[11px] text-slate-400 hover:text-slate-200 border border-white/20 rounded px-2.5 py-1 cursor-pointer bg-transparent transition-colors">
                   Goal: {goal} &uarr;
                 </button>
               </form>
@@ -127,15 +127,15 @@ export function DashboardWeeklyPerformanceSection({
         }
 
         return (
-          <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
-            <p className="text-[13px] font-semibold text-slate-900 mb-1">Set a weekly outreach target.</p>
+          <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8">
+            <p className="text-[13px] font-semibold text-white mb-1">Set a weekly outreach target.</p>
             <p className="text-[12px] text-slate-400 mb-3 leading-relaxed">A weekly target increases follow-through.</p>
             <form action={onSaveWeeklyGoal} className="flex items-center gap-3">
               <select
                 name="weekly_goal"
                 aria-label="Weekly outreach goal"
                 defaultValue="2"
-                className="border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 bg-white focus:outline-none focus:border-slate-400"
+                className="border border-white/20 rounded px-3 py-2 text-[13px] text-slate-100 bg-slate-900 focus:outline-none focus:border-orange-300/50"
               >
                 {[1, 2, 3, 4, 5].map((n) => (
                   <option key={n} value={n}>
@@ -145,7 +145,7 @@ export function DashboardWeeklyPerformanceSection({
               </select>
               <button
                 type="submit"
-                className="bg-slate-900 hover:bg-slate-700 text-white text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
+                className="bg-orange-500 hover:bg-orange-400 text-slate-950 text-[13px] font-semibold px-4 py-2 rounded transition-colors cursor-pointer border-0"
               >
                 Set goal
               </button>
@@ -155,25 +155,25 @@ export function DashboardWeeklyPerformanceSection({
       })()}
 
       {momentumData?.momentum_score != null && (
-        <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
+        <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8 flex items-center gap-5">
           <div
             className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
               momentumData.momentum_score >= 70
-                ? 'text-green-600'
+                ? 'text-emerald-300'
                 : momentumData.momentum_score >= 40
-                  ? 'text-amber-500'
-                  : 'text-red-600'
+                  ? 'text-amber-300'
+                  : 'text-rose-300'
             }`}
           >
             {momentumData.momentum_score}
           </div>
           <div>
-            <div className="text-[13px] font-semibold text-slate-900">
+            <div className="text-[13px] font-semibold text-white">
               {momentumData.momentum_score >= 70
                 ? 'Strong cadence. Keep it moving.'
                 : momentumData.momentum_score >= 40
                   ? `Momentum is dropping.${daysSinceLastAction != null ? ` ${daysSinceLastAction}d since your last action.` : ''}`
-                  : 'Search at risk. This pace adds months to your timeline.'}
+                  : 'Pace below target. One steady week rebuilds momentum quickly.'}
             </div>
             <div className="text-[11px] text-slate-400 mt-0.5">
               Momentum score
@@ -185,12 +185,12 @@ export function DashboardWeeklyPerformanceSection({
               )}
             </div>
             <div className="text-[11px] text-slate-400 mt-1.5">
-              Track your activity with{' '}
-              <a href="https://www.manager-tools.com/2016/09/job-search-tracking" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">
+              Prefer an external tracker? Try{' '}
+              <a href="https://www.manager-tools.com/2016/09/job-search-tracking" target="_blank" rel="noopener noreferrer" className="text-slate-400 underline hover:text-slate-200">
                 Manager Tools
               </a>{' '}
               or{' '}
-              <a href="https://www.manager-tools.com/career-tools-basics" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-700">
+              <a href="https://www.manager-tools.com/career-tools-basics" target="_blank" rel="noopener noreferrer" className="text-slate-400 underline hover:text-slate-200">
                 Career Tools
               </a>
             </div>
@@ -199,10 +199,10 @@ export function DashboardWeeklyPerformanceSection({
       )}
 
       {isExecutiveMode && riskItems.length > 0 && (
-        <section id="risk-engine" className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3">
+        <section id="risk-engine" className="mb-6 sm:mb-8 bg-slate-900/70 border border-white/10 rounded overflow-hidden">
+          <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-3">
             <h2 className="text-[13px] font-semibold text-slate-400">Risk signals</h2>
-            <span className="text-[13px] text-slate-500">Operational state from behavior patterns</span>
+            <span className="text-[13px] text-slate-400">Operational state from behavior patterns</span>
           </div>
           <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {riskItems.map((risk) => (
@@ -260,26 +260,26 @@ export function DashboardWeeklyPerformanceSection({
       )}
 
       {isExecutiveMode ? (
-        <details className="mb-6 sm:mb-8 bg-slate-50 border border-slate-200 rounded overflow-hidden">
+        <details className="mb-6 sm:mb-8 bg-slate-900/70 border border-white/10 rounded overflow-hidden">
           <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Review performance</span>
-            <span className="text-[11px] text-slate-500">Expand</span>
+            <span className="text-[11px] text-slate-400">Expand</span>
           </summary>
           <div className="px-5 pb-5">
-            <section id="benchmarks" className="bg-white border border-slate-200 rounded px-5 py-4 mb-6">
+            <section id="benchmarks" className="bg-white/5 border border-white/15 rounded px-5 py-4 mb-6">
               <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
-                  <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+                  <p className="text-[20px] font-bold text-white leading-none">12-18</p>
+                  <p className="text-[12px] text-slate-300 mt-1">target companies in a 90-day search</p>
                 </div>
                 <div>
-                  <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
-                  <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+                  <p className="text-[20px] font-bold text-white leading-none">2-3</p>
+                  <p className="text-[12px] text-slate-300 mt-1">new conversations per week to maintain momentum</p>
                 </div>
                 <div>
-                  <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
-                  <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
+                  <p className="text-[20px] font-bold text-white leading-none">72 hrs</p>
+                  <p className="text-[12px] text-slate-300 mt-1">typical response time after a warm intro</p>
                 </div>
               </div>
             </section>
@@ -290,20 +290,20 @@ export function DashboardWeeklyPerformanceSection({
         </details>
       ) : (
         <>
-          <section id="benchmarks" className="bg-slate-50 border border-slate-200 rounded px-5 py-4 mb-6 sm:mb-8">
+          <section id="benchmarks" className="bg-slate-900/70 border border-white/10 rounded px-5 py-4 mb-6 sm:mb-8">
             <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">What works at this level</h2>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <p className="text-[20px] font-bold text-slate-900 leading-none">12-18</p>
-                <p className="text-[12px] text-slate-500 mt-1">target companies in a 90-day search</p>
+                <p className="text-[20px] font-bold text-white leading-none">12-18</p>
+                <p className="text-[12px] text-slate-300 mt-1">target companies in a 90-day search</p>
               </div>
               <div>
-                <p className="text-[20px] font-bold text-slate-900 leading-none">2-3</p>
-                <p className="text-[12px] text-slate-500 mt-1">new conversations per week to maintain momentum</p>
+                <p className="text-[20px] font-bold text-white leading-none">2-3</p>
+                <p className="text-[12px] text-slate-300 mt-1">new conversations per week to maintain momentum</p>
               </div>
               <div>
-                <p className="text-[20px] font-bold text-slate-900 leading-none">72 hrs</p>
-                <p className="text-[12px] text-slate-500 mt-1">typical response time after a warm intro</p>
+                <p className="text-[20px] font-bold text-white leading-none">72 hrs</p>
+                <p className="text-[12px] text-slate-300 mt-1">typical response time after a warm intro</p>
               </div>
             </div>
           </section>
@@ -322,9 +322,9 @@ export function DashboardWeeklyPerformanceSection({
             <Link
               key={a.href}
               href={a.href}
-              className="group bg-white border border-slate-200 rounded p-4 hover:border-slate-400 hover:shadow-sm transition-all"
+              className="group bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 hover:shadow-sm transition-all"
             >
-              <p className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-700">{a.label}</p>
+              <p className="text-[13px] font-semibold text-slate-100 group-hover:text-white">{a.label}</p>
             </Link>
           ))}
         </div>

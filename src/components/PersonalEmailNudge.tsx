@@ -33,7 +33,7 @@ export function PersonalEmailNudge({ email }: { email: string }) {
   }
 
   return (
-    <div className="bg-slate-800 border-b border-slate-700 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+    <div className="bg-slate-800 border-t border-slate-700 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
       <p className="text-[12px] text-slate-300 leading-relaxed">
         <span className="font-semibold text-white">Work email on file.</span>{' '}
         If an assistant manages your inbox, your daily briefings may not reach you directly.{' '}

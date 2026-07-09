@@ -73,7 +73,7 @@ export function DashboardPipelineSection(props: Props) {
             href="/dashboard/companies/new"
             className="inline-flex min-h-[44px] items-center rounded border border-slate-600 bg-slate-800 px-3 text-[12px] font-semibold text-slate-100 transition-colors hover:border-slate-500 hover:bg-slate-700"
           >
-            Companies
+            Add company
           </Link>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function DashboardPipelineSection(props: Props) {
                 Stage
               </th>
               <th className="py-2.5 pl-4 pr-6 text-right text-[10px] font-bold tracking-[0.09em] uppercase text-slate-400">
-                Fit
+                Fit <span className="normal-case font-normal text-slate-500">/10</span>
               </th>
             </tr>
           </thead>

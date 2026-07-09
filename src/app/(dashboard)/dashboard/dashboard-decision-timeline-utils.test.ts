@@ -10,14 +10,14 @@ describe('dashboard decision timeline utils', () => {
     const watching = decisionMarkerForStage('watching')
     const offer = decisionMarkerForStage('offer')
 
-    expect(watching.decisionWindowLabel).toBe('48 hours')
-    expect(offer.decisionWindowLabel).toBe('24 hours')
+    expect(watching.decisionWindowLabel).toBe('within 2 days')
+    expect(offer.decisionWindowLabel).toBe('within 1 day')
     expect(offer.marker.toLowerCase()).toContain('accept/decline')
   })
 
   it('falls back for unknown stages', () => {
     const result = decisionMarkerForStage('custom-stage')
-    expect(result.decisionWindowLabel).toBe('72 hours')
+    expect(result.decisionWindowLabel).toBe('within 3 days')
     expect(result.marker.toLowerCase()).toContain('irreversible')
   })
 

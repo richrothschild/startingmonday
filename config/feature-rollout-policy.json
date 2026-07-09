@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-24",
+  "updatedAt": "2026-07-08",
   "owner": "engineering",
   "riskyPaths": [
-    "src/app/(auth)/**",
+    "src/app/[(]auth[)]/**",
+    "src/app/auth/**",
     "src/app/for-coaches/**",
     "src/app/pricing/**",
     "src/app/demo/**",
@@ -25,6 +26,18 @@
     ]
   },
   "activeRollouts": [
+    {
+      "id": "managertools-auth-signup-2026-07",
+      "description": "Manager Tools 60-day trial unification: unify trial duration, render Manager Tools landing CTAs on signup page, and add manager tools source tracking in auth callback (SMK-428, PR #207)",
+      "paths": [
+        "src/app/[(]auth[)]/signup/**",
+        "src/app/auth/callback/route.ts"
+      ],
+      "phase": "full rollout",
+      "rollbackPath": "Revert PR #207 to restore previous signup page and auth callback without Manager Tools trial tracking",
+      "killSwitch": "Remove managerToolsSource branch in auth callback and managertools CTA block from signup page",
+      "startedAt": "2026-07-08"
+    },
     {
       "id": "pricing-plan-names-2026-06",
       "description": "Pricing and for-coaches page updates: plan naming, pricing card layout, and economics page revisions",

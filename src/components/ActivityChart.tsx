@@ -14,7 +14,7 @@ export function ActivityChart({ data }: { data: WeekActivity[] }) {
   if (!hasActivity) return null
 
   return (
-    <div className="bg-white border border-slate-200 rounded p-5 mb-6 sm:mb-8">
+    <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8">
       <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">
         Weekly Search Activity
       </p>

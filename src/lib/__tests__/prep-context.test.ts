@@ -40,6 +40,12 @@ describe('buildScanSection', () => {
     expect(result).toContain('March 10')
     expect(result).not.toContain('January 1')
   })
+
+  it('uses COO-specific fallback emphasizing M&A and operational announcements', () => {
+    const result = buildScanSection([], 'coo')
+    expect(result).toContain('COO mandates are created around specific operational challenges')
+    expect(result).toContain('M&A and operational-announcement signals')
+  })
 })
 
 describe('buildSignalSection', () => {

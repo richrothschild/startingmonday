@@ -39,6 +39,8 @@ export async function completeOnboarding(formData: FormData) {
   const targetTitles        = parseCsv(formData.get('target_titles') as string ?? '')
   const targetSectors       = parseCsv(formData.get('target_sectors') as string ?? '')
   const targetLocations     = parseCsv(formData.get('target_locations') as string ?? '')
+  const targetComp          = parseCsv(formData.get('target_comp') as string ?? '')
+  const positioningStyle    = parseCsv(formData.get('positioning_style') as string ?? '')
   const dreamCompanies      = (formData.get('dream_companies') as string ?? '').trim() || null
   const dreamJob            = (formData.get('dream_job') as string ?? '').trim() || null
   const positioningSummary  = (formData.get('positioning_summary') as string ?? '').trim() || null
@@ -97,6 +99,12 @@ export async function completeOnboarding(formData: FormData) {
   const underTenMinutes = elapsedSeconds > 0 && elapsedSeconds <= 600
 
   const now = new Date().toISOString()
+  const roleContext = {
+    target_locations: targetLocations.length > 0 ? targetLocations : null,
+    target_sectors: targetSectors.length > 0 ? targetSectors : null,
+    target_comp: targetComp.length > 0 ? targetComp : null,
+    positioning_style: positioningStyle.length > 0 ? positioningStyle : null,
+  }
 
   await supabase.from('user_profiles').upsert(
     {
@@ -116,6 +124,7 @@ export async function completeOnboarding(formData: FormData) {
       search_driver:            searchDriver,
       search_path:              searchPath,
       linkedin_url:             linkedinUrl,
+      role_context:             roleContext,
       target_titles:            targetTitles.length > 0 ? targetTitles : null,
       target_sectors:           targetSectors.length > 0 ? targetSectors : null,
       target_locations:         targetLocations.length > 0 ? targetLocations : null,

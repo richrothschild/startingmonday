@@ -49,7 +49,7 @@ export function DashboardDecisionTimelineSection({
           <p className="text-[13px] text-slate-300 mt-1">Every campaign carries a next irreversible decision marker with owner and timing.</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="rounded border border-white/15 bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-slate-200">Role lens: {roleLensLabel}</span>
+          <span className="rounded border border-white/15 bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-slate-200">Viewing as {roleLensLabel}</span>
           <span className={`rounded px-2.5 py-1 text-[11px] font-semibold ${stalledCount > 0 ? 'bg-amber-500/15 text-amber-200 border border-amber-300/30' : 'bg-emerald-500/15 text-emerald-200 border border-emerald-300/30'}`}>
             {stalledCount > 0 ? `${stalledCount} stalled 14d+` : 'No stalled campaigns'}
           </span>
@@ -89,7 +89,7 @@ export function DashboardDecisionTimelineSection({
                   <p className="text-[12px] text-slate-300 hover:text-slate-100 transition-colors">Stage: {item.stageLabel}</p>
                 </Link>
                 <div className="text-[12px] text-slate-300">
-                  <span className="font-semibold text-slate-200">Owner:</span> {item.ownerLabel}
+                  <span className="font-semibold text-slate-200">Owner:</span> {item.ownerLabel === 'Account owner' ? 'You (account owner)' : item.ownerLabel}
                 </div>
               </div>
 
@@ -105,9 +105,9 @@ export function DashboardDecisionTimelineSection({
                 href={item.href}
                 className="mt-2 flex flex-col gap-1 rounded-sm sm:flex-row sm:items-center sm:justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-300/70"
               >
-                <p className="text-[12px] text-slate-300">Decision window: {item.decisionWindowLabel}</p>
+                <p className="text-[12px] text-slate-300">Suggested decision window: {item.decisionWindowLabel}</p>
                 <p className={`text-[12px] ${item.stalled ? 'text-amber-200 font-semibold' : 'text-slate-300'}`}>
-                  Last moved: {item.daysSinceUpdate === null ? 'Unknown' : `${item.daysSinceUpdate} day${item.daysSinceUpdate === 1 ? '' : 's'} ago`}
+                  Last moved: {item.daysSinceUpdate === null ? 'Unknown' : item.daysSinceUpdate === 0 ? 'today' : item.daysSinceUpdate === 1 ? 'yesterday' : `${item.daysSinceUpdate} days ago`}
                 </p>
               </Link>
 
@@ -117,7 +117,7 @@ export function DashboardDecisionTimelineSection({
                 <select
                   id={`owner-${item.id}`}
                   name="decision_owner"
-                  defaultValue={item.ownerLabel}
+                  defaultValue={['Account owner', 'Coach', 'Partner', 'Admin'].includes(item.ownerLabel) ? item.ownerLabel : 'Account owner'}
                   className="border border-white/15 rounded px-2 py-1 text-[12px] text-slate-100 bg-slate-900/90"
                 >
                   <option value="Account owner">Account owner</option>

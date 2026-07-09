@@ -78,7 +78,7 @@ export function DashboardWelcomeNudgeSection({
               className="text-[12px] text-amber-600 hover:text-amber-900 bg-transparent border-0 cursor-pointer p-1 transition-colors"
               aria-label="Dismiss"
             >
-              ?
+              ✕
             </button>
           </form>
         </div>

@@ -194,7 +194,7 @@ export function DashboardProfileIntelligenceSection({
               Roles at this level fill through relationships. Add contacts at your top targets.
             </p>
           </div>
-          <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts ?</span>
+          <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
         </Link>
       )}
 

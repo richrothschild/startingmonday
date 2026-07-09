@@ -20,7 +20,9 @@ export const TEMP = {
 
 // Executive tier gets Opus; all others get Sonnet.
 export function getModelForTier(tier: string): string {
-  return tier === 'executive' || tier === 'campaign' ? MODELS.opus : MODELS.sonnet
+  const opusEnabled = process.env.ANTHROPIC_OPUS_EXECUTIVE_ENABLED !== '0'
+  const shouldUseOpus = tier === 'executive' || tier === 'campaign'
+  return shouldUseOpus && opusEnabled ? MODELS.opus : MODELS.sonnet
 }
 
 // Wraps a streaming promise with an AbortController timeout.
