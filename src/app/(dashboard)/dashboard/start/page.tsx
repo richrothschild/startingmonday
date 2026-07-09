@@ -12,7 +12,7 @@ import {
 } from '@/app/onboarding/onboarding-helpers'
 
 export const metadata = {
-  title: 'Get Started - Starting Monday',
+  title: 'Get Started',
 }
 
 export default async function StartPage() {

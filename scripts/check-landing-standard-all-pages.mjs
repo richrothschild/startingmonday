@@ -176,7 +176,8 @@ function evaluate(relativePath) {
   const fullPath = path.join(ROOT, relativePath)
   const pageContent = fs.readFileSync(fullPath, 'utf8')
   const importedContent = collectImportedContent(fullPath, pageContent)
-  const analysisContent = [pageContent, ...importedContent].join('\n')
+  const importedContentText = importedContent.join('\n')
+  const analysisContent = [pageContent, importedContentText].join('\n')
   const route = toRoute(fullPath)
 
   let shell = inferShell(relativePath, analysisContent)
@@ -188,6 +189,8 @@ function evaluate(relativePath) {
   const sectionCount = countMatches(pageContent, /<section\b/g)
   const paragraphCount = countMatches(pageContent, /<p\b/g)
   const h1Count = countMatches(pageContent, /<h1\b/g)
+  const importedH1Count = countMatches(importedContentText, /<h1\b/g)
+  const effectiveH1Count = h1Count === 0 ? importedH1Count : h1Count
   const h2Count = countMatches(pageContent, /<h2\b/g)
   const detailsCount = countMatches(pageContent, /<details\b/g)
   const buttonCount = countMatches(pageContent, /<button\b/g)
@@ -233,7 +236,11 @@ function evaluate(relativePath) {
   const buttonWiring = buttonCount === 0 || orphanButtonCount === 0 || linkCount > 0
   const headerFooterConsistency = true
   const luxuryLookAndFeel = shellStandard && paletteConsistency && cognitiveLoad !== 'high'
-  const h1Contract = redirectOnlyRoute ? true : h1Count === 1
+  const h1Contract = redirectOnlyRoute
+    ? true
+    : h1Count > 0
+      ? h1Count === 1
+      : importedH1Count >= 1
   const ctaDensityContract = route === '/' ? primaryCtaCount <= 3 : primaryCtaCount <= 2
   const trustAssuranceContract =
     shell === 'dashboard-shell'
@@ -277,7 +284,7 @@ function evaluate(relativePath) {
       paletteScore,
       sectionCount,
       paragraphCount,
-      h1Count,
+      h1Count: effectiveH1Count,
       h2Count,
       detailsCount,
       buttonCount,

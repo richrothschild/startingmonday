@@ -59,9 +59,9 @@ function originClassLabel(originClass: ClaimOriginClass) {
 }
 
 function originClassClassName(originClass: ClaimOriginClass) {
-  if (originClass === 'user_provided') return 'bg-emerald-50 text-emerald-700 border-emerald-200'
-  if (originClass === 'system_detected') return 'bg-blue-50 text-blue-700 border-blue-200'
-  return 'bg-amber-50 text-amber-700 border-amber-200'
+  if (originClass === 'user_provided') return 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+  if (originClass === 'system_detected') return 'bg-blue-500/10 text-blue-300 border-blue-500/30'
+  return 'bg-amber-500/10 text-amber-300 border-amber-500/30'
 }
 
 function buildClaimOriginLookup(text: string): Record<string, ClaimOriginClass> {
@@ -135,8 +135,8 @@ function SourceLegend({
     { key: 'inferred', label: 'Inferred', count: counts.inferred },
   ]
   return (
-    <div className="mb-5 rounded border border-slate-200 bg-slate-50 p-3">
-      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Source Legend</p>
+    <div className="mb-5 rounded border border-white/10 bg-white/5 p-3">
+      <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Source Legend</p>
       <div className="flex flex-wrap gap-2 mb-2">
         {buttons.map((button) => (
           <button
@@ -145,12 +145,12 @@ function SourceLegend({
             onClick={() => onChangeFilter(button.key)}
             className={`inline-flex items-center gap-1 rounded border px-2 py-1 text-[10px] font-semibold tracking-[0.04em] uppercase transition-colors ${
               traceFilter === button.key
-                ? 'bg-slate-900 text-white border-slate-900'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                ? 'bg-orange-500 text-slate-950 border-orange-500'
+                : 'bg-white/5 text-slate-300 border-white/10 hover:border-white/30'
             }`}
           >
             <span>{button.label}</span>
-            <span className={`rounded px-1.5 py-[1px] ${traceFilter === button.key ? 'bg-slate-700 text-slate-100' : 'bg-slate-100 text-slate-500'}`}>
+            <span className={`rounded px-1.5 py-[1px] ${traceFilter === button.key ? 'bg-slate-700 text-slate-100' : 'bg-white/10 text-slate-400'}`}>
               {button.count}
             </span>
           </button>
@@ -177,7 +177,7 @@ function renderBrief(
     if (line.trim() === '---' || line.trim() === '***') return null
     if (line.startsWith('## ')) {
       return (
-        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-10 mb-4 first:mt-0 pb-2 border-b border-slate-100">
+        <h2 key={i} className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mt-10 mb-4 first:mt-0 pb-2 border-b border-white/10">
           {line.slice(3)}
         </h2>
       )
@@ -191,7 +191,7 @@ function renderBrief(
           <div className="mb-1.5">
             <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
           </div>
-          <div className="flex gap-2.5 text-[14px] text-slate-700 leading-relaxed">
+          <div className="flex gap-2.5 text-[14px] text-slate-300 leading-relaxed">
           <span className="text-slate-300 shrink-0 select-none mt-0.5">-</span>
           <BoldText text={line.slice(2)} />
           </div>
@@ -207,7 +207,7 @@ function renderBrief(
         <div className="mb-1.5">
           <TraceLabel originClass={originClass} onClick={() => onTraceLabelClick(originClass)} />
         </div>
-        <p className="text-[14px] text-slate-700 leading-relaxed mb-0">
+        <p className="text-[14px] text-slate-300 leading-relaxed mb-0">
           <BoldText text={line} />
         </p>
       </div>
@@ -262,7 +262,7 @@ function ResourcePanel({ brief }: { brief: string }) {
   if (resources.length === 0) return null
 
   return (
-    <div className="bg-white border border-slate-200 rounded p-6 mb-4">
+    <div className="bg-white/5 border border-white/10 rounded p-6 mb-4">
       <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-4">
         Further Reading
       </p>
@@ -276,11 +276,11 @@ function ResourcePanel({ brief }: { brief: string }) {
             className="group flex items-start gap-3 no-underline"
           >
             <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900 group-hover:text-slate-600 transition-colors">
+              <div className="text-[13px] font-semibold text-white group-hover:text-slate-200 transition-colors">
                 {r.title}
                 <span className="ml-1.5 text-[11px] font-normal text-slate-400">{r.source} ↗</span>
               </div>
-              <div className="text-[12px] text-slate-500 mt-0.5 leading-relaxed">{r.description}</div>
+              <div className="text-[12px] text-slate-400 mt-0.5 leading-relaxed">{r.description}</div>
             </div>
           </a>
         ))}
@@ -298,6 +298,14 @@ async function streamResponse(res: Response, onChunk: (text: string) => void) {
     if (done) break
     onChunk(decoder.decode(value, { stream: true }))
   }
+}
+
+// The server appends an __ERROR__ marker when the model stream fails.
+// It can arrive mid-stream (after partial content), not only at position 0.
+function splitStreamError(fullText: string): { text: string; error: string | null } {
+  const idx = fullText.indexOf('__ERROR__')
+  if (idx < 0) return { text: fullText, error: null }
+  return { text: fullText.slice(0, idx).trimEnd(), error: fullText.slice(idx + 9).trim() || 'Generation failed' }
 }
 
 async function saveBrief(
@@ -361,11 +369,12 @@ function useOnDemand(url: string, companyId: string, sectionName: string) {
       setEvidenceCount(Number.isFinite(parsedCount) ? parsedCount : null)
       let fullText = ''
       await streamResponse(res, chunk => { fullText += chunk; setContent(fullText) })
-      if (fullText.startsWith('__ERROR__')) {
-        setError(fullText.slice(9))
-        setContent('')
+      const { text: cleanText, error: streamError } = splitStreamError(fullText)
+      if (streamError) {
+        setError(streamError)
+        setContent(cleanText) // keep any partial content instead of discarding it
       } else {
-        const id = await saveBrief('prep_section', fullText, companyId, sectionName)
+        const id = await saveBrief('prep_section', cleanText, companyId, sectionName)
         setBriefId(id)
       }
     } catch (e) {
@@ -409,8 +418,8 @@ function OnDemandPanel({
 }) {
   const claimOriginCounts = useMemo(() => buildClaimOriginCounts(content), [content])
   return (
-    <div className="bg-white border border-slate-200 rounded mb-4">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+    <div className="bg-white/5 border border-white/10 rounded mb-4">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
         <div>
           <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400">{title}</p>
           {!content && !loading && (
@@ -421,7 +430,7 @@ function OnDemandPanel({
           type="button"
           onClick={onGenerate}
           disabled={loading}
-          className="shrink-0 text-[12px] font-semibold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="shrink-0 text-[12px] font-semibold text-slate-400 border border-white/10 rounded px-3 py-1.5 hover:border-white/30 hover:text-slate-200 bg-transparent cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? 'Generating…' : content ? 'Regenerate' : 'Generate'}
         </button>
@@ -436,21 +445,21 @@ function OnDemandPanel({
         </div>
       )}
       {error && !content && (
-        <div className="px-6 py-4 text-[13px] text-red-600">{error}</div>
+        <div className="px-6 py-4 text-[13px] text-red-400">{error}</div>
       )}
       {(content || (loading && content)) && (
         <div className="px-6 py-5">
           {groundingMode === 'pattern' && (
-            <div className="mb-4 rounded border border-amber-200 bg-amber-50 px-4 py-3">
-              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-700">Pattern Analysis, Not Verified Intel</p>
-              <p className="mt-1 text-[12px] text-amber-800 leading-relaxed">
+            <div className="mb-4 rounded border border-amber-500/30 bg-amber-500/10 px-4 py-3">
+              <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-amber-300">Pattern Analysis, Not Verified Intel</p>
+              <p className="mt-1 text-[12px] text-amber-200 leading-relaxed">
                 This section used limited evidence{typeof evidenceCount === 'number' ? ` (${evidenceCount} source${evidenceCount === 1 ? '' : 's'})` : ''}.
                 Add notes, documents, contacts, or fresh signals and regenerate for company-verified specificity.
               </p>
               <div className="mt-2">
                 <Link
                   href={addEvidenceHref ?? '#'}
-                  className="text-[11px] font-semibold text-amber-800 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors"
+                  className="text-[11px] font-semibold text-amber-200 border border-amber-500/40 rounded px-2.5 py-1 hover:bg-amber-500/20 transition-colors"
                 >
                   Add evidence
                 </Link>
@@ -467,7 +476,7 @@ function OnDemandPanel({
             <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
           )}
           {!loading && (
-            <p className="mt-5 pt-3 border-t border-slate-100 text-[11px] text-slate-400">
+            <p className="mt-5 pt-3 border-t border-white/10 text-[11px] text-slate-400">
               AI-generated - use as input, not advice. Verify facts before any conversation.
             </p>
           )}
@@ -661,13 +670,14 @@ export function PrepClient({
 
       let fullText = ''
       await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
-      if (fullText.startsWith('__ERROR__')) {
-        setError(fullText.slice(9))
-        setBrief('')
+      const { text: cleanText, error: streamError } = splitStreamError(fullText)
+      if (streamError) {
+        setError(streamError)
+        setBrief(cleanText) // keep partial brief visible; user can regenerate
       } else {
-        const id = await saveBrief('prep', fullText, companyId, undefined, nextAttributionContextIds)
+        const id = await saveBrief('prep', cleanText, companyId, undefined, nextAttributionContextIds)
         setBriefId(id)
-        const confidence = scorePrepBriefConfidence(fullText)
+        const confidence = scorePrepBriefConfidence(cleanText)
         await emitPmfEvent(PMF_EVENTS.prep.prep_brief_generated, {
           company_id: companyId,
           type: 'prep',
@@ -709,14 +719,15 @@ export function PrepClient({
       }
       let fullText = ''
       await streamResponse(res, chunk => { fullText += chunk; setBrief(fullText) })
-      if (fullText.startsWith('__ERROR__')) {
-        setError(fullText.slice(9))
-        setBrief('')
+      const { text: cleanText, error: streamError } = splitStreamError(fullText)
+      if (streamError) {
+        setError(streamError)
+        setBrief(cleanText)
       } else {
         setRefineInput('')
-        const id = await saveBrief('prep', fullText, companyId, undefined, prepAttributionContextIds)
+        const id = await saveBrief('prep', cleanText, companyId, undefined, prepAttributionContextIds)
         setBriefId(id)
-        const confidence = scorePrepBriefConfidence(fullText)
+        const confidence = scorePrepBriefConfidence(cleanText)
         await emitPmfEvent(PMF_EVENTS.prep.prep_brief_refined, {
           company_id: companyId,
           mode: roleMode,
@@ -982,16 +993,16 @@ export function PrepClient({
   }, [brief, isLowConfidence, companyId, roleMode, interviewStage, briefConfidence?.band])
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
 
-      <header className="bg-slate-900 no-print">
+      <header className="border-b border-white/10 bg-slate-950/72 backdrop-blur-xl no-print">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-600">
+          <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href={`/dashboard/companies/${companyId}`}
-            className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
+            className="text-[13px] text-slate-400 hover:text-slate-300 transition-colors"
           >
             ← {companyName}
           </Link>
@@ -1003,8 +1014,8 @@ export function PrepClient({
         <div className="mb-6 sm:mb-8 no-print">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6 mb-5">
             <div>
-              <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Interview Prep</h1>
-              <p className="text-[13px] text-slate-500 mt-1.5">{companyName} · {stageLabel}</p>
+              <h1 className="text-[26px] font-bold text-white leading-tight">Interview Prep</h1>
+              <p className="text-[13px] text-slate-400 mt-1.5">{companyName} · {stageLabel}</p>
             </div>
             <div className="flex flex-col items-stretch sm:items-end gap-2 shrink-0">
               <input
@@ -1013,14 +1024,14 @@ export function PrepClient({
                 onChange={e => setPostingUrl(e.target.value)}
                 placeholder="Paste job posting URL (optional)"
                 disabled={busy}
-                className="text-[12px] text-slate-700 placeholder-slate-400 border border-slate-200 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
+                className="text-[12px] text-slate-300 placeholder-slate-400 border border-white/10 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:border-slate-400 disabled:opacity-50"
               />
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={handleGenerate}
                   disabled={busy}
-                  className="flex-1 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-orange-500 text-slate-950 text-[13px] font-semibold px-5 py-2.5 rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Generating…' : brief ? 'Regenerate' : 'Generate prep brief'}
                 </button>
@@ -1032,7 +1043,7 @@ export function PrepClient({
                         void handleMarkReviewed()
                       }}
                       disabled={markingReviewed || reviewedBriefId === (briefId ?? '__reviewed__')}
-                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors disabled:opacity-40"
+                      className="shrink-0 text-[13px] font-semibold text-slate-300 border border-white/10 rounded px-4 py-2.5 hover:border-white/30 hover:text-slate-200 bg-white/5 cursor-pointer transition-colors disabled:opacity-40"
                       title="Mark this prep brief as reviewed"
                     >
                       {reviewedBriefId === (briefId ?? '__reviewed__') ? 'Reviewed' : markingReviewed ? 'Saving…' : 'Mark reviewed'}
@@ -1041,7 +1052,7 @@ export function PrepClient({
                       type="button"
                       onClick={handleDownload}
                       disabled={downloading || exportBlockedByConfidence}
-                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors disabled:opacity-40"
+                      className="shrink-0 text-[13px] font-semibold text-slate-300 border border-white/10 rounded px-4 py-2.5 hover:border-white/30 hover:text-slate-200 bg-white/5 cursor-pointer transition-colors disabled:opacity-40"
                       title="Download as Word document"
                     >
                       {downloading ? '…' : 'Word'}
@@ -1052,7 +1063,7 @@ export function PrepClient({
                         void handlePdfExport()
                       }}
                       disabled={exportBlockedByConfidence}
-                      className="shrink-0 text-[13px] font-semibold text-slate-600 border border-slate-200 rounded px-4 py-2.5 hover:border-slate-400 hover:text-slate-800 bg-white cursor-pointer transition-colors"
+                      className="shrink-0 text-[13px] font-semibold text-slate-300 border border-white/10 rounded px-4 py-2.5 hover:border-white/30 hover:text-slate-200 bg-white/5 cursor-pointer transition-colors"
                       title="Save as PDF"
                     >
                       PDF
@@ -1074,8 +1085,8 @@ export function PrepClient({
                   disabled={busy}
                   className={`text-[12px] font-medium px-3 py-1.5 rounded border transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${
                     interviewStage === opt.value
-                      ? 'bg-slate-900 text-white border-slate-900'
-                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800'
+                      ? 'bg-orange-500 text-slate-950 border-orange-500'
+                      : 'bg-white/5 text-slate-300 border-white/10 hover:border-white/30 hover:text-slate-200'
                   }`}
                 >
                   {opt.label}
@@ -1095,8 +1106,8 @@ export function PrepClient({
                   disabled={busy}
                   className={`text-[12px] font-medium px-3 py-1.5 rounded border transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${
                     roleMode === opt.value
-                      ? 'bg-slate-900 text-white border-slate-900'
-                      : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800'
+                      ? 'bg-orange-500 text-slate-950 border-orange-500'
+                      : 'bg-white/5 text-slate-300 border-white/10 hover:border-white/30 hover:text-slate-200'
                   }`}
                 >
                   {opt.label}
@@ -1107,12 +1118,12 @@ export function PrepClient({
         </div>
 
         {firstCompany && !brief && (
-          <div className="mb-6 bg-orange-50 border border-orange-200 rounded px-6 py-5">
+          <div className="mb-6 bg-orange-500/10 border border-orange-500/30 rounded px-6 py-5">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-1">Your first intelligence brief</p>
-            <p className="text-[14px] font-semibold text-slate-900 mb-1">
+            <p className="text-[14px] font-semibold text-white mb-1">
               {loading ? `Building your brief on ${companyName}...` : `Ready to brief you on ${companyName}.`}
             </p>
-            <p className="text-[13px] text-slate-600 leading-relaxed">
+            <p className="text-[13px] text-slate-300 leading-relaxed">
               {loading
                 ? 'Scanning public signals, leadership context, strategic priorities, and likely objections. This takes about 20 seconds.'
                 : 'We scanned public signals, leadership context, and strategic priorities. Your brief is ready.'}
@@ -1121,9 +1132,9 @@ export function PrepClient({
         )}
 
         {exportGateError && (
-          <div className={`mb-4 rounded border px-5 py-4 ${exportGateError.type === 'sensitive' ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'}`}>
-            <p className="text-[12px] font-semibold text-slate-900">{exportGateError.message}</p>
-            <ul className="mt-2 space-y-1.5 text-[12px] text-slate-700">
+          <div className={`mb-4 rounded border px-5 py-4 ${exportGateError.type === 'sensitive' ? 'bg-red-500/10 border-red-500/30' : 'bg-amber-500/10 border-amber-500/30'}`}>
+            <p className="text-[12px] font-semibold text-white">{exportGateError.message}</p>
+            <ul className="mt-2 space-y-1.5 text-[12px] text-slate-300">
               {exportGateError.remediation.slice(0, 6).map((item) => (
                 <li key={item}>- {item}</li>
               ))}
@@ -1132,13 +1143,13 @@ export function PrepClient({
               <button
                 type="button"
                 onClick={() => setBriefViewMode('full')}
-                className="text-[11px] font-semibold border border-slate-300 rounded px-2.5 py-1 hover:border-slate-500"
+                className="text-[11px] font-semibold border border-white/10 rounded px-2.5 py-1 hover:border-white/30"
               >
                 Review full brief
               </button>
               <Link
                 href={`/dashboard/companies/${companyId}`}
-                className="text-[11px] font-semibold border border-slate-300 rounded px-2.5 py-1 hover:border-slate-500"
+                className="text-[11px] font-semibold border border-white/10 rounded px-2.5 py-1 hover:border-white/30"
               >
                 Add evidence
               </Link>
@@ -1147,7 +1158,7 @@ export function PrepClient({
         )}
 
         {error && (
-          <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+          <div className="mb-6 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded text-[13px] text-red-300">
             {error}
           </div>
         )}
@@ -1186,12 +1197,12 @@ export function PrepClient({
           return (
             <div className="mb-4 flex flex-col gap-2">
               {warnings.map(w => (
-                <div key={w.key} className="px-4 py-3 bg-amber-50 border border-amber-200 rounded flex items-start justify-between gap-4">
+                <div key={w.key} className="px-4 py-3 bg-amber-500/10 border border-amber-500/30 rounded flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[12px] font-semibold text-amber-700 mb-0.5">{w.label}</p>
+                    <p className="text-[12px] font-semibold text-amber-300 mb-0.5">{w.label}</p>
                     <p className="text-[12px] text-amber-600">{w.message}</p>
                   </div>
-                  <Link href={w.href} className="shrink-0 text-[11px] font-semibold text-amber-700 border border-amber-300 rounded px-2.5 py-1 hover:bg-amber-100 transition-colors whitespace-nowrap">
+                  <Link href={w.href} className="shrink-0 text-[11px] font-semibold text-amber-300 border border-amber-500/40 rounded px-2.5 py-1 hover:bg-amber-500/20 transition-colors whitespace-nowrap">
                     {w.cta}
                   </Link>
                 </div>
@@ -1201,7 +1212,7 @@ export function PrepClient({
         })()}
 
         {!brief && !busy && !error && (
-          <div className="bg-white border border-slate-200 rounded p-8 sm:p-10 text-center">
+          <div className="bg-white/5 border border-white/10 rounded p-8 sm:p-10 text-center">
             <p className="text-[14px] text-slate-400">
               Generates an elite brief using your pipeline data, company notes, scan results, and known contacts.
             </p>
@@ -1209,7 +1220,7 @@ export function PrepClient({
         )}
 
         {!brief && !busy && error && (
-          <div className="bg-white border border-slate-200 rounded p-8 sm:p-10 text-center">
+          <div className="bg-white/5 border border-white/10 rounded p-8 sm:p-10 text-center">
             <p className="text-[14px] text-slate-400">
               Click Generate to try again.
             </p>
@@ -1217,7 +1228,7 @@ export function PrepClient({
         )}
 
         {busy && !brief && (
-          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8">
+          <div className="bg-white/5 border border-white/10 rounded p-5 sm:p-8">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block" />
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse inline-block [animation-delay:150ms]" />
@@ -1227,18 +1238,18 @@ export function PrepClient({
         )}
 
         {brief && profileScore < 50 && !busy && (
-          <div className="mb-4 px-5 py-4 bg-amber-50 border border-amber-200 rounded flex items-start gap-4">
+          <div className="mb-4 px-5 py-4 bg-amber-500/10 border border-amber-500/30 rounded flex items-start gap-4">
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-amber-900">
+              <p className="text-[13px] font-semibold text-amber-200">
                 This brief used limited profile data.
               </p>
-              <p className="text-[12px] text-amber-700 mt-1 leading-relaxed">
+              <p className="text-[12px] text-amber-300 mt-1 leading-relaxed">
                 Adding your resume unlocks significantly more specific talking points, win thesis, and pushback prep. The brief you just generated is a starting point.
               </p>
             </div>
             <Link
               href="/dashboard/profile#section-resume"
-              className="shrink-0 text-[12px] font-semibold text-amber-900 border border-amber-300 hover:border-amber-500 px-3 py-1.5 rounded transition-colors"
+              className="shrink-0 text-[12px] font-semibold text-amber-200 border border-amber-500/40 hover:border-amber-500 px-3 py-1.5 rounded transition-colors"
             >
               Add resume →
             </Link>
@@ -1246,38 +1257,38 @@ export function PrepClient({
         )}
 
         {brief && briefConfidence && !busy && (
-          <div className={`mb-4 rounded border px-5 py-4 ${isLowConfidence ? 'bg-amber-50 border-amber-200' : 'bg-slate-50 border-slate-200'}`}>
+          <div className={`mb-4 rounded border px-5 py-4 ${isLowConfidence ? 'bg-amber-500/10 border-amber-500/30' : 'bg-white/5 border-white/10'}`}>
             <div className="mb-3 flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setBriefViewMode('tonight')}
-                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'tonight' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-300 hover:border-slate-500'}`}
+                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'tonight' ? 'bg-orange-500 text-slate-950 border-orange-500' : 'bg-white/5 text-slate-300 border-white/10 hover:border-white/30'}`}
               >
                 Tonight view
               </button>
               <button
                 type="button"
                 onClick={() => setBriefViewMode('full')}
-                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'full' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-300 hover:border-slate-500'}`}
+                className={`text-[11px] font-semibold border rounded px-2.5 py-1 ${briefViewMode === 'full' ? 'bg-orange-500 text-slate-950 border-orange-500' : 'bg-white/5 text-slate-300 border-white/10 hover:border-white/30'}`}
               >
                 Full dossier
               </button>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Brief confidence</p>
-                <p className="text-[14px] font-semibold text-slate-900 mt-1">
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Brief confidence</p>
+                <p className="text-[14px] font-semibold text-white mt-1">
                   Score: {briefConfidence.score}/100 ({briefConfidence.band})
                 </p>
               </div>
-              <div className="text-[12px] text-slate-600">
+              <div className="text-[12px] text-slate-300">
                 Sections: {briefConfidence.factors.structuredSections}/5 · Inferred penalty: -{briefConfidence.factors.inferredSharePenalty}
               </div>
             </div>
             {isLowConfidence && (
-              <div className="mt-3 pt-3 border-t border-amber-200">
-                <p className="text-[12px] font-semibold text-amber-800 mb-1.5">Low confidence remediation required before export</p>
-                <ul className="text-[12px] text-amber-700 space-y-1.5">
+              <div className="mt-3 pt-3 border-t border-amber-500/30">
+                <p className="text-[12px] font-semibold text-amber-200 mb-1.5">Low confidence remediation required before export</p>
+                <ul className="text-[12px] text-amber-300 space-y-1.5">
                   {briefConfidence.remediation.map((item) => (
                     <li key={item}>- {item}</li>
                   ))}
@@ -1294,7 +1305,7 @@ export function PrepClient({
                       interview_stage: interviewStage,
                     })
                   }}
-                  className="mt-3 text-[12px] font-semibold text-amber-900 border border-amber-300 rounded px-3 py-1.5 hover:bg-amber-100 transition-colors"
+                  className="mt-3 text-[12px] font-semibold text-amber-200 border border-amber-500/40 rounded px-3 py-1.5 hover:bg-amber-500/20 transition-colors"
                 >
                   Acknowledge and allow export
                 </button>
@@ -1304,7 +1315,7 @@ export function PrepClient({
         )}
 
         {brief && (
-          <div className="bg-white border border-slate-200 rounded p-5 sm:p-8 mb-4">
+          <div className="bg-white/5 border border-white/10 rounded p-5 sm:p-8 mb-4">
             <SourceLegend
               traceFilter={traceFilter}
               counts={buildClaimOriginCounts(displayedBrief)}
@@ -1315,7 +1326,7 @@ export function PrepClient({
               <span className="inline-block w-0.5 h-4 bg-slate-400 animate-pulse ml-0.5 align-middle" />
             )}
             {!busy && (
-              <p className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
+              <p className="mt-6 pt-4 border-t border-white/10 text-[11px] text-slate-400">
                 AI-generated - use as input, not advice. Verify facts before any conversation.
               </p>
             )}
@@ -1329,15 +1340,15 @@ export function PrepClient({
         )}
 
         {briefId && !busy && (
-          <div className="mb-4 rounded border border-slate-200 bg-white p-4 no-print">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-500">Post-interview outcome</p>
-            <p className="mt-1 text-[13px] text-slate-600">Log the result after this conversation to improve efficacy tracking.</p>
+          <div className="mb-4 rounded border border-white/10 bg-white/5 p-4 no-print">
+            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400">Post-interview outcome</p>
+            <p className="mt-1 text-[13px] text-slate-300">Log the result after this conversation to improve efficacy tracking.</p>
             <div className="mt-3 flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => { void handleLogOutcome('advanced') }}
                 disabled={!!outcomeLogging}
-                className="text-[12px] font-semibold border border-emerald-300 text-emerald-700 rounded px-3 py-1.5 hover:bg-emerald-50 disabled:opacity-50"
+                className="text-[12px] font-semibold border border-emerald-300 text-emerald-300 rounded px-3 py-1.5 hover:bg-emerald-500/10 disabled:opacity-50"
               >
                 {outcomeLogging === 'advanced' ? 'Saving…' : 'Advanced'}
               </button>
@@ -1345,7 +1356,7 @@ export function PrepClient({
                 type="button"
                 onClick={() => { void handleLogOutcome('offer') }}
                 disabled={!!outcomeLogging}
-                className="text-[12px] font-semibold border border-blue-300 text-blue-700 rounded px-3 py-1.5 hover:bg-blue-50 disabled:opacity-50"
+                className="text-[12px] font-semibold border border-blue-300 text-blue-300 rounded px-3 py-1.5 hover:bg-blue-500/10 disabled:opacity-50"
               >
                 {outcomeLogging === 'offer' ? 'Saving…' : 'Offer'}
               </button>
@@ -1353,13 +1364,13 @@ export function PrepClient({
                 type="button"
                 onClick={() => { void handleLogOutcome('rejected') }}
                 disabled={!!outcomeLogging}
-                className="text-[12px] font-semibold border border-amber-300 text-amber-700 rounded px-3 py-1.5 hover:bg-amber-50 disabled:opacity-50"
+                className="text-[12px] font-semibold border border-amber-500/40 text-amber-300 rounded px-3 py-1.5 hover:bg-amber-500/10 disabled:opacity-50"
               >
                 {outcomeLogging === 'rejected' ? 'Saving…' : 'Rejected'}
               </button>
             </div>
             {outcomeLogged && (
-              <p className="mt-2 text-[12px] text-slate-500">Outcome saved: {outcomeLogged}.</p>
+              <p className="mt-2 text-[12px] text-slate-400">Outcome saved: {outcomeLogged}.</p>
             )}
           </div>
         )}
@@ -1389,13 +1400,13 @@ export function PrepClient({
           const top = nudges.slice(0, 2)
           if (top.length === 0) return null
           return (
-            <div className="mb-4 bg-white border border-slate-200 rounded p-5 no-print">
+            <div className="mb-4 bg-white/5 border border-white/10 rounded p-5 no-print">
               <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-3">What would sharpen the next brief</p>
               <div className="flex flex-col gap-2.5">
                 {top.map((n, i) => (
                   <div key={i} className="flex items-start justify-between gap-4">
-                    <p className="text-[13px] text-slate-600">{n.message}</p>
-                    <Link href={n.href} className="shrink-0 text-[11px] font-semibold text-slate-600 border border-slate-200 rounded px-2.5 py-1 hover:border-slate-400 transition-colors whitespace-nowrap">
+                    <p className="text-[13px] text-slate-300">{n.message}</p>
+                    <Link href={n.href} className="shrink-0 text-[11px] font-semibold text-slate-300 border border-white/10 rounded px-2.5 py-1 hover:border-white/30 transition-colors whitespace-nowrap">
                       {n.cta}
                     </Link>
                   </div>
@@ -1533,7 +1544,7 @@ export function PrepClient({
         {brief && !loading && <div className="no-print"><ResourcePanel brief={brief} /></div>}
 
         {brief && !loading && (
-          <div className="bg-white border border-slate-200 rounded p-6 mb-4 no-print">
+          <div className="bg-white/5 border border-white/10 rounded p-6 mb-4 no-print">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-3">
               Ask about this brief
             </p>
@@ -1543,8 +1554,8 @@ export function PrepClient({
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[85%] rounded-lg px-4 py-2.5 text-[13px] leading-relaxed whitespace-pre-wrap ${
                       msg.role === 'user'
-                        ? 'bg-slate-900 text-white'
-                        : 'bg-slate-50 border border-slate-200 text-slate-800'
+                        ? 'bg-orange-500 text-slate-950'
+                        : 'bg-white/5 border border-white/10 text-slate-200'
                     }`}>
                       {msg.content}
                       {msg.role === 'assistant' && msg.content === '' && chatLoading && (
@@ -1572,13 +1583,13 @@ export function PrepClient({
                   : 'Ask a follow-up...'}
                 rows={2}
                 disabled={chatLoading || loading}
-                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
+                className="flex-1 border border-white/10 rounded-lg px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={handleChat}
                 disabled={chatLoading || loading || !chatInput.trim()}
-                className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-4 py-2.5 rounded-lg cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="shrink-0 bg-orange-500 text-slate-950 text-[13px] font-semibold px-4 py-2.5 rounded-lg cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {chatLoading ? '…' : 'Ask'}
               </button>
@@ -1588,7 +1599,7 @@ export function PrepClient({
         )}
 
         {brief && !loading && (
-          <div className="bg-white border border-slate-200 rounded p-6 no-print">
+          <div className="bg-white/5 border border-white/10 rounded p-6 no-print">
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-3">
               Refine this brief
             </p>
@@ -1602,7 +1613,7 @@ export function PrepClient({
                   key={chip}
                   type="button"
                   onClick={() => { setRefineInput(chip); refineRef.current?.focus() }}
-                  className="text-[12px] text-slate-500 border border-slate-200 rounded-full px-3 py-1 hover:border-slate-400 hover:text-slate-700 bg-transparent cursor-pointer transition-colors"
+                  className="text-[12px] text-slate-400 border border-white/10 rounded-full px-3 py-1 hover:border-white/30 hover:text-slate-200 bg-transparent cursor-pointer transition-colors"
                 >
                   {chip}
                 </button>
@@ -1619,13 +1630,13 @@ export function PrepClient({
                 placeholder="Or type your own refinement request..."
                 rows={2}
                 disabled={refining}
-                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
+                className="flex-1 border border-white/10 rounded-lg px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={handleRefine}
                 disabled={refining || !refineInput.trim()}
-                className="shrink-0 bg-slate-900 text-white text-[13px] font-semibold px-5 py-2.5 rounded-lg cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="shrink-0 bg-orange-500 text-slate-950 text-[13px] font-semibold px-5 py-2.5 rounded-lg cursor-pointer border-0 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {refining ? 'Refining…' : 'Refine'}
               </button>
@@ -1635,7 +1646,7 @@ export function PrepClient({
         )}
 
         {brief && (
-          <div className="mt-6 bg-slate-900 rounded px-6 py-5 no-print">
+          <div className="mt-6 border border-white/10 bg-white/5 backdrop-blur-md rounded px-6 py-5 no-print">
             <div className="flex items-center justify-between gap-4 mb-3">
               <p className="text-[13px] text-slate-300 font-semibold">
                 Draft outreach from this brief
@@ -1645,7 +1656,7 @@ export function PrepClient({
                   type="button"
                   onClick={handleGenerateOutreach}
                   disabled={outreachLoading}
-                  className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
+                  className="shrink-0 text-[12px] font-semibold text-white border border-slate-600 hover:border-white/30 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
                 >
                   Generate →
                 </button>
@@ -1669,7 +1680,7 @@ export function PrepClient({
                   <button
                     type="button"
                     onClick={handleCopyOutreach}
-                    className="text-[12px] font-semibold text-white border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent"
+                    className="text-[12px] font-semibold text-white border border-slate-600 hover:border-white/30 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent"
                   >
                     {outreachCopied ? 'Copied!' : 'Copy'}
                   </button>
@@ -1678,7 +1689,7 @@ export function PrepClient({
                       type="button"
                       onClick={handleLogOutreach}
                       disabled={outreachLogLoading}
-                      className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-400 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
+                      className="text-[12px] font-semibold text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-white/30 px-3 py-1.5 rounded transition-colors cursor-pointer bg-transparent disabled:opacity-50"
                     >
                       {outreachLogLoading ? 'Logging…' : 'Log as sent'}
                     </button>
@@ -1707,7 +1718,7 @@ export function PrepClient({
             )}
 
             {!outreachDraft && !outreachLoading && !outreachError && (
-              <p className="text-[12px] text-slate-500">
+              <p className="text-[12px] text-slate-400">
                 Generates a 3-sentence message grounded in this company&apos;s signals and your prep brief.
                 {!hasContacts && ' Add a contact at ' + companyName + ' to log the outreach after.'}
               </p>

@@ -1,4 +1,4 @@
-import { DraftPanel } from '@/components/DraftPanel'
+﻿import { DraftPanel } from '@/components/DraftPanel'
 import { SIGNAL_LABELS, type SignalDetailRow } from './company-detail-constants'
 
 type Props = {
@@ -16,9 +16,9 @@ export function SignalsPanel(props: Props) {
   }
 
   return (
-    <div className="divide-y divide-slate-50">
+    <div className="divide-y divide-white/10">
       {props.signals.map((sig) => {
-        const sl = SIGNAL_LABELS[sig.signal_type] ?? { label: sig.signal_type, cls: 'bg-slate-100 text-slate-500' }
+        const sl = SIGNAL_LABELS[sig.signal_type] ?? { label: sig.signal_type, cls: 'bg-white/10 text-slate-400' }
         const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
         return (
           <div key={sig.id} className="px-6 py-5">
@@ -28,19 +28,21 @@ export function SignalsPanel(props: Props) {
                 {sl.label}
               </span>
             </div>
-            <p className="text-[14px] text-slate-900 leading-relaxed mb-1.5">{sig.signal_summary}</p>
-            {sig.outreach_angle && <p className="text-[13px] text-slate-500 leading-relaxed italic">{sig.outreach_angle}</p>}
+            <p className="text-[14px] text-white leading-relaxed mb-1.5">{sig.signal_summary}</p>
+            {sig.outreach_angle && <p className="text-[13px] text-slate-400 leading-relaxed italic">{sig.outreach_angle}</p>}
             {sig.outreach_draft && <DraftPanel draft={sig.outreach_draft} />}
-            {sig.source_url && (
+            {sig.source_url && /^https?:\/\//i.test(sig.source_url) ? (
               <a
                 href={sig.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-2 text-[12px] text-slate-400 hover:text-slate-700 transition-colors"
+                className="inline-block mt-2 text-[12px] text-slate-400 hover:text-slate-200 transition-colors"
               >
                 Source {'->'}
               </a>
-            )}
+            ) : sig.source_url ? (
+              <span className="inline-block mt-2 text-[12px] text-slate-500">Source: monitored feed</span>
+            ) : null}
           </div>
         )
       })}

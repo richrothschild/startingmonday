@@ -26,8 +26,23 @@ type TraceOpts = { feature: string; inputSnapshot?: Record<string, unknown> }
 function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supabase: Awaited<ReturnType<typeof createClient>>, userId: string, model: string, traceOpts?: TraceOpts) {
   const encoder = new TextEncoder()
   const startMs = Date.now()
+  // Shared with cancel(): when the client disconnects mid-generation, the
+  // controller closes and any further enqueue throws "Invalid state:
+  // Controller is already closed". Guard every enqueue and abort the
+  // upstream Anthropic stream so tokens stop billing.
+  let closed = false
+  let anthropicStream: ReturnType<typeof anthropic.messages.stream> | null = null
   return new ReadableStream({
     async start(controller) {
+      const safeEnqueue = (chunk: Uint8Array) => {
+        if (closed) return
+        try { controller.enqueue(chunk) } catch { closed = true }
+      }
+      const safeClose = () => {
+        if (closed) return
+        try { controller.close() } catch { /* already closed */ }
+        closed = true
+      }
       try {
         const stream = anthropic.messages.stream({
           model,
@@ -36,14 +51,21 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
           system: PREP_SYSTEM,
           messages,
         })
+        anthropicStream = stream
         let outputBuffer = ''
         stream.on('text', text => {
-          controller.enqueue(encoder.encode(text))
+          safeEnqueue(encoder.encode(text))
           if (traceOpts && outputBuffer.length < 2000) outputBuffer += text
         })
         const final = await stream.finalMessage()
-        controller.enqueue(encoder.encode(encodeUserId(userId)))
-        controller.close()
+        if (final.stop_reason === 'max_tokens') {
+          console.warn(JSON.stringify({
+            ts: new Date().toISOString(), event: 'prep_brief_truncated',
+            feature: traceOpts?.feature ?? 'prep_brief', userId, model, maxTokens,
+          }))
+        }
+        safeEnqueue(encoder.encode(encodeUserId(userId)))
+        safeClose()
         const tokens = (final.usage.input_tokens ?? 0) + (final.usage.output_tokens ?? 0)
         trackApiUsage(supabase, userId, tokens).catch(() => {})
         if (traceOpts) {
@@ -61,9 +83,13 @@ function makeStream(messages: Anthropic.MessageParam[], maxTokens: number, supab
         const errStr = err instanceof Error ? err.message : 'Unknown error'
         console.error('[prep-route] stream failure', { feature, userId, model, error: errStr })
         recordTraceError({ feature, userId, model, latencyMs: Date.now() - startMs, error: errStr })
-        controller.enqueue(encoder.encode(streamErrorMessage(err, { feature, userId })))
-        controller.close()
+        safeEnqueue(encoder.encode(streamErrorMessage(err, { feature, userId })))
+        safeClose()
       }
+    },
+    cancel() {
+      closed = true
+      try { anthropicStream?.abort() } catch { /* best effort */ }
     },
   })
 }
@@ -543,7 +569,7 @@ export async function GET(
 
   const readable = makeStream(
     [{ role: 'user', content: userPrompt }],
-    8000,
+    16000, // the brief template spans ~20 sections; 8000 truncated at the cap in production
     supabase,
     userId,
     model,
@@ -605,7 +631,7 @@ export async function POST(
         content: `Here is the current interview prep brief:\n\n${brief}\n\n---\n\nModification request: ${refinementRequest}\n\nReturn the complete updated brief incorporating this change precisely. Keep all ## section headers. Maintain the same direct, senior-to-senior tone. No em dashes. No motivational language.`,
       },
     ],
-    6000,
+    16000, // refine rewrites the full brief; 6000 guaranteed truncation
     supabase,
     userId,
     model,

@@ -1,4 +1,4 @@
-import { addDocument, removeDocument } from './actions'
+﻿import { addDocument, removeDocument } from './actions'
 import { DOC_LABELS } from './company-detail-constants'
 
 type DocumentRow = {
@@ -19,9 +19,9 @@ export function DocumentsPanel(props: Props) {
   return (
     <>
       {documents.length > 0 && (
-        <div className="divide-y divide-slate-50">
+        <div className="divide-y divide-white/10">
           {documents.map((doc) => {
-            const dl = DOC_LABELS[doc.label] ?? { label: doc.label, cls: 'bg-slate-100 text-slate-500' }
+            const dl = DOC_LABELS[doc.label] ?? { label: doc.label, cls: 'bg-white/10 text-slate-400' }
             return (
               <div key={doc.id} className="px-6 py-4 flex items-start gap-4">
                 <div className="flex-1 min-w-0">
@@ -48,7 +48,7 @@ export function DocumentsPanel(props: Props) {
         </div>
       )}
 
-      <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
+      <div className="px-6 py-5 border-t border-white/10 bg-white/5">
         <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Add document</div>
         <form action={addDocument.bind(null, companyId)} className="flex flex-col gap-3">
           <div>
@@ -56,7 +56,7 @@ export function DocumentsPanel(props: Props) {
             <select
               id="doc-label"
               name="label"
-              className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+              className="w-full border border-white/10 rounded px-3 py-2 text-[13px] text-white focus:outline-none focus:border-slate-400 bg-white/5"
             >
               <option value="job_description">Job Description</option>
               <option value="news">News & Press</option>
@@ -75,11 +75,11 @@ export function DocumentsPanel(props: Props) {
               required
               rows={7}
               placeholder="Paste a job description, news article, annual report excerpt, or org notes..."
-              className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white leading-relaxed"
+              className="w-full border border-white/10 rounded px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white/5 leading-relaxed"
             />
           </div>
           <div>
-            <button type="submit" className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0">
+            <button type="submit" className="bg-orange-500 text-slate-950 text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0">
               Save document
             </button>
           </div>

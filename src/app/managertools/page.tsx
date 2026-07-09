@@ -37,7 +37,6 @@ const MANAGER_TOOLS_FAQS: FAQ[] = [
 export default function ManagerToolsPage() {
   return (
     <>
-      <h1 className="sr-only">Starting Monday for Manager Tools members</h1>
       <PHProvider>
         <LandingPage
           sourcePage="/managertools"
