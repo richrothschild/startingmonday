@@ -1,4 +1,4 @@
-import { addInterviewLog, deleteInterviewLog } from './actions'
+﻿import { addInterviewLog, deleteInterviewLog } from './actions'
 import type { InterviewLog } from './company-detail-constants'
 
 type Props = {
@@ -13,7 +13,7 @@ export function InterviewSessionsPanel(props: Props) {
   return (
     <>
       {interviewLogs.length > 0 && (
-        <div className="divide-y divide-slate-50">
+        <div className="divide-y divide-white/10">
           {interviewLogs.map((log) => {
             const dateLabel = log.interview_date
               ? new Date(log.interview_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -24,7 +24,7 @@ export function InterviewSessionsPanel(props: Props) {
                   <div className="flex items-center gap-3 flex-wrap">
                     {dateLabel && <span className="text-[13px] text-slate-400">{dateLabel}</span>}
                     {log.interview_stage && (
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-300">
                         {log.interview_stage}
                       </span>
                     )}
@@ -41,25 +41,25 @@ export function InterviewSessionsPanel(props: Props) {
                 {log.questions_asked && (
                   <div className="mb-3">
                     <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">Questions asked</p>
-                    <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.questions_asked}</p>
+                    <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">{log.questions_asked}</p>
                   </div>
                 )}
                 {log.what_landed && (
                   <div className="mb-3">
                     <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">What landed</p>
-                    <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.what_landed}</p>
+                    <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">{log.what_landed}</p>
                   </div>
                 )}
                 {log.what_surprised && (
                   <div className="mb-3">
                     <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">What surprised me</p>
-                    <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.what_surprised}</p>
+                    <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">{log.what_surprised}</p>
                   </div>
                 )}
                 {log.follow_up_needed && (
                   <div>
                     <p className="text-[10px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1">Follow-up needed</p>
-                    <p className="text-[13px] text-slate-700 leading-relaxed whitespace-pre-wrap">{log.follow_up_needed}</p>
+                    <p className="text-[13px] text-slate-300 leading-relaxed whitespace-pre-wrap">{log.follow_up_needed}</p>
                   </div>
                 )}
               </div>
@@ -68,7 +68,7 @@ export function InterviewSessionsPanel(props: Props) {
         </div>
       )}
 
-      <div className="px-6 py-5 border-t border-slate-100 bg-slate-50">
+      <div className="px-6 py-5 border-t border-white/10 bg-white/5">
         <div className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-4">Log session</div>
         <form action={addInterviewLog.bind(null, companyId)} className="flex flex-col gap-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -79,7 +79,7 @@ export function InterviewSessionsPanel(props: Props) {
                 type="date"
                 aria-label="Interview date"
                 defaultValue={todayISO}
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                className="w-full border border-white/10 rounded px-3 py-2 text-[13px] text-white focus:outline-none focus:border-slate-400 bg-white/5"
               />
             </div>
             <div>
@@ -88,7 +88,7 @@ export function InterviewSessionsPanel(props: Props) {
                 name="interview_stage"
                 type="text"
                 placeholder="Recruiter screen, Hiring manager, Panel..."
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white"
+                className="w-full border border-white/10 rounded px-3 py-2 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 bg-white/5"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ export function InterviewSessionsPanel(props: Props) {
               name="questions_asked"
               rows={2}
               placeholder="What were you asked?"
-              className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
+              className="w-full border border-white/10 rounded px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white/5"
             />
           </div>
           <div>
@@ -107,7 +107,7 @@ export function InterviewSessionsPanel(props: Props) {
               name="what_landed"
               rows={2}
               placeholder="What resonated, what got them nodding..."
-              className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
+              className="w-full border border-white/10 rounded px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white/5"
             />
           </div>
           <div>
@@ -116,7 +116,7 @@ export function InterviewSessionsPanel(props: Props) {
               name="what_surprised"
               rows={2}
               placeholder="Unexpected questions, tone shifts, things you did not anticipate..."
-              className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
+              className="w-full border border-white/10 rounded px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white/5"
             />
           </div>
           <div>
@@ -125,13 +125,13 @@ export function InterviewSessionsPanel(props: Props) {
               name="follow_up_needed"
               rows={2}
               placeholder="What to prep differently, what to send, what to address next time..."
-              className="w-full border border-slate-200 rounded px-3 py-2.5 text-[13px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white"
+              className="w-full border border-white/10 rounded px-3 py-2.5 text-[13px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none bg-white/5"
             />
           </div>
           <div>
             <button
               type="submit"
-              className="bg-slate-900 text-white text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0"
+              className="bg-orange-500 text-slate-950 text-[13px] font-semibold px-5 py-2 rounded cursor-pointer border-0"
             >
               Save session
             </button>

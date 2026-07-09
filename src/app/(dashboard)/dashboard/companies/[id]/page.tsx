@@ -48,6 +48,20 @@ type CompanyDetailRow = {
   offer_decision_factors: string | null
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { title: 'Company' }
+  const { data: company } = await supabase
+    .from('companies')
+    .select('name')
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .maybeSingle()
+  return { title: company?.name ?? 'Company' }
+}
+
 export default async function CompanyPage({
   params,
   searchParams,
@@ -136,7 +150,15 @@ export default async function CompanyPage({
         competitive_context: (rawCompany as { competitive_context?: string | null }).competitive_context ?? null,
       } as CompanyDetailRow
     : null
-  const signals = (rawSignals ?? []) as unknown as SignalDetailRow[]
+  const signals = (() => {
+    const seen = new Set<string>()
+    return ((rawSignals ?? []) as unknown as SignalDetailRow[]).filter(s => {
+      const key = (s.signal_summary ?? '').trim().toLowerCase()
+      if (!key || seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  })()
   const scans = (rawScans ?? []) as unknown as ScanResult[]
   const latestScan = scans[0] ?? null
   const scanHistory = scans.slice(1)
@@ -174,16 +196,16 @@ export default async function CompanyPage({
       : null
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="relative min-h-screen bg-slate-950 font-sans text-slate-100">
 
-      <header className="bg-slate-900">
+      <header className="border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-600">
+          <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-slate-300">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
           <Link
             href="/dashboard"
-            className="text-[13px] text-slate-500 hover:text-slate-300 transition-colors"
+            className="text-[13px] text-slate-400 hover:text-slate-300 transition-colors"
           >
             ← Dashboard
           </Link>
@@ -194,27 +216,27 @@ export default async function CompanyPage({
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
           <div>
-            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">{company.name}</h1>
+            <h1 className="text-[26px] font-bold text-white leading-tight">{company.name}</h1>
             {company.sector && (
-              <p className="text-[13px] text-slate-500 mt-1.5">{company.sector}</p>
+              <p className="text-[13px] text-slate-400 mt-1.5">{company.sector}</p>
             )}
           </div>
           <div className="flex items-center gap-3 flex-wrap">
             <Link
               href={`/dashboard/profile/tailor?companyId=${id}`}
-              className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+              className="text-[13px] font-semibold text-slate-300 bg-white/5 border border-white/10 hover:border-white/30 px-4 py-2 rounded transition-colors"
             >
               Tailor resume
             </Link>
             <Link
               href={`/dashboard/companies/${id}/prep?stage=informal_meeting`}
-              className="text-[13px] font-semibold text-slate-600 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+              className="text-[13px] font-semibold text-slate-300 bg-white/5 border border-white/10 hover:border-white/30 px-4 py-2 rounded transition-colors"
             >
               Conversation prep
             </Link>
             <Link
               href={`/dashboard/companies/${id}/prep`}
-              className="text-[13px] font-semibold text-slate-900 bg-white border border-slate-200 hover:border-slate-400 px-4 py-2 rounded transition-colors"
+              className="text-[13px] font-semibold text-white bg-white/5 border border-white/10 hover:border-white/30 px-4 py-2 rounded transition-colors"
             >
               Interview prep
             </Link>
@@ -224,13 +246,13 @@ export default async function CompanyPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
           {/* Edit form */}
-          <section id="company-details" className="bg-white border border-slate-200 rounded p-5 sm:p-8">
+          <section id="company-details" className="bg-white/5 border border-white/10 rounded p-5 sm:p-8">
             <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">
               Company details
             </h2>
 
             {errorMsg && (
-              <div className="mb-5 px-4 py-3 bg-red-50 border border-red-200 rounded text-[13px] text-red-700">
+              <div className="mb-5 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded text-[13px] text-red-300">
                 {errorMsg}
               </div>
             )}
@@ -255,26 +277,26 @@ export default async function CompanyPage({
               </div>
             ) : null}
 
-            <div className="mb-5 bg-slate-50 border border-slate-200 rounded p-4">
-              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-2">Current snapshot</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px] text-slate-600">
-                <p><span className="font-semibold text-slate-700">Stage:</span> {(STAGES.find((s) => s.value === company.stage)?.label) ?? company.stage}</p>
-                <p><span className="font-semibold text-slate-700">Fit score:</span> {company.fit_score ?? 'Not set'}</p>
-                <p><span className="font-semibold text-slate-700">Sector:</span> {company.sector ?? 'Not set'}</p>
-                <p><span className="font-semibold text-slate-700">Size:</span> {company.company_size ?? 'Not set'}</p>
+            <div className="mb-5 bg-white/5 border border-white/10 rounded p-4">
+              <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Current snapshot</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px] text-slate-300">
+                <p><span className="font-semibold text-slate-300">Stage:</span> {(STAGES.find((s) => s.value === company.stage)?.label) ?? company.stage}</p>
+                <p><span className="font-semibold text-slate-300">Fit score:</span> {company.fit_score != null ? `${company.fit_score}/10` : 'Not set'}</p>
+                <p><span className="font-semibold text-slate-300">Sector:</span> {company.sector ?? 'Not set'}</p>
+                <p><span className="font-semibold text-slate-300">Size:</span> {company.company_size ?? 'Not set'}</p>
               </div>
             </div>
 
-            <details className="border border-slate-200 rounded">
-              <summary className="cursor-pointer list-none px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <span className="text-[13px] font-semibold text-slate-700">Edit company profile</span>
+            <details className="border border-white/10 rounded">
+              <summary className="cursor-pointer list-none px-4 py-3 bg-white/5 border-b border-white/10 flex items-center justify-between">
+                <span className="text-[13px] font-semibold text-slate-300">Edit company profile</span>
                 <span className="text-[13px] text-slate-400">Open fields</span>
               </summary>
 
               <form action={updateCompany.bind(null, id)} className="flex flex-col gap-5 p-4 sm:p-5">
 
               <div>
-                <label htmlFor="company-name" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label htmlFor="company-name" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   Company name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -283,20 +305,20 @@ export default async function CompanyPage({
                   type="text"
                   required
                   defaultValue={company.name}
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white focus:outline-none focus:border-slate-400"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="stage" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label htmlFor="stage" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                     Stage
                   </label>
                   <select
                     id="stage"
                     name="stage"
                     defaultValue={company.stage}
-                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                    className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white focus:outline-none focus:border-slate-400 bg-white/5"
                   >
                     {STAGES.map(s => (
                       <option key={s.value} value={s.value}>{s.label}</option>
@@ -305,7 +327,7 @@ export default async function CompanyPage({
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                     Fit score <span className="text-slate-300 font-normal">(1–10)</span>
                   </label>
                   <input
@@ -315,7 +337,7 @@ export default async function CompanyPage({
                     max="10"
                     defaultValue={company.fit_score ?? ''}
                     placeholder="-"
-                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                    className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                   />
                   <p className="mt-1.5 text-[13px] text-slate-400">1 = weak fit &middot; 10 = dream company</p>
                 </div>
@@ -323,7 +345,7 @@ export default async function CompanyPage({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                     Sector
                   </label>
                   <input
@@ -331,18 +353,18 @@ export default async function CompanyPage({
                     type="text"
                     defaultValue={company.sector ?? ''}
                     placeholder="e.g. Healthcare, Fintech"
-                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                    className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                   />
                 </div>
                 <div>
-                  <label htmlFor="edit_company_size" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                  <label htmlFor="edit_company_size" className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                     Company size
                   </label>
                   <select
                     id="edit_company_size"
                     name="company_size"
                     defaultValue={company.company_size ?? ''}
-                    className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-slate-400 bg-white"
+                    className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white focus:outline-none focus:border-slate-400 bg-white/5"
                   >
                     <option value="">Unknown</option>
                     <option value="startup">Startup (under 200)</option>
@@ -353,7 +375,7 @@ export default async function CompanyPage({
               </div>
 
               <div>
-                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   Company website
                 </label>
                 <input
@@ -361,13 +383,13 @@ export default async function CompanyPage({
                   type="text"
                   defaultValue={company.company_url ?? ''}
                   placeholder="acme.com or https://acme.com"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Main URL - used to discover press room and leadership page</p>
               </div>
 
               <div>
-                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   Career page URL
                 </label>
                 <input
@@ -375,13 +397,13 @@ export default async function CompanyPage({
                   type="text"
                   defaultValue={company.career_page_url ?? ''}
                   placeholder="acme.com/careers or https://acme.com/careers"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Used in job scans - runs Mon / Wed / Fri</p>
               </div>
 
               <div>
-                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   LinkedIn company URL
                 </label>
                 <input
@@ -389,13 +411,13 @@ export default async function CompanyPage({
                   type="text"
                   defaultValue={company.linkedin_url ?? ''}
                   placeholder="linkedin.com/company/acme"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Used to detect executive hires and departures</p>
               </div>
 
               <div>
-                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   Crunchbase permalink
                 </label>
                 <input
@@ -403,13 +425,13 @@ export default async function CompanyPage({
                   type="text"
                   defaultValue={company.crunchbase_id ?? ''}
                   placeholder="e.g. acme-corp"
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                 />
-                <p className="mt-1.5 text-[13px] text-slate-400">Last segment of the Crunchbase URL - crunchbase.com/organization/<span className="font-medium text-slate-500">acme-corp</span>. Enables funding round signals.</p>
+                <p className="mt-1.5 text-[13px] text-slate-400">Last segment of the Crunchbase URL - crunchbase.com/organization/<span className="font-medium text-slate-400">acme-corp</span>. Enables funding round signals.</p>
               </div>
 
               <div>
-                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-1.5">
+                <label className="block text-[13px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-1.5">
                   Notes
                 </label>
                 <textarea
@@ -417,21 +439,21 @@ export default async function CompanyPage({
                   rows={4}
                   defaultValue={company.notes ?? ''}
                   placeholder={notesPlaceholder}
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Your notes are private. Only you can read them.</p>
               </div>
 
               <CompanyCompetitiveField competitiveContext={company.competitive_context} />
 
-              <div className="pt-1 border-t border-slate-100">
+              <div className="pt-1 border-t border-white/10">
                 <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">Interview Notes</p>
                 <textarea
                   name="interview_notes"
                   rows={5}
                   defaultValue={company.interview_notes ?? ''}
                   placeholder={'Add notes after each conversation. What was asked, what landed, what surprised you, who was in the room, what you want to prep differently next time.\n\nSeparate entries by stage or date - e.g. "Recruiter screen 5/7:" then "Hiring manager 5/14:"'}
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Private. Each entry sharpens your next prep brief based on what actually happened.</p>
               </div>
@@ -466,27 +488,27 @@ export default async function CompanyPage({
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Role title offered</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Role title offered</label>
                         <input
                           name="offer_role_title"
                           type="text"
                           defaultValue={co.offer_role_title ?? ''}
                           placeholder="Chief Information Officer"
-                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                          className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                         />
                       </div>
                       <div>
-                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Base salary</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Base salary</label>
                         <input
                           name="offer_base"
                           type="number"
                           defaultValue={co.offer_base ?? ''}
                           placeholder="380000"
-                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                          className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                         />
                       </div>
                       <div>
-                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Target bonus %</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Target bonus %</label>
                         <input
                           name="offer_bonus_pct"
                           type="number"
@@ -494,51 +516,51 @@ export default async function CompanyPage({
                           max="200"
                           defaultValue={co.offer_bonus_pct ?? ''}
                           placeholder="20"
-                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                          className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                         />
                         {bonusEst !== null && (
                           <p className="mt-1 text-[13px] text-slate-400">{fmt(bonusEst)} at target</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Signing bonus</label>
+                        <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Signing bonus</label>
                         <input
                           name="offer_signing"
                           type="number"
                           defaultValue={co.offer_signing ?? ''}
                           placeholder="50000"
-                          className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                          className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                         />
                       </div>
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Equity</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Equity</label>
                       <input
                         name="offer_equity"
                         type="text"
                         defaultValue={co.offer_equity ?? ''}
                         placeholder="0.5% over 4 years, 1-year cliff; or RSUs $800K vesting over 4 years"
-                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+                        className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
                       />
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Offer notes</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Offer notes</label>
                       <textarea
                         name="offer_notes"
                         rows={3}
                         defaultValue={co.offer_notes ?? ''}
                         placeholder="Deadline, conditions, what they said about flexibility, PTO, remote policy..."
-                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                        className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                       />
                     </div>
                     <div className="mt-4">
-                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-500 mb-1.5">Decision factors</label>
+                      <label className="block text-[13px] font-bold tracking-[0.07em] uppercase text-slate-400 mb-1.5">Decision factors</label>
                       <textarea
                         name="offer_decision_factors"
                         rows={4}
                         defaultValue={co.offer_decision_factors ?? ''}
                         placeholder="Relocation required - moving family from Chicago. Partner career impact. Long-term ceiling vs current trajectory. Culture from the interviews. Manager quality. Commute. Industry pivot risk."
-                        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
+                        className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-y"
                       />
                       <div className="mt-1 text-[13px] text-slate-400">Everything the numbers do not capture. Private.</div>
                     </div>
@@ -553,14 +575,14 @@ export default async function CompanyPage({
                 )
               })()}
 
-              <div className="pt-1 border-t border-slate-100">
+              <div className="pt-1 border-t border-white/10">
                 <p className="text-[13px] font-bold tracking-[0.12em] uppercase text-orange-500 mb-2">What I&rsquo;m Looking For Here</p>
                 <textarea
                   name="role_watch_description"
                   rows={3}
                   defaultValue={company.role_watch_description ?? ''}
                   placeholder="e.g. A CTO or VP Engineering role overseeing platform, specifically where they need someone to scale the team post-Series B and modernize the data stack..."
-                  className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
+                  className="w-full border border-white/10 rounded px-3 py-2.5 text-[14px] text-white placeholder:text-slate-300 focus:outline-none focus:border-slate-400 resize-none"
                 />
                 <p className="mt-1.5 text-[13px] text-slate-400">Used by the job scanner to match roles semantically, not just by keyword. More specific beats generic.</p>
               </div>
@@ -568,7 +590,7 @@ export default async function CompanyPage({
               <div>
                 <button
                   type="submit"
-                  className="bg-slate-900 text-white text-[14px] font-semibold px-6 py-2.5 rounded cursor-pointer border-0"
+                  className="bg-orange-500 text-slate-950 text-[14px] font-semibold px-6 py-2.5 rounded cursor-pointer border-0"
                 >
                   Save changes
                 </button>
@@ -577,11 +599,11 @@ export default async function CompanyPage({
               </form>
             </details>
 
-            <div className="mt-8 pt-6 border-t border-slate-100">
+            <div className="mt-8 pt-6 border-t border-white/10">
               <form action={archiveCompany.bind(null, id)}>
                 <button
                   type="submit"
-                  className="text-[13px] font-semibold text-slate-500 hover:text-red-600 hover:border-red-200 border border-slate-200 rounded px-4 py-2 cursor-pointer bg-white transition-colors"
+                  className="text-[13px] font-semibold text-slate-400 hover:text-red-400 hover:border-red-500/30 border border-white/10 rounded px-4 py-2 cursor-pointer bg-white/5 transition-colors"
                 >
                   Archive company
                 </button>
@@ -592,30 +614,32 @@ export default async function CompanyPage({
           {/* Follow-ups sidebar */}
           <div className="flex flex-col gap-4">
 
-            <details className="bg-white border border-slate-200 rounded overflow-hidden">
-              <summary className="cursor-pointer list-none px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <details className="bg-white/5 border border-white/10 rounded overflow-hidden">
+              <summary className="cursor-pointer list-none px-5 py-4 border-b border-white/10 flex items-center justify-between">
                 <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">Open Actions</span>
                 <span className="text-[13px] text-slate-400">{(followUps ?? []).length}</span>
               </summary>
               {followUps && followUps.length > 0 ? (
-                <div className="divide-y divide-slate-50">
+                <div className="divide-y divide-white/10">
                   {followUps.map(fu => {
                     const isOverdue = fu.due_date < todayISO
                     const isToday = fu.due_date === todayISO
-                    const dateLabel = isToday
-                      ? 'Today'
-                      : new Date(fu.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    const dueLabel = new Date(fu.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    const dateLabel = isToday ? 'Due today' : isOverdue ? `Overdue - due ${dueLabel}` : dueLabel
+                    // Stored action text can contain frozen relative time ("has been 8
+                    // days since intro call") that rots as days pass. Strip it at render.
+                    const actionText = fu.action.replace(/\s*(?:--|-)?\s*(?:it\s+)?has been \d+ days? since[^.]*\.?/i, '').trim() || fu.action
                     return (
                       <div key={fu.id} className="px-5 py-3.5">
-                        <div className="text-[13px] font-semibold text-slate-900 mb-1.5">{fu.action}</div>
+                        <div className="text-[13px] font-semibold text-white mb-1.5">{actionText}</div>
                         <div className="flex items-center justify-between">
-                          <span className={`text-[13px] font-semibold ${isOverdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
+                          <span className={`text-[13px] font-semibold ${isOverdue || isToday ? 'text-red-400' : 'text-slate-400'}`}>
                             {dateLabel}
                           </span>
                           <form action={markFollowUpDone.bind(null, fu.id, id)}>
                             <button
                               type="submit"
-                              className="text-[13px] text-slate-400 border border-slate-200 rounded px-2.5 py-0.5 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent"
+                              className="text-[13px] text-slate-400 border border-white/10 rounded px-2.5 py-0.5 hover:border-white/30 hover:text-slate-200 cursor-pointer bg-transparent"
                             >
                               Done
                             </button>
@@ -644,8 +668,8 @@ export default async function CompanyPage({
         />
 
         {/* Contacts */}
-        <section id="people" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <div className="px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <section id="people" className="mt-6 bg-white/5 border border-white/10 rounded overflow-hidden">
+          <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               People
             </h2>
@@ -663,8 +687,8 @@ export default async function CompanyPage({
         </section>
 
         {/* Documents */}
-        <details id="documents" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="documents" className="mt-6 bg-white/5 border border-white/10 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <div>
               <span className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Documents
@@ -680,8 +704,8 @@ export default async function CompanyPage({
         </details>
 
         {/* Scan results */}
-        <details id="job-scan" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="job-scan" className="mt-6 bg-white/5 border border-white/10 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Job Scan
             </h2>
@@ -702,11 +726,11 @@ export default async function CompanyPage({
             scanHistory={scanHistory}
           />
 
-          <div className="px-6 py-5 border-t border-slate-100 bg-slate-50/60">
-            <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-2">Report a role we missed</p>
-            <p className="text-[13px] text-slate-500 mb-3">Paste a leadership role URL. We verify it and feed confirmed misses back into scanner training.</p>
+          <div className="px-6 py-5 border-t border-white/10 bg-slate-50/60">
+            <p className="text-[12px] font-bold tracking-[0.08em] uppercase text-slate-400 mb-2">Report a role we missed</p>
+            <p className="text-[13px] text-slate-400 mb-3">Paste a leadership role URL. We verify it and feed confirmed misses back into scanner training.</p>
             {missedRoleMsg ? (
-              <p className={`mb-3 text-[13px] ${missed === '1' ? 'text-emerald-700' : 'text-red-600'}`}>
+              <p className={`mb-3 text-[13px] ${missed === '1' ? 'text-emerald-300' : 'text-red-400'}`}>
                 {missedRoleMsg}
               </p>
             ) : null}
@@ -715,18 +739,18 @@ export default async function CompanyPage({
                 type="text"
                 name="role_url"
                 placeholder="https://boards.greenhouse.io/company/jobs/12345"
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+                className="w-full border border-white/10 rounded px-3 py-2 text-[13px] text-white placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
                 required
               />
               <input
                 type="text"
                 name="role_title"
                 placeholder="Optional title"
-                className="w-full border border-slate-200 rounded px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
+                className="w-full border border-white/10 rounded px-3 py-2 text-[13px] text-white placeholder:text-slate-400 focus:outline-none focus:border-slate-400"
               />
               <button
                 type="submit"
-                className="px-3 py-2 text-[13px] font-semibold text-white bg-slate-900 rounded border border-slate-900 hover:bg-slate-800"
+                className="px-3 py-2 text-[13px] font-semibold bg-orange-500 text-slate-950 rounded border-0 hover:bg-orange-400"
               >
                 Submit
               </button>
@@ -735,8 +759,8 @@ export default async function CompanyPage({
         </details>
 
         {/* Signals */}
-        <details id="signals" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="signals" className="mt-6 bg-white/5 border border-white/10 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
               Company Signals
             </h2>
@@ -747,8 +771,8 @@ export default async function CompanyPage({
         </details>
 
         {/* Interview Logs */}
-        <details id="interview-sessions" className="mt-6 bg-white border border-slate-200 rounded overflow-hidden">
-          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-slate-200 flex items-center justify-between">
+        <details id="interview-sessions" className="mt-6 bg-white/5 border border-white/10 rounded overflow-hidden">
+          <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
             <div>
               <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400">
                 Interview Sessions

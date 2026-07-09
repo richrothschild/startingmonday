@@ -70,8 +70,10 @@ export async function scanCompany(supabase, company, userProfile) {
     const newHits = scoredHits.filter(h => h.is_new)
     const aiScore = matches.length ? Math.max(...matches.map(h => h.score)) : 0
     const aiSummary = matches.length
-      ? `${matches.length} match(es) found: ${matches.map(h => h.title).join(', ')}`
-      : `No matches among ${scoredHits.length} posting(s) detected`
+      ? `${matches.length} ${matches.length === 1 ? 'match' : 'matches'} found: ${matches.map(h => h.title).join(', ')}`
+      : scoredHits.length === 0
+        ? 'No public postings found in this scan'
+        : `No matches among ${scoredHits.length} ${scoredHits.length === 1 ? 'posting' : 'postings'} detected`
 
     // 7. Write one scan_results row
     await writeScanResult(supabase, { companyId, userId, hits: scoredHits, aiScore, aiSummary })

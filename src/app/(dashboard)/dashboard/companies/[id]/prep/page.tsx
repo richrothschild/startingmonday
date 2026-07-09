@@ -16,6 +16,20 @@ const STAGE_LABEL: Record<string, string> = {
   offer:        'Offer',
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { title: 'Interview Prep' }
+  const { data: company } = await supabase
+    .from('companies')
+    .select('name')
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .maybeSingle()
+  return { title: company?.name ? `Prep: ${company.name}` : 'Interview Prep' }
+}
+
 export default async function PrepPage({
   params,
   searchParams,
@@ -66,8 +80,7 @@ export default async function PrepPage({
   ].filter(Boolean).length / 5) * 100)
 
   return (
-    <main>
-      <h1 className="sr-only">Interview Prep Brief</h1>
+    <div>
       <nav className="sr-only" aria-label="Prep quick actions">
         <Link href={`/dashboard/companies/${id}`}>Back to company page</Link>
         <Link href={`/dashboard/companies/${id}/prep?stage=first_interview`}>Start first interview prep</Link>
@@ -89,6 +102,6 @@ export default async function PrepPage({
         firstCompany={isFirstCompany}
         initialStage={VALID_STAGES.includes(stage as InterviewStage) ? (stage as InterviewStage) : undefined}
       />
-    </main>
+    </div>
   )
 }
