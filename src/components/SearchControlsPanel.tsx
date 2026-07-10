@@ -231,21 +231,6 @@ export function SearchControlsPanel({
           )}
         </div>
       </div>
-
-      <div className="mt-4 border border-white/15 rounded p-4">
-        <p className="text-[12px] font-semibold text-white mb-2">Power views</p>
-        <div className="flex flex-wrap gap-2">
-          <TrackLink href="/dashboard?stage=interviewing" event="power_view_clicked" properties={{ target: 'interviewing' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
-            Interviewing pipeline
-          </TrackLink>
-          <TrackLink href="/dashboard?stage=applied" event="power_view_clicked" properties={{ target: 'applied' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
-            Applied pipeline
-          </TrackLink>
-          <TrackLink href="/dashboard/briefing?mode=focused" event="power_view_clicked" properties={{ target: 'briefing_focused' }} className="text-[12px] text-slate-200 border border-white/20 rounded px-2.5 py-1.5 hover:border-white/40 transition-colors">
-            Focused briefing
-          </TrackLink>
-        </div>
-      </div>
     </div>
   )
 }

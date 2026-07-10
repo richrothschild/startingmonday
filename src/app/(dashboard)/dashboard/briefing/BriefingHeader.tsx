@@ -1,12 +1,9 @@
 /**
- * BriefingHeader - Phase 1a: Redesigned hero section with primary stat card
- * 
- * NEW DESIGN (Phase 1a):
- * - Greeting + date header
- * - Primary stat card: "Find Roles First" with largest number + qualifier
- * - Supporting stat pills: Companies | Signals | Matches | Moves Ready
- * - Increased padding/spacing to match home page luxury standards
- * - Orange accent border on primary card
+ * BriefingHeader - hero section with a single primary stat card.
+ *
+ * The briefing's job is "read what changed and why it matters";
+ * detailed counts live on the dashboard, so this header keeps one
+ * headline number plus a compact context line.
  */
 
 type BriefingHeaderProps = {
@@ -58,47 +55,11 @@ export function BriefingHeader({
           </div>
         </div>
         <p className="text-[14px] sm:text-[15px] text-slate-300/90 leading-relaxed max-w-md">
-          {matchCount} aligned role {matchCount === 1 ? 'opportunity' : 'opportunities'} ready to move. Position improving.
+          {matchCount} aligned role {matchCount === 1 ? 'opportunity' : 'opportunities'} ready to move. Position {signalCount > 0 ? 'improving' : 'stable'}.
         </p>
-      </div>
-
-      {/* Supporting Stat Pills */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-lg border border-white/12 bg-white/[0.07] p-4 sm:p-5 backdrop-blur-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300/80 mb-2">
-            Under Watch
-          </p>
-          <p className="text-[28px] sm:text-[34px] font-bold text-white leading-tight">{totalCompanies}</p>
-          <p className="text-[11px] text-slate-400 mt-2">companies</p>
-        </div>
-
-        <div className="rounded-lg border border-white/12 bg-white/[0.07] p-4 sm:p-5 backdrop-blur-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100/80 mb-2">
-            Aligned Roles
-          </p>
-          <p className="text-[28px] sm:text-[34px] font-bold text-white leading-tight">{matchCount}</p>
-          <p className="text-[11px] text-slate-400 mt-2">this quarter</p>
-        </div>
-
-        <div className="rounded-lg border border-white/12 bg-white/[0.07] p-4 sm:p-5 backdrop-blur-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-100/80 mb-2">
-            Next Moves
-          </p>
-          <p className="text-[28px] sm:text-[34px] font-bold text-white leading-tight">{movesReadyCount}</p>
-          <p className="text-[11px] text-slate-400 mt-2">ready today</p>
-        </div>
-
-        <div className="rounded-lg border border-white/12 bg-white/[0.07] p-4 sm:p-5 backdrop-blur-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300/80 mb-2">
-            Position
-          </p>
-          <p className="text-[28px] sm:text-[34px] font-bold text-white leading-tight">
-            {signalCount > 0 ? '↗' : '→'}
-          </p>
-          <p className="text-[11px] text-slate-400 mt-2">
-            {signalCount > 0 ? 'improving' : 'stable'}
-          </p>
-        </div>
+        <p className="mt-4 text-[12px] text-slate-400">
+          {totalCompanies} {totalCompanies === 1 ? 'company' : 'companies'} under watch · {matchCount} aligned {matchCount === 1 ? 'role' : 'roles'} · {movesReadyCount} {movesReadyCount === 1 ? 'move' : 'moves'} ready today
+        </p>
       </div>
     </section>
   )

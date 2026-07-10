@@ -226,6 +226,14 @@ export function ContactsList({ contacts, isLeader = false }: { contacts: Contact
                 {ct.companies.name}
               </Link>
             )}
+            {ct.companies?.id && (
+              <Link
+                href={`/dashboard/companies/${ct.companies.id}/prep`}
+                className="font-semibold text-orange-200 hover:text-orange-100 transition-colors"
+              >
+                Open company brief
+              </Link>
+            )}
             <span>
               Next: <span className="font-semibold text-slate-100">{nextAction}</span>
             </span>
@@ -236,7 +244,7 @@ export function ContactsList({ contacts, isLeader = false }: { contacts: Contact
             href={`/dashboard/contacts/${ct.id}/outreach`}
             className="text-[11px] text-slate-300 hover:text-white font-medium"
           >
-            Draft
+            Draft outreach (with brief)
           </Link>
           <button
             type="button"

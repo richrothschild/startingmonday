@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { DashboardPrimaryNavSections } from './dashboard-primary-nav-sections'
 import { DashboardStatusBanners } from './dashboard-status-banners'
 import { DashboardGreetingBlock } from './dashboard-greeting-block'
@@ -22,9 +21,6 @@ type DashboardTopShellSectionProps = {
   overdueCount: number
   canUseOutreachHub: boolean
   isRothschildAdmin: boolean
-  dailyMomentumActions: DailyMomentumAction[]
-  todayISO: string
-  momentumStatus: 'low' | 'medium' | 'strong'
   profileSaved: boolean
   isTrialing: boolean
   trialDaysLeft: number
@@ -32,10 +28,6 @@ type DashboardTopShellSectionProps = {
   offerCount: number
   offerName: string | null
   offerCompanyName: string | null
-  rolesFormingCompanyName?: string | null
-  rolesFormingHeadline?: string | null
-  rolesFormingSummary?: string | null
-  rolesFormingHref?: string
   onMarkPlaced: (formData: FormData) => void | Promise<void>
   activationComplete: boolean
   activationCompletedCount: number
@@ -104,28 +96,6 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
 
       <section className="mb-4 sm:mb-6 rounded-2xl border border-slate-900 bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)] px-5 py-4 sm:px-6 sm:py-5 shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
         <DashboardGreetingBlock firstName={props.firstName} briefingTimezone={props.briefingTimezone} />
-        <p className="text-[14px] text-slate-200 mt-2.5 leading-relaxed max-w-3xl">
-          Your position is built one clear move at a time. Start with the briefing, move one relationship, then protect follow-through.
-        </p>
-        {(props.rolesFormingCompanyName || props.rolesFormingSummary) && (
-          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-orange-200/90 mb-1">Roles forming now</p>
-            <p className="text-[14px] font-semibold text-white">
-              {props.rolesFormingHeadline ?? (props.rolesFormingCompanyName ? `${props.rolesFormingCompanyName} may be moving toward a role window.` : 'A role window may be forming.')}
-            </p>
-            {props.rolesFormingSummary && (
-              <p className="text-[13px] text-slate-200 mt-1.5 leading-relaxed">
-                {props.rolesFormingSummary}
-              </p>
-            )}
-            <Link
-              href={props.rolesFormingHref ?? '/dashboard/signals'}
-              className="inline-flex min-h-[40px] items-center mt-2 text-[13px] font-semibold text-orange-200 hover:text-orange-100"
-            >
-              Review signals →
-            </Link>
-          </div>
-        )}
       </section>
 
       <DashboardPrimaryNavSections
@@ -135,8 +105,6 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
         isRothschildAdmin={props.isRothschildAdmin}
         isExecutiveMode={props.isExecutiveMode}
       />
-
-      <DailyMomentumPlan actions={props.dailyMomentumActions} dateKey={props.todayISO} status={props.momentumStatus} />
 
       {props.profileSaved && (
         <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">

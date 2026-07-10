@@ -227,20 +227,6 @@ export default function DashboardPlanPage() {
           <p className="mt-2 text-[13px] text-slate-300">
             Momentum score: {typeof momentumScore === 'number' ? momentumScore : 'not available yet'}
           </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Link
-              href="/dashboard#start-here"
-              className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10"
-            >
-              Back to Start Here
-            </Link>
-            <Link
-              href="/dashboard/outreach"
-              className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10"
-            >
-              Open outreach block
-            </Link>
-          </div>
 
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <label className="text-[13px] text-slate-200">

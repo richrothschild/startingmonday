@@ -31,9 +31,14 @@ export function DashboardPrimaryNavSections({
             <p className="text-[13px] font-medium text-orange-200">Find roles first</p>
             <p className="mt-1 text-[14px] font-semibold text-white">{signalCount} signals ready</p>
             <p className="mt-1 text-[13px] text-slate-300">Start with the clearest timing window.</p>
-            <Link href="/dashboard/briefing#tenet-find-roles" className="mt-3 inline-flex h-[44px] items-center justify-center rounded border border-orange-300/40 bg-orange-500/20 px-3 text-[13px] font-semibold text-orange-100 hover:text-white">
-              Briefing
-            </Link>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <Link href="/dashboard" className="inline-flex h-[44px] items-center justify-center rounded border border-white/20 px-3 text-[13px] font-semibold text-slate-100 hover:border-white/35">
+                Companies
+              </Link>
+              <Link href="/dashboard/briefing#tenet-find-roles" className="inline-flex h-[44px] items-center justify-center rounded border border-orange-300/40 bg-orange-500/20 px-3 text-[13px] font-semibold text-orange-100 hover:text-white">
+                Briefing
+              </Link>
+            </div>
           </article>
           <article className="rounded-xl border border-white/15 bg-white/5 p-5">
             <p className="text-[13px] font-medium text-orange-200">Talk to the right people</p>

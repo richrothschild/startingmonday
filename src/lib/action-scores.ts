@@ -108,6 +108,11 @@ export const STALL_THRESHOLDS = {
   overdueActionsStalled: 3,
 } as const
 
+function humanizeAge(days: number, fallback: string) {
+  if (!Number.isFinite(days) || days >= 365) return fallback
+  return `${days} days`
+}
+
 export function classifyGraphStalls(input: StallSnapshotInput): StallSnapshot[] {
   const stalls: StallSnapshot[] = []
 
@@ -116,13 +121,13 @@ export function classifyGraphStalls(input: StallSnapshotInput): StallSnapshot[] 
       stalls.push({
         lane: 'signals',
         state: 'stalled',
-        reason: `No fresh signals for ${input.lastSignalDays} days.`,
+        reason: `No fresh signals for ${humanizeAge(input.lastSignalDays, 'a while')}.`,
       })
     } else if (input.lastSignalDays >= STALL_THRESHOLDS.signalsWatchDays) {
       stalls.push({
         lane: 'signals',
         state: 'watch',
-        reason: `Signal intake is aging at ${input.lastSignalDays} days.`,
+        reason: `Signal intake is aging at ${humanizeAge(input.lastSignalDays, 'an unknown interval')}.`,
       })
     }
   }
@@ -132,7 +137,9 @@ export function classifyGraphStalls(input: StallSnapshotInput): StallSnapshot[] 
       stalls.push({
         lane: 'preparation',
         state: 'stalled',
-        reason: `No brief review progress for ${input.lastBriefDays} days.`,
+        reason: input.lastBriefDays >= 365
+          ? 'No recent brief review progress yet.'
+          : `No brief review progress for ${input.lastBriefDays} days.`,
       })
     } else if (input.lastBriefDays >= STALL_THRESHOLDS.briefWatchDays) {
       stalls.push({

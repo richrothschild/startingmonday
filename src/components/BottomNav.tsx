@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const NAV_ITEMS = [
   {
@@ -19,7 +19,9 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/dashboard',
+    href: '/dashboard?focus=pipeline',
+    matchPath: '/dashboard',
+    matchFocus: 'pipeline',
     label: 'Companies',
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
@@ -93,17 +95,21 @@ const NAV_ITEMS = [
 
 export function BottomNav() {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  function isActive(href: string) {
-    if (href === '/dashboard') return pathname === '/dashboard'
-    return pathname.startsWith(href)
+  function isActive(item: { href: string; matchPath?: string; matchFocus?: string }) {
+    if (item.matchPath && item.matchFocus) {
+      return pathname === item.matchPath && searchParams.get('focus') === item.matchFocus
+    }
+    if (item.href === '/dashboard') return pathname === '/dashboard'
+    return pathname.startsWith(item.href)
   }
 
   return (
     <nav aria-label="Mobile navigation" className="fixed bottom-0 left-0 right-0 z-[1000] md:hidden border-t border-white/10 bg-slate-950/90 shadow-[0_-12px_30px_rgba(15,23,42,0.32)] backdrop-blur-md safe-area-pb">
       <div className="flex items-stretch">
         {NAV_ITEMS.map(item => {
-          const active = isActive(item.href)
+          const active = isActive(item)
           return (
             <Link
               key={`${item.label}-${item.href}`}

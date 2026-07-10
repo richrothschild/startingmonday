@@ -1,8 +1,7 @@
 import { SuggestionCards } from '@/components/SuggestionCards'
-import { SearchControlsPanel } from '@/components/SearchControlsPanel'
+import Link from 'next/link'
 import { DashboardIntelSetupSections } from './dashboard-intel-setup-sections'
 import { DashboardPipelinePulse } from './dashboard-pipeline-pulse'
-import { DashboardProgressFeedSection } from './dashboard-progress-feed-section'
 import { DashboardWeeklyPerformanceSection } from './dashboard-weekly-performance-section'
 import type { WeekActivity } from '@/components/ActivityChart'
 import type { VelocityRow } from '@/components/PipelineVelocity'
@@ -15,46 +14,6 @@ type DashboardAdvancedModulesSectionProps = {
   daysSinceLastAction: number | null
   weekSlots: WeekActivity[]
   velocityRows: VelocityRow[]
-  isCoach: boolean
-  initialFrequency: 'daily' | 'weekly'
-  initialBriefingTime: string | null
-  isPaused: boolean
-  todayISO: string
-  followUps: Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>
-  warmPaths: Array<{
-    contactId: string
-    contactName: string
-    contactTitle: string | null
-    companyId: string
-    companyName: string
-    signal: {
-      id: string
-      signal_type: string
-      signal_summary: string
-      outreach_angle?: string | null
-      signal_date: string
-      company_id: string
-      companies: { id: string; name: string } | null
-    }
-  }>
-  patternAlerts: Array<{
-    id: string
-    signal_type: string
-    signal_summary: string
-    outreach_angle?: string | null
-    signal_date: string
-    company_id: string
-    companies: { id: string; name: string } | null
-  }>
-  signals: Array<{
-    id: string
-    signal_type: string
-    signal_summary: string
-    outreach_angle?: string | null
-    signal_date: string
-    company_id: string
-    companies: { id: string; name: string } | null
-  }>
   activationComplete: boolean
   hasFilters: boolean
   setupSteps: Array<{
@@ -104,34 +63,21 @@ export function DashboardAdvancedModulesSection(props: DashboardAdvancedModulesS
         daysSinceLastAction={props.daysSinceLastAction}
         weekSlots={props.weekSlots}
         velocityRows={props.velocityRows}
-        isCoach={props.isCoach}
         isExecutiveMode={props.isExecutiveMode}
         executiveStageLabel={props.executiveStageLabel}
         riskItems={props.riskItems}
         offerCockpit={props.offerCockpit}
       />
 
-      <SearchControlsPanel
-        initialFrequency={props.initialFrequency}
-        initialBriefingTime={props.initialBriefingTime}
-        isPaused={props.isPaused}
-      />
-
-      <DashboardProgressFeedSection
-        todayISO={props.todayISO}
-        followUps={props.followUps}
-        warmPaths={props.warmPaths}
-        patternAlerts={props.patternAlerts}
-        signals={props.signals}
-        isExecutiveMode={props.isExecutiveMode}
-      />
+      <div className="bg-white/5 border border-white/15 rounded p-5 mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-1">Search controls</p>
+          <p className="text-[13px] text-slate-200">Briefing time, frequency, pause, and activity snooze now live in settings.</p>
+        </div>
+        <Link href="/settings" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 shrink-0">Open settings →</Link>
+      </div>
 
       <DashboardIntelSetupSections
-        todayISO={props.todayISO}
-        followUps={props.followUps}
-        warmPaths={props.warmPaths}
-        patternAlerts={props.patternAlerts}
-        signals={props.signals}
         activation={{ isComplete: props.activationComplete }}
         hasFilters={props.hasFilters}
         setupSteps={props.setupSteps}

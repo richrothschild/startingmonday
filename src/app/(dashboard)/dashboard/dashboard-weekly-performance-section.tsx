@@ -15,7 +15,6 @@ type DashboardWeeklyPerformanceSectionProps = {
   daysSinceLastAction: number | null
   weekSlots: WeekActivity[]
   velocityRows: VelocityRow[]
-  isCoach: boolean
   isExecutiveMode: boolean
   executiveStageLabel: string
   riskItems: Array<{
@@ -42,7 +41,6 @@ export function DashboardWeeklyPerformanceSection({
   daysSinceLastAction,
   weekSlots,
   velocityRows,
-  isCoach,
   isExecutiveMode,
   executiveStageLabel,
   riskItems,
@@ -53,46 +51,6 @@ export function DashboardWeeklyPerformanceSection({
     medium: 'border-amber-300/30 bg-amber-900/28 text-amber-100 shadow-[0_12px_30px_rgba(2,6,23,0.18)]',
     high: 'border-rose-300/20 bg-rose-950/28 text-rose-100 shadow-[0_12px_30px_rgba(2,6,23,0.2)]',
   } as const
-
-  const quickActions = isExecutiveMode
-    ? (
-      executiveStageLabel === 'Offer and Decision'
-        ? [
-            { href: '/dashboard/offers', label: 'Offer Tradeoffs' },
-            { href: '/dashboard/strategy', label: 'No-go Criteria' },
-            { href: '/dashboard/contacts', label: 'Reference Push' },
-            { href: '/dashboard/calendar', label: 'Decision Timeline' },
-            { href: '/dashboard/briefing', label: 'Risk Review' },
-            { href: '/dashboard/wrap-up', label: 'Transition Plan' },
-          ]
-        : executiveStageLabel === 'Interviewing and Conversion'
-          ? [
-              { href: '/dashboard/strategy', label: 'Prep Brief' },
-              { href: '/dashboard/signals', label: 'Signal Angle' },
-              { href: '/dashboard/contacts', label: 'Warm Intros' },
-              { href: '/dashboard/calendar', label: 'Follow-up SLA' },
-              { href: '/dashboard/briefing', label: 'Daily Priorities' },
-              { href: '/dashboard/positioning', label: 'Narrative Tighten' },
-            ]
-          : [
-              { href: '/dashboard/briefing', label: 'Daily Briefing' },
-              { href: '/dashboard/companies/new', label: 'Add Target' },
-              { href: '/dashboard/contacts', label: 'Build Sponsor Map' },
-              { href: '/dashboard/signals', label: 'Signals' },
-              { href: '/dashboard/strategy', label: 'Strategy Brief' },
-              { href: '/dashboard/profile', label: 'Profile Inputs' },
-            ]
-    )
-    : [
-        { href: '/dashboard/briefing', label: 'Daily Briefing' },
-        { href: '/dashboard/strategy', label: 'Strategy Brief' },
-        { href: '/dashboard/discover', label: 'Discover' },
-        { href: '/dashboard/calendar', label: 'Calendar' },
-        { href: '/optimize', label: 'LinkedIn' },
-        { href: '/dashboard/positioning', label: 'Positioning' },
-        { href: '/dashboard/profile', label: 'Configure Search' },
-        ...(isCoach ? [{ href: '/dashboard/coach', label: 'My Clients' }] : []),
-      ]
 
   return (
     <>
@@ -312,23 +270,6 @@ export function DashboardWeeklyPerformanceSection({
           <PipelineVelocity companies={velocityRows} />
         </>
       )}
-
-      <section id="quick-actions" className="mb-6 sm:mb-2">
-        <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">
-          {isExecutiveMode ? 'Stage actions' : 'Quick actions'}
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 sm:gap-3">
-          {quickActions.map((a) => (
-            <Link
-              key={a.href}
-              href={a.href}
-              className="group bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 hover:shadow-sm transition-all"
-            >
-              <p className="text-[13px] font-semibold text-slate-100 group-hover:text-white">{a.label}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
     </>
   )
 }

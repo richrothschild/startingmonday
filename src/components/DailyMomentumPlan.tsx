@@ -183,21 +183,15 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
 
   return (
     <section id="daily-momentum-plan" className="mb-6 rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-      <div className="px-5 py-5 sm:px-6 sm:py-6 border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.2),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)]">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-[42rem]">
-            <p className="text-[13px] font-semibold text-orange-200 mb-2">Today&apos;s momentum plan</p>
-            <h2 className="text-[20px] font-bold text-white leading-tight mb-2">Three actions. One screen. No extra sprawl.</h2>
-            <p className="text-[13px] text-slate-200 leading-relaxed">{statusCopy.body}</p>
-            <p className="mt-2 text-[12px] text-slate-300">Your daily three map to the same tenets: roles, relationships, and plan.</p>
+      <div className="px-5 py-4 sm:px-6 border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.2),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2 className="text-[15px] font-bold text-white leading-tight">Today&apos;s three actions</h2>
+            <span className="text-[12px] text-slate-300">{completedCount} of 3 complete · day complete at two</span>
           </div>
-          <div className={`inline-flex items-center self-start rounded-full border px-3 py-1 text-[13px] font-semibold ${statusCopy.accent}`}>
+          <div className={`inline-flex items-center self-start rounded-full border px-3 py-1 text-[12px] font-semibold ${statusCopy.accent}`}>
             {statusCopy.chip}
           </div>
-        </div>
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-[13px] text-slate-300">
-          <span>{completedCount} of 3 actions complete</span>
-          <span>Day complete when two or more actions are done.</span>
         </div>
       </div>
 
@@ -221,8 +215,8 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                         {action.effortMinutes} min
                       </span>
                     </div>
-                    <h3 className="text-[16px] font-semibold text-white mb-1">{action.title}</h3>
-                    <p className="text-[13px] leading-relaxed text-slate-200">{action.body}</p>
+                    <h3 className="text-[15px] font-semibold text-white mb-1">{action.title}</h3>
+                    <p className="text-[13px] leading-snug text-slate-200 line-clamp-2">{action.body}</p>
                   </div>
 
                   <div className="flex flex-col gap-3 lg:w-[15rem] lg:items-end">
@@ -260,12 +254,10 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <label className="block text-[13px] font-medium text-slate-200 mb-2" htmlFor={`daily-note-${action.id}`}>
-                    Optional note
-                  </label>
+                <div className="mt-3">
                   <input
                     id={`daily-note-${action.id}`}
+                    aria-label="Optional note"
                     value={state.notes[action.id] ?? ''}
                     onChange={(event) => setState((current) => ({
                       ...current,
