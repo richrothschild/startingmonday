@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { DashboardTopShellSection } from '@/app/(dashboard)/dashboard/dashboard-top-shell-section'
-import type { DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { markPlaced } from '@/app/(dashboard)/dashboard/placed/actions'
 
 const previewActions: DailyMomentumAction[] = [
@@ -60,9 +60,6 @@ export default function DashboardThemePreviewPage() {
           overdueCount={3}
           canUseOutreachHub
           isRothschildAdmin
-          dailyMomentumActions={previewActions}
-          todayISO={new Date().toISOString().slice(0, 10)}
-          momentumStatus="medium"
           profileSaved={false}
           isTrialing={false}
           trialDaysLeft={0}
@@ -91,6 +88,8 @@ export default function DashboardThemePreviewPage() {
             cta: 'Open decision brief',
           }}
         />
+
+        <DailyMomentumPlan actions={previewActions} dateKey={new Date().toISOString().slice(0, 10)} status="medium" />
 
       </main>
     </div>

@@ -57,25 +57,33 @@ export function DashboardPipelineSection(props: Props) {
 
   return (
     <section id="pipeline" className="rounded border border-white/10 bg-slate-900/70 overflow-hidden shadow-[0_14px_34px_rgba(2,6,23,0.35)]">
-      <div className="px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
-        <h2 className="text-[13px] font-semibold text-slate-400">
-          Pipeline
-        </h2>
-        <div className="flex items-center gap-4">
-          <span className="text-[12px] text-slate-400">
-            {hasFilters && totalFiltered === 0
-              ? `0 of ${totalCount}`
-              : totalPages > 1 || hasFilters
-                ? `${start + 1}-${Math.min(start + pageSize, totalFiltered)} of ${totalFiltered}`
-                : totalCount} {totalCount === 1 ? 'company' : 'companies'}
-          </span>
-          <Link
-            href="/dashboard/companies/new"
-            className="inline-flex min-h-[44px] items-center rounded border border-slate-600 bg-slate-800 px-3 text-[12px] font-semibold text-slate-100 transition-colors hover:border-slate-500 hover:bg-slate-700"
-          >
-            Add company
-          </Link>
-        </div>
+      <details open className="group">
+        <summary className="cursor-pointer list-none px-6 py-[18px] border-b border-white/10 flex items-center justify-between">
+          <h2 className="text-[13px] font-semibold text-slate-400">
+            Pipeline
+          </h2>
+          <div className="flex items-center gap-4">
+            <span className="text-[12px] text-slate-400">
+              {hasFilters && totalFiltered === 0
+                ? `0 of ${totalCount}`
+                : totalPages > 1 || hasFilters
+                  ? `${start + 1}-${Math.min(start + pageSize, totalFiltered)} of ${totalFiltered}`
+                  : totalCount} {totalCount === 1 ? 'company' : 'companies'}
+            </span>
+            <span className="text-[11px] font-semibold text-slate-400">
+              <span className="group-open:hidden">Expand</span>
+              <span className="hidden group-open:inline">Collapse</span>
+            </span>
+          </div>
+        </summary>
+
+      <div className="px-4 sm:px-6 pt-3 flex justify-end">
+        <Link
+          href="/dashboard/companies/new"
+          className="inline-flex min-h-[36px] items-center rounded border border-slate-600 bg-slate-800 px-3 text-[12px] font-semibold text-slate-100 transition-colors hover:border-slate-500 hover:bg-slate-700"
+        >
+          Add company
+        </Link>
       </div>
 
       <PipelineFilter q={q} stage={stage} stages={stageOptions} />
@@ -224,6 +232,7 @@ export function DashboardPipelineSection(props: Props) {
           </Link>
         </div>
       )}
+      </details>
     </section>
   )
 }

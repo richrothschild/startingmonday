@@ -1,6 +1,6 @@
 ﻿import Link from 'next/link'
 import { DashboardTopShellSection } from '@/app/(dashboard)/dashboard/dashboard-top-shell-section'
-import type { DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import { markPlaced } from '@/app/(dashboard)/dashboard/placed/actions'
 
 const michaelActions: DailyMomentumAction[] = [
@@ -86,9 +86,6 @@ export default function MichaelDashboardPage() {
           overdueCount={2}
           canUseOutreachHub
           isRothschildAdmin
-          dailyMomentumActions={michaelActions}
-          todayISO={new Date().toISOString().slice(0, 10)}
-          momentumStatus="medium"
           profileSaved={false}
           isTrialing={false}
           trialDaysLeft={0}
@@ -117,6 +114,8 @@ export default function MichaelDashboardPage() {
             cta: 'Open decision brief',
           }}
         />
+
+        <DailyMomentumPlan actions={michaelActions} dateKey={new Date().toISOString().slice(0, 10)} status="medium" />
 
         <section className="mt-5 grid gap-4 lg:grid-cols-2">
           <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">

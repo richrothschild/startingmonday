@@ -22,7 +22,8 @@ import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelli
 import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
-import { DashboardActivitySnooze } from './dashboard-activity-snooze'
+import { DashboardQuickAccessSection } from './dashboard-quick-access-section'
+import { WarmPathsSection, PatternAlertsSection, CompanySignalsSection } from './dashboard-signal-sections'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
 import { OnDemandScanButton, OnDemandEnrichButton } from './dashboard-on-demand-actions'
@@ -546,7 +547,7 @@ export default async function DashboardPage({
         id: 'relationship-action',
         track: 'relationship',
         title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
-        body: `Use this while it is fresh — a concrete reason to re-engage: ${warmPaths[0].signal.signal_summary}`,
+        body: `Use this while it is fresh: a concrete reason to re-engage. ${warmPaths[0].signal.signal_summary}`,
         effortMinutes: 15,
         href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
         cta: 'Outreach',
@@ -863,7 +864,7 @@ export default async function DashboardPage({
             )}
             <div className="ml-auto flex items-center gap-4 shrink-0">
               <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
-              <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Billing</Link>
+              <Link href="/settings" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Settings</Link>
               <LogoutButton label="Sign out" />
             </div>
           </div>
@@ -889,9 +890,6 @@ export default async function DashboardPage({
           overdueCount={overdueCount}
           canUseOutreachHub={canUseOutreachHub}
           isRothschildAdmin={isRothschildAdmin}
-          dailyMomentumActions={dailyMomentumActions}
-          todayISO={todayISO}
-          momentumStatus={momentumStatus}
           profileSaved={!!profile_saved}
           isTrialing={isTrialing}
           trialDaysLeft={trialDaysLeft}
@@ -899,10 +897,6 @@ export default async function DashboardPage({
           offerCount={offerCompanies.length}
           offerName={offerCompanies[0]?.name ?? null}
           offerCompanyName={offerCompany?.name ?? null}
-          rolesFormingCompanyName={rolesFormingCard?.companyName ?? null}
-          rolesFormingHeadline={rolesFormingHeadline}
-          rolesFormingSummary={rolesFormingCard?.summary ?? null}
-          rolesFormingHref={rolesFormingCard?.href ?? '/dashboard/signals'}
           onMarkPlaced={markPlaced}
           activationComplete={activation.isComplete}
           activationCompletedCount={activation.completedCount}
@@ -917,19 +911,17 @@ export default async function DashboardPage({
           <aside className="hidden lg:block rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md lg:sticky lg:top-24">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-3">On this page</p>
             <nav className="flex flex-col gap-2.5 text-[13px]">
-              <a href="#start-here" className="text-slate-300 hover:text-white">Start here</a>
-              <a href="#today-digest" className="text-slate-200 hover:text-white">Today</a>
-              <a href="#companies-panel" className="text-slate-300 hover:text-white">Companies</a>
-              <a href="#relationships-panel" className="text-slate-300 hover:text-white">Relationships</a>
-              <a href="#week-tasks-panel" className="text-slate-300 hover:text-white">Follow-ups</a>
-              <a href="#pipeline" className="text-slate-300 hover:text-white">Pipeline</a>
-              <a href="/dashboard?focus=health#health-modules" className="text-slate-400 hover:text-slate-200">Health modules</a>
+              <a href="#to-do-now" className="text-slate-200 hover:text-white">To do now</a>
+              <a href="#companies" className="text-slate-300 hover:text-white">Companies</a>
+              <a href="#relationships" className="text-slate-300 hover:text-white">Relationships</a>
+              <a href="#plan-panel" className="text-slate-300 hover:text-white">Plan</a>
+              <a href="#briefs" className="text-slate-300 hover:text-white">Briefs</a>
             </nav>
           </aside>
 
           <div className="space-y-4">
-            <section id="today-digest" className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-1">Today digest</p>
+            <section id="to-do-now" className="scroll-mt-24 rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-1">To do now</p>
               <h2 className="text-[24px] sm:text-[28px] font-serif font-bold text-white leading-tight">Today at a glance</h2>
               <p className="text-[13px] text-slate-300 mt-1.5">{today}</p>
             </section>
@@ -986,14 +978,57 @@ export default async function DashboardPage({
                 <Link href="/dashboard/calendar" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open calendar →</Link>
               </section>
             </div>
+
+            <DailyMomentumPlan actions={dailyMomentumActions} dateKey={todayISO} status={momentumStatus} />
+
+            <DashboardQuickAccessSection
+              isExecutiveMode={isExecutiveMode}
+              executiveStageLabel={executiveStageLabel}
+              isCoach={isCoach}
+            />
           </div>
         </div>
 
-        <DashboardDisclosureSection
-          id="health-modules"
-          title="Campaign health and decision timeline"
-          defaultOpen={focus === 'health'}
-        >
+        {/* Tenet: Companies */}
+        <section id="companies" className="scroll-mt-24 mb-6">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Companies</h2>
+
+          <DashboardPipelineSection
+            q={q ?? ''}
+            stage={stage ?? ''}
+            page={page}
+            start={start}
+            pageSize={PAGE_SIZE}
+            totalCount={totalCount}
+            totalFiltered={totalFiltered}
+            totalPages={totalPages}
+            hasFilters={hasFilters}
+            filtered={filtered}
+            contactCountMap={contactCountMap}
+            stageMap={STAGE}
+            stageOptions={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
+            activationResumeDone={activation.a1_resume}
+            showWrapUpLink={!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active')}
+          />
+
+          {rolesFormingCard && (
+            <div className="mt-4 rounded border border-white/10 bg-white/5 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[13px] text-slate-200 min-w-0">
+                <span className="font-semibold text-orange-200/90">Roles forming:</span>{' '}
+                {rolesFormingHeadline ?? 'A role window may be forming.'}
+              </p>
+              <Link href={rolesFormingCard.href} className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 shrink-0">
+                Review signals →
+              </Link>
+            </div>
+          )}
+
+          <div className="mt-4">
+            <DashboardDisclosureSection
+              id="health-modules"
+              title="Pipeline health and decision timeline"
+              defaultOpen={focus === 'health'}
+            >
         <section className="mb-6 rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md sm:p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -1001,7 +1036,7 @@ export default async function DashboardPage({
               <p className="text-[20px] font-bold text-white mt-1">{campaignHealthScore}/100 <span className="text-[13px] font-semibold text-slate-300">{campaignHealthBand}</span></p>
               <p className="text-[13px] text-slate-200 mt-1">Cadence, follow-through, and stage progression combined into one execution score.</p>
               {cadenceScore === 0 && (
-                <p className="text-[12px] text-slate-400 mt-1">Cadence only counts outreach sent this week — signal review and prep work do not register here.</p>
+                <p className="text-[12px] text-slate-400 mt-1">Cadence only counts outreach sent this week. Signal review and prep work do not register here.</p>
               )}
             </div>
             <div className="grid grid-cols-3 gap-2 text-center w-full sm:w-auto">
@@ -1045,24 +1080,46 @@ export default async function DashboardPage({
         />
         </DashboardDisclosureSection>
 
-        {/* Pipeline */}
-        <DashboardPipelineSection
-          q={q ?? ''}
-          stage={stage ?? ''}
-          page={page}
-          start={start}
-          pageSize={PAGE_SIZE}
-          totalCount={totalCount}
-          totalFiltered={totalFiltered}
-          totalPages={totalPages}
-          hasFilters={hasFilters}
-          filtered={filtered}
-          contactCountMap={contactCountMap}
-          stageMap={STAGE}
-          stageOptions={Object.entries(STAGE).map(([key, { label }]) => ({ key, label }))}
-          activationResumeDone={activation.a1_resume}
-          showWrapUpLink={!profile?.placed_at && (isTrialing || userRow?.subscription_status === 'active')}
-        />
+            {signals.length > 0 && (
+              <DashboardDisclosureSection
+                id="company-signals-modules"
+                title={`Company signals (${signals.length})`}
+                defaultOpen={focus === 'signals'}
+              >
+                <CompanySignalsSection signals={signals} />
+              </DashboardDisclosureSection>
+            )}
+          </div>
+        </section>
+
+        {/* Tenet: Relationships */}
+        <section id="relationships" className="scroll-mt-24 mb-6">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Relationships</h2>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[13px] text-slate-200">
+                {contactCount} active contact{contactCount === 1 ? '' : 's'} across {contactCountMap.size} compan{contactCountMap.size === 1 ? 'y' : 'ies'}
+              </p>
+              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open contacts →</Link>
+            </div>
+            {warmPaths.length === 0 && (
+              <p className="text-[13px] text-slate-300 mt-3">
+                No warm paths this week. When a company you track shows a fresh signal and you know someone there, the opening appears here.
+              </p>
+            )}
+          </div>
+          {warmPaths.length > 0 && (
+            <div className="mt-4">
+              <DashboardDisclosureSection
+                id="warm-paths-modules"
+                title={`Warm paths (${warmPaths.length})`}
+                defaultOpen
+              >
+                <WarmPathsSection warmPaths={warmPaths} />
+              </DashboardDisclosureSection>
+            </div>
+          )}
+        </section>
 
         <DashboardDisclosureSection
           id="profile-modules"
@@ -1100,6 +1157,15 @@ export default async function DashboardPage({
           onDismissStallNudge={dismissStallNudge}
         />
 
+        {/* Tenet: Plan */}
+        <section id="plan-panel" className="scroll-mt-24 mb-6">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Plan</h2>
+          <div className="mb-4 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 sm:px-5 flex flex-wrap items-center justify-between gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <p className="text-[13px] text-slate-200">
+              <span className="font-semibold text-white">Weekly plan.</span> Choose one relationships move, one opportunities move, and one prep move for the week.
+            </p>
+            <Link href="/dashboard/plan" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 shrink-0">Open weekly plan →</Link>
+          </div>
         <DashboardDisclosureSection
           id="advanced-modules"
           title="Weekly performance and advanced modules"
@@ -1114,15 +1180,6 @@ export default async function DashboardPage({
           daysSinceLastAction={daysSinceLastAction}
           weekSlots={weekSlots}
           velocityRows={velocityRows}
-          isCoach={isCoach}
-          initialFrequency={profile?.briefing_frequency === 'weekly' ? 'weekly' : 'daily'}
-          initialBriefingTime={profile?.briefing_time ?? null}
-          isPaused={userRow?.subscription_status === 'paused'}
-          todayISO={todayISO}
-          followUps={(followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>}
-          warmPaths={warmPaths}
-          patternAlerts={patternAlerts}
-          signals={signals}
           activationComplete={activation.isComplete}
           hasFilters={hasFilters}
           setupSteps={setupSteps}
@@ -1143,8 +1200,36 @@ export default async function DashboardPage({
         />
 
         </DashboardDisclosureSection>
+        </section>
 
-        <DashboardActivitySnooze />
+        {/* Tenet: Briefs */}
+        <section id="briefs" className="scroll-mt-24 mb-6">
+          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Briefs</h2>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div className="flex flex-wrap gap-2">
+                <Link href="/dashboard/briefing" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Daily briefing</Link>
+                <Link href="/dashboard/strategy" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Strategy brief</Link>
+                <Link href="/dashboard/signals" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">All signals</Link>
+              </div>
+              <p className="text-[12px] text-slate-400">
+                {signalCount > 0 ? `${signalCount} fresh signal${signalCount === 1 ? '' : 's'} this week` : 'No fresh signals this week'}
+              </p>
+            </div>
+            {patternAlerts.length > 0 ? (
+              <DashboardDisclosureSection
+                id="pattern-alerts-modules"
+                title={`Pattern alerts (${patternAlerts.length})`}
+                defaultOpen
+              >
+                <PatternAlertsSection patternAlerts={patternAlerts} />
+              </DashboardDisclosureSection>
+            ) : (
+              <p className="text-[13px] text-slate-300">No pattern alerts right now. Your daily briefing will flag the next market move worth acting on.</p>
+            )}
+          </div>
+        </section>
+
       </main>
       <HelpQuickButton source="dashboard" />
     </div>

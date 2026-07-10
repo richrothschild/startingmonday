@@ -491,7 +491,6 @@ async function BriefingBody({
   const generated = context.hasContent ? await generateBriefing(context) : null
   const briefing = generated?.briefing ?? null
   const usedFallback = generated?.usedFallback ?? false
-  const modelTier = generated?.modelTier ?? 'haiku'
   const fallbackReason = generated?.fallbackReason ?? null
   const maxItems = mode === 'focused' ? 1 : 3
   const signalAlerts  = (briefing?.signalAlerts ?? []).slice(0, maxItems)
@@ -528,19 +527,6 @@ async function BriefingBody({
               </p>
             </div>
           )}
-
-          <div className="mb-6">
-            <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-slate-400">
-              Model tier: {modelTier === 'sonnet' ? 'Sonnet (signal day)' : 'Haiku (quiet day)'}
-            </p>
-          </div>
-
-          <section id="what-matters-now" className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-md">
-            <h2 className="text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-300 mb-3">Strategic framing</h2>
-            <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">
-              Stay ahead of timing. Deepen one relationship. Keep momentum steady. Success is measured by position, not activity. Focus beats urgency.
-            </p>
-          </section>
 
           {briefing?.intro && (
             <p className="text-[15px] text-slate-200 leading-relaxed mb-8">{briefing.intro}</p>

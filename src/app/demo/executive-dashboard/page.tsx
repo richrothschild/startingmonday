@@ -5,7 +5,7 @@ import { DashboardWeeklyPerformanceSection } from '@/app/(dashboard)/dashboard/d
 import { DashboardPipelinePulse } from '@/app/(dashboard)/dashboard/dashboard-pipeline-pulse'
 import { DashboardProgressFeedSection } from '@/app/(dashboard)/dashboard/dashboard-progress-feed-section'
 import { DashboardPipelineSection } from '@/app/(dashboard)/dashboard/dashboard-pipeline-section'
-import type { DailyMomentumAction } from '@/components/DailyMomentumPlan'
+import { DailyMomentumPlan, type DailyMomentumAction } from '@/components/DailyMomentumPlan'
 import type { VelocityRow } from '@/components/PipelineVelocity'
 import type { WeekActivity } from '@/components/ActivityChart'
 
@@ -159,9 +159,6 @@ export default function ExecutiveDashboardDemoPage() {
           overdueCount={2}
           canUseOutreachHub={true}
           isRothschildAdmin={true}
-          dailyMomentumActions={dailyMomentumActions}
-          todayISO="2026-06-07"
-          momentumStatus="medium"
           profileSaved={false}
           isTrialing={false}
           trialDaysLeft={0}
@@ -190,6 +187,8 @@ export default function ExecutiveDashboardDemoPage() {
             cta: 'Run offer comparison',
           }}
         />
+
+        <DailyMomentumPlan actions={dailyMomentumActions} dateKey="2026-06-07" status="medium" />
 
         <DashboardProfileIntelligenceSection
           profileScore={86}
@@ -241,7 +240,6 @@ export default function ExecutiveDashboardDemoPage() {
           daysSinceLastAction={3}
           weekSlots={weekSlots}
           velocityRows={velocityRows}
-          isCoach={false}
           isExecutiveMode={true}
           executiveStageLabel="Offer and Decision"
           riskItems={[

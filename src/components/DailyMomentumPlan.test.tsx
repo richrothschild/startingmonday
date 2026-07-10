@@ -40,7 +40,7 @@ describe('src/components/DailyMomentumPlan.tsx', () => {
       />,
     )
 
-    expect(html).toContain('Three actions. One screen. No extra sprawl.')
+    expect(html).toContain('Today&#x27;s three actions')
     expect(html).toContain('Work one relationship')
     expect(html).toContain('Run one prep pass')
     expect(html).toContain('Pick the next visible move')
