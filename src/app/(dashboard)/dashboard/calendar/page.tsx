@@ -100,9 +100,10 @@ export default async function CalendarPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
-      <header className="bg-slate-900">
+      <header className="border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
@@ -117,25 +118,25 @@ export default async function CalendarPage({
 {/* Header + week nav */}
         <div className="mb-6 flex items-center justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-[26px] font-bold text-slate-900 leading-tight">Calendar</h1>
-            <p className="text-[13px] text-slate-500 mt-1">{formatMonthYear(monday, sunday)}</p>
+            <h1 className="text-[26px] font-bold text-white leading-tight">Calendar</h1>
+            <p className="text-[13px] text-slate-300 mt-1">{formatMonthYear(monday, sunday)}</p>
           </div>
           <div className="flex items-center gap-2">
             <Link
               href={`/dashboard/calendar?week=${prevMonday}`}
-              className="text-[12px] font-semibold text-slate-600 border border-slate-200 bg-white rounded px-3 py-1.5 hover:border-slate-400 transition-colors"
+              className="text-[12px] font-semibold text-slate-200 border border-white/15 bg-white/5 rounded px-3 py-1.5 hover:border-white/30 hover:bg-white/10 transition-colors"
             >
               &larr; Prev
             </Link>
             <Link
               href={`/dashboard/calendar?week=${mondayOf(todayISO)}`}
-              className="text-[12px] font-semibold text-slate-600 border border-slate-200 bg-white rounded px-3 py-1.5 hover:border-slate-400 transition-colors"
+              className="text-[12px] font-semibold text-slate-950 border border-orange-300/30 bg-orange-400 rounded px-3 py-1.5 hover:bg-orange-300 transition-colors"
             >
               Today
             </Link>
             <Link
               href={`/dashboard/calendar?week=${nextMonday}`}
-              className="text-[12px] font-semibold text-slate-600 border border-slate-200 bg-white rounded px-3 py-1.5 hover:border-slate-400 transition-colors"
+              className="text-[12px] font-semibold text-slate-200 border border-white/15 bg-white/5 rounded px-3 py-1.5 hover:border-white/30 hover:bg-white/10 transition-colors"
             >
               Next &rarr;
             </Link>
@@ -144,16 +145,16 @@ export default async function CalendarPage({
 
         {/* Overdue section */}
         {overdue.length > 0 && (
-          <div className="mb-6 bg-red-50 border border-red-200 rounded overflow-hidden">
-            <div className="px-5 py-3 border-b border-red-200 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-red-600">
+          <div className="mb-6 rounded-2xl border border-rose-300/30 bg-rose-500/10 overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <div className="px-5 py-3 border-b border-rose-300/20 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-rose-200">
                 Overdue
               </span>
-              <span className="text-[12px] font-semibold text-red-600">
+              <span className="text-[12px] font-semibold text-rose-200">
                 {overdue.length} {overdue.length === 1 ? 'item' : 'items'}
               </span>
             </div>
-            <div className="divide-y divide-red-100">
+            <div className="divide-y divide-white/10">
               {overdue.map(fu => (
                 <CalendarItemClient
                   key={fu.id}
@@ -177,12 +178,12 @@ export default async function CalendarPage({
             const isToday = date === todayISO
             const isPast  = date < todayISO
             return (
-              <div key={date} className={`rounded border overflow-hidden ${isToday ? 'border-slate-900' : 'border-slate-200'} bg-white`}>
-                <div className={`px-3 py-2 border-b ${isToday ? 'border-slate-900 bg-slate-900' : 'border-slate-100 bg-slate-50'}`}>
-                  <div className={`text-[10px] font-bold tracking-[0.1em] uppercase ${isToday ? 'text-slate-400' : isPast ? 'text-slate-300' : 'text-slate-400'}`}>
+              <div key={date} className={`rounded-2xl border overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md ${isToday ? 'border-orange-300/40 bg-white/10' : 'border-white/15 bg-white/5'}`}>
+                <div className={`px-3 py-2 border-b ${isToday ? 'border-orange-300/30 bg-orange-500/10' : 'border-white/10 bg-slate-950/30'}`}>
+                  <div className={`text-[10px] font-bold tracking-[0.1em] uppercase ${isToday ? 'text-orange-200' : isPast ? 'text-slate-500' : 'text-slate-300'}`}>
                     {DAYS[i]}
                   </div>
-                  <div className={`text-[15px] font-bold ${isToday ? 'text-white' : isPast ? 'text-slate-300' : 'text-slate-900'}`}>
+                  <div className={`text-[15px] font-bold ${isToday ? 'text-white' : isPast ? 'text-slate-400' : 'text-white'}`}>
                     {formatHeader(date).split(' ')[1]}
                   </div>
                 </div>
@@ -208,16 +209,16 @@ export default async function CalendarPage({
             const isPast  = date < todayISO
             if (items.length === 0 && isPast) return null
             return (
-              <div key={date} className="bg-white border border-slate-200 rounded overflow-hidden">
-                <div className={`px-5 py-3 border-b flex items-center gap-2 ${isToday ? 'border-slate-900 bg-slate-900' : 'border-slate-100 bg-slate-50'}`}>
-                  <span className={`text-[10px] font-bold tracking-[0.12em] uppercase ${isToday ? 'text-slate-400' : 'text-slate-400'}`}>{DAYS[i]}</span>
-                  <span className={`text-[13px] font-semibold ${isToday ? 'text-white' : isPast ? 'text-slate-400' : 'text-slate-700'}`}>{formatHeader(date)}</span>
+              <div key={date} className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                <div className={`px-5 py-3 border-b flex items-center gap-2 ${isToday ? 'border-orange-300/30 bg-orange-500/10' : 'border-white/10 bg-slate-950/30'}`}>
+                  <span className={`text-[10px] font-bold tracking-[0.12em] uppercase ${isToday ? 'text-orange-200' : 'text-slate-400'}`}>{DAYS[i]}</span>
+                  <span className={`text-[13px] font-semibold ${isToday ? 'text-white' : isPast ? 'text-slate-400' : 'text-slate-200'}`}>{formatHeader(date)}</span>
                   {items.length > 0 && (
                     <span className="ml-auto text-[11px] font-semibold text-slate-400">{items.length}</span>
                   )}
                 </div>
                 {items.length > 0 && (
-                  <div className="divide-y divide-slate-50">
+                  <div className="divide-y divide-white/10">
                     {items.map(fu => (
                       <CalendarItemClient
                         key={fu.id}
@@ -233,7 +234,7 @@ export default async function CalendarPage({
                   </div>
                 )}
                 {items.length === 0 && (
-                  <div className="px-5 py-4 text-[13px] text-slate-300">Nothing due.</div>
+                  <div className="px-5 py-4 text-[13px] text-slate-400">Nothing due.</div>
                 )}
               </div>
             )
@@ -242,9 +243,9 @@ export default async function CalendarPage({
 
         {/* Empty state */}
         {followUps.length === 0 && overdue.length === 0 && (
-          <div className="mt-8 text-center py-16 bg-white border border-slate-200 rounded">
-            <p className="text-[14px] text-slate-400">No actions scheduled this week.</p>
-            <p className="text-[13px] text-slate-300 mt-2">Add follow-ups from a company or contact to see them here.</p>
+          <div className="mt-8 text-center py-16 rounded-2xl border border-white/15 bg-white/5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <p className="text-[14px] text-slate-300">No actions scheduled this week.</p>
+            <p className="text-[13px] text-slate-400 mt-2">Add follow-ups from a company or contact to see them here.</p>
           </div>
         )}
 
@@ -265,7 +266,7 @@ function CalendarChip({ fu }: { fu: FollowUp }) {
   return (
     <Link
       href={href}
-      className="block bg-slate-900 text-white rounded px-2 py-1.5 hover:bg-slate-700 transition-colors"
+      className="block rounded-xl border border-white/10 bg-slate-950/60 px-2.5 py-2 hover:border-white/20 hover:bg-slate-900 transition-colors"
     >
       <p className="text-[11px] font-semibold leading-tight truncate">{fu.action}</p>
       {label && (
