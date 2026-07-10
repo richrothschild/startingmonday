@@ -38,27 +38,27 @@ export function CalendarItemClient({ id, action, dueDate, googleEventUrl, today,
   return (
     <div className="px-5 py-3.5 flex items-start gap-3">
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-semibold text-slate-900 leading-tight">{action}</p>
+        <p className="text-[14px] font-semibold text-white leading-tight">{action}</p>
         {label && <p className="text-[12px] text-slate-400 mt-0.5">{label}</p>}
         {googleEventUrl && (
           <a
             href={googleEventUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-block text-[11px] text-slate-600 underline mt-1"
+            className="inline-block text-[11px] text-orange-200 hover:text-orange-100 underline mt-1"
           >
             Add to Google Calendar
           </a>
         )}
       </div>
-      <span className={`shrink-0 text-[11px] font-semibold mt-0.5 ${overdue || isToday ? 'text-red-600' : 'text-slate-400'}`}>
+      <span className={`shrink-0 text-[11px] font-semibold mt-0.5 ${overdue || isToday ? 'text-rose-200' : 'text-slate-400'}`}>
         {dateLabel}
       </span>
       <button
         type="button"
         onClick={handleDone}
         disabled={pending}
-        className="shrink-0 text-[12px] text-slate-400 border border-slate-200 rounded px-3 py-1 hover:border-slate-400 hover:text-slate-700 cursor-pointer bg-transparent disabled:opacity-50 min-h-[32px]"
+        className="shrink-0 text-[12px] text-slate-200 border border-white/15 rounded px-3 py-1 hover:border-white/30 hover:bg-white/10 hover:text-white cursor-pointer bg-transparent disabled:opacity-50 min-h-[32px]"
       >
         {pending ? '…' : 'Done'}
       </button>
