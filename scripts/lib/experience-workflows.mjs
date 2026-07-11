@@ -17,4 +17,10 @@ export const experienceWorkflows = [
     maxAgeMinutes: 60 * 30,
     recommendation: 'Validate dashboard contracts and probe credentials, then address route-specific regressions.',
   },
+  {
+    id: 'trust-integrity-agent.yml',
+    name: 'Trust Integrity Agent',
+    maxAgeMinutes: 60 * 30,
+    recommendation: 'Resolve parity/title/landmark contract failures before certifying dashboard trust posture.',
+  },
 ]
