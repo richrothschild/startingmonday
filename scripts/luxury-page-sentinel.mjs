@@ -101,17 +101,77 @@ const tsxFiles = [
   ...collectTsxFiles(path.join(ROOT, 'src', 'components')),
 ].map((f) => path.relative(ROOT, f).replace(/\\/g, '/'))
 const paletteViolations = []
+const typographyViolations = []
+const accentViolations = []
+const routeVisualDiscipline = new Map()
+
+function ensureRouteVisualEntry(route) {
+  if (!routeVisualDiscipline.has(route)) {
+    routeVisualDiscipline.set(route, {
+      fontFamilies: new Set(),
+      accentFamilies: new Set(),
+      relativePaths: new Set(),
+    })
+  }
+  return routeVisualDiscipline.get(route)
+}
+
+function countedFontFamilies(families) {
+  const countMono = rubric.visualDiscipline?.fontFamilies?.countMonospaceAgainstLimit ?? false
+  return [...families].filter((family) => countMono || family !== 'font-mono')
+}
+
+const FONT_FAMILY_RE = /font-(sans|serif|mono)\b/g
+const ACCENT_FAMILY_RE = /(?:text|bg|border)-(amber|orange|yellow|emerald|green|teal|cyan|blue|indigo|violet|purple|pink|rose|red)-/g
+
 for (const relativePath of tsxFiles) {
   const source = fs.readFileSync(path.join(ROOT, relativePath), 'utf8')
+  const route = nearestRoute(relativePath)
+  const routeEntry = ensureRouteVisualEntry(route)
+  routeEntry.relativePaths.add(relativePath)
+
+  for (const match of source.matchAll(FONT_FAMILY_RE)) {
+    routeEntry.fontFamilies.add(`font-${match[1]}`)
+  }
+
+  for (const match of source.matchAll(ACCENT_FAMILY_RE)) {
+    routeEntry.accentFamilies.add(match[1])
+  }
+
   const shellMatch = source.match(LIGHT_SHELL_RE)
   const cardMatch = source.match(LIGHT_CARD_RE)
   const match = shellMatch ?? cardMatch
   if (match) {
     paletteViolations.push({
-      route: nearestRoute(relativePath),
+      route,
       relativePath,
       dimension: 'palette-conformance',
       evidence: match[0].slice(0, 160),
+    })
+  }
+}
+
+for (const [route, entry] of routeVisualDiscipline.entries()) {
+  const scope = routeScope(route)
+  const fontThreshold = rubric.visualDiscipline?.fontFamilies?.maxDistinctFamiliesByScope?.[scope] ?? 2
+  const accentThreshold = rubric.visualDiscipline?.accentFamilies?.maxDistinctFamiliesByScope?.[scope] ?? 2
+  const countedFamilies = countedFontFamilies(entry.fontFamilies)
+
+  if (countedFamilies.length > fontThreshold) {
+    typographyViolations.push({
+      route,
+      dimension: 'typography-discipline',
+      blocking: false,
+      evidence: `${countedFamilies.length} distinct families (${countedFamilies.join(', ')}) > ${fontThreshold} for ${scope}`,
+    })
+  }
+
+  if (entry.accentFamilies.size > accentThreshold) {
+    accentViolations.push({
+      route,
+      dimension: 'accent-restraint',
+      blocking: false,
+      evidence: `${entry.accentFamilies.size} accent families (${[...entry.accentFamilies].sort().join(', ')}) > ${accentThreshold} for ${scope}`,
     })
   }
 }
@@ -373,7 +433,11 @@ const blockingViolations = [
   ...runtimeViolations.filter((v) => v.blocking !== false),
   ...coverageViolations,
 ]
-const advisoryViolations = runtimeViolations.filter((v) => v.blocking === false)
+const advisoryViolations = [
+  ...runtimeViolations.filter((v) => v.blocking === false),
+  ...typographyViolations,
+  ...accentViolations,
+]
 const quarantineResult = applyQuarantine(blockingViolations)
 const debtRatchetResult = applyDebtRatchet(blockingViolations)
 const effectiveBlockingViolations = [
@@ -389,8 +453,16 @@ const summary = {
   routesDiscovered: inventory.length,
   staticRoutesChecked: skipRuntime ? 0 : staticRoutes.length,
   paletteViolations: paletteViolations.length,
+  typographyWarnings: typographyViolations.length,
+  accentWarnings: accentViolations.length,
   availabilityViolations: runtimeViolations.filter((v) => v.dimension === 'availability').length,
-  latencyWarnings: advisoryViolations.length,
+  latencyWarnings: runtimeViolations.filter((v) => v.blocking === false).length,
+  advisoryWarnings: advisoryViolations.length,
+  visualDiscipline: {
+    routesTracked: routeVisualDiscipline.size,
+    typographyViolations,
+    accentViolations,
+  },
   coverage: {
     ...verdictTotals,
     coveragePct,
@@ -436,8 +508,11 @@ for (const check of summary.debtRatchet.checks) {
   console.log(`  debt[${check.dimension}]: current=${check.current}, max=${check.max}, pass=${check.pass}`)
 }
 console.log(`- palette violations: ${summary.paletteViolations}`)
+console.log(`- typography warnings: ${summary.typographyWarnings}`)
+console.log(`- accent warnings: ${summary.accentWarnings}`)
 console.log(`- availability violations: ${summary.availabilityViolations}`)
 console.log(`- latency warnings: ${summary.latencyWarnings}`)
+console.log(`- advisory warnings total: ${summary.advisoryWarnings}`)
 for (const incident of incidents.slice(0, 15)) {
   const sample = incident.sampleRoutes.join(', ')
   console.log(`  [incident] ${incident.dimension}/${incident.scope} :: routes=${incident.routeCount} :: ${incident.signature}`)
@@ -458,7 +533,7 @@ if (webhook && effectiveBlockingViolations.length > 0) {
     `:rotating_light: Luxury page sentinel found ${incidents.length} incident pattern(s) across ${effectiveBlockingViolations.length} blocking route findings`,
     `Base URL: ${BASE_URL}`,
     `Coverage: ${coveragePct}% of ${verdictTotals.total} routes (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip [${skipSummary}], ${verdictTotals.gaps} unexplained gap)`,
-    `Routes discovered: ${summary.routesDiscovered} | Incidents: ${incidents.length} | Palette findings: ${summary.paletteViolations} | Availability findings: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
+    `Routes discovered: ${summary.routesDiscovered} | Incidents: ${incidents.length} | Palette findings: ${summary.paletteViolations} | Typography warnings: ${summary.typographyWarnings} | Accent warnings: ${summary.accentWarnings} | Availability findings: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
     `Quarantine: active=${quarantineResult.stats.activeEntries}, expired=${quarantineResult.stats.expiredEntries}, suppressed=${quarantineResult.stats.suppressedFindings}`,
     `Debt ratchet: ${summary.debtRatchet.pass ? 'pass' : 'fail'} (${summary.debtRatchet.checks.map((c) => `${c.dimension}=${c.current}/${c.max}`).join(', ')})`,
     '',

@@ -20,8 +20,8 @@ Status legend:
 | J1 Site Experience Standard config | In Progress | `config/site-experience-standard.json` (initial SES scaffold) | Wire SES thresholds into active agents/gates as single source of truth |
 | J2 Agent registry + shared lib | In Progress | `scripts/lib/experience-agents.mjs`, `scripts/lib/experience-workflows.mjs`, `scripts/lib/trust-workflows.mjs`, `scripts/lib/agent-report-kit.mjs` | Continue migrating daily/weekly/monthly report scripts to shared helper kit |
 | J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
-| J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | Seed on main, validate route-tier metrics quality, tighten enforcement and sharding strategy |
-| J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered typography/accent/diff checks and tiered route coverage |
+| J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | First main seed passed; next tighten enforcement, improve route sampling, and feed vitals into trend reports |
+| J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered screenshot/diff checks; typography/accent telemetry is now tracked source-side |
 | J6 Cognitive Load & Fluency Agent | Not Started | Existing gate scripts only (`check-cognitive-load-all-pages.mjs`) | Build deterministic weekly agent + monthly LLM calibration dispatch |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
 | J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
@@ -33,7 +33,7 @@ Status legend:
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Validate J4 first-run quality and integrate vitals outputs into weekly/monthly experience trends.
+3. Extend J5 from source-side typography/accent telemetry to rendered screenshot/diff verification.
 
 ---
 
