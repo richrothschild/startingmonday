@@ -1,0 +1,72 @@
+name: Cognitive Fluency Auditor
+
+on:
+  workflow_dispatch:
+    inputs:
+      report_json:
+        description: Page Experience Auditor report JSON
+        required: true
+        type: string
+      report_md:
+        description: Page Experience Auditor report markdown
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish-auditor-report:
+    name: Publish Page Experience Auditor artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Publish auditor report files
+        env:
+          AUDITOR_REPORT_JSON: ${{ inputs.report_json }}
+          AUDITOR_REPORT_MD: ${{ inputs.report_md }}
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs'
+          import path from 'node:path'
+
+          const reportJson = process.env.AUDITOR_REPORT_JSON
+          const reportMarkdown = process.env.AUDITOR_REPORT_MD
+
+          if (!reportJson) {
+            throw new Error('Missing auditor report JSON input')
+          }
+
+          if (!reportMarkdown) {
+            throw new Error('Missing auditor report markdown input')
+          }
+
+          const report = JSON.parse(reportJson)
+          const statusDir = path.join(process.cwd(), 'docs', 'status')
+          fs.mkdirSync(statusDir, { recursive: true })
+
+          fs.writeFileSync(
+            path.join(statusDir, 'cognitive-fluency-auditor.latest.json'),
+            `${JSON.stringify(report, null, 2)}\n`,
+            'utf8',
+          )
+
+          fs.writeFileSync(
+            path.join(statusDir, 'cognitive-fluency-auditor.latest.md'),
+            reportMarkdown.endsWith('\n') ? reportMarkdown : `${reportMarkdown}\n`,
+            'utf8',
+          )
+          NODE
+
+      - name: Upload auditor artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: cognitive-fluency-auditor-latest
+          path: |
+            docs/status/cognitive-fluency-auditor.latest.json
+            docs/status/cognitive-fluency-auditor.latest.md
+          retention-days: 90

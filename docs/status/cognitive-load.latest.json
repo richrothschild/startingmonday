@@ -1,0 +1,6964 @@
+{
+  "generatedAt": "2026-07-11T22:16:45.988Z",
+  "channel": "reliability---service",
+  "sesVersion": 1,
+  "totalPages": 285,
+  "pagesWithIssues": 54,
+  "totalIssues": 60,
+  "byTier": {
+    "public": {
+      "pages": 129,
+      "issues": 34,
+      "avgIssueCount": 0.26,
+      "avgFluencyScore": 92.9,
+      "worstGrade": "B+",
+      "worstFluencyGrade": "C",
+      "loadGatePass": true,
+      "fluencyGatePass": false
+    },
+    "dashboard": {
+      "pages": 85,
+      "issues": 19,
+      "avgIssueCount": 0.22,
+      "avgFluencyScore": 98.1,
+      "worstGrade": "B+",
+      "worstFluencyGrade": "B",
+      "loadGatePass": false,
+      "fluencyGatePass": false
+    },
+    "funnel": {
+      "pages": 71,
+      "issues": 7,
+      "avgIssueCount": 0.1,
+      "avgFluencyScore": 97.2,
+      "worstGrade": "A-",
+      "worstFluencyGrade": "C+",
+      "loadGatePass": true,
+      "fluencyGatePass": false
+    }
+  },
+  "tierGates": {
+    "public": {
+      "required": {
+        "cognitiveLoad": "B+",
+        "cognitiveFluency": "B+"
+      },
+      "sampledPages": 129,
+      "load": {
+        "pass": true,
+        "worstGrade": "B+"
+      },
+      "fluency": {
+        "pass": false,
+        "worstGrade": "C",
+        "avgScore": 92.9
+      }
+    },
+    "dashboard": {
+      "required": {
+        "cognitiveLoad": "A-",
+        "cognitiveFluency": "A-"
+      },
+      "sampledPages": 85,
+      "load": {
+        "pass": false,
+        "worstGrade": "B+"
+      },
+      "fluency": {
+        "pass": false,
+        "worstGrade": "B",
+        "avgScore": 98.1
+      }
+    },
+    "funnel": {
+      "required": {
+        "cognitiveLoad": "B+",
+        "cognitiveFluency": "B+"
+      },
+      "sampledPages": 71,
+      "load": {
+        "pass": true,
+        "worstGrade": "A-"
+      },
+      "fluency": {
+        "pass": false,
+        "worstGrade": "C+",
+        "avgScore": 97.2
+      }
+    }
+  },
+  "topFindings": [
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
+      "metrics": {
+        "totalWords": 195,
+        "sentenceCount": 13,
+        "avgSentenceWords": 15,
+        "paragraphCount": 34,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 34.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/coach",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "metrics": {
+        "totalWords": 421,
+        "sentenceCount": 61,
+        "avgSentenceWords": 6.9,
+        "paragraphCount": 57,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 57.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "dashboard",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/post-search",
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "metrics": {
+        "totalWords": 374,
+        "sentenceCount": 53,
+        "avgSentenceWords": 7.1,
+        "paragraphCount": 37,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 37.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "dashboard",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/executives",
+      "relativePath": "src/app/executives/page.tsx",
+      "metrics": {
+        "totalWords": 32,
+        "sentenceCount": 1,
+        "avgSentenceWords": 32,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [
+        "avg-sentence-too-dense: 32.0 words",
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 58,
+        "grade": "C"
+      }
+    },
+    {
+      "route": "/for-outplacement/runbook",
+      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
+      "metrics": {
+        "totalWords": 198,
+        "sentenceCount": 7,
+        "avgSentenceWords": 28.3,
+        "paragraphCount": 17,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 28.3 words",
+        "weak-chunking-paragraph-to-heading-ratio: 17.0"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 58,
+        "grade": "C"
+      }
+    },
+    {
+      "route": "/prep/relationships",
+      "relativePath": "src/app/(dashboard)/prep/relationships/page.tsx",
+      "metrics": {
+        "totalWords": 537,
+        "sentenceCount": 39,
+        "avgSentenceWords": 13.8,
+        "paragraphCount": 29,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 29.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
+      "metrics": {
+        "totalWords": 46,
+        "sentenceCount": 4,
+        "avgSentenceWords": 11.5,
+        "paragraphCount": 36,
+        "headingCount": 14,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coachos",
+      "relativePath": "src/app/coachos/page.tsx",
+      "metrics": {
+        "totalWords": 222,
+        "sentenceCount": 13,
+        "avgSentenceWords": 17.1,
+        "paragraphCount": 28,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 97,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 2431,
+        "sentenceCount": 464,
+        "avgSentenceWords": 5.2,
+        "paragraphCount": 33,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard-theme-preview",
+      "relativePath": "src/app/dashboard-theme-preview/page.tsx",
+      "metrics": {
+        "totalWords": 35,
+        "sentenceCount": 1,
+        "avgSentenceWords": 35,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 35.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "metrics": {
+        "totalWords": 602,
+        "sentenceCount": 30,
+        "avgSentenceWords": 20.1,
+        "paragraphCount": 49,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "metrics": {
+        "totalWords": 387,
+        "sentenceCount": 60,
+        "avgSentenceWords": 6.5,
+        "paragraphCount": 26,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "metrics": {
+        "totalWords": 534,
+        "sentenceCount": 99,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "metrics": {
+        "totalWords": 363,
+        "sentenceCount": 61,
+        "avgSentenceWords": 6,
+        "paragraphCount": 19,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 19.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "metrics": {
+        "totalWords": 272,
+        "sentenceCount": 35,
+        "avgSentenceWords": 7.8,
+        "paragraphCount": 28,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "metrics": {
+        "totalWords": 246,
+        "sentenceCount": 31,
+        "avgSentenceWords": 7.9,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "metrics": {
+        "totalWords": 714,
+        "sentenceCount": 70,
+        "avgSentenceWords": 10.2,
+        "paragraphCount": 29,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/briefing",
+      "relativePath": "src/app/(dashboard)/dashboard/briefing/page.tsx",
+      "metrics": {
+        "totalWords": 1917,
+        "sentenceCount": 330,
+        "avgSentenceWords": 5.8,
+        "paragraphCount": 31,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
+      "metrics": {
+        "totalWords": 837,
+        "sentenceCount": 150,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 28,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "metrics": {
+        "totalWords": 1106,
+        "sentenceCount": 205,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 27,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "route": "/coach/clients",
+      "relativePath": "src/app/(dashboard)/coach/clients/page.tsx",
+      "metrics": {
+        "totalWords": 99,
+        "sentenceCount": 7,
+        "avgSentenceWords": 14.1,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coach/[clientId]/interview",
+      "relativePath": "src/app/(dashboard)/coach/[clientId]/interview/page.tsx",
+      "metrics": {
+        "totalWords": 70,
+        "sentenceCount": 4,
+        "avgSentenceWords": 17.5,
+        "paragraphCount": 11,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 96,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx",
+      "metrics": {
+        "totalWords": 82,
+        "sentenceCount": 10,
+        "avgSentenceWords": 8.2,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/page.tsx",
+      "metrics": {
+        "totalWords": 185,
+        "sentenceCount": 25,
+        "avgSentenceWords": 7.4,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/b2b/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "metrics": {
+        "totalWords": 212,
+        "sentenceCount": 36,
+        "avgSentenceWords": 5.9,
+        "paragraphCount": 3,
+        "headingCount": 4,
+        "detailsCount": 3,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/channel-benchmarks",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx",
+      "metrics": {
+        "totalWords": 372,
+        "sentenceCount": 43,
+        "avgSentenceWords": 8.7,
+        "paragraphCount": 11,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "metrics": {
+        "totalWords": 602,
+        "sentenceCount": 30,
+        "avgSentenceWords": 20.1,
+        "paragraphCount": 49,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "metrics": {
+        "totalWords": 387,
+        "sentenceCount": 60,
+        "avgSentenceWords": 6.5,
+        "paragraphCount": 26,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "metrics": {
+        "totalWords": 534,
+        "sentenceCount": 99,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/diagrams",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/diagrams/page.tsx",
+      "metrics": {
+        "totalWords": 78,
+        "sentenceCount": 14,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
+      "metrics": {
+        "totalWords": 193,
+        "sentenceCount": 20,
+        "avgSentenceWords": 9.7,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
+      "metrics": {
+        "totalWords": 254,
+        "sentenceCount": 21,
+        "avgSentenceWords": 12.1,
+        "paragraphCount": 13,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "metrics": {
+        "totalWords": 363,
+        "sentenceCount": 61,
+        "avgSentenceWords": 6,
+        "paragraphCount": 19,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 19.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/intelligence",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/page.tsx",
+      "metrics": {
+        "totalWords": 1101,
+        "sentenceCount": 215,
+        "avgSentenceWords": 5.1,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/intelligence/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "metrics": {
+        "totalWords": 195,
+        "sentenceCount": 23,
+        "avgSentenceWords": 8.5,
+        "paragraphCount": 9,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/internal-guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/internal-guide/page.tsx",
+      "metrics": {
+        "totalWords": 225,
+        "sentenceCount": 30,
+        "avgSentenceWords": 7.5,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx",
+      "metrics": {
+        "totalWords": 266,
+        "sentenceCount": 30,
+        "avgSentenceWords": 8.9,
+        "paragraphCount": 11,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "metrics": {
+        "totalWords": 369,
+        "sentenceCount": 38,
+        "avgSentenceWords": 9.7,
+        "paragraphCount": 18,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/onboarding/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "metrics": {
+        "totalWords": 88,
+        "sentenceCount": 7,
+        "avgSentenceWords": 12.6,
+        "paragraphCount": 11,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "metrics": {
+        "totalWords": 272,
+        "sentenceCount": 35,
+        "avgSentenceWords": 7.8,
+        "paragraphCount": 28,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/operations",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
+      "metrics": {
+        "totalWords": 247,
+        "sentenceCount": 44,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-cron",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-cron/page.tsx",
+      "metrics": {
+        "totalWords": 351,
+        "sentenceCount": 44,
+        "avgSentenceWords": 8,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-economics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-economics/page.tsx",
+      "metrics": {
+        "totalWords": 85,
+        "sentenceCount": 11,
+        "avgSentenceWords": 7.7,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "metrics": {
+        "totalWords": 246,
+        "sentenceCount": 31,
+        "avgSentenceWords": 7.9,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/admin/outplacement-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx",
+      "metrics": {
+        "totalWords": 216,
+        "sentenceCount": 14,
+        "avgSentenceWords": 15.4,
+        "paragraphCount": 13,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "metrics": {
+        "totalWords": 1011,
+        "sentenceCount": 196,
+        "avgSentenceWords": 5.2,
+        "paragraphCount": 20,
+        "headingCount": 14,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "metrics": {
+        "totalWords": 202,
+        "sentenceCount": 18,
+        "avgSentenceWords": 11.2,
+        "paragraphCount": 13,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/page.tsx",
+      "metrics": {
+        "totalWords": 2460,
+        "sentenceCount": 530,
+        "avgSentenceWords": 4.6,
+        "paragraphCount": 48,
+        "headingCount": 14,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/prep-efficacy",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/prep-efficacy/page.tsx",
+      "metrics": {
+        "totalWords": 73,
+        "sentenceCount": 9,
+        "avgSentenceWords": 8.1,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/product/catalog",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx",
+      "metrics": {
+        "totalWords": 327,
+        "sentenceCount": 43,
+        "avgSentenceWords": 7.6,
+        "paragraphCount": 23,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/product",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
+      "metrics": {
+        "totalWords": 217,
+        "sentenceCount": 36,
+        "avgSentenceWords": 6,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/revenue",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
+      "metrics": {
+        "totalWords": 210,
+        "sentenceCount": 34,
+        "avgSentenceWords": 6.2,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/sales-enablement",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/sales-enablement/page.tsx",
+      "metrics": {
+        "totalWords": 83,
+        "sentenceCount": 10,
+        "avgSentenceWords": 8.3,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "metrics": {
+        "totalWords": 714,
+        "sentenceCount": 70,
+        "avgSentenceWords": 10.2,
+        "paragraphCount": 29,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/speakers/page.tsx",
+      "metrics": {
+        "totalWords": 182,
+        "sentenceCount": 36,
+        "avgSentenceWords": 5.1,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/team",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/team/page.tsx",
+      "metrics": {
+        "totalWords": 68,
+        "sentenceCount": 9,
+        "avgSentenceWords": 7.6,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/traces",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/page.tsx",
+      "metrics": {
+        "totalWords": 389,
+        "sentenceCount": 57,
+        "avgSentenceWords": 6.8,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/traces/rubric",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx",
+      "metrics": {
+        "totalWords": 113,
+        "sentenceCount": 15,
+        "avgSentenceWords": 7.5,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/admin/wedge-funnels",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/wedge-funnels/page.tsx",
+      "metrics": {
+        "totalWords": 81,
+        "sentenceCount": 10,
+        "avgSentenceWords": 8.1,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/board-track",
+      "relativePath": "src/app/(dashboard)/dashboard/board-track/page.tsx",
+      "metrics": {
+        "totalWords": 196,
+        "sentenceCount": 20,
+        "avgSentenceWords": 9.8,
+        "paragraphCount": 8,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/briefing",
+      "relativePath": "src/app/(dashboard)/dashboard/briefing/page.tsx",
+      "metrics": {
+        "totalWords": 1917,
+        "sentenceCount": 330,
+        "avgSentenceWords": 5.8,
+        "paragraphCount": 31,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/calendar",
+      "relativePath": "src/app/(dashboard)/dashboard/calendar/page.tsx",
+      "metrics": {
+        "totalWords": 296,
+        "sentenceCount": 46,
+        "avgSentenceWords": 6.4,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/chat",
+      "relativePath": "src/app/(dashboard)/dashboard/chat/page.tsx",
+      "metrics": {
+        "totalWords": 401,
+        "sentenceCount": 31,
+        "avgSentenceWords": 12.9,
+        "paragraphCount": 3,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/coach",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "metrics": {
+        "totalWords": 421,
+        "sentenceCount": 61,
+        "avgSentenceWords": 6.9,
+        "paragraphCount": 57,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 57.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "dashboard",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/coach/[clientId]",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx",
+      "metrics": {
+        "totalWords": 111,
+        "sentenceCount": 9,
+        "avgSentenceWords": 12.3,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/new/page.tsx",
+      "metrics": {
+        "totalWords": 180,
+        "sentenceCount": 15,
+        "avgSentenceWords": 12,
+        "paragraphCount": 6,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/companies/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
+      "metrics": {
+        "totalWords": 891,
+        "sentenceCount": 147,
+        "avgSentenceWords": 6.1,
+        "paragraphCount": 24,
+        "headingCount": 6,
+        "detailsCount": 6,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/companies/[id]/prep",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx",
+      "metrics": {
+        "totalWords": 271,
+        "sentenceCount": 61,
+        "avgSentenceWords": 4.4,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/concierge",
+      "relativePath": "src/app/(dashboard)/dashboard/concierge/page.tsx",
+      "metrics": {
+        "totalWords": 180,
+        "sentenceCount": 33,
+        "avgSentenceWords": 5.5,
+        "paragraphCount": 18,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/contacts",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/page.tsx",
+      "metrics": {
+        "totalWords": 325,
+        "sentenceCount": 47,
+        "avgSentenceWords": 6.9,
+        "paragraphCount": 8,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/contacts/[id]/edit",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx",
+      "metrics": {
+        "totalWords": 181,
+        "sentenceCount": 23,
+        "avgSentenceWords": 7.9,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/contacts/[id]/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx",
+      "metrics": {
+        "totalWords": 239,
+        "sentenceCount": 56,
+        "avgSentenceWords": 4.3,
+        "paragraphCount": 1,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/contacts/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
+      "metrics": {
+        "totalWords": 366,
+        "sentenceCount": 57,
+        "avgSentenceWords": 6.4,
+        "paragraphCount": 11,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/discover",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/page.tsx",
+      "metrics": {
+        "totalWords": 226,
+        "sentenceCount": 27,
+        "avgSentenceWords": 8.4,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/discover/recommendation/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "metrics": {
+        "totalWords": 263,
+        "sentenceCount": 49,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 14,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "relativePath": "src/app/(dashboard)/dashboard/executive-brief/page.tsx",
+      "metrics": {
+        "totalWords": 72,
+        "sentenceCount": 10,
+        "avgSentenceWords": 7.2,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/feedback/page.tsx",
+      "metrics": {
+        "totalWords": 354,
+        "sentenceCount": 29,
+        "avgSentenceWords": 12.2,
+        "paragraphCount": 2,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/help",
+      "relativePath": "src/app/(dashboard)/dashboard/help/page.tsx",
+      "metrics": {
+        "totalWords": 127,
+        "sentenceCount": 18,
+        "avgSentenceWords": 7.1,
+        "paragraphCount": 7,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/invite",
+      "relativePath": "src/app/(dashboard)/dashboard/invite/page.tsx",
+      "metrics": {
+        "totalWords": 129,
+        "sentenceCount": 26,
+        "avgSentenceWords": 5,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/kanban",
+      "relativePath": "src/app/(dashboard)/dashboard/kanban/page.tsx",
+      "metrics": {
+        "totalWords": 12,
+        "sentenceCount": 1,
+        "avgSentenceWords": 12,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/offers",
+      "relativePath": "src/app/(dashboard)/dashboard/offers/page.tsx",
+      "metrics": {
+        "totalWords": 140,
+        "sentenceCount": 16,
+        "avgSentenceWords": 8.8,
+        "paragraphCount": 6,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/optionality/branding",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/branding/page.tsx",
+      "metrics": {
+        "totalWords": 41,
+        "sentenceCount": 7,
+        "avgSentenceWords": 5.9,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/optionality/decision-cockpit",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/decision-cockpit/page.tsx",
+      "metrics": {
+        "totalWords": 32,
+        "sentenceCount": 6,
+        "avgSentenceWords": 5.3,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/optionality",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/page.tsx",
+      "metrics": {
+        "totalWords": 168,
+        "sentenceCount": 20,
+        "avgSentenceWords": 8.4,
+        "paragraphCount": 10,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/counselor",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/counselor/page.tsx",
+      "metrics": {
+        "totalWords": 126,
+        "sentenceCount": 10,
+        "avgSentenceWords": 12.6,
+        "paragraphCount": 6,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/enterprise",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/enterprise/page.tsx",
+      "metrics": {
+        "totalWords": 122,
+        "sentenceCount": 8,
+        "avgSentenceWords": 15.3,
+        "paragraphCount": 8,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
+      "metrics": {
+        "totalWords": 837,
+        "sentenceCount": 150,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 28,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/operator",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/operator/page.tsx",
+      "metrics": {
+        "totalWords": 752,
+        "sentenceCount": 144,
+        "avgSentenceWords": 5.2,
+        "paragraphCount": 10,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/page.tsx",
+      "metrics": {
+        "totalWords": 65,
+        "sentenceCount": 4,
+        "avgSentenceWords": 16.3,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 99,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outplacement/sponsor-report",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/sponsor-report/page.tsx",
+      "metrics": {
+        "totalWords": 219,
+        "sentenceCount": 21,
+        "avgSentenceWords": 10.4,
+        "paragraphCount": 14,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "metrics": {
+        "totalWords": 1106,
+        "sentenceCount": 205,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 27,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 2431,
+        "sentenceCount": 464,
+        "avgSentenceWords": 5.2,
+        "paragraphCount": 33,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/partner",
+      "relativePath": "src/app/(dashboard)/dashboard/partner/page.tsx",
+      "metrics": {
+        "totalWords": 746,
+        "sentenceCount": 119,
+        "avgSentenceWords": 6.3,
+        "paragraphCount": 16,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/pilot-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/pilot-outreach/page.tsx",
+      "metrics": {
+        "totalWords": 56,
+        "sentenceCount": 7,
+        "avgSentenceWords": 8,
+        "paragraphCount": 3,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/placed",
+      "relativePath": "src/app/(dashboard)/dashboard/placed/page.tsx",
+      "metrics": {
+        "totalWords": 198,
+        "sentenceCount": 36,
+        "avgSentenceWords": 5.5,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/plan",
+      "relativePath": "src/app/(dashboard)/dashboard/plan/page.tsx",
+      "metrics": {
+        "totalWords": 494,
+        "sentenceCount": 69,
+        "avgSentenceWords": 7.2,
+        "paragraphCount": 12,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/positioning",
+      "relativePath": "src/app/(dashboard)/dashboard/positioning/page.tsx",
+      "metrics": {
+        "totalWords": 128,
+        "sentenceCount": 16,
+        "avgSentenceWords": 8,
+        "paragraphCount": 4,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/post-landing",
+      "relativePath": "src/app/(dashboard)/dashboard/post-landing/page.tsx",
+      "metrics": {
+        "totalWords": 279,
+        "sentenceCount": 32,
+        "avgSentenceWords": 8.7,
+        "paragraphCount": 11,
+        "headingCount": 4,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/post-search",
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "metrics": {
+        "totalWords": 374,
+        "sentenceCount": 53,
+        "avgSentenceWords": 7.1,
+        "paragraphCount": 37,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 37.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "dashboard",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/profile",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/page.tsx",
+      "metrics": {
+        "totalWords": 617,
+        "sentenceCount": 116,
+        "avgSentenceWords": 5.3,
+        "paragraphCount": 2,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/profile/tailor",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/tailor/page.tsx",
+      "metrics": {
+        "totalWords": 194,
+        "sentenceCount": 40,
+        "avgSentenceWords": 4.8,
+        "paragraphCount": 5,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/salary",
+      "relativePath": "src/app/(dashboard)/dashboard/salary/page.tsx",
+      "metrics": {
+        "totalWords": 82,
+        "sentenceCount": 7,
+        "avgSentenceWords": 11.7,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/signals",
+      "relativePath": "src/app/(dashboard)/dashboard/signals/page.tsx",
+      "metrics": {
+        "totalWords": 658,
+        "sentenceCount": 118,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/start",
+      "relativePath": "src/app/(dashboard)/dashboard/start/page.tsx",
+      "metrics": {
+        "totalWords": 513,
+        "sentenceCount": 100,
+        "avgSentenceWords": 5.1,
+        "paragraphCount": 34,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/strategy",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/page.tsx",
+      "metrics": {
+        "totalWords": 111,
+        "sentenceCount": 26,
+        "avgSentenceWords": 4.3,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/wrap-up",
+      "relativePath": "src/app/(dashboard)/dashboard/wrap-up/page.tsx",
+      "metrics": {
+        "totalWords": 157,
+        "sentenceCount": 29,
+        "avgSentenceWords": 5.4,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/prep/communications",
+      "relativePath": "src/app/(dashboard)/prep/communications/page.tsx",
+      "metrics": {
+        "totalWords": 301,
+        "sentenceCount": 26,
+        "avgSentenceWords": 11.6,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/prep/companies",
+      "relativePath": "src/app/(dashboard)/prep/companies/page.tsx",
+      "metrics": {
+        "totalWords": 397,
+        "sentenceCount": 46,
+        "avgSentenceWords": 8.6,
+        "paragraphCount": 17,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 17.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/prep/interview",
+      "relativePath": "src/app/(dashboard)/prep/interview/page.tsx",
+      "metrics": {
+        "totalWords": 222,
+        "sentenceCount": 21,
+        "avgSentenceWords": 10.6,
+        "paragraphCount": 11,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/prep/meetings",
+      "relativePath": "src/app/(dashboard)/prep/meetings/page.tsx",
+      "metrics": {
+        "totalWords": 297,
+        "sentenceCount": 27,
+        "avgSentenceWords": 11,
+        "paragraphCount": 15,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 15.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/prep/relationships",
+      "relativePath": "src/app/(dashboard)/prep/relationships/page.tsx",
+      "metrics": {
+        "totalWords": 537,
+        "sentenceCount": 39,
+        "avgSentenceWords": 13.8,
+        "paragraphCount": 29,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 29.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/settings/billing",
+      "relativePath": "src/app/(dashboard)/settings/billing/page.tsx",
+      "metrics": {
+        "totalWords": 116,
+        "sentenceCount": 22,
+        "avgSentenceWords": 5.3,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/settings",
+      "relativePath": "src/app/(dashboard)/settings/page.tsx",
+      "metrics": {
+        "totalWords": 119,
+        "sentenceCount": 18,
+        "avgSentenceWords": 6.6,
+        "paragraphCount": 5,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/settings/security",
+      "relativePath": "src/app/(dashboard)/settings/security/page.tsx",
+      "metrics": {
+        "totalWords": 48,
+        "sentenceCount": 6,
+        "avgSentenceWords": 8,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/settings/team",
+      "relativePath": "src/app/(dashboard)/settings/team/page.tsx",
+      "metrics": {
+        "totalWords": 362,
+        "sentenceCount": 66,
+        "avgSentenceWords": 5.5,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/about",
+      "relativePath": "src/app/about/page.tsx",
+      "metrics": {
+        "totalWords": 453,
+        "sentenceCount": 28,
+        "avgSentenceWords": 16.2,
+        "paragraphCount": 14,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 5
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 99,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/alumni-networks-review",
+      "relativePath": "src/app/alumni-networks-review/page.tsx",
+      "metrics": {
+        "totalWords": 230,
+        "sentenceCount": 20,
+        "avgSentenceWords": 11.5,
+        "paragraphCount": 9,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/annual-report-2026/executive-search-ai-confidentiality",
+      "relativePath": "src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
+      "metrics": {
+        "totalWords": 231,
+        "sentenceCount": 13,
+        "avgSentenceWords": 17.8,
+        "paragraphCount": 5,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 95,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/annual-report-2026",
+      "relativePath": "src/app/annual-report-2026/page.tsx",
+      "metrics": {
+        "totalWords": 247,
+        "sentenceCount": 14,
+        "avgSentenceWords": 17.6,
+        "paragraphCount": 9,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 95,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/c-suite-search-90-day-plan",
+      "relativePath": "src/app/blog/c-suite-search-90-day-plan/page.tsx",
+      "metrics": {
+        "totalWords": 161,
+        "sentenceCount": 16,
+        "avgSentenceWords": 10.1,
+        "paragraphCount": 2,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/c-suite-search-weekly-metrics",
+      "relativePath": "src/app/blog/c-suite-search-weekly-metrics/page.tsx",
+      "metrics": {
+        "totalWords": 186,
+        "sentenceCount": 14,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 3,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "relativePath": "src/app/blog/cio-board-presentation/page.tsx",
+      "metrics": {
+        "totalWords": 711,
+        "sentenceCount": 50,
+        "avgSentenceWords": 14.2,
+        "paragraphCount": 16,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "relativePath": "src/app/blog/cio-compensation-negotiation/page.tsx",
+      "metrics": {
+        "totalWords": 918,
+        "sentenceCount": 69,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 19,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
+      "metrics": {
+        "totalWords": 46,
+        "sentenceCount": 4,
+        "avgSentenceWords": 11.5,
+        "paragraphCount": 36,
+        "headingCount": 14,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-job-search-timeline",
+      "relativePath": "src/app/blog/cio-job-search-timeline/page.tsx",
+      "metrics": {
+        "totalWords": 785,
+        "sentenceCount": 49,
+        "avgSentenceWords": 16,
+        "paragraphCount": 15,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-search-signal-story-sequence",
+      "relativePath": "src/app/blog/cio-search-signal-story-sequence/page.tsx",
+      "metrics": {
+        "totalWords": 140,
+        "sentenceCount": 11,
+        "avgSentenceWords": 12.7,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cio-vs-cto-which-role",
+      "relativePath": "src/app/blog/cio-vs-cto-which-role/page.tsx",
+      "metrics": {
+        "totalWords": 961,
+        "sentenceCount": 61,
+        "avgSentenceWords": 15.8,
+        "paragraphCount": 18,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/ciso-interview-preparation",
+      "relativePath": "src/app/blog/ciso-interview-preparation/page.tsx",
+      "metrics": {
+        "totalWords": 803,
+        "sentenceCount": 55,
+        "avgSentenceWords": 14.6,
+        "paragraphCount": 18,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/confidential-executive-search-pipeline",
+      "relativePath": "src/app/blog/confidential-executive-search-pipeline/page.tsx",
+      "metrics": {
+        "totalWords": 144,
+        "sentenceCount": 14,
+        "avgSentenceWords": 10.3,
+        "paragraphCount": 2,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cto-job-search-timeline",
+      "relativePath": "src/app/blog/cto-job-search-timeline/page.tsx",
+      "metrics": {
+        "totalWords": 875,
+        "sentenceCount": 58,
+        "avgSentenceWords": 15.1,
+        "paragraphCount": 15,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/cto-vs-vp-engineering-career-path",
+      "relativePath": "src/app/blog/cto-vs-vp-engineering-career-path/page.tsx",
+      "metrics": {
+        "totalWords": 901,
+        "sentenceCount": 61,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 19,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/evaluate-executive-coach-evidence",
+      "relativePath": "src/app/blog/evaluate-executive-coach-evidence/page.tsx",
+      "metrics": {
+        "totalWords": 143,
+        "sentenceCount": 14,
+        "avgSentenceWords": 10.2,
+        "paragraphCount": 2,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/evidence-based-executive-networking",
+      "relativePath": "src/app/blog/evidence-based-executive-networking/page.tsx",
+      "metrics": {
+        "totalWords": 157,
+        "sentenceCount": 14,
+        "avgSentenceWords": 11.2,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/evidence-hub-coaching-session-framework",
+      "relativePath": "src/app/blog/evidence-hub-coaching-session-framework/page.tsx",
+      "metrics": {
+        "totalWords": 136,
+        "sentenceCount": 9,
+        "avgSentenceWords": 15.1,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-coaching-candidate-infrastructure",
+      "relativePath": "src/app/blog/executive-coaching-candidate-infrastructure/page.tsx",
+      "metrics": {
+        "totalWords": 1232,
+        "sentenceCount": 86,
+        "avgSentenceWords": 14.3,
+        "paragraphCount": 24,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-coaching-job-search",
+      "relativePath": "src/app/blog/executive-coaching-job-search/page.tsx",
+      "metrics": {
+        "totalWords": 1113,
+        "sentenceCount": 78,
+        "avgSentenceWords": 14.3,
+        "paragraphCount": 18,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-coaching-search-outcomes",
+      "relativePath": "src/app/blog/executive-coaching-search-outcomes/page.tsx",
+      "metrics": {
+        "totalWords": 181,
+        "sentenceCount": 18,
+        "avgSentenceWords": 10.1,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-hiring-committee-psychology",
+      "relativePath": "src/app/blog/executive-hiring-committee-psychology/page.tsx",
+      "metrics": {
+        "totalWords": 134,
+        "sentenceCount": 12,
+        "avgSentenceWords": 11.2,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-hiring-patterns-2026",
+      "relativePath": "src/app/blog/executive-hiring-patterns-2026/page.tsx",
+      "metrics": {
+        "totalWords": 459,
+        "sentenceCount": 34,
+        "avgSentenceWords": 13.5,
+        "paragraphCount": 9,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-interview-prep-7-day-system",
+      "relativePath": "src/app/blog/executive-interview-prep-7-day-system/page.tsx",
+      "metrics": {
+        "totalWords": 159,
+        "sentenceCount": 14,
+        "avgSentenceWords": 11.4,
+        "paragraphCount": 2,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-job-search-daily-routine",
+      "relativePath": "src/app/blog/executive-job-search-daily-routine/page.tsx",
+      "metrics": {
+        "totalWords": 669,
+        "sentenceCount": 53,
+        "avgSentenceWords": 12.6,
+        "paragraphCount": 20,
+        "headingCount": 11,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-organizational-visibility",
+      "relativePath": "src/app/blog/executive-organizational-visibility/page.tsx",
+      "metrics": {
+        "totalWords": 143,
+        "sentenceCount": 14,
+        "avgSentenceWords": 10.2,
+        "paragraphCount": 3,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-outreach-response-rate",
+      "relativePath": "src/app/blog/executive-outreach-response-rate/page.tsx",
+      "metrics": {
+        "totalWords": 171,
+        "sentenceCount": 13,
+        "avgSentenceWords": 13.2,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-resume-gaps",
+      "relativePath": "src/app/blog/executive-resume-gaps/page.tsx",
+      "metrics": {
+        "totalWords": 890,
+        "sentenceCount": 68,
+        "avgSentenceWords": 13.1,
+        "paragraphCount": 19,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-consistency-model",
+      "relativePath": "src/app/blog/executive-search-consistency-model/page.tsx",
+      "metrics": {
+        "totalWords": 186,
+        "sentenceCount": 14,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-firms-cio",
+      "relativePath": "src/app/blog/executive-search-firms-cio/page.tsx",
+      "metrics": {
+        "totalWords": 925,
+        "sentenceCount": 48,
+        "avgSentenceWords": 19.3,
+        "paragraphCount": 19,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 90,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-operating-system",
+      "relativePath": "src/app/blog/executive-search-operating-system/page.tsx",
+      "metrics": {
+        "totalWords": 1153,
+        "sentenceCount": 96,
+        "avgSentenceWords": 12,
+        "paragraphCount": 24,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-pilot-data-observations",
+      "relativePath": "src/app/blog/executive-search-pilot-data-observations/page.tsx",
+      "metrics": {
+        "totalWords": 139,
+        "sentenceCount": 11,
+        "avgSentenceWords": 12.6,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-readiness-audit",
+      "relativePath": "src/app/blog/executive-search-readiness-audit/page.tsx",
+      "metrics": {
+        "totalWords": 156,
+        "sentenceCount": 15,
+        "avgSentenceWords": 10.4,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-risk-register",
+      "relativePath": "src/app/blog/executive-search-risk-register/page.tsx",
+      "metrics": {
+        "totalWords": 125,
+        "sentenceCount": 9,
+        "avgSentenceWords": 13.9,
+        "paragraphCount": 3,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-search-timing-signals",
+      "relativePath": "src/app/blog/executive-search-timing-signals/page.tsx",
+      "metrics": {
+        "totalWords": 204,
+        "sentenceCount": 18,
+        "avgSentenceWords": 11.3,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/executive-transition-success-factors",
+      "relativePath": "src/app/blog/executive-transition-success-factors/page.tsx",
+      "metrics": {
+        "totalWords": 178,
+        "sentenceCount": 17,
+        "avgSentenceWords": 10.5,
+        "paragraphCount": 3,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/how-cios-find-jobs",
+      "relativePath": "src/app/blog/how-cios-find-jobs/page.tsx",
+      "metrics": {
+        "totalWords": 1082,
+        "sentenceCount": 60,
+        "avgSentenceWords": 18,
+        "paragraphCount": 17,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 94,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/how-we-estimate-early-role-signals",
+      "relativePath": "src/app/blog/how-we-estimate-early-role-signals/page.tsx",
+      "metrics": {
+        "totalWords": 349,
+        "sentenceCount": 23,
+        "avgSentenceWords": 15.2,
+        "paragraphCount": 9,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/linkedin-executive-search-strategy",
+      "relativePath": "src/app/blog/linkedin-executive-search-strategy/page.tsx",
+      "metrics": {
+        "totalWords": 1053,
+        "sentenceCount": 65,
+        "avgSentenceWords": 16.2,
+        "paragraphCount": 20,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 99,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog",
+      "relativePath": "src/app/blog/page.tsx",
+      "metrics": {
+        "totalWords": 189,
+        "sentenceCount": 10,
+        "avgSentenceWords": 18.9,
+        "paragraphCount": 11,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 91,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/pe-backed-cio",
+      "relativePath": "src/app/blog/pe-backed-cio/page.tsx",
+      "metrics": {
+        "totalWords": 866,
+        "sentenceCount": 49,
+        "avgSentenceWords": 17.7,
+        "paragraphCount": 20,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 95,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/retained-search-candidate-preparation",
+      "relativePath": "src/app/blog/retained-search-candidate-preparation/page.tsx",
+      "metrics": {
+        "totalWords": 1127,
+        "sentenceCount": 74,
+        "avgSentenceWords": 15.2,
+        "paragraphCount": 20,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/retained-search-firms",
+      "relativePath": "src/app/blog/retained-search-firms/page.tsx",
+      "metrics": {
+        "totalWords": 903,
+        "sentenceCount": 54,
+        "avgSentenceWords": 16.7,
+        "paragraphCount": 18,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 98,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/source-backed-executive-career-narrative",
+      "relativePath": "src/app/blog/source-backed-executive-career-narrative/page.tsx",
+      "metrics": {
+        "totalWords": 137,
+        "sentenceCount": 9,
+        "avgSentenceWords": 15.2,
+        "paragraphCount": 4,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/target-company-list",
+      "relativePath": "src/app/blog/target-company-list/page.tsx",
+      "metrics": {
+        "totalWords": 1076,
+        "sentenceCount": 87,
+        "avgSentenceWords": 12.4,
+        "paragraphCount": 21,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/target-company-list-cto",
+      "relativePath": "src/app/blog/target-company-list-cto/page.tsx",
+      "metrics": {
+        "totalWords": 41,
+        "sentenceCount": 4,
+        "avgSentenceWords": 10.3,
+        "paragraphCount": 22,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/technology-executive-transition-chro",
+      "relativePath": "src/app/blog/technology-executive-transition-chro/page.tsx",
+      "metrics": {
+        "totalWords": 979,
+        "sentenceCount": 66,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 19,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/vp-job-search-different-rules",
+      "relativePath": "src/app/blog/vp-job-search-different-rules/page.tsx",
+      "metrics": {
+        "totalWords": 1118,
+        "sentenceCount": 86,
+        "avgSentenceWords": 13,
+        "paragraphCount": 18,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/vp-to-c-suite-positioning",
+      "relativePath": "src/app/blog/vp-to-c-suite-positioning/page.tsx",
+      "metrics": {
+        "totalWords": 146,
+        "sentenceCount": 14,
+        "avgSentenceWords": 10.4,
+        "paragraphCount": 2,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/vp-to-cio-transition",
+      "relativePath": "src/app/blog/vp-to-cio-transition/page.tsx",
+      "metrics": {
+        "totalWords": 816,
+        "sentenceCount": 48,
+        "avgSentenceWords": 17,
+        "paragraphCount": 17,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 97,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/what-companies-want-chief-data-officer",
+      "relativePath": "src/app/blog/what-companies-want-chief-data-officer/page.tsx",
+      "metrics": {
+        "totalWords": 802,
+        "sentenceCount": 47,
+        "avgSentenceWords": 17.1,
+        "paragraphCount": 17,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 97,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/why-executive-recruiters-go-quiet",
+      "relativePath": "src/app/blog/why-executive-recruiters-go-quiet/page.tsx",
+      "metrics": {
+        "totalWords": 438,
+        "sentenceCount": 34,
+        "avgSentenceWords": 12.9,
+        "paragraphCount": 12,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/blog/why-starting-monday-exists",
+      "relativePath": "src/app/blog/why-starting-monday-exists/page.tsx",
+      "metrics": {
+        "totalWords": 356,
+        "sentenceCount": 24,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 12,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/career-tools",
+      "relativePath": "src/app/career-tools/page.tsx",
+      "metrics": {
+        "totalWords": 301,
+        "sentenceCount": 22,
+        "avgSentenceWords": 13.7,
+        "paragraphCount": 15,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/case-studies",
+      "relativePath": "src/app/case-studies/page.tsx",
+      "metrics": {
+        "totalWords": 38,
+        "sentenceCount": 3,
+        "avgSentenceWords": 12.7,
+        "paragraphCount": 7,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/channels/feature-map",
+      "relativePath": "src/app/channels/feature-map/page.tsx",
+      "metrics": {
+        "totalWords": 39,
+        "sentenceCount": 4,
+        "avgSentenceWords": 9.8,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/executive-transition-coach-demo",
+      "relativePath": "src/app/coaches/executive-transition-coach-demo/page.tsx",
+      "metrics": {
+        "totalWords": 34,
+        "sentenceCount": 3,
+        "avgSentenceWords": 11.3,
+        "paragraphCount": 4,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/mock-dashboard",
+      "relativePath": "src/app/coaches/mock-dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 97,
+        "sentenceCount": 8,
+        "avgSentenceWords": 12.1,
+        "paragraphCount": 11,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
+      "metrics": {
+        "totalWords": 195,
+        "sentenceCount": 13,
+        "avgSentenceWords": 15,
+        "paragraphCount": 34,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 34.0",
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/coaches/objections",
+      "relativePath": "src/app/coaches/objections/page.tsx",
+      "metrics": {
+        "totalWords": 42,
+        "sentenceCount": 3,
+        "avgSentenceWords": 14,
+        "paragraphCount": 4,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches",
+      "relativePath": "src/app/coaches/page.tsx",
+      "metrics": {
+        "totalWords": 242,
+        "sentenceCount": 17,
+        "avgSentenceWords": 14.2,
+        "paragraphCount": 11,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/personas",
+      "relativePath": "src/app/coaches/personas/page.tsx",
+      "metrics": {
+        "totalWords": 53,
+        "sentenceCount": 3,
+        "avgSentenceWords": 17.7,
+        "paragraphCount": 6,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 95,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/personas/[slug]",
+      "relativePath": "src/app/coaches/personas/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 131,
+        "sentenceCount": 11,
+        "avgSentenceWords": 11.9,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/sample-transition-brief",
+      "relativePath": "src/app/coaches/sample-transition-brief/page.tsx",
+      "metrics": {
+        "totalWords": 406,
+        "sentenceCount": 28,
+        "avgSentenceWords": 14.5,
+        "paragraphCount": 24,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/coaches/workflow/opportunity-access-demo",
+      "relativePath": "src/app/coaches/workflow/opportunity-access-demo/page.tsx",
+      "metrics": {
+        "totalWords": 174,
+        "sentenceCount": 13,
+        "avgSentenceWords": 13.4,
+        "paragraphCount": 11,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/workflow/set-transition-thesis-demo",
+      "relativePath": "src/app/coaches/workflow/set-transition-thesis-demo/page.tsx",
+      "metrics": {
+        "totalWords": 102,
+        "sentenceCount": 7,
+        "avgSentenceWords": 14.6,
+        "paragraphCount": 8,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches/workflow/weekly-momentum-demo",
+      "relativePath": "src/app/coaches/workflow/weekly-momentum-demo/page.tsx",
+      "metrics": {
+        "totalWords": 81,
+        "sentenceCount": 6,
+        "avgSentenceWords": 13.5,
+        "paragraphCount": 8,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coaches-guide",
+      "relativePath": "src/app/coaches-guide/page.tsx",
+      "metrics": {
+        "totalWords": 533,
+        "sentenceCount": 34,
+        "avgSentenceWords": 15.7,
+        "paragraphCount": 28,
+        "headingCount": 8,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/coachos",
+      "relativePath": "src/app/coachos/page.tsx",
+      "metrics": {
+        "totalWords": 222,
+        "sentenceCount": 13,
+        "avgSentenceWords": 17.1,
+        "paragraphCount": 28,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 97,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/concierge",
+      "relativePath": "src/app/concierge/page.tsx",
+      "metrics": {
+        "totalWords": 30,
+        "sentenceCount": 2,
+        "avgSentenceWords": 15,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/contributor",
+      "relativePath": "src/app/contributor/page.tsx",
+      "metrics": {
+        "totalWords": 247,
+        "sentenceCount": 32,
+        "avgSentenceWords": 7.7,
+        "paragraphCount": 9,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard-theme-preview",
+      "relativePath": "src/app/dashboard-theme-preview/page.tsx",
+      "metrics": {
+        "totalWords": 35,
+        "sentenceCount": 1,
+        "avgSentenceWords": 35,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 35.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/demo/cio/notes",
+      "relativePath": "src/app/demo/cio/notes/page.tsx",
+      "metrics": {
+        "totalWords": 21,
+        "sentenceCount": 2,
+        "avgSentenceWords": 10.5,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/page.tsx",
+      "metrics": {
+        "totalWords": 21,
+        "sentenceCount": 2,
+        "avgSentenceWords": 10.5,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/coach-dashboard",
+      "relativePath": "src/app/demo/coach-dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 48,
+        "sentenceCount": 5,
+        "avgSentenceWords": 9.6,
+        "paragraphCount": 5,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/executive-brief",
+      "relativePath": "src/app/demo/executive-brief/page.tsx",
+      "metrics": {
+        "totalWords": 395,
+        "sentenceCount": 49,
+        "avgSentenceWords": 8.1,
+        "paragraphCount": 19,
+        "headingCount": 3,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/executive-dashboard",
+      "relativePath": "src/app/demo/executive-dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 143,
+        "sentenceCount": 3,
+        "avgSentenceWords": 47.7,
+        "paragraphCount": 5,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 47.7 words"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/demo/leader-brief",
+      "relativePath": "src/app/demo/leader-brief/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/manager-tools",
+      "relativePath": "src/app/demo/manager-tools/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/michael-dashboard",
+      "relativePath": "src/app/demo/michael-dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 90,
+        "sentenceCount": 4,
+        "avgSentenceWords": 22.5,
+        "paragraphCount": 16,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 16.0"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 69,
+        "grade": "C+"
+      }
+    },
+    {
+      "route": "/demo/michael-strategy-brief",
+      "relativePath": "src/app/demo/michael-strategy-brief/page.tsx",
+      "metrics": {
+        "totalWords": 88,
+        "sentenceCount": 6,
+        "avgSentenceWords": 14.7,
+        "paragraphCount": 7,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo",
+      "relativePath": "src/app/demo/page.tsx",
+      "metrics": {
+        "totalWords": 284,
+        "sentenceCount": 27,
+        "avgSentenceWords": 10.5,
+        "paragraphCount": 14,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/prep-communications",
+      "relativePath": "src/app/demo/prep-communications/page.tsx",
+      "metrics": {
+        "totalWords": 249,
+        "sentenceCount": 13,
+        "avgSentenceWords": 19.2,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 78,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/demo/prep-companies",
+      "relativePath": "src/app/demo/prep-companies/page.tsx",
+      "metrics": {
+        "totalWords": 237,
+        "sentenceCount": 20,
+        "avgSentenceWords": 11.8,
+        "paragraphCount": 17,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 17.0"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/demo/prep-interview",
+      "relativePath": "src/app/demo/prep-interview/page.tsx",
+      "metrics": {
+        "totalWords": 255,
+        "sentenceCount": 20,
+        "avgSentenceWords": 12.8,
+        "paragraphCount": 18,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 18.0"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/demo/prep-meetings",
+      "relativePath": "src/app/demo/prep-meetings/page.tsx",
+      "metrics": {
+        "totalWords": 184,
+        "sentenceCount": 8,
+        "avgSentenceWords": 23,
+        "paragraphCount": 12,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 67,
+        "grade": "C+"
+      }
+    },
+    {
+      "route": "/demo/presenter",
+      "relativePath": "src/app/demo/presenter/page.tsx",
+      "metrics": {
+        "totalWords": 146,
+        "sentenceCount": 16,
+        "avgSentenceWords": 9.1,
+        "paragraphCount": 12,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/sandbox/alto-shaam",
+      "relativePath": "src/app/demo/sandbox/alto-shaam/page.tsx",
+      "metrics": {
+        "totalWords": 103,
+        "sentenceCount": 7,
+        "avgSentenceWords": 14.7,
+        "paragraphCount": 7,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/sandbox/healthcare",
+      "relativePath": "src/app/demo/sandbox/healthcare/page.tsx",
+      "metrics": {
+        "totalWords": 98,
+        "sentenceCount": 7,
+        "avgSentenceWords": 14,
+        "paragraphCount": 7,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/demo/wedge-30s",
+      "relativePath": "src/app/demo/wedge-30s/page.tsx",
+      "metrics": {
+        "totalWords": 80,
+        "sentenceCount": 6,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 8,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/evaluate",
+      "relativePath": "src/app/evaluate/page.tsx",
+      "metrics": {
+        "totalWords": 66,
+        "sentenceCount": 5,
+        "avgSentenceWords": 13.2,
+        "paragraphCount": 7,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/evidence-hub",
+      "relativePath": "src/app/evidence-hub/page.tsx",
+      "metrics": {
+        "totalWords": 350,
+        "sentenceCount": 19,
+        "avgSentenceWords": 18.4,
+        "paragraphCount": 28,
+        "headingCount": 8,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 93,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/evidence-room",
+      "relativePath": "src/app/evidence-room/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/executive-brief",
+      "relativePath": "src/app/executive-brief/page.tsx",
+      "metrics": {
+        "totalWords": 21,
+        "sentenceCount": 1,
+        "avgSentenceWords": 21,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 85,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/executives/active",
+      "relativePath": "src/app/executives/active/page.tsx",
+      "metrics": {
+        "totalWords": 24,
+        "sentenceCount": 1,
+        "avgSentenceWords": 24,
+        "paragraphCount": 7,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 76,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/executives",
+      "relativePath": "src/app/executives/page.tsx",
+      "metrics": {
+        "totalWords": 32,
+        "sentenceCount": 1,
+        "avgSentenceWords": 32,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [
+        "avg-sentence-too-dense: 32.0 words",
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 58,
+        "grade": "C"
+      }
+    },
+    {
+      "route": "/executives/passive",
+      "relativePath": "src/app/executives/passive/page.tsx",
+      "metrics": {
+        "totalWords": 24,
+        "sentenceCount": 1,
+        "avgSentenceWords": 24,
+        "paragraphCount": 7,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 76,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/executives/personas",
+      "relativePath": "src/app/executives/personas/page.tsx",
+      "metrics": {
+        "totalWords": 85,
+        "sentenceCount": 6,
+        "avgSentenceWords": 14.2,
+        "paragraphCount": 10,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/executives/personas/[slug]",
+      "relativePath": "src/app/executives/personas/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 102,
+        "sentenceCount": 10,
+        "avgSentenceWords": 10.2,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/features",
+      "relativePath": "src/app/features/page.tsx",
+      "metrics": {
+        "totalWords": 24,
+        "sentenceCount": 2,
+        "avgSentenceWords": 12,
+        "paragraphCount": 1,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/features/[slug]",
+      "relativePath": "src/app/features/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 133,
+        "sentenceCount": 15,
+        "avgSentenceWords": 8.9,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/feedback",
+      "relativePath": "src/app/feedback/page.tsx",
+      "metrics": {
+        "totalWords": 232,
+        "sentenceCount": 19,
+        "avgSentenceWords": 12.2,
+        "paragraphCount": 7,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-cdo",
+      "relativePath": "src/app/for-cdo/page.tsx",
+      "metrics": {
+        "totalWords": 44,
+        "sentenceCount": 1,
+        "avgSentenceWords": 44,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 44.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-chro",
+      "relativePath": "src/app/for-chro/page.tsx",
+      "metrics": {
+        "totalWords": 113,
+        "sentenceCount": 7,
+        "avgSentenceWords": 16.1,
+        "paragraphCount": 8,
+        "headingCount": 7,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 5
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-cio",
+      "relativePath": "src/app/for-cio/page.tsx",
+      "metrics": {
+        "totalWords": 68,
+        "sentenceCount": 1,
+        "avgSentenceWords": 68,
+        "paragraphCount": 8,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 68.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-cio-associations",
+      "relativePath": "src/app/for-cio-associations/page.tsx",
+      "metrics": {
+        "totalWords": 509,
+        "sentenceCount": 36,
+        "avgSentenceWords": 14.1,
+        "paragraphCount": 21,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-ciso",
+      "relativePath": "src/app/for-ciso/page.tsx",
+      "metrics": {
+        "totalWords": 44,
+        "sentenceCount": 1,
+        "avgSentenceWords": 44,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 44.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-coaches/coach-prep-worksheet",
+      "relativePath": "src/app/for-coaches/coach-prep-worksheet/page.tsx",
+      "metrics": {
+        "totalWords": 91,
+        "sentenceCount": 4,
+        "avgSentenceWords": 22.8,
+        "paragraphCount": 16,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 80,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/for-coaches/economics",
+      "relativePath": "src/app/for-coaches/economics/page.tsx",
+      "metrics": {
+        "totalWords": 433,
+        "sentenceCount": 27,
+        "avgSentenceWords": 16,
+        "paragraphCount": 23,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches/faq",
+      "relativePath": "src/app/for-coaches/faq/page.tsx",
+      "metrics": {
+        "totalWords": 309,
+        "sentenceCount": 32,
+        "avgSentenceWords": 9.7,
+        "paragraphCount": 18,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches/micro-products",
+      "relativePath": "src/app/for-coaches/micro-products/page.tsx",
+      "metrics": {
+        "totalWords": 60,
+        "sentenceCount": 4,
+        "avgSentenceWords": 15,
+        "paragraphCount": 11,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches/micro-products/[slug]",
+      "relativePath": "src/app/for-coaches/micro-products/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 150,
+        "sentenceCount": 9,
+        "avgSentenceWords": 16.7,
+        "paragraphCount": 13,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 98,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches",
+      "relativePath": "src/app/for-coaches/page.tsx",
+      "metrics": {
+        "totalWords": 191,
+        "sentenceCount": 15,
+        "avgSentenceWords": 12.7,
+        "paragraphCount": 17,
+        "headingCount": 4,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches/search-affiliate",
+      "relativePath": "src/app/for-coaches/search-affiliate/page.tsx",
+      "metrics": {
+        "totalWords": 81,
+        "sentenceCount": 7,
+        "avgSentenceWords": 11.6,
+        "paragraphCount": 10,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-coaches/trust-pack",
+      "relativePath": "src/app/for-coaches/trust-pack/page.tsx",
+      "metrics": {
+        "totalWords": 70,
+        "sentenceCount": 4,
+        "avgSentenceWords": 17.5,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 6
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 84,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/for-coo",
+      "relativePath": "src/app/for-coo/page.tsx",
+      "metrics": {
+        "totalWords": 49,
+        "sentenceCount": 1,
+        "avgSentenceWords": 49,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 49.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-cpo",
+      "relativePath": "src/app/for-cpo/page.tsx",
+      "metrics": {
+        "totalWords": 44,
+        "sentenceCount": 1,
+        "avgSentenceWords": 44,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 44.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-data-officer",
+      "relativePath": "src/app/for-data-officer/page.tsx",
+      "metrics": {
+        "totalWords": 49,
+        "sentenceCount": 1,
+        "avgSentenceWords": 49,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 49.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-executives",
+      "relativePath": "src/app/for-executives/page.tsx",
+      "metrics": {
+        "totalWords": 71,
+        "sentenceCount": 3,
+        "avgSentenceWords": 23.7,
+        "paragraphCount": 18,
+        "headingCount": 4,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 77,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-executives/[lane]",
+      "relativePath": "src/app/for-executives/[lane]/page.tsx",
+      "metrics": {
+        "totalWords": 213,
+        "sentenceCount": 7,
+        "avgSentenceWords": 30.4,
+        "paragraphCount": 8,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 30.4 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-financial-advisors",
+      "relativePath": "src/app/for-financial-advisors/page.tsx",
+      "metrics": {
+        "totalWords": 629,
+        "sentenceCount": 43,
+        "avgSentenceWords": 14.6,
+        "paragraphCount": 26,
+        "headingCount": 7,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-fractional-executives",
+      "relativePath": "src/app/for-fractional-executives/page.tsx",
+      "metrics": {
+        "totalWords": 494,
+        "sentenceCount": 30,
+        "avgSentenceWords": 16.5,
+        "paragraphCount": 23,
+        "headingCount": 7,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 99,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-individuals",
+      "relativePath": "src/app/for-individuals/page.tsx",
+      "metrics": {
+        "totalWords": 42,
+        "sentenceCount": 1,
+        "avgSentenceWords": 42,
+        "paragraphCount": 5,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 42.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-leaders",
+      "relativePath": "src/app/for-leaders/page.tsx",
+      "metrics": {
+        "totalWords": 68,
+        "sentenceCount": 3,
+        "avgSentenceWords": 22.7,
+        "paragraphCount": 16,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 80,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/for-media-partners",
+      "relativePath": "src/app/for-media-partners/page.tsx",
+      "metrics": {
+        "totalWords": 659,
+        "sentenceCount": 47,
+        "avgSentenceWords": 14,
+        "paragraphCount": 29,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-outplacement/economics",
+      "relativePath": "src/app/for-outplacement/economics/page.tsx",
+      "metrics": {
+        "totalWords": 620,
+        "sentenceCount": 30,
+        "avgSentenceWords": 20.7,
+        "paragraphCount": 27,
+        "headingCount": 9,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 9
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 86,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/for-outplacement/executive-summary",
+      "relativePath": "src/app/for-outplacement/executive-summary/page.tsx",
+      "metrics": {
+        "totalWords": 229,
+        "sentenceCount": 14,
+        "avgSentenceWords": 16.4,
+        "paragraphCount": 14,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 14.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 87,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/for-outplacement/faq",
+      "relativePath": "src/app/for-outplacement/faq/page.tsx",
+      "metrics": {
+        "totalWords": 94,
+        "sentenceCount": 5,
+        "avgSentenceWords": 18.8,
+        "paragraphCount": 10,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 6
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 92,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-outplacement/metric-dictionary",
+      "relativePath": "src/app/for-outplacement/metric-dictionary/page.tsx",
+      "metrics": {
+        "totalWords": 105,
+        "sentenceCount": 7,
+        "avgSentenceWords": 15,
+        "paragraphCount": 6,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-outplacement/operating-scorecard",
+      "relativePath": "src/app/for-outplacement/operating-scorecard/page.tsx",
+      "metrics": {
+        "totalWords": 104,
+        "sentenceCount": 5,
+        "avgSentenceWords": 20.8,
+        "paragraphCount": 15,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 15.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 74,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-outplacement",
+      "relativePath": "src/app/for-outplacement/page.tsx",
+      "metrics": {
+        "totalWords": 816,
+        "sentenceCount": 52,
+        "avgSentenceWords": 15.7,
+        "paragraphCount": 40,
+        "headingCount": 8,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-outplacement/runbook",
+      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
+      "metrics": {
+        "totalWords": 198,
+        "sentenceCount": 7,
+        "avgSentenceWords": 28.3,
+        "paragraphCount": 17,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 28.3 words",
+        "weak-chunking-paragraph-to-heading-ratio: 17.0"
+      ],
+      "issueCount": 2,
+      "tier": "public",
+      "grade": "B+",
+      "fluency": {
+        "score": 58,
+        "grade": "C"
+      }
+    },
+    {
+      "route": "/for-outplacement/security-overview",
+      "relativePath": "src/app/for-outplacement/security-overview/page.tsx",
+      "metrics": {
+        "totalWords": 178,
+        "sentenceCount": 8,
+        "avgSentenceWords": 22.3,
+        "paragraphCount": 14,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 14.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 69,
+        "grade": "C+"
+      }
+    },
+    {
+      "route": "/for-outplacement/trust-pack",
+      "relativePath": "src/app/for-outplacement/trust-pack/page.tsx",
+      "metrics": {
+        "totalWords": 458,
+        "sentenceCount": 18,
+        "avgSentenceWords": 25.4,
+        "paragraphCount": 26,
+        "headingCount": 14,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 8
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 72,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-pe-partners",
+      "relativePath": "src/app/for-pe-partners/page.tsx",
+      "metrics": {
+        "totalWords": 435,
+        "sentenceCount": 28,
+        "avgSentenceWords": 15.5,
+        "paragraphCount": 18,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-pe-teams",
+      "relativePath": "src/app/for-pe-teams/page.tsx",
+      "metrics": {
+        "totalWords": 187,
+        "sentenceCount": 9,
+        "avgSentenceWords": 20.8,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 6
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 74,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/for-relocation",
+      "relativePath": "src/app/for-relocation/page.tsx",
+      "metrics": {
+        "totalWords": 611,
+        "sentenceCount": 41,
+        "avgSentenceWords": 14.9,
+        "paragraphCount": 26,
+        "headingCount": 7,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-search-firms",
+      "relativePath": "src/app/for-search-firms/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-vp",
+      "relativePath": "src/app/for-vp/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/for-vp-technology",
+      "relativePath": "src/app/for-vp-technology/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/founder-note",
+      "relativePath": "src/app/founder-note/page.tsx",
+      "metrics": {
+        "totalWords": 286,
+        "sentenceCount": 18,
+        "avgSentenceWords": 15.9,
+        "paragraphCount": 7,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/guide",
+      "relativePath": "src/app/guide/page.tsx",
+      "metrics": {
+        "totalWords": 252,
+        "sentenceCount": 30,
+        "avgSentenceWords": 8.4,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/handshake-review",
+      "relativePath": "src/app/handshake-review/page.tsx",
+      "metrics": {
+        "totalWords": 99,
+        "sentenceCount": 7,
+        "avgSentenceWords": 14.1,
+        "paragraphCount": 7,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/ideas",
+      "relativePath": "src/app/ideas/page.tsx",
+      "metrics": {
+        "totalWords": 423,
+        "sentenceCount": 42,
+        "avgSentenceWords": 10.1,
+        "paragraphCount": 9,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/individuals",
+      "relativePath": "src/app/individuals/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 236,
+        "sentenceCount": 29,
+        "avgSentenceWords": 8.1,
+        "paragraphCount": 11,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/invite/[code]",
+      "relativePath": "src/app/invite/[code]/page.tsx",
+      "metrics": {
+        "totalWords": 169,
+        "sentenceCount": 19,
+        "avgSentenceWords": 8.9,
+        "paragraphCount": 8,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/learn-more/common-questions",
+      "relativePath": "src/app/learn-more/common-questions/page.tsx",
+      "metrics": {
+        "totalWords": 20,
+        "sentenceCount": 4,
+        "avgSentenceWords": 5,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/learn-more/inside-the-system",
+      "relativePath": "src/app/learn-more/inside-the-system/page.tsx",
+      "metrics": {
+        "totalWords": 120,
+        "sentenceCount": 9,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 15,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/learn-more/objections",
+      "relativePath": "src/app/learn-more/objections/page.tsx",
+      "metrics": {
+        "totalWords": 20,
+        "sentenceCount": 3,
+        "avgSentenceWords": 6.7,
+        "paragraphCount": 4,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/learn-more",
+      "relativePath": "src/app/learn-more/page.tsx",
+      "metrics": {
+        "totalWords": 119,
+        "sentenceCount": 9,
+        "avgSentenceWords": 13.2,
+        "paragraphCount": 20,
+        "headingCount": 5,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/managertools",
+      "relativePath": "src/app/managertools/page.tsx",
+      "metrics": {
+        "totalWords": 39,
+        "sentenceCount": 1,
+        "avgSentenceWords": 39,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "avg-sentence-too-dense: 39.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/mark-demo",
+      "relativePath": "src/app/mark-demo/page.tsx",
+      "metrics": {
+        "totalWords": 26,
+        "sentenceCount": 1,
+        "avgSentenceWords": 26,
+        "paragraphCount": 2,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/method-and-evidence",
+      "relativePath": "src/app/method-and-evidence/page.tsx",
+      "metrics": {
+        "totalWords": 211,
+        "sentenceCount": 11,
+        "avgSentenceWords": 19.2,
+        "paragraphCount": 15,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 90,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/methodology",
+      "relativePath": "src/app/methodology/page.tsx",
+      "metrics": {
+        "totalWords": 8,
+        "sentenceCount": 1,
+        "avgSentenceWords": 8,
+        "paragraphCount": 0,
+        "headingCount": 0,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/onboarding",
+      "relativePath": "src/app/onboarding/page.tsx",
+      "metrics": {
+        "totalWords": 119,
+        "sentenceCount": 15,
+        "avgSentenceWords": 7.9,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/optimize",
+      "relativePath": "src/app/optimize/page.tsx",
+      "metrics": {
+        "totalWords": 445,
+        "sentenceCount": 51,
+        "avgSentenceWords": 8.7,
+        "paragraphCount": 13,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 5
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/outplacement",
+      "relativePath": "src/app/outplacement/page.tsx",
+      "metrics": {
+        "totalWords": 32,
+        "sentenceCount": 1,
+        "avgSentenceWords": 32,
+        "paragraphCount": 9,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "avg-sentence-too-dense: 32.0 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
+      }
+    },
+    {
+      "route": "/outplacement/personas",
+      "relativePath": "src/app/outplacement/personas/page.tsx",
+      "metrics": {
+        "totalWords": 45,
+        "sentenceCount": 3,
+        "avgSentenceWords": 15,
+        "paragraphCount": 5,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/outplacement/personas/[slug]",
+      "relativePath": "src/app/outplacement/personas/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 104,
+        "sentenceCount": 10,
+        "avgSentenceWords": 10.4,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/",
+      "relativePath": "src/app/page.tsx",
+      "metrics": {
+        "totalWords": 203,
+        "sentenceCount": 19,
+        "avgSentenceWords": 10.7,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/partner-firm",
+      "relativePath": "src/app/partner-firm/page.tsx",
+      "metrics": {
+        "totalWords": 95,
+        "sentenceCount": 7,
+        "avgSentenceWords": 13.6,
+        "paragraphCount": 11,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/partners",
+      "relativePath": "src/app/partners/page.tsx",
+      "metrics": {
+        "totalWords": 452,
+        "sentenceCount": 40,
+        "avgSentenceWords": 11.3,
+        "paragraphCount": 14,
+        "headingCount": 10,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 6
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/partners/pilot-admin",
+      "relativePath": "src/app/partners/pilot-admin/page.tsx",
+      "metrics": {
+        "totalWords": 26,
+        "sentenceCount": 2,
+        "avgSentenceWords": 13,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/partners/reporting",
+      "relativePath": "src/app/partners/reporting/page.tsx",
+      "metrics": {
+        "totalWords": 276,
+        "sentenceCount": 9,
+        "avgSentenceWords": 30.7,
+        "paragraphCount": 23,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 30.7 words"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 58,
+        "grade": "C"
+      }
+    },
+    {
+      "route": "/pilot-findings",
+      "relativePath": "src/app/pilot-findings/page.tsx",
+      "metrics": {
+        "totalWords": 244,
+        "sentenceCount": 14,
+        "avgSentenceWords": 17.4,
+        "paragraphCount": 7,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 96,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/pricing",
+      "relativePath": "src/app/pricing/page.tsx",
+      "metrics": {
+        "totalWords": 300,
+        "sentenceCount": 23,
+        "avgSentenceWords": 13,
+        "paragraphCount": 18,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 18.0"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/privacy",
+      "relativePath": "src/app/privacy/page.tsx",
+      "metrics": {
+        "totalWords": 526,
+        "sentenceCount": 31,
+        "avgSentenceWords": 17,
+        "paragraphCount": 15,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 97,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/proof/roi-calculator",
+      "relativePath": "src/app/proof/roi-calculator/page.tsx",
+      "metrics": {
+        "totalWords": 18,
+        "sentenceCount": 2,
+        "avgSentenceWords": 9,
+        "paragraphCount": 4,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/references",
+      "relativePath": "src/app/references/page.tsx",
+      "metrics": {
+        "totalWords": 340,
+        "sentenceCount": 23,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 18,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/research-brief",
+      "relativePath": "src/app/research-brief/page.tsx",
+      "metrics": {
+        "totalWords": 236,
+        "sentenceCount": 15,
+        "avgSentenceWords": 15.7,
+        "paragraphCount": 11,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/sales-marketing-plan",
+      "relativePath": "src/app/sales-marketing-plan/page.tsx",
+      "metrics": {
+        "totalWords": 248,
+        "sentenceCount": 16,
+        "avgSentenceWords": 15.5,
+        "paragraphCount": 36,
+        "headingCount": 6,
+        "detailsCount": 3,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/executive-recruiter-demo",
+      "relativePath": "src/app/search-firms/executive-recruiter-demo/page.tsx",
+      "metrics": {
+        "totalWords": 163,
+        "sentenceCount": 11,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 10,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 5
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/objections",
+      "relativePath": "src/app/search-firms/objections/page.tsx",
+      "metrics": {
+        "totalWords": 41,
+        "sentenceCount": 3,
+        "avgSentenceWords": 13.7,
+        "paragraphCount": 8,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms",
+      "relativePath": "src/app/search-firms/page.tsx",
+      "metrics": {
+        "totalWords": 256,
+        "sentenceCount": 18,
+        "avgSentenceWords": 14.2,
+        "paragraphCount": 11,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 7
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/personas",
+      "relativePath": "src/app/search-firms/personas/page.tsx",
+      "metrics": {
+        "totalWords": 59,
+        "sentenceCount": 3,
+        "avgSentenceWords": 19.7,
+        "paragraphCount": 5,
+        "headingCount": 5,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 89,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/search-firms/personas/[slug]",
+      "relativePath": "src/app/search-firms/personas/[slug]/page.tsx",
+      "metrics": {
+        "totalWords": 142,
+        "sentenceCount": 11,
+        "avgSentenceWords": 12.9,
+        "paragraphCount": 5,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/procurement",
+      "relativePath": "src/app/search-firms/procurement/page.tsx",
+      "metrics": {
+        "totalWords": 173,
+        "sentenceCount": 13,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 8,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/sample-cfo-brief",
+      "relativePath": "src/app/search-firms/sample-cfo-brief/page.tsx",
+      "metrics": {
+        "totalWords": 347,
+        "sentenceCount": 26,
+        "avgSentenceWords": 13.3,
+        "paragraphCount": 4,
+        "headingCount": 9,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 2
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/search-firms/trial-charter",
+      "relativePath": "src/app/search-firms/trial-charter/page.tsx",
+      "metrics": {
+        "totalWords": 281,
+        "sentenceCount": 13,
+        "avgSentenceWords": 21.6,
+        "paragraphCount": 21,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 83,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/search-firms/trust",
+      "relativePath": "src/app/search-firms/trust/page.tsx",
+      "metrics": {
+        "totalWords": 216,
+        "sentenceCount": 15,
+        "avgSentenceWords": 14.4,
+        "paragraphCount": 7,
+        "headingCount": 7,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/security",
+      "relativePath": "src/app/security/page.tsx",
+      "metrics": {
+        "totalWords": 844,
+        "sentenceCount": 71,
+        "avgSentenceWords": 11.9,
+        "paragraphCount": 18,
+        "headingCount": 11,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 6
+      },
+      "issues": [
+        "repeated-cta-labels: hello@startingmonday.app (4x)"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/shortlist-sprint",
+      "relativePath": "src/app/shortlist-sprint/page.tsx",
+      "metrics": {
+        "totalWords": 172,
+        "sentenceCount": 12,
+        "avgSentenceWords": 14.3,
+        "paragraphCount": 7,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 4
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/stuart-meyer-review",
+      "relativePath": "src/app/stuart-meyer-review/page.tsx",
+      "metrics": {
+        "totalWords": 433,
+        "sentenceCount": 29,
+        "avgSentenceWords": 14.9,
+        "paragraphCount": 35,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 35.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/team/join/[token]",
+      "relativePath": "src/app/team/join/[token]/page.tsx",
+      "metrics": {
+        "totalWords": 300,
+        "sentenceCount": 47,
+        "avgSentenceWords": 6.4,
+        "paragraphCount": 9,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/terms",
+      "relativePath": "src/app/terms/page.tsx",
+      "metrics": {
+        "totalWords": 37,
+        "sentenceCount": 4,
+        "avgSentenceWords": 9.3,
+        "paragraphCount": 5,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/terry-anderson-review",
+      "relativePath": "src/app/terry-anderson-review/page.tsx",
+      "metrics": {
+        "totalWords": 429,
+        "sentenceCount": 29,
+        "avgSentenceWords": 14.8,
+        "paragraphCount": 35,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 35.0"
+      ],
+      "issueCount": 1,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/unsubscribe/confirmed",
+      "relativePath": "src/app/unsubscribe/confirmed/page.tsx",
+      "metrics": {
+        "totalWords": 4,
+        "sentenceCount": 1,
+        "avgSentenceWords": 4,
+        "paragraphCount": 3,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/unsubscribe/[code]",
+      "relativePath": "src/app/unsubscribe/[code]/page.tsx",
+      "metrics": {
+        "totalWords": 66,
+        "sentenceCount": 9,
+        "avgSentenceWords": 7.3,
+        "paragraphCount": 0,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [],
+      "issueCount": 0,
+      "tier": "public",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    }
+  ]
+}
