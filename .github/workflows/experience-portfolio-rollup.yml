@@ -105,6 +105,7 @@ jobs:
             docs/status/luxury-page-sentinel.latest.json
             docs/status/experience-portfolio-rollup.latest.json
             docs/status/experience-portfolio-rollup.latest.md
+            docs/status/experience-portfolio-rollup.history.json
           retention-days: 30
 
       - name: Alert when portfolio rollup fails

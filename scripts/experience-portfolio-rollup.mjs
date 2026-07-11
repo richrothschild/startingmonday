@@ -14,6 +14,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.md')
 const ownerMapPath = path.join(process.cwd(), 'config', 'experience-issue-owners.json')
+const historyPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 const artifactPaths = {
   trust: path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json'),
   vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
@@ -31,6 +32,49 @@ function severityRank(severity) {
 function loadJsonIfExists(filePath) {
   if (!fs.existsSync(filePath)) return null
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+function loadHistory() {
+  if (!fs.existsSync(historyPath)) {
+    return { version: 1, updatedAt: null, runs: [], lastOpenSignatures: [] }
+  }
+  const parsed = JSON.parse(fs.readFileSync(historyPath, 'utf8'))
+  return {
+    version: parsed.version ?? 1,
+    updatedAt: parsed.updatedAt ?? null,
+    runs: Array.isArray(parsed.runs) ? parsed.runs : [],
+    lastOpenSignatures: Array.isArray(parsed.lastOpenSignatures) ? parsed.lastOpenSignatures : [],
+  }
+}
+
+function classifySignatureDelta(previousOpen, currentOpen) {
+  const previous = new Set(previousOpen)
+  const current = new Set(currentOpen)
+  const newlyOpened = [...current].filter((sig) => !previous.has(sig))
+  const stillOpen = [...current].filter((sig) => previous.has(sig))
+  const resolved = [...previous].filter((sig) => !current.has(sig))
+  return { newlyOpened, stillOpen, resolved }
+}
+
+function writeHistory({ history, report }) {
+  const runSummary = {
+    generatedAt: report.generatedAt,
+    openIssueCount: report.summary.openIssues,
+    artifactIssueCount: report.summary.artifactIssues,
+    routeClusterCount: report.routeClusters.length,
+    topSignatures: report.routeClusters.slice(0, 20).map((cluster) => cluster.signature),
+  }
+
+  const nextRuns = [...history.runs, runSummary].slice(-45)
+  const nextHistory = {
+    version: history.version ?? 1,
+    updatedAt: report.generatedAt,
+    runs: nextRuns,
+    lastOpenSignatures: report.routeClusters.map((cluster) => cluster.signature),
+  }
+
+  fs.writeFileSync(historyPath, `${JSON.stringify(nextHistory, null, 2)}\n`, 'utf8')
+  return nextHistory
 }
 
 function loadOwnerMap() {
@@ -311,6 +355,7 @@ function buildMarkdown(report) {
   lines.push(`Agents tracked: ${report.summary.trackedAgents}`)
   lines.push(`Open issues: ${report.summary.openIssues}`)
   lines.push(`Artifact issues: ${report.summary.artifactIssues}`)
+  lines.push(`Signature delta: new=${report.signatureDelta.newlyOpened.length}, repeated=${report.signatureDelta.stillOpen.length}, resolved=${report.signatureDelta.resolved.length}`)
   lines.push('')
   lines.push('## Portfolio Health')
   lines.push('')
@@ -348,6 +393,18 @@ function buildMarkdown(report) {
     }
   }
   lines.push('')
+  lines.push('## Signature Delta')
+  lines.push('')
+  lines.push(`- New signatures: ${report.signatureDelta.newlyOpened.length}`)
+  for (const signature of report.signatureDelta.newlyOpened.slice(0, 10)) {
+    lines.push(`  - ${signature}`)
+  }
+  lines.push(`- Repeated signatures: ${report.signatureDelta.stillOpen.length}`)
+  lines.push(`- Resolved signatures: ${report.signatureDelta.resolved.length}`)
+  for (const signature of report.signatureDelta.resolved.slice(0, 10)) {
+    lines.push(`  - ${signature}`)
+  }
+  lines.push('')
   lines.push('## Cross-Agent Mitigations')
   lines.push('')
   for (const mitigation of report.mitigations) {
@@ -371,6 +428,7 @@ function buildSlackText(report) {
     `Channel: ${report.channel}`,
     `Tracked agents: ${report.summary.trackedAgents}`,
     `Artifact issues: ${report.summary.artifactIssues}`,
+    `Signature delta: new=${report.signatureDelta.newlyOpened.length}, repeated=${report.signatureDelta.stillOpen.length}, resolved=${report.signatureDelta.resolved.length}`,
     '',
     '*Prioritized route clusters*',
     ...issueLines,
@@ -381,6 +439,7 @@ function buildSlackText(report) {
 }
 
 async function main() {
+  const history = loadHistory()
   const ownerMap = loadOwnerMap()
   const workflowHealth = await getWorkflowHealth()
   const workflowIssues = buildIssueRows(workflowHealth)
@@ -445,6 +504,8 @@ async function main() {
     mitigations,
   }
 
+  report.signatureDelta = classifySignatureDelta(history.lastOpenSignatures ?? [], report.routeClusters.map((cluster) => cluster.signature))
+
   writeLatestReportFiles({
     jsonPath: reportJsonPath,
     markdownPath: reportMdPath,
@@ -454,6 +515,8 @@ async function main() {
 
   const posted = await postSlackText({ webhookUrl: slackWebhook, text: buildSlackText(report) })
   if (!posted) console.log('No Slack webhook configured; skipping Slack post.')
+
+  writeHistory({ history, report })
 
   console.log(`Experience portfolio rollup completed (${report.summary.trackedAgents} agents, open issues=${report.summary.openIssues}).`)
 }
