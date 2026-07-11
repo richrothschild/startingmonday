@@ -27,6 +27,17 @@ jobs:
           restore-keys: |
             portfolio-history-${{ github.ref_name }}-
 
+      - name: Restore seeding checklist cache
+        id: restore-seeding-checklist
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            docs/status/experience-seeding-checklist.latest.json
+            docs/status/experience-seeding-checklist.latest.md
+          key: seeding-checklist-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            seeding-checklist-${{ github.ref_name }}-
+
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
@@ -37,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           RELIABILITY_SLACK_CHANNEL: reliability---service
-          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL }}
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: node scripts/experience-weekly-issues-report.mjs
 
@@ -50,6 +61,8 @@ jobs:
             docs/status/experience-weekly.latest.json
             docs/status/experience-weekly.latest.md
             docs/status/experience-portfolio-rollup.history.json
+            docs/status/experience-seeding-checklist.latest.json
+            docs/status/experience-seeding-checklist.latest.md
           retention-days: 30
 
       - name: Save portfolio history cache
@@ -59,10 +72,19 @@ jobs:
           path: docs/status/experience-portfolio-rollup.history.json
           key: portfolio-history-${{ github.ref_name }}-${{ github.run_id }}
 
+      - name: Save seeding checklist cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            docs/status/experience-seeding-checklist.latest.json
+            docs/status/experience-seeding-checklist.latest.md
+          key: seeding-checklist-${{ github.ref_name }}-${{ github.run_id }}
+
       - name: Alert on workflow failure
         if: failure()
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           if [ -z "$SLACK_WEBHOOK_URL" ]; then
             echo "No Slack webhook configured; skipping failure alert."

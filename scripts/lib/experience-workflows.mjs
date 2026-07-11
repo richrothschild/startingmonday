@@ -65,4 +65,16 @@ export const experienceWorkflows = [
     maxAgeMinutes: 60 * 24 * 40,
     recommendation: 'Use monthly trust trend deltas to ratchet contracts and prevent drift from becoming normalized.',
   },
+  {
+    id: 'experience-seeding-checklist.yml',
+    name: 'Experience Seeding Checklist',
+    maxAgeMinutes: 60 * 24 * 10,
+    recommendation: 'Resolve failed dispatches and keep weekly seeding evidence fresh so monitoring remains auditable.',
+  },
+  {
+    id: 'probe-account-reset.yml',
+    name: 'Probe Account Reset',
+    maxAgeMinutes: 60 * 24,
+    recommendation: 'Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips.',
+  },
 ]

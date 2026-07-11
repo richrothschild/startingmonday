@@ -59,6 +59,8 @@ jobs:
               { id: 'cognitive-fluency-calibration-dispatch.yml', name: 'Cognitive Fluency Calibration Dispatch', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
               { id: 'experience-weekly-issues-report.yml', name: 'Experience Weekly Issues Report', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
               { id: 'experience-monthly-trends-report.yml', name: 'Experience Monthly Trends Report', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
+              { id: 'experience-seeding-checklist.yml', name: 'Experience Seeding Checklist', maxAgeMinutes: 60 * 24 * 10, requireSuccess: true },
+              { id: 'probe-account-reset.yml', name: 'Probe Account Reset', maxAgeMinutes: 60 * 24, requireSuccess: true },
               { id: 'trust-weekly-issues-report.yml', name: 'Trust Weekly Issues Report', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
               { id: 'trust-monthly-trends-report.yml', name: 'Trust Monthly Trends Report', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
               { id: 'route-inventory-agent.yml', name: 'Route Inventory Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },

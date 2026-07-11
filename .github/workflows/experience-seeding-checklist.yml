@@ -55,6 +55,15 @@ jobs:
             docs/status/experience-seeding-checklist.latest.md
           retention-days: 90
 
+      - name: Save seeding checklist cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            docs/status/experience-seeding-checklist.latest.json
+            docs/status/experience-seeding-checklist.latest.md
+          key: seeding-checklist-${{ github.ref_name }}-${{ github.run_id }}
+
       - name: Alert when seeding checklist fails
         if: failure()
         env:
