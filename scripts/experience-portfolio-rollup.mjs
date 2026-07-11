@@ -14,10 +14,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.md')
 const ownerMapPath = path.join(process.cwd(), 'config', 'experience-issue-owners.json')
-<<<<<<< HEAD
 const historyPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
-=======
->>>>>>> origin/main
 const artifactPaths = {
   trust: path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json'),
   vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
@@ -37,7 +34,6 @@ function loadJsonIfExists(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
-<<<<<<< HEAD
 function loadHistory() {
   if (!fs.existsSync(historyPath)) {
     return { version: 1, updatedAt: null, runs: [], lastOpenSignatures: [] }
@@ -81,8 +77,6 @@ function writeHistory({ history, report }) {
   return nextHistory
 }
 
-=======
->>>>>>> origin/main
 function loadOwnerMap() {
   if (!fs.existsSync(ownerMapPath)) {
     return { defaultOwner: 'platform-experience', byDimension: {}, byCategory: {}, byRoutePrefix: {} }
