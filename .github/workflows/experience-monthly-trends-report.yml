@@ -1,0 +1,66 @@
+name: Experience Monthly Trends Report
+
+on:
+  schedule:
+    - cron: '45 13 1 * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  experience-monthly-trends-report:
+    name: Generate monthly experience trends report
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Generate and post monthly experience trends report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/experience-monthly-trends-report.mjs
+
+      - name: Upload monthly experience artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: experience-monthly-trends-report
+          path: |
+            docs/status/experience-monthly.latest.json
+            docs/status/experience-monthly.latest.md
+          retention-days: 90
+
+      - name: Alert on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Monthly experience trends report workflow failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Monthly experience trends report workflow failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
