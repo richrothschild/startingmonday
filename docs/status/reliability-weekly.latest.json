@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-11T14:34:24.777Z",
+  "channel": "reliability---service",
+  "window": {
+    "start": "2026-07-04T14:34:02.145Z",
+    "end": "2026-07-11T14:34:02.144Z"
+  },
+  "workflowSummaries": [
+    {
+      "id": "production-synthetics.yml",
+      "name": "Production Synthetics",
+      "totalRuns": 214,
+      "issueRuns": 2,
+      "issueRate": 0.009,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29155742930",
+      "recommendation": "Triage failing synthetic checks, quarantine flaky probes, and verify production auth/session health.",
+      "issues": [
+        "2 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "dashboard-behavior-baseline.yml",
+      "name": "Dashboard Behavior Baseline Agent",
+      "totalRuns": 0,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": true,
+      "latestConclusion": null,
+      "recommendation": "Dispatch the baseline agent and validate dashboard route contracts and credentials.",
+      "issues": [
+        "no completed runs in last 7 days"
+      ]
+    },
+    {
+      "id": "monitoring.yml",
+      "name": "Production Monitoring",
+      "totalRuns": 186,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29155440186",
+      "recommendation": "Review production monitors and reconnect failing checks to service owners and runbooks.",
+      "issues": []
+    },
+    {
+      "id": "monitoring-watchdog.yml",
+      "name": "Monitoring Watchdog",
+      "totalRuns": 134,
+      "issueRuns": 36,
+      "issueRate": 0.269,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29154968351",
+      "recommendation": "Resolve watchdog freshness failures quickly to prevent silent monitoring outages.",
+      "issues": [
+        "36 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "deployment-watchdog.yml",
+      "name": "Deployment Watchdog",
+      "totalRuns": 252,
+      "issueRuns": 1,
+      "issueRate": 0.004,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29155768913",
+      "recommendation": "Inspect deployment gate failures and verify branch-to-environment promotion health.",
+      "issues": [
+        "1 non-success runs in the last 7 days"
+      ]
+    }
+  ],
+  "recommendedActions": [
+    {
+      "workflow": "Production Synthetics",
+      "action": "Triage failing synthetic checks, quarantine flaky probes, and verify production auth/session health."
+    },
+    {
+      "workflow": "Dashboard Behavior Baseline Agent",
+      "action": "Dispatch the baseline agent and validate dashboard route contracts and credentials."
+    },
+    {
+      "workflow": "Monitoring Watchdog",
+      "action": "Resolve watchdog freshness failures quickly to prevent silent monitoring outages."
+    },
+    {
+      "workflow": "Deployment Watchdog",
+      "action": "Inspect deployment gate failures and verify branch-to-environment promotion health."
+    }
+  ]
+}

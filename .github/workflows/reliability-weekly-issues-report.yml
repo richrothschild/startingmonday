@@ -1,0 +1,66 @@
+name: Reliability Weekly Issues Report
+
+on:
+  schedule:
+    - cron: '20 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  reliability-weekly-issues-report:
+    name: Generate weekly reliability issues report
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Generate and post weekly reliability issues report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/reliability-weekly-issues-report.mjs
+
+      - name: Upload weekly reliability artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: reliability-weekly-issues-report
+          path: |
+            docs/status/reliability-weekly.latest.json
+            docs/status/reliability-weekly.latest.md
+          retention-days: 30
+
+      - name: Alert on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Weekly reliability issues report workflow failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Weekly reliability issues report workflow failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

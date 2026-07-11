@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { reliabilityWorkflows } from './lib/reliability-workflows.mjs'
 
 const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
@@ -12,13 +13,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'reliability-daily.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'reliability-daily.latest.md')
 
-const watchedWorkflows = [
-  { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 30 },
-  { id: 'dashboard-behavior-baseline.yml', name: 'Dashboard Behavior Baseline Agent', maxAgeMinutes: 60 * 30 },
-  { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90 },
-  { id: 'monitoring-watchdog.yml', name: 'Monitoring Watchdog', maxAgeMinutes: 90 },
-  { id: 'deployment-watchdog.yml', name: 'Deployment Watchdog', maxAgeMinutes: 90 },
-]
+const watchedWorkflows = reliabilityWorkflows
 
 const riskCatalog = [
   {
