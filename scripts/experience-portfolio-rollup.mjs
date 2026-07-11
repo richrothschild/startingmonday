@@ -23,6 +23,14 @@ const artifactPaths = {
   journey: path.join(process.cwd(), 'docs', 'status', 'synthetic-journey-metrics.latest.json'),
 }
 
+const sourceFreshnessThresholdMinutes = {
+  trust: 24 * 60,
+  vitals: 12 * 60,
+  cognitive: 24 * 60,
+  sentinel: 24 * 60,
+  journey: 3 * 60,
+}
+
 function severityRank(severity) {
   if (severity === 'P0') return 3
   if (severity === 'P1') return 2
@@ -360,6 +368,64 @@ function normalizeJourneyIssues(report) {
   return issues
 }
 
+function freshnessSeverityForSource(sourceName) {
+  if (sourceName === 'journey') return 'P1'
+  if (sourceName === 'trust' || sourceName === 'vitals') return 'P1'
+  return 'P2'
+}
+
+function normalizeSourceFreshnessIssues(sourceArtifacts) {
+  const issues = []
+  for (const [sourceName, generatedAt] of Object.entries(sourceArtifacts)) {
+    const threshold = sourceFreshnessThresholdMinutes[sourceName] ?? 24 * 60
+    const severity = freshnessSeverityForSource(sourceName)
+
+    if (!generatedAt) {
+      issues.push({
+        agent: 'Experience Portfolio Rollup',
+        category: 'artifact-freshness',
+        route: '(artifact-source)',
+        dimension: `${sourceName}-source-missing`,
+        severity,
+        evidence: `Artifact source timestamp missing for ${sourceName}; threshold=${threshold}m.`,
+        suggestedAction: `Refresh the ${sourceName} source artifact before certifying portfolio health.`,
+        ageMinutes: null,
+      })
+      continue
+    }
+
+    const artifactAge = ageMinutes(generatedAt)
+    if (!Number.isFinite(artifactAge)) {
+      issues.push({
+        agent: 'Experience Portfolio Rollup',
+        category: 'artifact-freshness',
+        route: '(artifact-source)',
+        dimension: `${sourceName}-source-invalid-timestamp`,
+        severity,
+        evidence: `Artifact source timestamp for ${sourceName} is invalid: ${String(generatedAt)}`,
+        suggestedAction: `Fix ${sourceName} artifact timestamp emission and rerun the source workflow.`,
+        ageMinutes: null,
+      })
+      continue
+    }
+
+    if (artifactAge > threshold) {
+      issues.push({
+        agent: 'Experience Portfolio Rollup',
+        category: 'artifact-freshness',
+        route: '(artifact-source)',
+        dimension: `${sourceName}-source-stale`,
+        severity,
+        evidence: `${sourceName} source artifact is ${artifactAge}m old (threshold ${threshold}m).`,
+        suggestedAction: `Rerun the ${sourceName} source workflow and investigate freshness drift before the next report cycle.`,
+        ageMinutes: artifactAge,
+      })
+    }
+  }
+
+  return issues
+}
+
 function collapseIssues(issues) {
   const buckets = new Map()
   for (const issue of issues) {
@@ -512,6 +578,13 @@ async function main() {
     ...normalizeCognitiveIssues(cognitiveReport),
     ...normalizeSentinelIssues(sentinelReport),
     ...normalizeJourneyIssues(journeyReport),
+    ...normalizeSourceFreshnessIssues({
+      trust: trustReport?.generatedAt ?? null,
+      vitals: vitalsReport?.generatedAt ?? null,
+      cognitive: cognitiveReport?.generatedAt ?? null,
+      sentinel: sentinelReport?.generatedAt ?? null,
+      journey: journeyReport?.generatedAt ?? null,
+    }),
   ]
 
   const enrichedArtifactIssues = artifactIssues.map((issue) => ({
