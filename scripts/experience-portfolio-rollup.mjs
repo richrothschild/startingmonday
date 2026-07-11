@@ -13,6 +13,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.md')
+const ownerMapPath = path.join(process.cwd(), 'config', 'experience-issue-owners.json')
 const artifactPaths = {
   trust: path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json'),
   vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
@@ -30,6 +31,34 @@ function severityRank(severity) {
 function loadJsonIfExists(filePath) {
   if (!fs.existsSync(filePath)) return null
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+function loadOwnerMap() {
+  if (!fs.existsSync(ownerMapPath)) {
+    return { defaultOwner: 'platform-experience', byDimension: {}, byCategory: {}, byRoutePrefix: {} }
+  }
+  const parsed = JSON.parse(fs.readFileSync(ownerMapPath, 'utf8'))
+  return {
+    defaultOwner: parsed.defaultOwner || 'platform-experience',
+    byDimension: parsed.byDimension || {},
+    byCategory: parsed.byCategory || {},
+    byRoutePrefix: parsed.byRoutePrefix || {},
+  }
+}
+
+function ownerForIssue(issue, ownerMap) {
+  if (issue.dimension && ownerMap.byDimension[issue.dimension]) return ownerMap.byDimension[issue.dimension]
+  if (issue.category && ownerMap.byCategory[issue.category]) return ownerMap.byCategory[issue.category]
+  const route = issue.route || ''
+  const routePrefixes = Object.keys(ownerMap.byRoutePrefix).sort((a, b) => b.length - a.length)
+  for (const prefix of routePrefixes) {
+    if (route.startsWith(prefix)) return ownerMap.byRoutePrefix[prefix]
+  }
+  return ownerMap.defaultOwner
+}
+
+function stableSignatureForIssue(issue) {
+  return `${issue.route || '(unknown-route)'}|${issue.dimension || 'unknown-dimension'}|${issue.agent || 'unknown-agent'}`
 }
 
 async function gh(pathname) {
@@ -109,6 +138,7 @@ function buildIssueRows(workflowHealth) {
       evidence: row.ageMinutes === null
         ? 'No completed run found on main.'
         : `Latest ${row.conclusion ?? 'n/a'} run is ${row.ageMinutes}m old (threshold ${row.maxAgeMinutes ?? 'n/a'}m).`,
+      signature: `${row.id}|${row.status}|${row.conclusion ?? 'n/a'}`,
       score: scoreForRow(row),
       url: row.url,
     }))
@@ -239,12 +269,14 @@ function collapseIssues(issues) {
       overlapCount: 0,
       agents: new Set(),
       dimensions: new Set(),
+      signatures: new Set(),
       evidences: [],
       actions: new Set(),
       maxAgeMinutes: 0,
     }
     bucket.agents.add(issue.agent)
     bucket.dimensions.add(issue.dimension)
+    bucket.signatures.add(issue.signature)
     bucket.evidences.push(issue.evidence)
     bucket.actions.add(issue.suggestedAction)
     bucket.maxAgeMinutes = Math.max(bucket.maxAgeMinutes, issue.ageMinutes ?? 0)
@@ -260,6 +292,8 @@ function collapseIssues(issues) {
       overlapCount: bucket.overlapCount,
       agents: [...bucket.agents].sort(),
       dimensions: [...bucket.dimensions].sort(),
+      signatures: [...bucket.signatures].sort(),
+      signature: [...bucket.signatures].sort().slice(0, 4).join(' || '),
       evidence: bucket.evidences.slice(0, 3),
       suggestedMitigation: [...bucket.actions].slice(0, 2),
       ageMinutes: bucket.maxAgeMinutes,
@@ -292,6 +326,8 @@ function buildMarkdown(report) {
   } else {
     for (const issue of report.issues) {
       lines.push(`- [${issue.severity}] ${issue.agent}: ${issue.status}`)
+      lines.push(`  Owner: ${issue.owner}`)
+      lines.push(`  Signature: ${issue.signature}`)
       lines.push(`  Evidence: ${issue.evidence}`)
       lines.push(`  Action: ${issue.suggestedAction}`)
     }
@@ -304,6 +340,8 @@ function buildMarkdown(report) {
   } else {
     for (const cluster of report.routeClusters) {
       lines.push(`- [${cluster.severity}] ${cluster.route}: overlap=${cluster.overlapCount}, agents=${cluster.agents.join(', ')}`)
+      lines.push(`  Owner: ${cluster.owner}`)
+      lines.push(`  Signature: ${cluster.signature}`)
       lines.push(`  Dimensions: ${cluster.dimensions.join(', ')}`)
       for (const evidence of cluster.evidence) lines.push(`  Evidence: ${evidence}`)
       for (const action of cluster.suggestedMitigation) lines.push(`  Action: ${action}`)
@@ -326,7 +364,7 @@ function buildSlackText(report) {
 
   const issueLines = report.routeClusters.length === 0
     ? ['- None']
-    : report.routeClusters.slice(0, 8).map((cluster) => `- [${cluster.severity}] ${cluster.route}: ${cluster.dimensions.join(', ')} — ${cluster.suggestedMitigation[0] ?? 'Inspect artifacts'}`)
+    : report.routeClusters.slice(0, 8).map((cluster) => `- [${cluster.severity}] ${cluster.route} (${cluster.owner}): ${cluster.dimensions.join(', ')} - ${cluster.suggestedMitigation[0] ?? 'Inspect artifacts'}`)
 
   return [
     headline,
@@ -343,6 +381,7 @@ function buildSlackText(report) {
 }
 
 async function main() {
+  const ownerMap = loadOwnerMap()
   const workflowHealth = await getWorkflowHealth()
   const workflowIssues = buildIssueRows(workflowHealth)
   const trustReport = loadJsonIfExists(artifactPaths.trust)
@@ -357,8 +396,25 @@ async function main() {
     ...normalizeSentinelIssues(sentinelReport),
   ]
 
-  const routeClusters = collapseIssues(artifactIssues)
-  const issues = [...workflowIssues]
+  const enrichedArtifactIssues = artifactIssues.map((issue) => ({
+    ...issue,
+    owner: ownerForIssue(issue, ownerMap),
+    signature: stableSignatureForIssue(issue),
+  }))
+
+  const routeClusters = collapseIssues(enrichedArtifactIssues).map((cluster) => {
+    const matchingIssues = enrichedArtifactIssues.filter((issue) => issue.route === cluster.route)
+    const owners = [...new Set(matchingIssues.map((issue) => issue.owner))]
+    return {
+      ...cluster,
+      owner: owners.length === 1 ? owners[0] : owners.join(', '),
+    }
+  })
+
+  const issues = workflowIssues.map((issue) => ({
+    ...issue,
+    owner: ownerMap.defaultOwner,
+  }))
 
   const mitigations = [
     'Treat stale or failed agents as observability debt: rerun the affected workflow, inspect its latest artifact, and assign an owner before the next cycle.',
@@ -384,7 +440,7 @@ async function main() {
     },
     workflowHealth,
     issues,
-    artifactIssues,
+    artifactIssues: enrichedArtifactIssues,
     routeClusters,
     mitigations,
   }
