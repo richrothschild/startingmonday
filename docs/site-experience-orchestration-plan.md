@@ -24,7 +24,7 @@ Status legend:
 | J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered screenshot/diff checks; typography/accent telemetry is now tracked source-side |
 | J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml`, `scripts/cognitive-fluency-calibration-dispatch.mjs`, `.github/workflows/cognitive-fluency-calibration-dispatch.yml` | Monthly calibration dispatch is live; next fold human-auditor outcomes back into deterministic scoring |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
-| J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
+| J8 Journey Synthetic Agent | In Progress | `.github/workflows/production-synthetics.yml` now emits journey step percentile and abandonment-risk scoring (`synthetic-journey-metrics.json`) | Add per-journey SLO thresholds from SES and route-tier weighting |
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
 | J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs`, `scripts/experience-portfolio-rollup.mjs`, `.github/workflows/experience-portfolio-rollup.yml` | First portfolio rollup is live; next deepen it from workflow-health rollup into artifact-level issue normalization |
 | J11 Watchdog + seeding | In Progress | `.github/workflows/monitoring-watchdog.yml`; trust and experience workflows seeded on main | Add explicit seeding checklist and probe-account reset automation job |
@@ -205,7 +205,7 @@ Key orchestration decisions:
 | J5 | Visual Sentinel extension | extend sentinel script with rendered checks; typography + accent ceilings into SES | J1, J3 | In Progress |
 | J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 | In Progress |
 | J7 | Trust Integrity Agent | parity/title/landmark/staleness/link checks unified | J3 | Done |
-| J8 | Journey Synthetic Agent | extend synthetics with journey-step percentile scoring | J1 | Not Started |
+| J8 | Journey Synthetic Agent | extend synthetics with journey-step percentile scoring | J1 | In Progress |
 | J9 | Daily Experience Report | aggregator over ledger, Slack digest, dedupe + severity caps | J3–J8 | In Progress |
 | J10 | Weekly Issues + Monthly Trends | experience twins of the reliability weekly/monthly scripts | J9 | In Progress |
 | J11 | Watchdog + seeding | register all agents; manual dispatch seeding; probe-account reset job | each agent | In Progress |
