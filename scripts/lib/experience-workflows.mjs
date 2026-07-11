@@ -24,6 +24,12 @@ export const experienceWorkflows = [
     recommendation: 'Use the monthly calibration packet to drive human-depth Page Experience Auditor review on the worst-scoring routes.',
   },
   {
+    id: 'experience-portfolio-rollup.yml',
+    name: 'Experience Portfolio Rollup',
+    maxAgeMinutes: 60 * 30,
+    recommendation: 'Use the portfolio rollup as the single triage board for cross-agent issues and route the suggested mitigation to an owner immediately.',
+  },
+  {
     id: 'luxury-page-sentinel.yml',
     name: 'Luxury Page Sentinel',
     maxAgeMinutes: 120,
