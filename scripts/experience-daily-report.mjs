@@ -178,7 +178,7 @@ async function main() {
   const workflowHealth = await getWorkflowHealth()
   const riskRows = buildRiskRows(workflowHealth)
   const missing = [
-    'Cross-route count-parity checker across dashboard, briefing, and signals surfaces (P0 contract).',
+    'Cross-route trust integrity trend history with 7-day and 30-day drift deltas on parity/title/landmark contracts.',
     'Deterministic cognitive fluency/load score persisted per route tier with grade-band trending.',
     'Experience baseline review bot that proposes ratcheted stricter thresholds after 30 stable days.',
     'Field-vs-lab experience delta tracker for route-level LCP/INP confidence checks.',
