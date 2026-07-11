@@ -18,9 +18,9 @@ Status legend:
 | Job | Status | Evidence in repo | Next milestone |
 |---|---|---|---|
 | J1 Site Experience Standard config | In Progress | `config/site-experience-standard.json` (initial SES scaffold) | Wire SES thresholds into active agents/gates as single source of truth |
-| J2 Agent registry + shared lib | In Progress | `scripts/lib/experience-agents.mjs`, `scripts/lib/experience-workflows.mjs`, `scripts/lib/trust-workflows.mjs` | Add `scripts/lib/agent-report-kit.mjs` and migrate report scripts to shared helpers |
+| J2 Agent registry + shared lib | In Progress | `scripts/lib/experience-agents.mjs`, `scripts/lib/experience-workflows.mjs`, `scripts/lib/trust-workflows.mjs`, `scripts/lib/agent-report-kit.mjs` | Continue migrating daily/weekly/monthly report scripts to shared helper kit |
 | J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
-| J4 Experience Vitals Agent | Not Started | N/A | Build vitals script + `config/experience-vitals-baseline.json` + sharded workflow |
+| J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | Seed on main, validate route-tier metrics quality, tighten enforcement and sharding strategy |
 | J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered typography/accent/diff checks and tiered route coverage |
 | J6 Cognitive Load & Fluency Agent | Not Started | Existing gate scripts only (`check-cognitive-load-all-pages.mjs`) | Build deterministic weekly agent + monthly LLM calibration dispatch |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
@@ -33,7 +33,7 @@ Status legend:
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Start J4 (vitals baseline + first route-tier vitals run).
+3. Validate J4 first-run quality and integrate vitals outputs into weekly/monthly experience trends.
 
 ---
 
@@ -201,7 +201,7 @@ Key orchestration decisions:
 | J1 | Site Experience Standard config | `config/site-experience-standard.json` (budgets, grades, severity map, per-tier thresholds) | — | In Progress |
 | J2 | Agent registry + shared lib | `scripts/lib/experience-agents.mjs`; refactor shared Slack/artifact/gh helpers out of reliability scripts into `scripts/lib/agent-report-kit.mjs` | — | In Progress |
 | J3 | Route Inventory Agent | `scripts/experience-route-inventory.mjs` + workflow + watchdog entry | J2 | Done |
-| J4 | Experience Vitals Agent | script + `config/experience-vitals-baseline.json` + workflow (sharded) | J1–J3 | Not Started |
+| J4 | Experience Vitals Agent | script + `config/experience-vitals-baseline.json` + workflow (sharded) | J1–J3 | In Progress |
 | J5 | Visual Sentinel extension | extend sentinel script with rendered checks; typography + accent ceilings into SES | J1, J3 | In Progress |
 | J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 | Not Started |
 | J7 | Trust Integrity Agent | parity/title/landmark/staleness/link checks unified | J3 | Done |

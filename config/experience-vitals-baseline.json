@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "capturedAt": "2026-07-11T00:00:00.000Z",
+  "description": "Initial Experience Vitals baseline and budgets for route-tier vitals monitoring.",
+  "routeSelection": {
+    "includeTiers": [
+      "funnel",
+      "public",
+      "dashboard",
+      "admin"
+    ],
+    "excludeDynamicRoutes": true,
+    "maxRoutesPerTier": {
+      "funnel": 8,
+      "public": 10,
+      "dashboard": 8,
+      "admin": 4
+    }
+  },
+  "budgets": {
+    "funnel": {
+      "lcpMs": 2000,
+      "ttfbMs": 500,
+      "fcpMs": 1200,
+      "cls": 0.05,
+      "inpProxyMs": 150
+    },
+    "public": {
+      "lcpMs": 2200,
+      "ttfbMs": 600,
+      "fcpMs": 1400,
+      "cls": 0.08,
+      "inpProxyMs": 180
+    },
+    "dashboard": {
+      "lcpMs": 2200,
+      "ttfbMs": 600,
+      "fcpMs": 1400,
+      "cls": 0.05,
+      "inpProxyMs": 170
+    },
+    "admin": {
+      "lcpMs": 2500,
+      "ttfbMs": 700,
+      "fcpMs": 1600,
+      "cls": 0.08,
+      "inpProxyMs": 220
+    }
+  },
+  "enforcement": {
+    "failOnBreach": false,
+    "warnThresholdPercent": 15
+  }
+}

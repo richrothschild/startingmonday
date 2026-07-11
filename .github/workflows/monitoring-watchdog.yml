@@ -50,6 +50,7 @@ jobs:
               { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 120, requireSuccess: true },
               { id: 'dashboard-behavior-baseline.yml', name: 'Dashboard Behavior Baseline Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'trust-integrity-agent.yml', name: 'Trust Integrity Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },
+              { id: 'experience-vitals-agent.yml', name: 'Experience Vitals Agent', maxAgeMinutes: 60 * 8, requireSuccess: true },
               { id: 'reliability-daily-report.yml', name: 'Reliability Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'experience-daily-report.yml', name: 'Experience Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'trust-daily-report.yml', name: 'Trust Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
