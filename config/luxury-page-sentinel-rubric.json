@@ -20,6 +20,41 @@
       "orange-200"
     ]
   },
+  "visualDiscipline": {
+    "fontFamilies": {
+      "countMonospaceAgainstLimit": false,
+      "maxDistinctFamiliesByScope": {
+        "funnel": 2,
+        "dashboard": 2,
+        "public": 2,
+        "admin": 2
+      }
+    },
+    "accentFamilies": {
+      "trackedFamilies": [
+        "orange",
+        "amber",
+        "yellow",
+        "emerald",
+        "green",
+        "teal",
+        "cyan",
+        "blue",
+        "indigo",
+        "violet",
+        "purple",
+        "pink",
+        "rose",
+        "red"
+      ],
+      "maxDistinctFamiliesByScope": {
+        "funnel": 2,
+        "dashboard": 3,
+        "public": 2,
+        "admin": 4
+      }
+    }
+  },
   "runtime": {
     "allowedStatusCodes": [200],
     "notFoundMarkers": [
@@ -55,6 +90,16 @@
       "id": "latency",
       "blocking": false,
       "metric": "Response time under maxResponseMs"
+    },
+    {
+      "id": "typography-discipline",
+      "blocking": false,
+      "metric": "Route stays within allowed distinct font-family count for its scope"
+    },
+    {
+      "id": "accent-restraint",
+      "blocking": false,
+      "metric": "Route stays within allowed distinct accent-color family count for its scope"
     },
     {
       "id": "coverage",
