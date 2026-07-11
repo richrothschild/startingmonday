@@ -72,6 +72,7 @@ jobs:
             const now = Date.now()
             const failures = []
             const notes = []
+            const latestById = new Map()
 
             for (const wf of workflows) {
               const res = await github.rest.actions.listWorkflowRuns({
@@ -86,6 +87,7 @@ jobs:
 
               const runs = res.data.workflow_runs ?? []
               const latestRun = runs[0]
+              latestById.set(wf.id, { latestRun, latestAgeMinutes: null, latestSuccess: null, latestSuccessAgeMinutes: null, consecutiveFailures: null })
 
               if (!latestRun) {
                 failures.push(`${wf.name}: no completed run found on main`)
@@ -93,6 +95,7 @@ jobs:
               }
 
               const latestAgeMinutes = Math.floor((now - new Date(latestRun.created_at).getTime()) / 60000)
+              latestById.set(wf.id, { ...latestById.get(wf.id), latestRun, latestAgeMinutes })
 
               if (wf.maxAgeMinutes !== null && latestAgeMinutes > wf.maxAgeMinutes) {
                 failures.push(`${wf.name}: stale (${latestAgeMinutes}m > ${wf.maxAgeMinutes}m)`)
@@ -109,6 +112,7 @@ jobs:
                 }
 
                 const latestSuccess = runs.find((r) => r.conclusion === 'success')
+                latestById.set(wf.id, { ...latestById.get(wf.id), latestSuccess })
                 if (!latestSuccess) {
                   if (consecutiveFailures >= consecutiveFailureThreshold) {
                     failures.push(`${wf.name}: no successful run found in recent history (${consecutiveFailures} consecutive failures)`)
@@ -119,6 +123,7 @@ jobs:
                 }
 
                 const latestSuccessAgeMinutes = Math.floor((now - new Date(latestSuccess.created_at).getTime()) / 60000)
+                latestById.set(wf.id, { ...latestById.get(wf.id), latestSuccess, latestSuccessAgeMinutes, consecutiveFailures })
                 notes.push(`${wf.name}: latest ${latestRun.conclusion} (${latestAgeMinutes}m old), latest success ${latestSuccessAgeMinutes}m old, consecutive failures ${consecutiveFailures}`)
 
                 if (latestRun.conclusion !== 'success' && consecutiveFailures >= consecutiveFailureThreshold) {
@@ -136,6 +141,12 @@ jobs:
               } else {
                 notes.push(`${wf.name}: ${latestRun.conclusion} (${latestAgeMinutes}m old)`)
               }
+            }
+
+            const probeReset = latestById.get('probe-account-reset.yml')
+            const seedingChecklist = latestById.get('experience-seeding-checklist.yml')
+            if (probeReset?.latestRun?.conclusion === 'success' && seedingChecklist?.latestRun?.conclusion === 'success') {
+              notes.push('J11 freshness signals: probe reset and seeding checklist are both healthy on main.')
             }
 
             core.notice(notes.join(' | '))
