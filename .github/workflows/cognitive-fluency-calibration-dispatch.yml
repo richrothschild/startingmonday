@@ -1,0 +1,76 @@
+name: Cognitive Fluency Calibration Dispatch
+
+on:
+  schedule:
+    - cron: '20 14 1 * *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  cognitive-fluency-calibration:
+    name: Prepare monthly cognitive fluency calibration packet
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh cognitive load snapshot
+        env:
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/cognitive-load-agent.mjs
+
+      - name: Build cognitive fluency calibration packet
+        env:
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/cognitive-fluency-calibration-dispatch.mjs
+
+      - name: Upload calibration artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: cognitive-fluency-calibration-latest
+          path: |
+            docs/status/cognitive-load.latest.json
+            docs/status/cognitive-load.latest.md
+            docs/status/cognitive-fluency-calibration.latest.json
+            docs/status/cognitive-fluency-calibration.latest.md
+          retention-days: 90
+
+      - name: Alert when calibration workflow fails
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Cognitive fluency calibration dispatch failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Cognitive fluency calibration dispatch failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
