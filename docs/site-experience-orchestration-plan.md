@@ -26,14 +26,14 @@ Status legend:
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
 | J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
-| J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs` | Build one portfolio rollup report that aggregates issues across all experience agents with suggested mitigations/actions |
+| J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs`, `scripts/experience-portfolio-rollup.mjs`, `.github/workflows/experience-portfolio-rollup.yml` | First portfolio rollup is live; next deepen it from workflow-health rollup into artifact-level issue normalization |
 | J11 Watchdog + seeding | In Progress | `.github/workflows/monitoring-watchdog.yml`; trust and experience workflows seeded on main | Add explicit seeding checklist and probe-account reset automation job |
 | J12 Calibration loop | Not Started | N/A | Add quarterly deterministic-vs-LLM calibration workflow and report |
 
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Build the cross-agent portfolio rollup report/alert so issues and mitigations converge in one place.
+3. Deepen the new portfolio rollup from workflow-health aggregation into artifact-level issue normalization across agents.
 
 ---
 
