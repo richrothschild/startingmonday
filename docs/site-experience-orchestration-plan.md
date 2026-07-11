@@ -1,9 +1,39 @@
 # Site Experience Orchestration (SXO) — Analysis, Jobs To Be Done, and Implementation Plan
 
 Date: 2026-07-11
-Status: Proposal for implementation
+Status: Live implementation tracker (proposal + execution status)
+Last updated: 2026-07-11 (active sprint execution)
 Benchmark class: top luxury digital experiences (Ritz-Carlton, Vogue, The New York Times, Aman, Hermès)
 Reporting/alerting parity target: the reliability agent suite (daily report, weekly issues, monthly trends, watchdog, Slack `reliability---service`)
+
+---
+
+## 0. Implementation Tracker (J1-J12)
+
+Status legend:
+- `Done`: deliverables implemented and running in production cadence.
+- `In Progress`: partially implemented or implemented but not yet complete to plan definition.
+- `Not Started`: no implementation yet.
+
+| Job | Status | Evidence in repo | Next milestone |
+|---|---|---|---|
+| J1 Site Experience Standard config | In Progress | `config/site-experience-standard.json` (initial SES scaffold) | Wire SES thresholds into active agents/gates as single source of truth |
+| J2 Agent registry + shared lib | In Progress | `scripts/lib/experience-agents.mjs`, `scripts/lib/experience-workflows.mjs`, `scripts/lib/trust-workflows.mjs` | Add `scripts/lib/agent-report-kit.mjs` and migrate report scripts to shared helpers |
+| J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
+| J4 Experience Vitals Agent | Not Started | N/A | Build vitals script + `config/experience-vitals-baseline.json` + sharded workflow |
+| J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered typography/accent/diff checks and tiered route coverage |
+| J6 Cognitive Load & Fluency Agent | Not Started | Existing gate scripts only (`check-cognitive-load-all-pages.mjs`) | Build deterministic weekly agent + monthly LLM calibration dispatch |
+| J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
+| J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
+| J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
+| J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs` | Move to single experience trend brain with per-dimension tier analysis |
+| J11 Watchdog + seeding | In Progress | `.github/workflows/monitoring-watchdog.yml`; trust and experience workflows seeded on main | Add explicit seeding checklist and probe-account reset automation job |
+| J12 Calibration loop | Not Started | N/A | Add quarterly deterministic-vs-LLM calibration workflow and report |
+
+Current sprint focus:
+1. Harden trust telemetry artifacts and route-evidence clarity (active).
+2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
+3. Start J4 (vitals baseline + first route-tier vitals run).
 
 ---
 
@@ -12,6 +42,7 @@ Reporting/alerting parity target: the reliability agent suite (daily report, wee
 The reliability work just completed proved a repeatable pattern: **agent → baseline → scheduled run → artifact → Slack report → watchdog freshness check → weekly issues → monthly trends**. The site already has significant experience-guarding assets, but they are fragmented across three maturity tiers:
 
 ### Tier A — Already agent-shaped (scheduled, alerting)
+
 | Asset | Watches | Gap |
 |---|---|---|
 | `luxury-page-sentinel.yml` + `config/luxury-page-sentinel-rubric.json` | Every route: availability, palette conformance, response time | No trend memory; pass/fail only; no percentile tracking |
@@ -20,6 +51,7 @@ The reliability work just completed proved a repeatable pattern: **agent → bas
 | `landing-standard-monitor.yml` | Landing standard compliance | Landing pages only |
 | `reliability-daily/weekly/monthly` | Workflow health, issues, trends | Watches workflows, not pages |
 | `monitoring-watchdog.yml` | Agent freshness | Ready to absorb new agents |
+
 
 ### Tier B — Gate-shaped (runs at commit/CI, not continuously)
 - `check-ux-ui-rubric-pages.mjs` (10 pages, static contract checks)
@@ -164,20 +196,20 @@ Key orchestration decisions:
 
 ## 6. Jobs To Be Done
 
-| # | Job | Deliverables | Depends on |
-|---|---|---|---|
-| J1 | Site Experience Standard config | `config/site-experience-standard.json` (budgets, grades, severity map, per-tier thresholds) | — |
-| J2 | Agent registry + shared lib | `scripts/lib/experience-agents.mjs`; refactor shared Slack/artifact/gh helpers out of reliability scripts into `scripts/lib/agent-report-kit.mjs` | — |
-| J3 | Route Inventory Agent | `scripts/experience-route-inventory.mjs` + workflow + watchdog entry | J2 |
-| J4 | Experience Vitals Agent | script + `config/experience-vitals-baseline.json` + workflow (sharded) | J1–J3 |
-| J5 | Visual Sentinel extension | extend sentinel script with rendered checks; typography + accent ceilings into SES | J1, J3 |
-| J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 |
-| J7 | Trust Integrity Agent | parity/title/landmark/staleness/link checks unified | J3 |
-| J8 | Journey Synthetic Agent | extend synthetics with journey-step percentile scoring | J1 |
-| J9 | Daily Experience Report | aggregator over ledger, Slack digest, dedupe + severity caps | J3–J8 |
-| J10 | Weekly Issues + Monthly Trends | experience twins of the reliability weekly/monthly scripts | J9 |
-| J11 | Watchdog + seeding | register all agents; manual dispatch seeding; probe-account reset job | each agent |
-| J12 | Calibration loop | quarterly deterministic-vs-LLM-auditor comparison job | J6, 1 quarter of data |
+| # | Job | Deliverables | Depends on | Status |
+|---|---|---|---|---|
+| J1 | Site Experience Standard config | `config/site-experience-standard.json` (budgets, grades, severity map, per-tier thresholds) | — | In Progress |
+| J2 | Agent registry + shared lib | `scripts/lib/experience-agents.mjs`; refactor shared Slack/artifact/gh helpers out of reliability scripts into `scripts/lib/agent-report-kit.mjs` | — | In Progress |
+| J3 | Route Inventory Agent | `scripts/experience-route-inventory.mjs` + workflow + watchdog entry | J2 | Done |
+| J4 | Experience Vitals Agent | script + `config/experience-vitals-baseline.json` + workflow (sharded) | J1–J3 | Not Started |
+| J5 | Visual Sentinel extension | extend sentinel script with rendered checks; typography + accent ceilings into SES | J1, J3 | In Progress |
+| J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 | Not Started |
+| J7 | Trust Integrity Agent | parity/title/landmark/staleness/link checks unified | J3 | Done |
+| J8 | Journey Synthetic Agent | extend synthetics with journey-step percentile scoring | J1 | Not Started |
+| J9 | Daily Experience Report | aggregator over ledger, Slack digest, dedupe + severity caps | J3–J8 | In Progress |
+| J10 | Weekly Issues + Monthly Trends | experience twins of the reliability weekly/monthly scripts | J9 | In Progress |
+| J11 | Watchdog + seeding | register all agents; manual dispatch seeding; probe-account reset job | each agent | In Progress |
+| J12 | Calibration loop | quarterly deterministic-vs-LLM-auditor comparison job | J6, 1 quarter of data | Not Started |
 
 ---
 

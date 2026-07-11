@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "capturedAt": "2026-07-11T00:00:00.000Z",
+  "reviewBy": "2026-10-09T00:00:00.000Z",
+  "description": "Site Experience Standard (SES). Canonical budgets, grade thresholds, and severity rules for SXO agents and gates.",
+  "tiers": {
+    "funnel": {
+      "label": "Public funnel routes",
+      "cwvBudget": {
+        "lcpP75Ms": 2000,
+        "ttfbP75Ms": 500,
+        "clsP75": 0.05,
+        "inpP75Ms": 150
+      },
+      "gradeThresholds": {
+        "cognitiveFluency": "B+",
+        "cognitiveLoad": "B+"
+      }
+    },
+    "dashboard": {
+      "label": "Authenticated dashboard routes",
+      "cwvBudget": {
+        "lcpP75Ms": 2200,
+        "ttfbP75Ms": 600,
+        "clsP75": 0.05,
+        "inpP75Ms": 170
+      },
+      "gradeThresholds": {
+        "cognitiveFluency": "A-",
+        "cognitiveLoad": "A-"
+      },
+      "trustContracts": {
+        "signalParityRequired": true,
+        "singleMainLandmarkRequired": true,
+        "titlePattern": "<Route Label> - Starting Monday",
+        "staleRelativeTimePhrasesAllowed": false
+      }
+    },
+    "admin": {
+      "label": "Administrative routes",
+      "cwvBudget": {
+        "lcpP75Ms": 2500,
+        "ttfbP75Ms": 700,
+        "clsP75": 0.08,
+        "inpP75Ms": 200
+      },
+      "gradeThresholds": {
+        "cognitiveFluency": "B",
+        "cognitiveLoad": "B"
+      }
+    }
+  },
+  "visualDiscipline": {
+    "maxDistinctFontFamilies": 2,
+    "maxAccentColorFamilies": 2,
+    "motion": {
+      "maxConcurrentAnimations": 6,
+      "maxDurationMs": 450,
+      "layoutShiftingAnimationAllowed": false
+    }
+  },
+  "severityPolicy": {
+    "P0": {
+      "description": "Immediate trust/availability or severe budget failure.",
+      "examples": [
+        "dashboard parity mismatch",
+        "route availability failure on critical route",
+        "single run > 2x LCP budget with corroborating signal"
+      ],
+      "slack": "immediate",
+      "digest": true
+    },
+    "P1": {
+      "description": "Budget breach or grade-band drop requiring same-day triage.",
+      "slack": "daily-digest",
+      "digest": true
+    },
+    "P2": {
+      "description": "Drift within tolerance band, trend-only visibility.",
+      "slack": "weekly-only",
+      "digest": false
+    }
+  },
+  "dedupe": {
+    "windowHours": 72,
+    "key": [
+      "route",
+      "dimension",
+      "signature"
+    ]
+  },
+  "baselineLifecycle": {
+    "ratchetOnly": true,
+    "maxBaselineAgeDays": 90,
+    "requiresPullRequest": true
+  },
+  "reporting": {
+    "slackChannel": "reliability---service",
+    "labDataFooterRequired": true,
+    "messageGrammar": "headline-channel-sections"
+  }
+}
