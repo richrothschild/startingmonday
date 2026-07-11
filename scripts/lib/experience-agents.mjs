@@ -109,4 +109,12 @@ export const experienceAgents = [
     sesWired: true,
     recommendation: 'Monitor team SLA attainment and issue velocity; generate coaching recommendations for teams with high violation counts.',
   },
+  {
+    id: 'stakeholder-dashboard-agent.yml',
+    name: 'Stakeholder Dashboard Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 6, // 6 hours - Real-time executive dashboard
+    sesWired: true,
+    recommendation: 'Generate real-time executive scorecard with P0/P1/P2 breakdown, top overdue issues, and recommended actions.',
+  },
 ]
