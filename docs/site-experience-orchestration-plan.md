@@ -28,7 +28,7 @@ Status legend:
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
 | J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs`, `scripts/experience-portfolio-rollup.mjs`, `.github/workflows/experience-portfolio-rollup.yml` | First portfolio rollup is live; next deepen it from workflow-health rollup into artifact-level issue normalization |
 | J11 Watchdog + seeding | In Progress | `.github/workflows/monitoring-watchdog.yml`; trust and experience workflows seeded on main | Add explicit seeding checklist and probe-account reset automation job |
-| J12 Calibration loop | Not Started | N/A | Add quarterly deterministic-vs-LLM calibration workflow and report |
+| J12 Calibration loop | In Progress | `scripts/cognitive-calibration-loop.mjs`, `.github/workflows/cognitive-calibration-loop.yml` | Wire Page Experience Auditor output artifact into automated route-level grade comparison |
 
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
@@ -209,7 +209,7 @@ Key orchestration decisions:
 | J9 | Daily Experience Report | aggregator over ledger, Slack digest, dedupe + severity caps | J3–J8 | In Progress |
 | J10 | Weekly Issues + Monthly Trends | experience twins of the reliability weekly/monthly scripts | J9 | In Progress |
 | J11 | Watchdog + seeding | register all agents; manual dispatch seeding; probe-account reset job | each agent | In Progress |
-| J12 | Calibration loop | quarterly deterministic-vs-LLM-auditor comparison job | J6, 1 quarter of data | Not Started |
+| J12 | Calibration loop | quarterly deterministic-vs-LLM-auditor comparison job | J6, 1 quarter of data | In Progress |
 
 ---
 
