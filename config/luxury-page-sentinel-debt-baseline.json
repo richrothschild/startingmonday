@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "capturedAt": "2026-07-11T00:00:00Z",
+  "description": "Debt ratchet baseline for luxury page sentinel. Counts may decrease, but must not increase.",
+  "maxByDimension": {
+    "palette-conformance": 79,
+    "availability": 0,
+    "coverage": 0
+  }
+}
