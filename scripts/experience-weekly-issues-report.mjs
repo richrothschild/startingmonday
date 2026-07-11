@@ -151,6 +151,30 @@ function portfolioWeeklyDelta(history) {
   return { available: true, newlyOpened, stillOpen, resolved }
 }
 
+function ownerFromSignature(signature) {
+  if (!signature || typeof signature !== 'string') return 'platform-experience'
+  if (signature.includes('|signal-parity|') || signature.includes('|relative-time|') || signature.includes('|title|') || signature.includes('|landmark|')) return 'trust-intel'
+  if (signature.includes('|vitals-budget|')) return 'performance-platform'
+  if (signature.includes('|cognitive-load|') || signature.includes('|cognitive-fluency|') || signature.includes('|cognitive-load-threshold|')) return 'content-design'
+  if (signature.includes('|palette-conformance|') || signature.includes('|typography-discipline|') || signature.includes('|accent-restraint|')) return 'design-systems'
+  if (signature.includes('|availability|') || signature.includes('|coverage|') || signature.includes('|debt-ratchet|') || signature.includes('|quarantine|')) return 'platform-reliability'
+  if (signature.startsWith('/dashboard')) return 'dashboard-experience'
+  return 'platform-experience'
+}
+
+function ownerLeaderboard(history) {
+  if (!history.available || history.runs.length === 0) return []
+  const latest = history.runs[history.runs.length - 1]?.topSignatures ?? []
+  const counts = new Map()
+  for (const signature of latest) {
+    const owner = ownerFromSignature(signature)
+    counts.set(owner, (counts.get(owner) ?? 0) + 1)
+  }
+  return [...counts.entries()]
+    .map(([owner, openSignatures]) => ({ owner, openSignatures }))
+    .sort((a, b) => b.openSignatures - a.openSignatures || a.owner.localeCompare(b.owner))
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Weekly Issues Report')
@@ -181,6 +205,17 @@ function buildMarkdown(report) {
   }
 
   lines.push('')
+  lines.push('## Owner Leaderboard')
+  lines.push('')
+  if (report.ownerLeaderboard.length === 0) {
+    lines.push('- No owner exposure data available yet.')
+  } else {
+    for (const row of report.ownerLeaderboard) {
+      lines.push(`- ${row.owner}: openSignatures=${row.openSignatures}`)
+    }
+  }
+
+  lines.push('')
   lines.push('## Recommended Actions')
   lines.push('')
   for (const action of report.recommendedActions) {
@@ -208,6 +243,7 @@ function buildSlackText(report) {
     `Channel: ${report.channel}`,
     `Window: ${report.window.start} to ${report.window.end}`,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
+    `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
     '',
     '*Issues*',
     ...issueLines,
@@ -243,6 +279,7 @@ async function main() {
   const recommendedActions = buildRecommendedActions(workflowSummaries)
   const portfolioHistory = readPortfolioHistory()
   const portfolioDelta = portfolioWeeklyDelta(portfolioHistory)
+  const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -251,6 +288,7 @@ async function main() {
     workflowSummaries,
     recommendedActions,
     portfolioDelta,
+    ownerLeaderboard: ownerLeaderboardRows,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })

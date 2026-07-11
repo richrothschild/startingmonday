@@ -129,6 +129,30 @@ function monthlyPortfolioTrend(history) {
   }
 }
 
+function ownerFromSignature(signature) {
+  if (!signature || typeof signature !== 'string') return 'platform-experience'
+  if (signature.includes('|signal-parity|') || signature.includes('|relative-time|') || signature.includes('|title|') || signature.includes('|landmark|')) return 'trust-intel'
+  if (signature.includes('|vitals-budget|')) return 'performance-platform'
+  if (signature.includes('|cognitive-load|') || signature.includes('|cognitive-fluency|') || signature.includes('|cognitive-load-threshold|')) return 'content-design'
+  if (signature.includes('|palette-conformance|') || signature.includes('|typography-discipline|') || signature.includes('|accent-restraint|')) return 'design-systems'
+  if (signature.includes('|availability|') || signature.includes('|coverage|') || signature.includes('|debt-ratchet|') || signature.includes('|quarantine|')) return 'platform-reliability'
+  if (signature.startsWith('/dashboard')) return 'dashboard-experience'
+  return 'platform-experience'
+}
+
+function ownerLeaderboard(history) {
+  if (!history.available || history.runs.length === 0) return []
+  const latest = history.runs[history.runs.length - 1]?.topSignatures ?? []
+  const counts = new Map()
+  for (const signature of latest) {
+    const owner = ownerFromSignature(signature)
+    counts.set(owner, (counts.get(owner) ?? 0) + 1)
+  }
+  return [...counts.entries()]
+    .map(([owner, openSignatures]) => ({ owner, openSignatures }))
+    .sort((a, b) => b.openSignatures - a.openSignatures || a.owner.localeCompare(b.owner))
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Monthly Trends Report')
@@ -155,6 +179,18 @@ function buildMarkdown(report) {
   lines.push(`- Route-cluster signature opened delta: ${report.portfolioTrend.openedDelta}`)
   lines.push(`- Route-cluster signature resolved delta: ${report.portfolioTrend.resolvedDelta}`)
   lines.push(`- Latest route cluster count: ${report.portfolioTrend.latestClusterCount}`)
+  lines.push(`- Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`)
+  lines.push('')
+
+  lines.push('## Owner Leaderboard')
+  lines.push('')
+  if (report.ownerLeaderboard.length === 0) {
+    lines.push('- No owner exposure data available yet.')
+  } else {
+    for (const row of report.ownerLeaderboard) {
+      lines.push(`- ${row.owner}: openSignatures=${row.openSignatures}`)
+    }
+  }
   lines.push('')
 
   return `${lines.join('\n')}\n`
@@ -175,6 +211,7 @@ function buildSlackText(report) {
     `Channel: ${report.channel}`,
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
     `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
+    `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
     '',
     '*Trends*',
     ...trendLines,
@@ -229,6 +266,7 @@ async function main() {
 
   const portfolioHistory = readPortfolioHistory()
   const portfolioTrend = monthlyPortfolioTrend(portfolioHistory)
+  const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -238,6 +276,7 @@ async function main() {
     trends,
     summary,
     portfolioTrend,
+    ownerLeaderboard: ownerLeaderboardRows,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
