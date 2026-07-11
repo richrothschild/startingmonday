@@ -96,6 +96,30 @@ export default async function SignalsPage({
     companySince: since7d,
     patternSince: since14d,
   })
+
+  const companyOptionsMap = new Map<string, string>()
+  for (const company of companies ?? []) {
+    if (company?.id && company?.name) companyOptionsMap.set(company.id, company.name)
+  }
+  for (const signal of mergedSignals) {
+    const companyRef = Array.isArray(signal.companies) ? signal.companies[0] : signal.companies
+    if (companyRef?.id && companyRef?.name && !companyOptionsMap.has(companyRef.id)) {
+      companyOptionsMap.set(companyRef.id, companyRef.name)
+    }
+  }
+  const companyFilterOptions = Array.from(companyOptionsMap.entries())
+    .map(([id, name]) => ({ id, name }))
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  const observedSignalTypes = Array.from(new Set(mergedSignals.map((signal) => signal.signal_type).filter(Boolean)))
+  const fallbackSignalTypes = [...Object.keys(SIGNAL_TYPE_LABELS), 'pattern_alert']
+  const typeFilterOptions = (observedSignalTypes.length > 0 ? observedSignalTypes : fallbackSignalTypes)
+    .map((value) => ({
+      value,
+      label: SIGNAL_TYPE_LABELS[value] ?? value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()),
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label))
+
   const contractFilteredSignals = mergedSignals
     .filter((signal) => !companyFilter || signal.company_id === companyFilter)
     .filter((signal) => !typeFilter || signal.signal_type === typeFilter)
@@ -216,8 +240,8 @@ export default async function SignalsPage({
             className="text-[13px] border border-white/20 rounded px-3 py-1.5 bg-white/5 text-slate-100 focus:outline-none focus:border-orange-300/50"
           >
             <option value="">All companies</option>
-            {(companies ?? []).map(c => (
-              <option key={c.id} value={c.id}>{c.name}</option>
+            {companyFilterOptions.map((companyOption) => (
+              <option key={companyOption.id} value={companyOption.id}>{companyOption.name}</option>
             ))}
           </select>
 
@@ -229,10 +253,9 @@ export default async function SignalsPage({
             className="text-[13px] border border-white/20 rounded px-3 py-1.5 bg-white/5 text-slate-100 focus:outline-none focus:border-orange-300/50"
           >
             <option value="">All types</option>
-            {Object.entries(SIGNAL_TYPE_LABELS).map(([val, label]) => (
-              <option key={val} value={val}>{label}</option>
+            {typeFilterOptions.map((typeOption) => (
+              <option key={typeOption.value} value={typeOption.value}>{typeOption.label}</option>
             ))}
-            <option value="pattern_alert">Pattern Alert</option>
           </select>
 
           <button
