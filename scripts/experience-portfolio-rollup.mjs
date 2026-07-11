@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs'
 import path from 'node:path'
 import { experienceWorkflows } from './lib/experience-workflows.mjs'
 import { ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
@@ -12,6 +13,24 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.md')
+const artifactPaths = {
+  trust: path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json'),
+  vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
+  cognitive: path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json'),
+  sentinel: path.join(process.cwd(), 'docs', 'status', 'luxury-page-sentinel.latest.json'),
+}
+
+function severityRank(severity) {
+  if (severity === 'P0') return 3
+  if (severity === 'P1') return 2
+  if (severity === 'P2') return 1
+  return 0
+}
+
+function loadJsonIfExists(filePath) {
+  if (!fs.existsSync(filePath)) return null
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
 
 async function gh(pathname) {
   return ghJson({
@@ -96,6 +115,159 @@ function buildIssueRows(workflowHealth) {
     .sort((a, b) => b.score - a.score || a.agent.localeCompare(b.agent))
 }
 
+function trustSuggestedAction(issue) {
+  if (issue.dimension === 'signal-parity') return 'Reconcile signal-count sources across dashboard, briefing, and signals before certifying trust posture.'
+  if (issue.dimension === 'title') return 'Fix route metadata titles to restore the expected Route Label - Starting Monday contract.'
+  if (issue.dimension === 'landmark') return 'Restore exactly one main landmark and normalize route chrome structure.'
+  if (issue.dimension === 'relative-time') return 'Replace stale relative-time copy with deterministic date anchors or shared recency labels.'
+  return 'Inspect trust-integrity findings and remediate the affected route contract.'
+}
+
+function normalizeTrustIssues(report) {
+  if (!report || !Array.isArray(report.findings)) return []
+  return report.findings.map((finding) => ({
+    agent: 'Trust Integrity Agent',
+    category: 'trust',
+    route: finding.route || '(trust-portfolio)',
+    dimension: finding.contract,
+    severity: finding.severity || 'P1',
+    evidence: finding.evidence ? `${finding.message} | ${finding.evidence}` : finding.message,
+    suggestedAction: trustSuggestedAction(finding),
+    ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+  }))
+}
+
+function normalizeVitalsIssues(report) {
+  if (!report || !Array.isArray(report.results)) return []
+  const issues = []
+  for (const row of report.results) {
+    for (const breach of row.budget?.breaches ?? []) {
+      issues.push({
+        agent: 'Experience Vitals Agent',
+        category: 'vitals',
+        route: row.route,
+        dimension: 'vitals-budget',
+        severity: row.tier === 'funnel' ? 'P1' : 'P2',
+        evidence: breach,
+        suggestedAction: `Reduce ${row.tier} vitals regressions on ${row.route} or explicitly revise the tier baseline after review.`,
+        ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+      })
+    }
+  }
+  return issues
+}
+
+function normalizeCognitiveIssues(report) {
+  if (!report || !Array.isArray(report.pages)) return []
+  const issues = []
+  for (const page of report.pages) {
+    if (page.issueCount > 0) {
+      issues.push({
+        agent: 'Cognitive Load Agent',
+        category: 'cognitive',
+        route: page.route,
+        dimension: 'cognitive-load',
+        severity: page.tier === 'dashboard' && page.thresholds?.load?.pass === false ? 'P1' : 'P2',
+        evidence: `${page.issueCount} issue(s): ${(page.issues ?? []).join('; ')}`,
+        suggestedAction: 'Reduce CTA competition, improve chunking, and simplify dense route sections before the next cycle.',
+        ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+      })
+    }
+
+    if (page.thresholds?.fluency?.pass === false) {
+      issues.push({
+        agent: 'Cognitive Load Agent',
+        category: 'cognitive',
+        route: page.route,
+        dimension: 'cognitive-fluency',
+        severity: page.tier === 'dashboard' ? 'P1' : 'P2',
+        evidence: `Fluency grade ${page.fluency?.grade} below required ${page.thresholds.fluency.required}; score=${page.fluency?.score}`,
+        suggestedAction: 'Improve heading hierarchy, sentence density, and information scent on the affected route.',
+        ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+      })
+    }
+
+    if (page.thresholds?.load?.pass === false) {
+      issues.push({
+        agent: 'Cognitive Load Agent',
+        category: 'cognitive',
+        route: page.route,
+        dimension: 'cognitive-load-threshold',
+        severity: page.tier === 'dashboard' ? 'P1' : 'P2',
+        evidence: `Load grade ${page.grade} below required ${page.thresholds.load.required}`,
+        suggestedAction: 'Reduce concurrent choices and simplify the interaction burden on the route.',
+        ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+      })
+    }
+  }
+  return issues
+}
+
+function sentinelSeverityForDimension(dimension) {
+  if (dimension === 'availability' || dimension === 'coverage' || dimension === 'debt-ratchet' || dimension === 'quarantine') return 'P1'
+  if (dimension === 'palette-conformance') return 'P1'
+  return 'P2'
+}
+
+function normalizeSentinelIssues(report) {
+  if (!report || !Array.isArray(report.violations)) return []
+  return report.violations.map((violation) => ({
+    agent: 'Luxury Page Sentinel',
+    category: 'visual',
+    route: violation.route || '(portfolio)',
+    dimension: violation.dimension,
+    severity: sentinelSeverityForDimension(violation.dimension),
+    evidence: violation.evidence,
+    suggestedAction: violation.dimension === 'palette-conformance'
+      ? 'Normalize the route back to the luxury shell palette and remove light-shell drift.'
+      : violation.dimension === 'typography-discipline'
+        ? 'Reduce the number of font families used on the route and preserve typographic discipline.'
+        : violation.dimension === 'accent-restraint'
+          ? 'Reduce competing accent-color families and restore palette restraint.'
+          : 'Inspect the sentinel evidence and remediate the underlying route-level visual or availability issue.',
+    ageMinutes: report.generatedAt ? ageMinutes(report.generatedAt) : null,
+  }))
+}
+
+function collapseIssues(issues) {
+  const buckets = new Map()
+  for (const issue of issues) {
+    const routeKey = issue.route || '(unknown-route)'
+    const bucket = buckets.get(routeKey) ?? {
+      route: routeKey,
+      maxSeverity: 'P2',
+      overlapCount: 0,
+      agents: new Set(),
+      dimensions: new Set(),
+      evidences: [],
+      actions: new Set(),
+      maxAgeMinutes: 0,
+    }
+    bucket.agents.add(issue.agent)
+    bucket.dimensions.add(issue.dimension)
+    bucket.evidences.push(issue.evidence)
+    bucket.actions.add(issue.suggestedAction)
+    bucket.maxAgeMinutes = Math.max(bucket.maxAgeMinutes, issue.ageMinutes ?? 0)
+    bucket.overlapCount += 1
+    if (severityRank(issue.severity) > severityRank(bucket.maxSeverity)) bucket.maxSeverity = issue.severity
+    buckets.set(routeKey, bucket)
+  }
+
+  return [...buckets.values()]
+    .map((bucket) => ({
+      route: bucket.route,
+      severity: bucket.maxSeverity,
+      overlapCount: bucket.overlapCount,
+      agents: [...bucket.agents].sort(),
+      dimensions: [...bucket.dimensions].sort(),
+      evidence: bucket.evidences.slice(0, 3),
+      suggestedMitigation: [...bucket.actions].slice(0, 2),
+      ageMinutes: bucket.maxAgeMinutes,
+      score: severityRank(bucket.maxSeverity) * 100 + bucket.overlapCount * 10 + Math.min(9, bucket.maxAgeMinutes ?? 0),
+    }))
+    .sort((a, b) => b.score - a.score || a.route.localeCompare(b.route))
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Portfolio Rollup')
@@ -104,6 +276,7 @@ function buildMarkdown(report) {
   lines.push(`Channel: ${report.channel}`)
   lines.push(`Agents tracked: ${report.summary.trackedAgents}`)
   lines.push(`Open issues: ${report.summary.openIssues}`)
+  lines.push(`Artifact issues: ${report.summary.artifactIssues}`)
   lines.push('')
   lines.push('## Portfolio Health')
   lines.push('')
@@ -124,6 +297,19 @@ function buildMarkdown(report) {
     }
   }
   lines.push('')
+  lines.push('## Route Clusters')
+  lines.push('')
+  if (report.routeClusters.length === 0) {
+    lines.push('- None')
+  } else {
+    for (const cluster of report.routeClusters) {
+      lines.push(`- [${cluster.severity}] ${cluster.route}: overlap=${cluster.overlapCount}, agents=${cluster.agents.join(', ')}`)
+      lines.push(`  Dimensions: ${cluster.dimensions.join(', ')}`)
+      for (const evidence of cluster.evidence) lines.push(`  Evidence: ${evidence}`)
+      for (const action of cluster.suggestedMitigation) lines.push(`  Action: ${action}`)
+    }
+  }
+  lines.push('')
   lines.push('## Cross-Agent Mitigations')
   lines.push('')
   for (const mitigation of report.mitigations) {
@@ -138,16 +324,17 @@ function buildSlackText(report) {
     ? '*Experience portfolio rollup: all tracked agents healthy*'
     : `*Experience portfolio rollup: ${report.issues.length} open issue(s) across agents*`
 
-  const issueLines = report.issues.length === 0
+  const issueLines = report.routeClusters.length === 0
     ? ['- None']
-    : report.issues.slice(0, 10).map((issue) => `- [${issue.severity}] ${issue.agent}: ${issue.status} — ${issue.suggestedAction}`)
+    : report.routeClusters.slice(0, 8).map((cluster) => `- [${cluster.severity}] ${cluster.route}: ${cluster.dimensions.join(', ')} — ${cluster.suggestedMitigation[0] ?? 'Inspect artifacts'}`)
 
   return [
     headline,
     `Channel: ${report.channel}`,
     `Tracked agents: ${report.summary.trackedAgents}`,
+    `Artifact issues: ${report.summary.artifactIssues}`,
     '',
-    '*Prioritized issues*',
+    '*Prioritized route clusters*',
     ...issueLines,
     '',
     '*Cross-agent mitigations*',
@@ -157,12 +344,27 @@ function buildSlackText(report) {
 
 async function main() {
   const workflowHealth = await getWorkflowHealth()
-  const issues = buildIssueRows(workflowHealth)
+  const workflowIssues = buildIssueRows(workflowHealth)
+  const trustReport = loadJsonIfExists(artifactPaths.trust)
+  const vitalsReport = loadJsonIfExists(artifactPaths.vitals)
+  const cognitiveReport = loadJsonIfExists(artifactPaths.cognitive)
+  const sentinelReport = loadJsonIfExists(artifactPaths.sentinel)
+
+  const artifactIssues = [
+    ...normalizeTrustIssues(trustReport),
+    ...normalizeVitalsIssues(vitalsReport),
+    ...normalizeCognitiveIssues(cognitiveReport),
+    ...normalizeSentinelIssues(sentinelReport),
+  ]
+
+  const routeClusters = collapseIssues(artifactIssues)
+  const issues = [...workflowIssues]
 
   const mitigations = [
     'Treat stale or failed agents as observability debt: rerun the affected workflow, inspect its latest artifact, and assign an owner before the next cycle.',
     'When multiple agents point at the same surface, fix the shared route/root cause before tuning thresholds or silencing alerts.',
     'Use the agent recommendation text as the immediate next action, then reflect long-lived fixes back into SES thresholds or baseline configs.',
+    'Prefer the highest-overlap route clusters first: one route fix that clears multiple agents outperforms isolated threshold tuning.',
   ]
 
   const report = {
@@ -171,10 +373,19 @@ async function main() {
     summary: {
       trackedAgents: workflowHealth.length,
       openIssues: issues.length,
+      artifactIssues: artifactIssues.length,
       healthyAgents: workflowHealth.filter((row) => row.status === 'healthy').length,
+    },
+    sourceArtifacts: {
+      trust: trustReport?.generatedAt ?? null,
+      vitals: vitalsReport?.generatedAt ?? null,
+      cognitive: cognitiveReport?.generatedAt ?? null,
+      sentinel: sentinelReport?.generatedAt ?? null,
     },
     workflowHealth,
     issues,
+    artifactIssues,
+    routeClusters,
     mitigations,
   }
 
