@@ -1,0 +1,74 @@
+name: Dashboard Behavior Baseline Agent
+
+on:
+  schedule:
+    - cron: '20 13 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  dashboard-behavior-baseline:
+    name: Measure dashboard behavior baseline and drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run dashboard behavior baseline agent
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
+          SLACK_UI_DELIVERY_WEBHOOK_URL: ${{ secrets.SLACK_UI_DELIVERY_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_UI_DELIVERY_CHANNEL: UI-Delivery
+        run: |
+          node scripts/dashboard-behavior-baseline.mjs \
+            --base-url "$PLAYWRIGHT_BASE_URL" \
+            --report docs/status/dashboard-behavior.latest.json
+
+      - name: Upload dashboard behavior report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: dashboard-behavior-latest
+          path: docs/status/dashboard-behavior.latest.json
+          retention-days: 14
+
+      - name: Alert when agent run fails
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_UI_DELIVERY_WEBHOOK_URL || secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Dashboard behavior baseline agent failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Dashboard behavior baseline agent failed*\nChannel: UI-Delivery\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
