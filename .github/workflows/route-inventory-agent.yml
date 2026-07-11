@@ -1,0 +1,62 @@
+name: Route Inventory Agent
+
+on:
+  schedule:
+    - cron: '25 13 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  route-inventory-agent:
+    name: Generate route inventory snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Generate and post route inventory report
+        env:
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/experience-route-inventory.mjs
+
+      - name: Upload route inventory artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: route-inventory-agent
+          path: |
+            docs/status/route-inventory.latest.json
+            docs/status/route-inventory.latest.md
+          retention-days: 14
+
+      - name: Alert on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Route inventory agent workflow failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Route inventory agent workflow failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
