@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import { createClient } from '@supabase/supabase-js'
+import WebSocket from 'ws'
 import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
+
+if (typeof globalThis.WebSocket === 'undefined') {
+  globalThis.WebSocket = WebSocket
+}
 
 const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
