@@ -76,6 +76,7 @@ function writeHistory({ history, report }) {
   fs.writeFileSync(historyPath, `${JSON.stringify(nextHistory, null, 2)}\n`, 'utf8')
   return nextHistory
 }
+
 function loadOwnerMap() {
   if (!fs.existsSync(ownerMapPath)) {
     return { defaultOwner: 'platform-experience', byDimension: {}, byCategory: {}, byRoutePrefix: {} }
