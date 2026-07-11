@@ -12,6 +12,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-monthly.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-monthly.latest.md')
+const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -94,6 +95,40 @@ function recommendationForTrend(workflow, trend) {
   return 'Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift.'
 }
 
+function readPortfolioHistory() {
+  if (!fs.existsSync(portfolioHistoryPath)) {
+    return { available: false, runs: [] }
+  }
+  const parsed = JSON.parse(fs.readFileSync(portfolioHistoryPath, 'utf8'))
+  return {
+    available: true,
+    runs: Array.isArray(parsed.runs) ? parsed.runs : [],
+    updatedAt: parsed.updatedAt ?? null,
+  }
+}
+
+function monthlyPortfolioTrend(history) {
+  if (!history.available || history.runs.length < 2) {
+    return { available: false, openedDelta: 0, resolvedDelta: 0, latestClusterCount: 0 }
+  }
+
+  const latest = history.runs[history.runs.length - 1]
+  const previous = history.runs[Math.max(0, history.runs.length - 8)]
+
+  const latestSigs = new Set(latest?.topSignatures ?? [])
+  const previousSigs = new Set(previous?.topSignatures ?? [])
+
+  const openedDelta = [...latestSigs].filter((sig) => !previousSigs.has(sig)).length
+  const resolvedDelta = [...previousSigs].filter((sig) => !latestSigs.has(sig)).length
+
+  return {
+    available: true,
+    openedDelta,
+    resolvedDelta,
+    latestClusterCount: latest?.routeClusterCount ?? 0,
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Monthly Trends Report')
@@ -117,6 +152,9 @@ function buildMarkdown(report) {
   lines.push(`- Improving workflows: ${report.summary.improving}`)
   lines.push(`- Flat workflows: ${report.summary.flat}`)
   lines.push(`- Worsening workflows: ${report.summary.worse}`)
+  lines.push(`- Route-cluster signature opened delta: ${report.portfolioTrend.openedDelta}`)
+  lines.push(`- Route-cluster signature resolved delta: ${report.portfolioTrend.resolvedDelta}`)
+  lines.push(`- Latest route cluster count: ${report.portfolioTrend.latestClusterCount}`)
   lines.push('')
 
   return `${lines.join('\n')}\n`
@@ -136,6 +174,7 @@ function buildSlackText(report) {
     headline,
     `Channel: ${report.channel}`,
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
+    `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
     '',
     '*Trends*',
     ...trendLines,
@@ -188,6 +227,9 @@ async function main() {
     worse: trends.filter((row) => row.trend.label === 'worse').length,
   }
 
+  const portfolioHistory = readPortfolioHistory()
+  const portfolioTrend = monthlyPortfolioTrend(portfolioHistory)
+
   const report = {
     generatedAt: new Date().toISOString(),
     channel: slackChannel,
@@ -195,6 +237,7 @@ async function main() {
     previousWindow: { start: previousStart, end: previousEnd },
     trends,
     summary,
+    portfolioTrend,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })

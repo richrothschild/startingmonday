@@ -12,6 +12,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-weekly.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-weekly.latest.md')
+const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -123,6 +124,33 @@ function buildRecommendedActions(summaries) {
   return actions
 }
 
+function readPortfolioHistory() {
+  if (!fs.existsSync(portfolioHistoryPath)) {
+    return { available: false, runs: [], lastOpenSignatures: [] }
+  }
+  const parsed = JSON.parse(fs.readFileSync(portfolioHistoryPath, 'utf8'))
+  return {
+    available: true,
+    runs: Array.isArray(parsed.runs) ? parsed.runs : [],
+    lastOpenSignatures: Array.isArray(parsed.lastOpenSignatures) ? parsed.lastOpenSignatures : [],
+    updatedAt: parsed.updatedAt ?? null,
+  }
+}
+
+function portfolioWeeklyDelta(history) {
+  if (!history.available || history.runs.length < 2) {
+    return { available: false, newlyOpened: 0, stillOpen: 0, resolved: 0 }
+  }
+  const latest = history.runs[history.runs.length - 1]?.topSignatures ?? []
+  const previous = history.runs[history.runs.length - 2]?.topSignatures ?? []
+  const previousSet = new Set(previous)
+  const latestSet = new Set(latest)
+  const newlyOpened = latest.filter((sig) => !previousSet.has(sig)).length
+  const stillOpen = latest.filter((sig) => previousSet.has(sig)).length
+  const resolved = previous.filter((sig) => !latestSet.has(sig)).length
+  return { available: true, newlyOpened, stillOpen, resolved }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Weekly Issues Report')
@@ -139,6 +167,17 @@ function buildMarkdown(report) {
     if (summary.issues.length > 0) {
       for (const issue of summary.issues) lines.push(`  Issue: ${issue}`)
     }
+  }
+
+  lines.push('')
+  lines.push('## Portfolio Signature Delta')
+  lines.push('')
+  if (!report.portfolioDelta.available) {
+    lines.push('- Signature delta unavailable (insufficient portfolio history).')
+  } else {
+    lines.push(`- New signatures: ${report.portfolioDelta.newlyOpened}`)
+    lines.push(`- Repeated signatures: ${report.portfolioDelta.stillOpen}`)
+    lines.push(`- Resolved signatures: ${report.portfolioDelta.resolved}`)
   }
 
   lines.push('')
@@ -168,6 +207,7 @@ function buildSlackText(report) {
     top,
     `Channel: ${report.channel}`,
     `Window: ${report.window.start} to ${report.window.end}`,
+    `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     '',
     '*Issues*',
     ...issueLines,
@@ -201,6 +241,8 @@ async function main() {
   }
 
   const recommendedActions = buildRecommendedActions(workflowSummaries)
+  const portfolioHistory = readPortfolioHistory()
+  const portfolioDelta = portfolioWeeklyDelta(portfolioHistory)
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -208,6 +250,7 @@ async function main() {
     window: { start, end },
     workflowSummaries,
     recommendedActions,
+    portfolioDelta,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
