@@ -1,0 +1,150 @@
+{
+  "capturedAt": "2026-07-11T22:59:56.160Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "sourceFreshness": {
+    "vitals": {
+      "age": null,
+      "status": "missing"
+    },
+    "cognitive": {
+      "age": 0,
+      "status": "available"
+    },
+    "trust": {
+      "age": null,
+      "status": "missing"
+    },
+    "portfolio": {
+      "age": null,
+      "status": "missing"
+    }
+  },
+  "vitalsMetrics": null,
+  "cognitiveMetrics": {
+    "totalPages": 285,
+    "pagesWithIssues": 54,
+    "totalIssues": 60,
+    "byTier": {
+      "public": {
+        "pages": 129,
+        "issues": 34,
+        "avgIssueCount": 0.26,
+        "avgFluencyScore": 92.9,
+        "worstGrade": "B+",
+        "worstFluencyGrade": "C",
+        "loadGatePass": true,
+        "fluencyGatePass": false
+      },
+      "dashboard": {
+        "pages": 85,
+        "issues": 19,
+        "avgIssueCount": 0.22,
+        "avgFluencyScore": 98.1,
+        "worstGrade": "B+",
+        "worstFluencyGrade": "B",
+        "loadGatePass": false,
+        "fluencyGatePass": false
+      },
+      "funnel": {
+        "pages": 71,
+        "issues": 7,
+        "avgIssueCount": 0.1,
+        "avgFluencyScore": 97.2,
+        "worstGrade": "A-",
+        "worstFluencyGrade": "C+",
+        "loadGatePass": true,
+        "fluencyGatePass": false
+      }
+    },
+    "tierGates": {
+      "public": {
+        "required": {
+          "cognitiveLoad": "B+",
+          "cognitiveFluency": "B+"
+        },
+        "sampledPages": 129,
+        "load": {
+          "pass": true,
+          "worstGrade": "B+"
+        },
+        "fluency": {
+          "pass": false,
+          "worstGrade": "C",
+          "avgScore": 92.9
+        }
+      },
+      "dashboard": {
+        "required": {
+          "cognitiveLoad": "A-",
+          "cognitiveFluency": "A-"
+        },
+        "sampledPages": 85,
+        "load": {
+          "pass": false,
+          "worstGrade": "B+"
+        },
+        "fluency": {
+          "pass": false,
+          "worstGrade": "B",
+          "avgScore": 98.1
+        }
+      },
+      "funnel": {
+        "required": {
+          "cognitiveLoad": "B+",
+          "cognitiveFluency": "B+"
+        },
+        "sampledPages": 71,
+        "load": {
+          "pass": true,
+          "worstGrade": "A-"
+        },
+        "fluency": {
+          "pass": false,
+          "worstGrade": "C+",
+          "avgScore": 97.2
+        }
+      }
+    }
+  },
+  "trustMetrics": null,
+  "portfolioMetrics": null,
+  "findings": [
+    {
+      "agent": "Cognitive",
+      "route": "/dashboard/coach",
+      "tier": "dashboard",
+      "issueCount": 2,
+      "severity": "P2"
+    },
+    {
+      "agent": "Cognitive",
+      "route": "/dashboard/post-search",
+      "tier": "dashboard",
+      "issueCount": 2,
+      "severity": "P2"
+    },
+    {
+      "agent": "Cognitive",
+      "route": "/prep/relationships",
+      "tier": "public",
+      "issueCount": 2,
+      "severity": "P2"
+    },
+    {
+      "agent": "Cognitive",
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "tier": "public",
+      "issueCount": 2,
+      "severity": "P2"
+    },
+    {
+      "agent": "Cognitive",
+      "route": "/executives",
+      "tier": "public",
+      "issueCount": 2,
+      "severity": "P2"
+    }
+  ]
+}

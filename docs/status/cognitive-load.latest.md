@@ -1,6 +1,6 @@
 # Cognitive Load Agent Report
 
-Generated: 2026-07-11T22:43:53.708Z
+Generated: 2026-07-11T22:59:50.858Z
 Channel: reliability---service
 Pages scanned: 285
 Pages with issues: 54

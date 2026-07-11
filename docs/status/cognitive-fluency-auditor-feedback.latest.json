@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-07-11T22:59:53.515Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "reconciliations": [
+    {
+      "route": "/dashboard",
+      "auditorGrade": "B",
+      "determinisiticGrade": "A-",
+      "agreementLevel": "major-delta",
+      "confidenceAdjustment": 0.75,
+      "suggestedIssueTypes": [],
+      "reconciliationNote": "Large discrepancy detected; prioritize auditor grade as ground truth and retrain deterministic rules."
+    },
+    {
+      "route": "/dashboard/contacts",
+      "auditorGrade": "A-",
+      "determinisiticGrade": "A-",
+      "agreementLevel": "exact",
+      "confidenceAdjustment": 1.1,
+      "suggestedIssueTypes": [],
+      "reconciliationNote": "Auditor and deterministic grades align; increase confidence in deterministic model for this route pattern."
+    }
+  ],
+  "agreementCounts": {
+    "exact": 1,
+    "withinOne": 0,
+    "majorDelta": 1
+  },
+  "agreementRate": 50,
+  "adjustments": {
+    "/dashboard": {
+      "auditorGrade": "B",
+      "confidenceBoost": 0.75,
+      "requiredIssueTypes": [],
+      "rationale": "Large discrepancy detected; prioritize auditor grade as ground truth and retrain deterministic rules.",
+      "appliedAt": "2026-07-11T22:59:53.515Z"
+    }
+  },
+  "outcomesProcessed": 2,
+  "scoreMapVersion": 1
+}

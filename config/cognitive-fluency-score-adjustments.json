@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "createdAt": "2026-07-11T22:59:53.513Z",
+  "adjustments": {
+    "/dashboard": {
+      "auditorGrade": "B",
+      "confidenceBoost": 0.75,
+      "requiredIssueTypes": [],
+      "rationale": "Large discrepancy detected; prioritize auditor grade as ground truth and retrain deterministic rules.",
+      "appliedAt": "2026-07-11T22:59:53.515Z"
+    }
+  },
+  "issueTypeWeights": {
+    "cognitive-load-density": 1.5,
+    "choice-overload": 2,
+    "trust-spillover": 2.5,
+    "typography-inconsistency": 0.8,
+    "layout-regression": 1.2
+  },
+  "routeMultipliers": {
+    "dashboard": 1.25,
+    "funnel": 1.5,
+    "public": 1,
+    "admin": 0.8
+  },
+  "lastUpdatedAt": "2026-07-11T22:59:53.516Z"
+}

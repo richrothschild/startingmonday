@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-07-11T22:19:23.753Z",
+  "totalReviewed": 2,
+  "routes": [
+    {
+      "route": "/dashboard",
+      "grade": "B",
+      "notes": "Mobile reorder now places the first action card within the initial viewport; profile fetch failure remains."
+    },
+    {
+      "route": "/dashboard/contacts",
+      "grade": "A-",
+      "notes": "Contacts shell is coherent but console preload warnings remain."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "P2",
+      "axis": "trustIntegrity",
+      "route": "/dashboard",
+      "summary": "Live session logged a profile fetch failure.",
+      "evidence": "Browser event stream included dashboard_profile_error with TypeError: fetch failed and userId 00000000-0000-0000-0000-000000000000.",
+      "recommendation": "Harden the profile fetch path so the dashboard degrades gracefully instead of partially failing."
+    },
+    {
+      "severity": "P3",
+      "axis": "hiddenTierConsistency",
+      "route": "/dashboard/contacts",
+      "summary": "Unused preload warnings appear in the live console.",
+      "evidence": "Console warnings reported preloaded fonts and a CSS chunk not used within a few seconds of load.",
+      "recommendation": "Remove or retune preload hints so the warnings stop appearing."
+    }
+  ],
+  "overallGrades": {
+    "cognitiveFluency": "A-",
+    "cognitiveLoad": "A-",
+    "trustIntegrity": "B",
+    "hiddenTierConsistency": "A-"
+  }
+}
