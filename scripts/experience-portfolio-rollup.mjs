@@ -20,6 +20,7 @@ const artifactPaths = {
   vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
   cognitive: path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json'),
   sentinel: path.join(process.cwd(), 'docs', 'status', 'luxury-page-sentinel.latest.json'),
+  journey: path.join(process.cwd(), 'docs', 'status', 'synthetic-journey-metrics.latest.json'),
 }
 
 function severityRank(severity) {
@@ -303,6 +304,62 @@ function normalizeSentinelIssues(report) {
   }))
 }
 
+function normalizeJourneyIssues(report) {
+  if (!report || typeof report !== 'object') return []
+  const issues = []
+  const riskScore = Number(report.abandonmentRisk?.score)
+  const riskBand = String(report.abandonmentRisk?.band ?? '').toLowerCase()
+  const generated = report.generatedAt ?? null
+
+  if (Number.isFinite(riskScore) && (riskBand === 'high' || riskBand === 'medium')) {
+    issues.push({
+      agent: 'Journey Synthetic Agent',
+      category: 'journey',
+      route: '/dashboard/companies/new',
+      dimension: 'journey-abandonment-risk',
+      severity: riskBand === 'high' ? 'P1' : 'P2',
+      evidence: `Abandonment risk ${riskScore}/100 (${riskBand}); journeyStepP95Ms=${report.journeyStepP95Ms ?? 'n/a'}`,
+      suggestedAction: 'Reduce journey latency and failure points on high-weight tiers before synthetic abandonment risk hardens.',
+      ageMinutes: generated ? ageMinutes(generated) : null,
+    })
+  }
+
+  if (Array.isArray(report.perStepTop)) {
+    for (const step of report.perStepTop.slice(0, 12)) {
+      const p95 = Number(step.p95Ms)
+      const critical = Number(step.criticalP95Ms ?? report.thresholds?.defaultCriticalStepP95Ms)
+      const warn = Number(step.warnP95Ms ?? report.thresholds?.defaultWarnStepP95Ms)
+      if (!Number.isFinite(p95)) continue
+
+      if (Number.isFinite(critical) && p95 >= critical) {
+        issues.push({
+          agent: 'Journey Synthetic Agent',
+          category: 'journey',
+          route: step.tier === 'dashboard' ? '/dashboard' : '/signup',
+          dimension: 'journey-step-critical',
+          severity: 'P1',
+          evidence: `${step.stepName}: p95=${p95}ms exceeds critical=${critical}ms (tier=${step.tier ?? 'unknown'})`,
+          suggestedAction: 'Prioritize this critical journey step for latency reduction and error-budget recovery.',
+          ageMinutes: generated ? ageMinutes(generated) : null,
+        })
+      } else if (Number.isFinite(warn) && p95 >= warn) {
+        issues.push({
+          agent: 'Journey Synthetic Agent',
+          category: 'journey',
+          route: step.tier === 'dashboard' ? '/dashboard' : '/signup',
+          dimension: 'journey-step-slow',
+          severity: 'P2',
+          evidence: `${step.stepName}: p95=${p95}ms exceeds warn=${warn}ms (tier=${step.tier ?? 'unknown'})`,
+          suggestedAction: 'Tune this slow journey step to stay under the tier warn budget and reduce abandonment pressure.',
+          ageMinutes: generated ? ageMinutes(generated) : null,
+        })
+      }
+    }
+  }
+
+  return issues
+}
+
 function collapseIssues(issues) {
   const buckets = new Map()
   for (const issue of issues) {
@@ -447,12 +504,14 @@ async function main() {
   const vitalsReport = loadJsonIfExists(artifactPaths.vitals)
   const cognitiveReport = loadJsonIfExists(artifactPaths.cognitive)
   const sentinelReport = loadJsonIfExists(artifactPaths.sentinel)
+  const journeyReport = loadJsonIfExists(artifactPaths.journey)
 
   const artifactIssues = [
     ...normalizeTrustIssues(trustReport),
     ...normalizeVitalsIssues(vitalsReport),
     ...normalizeCognitiveIssues(cognitiveReport),
     ...normalizeSentinelIssues(sentinelReport),
+    ...normalizeJourneyIssues(journeyReport),
   ]
 
   const enrichedArtifactIssues = artifactIssues.map((issue) => ({
@@ -496,6 +555,7 @@ async function main() {
       vitals: vitalsReport?.generatedAt ?? null,
       cognitive: cognitiveReport?.generatedAt ?? null,
       sentinel: sentinelReport?.generatedAt ?? null,
+      journey: journeyReport?.generatedAt ?? null,
     },
     workflowHealth,
     issues,
