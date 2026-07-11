@@ -69,6 +69,9 @@ jobs:
           PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_PASSWORD }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SYNTH_BRIEFING_SAMPLE_COUNT: 5
+          SYNTH_BRIEFING_SETTLE_P50_MS: 7000
+          SYNTH_BRIEFING_SETTLE_P95_MS: 14000
         run: |
           npx playwright test --project=synthetics --project=onboarding-live \
             --reporter=json 2>/dev/null > synthetic-results.json || true
@@ -107,6 +110,25 @@ jobs:
             'total=' + total,
             'failed_tests=' + failedTests.join('|'),
           ]
+
+          const briefingMetricsPath = 'synthetic-briefing-settle-metrics.json'
+          if (fs.existsSync(briefingMetricsPath)) {
+            try {
+              const briefingMetrics = JSON.parse(fs.readFileSync(briefingMetricsPath, 'utf8'))
+              outputs.push('briefing_settle_p50=' + String(briefingMetrics.p50Ms ?? ''))
+              outputs.push('briefing_settle_p95=' + String(briefingMetrics.p95Ms ?? ''))
+              outputs.push('briefing_settle_samples=' + String(briefingMetrics.sampleCount ?? ''))
+            } catch {
+              outputs.push('briefing_settle_p50=')
+              outputs.push('briefing_settle_p95=')
+              outputs.push('briefing_settle_samples=')
+            }
+          } else {
+            outputs.push('briefing_settle_p50=')
+            outputs.push('briefing_settle_p95=')
+            outputs.push('briefing_settle_samples=')
+          }
+
           fs.appendFileSync(process.env.GITHUB_OUTPUT, outputs.join('\n') + '\n')
           " 2>/dev/null || echo "Result parsing failed — using exit code" >> /dev/null
 
@@ -117,6 +139,9 @@ jobs:
           FAILED="${{ steps.synthetics.outputs.failed || 'N/A' }}"
           TOTAL="${{ steps.synthetics.outputs.total || 'N/A' }}"
           FAILED_TESTS="${{ steps.synthetics.outputs.failed_tests || '' }}"
+          BRIEFING_P50="${{ steps.synthetics.outputs.briefing_settle_p50 || 'N/A' }}"
+          BRIEFING_P95="${{ steps.synthetics.outputs.briefing_settle_p95 || 'N/A' }}"
+          BRIEFING_SAMPLES="${{ steps.synthetics.outputs.briefing_settle_samples || 'N/A' }}"
           SHA="${{ github.sha }}"
 
           cat >> "$GITHUB_STEP_SUMMARY" <<EOF
@@ -127,6 +152,9 @@ jobs:
           | Passed | ${PASSED} |
           | Failed | ${FAILED} |
           | Total | ${TOTAL} |
+          | Briefing settle P50 (ms) | ${BRIEFING_P50} |
+          | Briefing settle P95 (ms) | ${BRIEFING_P95} |
+          | Briefing settle samples | ${BRIEFING_SAMPLES} |
           | Deploy SHA | ${SHA:0:8} |
 
           EOF
@@ -141,7 +169,9 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: synthetic-results
-          path: synthetic-results.json
+          path: |
+            synthetic-results.json
+            synthetic-briefing-settle-metrics.json
           retention-days: 14
 
       - name: Upload Playwright report
@@ -160,6 +190,8 @@ jobs:
           FAILED="${{ steps.synthetics.outputs.failed }}"
           TOTAL="${{ steps.synthetics.outputs.total }}"
           FAILED_TESTS="${{ steps.synthetics.outputs.failed_tests }}"
+          BRIEFING_P50="${{ steps.synthetics.outputs.briefing_settle_p50 || 'n/a' }}"
+          BRIEFING_P95="${{ steps.synthetics.outputs.briefing_settle_p95 || 'n/a' }}"
           SHA="${{ github.sha }}"
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
@@ -181,6 +213,7 @@ jobs:
                 \"fields\": [
                   {\"type\": \"mrkdwn\", \"text\": \"*Failed checks:* ${FAILED}/${TOTAL}\"},
                   {\"type\": \"mrkdwn\", \"text\": \"*Deploy SHA:* ${SHA:0:8}\"},
+                  {"type": "mrkdwn", "text": "*Briefing settle:* P50 ${BRIEFING_P50}ms · P95 ${BRIEFING_P95}ms"},
                   {\"type\": \"mrkdwn\", \"text\": \"*Tests:* ${TESTS_FMT}\"},
                   {\"type\": \"mrkdwn\", \"text\": \"*Runbooks:* docs/sre/runbooks/\"}
                 ]
