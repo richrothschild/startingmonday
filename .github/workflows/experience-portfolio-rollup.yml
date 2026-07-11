@@ -14,7 +14,6 @@ jobs:
     name: Aggregate experience agent issues and actions
     runs-on: ubuntu-latest
     timeout-minutes: 25
-  timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v5
