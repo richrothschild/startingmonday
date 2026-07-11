@@ -1,0 +1,79 @@
+name: Experience Seeding Checklist
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch to dispatch from
+        required: false
+        default: main
+      dry_run:
+        description: Report only, do not dispatch workflows
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '10 16 * * 1'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  seeding-checklist:
+    name: Run experience seeding checklist
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Dispatch seeding checklist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SEEDING_REF: ${{ github.event.inputs.ref || 'main' }}
+          SEEDING_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: node scripts/experience-seeding-checklist.mjs
+
+      - name: Upload seeding checklist artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: experience-seeding-checklist-latest
+          path: |
+            docs/status/experience-seeding-checklist.latest.json
+            docs/status/experience-seeding-checklist.latest.md
+          retention-days: 90
+
+      - name: Alert when seeding checklist fails
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Experience seeding checklist failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Experience seeding checklist failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
