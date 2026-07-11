@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import fs from 'node:fs'
 import path from 'node:path'
 import { trustWorkflows } from './lib/trust-workflows.mjs'
+import { ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
@@ -14,26 +14,14 @@ const trustIntegrityReportPath = process.env.TRUST_INTEGRITY_REPORT_PATH || path
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'trust-daily.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'trust-daily.latest.md')
 
-function ageMinutes(isoTime) {
-  return Math.floor((Date.now() - new Date(isoTime).getTime()) / 60000)
-}
-
 async function gh(pathname) {
-  if (!owner || !repo || !token) throw new Error('Missing GITHUB_REPOSITORY or GITHUB_TOKEN')
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}${pathname}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/vnd.github+json',
-      'User-Agent': 'startingmonday-trust-daily-report',
-    },
+  return ghJson({
+    owner,
+    repo,
+    token,
+    pathname,
+    userAgent: 'startingmonday-trust-daily-report',
   })
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`GitHub API ${res.status} for ${pathname}: ${text.slice(0, 300)}`)
-  }
-
-  return res.json()
 }
 
 async function getWorkflowHealth() {
@@ -245,16 +233,10 @@ function buildSlackText(report) {
 }
 
 async function postSlack(text) {
-  if (!slackWebhook) {
+  const posted = await postSlackText({ webhookUrl: slackWebhook, text })
+  if (!posted) {
     console.log('No Slack webhook configured; skipping Slack post.')
-    return
   }
-
-  await fetch(slackWebhook, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
 }
 
 async function main() {
@@ -277,9 +259,12 @@ async function main() {
     missing,
   }
 
-  fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
-  fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
-  fs.writeFileSync(reportMdPath, buildMarkdown(report), 'utf8')
+  writeLatestReportFiles({
+    jsonPath: reportJsonPath,
+    markdownPath: reportMdPath,
+    report,
+    markdown: buildMarkdown(report),
+  })
 
   await postSlack(buildSlackText(report))
   console.log('Trust daily report completed.')
