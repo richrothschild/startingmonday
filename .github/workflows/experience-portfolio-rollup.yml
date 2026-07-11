@@ -88,6 +88,59 @@ jobs:
             --base-url=https://startingmonday.app \
             --report-only \
             --output-json=docs/status/luxury-page-sentinel.latest.json
+
+      - name: Refresh journey metrics snapshot from production synthetics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          OWNER="${GITHUB_REPOSITORY%%/*}"
+          REPO="${GITHUB_REPOSITORY##*/}"
+          mkdir -p docs/status tmp/journey-metrics
+
+          RUN_ID=$(gh api \
+            "/repos/${OWNER}/${REPO}/actions/workflows/production-synthetics.yml/runs?branch=main&status=completed&per_page=12" \
+            --jq '.workflow_runs[] | select(.conclusion == "success") | .id' | head -n 1)
+
+          if [ -z "${RUN_ID:-}" ]; then
+            echo "No successful production-synthetics run found; skipping journey metrics refresh."
+            if [ ! -f docs/status/synthetic-journey-metrics.latest.json ]; then
+              echo '{"generatedAt": null, "source": "unavailable"}' > docs/status/synthetic-journey-metrics.latest.json
+            fi
+            exit 0
+          fi
+
+          ARTIFACT_URL=$(gh api \
+            "/repos/${OWNER}/${REPO}/actions/runs/${RUN_ID}/artifacts" \
+            --jq '.artifacts[] | select(.name == "synthetic-results" and .expired == false) | .archive_download_url' | head -n 1)
+
+          if [ -z "${ARTIFACT_URL:-}" ]; then
+            echo "No synthetic-results artifact found on run ${RUN_ID}; skipping journey metrics refresh."
+            if [ ! -f docs/status/synthetic-journey-metrics.latest.json ]; then
+              echo '{"generatedAt": null, "source": "unavailable"}' > docs/status/synthetic-journey-metrics.latest.json
+            fi
+            exit 0
+          fi
+
+          curl -fsSL \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "${ARTIFACT_URL}" \
+            -o tmp/journey-metrics/synthetic-results.zip
+
+          unzip -qo tmp/journey-metrics/synthetic-results.zip synthetic-journey-metrics.json -d tmp/journey-metrics
+
+          if [ ! -f tmp/journey-metrics/synthetic-journey-metrics.json ]; then
+            echo "synthetic-journey-metrics.json missing inside synthetic-results artifact."
+            if [ ! -f docs/status/synthetic-journey-metrics.latest.json ]; then
+              echo '{"generatedAt": null, "source": "unavailable"}' > docs/status/synthetic-journey-metrics.latest.json
+            fi
+            exit 0
+          fi
+
+          cp tmp/journey-metrics/synthetic-journey-metrics.json docs/status/synthetic-journey-metrics.latest.json
       - name: Generate portfolio rollup
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -112,6 +165,7 @@ jobs:
             docs/status/cognitive-load.latest.json
             docs/status/cognitive-load.latest.md
             docs/status/luxury-page-sentinel.latest.json
+            docs/status/synthetic-journey-metrics.latest.json
             docs/status/experience-portfolio-rollup.latest.json
             docs/status/experience-portfolio-rollup.latest.md
             docs/status/experience-portfolio-rollup.history.json
