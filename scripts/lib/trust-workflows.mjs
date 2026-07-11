@@ -1,0 +1,20 @@
+export const trustWorkflows = [
+  {
+    id: 'trust-integrity-agent.yml',
+    name: 'Trust Integrity Agent',
+    maxAgeMinutes: 60 * 30,
+    recommendation: 'Resolve parity/title/landmark contract failures before certifying dashboard trust posture.',
+  },
+  {
+    id: 'trust-weekly-issues-report.yml',
+    name: 'Trust Weekly Issues Report',
+    maxAgeMinutes: 60 * 24 * 8,
+    recommendation: 'Review trust issue clusters and convert repeated failures into owned remediation actions.',
+  },
+  {
+    id: 'trust-monthly-trends-report.yml',
+    name: 'Trust Monthly Trends Report',
+    maxAgeMinutes: 60 * 24 * 40,
+    recommendation: 'Use monthly trust trend deltas to tighten contracts and prevent trust drift normalization.',
+  },
+]
