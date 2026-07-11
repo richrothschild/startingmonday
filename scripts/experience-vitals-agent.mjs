@@ -307,13 +307,6 @@ async function run() {
     sesVersion: ses.version,
     sesReviewBy: ses.reviewBy,
     budgetsSource: 'Site Experience Standard (SES)',
-    summary: {
-      routesMeasured: results.length,
-      totalBreaches,
-      byTier,
-    },
-    results,
-  }
     baselineCapturedAt: baseline.capturedAt ?? null,
     summary: {
       routesMeasured: results.length,

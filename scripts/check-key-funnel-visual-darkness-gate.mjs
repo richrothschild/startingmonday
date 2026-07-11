@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { loadSES } from './lib/agent-report-kit.mjs'
 
 const ROOT = process.cwd()
 const args = new Set(process.argv.slice(2))
 const asJson = args.has('--json')
+const ses = loadSES(path.join(ROOT, 'config', 'site-experience-standard.json'))
+const visualDiscipline = ses?.visualDiscipline ?? {}
 
 /** @typedef {{ id: string, route: string, files: string[] }} RouteSpec */
 
@@ -19,11 +22,11 @@ const SPECS = [
 ]
 
 const THRESHOLDS = {
-  minBackgroundLuminanceP10: 0.02,
-  maxDarkPixelShareProxy: 0.9,
-  minEstimatedContrastRatio: 4.5,
-  minApcaProxy: 45,
-  maxLowContrastTextOnDarkRatio: 0.45,
+  minBackgroundLuminanceP10: visualDiscipline.minBackgroundLuminanceP10 ?? 0.02,
+  maxDarkPixelShareProxy: visualDiscipline.maxDarkPixelShareProxy ?? 0.9,
+  minEstimatedContrastRatio: visualDiscipline.minEstimatedContrastRatio ?? 4.5,
+  minApcaProxy: visualDiscipline.minApcaProxy ?? 45,
+  maxLowContrastTextOnDarkRatio: visualDiscipline.maxLowContrastTextOnDarkRatio ?? 0.45,
 }
 
 const SCALE = {

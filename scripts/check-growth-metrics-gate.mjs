@@ -1,15 +1,21 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
 
+const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
+const ses = loadSES(sesPath)
+
+// Extract growth metrics thresholds from SES, with fallback to defaults
+const sesGrowth = ses?.growth ?? {}
 const THRESHOLDS = {
-  qualified_signup_rate: { min: 0.06 },
-  hero_cta_ctr: { min: 0.1 },
-  form_start_rate: { min: 0.2 },
-  form_completion_rate: { min: 0.45 },
-  bounce_rate: { max: 0.55 },
-  median_engaged_time_seconds: { min: 45 },
-  scroll_depth_75_rate: { min: 0.3 },
+  qualified_signup_rate: { min: sesGrowth.qualified_signup_rate?.min ?? 0.06 },
+  hero_cta_ctr: { min: sesGrowth.hero_cta_ctr?.min ?? 0.1 },
+  form_start_rate: { min: sesGrowth.form_start_rate?.min ?? 0.2 },
+  form_completion_rate: { min: sesGrowth.form_completion_rate?.min ?? 0.45 },
+  bounce_rate: { max: sesGrowth.bounce_rate?.max ?? 0.55 },
+  median_engaged_time_seconds: { min: sesGrowth.median_engaged_time_seconds?.min ?? 45 },
+  scroll_depth_75_rate: { min: sesGrowth.scroll_depth_75_rate?.min ?? 0.3 },
 }
 
 const DEFAULT_MIN_PAGE_VIEWS = 100

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T22:16:45.988Z",
+  "generatedAt": "2026-07-11T22:43:53.708Z",
   "channel": "reliability---service",
   "sesVersion": 1,
   "totalPages": 285,
@@ -290,9 +290,9 @@
       "route": "/dashboard",
       "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
       "metrics": {
-        "totalWords": 2431,
-        "sentenceCount": 464,
-        "avgSentenceWords": 5.2,
+        "totalWords": 2364,
+        "sentenceCount": 462,
+        "avgSentenceWords": 5.1,
         "paragraphCount": 33,
         "headingCount": 7,
         "detailsCount": 0,
@@ -2165,9 +2165,9 @@
       "route": "/dashboard",
       "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
       "metrics": {
-        "totalWords": 2431,
-        "sentenceCount": 464,
-        "avgSentenceWords": 5.2,
+        "totalWords": 2364,
+        "sentenceCount": 462,
+        "avgSentenceWords": 5.1,
         "paragraphCount": 33,
         "headingCount": 7,
         "detailsCount": 0,

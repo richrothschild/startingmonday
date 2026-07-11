@@ -19,6 +19,7 @@ export const experienceAgents = [
     name: 'Cognitive Load Agent',
     status: 'In Progress',
     maxAgeMinutes: 60 * 24 * 8,
+    sesWired: true,
     recommendation: 'Review high-density public routes and reduce CTA competition or paragraph density before fluency regresses further.',
   },
   {
@@ -40,15 +41,15 @@ export const experienceAgents = [
     name: 'Visual Sentinel Agent',
     status: 'In Progress',
     maxAgeMinutes: 60 * 12,
-    sesWired: false,
-    recommendation: 'Add rendered screenshot/diff checks; typography and accent telemetry are now tracked source-side via luxury-page-sentinel-rubric.json.',
+    sesWired: true,
+    recommendation: 'Add rendered screenshot/diff checks; typography and accent telemetry are now tracked source-side via SES visualDiscipline thresholds.',
   },
   {
     id: 'journey-synthetic-agent.yml',
     name: 'Journey Synthetic Agent',
     status: 'In Progress',
     maxAgeMinutes: 60 * 6,
-    sesWired: false,
-    recommendation: 'Normalize journey step percentiles and abandonment-risk scoring into portfolio rollup issue clustering.',
+    sesWired: true,
+    recommendation: 'Normalize journey step percentiles and abandonment-risk scoring into portfolio rollup issue clustering; verify SES journeySynthetic thresholds update regularly.',
   },
 ]

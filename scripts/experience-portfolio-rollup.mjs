@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { experienceWorkflows } from './lib/experience-workflows.mjs'
-import { ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
+import { loadSES, ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
@@ -15,12 +15,14 @@ const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-po
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.md')
 const ownerMapPath = path.join(process.cwd(), 'config', 'experience-issue-owners.json')
 const historyPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
+const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
+const ses = loadSES(sesPath)
 const artifactPaths = {
   trust: path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json'),
   vitals: path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json'),
   cognitive: path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json'),
-  sentinel: path.join(process.cwd(), 'docs', 'status', 'luxury-page-sentinel.latest.json'),
-  journey: path.join(process.cwd(), 'docs', 'status', 'synthetic-journey-metrics.latest.json'),
+  sentinel: path.join(process.cwd(), 'docs', 'status', 'visual-sentinel.latest.json'),
+  journey: path.join(process.cwd(), 'docs', 'status', 'journey-synthetic.latest.json'),
 }
 
 const sourceFreshnessThresholdMinutes = {

@@ -2,14 +2,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
-import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
+import { loadSES, getTierThresholds, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.md')
 const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
-const ses = JSON.parse(fs.readFileSync(sesPath, 'utf8'))
+const ses = loadSES(sesPath)
 const gradeOrder = ['A-', 'B+', 'B', 'C+', 'C']
 
 function gradeForIssueCount(issueCount) {

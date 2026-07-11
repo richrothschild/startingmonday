@@ -2,12 +2,21 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execSync } from 'node:child_process'
+import { loadSES } from './lib/agent-report-kit.mjs'
 
 const ROOT = process.cwd()
+const sesPath = path.join(ROOT, 'config', 'site-experience-standard.json')
+const ses = loadSES(sesPath)
 const argv = process.argv.slice(2)
 const args = new Set(argv)
 const stagedOnly = args.has('--staged')
 const reportOnly = args.has('--report-only')
+
+// Extract visual discipline thresholds from SES
+const visualDiscipline = ses?.visualDiscipline ?? {}
+const MAX_FONT_FAMILIES = visualDiscipline.maxDistinctFontFamilies ?? 2
+const MAX_ACCENT_COLORS = visualDiscipline.maxAccentColorFamilies ?? 2
+const MOTION_CONFIG = visualDiscipline.motion ?? { maxConcurrentAnimations: 6, maxDurationMs: 450, layoutShiftingAnimationAllowed: false }
 
 const enforceTierArg = argv.find((arg) => arg.startsWith('--enforce-tier='))
 const enforceTier = (enforceTierArg?.split('=')[1] || process.env.LUXURY_UX_ENFORCE_TIER || 'public-premium').trim()

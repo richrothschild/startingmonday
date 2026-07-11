@@ -2,10 +2,12 @@
 import path from 'node:path'
 import dotenv from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
+import { loadSES } from './lib/agent-report-kit.mjs'
 
 dotenv.config({ path: path.join(process.cwd(), '.env.local') })
 
-const MIN_CONVERSION_RATE = 35
+const ses = loadSES(path.join(process.cwd(), 'config', 'site-experience-standard.json'))
+const MIN_CONVERSION_RATE = ses?.linkedin?.min_conversion_rate ?? 35
 
 function parseArgs(argv) {
   const args = new Set(argv.slice(2))
