@@ -36,6 +36,19 @@
         "staleRelativeTimePhrasesAllowed": false
       }
     },
+    "public": {
+      "label": "Public non-funnel routes",
+      "cwvBudget": {
+        "lcpP75Ms": 2200,
+        "ttfbP75Ms": 600,
+        "clsP75": 0.08,
+        "inpP75Ms": 180
+      },
+      "gradeThresholds": {
+        "cognitiveFluency": "B+",
+        "cognitiveLoad": "B+"
+      }
+    },
     "admin": {
       "label": "Administrative routes",
       "cwvBudget": {

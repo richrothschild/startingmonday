@@ -8,6 +8,9 @@ const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || proces
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.md')
+const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
+const ses = JSON.parse(fs.readFileSync(sesPath, 'utf8'))
+const gradeOrder = ['A-', 'B+', 'B', 'C+', 'C']
 
 function gradeForIssueCount(issueCount) {
   if (issueCount <= 1) return 'A-'
@@ -49,6 +52,21 @@ function classifyTier(route) {
   return 'public'
 }
 
+function compareGrades(actual, required) {
+  const actualIndex = gradeOrder.indexOf(actual)
+  const requiredIndex = gradeOrder.indexOf(required)
+  if (actualIndex === -1 || requiredIndex === -1) return null
+  return actualIndex <= requiredIndex
+}
+
+function requiredThresholdsForTier(tier) {
+  const tierConfig = ses.tiers?.[tier] ?? null
+  return {
+    cognitiveLoad: tierConfig?.gradeThresholds?.cognitiveLoad ?? null,
+    cognitiveFluency: tierConfig?.gradeThresholds?.cognitiveFluency ?? null,
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Cognitive Load Agent Report')
@@ -59,10 +77,16 @@ function buildMarkdown(report) {
   lines.push(`Pages with issues: ${report.pagesWithIssues}`)
   lines.push(`Total issues: ${report.totalIssues}`)
   lines.push('')
+  lines.push('## Tier Gates')
+  lines.push('')
+  for (const [tier, gate] of Object.entries(report.tierGates)) {
+    lines.push(`- ${tier}: loadRequired=${gate.required.cognitiveLoad ?? 'n/a'}, loadPass=${gate.load.pass}, fluencyRequired=${gate.required.cognitiveFluency ?? 'n/a'}, fluencyPass=${gate.fluency.pass}, sampledPages=${gate.sampledPages}`)
+  }
+  lines.push('')
   lines.push('## Tier Summary')
   lines.push('')
   for (const [tier, summary] of Object.entries(report.byTier)) {
-    lines.push(`- ${tier}: pages=${summary.pages}, issues=${summary.issues}, avgIssueCount=${summary.avgIssueCount}, worstLoadGrade=${summary.worstGrade}, avgFluencyScore=${summary.avgFluencyScore}, worstFluencyGrade=${summary.worstFluencyGrade}`)
+    lines.push(`- ${tier}: pages=${summary.pages}, issues=${summary.issues}, avgIssueCount=${summary.avgIssueCount}, worstLoadGrade=${summary.worstGrade}, avgFluencyScore=${summary.avgFluencyScore}, worstFluencyGrade=${summary.worstFluencyGrade}, loadGate=${summary.loadGatePass}, fluencyGate=${summary.fluencyGatePass}`)
   }
   lines.push('')
   lines.push('## Top Findings')
@@ -81,7 +105,7 @@ function buildSlackText(report) {
     : `*Cognitive load agent: ${report.pagesWithIssues} page(s) with issues*`
 
   const tierLines = Object.entries(report.byTier).map(([tier, summary]) => {
-    return `- ${tier}: pages=${summary.pages}, issues=${summary.issues}, worstLoadGrade=${summary.worstGrade}, worstFluencyGrade=${summary.worstFluencyGrade}`
+    return `- ${tier}: pages=${summary.pages}, issues=${summary.issues}, worstLoadGrade=${summary.worstGrade}, worstFluencyGrade=${summary.worstFluencyGrade}, loadGate=${summary.loadGatePass}, fluencyGate=${summary.fluencyGatePass}`
   })
 
   const topLines = report.topFindings.slice(0, 8).map((row) => `- ${row.route}: ${row.issueCount} issue(s), load ${row.grade}, fluency ${row.fluency.grade} (${row.fluency.score})`)
@@ -119,16 +143,15 @@ async function main() {
   const byTier = {}
   for (const row of pages) {
     if (!byTier[row.tier]) {
-      byTier[row.tier] = { pages: 0, issues: 0, avgIssueCount: 0, avgFluencyScore: 0, worstGrade: 'A-', worstFluencyGrade: 'A-' }
+      byTier[row.tier] = { pages: 0, issues: 0, avgIssueCount: 0, avgFluencyScore: 0, worstGrade: 'A-', worstFluencyGrade: 'A-', loadGatePass: null, fluencyGatePass: null }
     }
     byTier[row.tier].pages += 1
     byTier[row.tier].issues += row.issueCount
     byTier[row.tier].avgFluencyScore += row.fluency.score
-    const grades = ['A-', 'B+', 'B', 'C+', 'C']
-    if (grades.indexOf(row.grade) > grades.indexOf(byTier[row.tier].worstGrade)) {
+    if (gradeOrder.indexOf(row.grade) > gradeOrder.indexOf(byTier[row.tier].worstGrade)) {
       byTier[row.tier].worstGrade = row.grade
     }
-    if (grades.indexOf(row.fluency.grade) > grades.indexOf(byTier[row.tier].worstFluencyGrade)) {
+    if (gradeOrder.indexOf(row.fluency.grade) > gradeOrder.indexOf(byTier[row.tier].worstFluencyGrade)) {
       byTier[row.tier].worstFluencyGrade = row.fluency.grade
     }
   }
@@ -138,13 +161,30 @@ async function main() {
     summary.avgFluencyScore = summary.pages === 0 ? 0 : Number((summary.avgFluencyScore / summary.pages).toFixed(1))
   }
 
+  const tierGates = {}
+  for (const [tier, summary] of Object.entries(byTier)) {
+    const required = requiredThresholdsForTier(tier)
+    const loadPass = required.cognitiveLoad ? compareGrades(summary.worstGrade, required.cognitiveLoad) : null
+    const fluencyPass = required.cognitiveFluency ? compareGrades(summary.worstFluencyGrade, required.cognitiveFluency) : null
+    summary.loadGatePass = loadPass
+    summary.fluencyGatePass = fluencyPass
+    tierGates[tier] = {
+      required,
+      sampledPages: summary.pages,
+      load: { pass: loadPass, worstGrade: summary.worstGrade },
+      fluency: { pass: fluencyPass, worstGrade: summary.worstFluencyGrade, avgScore: summary.avgFluencyScore },
+    }
+  }
+
   const report = {
     generatedAt: new Date().toISOString(),
     channel: slackChannel,
+    sesVersion: ses.version ?? null,
     totalPages: parsed.totalPages ?? pages.length,
     pagesWithIssues: parsed.pagesWithIssues ?? 0,
     totalIssues: parsed.totalIssues ?? 0,
     byTier,
+    tierGates,
     topFindings: pages
       .filter((row) => row.issueCount > 0)
       .sort((a, b) => b.issueCount - a.issueCount || a.route.localeCompare(b.route))

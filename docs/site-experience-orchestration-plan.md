@@ -22,7 +22,7 @@ Status legend:
 | J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
 | J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | First main seed passed; next tighten enforcement, improve route sampling, and feed vitals into trend reports |
 | J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered screenshot/diff checks; typography/accent telemetry is now tracked source-side |
-| J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml` | Initial fluency scoring is live; next add dashboard-tier thresholds and monthly LLM calibration dispatch |
+| J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml` | SES-backed load/fluency threshold gates are live; next add monthly LLM calibration dispatch |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
 | J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
@@ -33,7 +33,7 @@ Status legend:
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Tune J6 dashboard-tier fluency/load thresholds and add monthly LLM calibration dispatch.
+3. Add monthly LLM calibration dispatch on top of the new SES-backed J6 threshold gates.
 
 ---
 
