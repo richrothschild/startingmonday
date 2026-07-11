@@ -154,6 +154,11 @@ function portfolioWeeklyDelta(history) {
 
 function ownerFromSignature(signature) {
   if (!signature || typeof signature !== 'string') return 'platform-experience'
+  if (signature.includes('|journey-source-stale|') || signature.includes('|journey-source-missing|') || signature.includes('|journey-source-invalid-timestamp|')) return 'synthetic-ops'
+  if (signature.includes('|trust-source-stale|') || signature.includes('|trust-source-missing|') || signature.includes('|trust-source-invalid-timestamp|')) return 'trust-intel'
+  if (signature.includes('|vitals-source-stale|') || signature.includes('|vitals-source-missing|') || signature.includes('|vitals-source-invalid-timestamp|')) return 'performance-platform'
+  if (signature.includes('|cognitive-source-stale|') || signature.includes('|cognitive-source-missing|') || signature.includes('|cognitive-source-invalid-timestamp|')) return 'content-design'
+  if (signature.includes('|sentinel-source-stale|') || signature.includes('|sentinel-source-missing|') || signature.includes('|sentinel-source-invalid-timestamp|')) return 'design-systems'
   if (signature.includes('|signal-parity|') || signature.includes('|relative-time|') || signature.includes('|title|') || signature.includes('|landmark|')) return 'trust-intel'
   if (signature.includes('|vitals-budget|')) return 'performance-platform'
   if (signature.includes('|cognitive-load|') || signature.includes('|cognitive-fluency|') || signature.includes('|cognitive-load-threshold|')) return 'content-design'
@@ -161,6 +166,31 @@ function ownerFromSignature(signature) {
   if (signature.includes('|availability|') || signature.includes('|coverage|') || signature.includes('|debt-ratchet|') || signature.includes('|quarantine|')) return 'platform-reliability'
   if (signature.startsWith('/dashboard')) return 'dashboard-experience'
   return 'platform-experience'
+}
+
+function sourceStalenessHighlights(history) {
+  if (!history.available || history.runs.length === 0) {
+    return { signatures: [], ownerCounts: [] }
+  }
+
+  const latest = history.runs[history.runs.length - 1]?.topSignatures ?? []
+  const signatures = latest.filter((signature) =>
+    signature.includes('-source-stale|') ||
+    signature.includes('-source-missing|') ||
+    signature.includes('-source-invalid-timestamp|')
+  )
+
+  const ownerCountsMap = new Map()
+  for (const signature of signatures) {
+    const owner = ownerFromSignature(signature)
+    ownerCountsMap.set(owner, (ownerCountsMap.get(owner) ?? 0) + 1)
+  }
+
+  const ownerCounts = [...ownerCountsMap.entries()]
+    .map(([owner, openSignatures]) => ({ owner, openSignatures }))
+    .sort((a, b) => b.openSignatures - a.openSignatures || a.owner.localeCompare(b.owner))
+
+  return { signatures, ownerCounts }
 }
 
 function ownerLeaderboard(history) {
@@ -249,6 +279,20 @@ function buildMarkdown(report) {
   }
 
   lines.push('')
+  lines.push('## Source Staleness Ownership Highlights')
+  lines.push('')
+  if (report.sourceStaleness.signatures.length === 0) {
+    lines.push('- No source-staleness signatures currently open.')
+  } else {
+    for (const row of report.sourceStaleness.ownerCounts) {
+      lines.push(`- ${row.owner}: sourceStalenessSignatures=${row.openSignatures}`)
+    }
+    for (const signature of report.sourceStaleness.signatures.slice(0, 6)) {
+      lines.push(`  Signature: ${signature}`)
+    }
+  }
+
+  lines.push('')
   lines.push('## Recommended Actions')
   lines.push('')
   for (const action of report.recommendedActions) {
@@ -294,6 +338,9 @@ function buildSlackText(report) {
     `Window: ${report.window.start} to ${report.window.end}`,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
+    report.sourceStaleness.ownerCounts.length > 0
+      ? `Source staleness owner: ${report.sourceStaleness.ownerCounts[0].owner} (${report.sourceStaleness.ownerCounts[0].openSignatures})`
+      : 'Source staleness owner: none',
     report.seedingChecklist.available
       ? `Seeding checklist: ${report.seedingChecklist.dispatched}/${report.seedingChecklist.total} dispatched, failures=${report.seedingChecklist.failures}`
       : 'Seeding checklist: unavailable',
@@ -333,6 +380,7 @@ async function main() {
   const portfolioHistory = readPortfolioHistory()
   const portfolioDelta = portfolioWeeklyDelta(portfolioHistory)
   const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
+  const sourceStaleness = sourceStalenessHighlights(portfolioHistory)
   const seedingChecklist = readSeedingChecklist()
 
   const report = {
@@ -343,6 +391,7 @@ async function main() {
     recommendedActions,
     portfolioDelta,
     ownerLeaderboard: ownerLeaderboardRows,
+    sourceStaleness,
     seedingChecklist,
   }
 
