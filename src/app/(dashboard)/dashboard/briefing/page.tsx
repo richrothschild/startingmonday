@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import * as Sentry from '@sentry/nextjs'
 import { classifyGraphStalls } from '@/lib/action-scores'
 import { createClient } from '@/lib/supabase/server'
-import { anthropic, MODELS } from '@/lib/anthropic'
+import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
 import { isEnabledFlag } from '@/lib/feature-flags'
 import { shouldShowFirstSessionGuidedBriefing } from '@/lib/briefing-first-session'
@@ -54,7 +54,7 @@ type GeneratedBriefing = {
   briefing: BriefingJson
   usedFallback: boolean
   modelTier: 'haiku' | 'sonnet'
-  fallbackReason: 'credits_exhausted' | 'json_parse_error' | null
+  fallbackReason: 'credits_exhausted' | 'json_parse_error' | 'timeout' | null
 }
 
 type WeeklyPulse = {
@@ -72,6 +72,34 @@ type WeeklyPulse = {
 const BRIEFING_MATCH_LIMIT = 3
 const BRIEFING_FOLLOW_UP_LIMIT = 3
 const BRIEFING_SUMMARY_CHAR_LIMIT = 280
+const BRIEFING_GENERATION_TIMEOUT_MS = 15_000
+const BRIEFING_CACHE_TTL_MS = 10 * 60 * 1000
+
+const briefingGenerationCache = new Map<string, { expiresAt: number; value: GeneratedBriefing }>()
+
+function getBriefingCacheKey(userId: string, context: Awaited<ReturnType<typeof assembleBriefing>>): string {
+  const signalStamp = context.signals.map((signal) => `${signal.id}:${signal.signalDate}`).join('|')
+  const matchStamp = context.newMatches.map((match) => `${match.companyName}:${match.aiScore ?? 0}`).join('|')
+  const followUpStamp = context.followUps.map((followUp) => `${followUp.id}:${followUp.dueDate}`).join('|')
+  return `${userId}:${context.todayStr}:${signalStamp}:${matchStamp}:${followUpStamp}`
+}
+
+function getCachedBriefing(cacheKey: string): GeneratedBriefing | null {
+  const cached = briefingGenerationCache.get(cacheKey)
+  if (!cached) return null
+  if (cached.expiresAt < Date.now()) {
+    briefingGenerationCache.delete(cacheKey)
+    return null
+  }
+  return cached.value
+}
+
+function setCachedBriefing(cacheKey: string, value: GeneratedBriefing) {
+  briefingGenerationCache.set(cacheKey, {
+    expiresAt: Date.now() + BRIEFING_CACHE_TTL_MS,
+    value,
+  })
+}
 
 function trimBriefingText(value: string | null | undefined, maxLength = BRIEFING_SUMMARY_CHAR_LIMIT) {
   const text = value?.trim()
@@ -426,13 +454,44 @@ Output valid JSON only, no markdown fences.`
   const model = modelTier === 'sonnet' ? MODELS.sonnet : MODELS.haiku
 
   let message
+  const requestController = new AbortController()
+  const requestTimer = setTimeout(() => requestController.abort(), BRIEFING_GENERATION_TIMEOUT_MS)
   try {
     message = await anthropic.messages.create({
       model,
-      max_tokens: 4096,
+      max_tokens: 1200,
+      temperature: TEMP.factual,
       messages: [{ role: 'user', content: prompt }],
+    }, {
+      signal: requestController.signal,
     })
   } catch (err: any) {
+    const isTimeoutError = String(err?.name ?? '').toLowerCase().includes('abort')
+      || String(err?.message ?? '').toLowerCase().includes('abort')
+
+    if (isTimeoutError) {
+      Sentry.captureMessage('Briefing generation timed out; using fallback briefing.', {
+        level: 'warning',
+        extra: {
+          errorType: 'anthropic_timeout',
+          model,
+          timeoutMs: BRIEFING_GENERATION_TIMEOUT_MS,
+        },
+      })
+      return {
+        briefing: {
+          intro: `Here is your search update for ${todayStr}.`,
+          signalAlerts: signals.map(s => ({ company: s.companyName, signalType: s.signalType, summary: s.summary, angle: s.outreachAngle ?? undefined })),
+          matchInsights: newMatches.map(m => ({ company: m.companyName, roles: m.matchingRoles.map(r => r.title), insight: m.aiSummary ?? '' })),
+          followUpSuggestions: followUps.map(f => ({ person: f.contact?.name ?? 'Contact', action: f.action ?? 'Follow up', suggestion: 'Reach out today.' })),
+          closing: `${totalCompanies} companies in your pipeline.`,
+        },
+        usedFallback: true,
+        modelTier,
+        fallbackReason: 'timeout',
+      }
+    }
+
     // Handle Anthropic API errors (e.g., insufficient credits)
     const status = err.status ?? err.statusCode
     const errorType = String(err?.error?.error?.type ?? '').toLowerCase()
@@ -464,6 +523,8 @@ Output valid JSON only, no markdown fences.`
     }
     // Re-throw other API errors
     throw err
+  } finally {
+    clearTimeout(requestTimer)
   }
 
   if (message.stop_reason === 'max_tokens') {
@@ -535,12 +596,22 @@ type BriefingContext = Awaited<ReturnType<typeof assembleBriefing>>
 
 async function BriefingBody({
   context,
+  userId,
   mode,
 }: {
   context: BriefingContext
+  userId: string
   mode: 'focused' | 'full'
 }) {
-  const generated = context.hasContent ? await generateBriefing(context) : null
+  const briefingCacheKey = getBriefingCacheKey(userId, context)
+  let generated: GeneratedBriefing | null = null
+  if (context.hasContent) {
+    generated = getCachedBriefing(briefingCacheKey)
+    if (!generated) {
+      generated = await generateBriefing(context)
+      setCachedBriefing(briefingCacheKey, generated)
+    }
+  }
   const briefing = generated?.briefing ?? null
   const usedFallback = generated?.usedFallback ?? false
   const fallbackReason = generated?.fallbackReason ?? null
@@ -575,6 +646,8 @@ async function BriefingBody({
               <p className="text-[13px] text-amber-100/80 leading-relaxed">
                 {fallbackReason === 'credits_exhausted'
                   ? 'AI generation credits were unavailable. This briefing is a deterministic summary of your current signals, matches, and follow-ups.'
+                  : fallbackReason === 'timeout'
+                    ? 'AI generation took too long. This briefing is a deterministic summary of your current signals, matches, and follow-ups.'
                   : 'AI output formatting failed validation. This briefing is a deterministic summary of your current signals, matches, and follow-ups.'}
               </p>
             </div>
@@ -883,7 +956,7 @@ export default async function BriefingPage({
     maxAccountAgeHours: 48,
   })
 
-  await logEvent(user.id, 'briefing_viewed', {
+  void logEvent(user.id, 'briefing_viewed', {
     signals: context.signals.length,
     matches: context.newMatches.length,
     due_today: context.followUps.length,
@@ -892,7 +965,7 @@ export default async function BriefingPage({
   })
 
   if (showGuidedFirstSessionState) {
-    await logEvent(user.id, 'briefing_first_session_guided_viewed', {
+    void logEvent(user.id, 'briefing_first_session_guided_viewed', {
       total_companies: context.totalCompanies,
       account_age_hours: user.created_at
         ? Math.round((Date.now() - new Date(user.created_at).getTime()) / 3600000)
@@ -903,13 +976,15 @@ export default async function BriefingPage({
 
   // Activation milestone: first brief viewed with at least one company tracked. Logged once per user.
   if (context.totalCompanies >= 1) {
-    const { count: activationCount } = await supabase
+    const { data: activationEvent } = await supabase
       .from('user_events')
-      .select('id', { count: 'exact', head: true })
+      .select('id')
       .eq('user_id', user.id)
       .eq('event_name', 'activation_reached')
-    if ((activationCount ?? 0) === 0) {
-      await logEvent(user.id, 'activation_reached', {
+      .limit(1)
+      .maybeSingle()
+    if (!activationEvent) {
+      void logEvent(user.id, 'activation_reached', {
         total_companies: context.totalCompanies,
         signals: context.signals.length,
       })
@@ -1061,7 +1136,7 @@ export default async function BriefingPage({
 
             {/* Briefing body - streams in after Claude call completes */}
             <Suspense fallback={<BriefingBodySkeleton />}>
-              <BriefingBody context={context} mode={mode} />
+              <BriefingBody context={context} userId={user.id} mode={mode} />
             </Suspense>
           </>
         )}
