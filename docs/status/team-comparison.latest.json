@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-11T23:59:23.012Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "benchmark": {
+    "average": {
+      "p0": 0,
+      "p1": 0,
+      "p2": 0,
+      "total": 0,
+      "slaPercentage": 100
+    },
+    "median": {},
+    "bestInClass": {},
+    "worstInClass": {}
+  },
+  "teamComparisons": []
+}

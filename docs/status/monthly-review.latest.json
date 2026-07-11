@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-07-11T23:59:23.148Z",
+  "month": "2026-07",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "kpis": {
+    "totalIssues": 15,
+    "p0Count": 0,
+    "p1Count": 7,
+    "p2Count": 8,
+    "averageResolutionTime": 0,
+    "teamCompliance": 100,
+    "customerImpact": "high"
+  },
+  "reportsSummary": {
+    "vitals": null,
+    "trust": {
+      "p0": 0,
+      "p1": 0,
+      "p2": 0,
+      "total": 0
+    },
+    "accessibility": {
+      "p0": 0,
+      "p1": 3,
+      "p2": 0,
+      "total": 3
+    },
+    "mobile": {
+      "p0": 0,
+      "p1": 4,
+      "p2": 8,
+      "total": 12
+    }
+  }
+}

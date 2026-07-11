@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-07-11T23:59:22.866Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "forecastWeeks": 4,
+  "categoryForecasts": {
+    "trust-escalation": {
+      "current": 0,
+      "threshold": 40,
+      "week4": 8,
+      "riskLevel": "low",
+      "daysToThreshold": 140,
+      "slope": 2
+    },
+    "accessibility-sweep": {
+      "current": 3,
+      "threshold": 30,
+      "week4": 11,
+      "riskLevel": "low",
+      "daysToThreshold": 95,
+      "slope": 2
+    },
+    "mobile-responsive": {
+      "current": 12,
+      "threshold": 35,
+      "week4": 20,
+      "riskLevel": "low",
+      "daysToThreshold": 81,
+      "slope": 2
+    }
+  },
+  "criticalCount": 0
+}

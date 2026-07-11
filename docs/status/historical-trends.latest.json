@@ -1,0 +1,36 @@
+{
+  "generatedAt": "2026-07-11T23:59:22.670Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "windowWeeks": 4,
+  "categoryTrends": {
+    "trust-escalation": {
+      "current": 0,
+      "movingAverage": 0,
+      "velocity": 0,
+      "trendLine": "flat",
+      "snapshotCount": 1
+    },
+    "accessibility-sweep": {
+      "current": 3,
+      "movingAverage": 3,
+      "velocity": 0,
+      "trendLine": "flat",
+      "snapshotCount": 1
+    },
+    "mobile-responsive": {
+      "current": 12,
+      "movingAverage": 12,
+      "velocity": 0,
+      "trendLine": "flat",
+      "snapshotCount": 1
+    }
+  },
+  "snapshotsAvailable": 1,
+  "severityVelocity": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0
+  }
+}

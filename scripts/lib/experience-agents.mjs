@@ -117,4 +117,36 @@ export const experienceAgents = [
     sesWired: true,
     recommendation: 'Generate real-time executive scorecard with P0/P1/P2 breakdown, top overdue issues, and recommended actions.',
   },
+  {
+    id: 'historical-trends-agent.yml',
+    name: 'Historical Trends Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24 * 7, // 1 week - 4-week moving averages
+    sesWired: true,
+    recommendation: 'Calculate 4-week moving averages and velocity trends; identify accelerating vs decelerating categories.',
+  },
+  {
+    id: 'predictive-forecast-agent.yml',
+    name: 'Predictive Forecast Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24 * 7, // 1 week - 4-week forecasts
+    sesWired: true,
+    recommendation: 'Project issue counts 4 weeks ahead using linear regression; estimate days-to-threshold for each category.',
+  },
+  {
+    id: 'team-comparison-agent.yml',
+    name: 'Team Comparison Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24, // 1 day - Team benchmarking
+    sesWired: true,
+    recommendation: 'Compare team performance vs benchmark; identify underperforming and top-performing teams.',
+  },
+  {
+    id: 'monthly-review-agent.yml',
+    name: 'Monthly Review Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24 * 30, // 1 month - Monthly reviews
+    sesWired: true,
+    recommendation: 'Generate executive monthly business review with KPIs, achievements, focus areas, and recommendations.',
+  },
 ]
