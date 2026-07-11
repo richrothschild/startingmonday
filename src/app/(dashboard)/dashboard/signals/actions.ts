@@ -1,10 +1,22 @@
 'use server'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { str } from '@/lib/form-utils'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
+
+const MAX_ON_DEMAND_SCAN_COMPANIES = 40
+
+function withScanStatus(returnTo: string | null, status: 'started' | 'unavailable' | 'failed') {
+  const safeReturnTo = returnTo && returnTo.startsWith('/dashboard/signals') ? returnTo : '/dashboard/signals'
+  const [path, query = ''] = safeReturnTo.split('?')
+  const sp = new URLSearchParams(query)
+  sp.set('scan', status)
+  const qs = sp.toString()
+  return `${path}${qs ? `?${qs}` : ''}`
+}
 
 export async function generateSignalOutreach(formData: FormData) {
   const signalId = str(formData, 'signal_id')
@@ -97,25 +109,55 @@ export async function addSignalFollowUp(formData: FormData) {
   revalidatePath('/dashboard')
 }
 
-export async function requestSignalRefresh() {
+export async function requestSignalRefresh(formData: FormData) {
+  const returnTo = str(formData, 'return_to')
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return
-  if (!process.env.WORKER_URL || !process.env.WORKER_SECRET) return
+  if (!user) redirect('/login')
+
+  const workerUrl = process.env.WORKER_URL
+  const workerSecret = process.env.WORKER_SECRET
+  if (!workerUrl || !workerSecret) {
+    redirect(withScanStatus(returnTo, 'unavailable'))
+  }
+
+  const { data: companies } = await supabase
+    .from('companies')
+    .select('id, career_page_url')
+    .eq('user_id', user.id)
+    .is('archived_at', null)
+    .limit(MAX_ON_DEMAND_SCAN_COMPANIES)
+
+  const scannableCompanyIds = (companies ?? [])
+    .filter((company) => Boolean(company.career_page_url))
+    .map((company) => company.id)
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-worker-secret': workerSecret,
+  }
 
   try {
-    await fetch(`${process.env.WORKER_URL}/trigger-signals`, {
+    await Promise.allSettled(scannableCompanyIds.map((companyId) => fetch(`${workerUrl}/trigger-scan`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-worker-secret': process.env.WORKER_SECRET,
-      },
+      headers,
+      body: JSON.stringify({ companyId, userId: user.id }),
+      cache: 'no-store',
+    })))
+
+    await fetch(`${workerUrl}/trigger-signals`, {
+      method: 'POST',
+      headers,
       body: JSON.stringify({ userId: user.id }),
       cache: 'no-store',
     })
+    await logEvent(user.id, 'signals_scan_requested_on_demand', {
+      scannable_company_count: scannableCompanyIds.length,
+    })
   } catch {
-    // Keep UX resilient if worker trigger fails; next scheduled run still catches up.
+    redirect(withScanStatus(returnTo, 'failed'))
   }
 
   revalidatePath('/dashboard/signals')
+  redirect(withScanStatus(returnTo, 'started'))
 }
