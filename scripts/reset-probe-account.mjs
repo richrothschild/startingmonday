@@ -7,12 +7,13 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').trim()
 const serviceRoleKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? '').trim()
-const targetEmail = (
-  process.env.PROBE_ACCOUNT_EMAIL ??
-  process.env.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL ??
-  process.env.PLAYWRIGHT_TEST_EMAIL ??
-  ''
-).trim().toLowerCase()
+const targetEmail = [
+  process.env.PROBE_ACCOUNT_EMAIL,
+  process.env.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL,
+  process.env.PLAYWRIGHT_TEST_EMAIL,
+]
+  .map((value) => (value ?? '').trim().toLowerCase())
+  .find((value) => value.length > 0) ?? ''
 const dryRun = (process.env.PROBE_RESET_DRY_RUN ?? 'false').trim().toLowerCase() === 'true'
 
 function requireEnv(name, value) {
