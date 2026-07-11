@@ -3,12 +3,14 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { chromium } from 'playwright'
+import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
   const args = {
     report: 'docs/status/experience-vitals.latest.json',
     inventory: 'docs/status/route-inventory.latest.json',
     baseline: 'config/experience-vitals-baseline.json',
+    ses: 'config/site-experience-standard.json',
   }
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -17,6 +19,7 @@ function parseArgs(argv) {
     if (token === '--report') args.report = argv[i + 1]
     if (token === '--inventory') args.inventory = argv[i + 1]
     if (token === '--baseline') args.baseline = argv[i + 1]
+    if (token === '--ses') args.ses = argv[i + 1]
   }
 
   return args
@@ -165,6 +168,26 @@ function evaluateBudgets(result, budgetsByTier) {
   }
 }
 
+/**
+ * Merge SES CWV budgets with baseline budgets (for extended fields not in SES yet).
+ * Prioritizes SES for standard CWV metrics, falls back to baseline for optional fields.
+ */
+function mergeBudgets(ses, baselineBudgets) {
+  const merged = {}
+  for (const [tier, sesBudget] of Object.entries(ses?.tiers ?? {})) {
+    const cwv = sesBudget?.cwvBudget ?? {}
+    const baselineTier = baselineBudgets?.[tier] ?? {}
+    merged[tier] = {
+      lcpMs: cwv.lcpP75Ms ?? baselineTier.lcpMs,
+      ttfbMs: cwv.ttfbP75Ms ?? baselineTier.ttfbMs,
+      fcpMs: baselineTier.fcpMs ?? null,
+      cls: cwv.clsP75 ?? baselineTier.cls,
+      inpProxyMs: baselineTier.inpProxyMs ?? null,
+    }
+  }
+  return merged
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Vitals Agent Report')
@@ -240,9 +263,11 @@ async function run() {
 
   if (!fs.existsSync(inventoryPath)) throw new Error(`Missing route inventory file: ${inventoryPath}`)
   if (!fs.existsSync(baselinePath)) throw new Error(`Missing baseline file: ${baselinePath}`)
+  if (!fs.existsSync(sesPath)) throw new Error(`Missing SES file: ${sesPath}`)
 
   const inventory = JSON.parse(fs.readFileSync(inventoryPath, 'utf8'))
   const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
+  const ses = loadSES(sesPath)
 
   const selectedRoutes = tieredRouteSelection(inventory.routes ?? [], baseline.routeSelection)
   if (selectedRoutes.length === 0) throw new Error('No eligible routes found for vitals measurement.')
@@ -257,9 +282,10 @@ async function run() {
   }
 
   const results = []
+  const mergedBudgets = mergeBudgets(ses, baseline.budgets ?? {})
   for (const route of selectedRoutes) {
     const row = await captureRouteVitals(page, route)
-    const budget = evaluateBudgets(row, baseline.budgets ?? {})
+    const budget = evaluateBudgets(row, mergedBudgets)
     results.push({ ...row, budget })
   }
 
@@ -278,6 +304,16 @@ async function run() {
     generatedAt: nowIso(),
     baseUrl,
     inventoryGeneratedAt: inventory.generatedAt ?? null,
+    sesVersion: ses.version,
+    sesReviewBy: ses.reviewBy,
+    budgetsSource: 'Site Experience Standard (SES)',
+    summary: {
+      routesMeasured: results.length,
+      totalBreaches,
+      byTier,
+    },
+    results,
+  }
     baselineCapturedAt: baseline.capturedAt ?? null,
     summary: {
       routesMeasured: results.length,

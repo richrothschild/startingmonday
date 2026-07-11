@@ -3,13 +3,18 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { chromium } from 'playwright'
+import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
-  const args = { report: 'docs/status/trust-integrity.latest.json' }
+  const args = {
+    report: 'docs/status/trust-integrity.latest.json',
+    ses: 'config/site-experience-standard.json',
+  }
   for (let i = 0; i < argv.length; i += 1) {
     const token = argv[i]
     if (token === '--base-url') args.baseUrl = argv[i + 1]
     if (token === '--report') args.report = argv[i + 1]
+    if (token === '--ses') args.ses = argv[i + 1]
   }
   return args
 }
@@ -28,8 +33,8 @@ function pushFinding(findings, finding) {
   findings.push(finding)
 }
 
-function titleExpected(routeLabel) {
-  return `${routeLabel} - Starting Monday`
+function titleExpected(routeLabel, titlePatternTemplate = '{label} - Starting Monday') {
+  return titlePatternTemplate.replace('{label}', routeLabel)
 }
 
 function extractDashboardSignalCount(text) {
@@ -59,7 +64,7 @@ function extractStaleRelativePhrases(text) {
   return [...new Set(Array.from(text.matchAll(pattern), (entry) => entry[0].trim()))]
 }
 
-async function evaluateRoute(page, routeConfig) {
+async function evaluateRoute(page, routeConfig, titlePatternTemplate = '{label} - Starting Monday') {
   const startedAt = Date.now()
   const response = await page.goto(routeConfig.path, { waitUntil: 'domcontentloaded', timeout: 30000 })
   const status = response?.status() ?? 0
@@ -77,8 +82,8 @@ async function evaluateRoute(page, routeConfig) {
     status,
     loadMs: Date.now() - startedAt,
     title,
-    expectedTitle: titleExpected(routeConfig.label),
-    titlePass: title === titleExpected(routeConfig.label),
+    expectedTitle: titleExpected(routeConfig.label, titlePatternTemplate),
+    titlePass: title === titleExpected(routeConfig.label, titlePatternTemplate),
     mainCount,
     mainPass: mainCount === 1,
     staleRelativePhrases,
@@ -189,6 +194,14 @@ async function run() {
     throw new Error('Missing PLAYWRIGHT_TEST_EMAIL or PLAYWRIGHT_TEST_PASSWORD')
   }
 
+  const sesPath = path.join(root, args.ses)
+  if (!fs.existsSync(sesPath)) throw new Error(`Missing SES file: ${sesPath}`)
+
+  const ses = loadSES(sesPath)
+  const dashboardContracts = getTierThresholds(ses, 'dashboard', 'trustContracts') ?? {}
+  const titlePattern = dashboardContracts.titlePattern ?? '{label} - Starting Monday'
+  const stalePhrasesAllowed = dashboardContracts.staleRelativeTimePhrasesAllowed ?? false
+
   const routesToCheck = [
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/dashboard/briefing', label: 'Daily Briefing' },
@@ -209,7 +222,7 @@ async function run() {
 
     const routes = []
     for (const routeConfig of routesToCheck) {
-      routes.push(await evaluateRoute(page, routeConfig))
+      routes.push(await evaluateRoute(page, routeConfig, titlePattern))
     }
 
     const findings = []
@@ -245,7 +258,7 @@ async function run() {
         })
       }
 
-      if (!route.staleRelativePass) {
+      if (!stalePhrasesAllowed && !route.staleRelativePass) {
         pushFinding(findings, {
           severity: 'P1',
           contract: 'relative-time',
@@ -301,6 +314,9 @@ async function run() {
     const report = {
       generatedAt: nowIso(),
       baseUrl,
+      sesVersion: ses.version,
+      sesReviewBy: ses.reviewBy,
+      trustContracts: dashboardContracts,
       contracts,
       routes: routes.map((route) => ({
         route: route.route,

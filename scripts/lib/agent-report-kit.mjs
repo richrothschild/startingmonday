@@ -1,6 +1,38 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+/**
+ * Load the Site Experience Standard (SES) config.
+ * @param {string} sesPath - Path to SES config file
+ * @returns {Object} Parsed SES config
+ */
+export function loadSES(sesPath = 'config/site-experience-standard.json') {
+  const content = fs.readFileSync(sesPath, 'utf8')
+  return JSON.parse(content)
+}
+
+/**
+ * Get tier-based thresholds from SES for a given route tier.
+ * @param {Object} ses - SES config object (from loadSES)
+ * @param {string} tier - Route tier ('funnel', 'dashboard', 'public', 'admin')
+ * @param {string} thresholdType - Type of threshold ('cwvBudget', 'gradeThresholds', 'trustContracts')
+ * @returns {Object} Tier-specific thresholds or empty object if not found
+ */
+export function getTierThresholds(ses, tier, thresholdType = 'cwvBudget') {
+  return ses?.tiers?.[tier]?.[thresholdType] ?? {}
+}
+
+/**
+ * Get a specific Core Web Vital budget value for a tier.
+ * @param {Object} ses - SES config object
+ * @param {string} tier - Route tier
+ * @param {string} metric - Metric name ('lcpP75Ms', 'ttfbP75Ms', 'clsP75', 'inpP75Ms')
+ * @returns {number} Budget value or null if not found
+ */
+export function getCWVBudget(ses, tier, metric) {
+  return getTierThresholds(ses, tier, 'cwvBudget')[metric] ?? null
+}
+
 export function ageMinutes(isoTime) {
   return Math.floor((Date.now() - new Date(isoTime).getTime()) / 60000)
 }
