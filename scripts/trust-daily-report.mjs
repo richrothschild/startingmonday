@@ -9,6 +9,7 @@ const token = process.env.GITHUB_TOKEN || ''
 
 const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
+const trustIntegrityReportPath = process.env.TRUST_INTEGRITY_REPORT_PATH || path.join(process.cwd(), 'docs', 'status', 'trust-integrity.latest.json')
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'trust-daily.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'trust-daily.latest.md')
@@ -99,6 +100,64 @@ function buildRiskRows(healthRows) {
   ]
 }
 
+function loadTrustIntegrityEvidence() {
+  if (!fs.existsSync(trustIntegrityReportPath)) {
+    return {
+      available: false,
+      source: trustIntegrityReportPath,
+      generatedAt: null,
+      pass: null,
+      routeSnippets: [],
+      findingSnippets: [],
+      contractSnippets: [],
+    }
+  }
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(trustIntegrityReportPath, 'utf8'))
+    const routes = Array.isArray(parsed.routes) ? parsed.routes : []
+    const findings = Array.isArray(parsed.findings) ? parsed.findings : []
+
+    const routeSnippets = routes.slice(0, 5).map((route) => {
+      const staleCount = Array.isArray(route.staleRelativePhrases) ? route.staleRelativePhrases.length : 0
+      const titleStatus = route.titlePass ? 'title=ok' : 'title=mismatch'
+      return `${route.route}: status=${route.status}, ${titleStatus}, main=${route.mainCount}, stalePhrases=${staleCount}`
+    })
+
+    const findingSnippets = findings.slice(0, 5).map((finding) => {
+      return `[${finding.severity}] ${finding.contract}: ${finding.message}`
+    })
+
+    const parity = parsed.contracts?.signalParity
+    const contractSnippets = [
+      `signalParity=${parity?.pass ? 'pass' : 'fail'} (dashboard=${parity?.counts?.dashboard ?? 'n/a'}, briefing=${parity?.counts?.briefing ?? 'n/a'}, signals=${parity?.counts?.signals ?? 'n/a'})`,
+      `title=${parsed.contracts?.title?.pass ? 'pass' : 'fail'}`,
+      `landmark=${parsed.contracts?.landmark?.pass ? 'pass' : 'fail'}`,
+      `relativeTime=${parsed.contracts?.relativeTime?.pass ? 'pass' : 'fail'}`,
+    ]
+
+    return {
+      available: true,
+      source: trustIntegrityReportPath,
+      generatedAt: parsed.generatedAt ?? null,
+      pass: typeof parsed.pass === 'boolean' ? parsed.pass : null,
+      routeSnippets,
+      findingSnippets,
+      contractSnippets,
+    }
+  } catch (error) {
+    return {
+      available: false,
+      source: trustIntegrityReportPath,
+      generatedAt: null,
+      pass: null,
+      routeSnippets: [],
+      findingSnippets: [`Could not parse trust-integrity report: ${error instanceof Error ? error.message : 'unknown parse error'}`],
+      contractSnippets: [],
+    }
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Trust Daily Report')
@@ -124,6 +183,22 @@ function buildMarkdown(report) {
   }
 
   lines.push('')
+  lines.push('## Route-Level Evidence Snippets')
+  lines.push('')
+  if (!report.trustIntegrityEvidence.available) {
+    lines.push(`- Trust integrity snapshot unavailable at ${report.trustIntegrityEvidence.source}`)
+  } else {
+    lines.push(`- Source generated: ${report.trustIntegrityEvidence.generatedAt ?? 'n/a'}`)
+    lines.push(`- Snapshot pass: ${report.trustIntegrityEvidence.pass === null ? 'n/a' : report.trustIntegrityEvidence.pass ? 'pass' : 'fail'}`)
+    lines.push('- Contract snippets:')
+    for (const snippet of report.trustIntegrityEvidence.contractSnippets) lines.push(`  - ${snippet}`)
+    lines.push('- Route snippets:')
+    for (const snippet of report.trustIntegrityEvidence.routeSnippets) lines.push(`  - ${snippet}`)
+    lines.push('- Finding snippets:')
+    for (const snippet of (report.trustIntegrityEvidence.findingSnippets.length > 0 ? report.trustIntegrityEvidence.findingSnippets : ['None'])) lines.push(`  - ${snippet}`)
+  }
+
+  lines.push('')
   lines.push('## Missing Guardrails')
   lines.push('')
   for (const item of report.missing) {
@@ -146,6 +221,9 @@ function buildSlackText(report) {
   })
 
   const riskLines = report.riskRows.map((row) => `- [${row.status}] ${row.risk}`)
+  const evidenceLines = report.trustIntegrityEvidence.available
+    ? report.trustIntegrityEvidence.routeSnippets.slice(0, 3).map((snippet) => `- ${snippet}`)
+    : [`- Trust integrity snapshot unavailable at ${report.trustIntegrityEvidence.source}`]
   const missingLines = report.missing.map((item) => `- ${item}`)
 
   return [
@@ -157,6 +235,9 @@ function buildSlackText(report) {
     '',
     '*Devil\'s advocate (what can go wrong)*',
     ...riskLines,
+    '',
+    '*Route-level trust evidence*',
+    ...evidenceLines,
     '',
     '*What we are missing*',
     ...missingLines,
@@ -179,11 +260,12 @@ async function postSlack(text) {
 async function main() {
   const workflowHealth = await getWorkflowHealth()
   const riskRows = buildRiskRows(workflowHealth)
+  const trustIntegrityEvidence = loadTrustIntegrityEvidence()
   const missing = [
-    'Cross-route evidence snippets for parity/title/landmark checks embedded directly in daily report output.',
     'Automated owner mapping for repeated trust contract failures to reduce triage latency.',
     'Trust contract threshold ratchet that tightens after 30 consecutive healthy days.',
     'Cross-surface parity preflight in staging before production promotion runs.',
+    'Contract-specific SLO targets (for example, parity extraction reliability) with rolling error budgets.',
   ]
 
   const report = {
@@ -191,6 +273,7 @@ async function main() {
     channel: slackChannel,
     workflowHealth,
     riskRows,
+    trustIntegrityEvidence,
     missing,
   }
 
