@@ -17,6 +17,30 @@ function gradeForIssueCount(issueCount) {
   return 'C'
 }
 
+function fluencyScoreForMetrics(metrics) {
+  let score = 100
+  const avgSentenceWords = metrics?.avgSentenceWords ?? 0
+  const headingCount = metrics?.headingCount ?? 0
+  const paragraphCount = metrics?.paragraphCount ?? 0
+  const ctaCount = metrics?.ctaCount ?? 0
+  const longParagraphCount = metrics?.longParagraphCount ?? 0
+
+  if (avgSentenceWords > 16) score -= Math.min(30, (avgSentenceWords - 16) * 3)
+  if (headingCount === 0 && paragraphCount > 4) score -= 18
+  if (headingCount > 0 && paragraphCount / headingCount > 10) score -= 12
+  if (ctaCount > 12) score -= Math.min(15, (ctaCount - 12) * 1.5)
+  if (longParagraphCount > 3) score -= Math.min(20, (longParagraphCount - 3) * 4)
+
+  return Math.max(0, Math.round(score))
+}
+
+function gradeForFluencyScore(score) {
+  if (score >= 90) return 'A-'
+  if (score >= 80) return 'B+'
+  if (score >= 70) return 'B'
+  if (score >= 60) return 'C+'
+  return 'C'
+}
 function classifyTier(route) {
   if (route.startsWith('/dashboard')) return 'dashboard'
   if (route === '/' || route.startsWith('/pricing') || route.startsWith('/demo') || route.startsWith('/blog') || route.startsWith('/method-and-evidence') || route.startsWith('/signup')) {
@@ -38,13 +62,13 @@ function buildMarkdown(report) {
   lines.push('## Tier Summary')
   lines.push('')
   for (const [tier, summary] of Object.entries(report.byTier)) {
-    lines.push(`- ${tier}: pages=${summary.pages}, issues=${summary.issues}, avgIssueCount=${summary.avgIssueCount}, worstGrade=${summary.worstGrade}`)
+    lines.push(`- ${tier}: pages=${summary.pages}, issues=${summary.issues}, avgIssueCount=${summary.avgIssueCount}, worstLoadGrade=${summary.worstGrade}, avgFluencyScore=${summary.avgFluencyScore}, worstFluencyGrade=${summary.worstFluencyGrade}`)
   }
   lines.push('')
   lines.push('## Top Findings')
   lines.push('')
   for (const row of report.topFindings) {
-    lines.push(`- ${row.route}: grade=${row.grade}, issues=${row.issueCount}`)
+    lines.push(`- ${row.route}: loadGrade=${row.grade}, fluencyGrade=${row.fluency.grade}, fluencyScore=${row.fluency.score}, issues=${row.issueCount}`)
     for (const issue of row.issues) lines.push(`  - ${issue}`)
   }
   lines.push('')
@@ -57,10 +81,10 @@ function buildSlackText(report) {
     : `*Cognitive load agent: ${report.pagesWithIssues} page(s) with issues*`
 
   const tierLines = Object.entries(report.byTier).map(([tier, summary]) => {
-    return `- ${tier}: pages=${summary.pages}, issues=${summary.issues}, worstGrade=${summary.worstGrade}`
+    return `- ${tier}: pages=${summary.pages}, issues=${summary.issues}, worstLoadGrade=${summary.worstGrade}, worstFluencyGrade=${summary.worstFluencyGrade}`
   })
 
-  const topLines = report.topFindings.slice(0, 8).map((row) => `- ${row.route}: ${row.issueCount} issue(s), grade ${row.grade}`)
+  const topLines = report.topFindings.slice(0, 8).map((row) => `- ${row.route}: ${row.issueCount} issue(s), load ${row.grade}, fluency ${row.fluency.grade} (${row.fluency.score})`)
 
   return [
     headline,
@@ -86,23 +110,32 @@ async function main() {
     ...row,
     tier: classifyTier(row.route),
     grade: gradeForIssueCount(row.issueCount ?? 0),
+    fluency: {
+      score: fluencyScoreForMetrics(row.metrics ?? {}),
+      grade: gradeForFluencyScore(fluencyScoreForMetrics(row.metrics ?? {})),
+    },
   }))
 
   const byTier = {}
   for (const row of pages) {
     if (!byTier[row.tier]) {
-      byTier[row.tier] = { pages: 0, issues: 0, avgIssueCount: 0, worstGrade: 'A-' }
+      byTier[row.tier] = { pages: 0, issues: 0, avgIssueCount: 0, avgFluencyScore: 0, worstGrade: 'A-', worstFluencyGrade: 'A-' }
     }
     byTier[row.tier].pages += 1
     byTier[row.tier].issues += row.issueCount
+    byTier[row.tier].avgFluencyScore += row.fluency.score
     const grades = ['A-', 'B+', 'B', 'C+', 'C']
     if (grades.indexOf(row.grade) > grades.indexOf(byTier[row.tier].worstGrade)) {
       byTier[row.tier].worstGrade = row.grade
+    }
+    if (grades.indexOf(row.fluency.grade) > grades.indexOf(byTier[row.tier].worstFluencyGrade)) {
+      byTier[row.tier].worstFluencyGrade = row.fluency.grade
     }
   }
 
   for (const summary of Object.values(byTier)) {
     summary.avgIssueCount = summary.pages === 0 ? 0 : Number((summary.issues / summary.pages).toFixed(2))
+    summary.avgFluencyScore = summary.pages === 0 ? 0 : Number((summary.avgFluencyScore / summary.pages).toFixed(1))
   }
 
   const report = {
