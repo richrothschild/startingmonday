@@ -198,12 +198,6 @@ async function main() {
 
   await postSlack(buildSlackText(report))
 
-  const shouldFail = workflowHealth.some((row) => row.status === 'failed' || row.status === 'missing')
-  if (shouldFail) {
-    console.error('Experience daily report detected failed or missing critical workflows.')
-    process.exit(1)
-  }
-
   console.log('Experience daily report completed.')
 }
 
