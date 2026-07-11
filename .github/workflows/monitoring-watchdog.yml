@@ -55,6 +55,7 @@ jobs:
               { id: 'experience-daily-report.yml', name: 'Experience Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'trust-daily-report.yml', name: 'Trust Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'cognitive-load-agent.yml', name: 'Cognitive Load Agent', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
+              { id: 'cognitive-fluency-calibration-dispatch.yml', name: 'Cognitive Fluency Calibration Dispatch', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
               { id: 'experience-weekly-issues-report.yml', name: 'Experience Weekly Issues Report', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
               { id: 'experience-monthly-trends-report.yml', name: 'Experience Monthly Trends Report', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
               { id: 'trust-weekly-issues-report.yml', name: 'Trust Weekly Issues Report', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },

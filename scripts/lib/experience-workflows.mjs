@@ -18,6 +18,12 @@ export const experienceWorkflows = [
     recommendation: 'Reduce public-route cognitive density and CTA competition before weak chunking becomes chronic.',
   },
   {
+    id: 'cognitive-fluency-calibration-dispatch.yml',
+    name: 'Cognitive Fluency Calibration Dispatch',
+    maxAgeMinutes: 60 * 24 * 40,
+    recommendation: 'Use the monthly calibration packet to drive human-depth Page Experience Auditor review on the worst-scoring routes.',
+  },
+  {
     id: 'luxury-page-sentinel.yml',
     name: 'Luxury Page Sentinel',
     maxAgeMinutes: 120,

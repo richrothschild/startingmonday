@@ -22,18 +22,18 @@ Status legend:
 | J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
 | J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | First main seed passed; next tighten enforcement, improve route sampling, and feed vitals into trend reports |
 | J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered screenshot/diff checks; typography/accent telemetry is now tracked source-side |
-| J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml` | SES-backed load/fluency threshold gates are live; next add monthly LLM calibration dispatch |
+| J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml`, `scripts/cognitive-fluency-calibration-dispatch.mjs`, `.github/workflows/cognitive-fluency-calibration-dispatch.yml` | Monthly calibration dispatch is live; next fold human-auditor outcomes back into deterministic scoring |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
 | J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
-| J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs` | Move to single experience trend brain with per-dimension tier analysis |
+| J10 Weekly Issues + Monthly Trends | In Progress | `scripts/experience-weekly-issues-report.mjs`, `scripts/experience-monthly-trends-report.mjs`, `scripts/trust-weekly-issues-report.mjs`, `scripts/trust-monthly-trends-report.mjs` | Build one portfolio rollup report that aggregates issues across all experience agents with suggested mitigations/actions |
 | J11 Watchdog + seeding | In Progress | `.github/workflows/monitoring-watchdog.yml`; trust and experience workflows seeded on main | Add explicit seeding checklist and probe-account reset automation job |
 | J12 Calibration loop | Not Started | N/A | Add quarterly deterministic-vs-LLM calibration workflow and report |
 
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Add monthly LLM calibration dispatch on top of the new SES-backed J6 threshold gates.
+3. Build the cross-agent portfolio rollup report/alert so issues and mitigations converge in one place.
 
 ---
 
