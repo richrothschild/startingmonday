@@ -28,6 +28,13 @@
     ],
     "maxResponseMs": 8000
   },
+  "coverage": {
+    "description": "Every route in the inventory must receive an explicit verdict: pass, fail, or skip with an allowlisted reason. Any route without a verdict is a blocking coverage failure.",
+    "allowedSkipReasons": [
+      "dynamic-route-not-sampled",
+      "runtime-skipped-by-flag"
+    ]
+  },
   "dimensions": [
     {
       "id": "availability",
@@ -48,6 +55,11 @@
       "id": "latency",
       "blocking": false,
       "metric": "Response time under maxResponseMs"
+    },
+    {
+      "id": "coverage",
+      "blocking": true,
+      "metric": "Every inventoried route has a verdict (pass/fail) or an allowlisted skip reason; unexplained gaps fail the run"
     }
   ],
   "reporting": {

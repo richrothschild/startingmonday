@@ -157,10 +157,62 @@ if (!skipRuntime) {
   await runPool(staticRoutes, checkRoute, 8)
 }
 
+// ── Coverage contract: every route gets an explicit verdict ─────────────────
+const allowedSkipReasons = new Set(rubric.coverage?.allowedSkipReasons ?? [])
+const paletteFailRoutes = new Set(paletteViolations.map((v) => v.route))
+const runtimeFailRoutes = new Set(runtimeViolations.filter((v) => v.blocking !== false).map((v) => v.route))
+const runtimeCheckedRoutes = new Set(runtimeChecked.map((r) => r.route))
+
+const verdicts = inventory.map((page) => {
+  if (page.dynamic) {
+    return paletteFailRoutes.has(page.route)
+      ? { route: page.route, verdict: 'fail', reason: 'palette-conformance' }
+      : { route: page.route, verdict: 'skip', reason: 'dynamic-route-not-sampled' }
+  }
+  if (skipRuntime) {
+    return paletteFailRoutes.has(page.route)
+      ? { route: page.route, verdict: 'fail', reason: 'palette-conformance' }
+      : { route: page.route, verdict: 'skip', reason: 'runtime-skipped-by-flag' }
+  }
+  if (!runtimeCheckedRoutes.has(page.route) && !runtimeFailRoutes.has(page.route)) {
+    // Route was in inventory but never received a runtime result and no failure was recorded.
+    return { route: page.route, verdict: 'gap', reason: 'no-verdict-recorded' }
+  }
+  const failed = runtimeFailRoutes.has(page.route) || paletteFailRoutes.has(page.route)
+  return { route: page.route, verdict: failed ? 'fail' : 'pass', reason: null }
+})
+
+const coverageViolations = verdicts
+  .filter((v) => v.verdict === 'gap' || (v.verdict === 'skip' && !allowedSkipReasons.has(v.reason)))
+  .map((v) => ({
+    route: v.route,
+    dimension: 'coverage',
+    evidence: v.verdict === 'gap'
+      ? 'route received no verdict (unexplained coverage gap)'
+      : `skip reason "${v.reason}" is not allowlisted`,
+  }))
+
+const skipCounts = {}
+for (const v of verdicts) {
+  if (v.verdict === 'skip') skipCounts[v.reason] = (skipCounts[v.reason] ?? 0) + 1
+}
+
+const verdictTotals = {
+  total: verdicts.length,
+  passed: verdicts.filter((v) => v.verdict === 'pass').length,
+  failed: verdicts.filter((v) => v.verdict === 'fail').length,
+  skipped: verdicts.filter((v) => v.verdict === 'skip').length,
+  gaps: verdicts.filter((v) => v.verdict === 'gap').length,
+}
+const coveragePct = verdictTotals.total === 0
+  ? 0
+  : Number((((verdictTotals.passed + verdictTotals.failed) / verdictTotals.total) * 100).toFixed(1))
+
 // ── Report ───────────────────────────────────────────────────────────────────
 const blockingViolations = [
   ...paletteViolations,
   ...runtimeViolations.filter((v) => v.blocking !== false),
+  ...coverageViolations,
 ]
 const advisoryViolations = runtimeViolations.filter((v) => v.blocking === false)
 
@@ -172,6 +224,13 @@ const summary = {
   paletteViolations: paletteViolations.length,
   availabilityViolations: runtimeViolations.filter((v) => v.dimension === 'availability').length,
   latencyWarnings: advisoryViolations.length,
+  coverage: {
+    ...verdictTotals,
+    coveragePct,
+    skippedByReason: skipCounts,
+    unexplainedGaps: coverageViolations.length,
+    verdicts,
+  },
   blockingViolations: blockingViolations.length,
   violations: [...blockingViolations, ...advisoryViolations],
 }
@@ -182,6 +241,10 @@ fs.writeFileSync(path.join(ROOT, OUTPUT_JSON), JSON.stringify(summary, null, 2))
 console.log('Luxury page sentinel')
 console.log(`- routes discovered: ${summary.routesDiscovered}`)
 console.log(`- static routes checked at runtime: ${summary.staticRoutesChecked}`)
+console.log(`- coverage: ${coveragePct}% (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip, ${verdictTotals.gaps} unexplained gap)`)
+for (const [reason, count] of Object.entries(skipCounts)) {
+  console.log(`  skip[${reason}]: ${count}`)
+}
 console.log(`- palette violations: ${summary.paletteViolations}`)
 console.log(`- availability violations: ${summary.availabilityViolations}`)
 console.log(`- latency warnings: ${summary.latencyWarnings}`)
@@ -194,10 +257,12 @@ const webhook = process.env.SLACK_WEBHOOK_URL
 if (webhook && blockingViolations.length > 0) {
   const lines = blockingViolations.slice(0, 25).map((v) => `• [${v.dimension}] ${v.route} - ${v.evidence}`)
   const extra = blockingViolations.length > 25 ? `\n…and ${blockingViolations.length - 25} more` : ''
+  const skipSummary = Object.entries(skipCounts).map(([reason, count]) => `${reason}=${count}`).join(', ') || 'none'
   const text = [
     `:rotating_light: Luxury page sentinel found ${blockingViolations.length} non-conforming page(s)`,
     `Base URL: ${BASE_URL}`,
-    `Routes discovered: ${summary.routesDiscovered} | Palette: ${summary.paletteViolations} | Availability: ${summary.availabilityViolations}`,
+    `Coverage: ${coveragePct}% of ${verdictTotals.total} routes (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip [${skipSummary}], ${verdictTotals.gaps} unexplained gap)`,
+    `Routes discovered: ${summary.routesDiscovered} | Palette: ${summary.paletteViolations} | Availability: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
     '',
     ...lines,
   ].join('\n') + extra
