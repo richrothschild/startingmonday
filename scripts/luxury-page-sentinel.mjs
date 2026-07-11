@@ -367,7 +367,6 @@ function applyDebtRatchet(violations) {
     violations: violationsOut,
   }
 }
-
 // ── Report ───────────────────────────────────────────────────────────────────
 const blockingViolations = [
   ...paletteViolations,
