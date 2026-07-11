@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-11T14:22:56.183Z",
+  "channel": "reliability---service",
+  "workflowHealth": [
+    {
+      "id": "production-synthetics.yml",
+      "name": "Production Synthetics",
+      "status": "failed",
+      "ageMinutes": 8,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29155742930",
+      "maxAgeMinutes": 30
+    },
+    {
+      "id": "dashboard-behavior-baseline.yml",
+      "name": "Dashboard Behavior Baseline Agent",
+      "status": "missing",
+      "ageMinutes": null,
+      "conclusion": null,
+      "url": null
+    },
+    {
+      "id": "monitoring.yml",
+      "name": "Production Monitoring",
+      "status": "healthy",
+      "ageMinutes": 18,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29155440186",
+      "maxAgeMinutes": 90
+    },
+    {
+      "id": "monitoring-watchdog.yml",
+      "name": "Monitoring Watchdog",
+      "status": "failed",
+      "ageMinutes": 34,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29154968351",
+      "maxAgeMinutes": 90
+    },
+    {
+      "id": "deployment-watchdog.yml",
+      "name": "Deployment Watchdog",
+      "status": "healthy",
+      "ageMinutes": 7,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29155768913",
+      "maxAgeMinutes": 90
+    }
+  ],
+  "riskRows": [
+    {
+      "key": "silent-degradation",
+      "risk": "Primary flows are slow enough to feel broken while still technically passing.",
+      "mitigation": "Track settle-time percentiles (P50/P95) and alert on variance, not only hard failures.",
+      "status": "elevated"
+    },
+    {
+      "key": "monitoring-drift",
+      "risk": "Synthetic checks drift from live UX and stop representing real user behavior.",
+      "mitigation": "Daily dashboard baseline crawl with route discovery and contract checks; review drift weekly.",
+      "status": "controlled"
+    },
+    {
+      "key": "alert-fatigue",
+      "risk": "Too many noisy alerts cause teams to ignore real incidents.",
+      "mitigation": "Classify soft vs hard failures, dedupe repeats, include owner and runbook links in alerts.",
+      "status": "controlled"
+    },
+    {
+      "key": "watchdog-gap",
+      "risk": "A scheduled agent silently stops running.",
+      "mitigation": "Watchdog freshness checks for each critical workflow with staleness thresholds.",
+      "status": "elevated"
+    },
+    {
+      "key": "secrets-drift",
+      "risk": "Slack/webhook/auth secrets rotate or disappear, silently breaking alert delivery.",
+      "mitigation": "Validate required secrets at workflow start and raise hard-fail alert when missing.",
+      "status": "controlled"
+    },
+    {
+      "key": "probe-account-entropy",
+      "risk": "Synthetic account state drifts (limits, stale data, auth changes) and creates false failures.",
+      "mitigation": "Use dedicated synthetic accounts, explicit skip reasons, and periodic account reset automation.",
+      "status": "controlled"
+    }
+  ],
+  "missing": [
+    "Cross-environment parity check comparing staging vs production route performance over the same commit window.",
+    "Automated alert dedupe window keyed by failure signature and route to reduce repeated noise.",
+    "Monthly synthetic-account reset job to avoid data entropy and quota/limit drift in probes.",
+    "Error budget burn-rate signal that escalates before hard SLO breaches."
+  ]
+}
