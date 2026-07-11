@@ -6,6 +6,12 @@ export const experienceWorkflows = [
     recommendation: 'Regenerate route inventory and reconcile unexpected route additions/removals before compliance claims.',
   },
   {
+    id: 'experience-vitals-agent.yml',
+    name: 'Experience Vitals Agent',
+    maxAgeMinutes: 60 * 8,
+    recommendation: 'Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals.',
+  },
+  {
     id: 'luxury-page-sentinel.yml',
     name: 'Luxury Page Sentinel',
     maxAgeMinutes: 120,
