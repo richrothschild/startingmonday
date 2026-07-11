@@ -115,8 +115,8 @@ export async function requestSignalRefresh(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const workerUrl = process.env.WORKER_URL
-  const workerSecret = process.env.WORKER_SECRET
+  const workerUrl = process.env.WORKER_URL?.trim()
+  const workerSecret = process.env.WORKER_SECRET?.trim()
   if (!workerUrl || !workerSecret) {
     redirect(withScanStatus(returnTo, 'unavailable'))
   }
@@ -145,12 +145,17 @@ export async function requestSignalRefresh(formData: FormData) {
       cache: 'no-store',
     })))
 
-    await fetch(`${workerUrl}/trigger-signals`, {
+    const signalRefreshResponse = await fetch(`${workerUrl}/trigger-signals`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ userId: user.id }),
       cache: 'no-store',
     })
+
+    if (!signalRefreshResponse.ok) {
+      throw new Error(`trigger-signals failed with status ${signalRefreshResponse.status}`)
+    }
+
     await logEvent(user.id, 'signals_scan_requested_on_demand', {
       scannable_company_count: scannableCompanyIds.length,
     })
