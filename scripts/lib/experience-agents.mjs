@@ -101,4 +101,12 @@ export const experienceAgents = [
     sesWired: true,
     recommendation: 'Track improving vs declining categories; forecast days-to-SLA-failure; alert on trend inflection points.',
   },
+  {
+    id: 'team-coaching-agent.yml',
+    name: 'Team Coaching Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24, // 1 day - Team health and coaching recommendations
+    sesWired: true,
+    recommendation: 'Monitor team SLA attainment and issue velocity; generate coaching recommendations for teams with high violation counts.',
+  },
 ]
