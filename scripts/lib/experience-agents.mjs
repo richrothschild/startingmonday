@@ -11,4 +11,10 @@ export const experienceAgents = [
     maxAgeMinutes: 60 * 8,
     recommendation: 'Triage tier-level vitals budget breaches and reconcile baseline drift before regressions harden.',
   },
+  {
+    id: 'cognitive-load-agent.yml',
+    name: 'Cognitive Load Agent',
+    maxAgeMinutes: 60 * 24 * 8,
+    recommendation: 'Review high-density public routes and reduce CTA competition or paragraph density before fluency regresses further.',
+  },
 ]

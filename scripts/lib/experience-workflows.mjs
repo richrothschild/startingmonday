@@ -12,6 +12,12 @@ export const experienceWorkflows = [
     recommendation: 'Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals.',
   },
   {
+    id: 'cognitive-load-agent.yml',
+    name: 'Cognitive Load Agent',
+    maxAgeMinutes: 60 * 24 * 8,
+    recommendation: 'Reduce public-route cognitive density and CTA competition before weak chunking becomes chronic.',
+  },
+  {
     id: 'luxury-page-sentinel.yml',
     name: 'Luxury Page Sentinel',
     maxAgeMinutes: 120,

@@ -22,7 +22,7 @@ Status legend:
 | J3 Route Inventory Agent | Done | `scripts/experience-route-inventory.mjs`, `.github/workflows/route-inventory-agent.yml`, watchdog registration | Expand metadata fidelity (template-level and auth-state coverage checks) |
 | J4 Experience Vitals Agent | In Progress | `scripts/experience-vitals-agent.mjs`, `.github/workflows/experience-vitals-agent.yml`, `config/experience-vitals-baseline.json` | First main seed passed; next tighten enforcement, improve route sampling, and feed vitals into trend reports |
 | J5 Visual Sentinel extension | In Progress | `scripts/luxury-page-sentinel.mjs`, `config/luxury-page-sentinel-rubric.json` | Add rendered screenshot/diff checks; typography/accent telemetry is now tracked source-side |
-| J6 Cognitive Load & Fluency Agent | Not Started | Existing gate scripts only (`check-cognitive-load-all-pages.mjs`) | Build deterministic weekly agent + monthly LLM calibration dispatch |
+| J6 Cognitive Load & Fluency Agent | In Progress | `scripts/check-cognitive-load-all-pages.mjs`, `scripts/cognitive-load-agent.mjs`, `.github/workflows/cognitive-load-agent.yml` | Add fluency scoring, dashboard-tier thresholds, and monthly LLM calibration dispatch |
 | J7 Trust Integrity Agent | Done | `scripts/trust-integrity-agent.mjs`, `.github/workflows/trust-integrity-agent.yml`, watchdog registration | Add stronger evidence normalization and longitudinal parity trend metrics |
 | J8 Journey Synthetic Agent | Not Started | Existing `production-synthetics.yml` transaction checks | Add journey step percentile and abandonment-risk scoring layer |
 | J9 Daily Experience Report | In Progress | `scripts/experience-daily-report.mjs`, `scripts/trust-daily-report.mjs`, `.github/workflows/experience-daily-report.yml`, `.github/workflows/trust-daily-report.yml` | Consolidate to one ledger-backed experience daily aggregator |
@@ -33,7 +33,7 @@ Status legend:
 Current sprint focus:
 1. Harden trust telemetry artifacts and route-evidence clarity (active).
 2. Finish J1/J2 foundation maturity (shared config + shared reporting kit).
-3. Extend J5 from source-side typography/accent telemetry to rendered screenshot/diff verification.
+3. Extend J6 from cognitive-load-only scoring into full fluency scoring and monthly calibration.
 
 ---
 
@@ -203,7 +203,7 @@ Key orchestration decisions:
 | J3 | Route Inventory Agent | `scripts/experience-route-inventory.mjs` + workflow + watchdog entry | J2 | Done |
 | J4 | Experience Vitals Agent | script + `config/experience-vitals-baseline.json` + workflow (sharded) | J1–J3 | In Progress |
 | J5 | Visual Sentinel extension | extend sentinel script with rendered checks; typography + accent ceilings into SES | J1, J3 | In Progress |
-| J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 | Not Started |
+| J6 | Cognitive Load & Fluency Agent | deterministic scorer (reusing `check-cognitive-load-all-pages.mjs` internals) + monthly LLM auditor dispatch job | J1, J3 | In Progress |
 | J7 | Trust Integrity Agent | parity/title/landmark/staleness/link checks unified | J3 | Done |
 | J8 | Journey Synthetic Agent | extend synthetics with journey-step percentile scoring | J1 | Not Started |
 | J9 | Daily Experience Report | aggregator over ledger, Slack digest, dedupe + severity caps | J3–J8 | In Progress |
