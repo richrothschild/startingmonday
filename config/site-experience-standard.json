@@ -72,6 +72,41 @@
       "layoutShiftingAnimationAllowed": false
     }
   },
+  "journeySynthetic": {
+    "defaultThresholds": {
+      "warnStepP95Ms": 6000,
+      "criticalStepP95Ms": 12000
+    },
+    "tierThresholds": {
+      "funnel": {
+        "warnStepP95Ms": 5500,
+        "criticalStepP95Ms": 10000
+      },
+      "dashboard": {
+        "warnStepP95Ms": 6500,
+        "criticalStepP95Ms": 12000
+      },
+      "public": {
+        "warnStepP95Ms": 6000,
+        "criticalStepP95Ms": 11000
+      },
+      "admin": {
+        "warnStepP95Ms": 7500,
+        "criticalStepP95Ms": 13000
+      }
+    },
+    "tierRiskWeight": {
+      "funnel": 1.15,
+      "dashboard": 1.25,
+      "public": 1,
+      "admin": 0.9
+    },
+    "riskWeights": {
+      "failureRatio": 70,
+      "slowStepRatio": 20,
+      "criticalSlowStepRatio": 10
+    }
+  },
   "severityPolicy": {
     "P0": {
       "description": "Immediate trust/availability or severe budget failure.",

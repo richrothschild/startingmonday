@@ -82,6 +82,7 @@ jobs:
           node -e "
           const fs = require('fs')
           const results = JSON.parse(fs.readFileSync('synthetic-results.json', 'utf8'))
+          const sesPath = 'config/site-experience-standard.json'
           const suites = results.suites ?? []
           let passed = 0, failed = 0, skipped = 0
           const failedTests = []
@@ -117,18 +118,66 @@ jobs:
           suites.forEach(walk)
 
           const total = passed + failed
-          const warnP95Ms = Number(process.env.SYNTH_JOURNEY_STEP_P95_WARN_MS || 6000)
-          const criticalP95Ms = Number(process.env.SYNTH_JOURNEY_STEP_P95_CRITICAL_MS || 12000)
+
+          let journeySes = null
+          try {
+            if (fs.existsSync(sesPath)) {
+              const ses = JSON.parse(fs.readFileSync(sesPath, 'utf8'))
+              journeySes = ses.journeySynthetic ?? null
+            }
+          } catch {
+            journeySes = null
+          }
+
+          const defaultWarnP95Ms = Number(
+            journeySes?.defaultThresholds?.warnStepP95Ms ?? process.env.SYNTH_JOURNEY_STEP_P95_WARN_MS ?? 6000
+          )
+          const defaultCriticalP95Ms = Number(
+            journeySes?.defaultThresholds?.criticalStepP95Ms ?? process.env.SYNTH_JOURNEY_STEP_P95_CRITICAL_MS ?? 12000
+          )
+
+          const tierThresholds = journeySes?.tierThresholds ?? {}
+          const tierRiskWeight = journeySes?.tierRiskWeight ?? { funnel: 1.15, dashboard: 1.25, public: 1, admin: 0.9 }
+          const riskWeights = journeySes?.riskWeights ?? {
+            failureRatio: 70,
+            slowStepRatio: 20,
+            criticalSlowStepRatio: 10,
+          }
+
+          function tierForStepName(stepName) {
+            const name = String(stepName || '').toLowerCase()
+            if (name.includes('dashboard') || name.includes('briefing')) return 'dashboard'
+            if (name.includes('webhook') || name.includes('admin')) return 'admin'
+            if (
+              name.includes('signup') ||
+              name.includes('login') ||
+              name.includes('authenticate') ||
+              name.includes('onboarding') ||
+              name.includes('pricing') ||
+              name.includes('demo') ||
+              name.includes('blog') ||
+              name.includes('method')
+            ) {
+              return 'funnel'
+            }
+            return 'public'
+          }
 
           const perStepMetrics = Array.from(stepDurations.entries())
             .map(([stepName, values]) => {
               const p50 = percentile(values, 50)
               const p95 = percentile(values, 95)
+              const tier = tierForStepName(stepName)
+              const warnP95Ms = Number(tierThresholds?.[tier]?.warnStepP95Ms ?? defaultWarnP95Ms)
+              const criticalP95Ms = Number(tierThresholds?.[tier]?.criticalStepP95Ms ?? defaultCriticalP95Ms)
               return {
                 stepName,
+                tier,
                 sampleCount: values.length,
                 p50Ms: p50 === null ? null : Math.round(p50),
                 p95Ms: p95 === null ? null : Math.round(p95),
+                warnP95Ms,
+                criticalP95Ms,
               }
             })
             .filter((step) => typeof step.p95Ms === 'number')
@@ -138,18 +187,34 @@ jobs:
             perStepMetrics.length > 0
               ? Math.round(percentile(perStepMetrics.map((step) => step.p95Ms), 95))
               : null
-          const slowStepCount = perStepMetrics.filter((step) => step.p95Ms >= warnP95Ms).length
-          const criticalSlowStepCount = perStepMetrics.filter((step) => step.p95Ms >= criticalP95Ms).length
+          const slowStepCount = perStepMetrics.filter((step) => step.p95Ms >= step.warnP95Ms).length
+          const criticalSlowStepCount = perStepMetrics.filter((step) => step.p95Ms >= step.criticalP95Ms).length
+
+          const tierWeightTotal = perStepMetrics.reduce(
+            (sum, step) => sum + Number(tierRiskWeight?.[step.tier] ?? 1),
+            0
+          )
+          const slowStepWeightTotal = perStepMetrics.reduce((sum, step) => {
+            if (step.p95Ms < step.warnP95Ms) return sum
+            return sum + Number(tierRiskWeight?.[step.tier] ?? 1)
+          }, 0)
+          const criticalSlowStepWeightTotal = perStepMetrics.reduce((sum, step) => {
+            if (step.p95Ms < step.criticalP95Ms) return sum
+            return sum + Number(tierRiskWeight?.[step.tier] ?? 1)
+          }, 0)
 
           const failureRatio = total > 0 ? failed / total : 0
-          const slowStepRatio = perStepMetrics.length > 0 ? slowStepCount / perStepMetrics.length : 0
-          const criticalSlowStepRatio =
-            perStepMetrics.length > 0 ? criticalSlowStepCount / perStepMetrics.length : 0
+          const slowStepRatio = tierWeightTotal > 0 ? slowStepWeightTotal / tierWeightTotal : 0
+          const criticalSlowStepRatio = tierWeightTotal > 0 ? criticalSlowStepWeightTotal / tierWeightTotal : 0
           const abandonmentRiskScore = Math.max(
             0,
             Math.min(
               100,
-              Math.round(failureRatio * 70 + slowStepRatio * 20 + criticalSlowStepRatio * 10)
+              Math.round(
+                failureRatio * Number(riskWeights.failureRatio ?? 70) +
+                slowStepRatio * Number(riskWeights.slowStepRatio ?? 20) +
+                criticalSlowStepRatio * Number(riskWeights.criticalSlowStepRatio ?? 10)
+              )
             )
           )
           const abandonmentRiskBand =
@@ -166,18 +231,18 @@ jobs:
                 abandonmentRisk: {
                   score: abandonmentRiskScore,
                   band: abandonmentRiskBand,
-                  weights: {
-                    failureRatio: 70,
-                    slowStepRatio: 20,
-                    criticalSlowStepRatio: 10,
-                  },
+                  weights: riskWeights,
                 },
                 thresholds: {
-                  warnStepP95Ms: warnP95Ms,
-                  criticalStepP95Ms: criticalP95Ms,
+                  defaultWarnStepP95Ms: defaultWarnP95Ms,
+                  defaultCriticalStepP95Ms: defaultCriticalP95Ms,
+                  tierThresholds,
                 },
                 slowStepCount,
                 criticalSlowStepCount,
+                weightedSlowStepRatio: Number(slowStepRatio.toFixed(3)),
+                weightedCriticalSlowStepRatio: Number(criticalSlowStepRatio.toFixed(3)),
+                tierRiskWeight,
                 perStepTop: perStepMetrics.slice(0, 12),
               },
               null,
