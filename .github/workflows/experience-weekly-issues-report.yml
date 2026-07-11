@@ -38,6 +38,17 @@ jobs:
           restore-keys: |
             seeding-checklist-${{ github.ref_name }}-
 
+      - name: Restore probe reset cache
+        id: restore-probe-reset
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            docs/status/probe-account-reset.latest.json
+            docs/status/probe-account-reset.latest.md
+          key: probe-account-reset-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            probe-account-reset-${{ github.ref_name }}-
+
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
@@ -63,6 +74,8 @@ jobs:
             docs/status/experience-portfolio-rollup.history.json
             docs/status/experience-seeding-checklist.latest.json
             docs/status/experience-seeding-checklist.latest.md
+            docs/status/probe-account-reset.latest.json
+            docs/status/probe-account-reset.latest.md
           retention-days: 30
 
       - name: Save portfolio history cache
@@ -80,6 +93,15 @@ jobs:
             docs/status/experience-seeding-checklist.latest.json
             docs/status/experience-seeding-checklist.latest.md
           key: seeding-checklist-${{ github.ref_name }}-${{ github.run_id }}
+
+      - name: Save probe reset cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            docs/status/probe-account-reset.latest.json
+            docs/status/probe-account-reset.latest.md
+          key: probe-account-reset-${{ github.ref_name }}-${{ github.run_id }}
 
       - name: Alert on workflow failure
         if: failure()

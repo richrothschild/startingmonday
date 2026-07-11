@@ -14,6 +14,7 @@ const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-we
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-weekly.latest.md')
 const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 const seedingChecklistPath = path.join(process.cwd(), 'docs', 'status', 'experience-seeding-checklist.latest.json')
+const probeResetPath = path.join(process.cwd(), 'docs', 'status', 'probe-account-reset.latest.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -238,6 +239,33 @@ function readSeedingChecklist() {
   }
 }
 
+function readProbeResetReport() {
+  if (!fs.existsSync(probeResetPath)) {
+    return {
+      available: false,
+      generatedAt: null,
+      email: null,
+      dryRun: null,
+      status: 'missing',
+      activeCompaniesBefore: null,
+      archivedCompanies: null,
+      firstCompanyMilestoneReset: null,
+    }
+  }
+
+  const parsed = JSON.parse(fs.readFileSync(probeResetPath, 'utf8'))
+  return {
+    available: true,
+    generatedAt: parsed.generatedAt ?? null,
+    email: parsed.email ?? null,
+    dryRun: parsed.dryRun ?? null,
+    status: parsed.status ?? 'unknown',
+    activeCompaniesBefore: parsed.activeCompaniesBefore ?? null,
+    archivedCompanies: parsed.archivedCompanies ?? null,
+    firstCompanyMilestoneReset: parsed.firstCompanyMilestoneReset ?? null,
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Weekly Issues Report')
@@ -317,6 +345,21 @@ function buildMarkdown(report) {
   }
   lines.push('')
 
+  lines.push('## Probe Reset')
+  lines.push('')
+  if (!report.probeReset.available) {
+    lines.push('- Probe reset artifact unavailable.')
+  } else {
+    lines.push(`- Generated: ${report.probeReset.generatedAt ?? 'n/a'}`)
+    lines.push(`- Email: ${report.probeReset.email ?? 'n/a'}`)
+    lines.push(`- Dry run: ${report.probeReset.dryRun}`)
+    lines.push(`- Status: ${report.probeReset.status}`)
+    lines.push(`- Active companies before: ${report.probeReset.activeCompaniesBefore ?? 'n/a'}`)
+    lines.push(`- Companies archived: ${report.probeReset.archivedCompanies ?? 'n/a'}`)
+    lines.push(`- First-company milestone reset: ${report.probeReset.firstCompanyMilestoneReset}`)
+  }
+  lines.push('')
+
   return `${lines.join('\n')}\n`
 }
 
@@ -338,6 +381,9 @@ function buildSlackText(report) {
     `Window: ${report.window.start} to ${report.window.end}`,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
+    report.probeReset.available
+      ? `Probe reset: ${report.probeReset.status} (archived=${report.probeReset.archivedCompanies ?? 'n/a'})`
+      : 'Probe reset: unavailable',
     report.sourceStaleness.ownerCounts.length > 0
       ? `Source staleness owner: ${report.sourceStaleness.ownerCounts[0].owner} (${report.sourceStaleness.ownerCounts[0].openSignatures})`
       : 'Source staleness owner: none',
@@ -382,6 +428,7 @@ async function main() {
   const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
   const sourceStaleness = sourceStalenessHighlights(portfolioHistory)
   const seedingChecklist = readSeedingChecklist()
+  const probeReset = readProbeResetReport()
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -393,6 +440,7 @@ async function main() {
     ownerLeaderboard: ownerLeaderboardRows,
     sourceStaleness,
     seedingChecklist,
+    probeReset,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })

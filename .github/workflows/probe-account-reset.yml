@@ -58,6 +58,15 @@ jobs:
             docs/status/probe-account-reset.latest.md
           retention-days: 30
 
+      - name: Save probe reset cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            docs/status/probe-account-reset.latest.json
+            docs/status/probe-account-reset.latest.md
+          key: probe-account-reset-${{ github.ref_name }}-${{ github.run_id }}
+
       - name: Alert on probe reset failure
         if: failure()
         env:
