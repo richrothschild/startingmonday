@@ -1,0 +1,2688 @@
+{
+  "generatedAt": "2026-07-11T15:36:59.911Z",
+  "channel": "reliability---service",
+  "totals": {
+    "routes": 296,
+    "staticRoutes": 274,
+    "dynamicRoutes": 22,
+    "authGatedRoutes": 95
+  },
+  "byTier": {
+    "public": 139,
+    "funnel": 72,
+    "admin": 37,
+    "dashboard": 48
+  },
+  "delta": {
+    "previousGeneratedAt": null,
+    "added": [
+      "/",
+      "/about",
+      "/alumni-networks-review",
+      "/annual-report-2026",
+      "/annual-report-2026/executive-search-ai-confidentiality",
+      "/blog",
+      "/blog/c-suite-search-90-day-plan",
+      "/blog/c-suite-search-weekly-metrics",
+      "/blog/cio-board-presentation",
+      "/blog/cio-compensation-negotiation",
+      "/blog/cio-job-market-2026",
+      "/blog/cio-job-search-timeline",
+      "/blog/cio-search-signal-story-sequence",
+      "/blog/cio-vs-cto-which-role",
+      "/blog/ciso-interview-preparation",
+      "/blog/confidential-executive-search-pipeline",
+      "/blog/cto-job-search-timeline",
+      "/blog/cto-vs-vp-engineering-career-path",
+      "/blog/evaluate-executive-coach-evidence",
+      "/blog/evidence-based-executive-networking",
+      "/blog/evidence-hub-coaching-session-framework",
+      "/blog/executive-coaching-candidate-infrastructure",
+      "/blog/executive-coaching-job-search",
+      "/blog/executive-coaching-search-outcomes",
+      "/blog/executive-hiring-committee-psychology",
+      "/blog/executive-hiring-patterns-2026",
+      "/blog/executive-interview-prep-7-day-system",
+      "/blog/executive-job-search-daily-routine",
+      "/blog/executive-organizational-visibility",
+      "/blog/executive-outreach-response-rate",
+      "/blog/executive-resume-gaps",
+      "/blog/executive-search-consistency-model",
+      "/blog/executive-search-firms-cio",
+      "/blog/executive-search-operating-system",
+      "/blog/executive-search-pilot-data-observations",
+      "/blog/executive-search-readiness-audit",
+      "/blog/executive-search-risk-register",
+      "/blog/executive-search-timing-signals",
+      "/blog/executive-transition-success-factors",
+      "/blog/how-cios-find-jobs",
+      "/blog/how-we-estimate-early-role-signals",
+      "/blog/linkedin-executive-search-strategy",
+      "/blog/pe-backed-cio",
+      "/blog/retained-search-candidate-preparation",
+      "/blog/retained-search-firms",
+      "/blog/source-backed-executive-career-narrative",
+      "/blog/target-company-list",
+      "/blog/target-company-list-cto",
+      "/blog/technology-executive-transition-chro",
+      "/blog/vp-job-search-different-rules",
+      "/blog/vp-to-c-suite-positioning",
+      "/blog/vp-to-cio-transition",
+      "/blog/what-companies-want-chief-data-officer",
+      "/blog/why-executive-recruiters-go-quiet",
+      "/blog/why-starting-monday-exists",
+      "/career-tools",
+      "/case-studies",
+      "/channels/feature-map",
+      "/coach/[clientId]/interview",
+      "/coach/clients",
+      "/coaches",
+      "/coaches-guide",
+      "/coaches/executive-transition-coach-demo",
+      "/coaches/mock-dashboard",
+      "/coaches/mock-dashboard/[clientId]",
+      "/coaches/objections",
+      "/coaches/personas",
+      "/coaches/personas/[slug]",
+      "/coaches/sample-transition-brief",
+      "/coaches/workflow/opportunity-access-demo",
+      "/coaches/workflow/set-transition-thesis-demo",
+      "/coaches/workflow/weekly-momentum-demo",
+      "/coachos",
+      "/concierge",
+      "/contributor",
+      "/dashboard",
+      "/dashboard-theme-preview",
+      "/dashboard/admin",
+      "/dashboard/admin/b2b",
+      "/dashboard/admin/b2b/[id]",
+      "/dashboard/admin/b2b/new",
+      "/dashboard/admin/channel-benchmarks",
+      "/dashboard/admin/coach-outreach",
+      "/dashboard/admin/crm",
+      "/dashboard/admin/customers",
+      "/dashboard/admin/diagrams",
+      "/dashboard/admin/feedback",
+      "/dashboard/admin/feedback/[id]",
+      "/dashboard/admin/guide",
+      "/dashboard/admin/intelligence",
+      "/dashboard/admin/intelligence/qa",
+      "/dashboard/admin/internal-guide",
+      "/dashboard/admin/linkedin-company-launch",
+      "/dashboard/admin/metrics",
+      "/dashboard/admin/onboarding/qa",
+      "/dashboard/admin/onboarding/video",
+      "/dashboard/admin/operations",
+      "/dashboard/admin/operations/wedge-cron",
+      "/dashboard/admin/operations/wedge-economics",
+      "/dashboard/admin/outplacement-cohorts",
+      "/dashboard/admin/outplacement-outreach",
+      "/dashboard/admin/outreach-analytics",
+      "/dashboard/admin/outreach-reliability",
+      "/dashboard/admin/prep-efficacy",
+      "/dashboard/admin/product",
+      "/dashboard/admin/product/catalog",
+      "/dashboard/admin/revenue",
+      "/dashboard/admin/sales-enablement",
+      "/dashboard/admin/social",
+      "/dashboard/admin/speakers",
+      "/dashboard/admin/team",
+      "/dashboard/admin/traces",
+      "/dashboard/admin/traces/rubric",
+      "/dashboard/admin/wedge-funnels",
+      "/dashboard/board-track",
+      "/dashboard/briefing",
+      "/dashboard/calendar",
+      "/dashboard/chat",
+      "/dashboard/coach",
+      "/dashboard/coach/[clientId]",
+      "/dashboard/companies/[id]",
+      "/dashboard/companies/[id]/prep",
+      "/dashboard/companies/new",
+      "/dashboard/concierge",
+      "/dashboard/contacts",
+      "/dashboard/contacts/[id]",
+      "/dashboard/contacts/[id]/edit",
+      "/dashboard/contacts/[id]/outreach",
+      "/dashboard/discover",
+      "/dashboard/discover/recommendation/[id]",
+      "/dashboard/executive-brief",
+      "/dashboard/feedback",
+      "/dashboard/help",
+      "/dashboard/invite",
+      "/dashboard/kanban",
+      "/dashboard/offers",
+      "/dashboard/optionality",
+      "/dashboard/optionality/branding",
+      "/dashboard/optionality/decision-cockpit",
+      "/dashboard/outplacement",
+      "/dashboard/outplacement/counselor",
+      "/dashboard/outplacement/enterprise",
+      "/dashboard/outplacement/firm-admin",
+      "/dashboard/outplacement/operator",
+      "/dashboard/outplacement/sponsor-report",
+      "/dashboard/outreach",
+      "/dashboard/partner",
+      "/dashboard/pilot-outreach",
+      "/dashboard/placed",
+      "/dashboard/plan",
+      "/dashboard/positioning",
+      "/dashboard/post-landing",
+      "/dashboard/post-search",
+      "/dashboard/profile",
+      "/dashboard/profile/tailor",
+      "/dashboard/salary",
+      "/dashboard/signals",
+      "/dashboard/start",
+      "/dashboard/strategy",
+      "/dashboard/wrap-up",
+      "/demo",
+      "/demo/cio",
+      "/demo/cio/notes",
+      "/demo/coach-dashboard",
+      "/demo/executive-brief",
+      "/demo/executive-dashboard",
+      "/demo/leader-brief",
+      "/demo/manager-tools",
+      "/demo/michael-dashboard",
+      "/demo/michael-strategy-brief",
+      "/demo/prep-communications",
+      "/demo/prep-companies",
+      "/demo/prep-interview",
+      "/demo/prep-meetings",
+      "/demo/presenter",
+      "/demo/sandbox/alto-shaam",
+      "/demo/sandbox/healthcare",
+      "/demo/wedge-30s",
+      "/evaluate",
+      "/evidence-hub",
+      "/evidence-room",
+      "/executive-brief",
+      "/executives",
+      "/executives/active",
+      "/executives/passive",
+      "/executives/personas",
+      "/executives/personas/[slug]",
+      "/features",
+      "/features/[slug]",
+      "/feedback",
+      "/for-cdo",
+      "/for-chro",
+      "/for-cio",
+      "/for-cio-associations",
+      "/for-ciso",
+      "/for-coaches",
+      "/for-coaches/coach-prep-worksheet",
+      "/for-coaches/economics",
+      "/for-coaches/faq",
+      "/for-coaches/micro-products",
+      "/for-coaches/micro-products/[slug]",
+      "/for-coaches/search-affiliate",
+      "/for-coaches/trust-pack",
+      "/for-coo",
+      "/for-cpo",
+      "/for-data-officer",
+      "/for-executives",
+      "/for-executives/[lane]",
+      "/for-financial-advisors",
+      "/for-fractional-executives",
+      "/for-individuals",
+      "/for-leaders",
+      "/for-media-partners",
+      "/for-outplacement",
+      "/for-outplacement/economics",
+      "/for-outplacement/executive-summary",
+      "/for-outplacement/faq",
+      "/for-outplacement/metric-dictionary",
+      "/for-outplacement/operating-scorecard",
+      "/for-outplacement/runbook",
+      "/for-outplacement/security-overview",
+      "/for-outplacement/trust-pack",
+      "/for-pe-partners",
+      "/for-pe-teams",
+      "/for-relocation",
+      "/for-search-firms",
+      "/for-vp",
+      "/for-vp-technology",
+      "/founder-note",
+      "/guide",
+      "/handshake-review",
+      "/ideas",
+      "/individuals",
+      "/intelligence/[slug]",
+      "/invite/[code]",
+      "/learn-more",
+      "/learn-more/common-questions",
+      "/learn-more/inside-the-system",
+      "/learn-more/objections",
+      "/login",
+      "/managertools",
+      "/mark-demo",
+      "/mark-review",
+      "/mark-review/appendix",
+      "/mark-review/business-plan",
+      "/mark-review/summary",
+      "/mauricio-kickoff",
+      "/mauricio-kickoff-execution",
+      "/mauricio-kickoff-execution/apollo-read-access",
+      "/mauricio-kickoff-execution/customer-email-by-channel",
+      "/method-and-evidence",
+      "/methodology",
+      "/onboarding",
+      "/optimize",
+      "/outplacement",
+      "/outplacement/personas",
+      "/outplacement/personas/[slug]",
+      "/partner-firm",
+      "/partners",
+      "/partners/mauricio-kickoff",
+      "/partners/pilot-admin",
+      "/partners/reporting",
+      "/pilot-findings",
+      "/prep/communications",
+      "/prep/companies",
+      "/prep/interview",
+      "/prep/meetings",
+      "/prep/relationships",
+      "/pricing",
+      "/privacy",
+      "/proof/roi-calculator",
+      "/references",
+      "/research-brief",
+      "/sales-marketing-plan",
+      "/search-firms",
+      "/search-firms/executive-recruiter-demo",
+      "/search-firms/objections",
+      "/search-firms/personas",
+      "/search-firms/personas/[slug]",
+      "/search-firms/procurement",
+      "/search-firms/sample-cfo-brief",
+      "/search-firms/trial-charter",
+      "/search-firms/trust",
+      "/security",
+      "/settings",
+      "/settings/billing",
+      "/settings/security",
+      "/settings/team",
+      "/shortlist-sprint",
+      "/signup",
+      "/stuart-meyer-review",
+      "/team/join/[token]",
+      "/terms",
+      "/terry-anderson-review",
+      "/unsubscribe/[code]",
+      "/unsubscribe/confirmed"
+    ],
+    "removed": []
+  },
+  "routes": [
+    {
+      "route": "/login",
+      "relativePath": "src/app/(auth)/login/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/signup",
+      "relativePath": "src/app/(auth)/signup/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "standard"
+    },
+    {
+      "route": "/coach/[clientId]/interview",
+      "relativePath": "src/app/(dashboard)/coach/[clientId]/interview/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/coach/clients",
+      "relativePath": "src/app/(dashboard)/coach/clients/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/dashboard/admin/b2b/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "admin",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/channel-benchmarks",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/channel-benchmarks/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/crm/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/customers/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/diagrams",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/diagrams/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "admin",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/intelligence",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/intelligence/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/internal-guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/internal-guide/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/onboarding/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/operations",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-cron",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-cron/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/operations/wedge-economics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/operations/wedge-economics/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/outplacement-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/prep-efficacy",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/prep-efficacy/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/product/catalog",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/product",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/revenue",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/revenue/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/sales-enablement",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/sales-enablement/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/speakers/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/team",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/team/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/traces",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/traces/rubric",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/traces/rubric/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/admin/wedge-funnels",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/wedge-funnels/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "admin",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/board-track",
+      "relativePath": "src/app/(dashboard)/dashboard/board-track/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/briefing",
+      "relativePath": "src/app/(dashboard)/dashboard/briefing/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/calendar",
+      "relativePath": "src/app/(dashboard)/dashboard/calendar/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/chat",
+      "relativePath": "src/app/(dashboard)/dashboard/chat/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/coach/[clientId]",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/coach",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/companies/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/companies/[id]/prep",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/[id]/prep/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/new/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/concierge",
+      "relativePath": "src/app/(dashboard)/dashboard/concierge/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/contacts/[id]/edit",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/edit/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/contacts/[id]/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/outreach/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/contacts/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/[id]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/contacts",
+      "relativePath": "src/app/(dashboard)/dashboard/contacts/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/discover",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/discover/recommendation/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "dynamic": true,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "dynamic"
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "relativePath": "src/app/(dashboard)/dashboard/executive-brief/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/feedback/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/help",
+      "relativePath": "src/app/(dashboard)/dashboard/help/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/invite",
+      "relativePath": "src/app/(dashboard)/dashboard/invite/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/kanban",
+      "relativePath": "src/app/(dashboard)/dashboard/kanban/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/offers",
+      "relativePath": "src/app/(dashboard)/dashboard/offers/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/optionality/branding",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/branding/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/optionality/decision-cockpit",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/decision-cockpit/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/optionality",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement/counselor",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/counselor/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement/enterprise",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/enterprise/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement/operator",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/operator/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outplacement/sponsor-report",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/sponsor-report/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/partner",
+      "relativePath": "src/app/(dashboard)/dashboard/partner/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/pilot-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/pilot-outreach/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/placed",
+      "relativePath": "src/app/(dashboard)/dashboard/placed/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/plan",
+      "relativePath": "src/app/(dashboard)/dashboard/plan/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/positioning",
+      "relativePath": "src/app/(dashboard)/dashboard/positioning/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/post-landing",
+      "relativePath": "src/app/(dashboard)/dashboard/post-landing/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/post-search",
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/profile",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/profile/tailor",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/tailor/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/salary",
+      "relativePath": "src/app/(dashboard)/dashboard/salary/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/signals",
+      "relativePath": "src/app/(dashboard)/dashboard/signals/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/start",
+      "relativePath": "src/app/(dashboard)/dashboard/start/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/strategy",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/wrap-up",
+      "relativePath": "src/app/(dashboard)/dashboard/wrap-up/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/prep/communications",
+      "relativePath": "src/app/(dashboard)/prep/communications/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/prep/companies",
+      "relativePath": "src/app/(dashboard)/prep/companies/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/prep/interview",
+      "relativePath": "src/app/(dashboard)/prep/interview/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/prep/meetings",
+      "relativePath": "src/app/(dashboard)/prep/meetings/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/prep/relationships",
+      "relativePath": "src/app/(dashboard)/prep/relationships/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/settings/billing",
+      "relativePath": "src/app/(dashboard)/settings/billing/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/settings",
+      "relativePath": "src/app/(dashboard)/settings/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/settings/security",
+      "relativePath": "src/app/(dashboard)/settings/security/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/settings/team",
+      "relativePath": "src/app/(dashboard)/settings/team/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/about",
+      "relativePath": "src/app/about/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/alumni-networks-review",
+      "relativePath": "src/app/alumni-networks-review/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/annual-report-2026/executive-search-ai-confidentiality",
+      "relativePath": "src/app/annual-report-2026/executive-search-ai-confidentiality/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/annual-report-2026",
+      "relativePath": "src/app/annual-report-2026/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/blog/c-suite-search-90-day-plan",
+      "relativePath": "src/app/blog/c-suite-search-90-day-plan/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/c-suite-search-weekly-metrics",
+      "relativePath": "src/app/blog/c-suite-search-weekly-metrics/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "relativePath": "src/app/blog/cio-board-presentation/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "relativePath": "src/app/blog/cio-compensation-negotiation/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-job-search-timeline",
+      "relativePath": "src/app/blog/cio-job-search-timeline/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-search-signal-story-sequence",
+      "relativePath": "src/app/blog/cio-search-signal-story-sequence/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cio-vs-cto-which-role",
+      "relativePath": "src/app/blog/cio-vs-cto-which-role/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/ciso-interview-preparation",
+      "relativePath": "src/app/blog/ciso-interview-preparation/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/confidential-executive-search-pipeline",
+      "relativePath": "src/app/blog/confidential-executive-search-pipeline/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cto-job-search-timeline",
+      "relativePath": "src/app/blog/cto-job-search-timeline/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/cto-vs-vp-engineering-career-path",
+      "relativePath": "src/app/blog/cto-vs-vp-engineering-career-path/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/evaluate-executive-coach-evidence",
+      "relativePath": "src/app/blog/evaluate-executive-coach-evidence/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/evidence-based-executive-networking",
+      "relativePath": "src/app/blog/evidence-based-executive-networking/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/evidence-hub-coaching-session-framework",
+      "relativePath": "src/app/blog/evidence-hub-coaching-session-framework/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-coaching-candidate-infrastructure",
+      "relativePath": "src/app/blog/executive-coaching-candidate-infrastructure/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-coaching-job-search",
+      "relativePath": "src/app/blog/executive-coaching-job-search/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-coaching-search-outcomes",
+      "relativePath": "src/app/blog/executive-coaching-search-outcomes/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-hiring-committee-psychology",
+      "relativePath": "src/app/blog/executive-hiring-committee-psychology/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-hiring-patterns-2026",
+      "relativePath": "src/app/blog/executive-hiring-patterns-2026/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-interview-prep-7-day-system",
+      "relativePath": "src/app/blog/executive-interview-prep-7-day-system/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-job-search-daily-routine",
+      "relativePath": "src/app/blog/executive-job-search-daily-routine/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-organizational-visibility",
+      "relativePath": "src/app/blog/executive-organizational-visibility/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-outreach-response-rate",
+      "relativePath": "src/app/blog/executive-outreach-response-rate/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-resume-gaps",
+      "relativePath": "src/app/blog/executive-resume-gaps/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-consistency-model",
+      "relativePath": "src/app/blog/executive-search-consistency-model/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-firms-cio",
+      "relativePath": "src/app/blog/executive-search-firms-cio/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-operating-system",
+      "relativePath": "src/app/blog/executive-search-operating-system/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-pilot-data-observations",
+      "relativePath": "src/app/blog/executive-search-pilot-data-observations/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-readiness-audit",
+      "relativePath": "src/app/blog/executive-search-readiness-audit/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-risk-register",
+      "relativePath": "src/app/blog/executive-search-risk-register/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-search-timing-signals",
+      "relativePath": "src/app/blog/executive-search-timing-signals/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/executive-transition-success-factors",
+      "relativePath": "src/app/blog/executive-transition-success-factors/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/how-cios-find-jobs",
+      "relativePath": "src/app/blog/how-cios-find-jobs/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/how-we-estimate-early-role-signals",
+      "relativePath": "src/app/blog/how-we-estimate-early-role-signals/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/linkedin-executive-search-strategy",
+      "relativePath": "src/app/blog/linkedin-executive-search-strategy/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog",
+      "relativePath": "src/app/blog/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/pe-backed-cio",
+      "relativePath": "src/app/blog/pe-backed-cio/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/retained-search-candidate-preparation",
+      "relativePath": "src/app/blog/retained-search-candidate-preparation/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/retained-search-firms",
+      "relativePath": "src/app/blog/retained-search-firms/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/source-backed-executive-career-narrative",
+      "relativePath": "src/app/blog/source-backed-executive-career-narrative/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/target-company-list-cto",
+      "relativePath": "src/app/blog/target-company-list-cto/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/target-company-list",
+      "relativePath": "src/app/blog/target-company-list/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/technology-executive-transition-chro",
+      "relativePath": "src/app/blog/technology-executive-transition-chro/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/vp-job-search-different-rules",
+      "relativePath": "src/app/blog/vp-job-search-different-rules/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/vp-to-c-suite-positioning",
+      "relativePath": "src/app/blog/vp-to-c-suite-positioning/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/vp-to-cio-transition",
+      "relativePath": "src/app/blog/vp-to-cio-transition/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/what-companies-want-chief-data-officer",
+      "relativePath": "src/app/blog/what-companies-want-chief-data-officer/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/why-executive-recruiters-go-quiet",
+      "relativePath": "src/app/blog/why-executive-recruiters-go-quiet/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/blog/why-starting-monday-exists",
+      "relativePath": "src/app/blog/why-starting-monday-exists/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "editorial"
+    },
+    {
+      "route": "/career-tools",
+      "relativePath": "src/app/career-tools/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/case-studies",
+      "relativePath": "src/app/case-studies/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/channels/feature-map",
+      "relativePath": "src/app/channels/feature-map/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches-guide",
+      "relativePath": "src/app/coaches-guide/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/executive-transition-coach-demo",
+      "relativePath": "src/app/coaches/executive-transition-coach-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/coaches/mock-dashboard",
+      "relativePath": "src/app/coaches/mock-dashboard/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/objections",
+      "relativePath": "src/app/coaches/objections/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches",
+      "relativePath": "src/app/coaches/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/personas/[slug]",
+      "relativePath": "src/app/coaches/personas/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/coaches/personas",
+      "relativePath": "src/app/coaches/personas/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/sample-transition-brief",
+      "relativePath": "src/app/coaches/sample-transition-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/workflow/opportunity-access-demo",
+      "relativePath": "src/app/coaches/workflow/opportunity-access-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/workflow/set-transition-thesis-demo",
+      "relativePath": "src/app/coaches/workflow/set-transition-thesis-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coaches/workflow/weekly-momentum-demo",
+      "relativePath": "src/app/coaches/workflow/weekly-momentum-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/coachos",
+      "relativePath": "src/app/coachos/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/concierge",
+      "relativePath": "src/app/concierge/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/contributor",
+      "relativePath": "src/app/contributor/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/dashboard-theme-preview",
+      "relativePath": "src/app/dashboard-theme-preview/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/demo/cio/notes",
+      "relativePath": "src/app/demo/cio/notes/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/coach-dashboard",
+      "relativePath": "src/app/demo/coach-dashboard/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/executive-brief",
+      "relativePath": "src/app/demo/executive-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/executive-dashboard",
+      "relativePath": "src/app/demo/executive-dashboard/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/leader-brief",
+      "relativePath": "src/app/demo/leader-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/manager-tools",
+      "relativePath": "src/app/demo/manager-tools/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/michael-dashboard",
+      "relativePath": "src/app/demo/michael-dashboard/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/michael-strategy-brief",
+      "relativePath": "src/app/demo/michael-strategy-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo",
+      "relativePath": "src/app/demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/prep-communications",
+      "relativePath": "src/app/demo/prep-communications/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/prep-companies",
+      "relativePath": "src/app/demo/prep-companies/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/prep-interview",
+      "relativePath": "src/app/demo/prep-interview/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/prep-meetings",
+      "relativePath": "src/app/demo/prep-meetings/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/presenter",
+      "relativePath": "src/app/demo/presenter/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/sandbox/alto-shaam",
+      "relativePath": "src/app/demo/sandbox/alto-shaam/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/sandbox/healthcare",
+      "relativePath": "src/app/demo/sandbox/healthcare/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/wedge-30s",
+      "relativePath": "src/app/demo/wedge-30s/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/evaluate",
+      "relativePath": "src/app/evaluate/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/evidence-hub",
+      "relativePath": "src/app/evidence-hub/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/evidence-room",
+      "relativePath": "src/app/evidence-room/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/executive-brief",
+      "relativePath": "src/app/executive-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/executives/active",
+      "relativePath": "src/app/executives/active/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/executives",
+      "relativePath": "src/app/executives/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/executives/passive",
+      "relativePath": "src/app/executives/passive/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/executives/personas/[slug]",
+      "relativePath": "src/app/executives/personas/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/executives/personas",
+      "relativePath": "src/app/executives/personas/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/features/[slug]",
+      "relativePath": "src/app/features/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/features",
+      "relativePath": "src/app/features/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/feedback",
+      "relativePath": "src/app/feedback/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-cdo",
+      "relativePath": "src/app/for-cdo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-chro",
+      "relativePath": "src/app/for-chro/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-cio-associations",
+      "relativePath": "src/app/for-cio-associations/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-cio",
+      "relativePath": "src/app/for-cio/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-ciso",
+      "relativePath": "src/app/for-ciso/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/coach-prep-worksheet",
+      "relativePath": "src/app/for-coaches/coach-prep-worksheet/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/economics",
+      "relativePath": "src/app/for-coaches/economics/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/faq",
+      "relativePath": "src/app/for-coaches/faq/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/micro-products/[slug]",
+      "relativePath": "src/app/for-coaches/micro-products/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/for-coaches/micro-products",
+      "relativePath": "src/app/for-coaches/micro-products/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches",
+      "relativePath": "src/app/for-coaches/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/search-affiliate",
+      "relativePath": "src/app/for-coaches/search-affiliate/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coaches/trust-pack",
+      "relativePath": "src/app/for-coaches/trust-pack/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-coo",
+      "relativePath": "src/app/for-coo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-cpo",
+      "relativePath": "src/app/for-cpo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-data-officer",
+      "relativePath": "src/app/for-data-officer/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-executives/[lane]",
+      "relativePath": "src/app/for-executives/[lane]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/for-executives",
+      "relativePath": "src/app/for-executives/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-financial-advisors",
+      "relativePath": "src/app/for-financial-advisors/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-fractional-executives",
+      "relativePath": "src/app/for-fractional-executives/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-individuals",
+      "relativePath": "src/app/for-individuals/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-leaders",
+      "relativePath": "src/app/for-leaders/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-media-partners",
+      "relativePath": "src/app/for-media-partners/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/economics",
+      "relativePath": "src/app/for-outplacement/economics/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/executive-summary",
+      "relativePath": "src/app/for-outplacement/executive-summary/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/faq",
+      "relativePath": "src/app/for-outplacement/faq/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/metric-dictionary",
+      "relativePath": "src/app/for-outplacement/metric-dictionary/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/operating-scorecard",
+      "relativePath": "src/app/for-outplacement/operating-scorecard/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement",
+      "relativePath": "src/app/for-outplacement/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/runbook",
+      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/security-overview",
+      "relativePath": "src/app/for-outplacement/security-overview/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-outplacement/trust-pack",
+      "relativePath": "src/app/for-outplacement/trust-pack/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-pe-partners",
+      "relativePath": "src/app/for-pe-partners/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-pe-teams",
+      "relativePath": "src/app/for-pe-teams/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-relocation",
+      "relativePath": "src/app/for-relocation/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-search-firms",
+      "relativePath": "src/app/for-search-firms/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-vp-technology",
+      "relativePath": "src/app/for-vp-technology/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/for-vp",
+      "relativePath": "src/app/for-vp/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/founder-note",
+      "relativePath": "src/app/founder-note/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/guide",
+      "relativePath": "src/app/guide/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/handshake-review",
+      "relativePath": "src/app/handshake-review/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/ideas",
+      "relativePath": "src/app/ideas/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/individuals",
+      "relativePath": "src/app/individuals/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/invite/[code]",
+      "relativePath": "src/app/invite/[code]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/learn-more/common-questions",
+      "relativePath": "src/app/learn-more/common-questions/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/learn-more/inside-the-system",
+      "relativePath": "src/app/learn-more/inside-the-system/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/learn-more/objections",
+      "relativePath": "src/app/learn-more/objections/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/learn-more",
+      "relativePath": "src/app/learn-more/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/managertools",
+      "relativePath": "src/app/managertools/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mark-demo",
+      "relativePath": "src/app/mark-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mark-review/appendix",
+      "relativePath": "src/app/mark-review/appendix/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mark-review/business-plan",
+      "relativePath": "src/app/mark-review/business-plan/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mark-review",
+      "relativePath": "src/app/mark-review/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mark-review/summary",
+      "relativePath": "src/app/mark-review/summary/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mauricio-kickoff-execution/apollo-read-access",
+      "relativePath": "src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mauricio-kickoff-execution/customer-email-by-channel",
+      "relativePath": "src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mauricio-kickoff-execution",
+      "relativePath": "src/app/mauricio-kickoff-execution/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/mauricio-kickoff",
+      "relativePath": "src/app/mauricio-kickoff/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/method-and-evidence",
+      "relativePath": "src/app/method-and-evidence/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "standard"
+    },
+    {
+      "route": "/methodology",
+      "relativePath": "src/app/methodology/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/onboarding",
+      "relativePath": "src/app/onboarding/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/optimize",
+      "relativePath": "src/app/optimize/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/outplacement",
+      "relativePath": "src/app/outplacement/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/outplacement/personas/[slug]",
+      "relativePath": "src/app/outplacement/personas/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/outplacement/personas",
+      "relativePath": "src/app/outplacement/personas/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/",
+      "relativePath": "src/app/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/partner-firm",
+      "relativePath": "src/app/partner-firm/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/partners/mauricio-kickoff",
+      "relativePath": "src/app/partners/mauricio-kickoff/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/partners",
+      "relativePath": "src/app/partners/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/partners/pilot-admin",
+      "relativePath": "src/app/partners/pilot-admin/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/partners/reporting",
+      "relativePath": "src/app/partners/reporting/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/pilot-findings",
+      "relativePath": "src/app/pilot-findings/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/pricing",
+      "relativePath": "src/app/pricing/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/privacy",
+      "relativePath": "src/app/privacy/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/proof/roi-calculator",
+      "relativePath": "src/app/proof/roi-calculator/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/references",
+      "relativePath": "src/app/references/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/research-brief",
+      "relativePath": "src/app/research-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/sales-marketing-plan",
+      "relativePath": "src/app/sales-marketing-plan/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/executive-recruiter-demo",
+      "relativePath": "src/app/search-firms/executive-recruiter-demo/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/objections",
+      "relativePath": "src/app/search-firms/objections/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms",
+      "relativePath": "src/app/search-firms/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/personas/[slug]",
+      "relativePath": "src/app/search-firms/personas/[slug]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/search-firms/personas",
+      "relativePath": "src/app/search-firms/personas/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/procurement",
+      "relativePath": "src/app/search-firms/procurement/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/sample-cfo-brief",
+      "relativePath": "src/app/search-firms/sample-cfo-brief/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/trial-charter",
+      "relativePath": "src/app/search-firms/trial-charter/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/search-firms/trust",
+      "relativePath": "src/app/search-firms/trust/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/security",
+      "relativePath": "src/app/security/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/shortlist-sprint",
+      "relativePath": "src/app/shortlist-sprint/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/stuart-meyer-review",
+      "relativePath": "src/app/stuart-meyer-review/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/team/join/[token]",
+      "relativePath": "src/app/team/join/[token]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/terms",
+      "relativePath": "src/app/terms/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/terry-anderson-review",
+      "relativePath": "src/app/terry-anderson-review/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    },
+    {
+      "route": "/unsubscribe/[code]",
+      "relativePath": "src/app/unsubscribe/[code]/page.tsx",
+      "dynamic": true,
+      "authGated": false,
+      "tier": "public",
+      "template": "dynamic"
+    },
+    {
+      "route": "/unsubscribe/confirmed",
+      "relativePath": "src/app/unsubscribe/confirmed/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "public",
+      "template": "standard"
+    }
+  ]
+}
