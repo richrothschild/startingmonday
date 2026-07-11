@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "defaultOwner": "platform-experience",
+  "byDimension": {
+    "signal-parity": "trust-intel",
+    "relative-time": "trust-intel",
+    "title": "frontend-platform",
+    "landmark": "frontend-platform",
+    "vitals-budget": "performance-platform",
+    "cognitive-load": "content-design",
+    "cognitive-load-threshold": "content-design",
+    "cognitive-fluency": "content-design",
+    "palette-conformance": "design-systems",
+    "typography-discipline": "design-systems",
+    "accent-restraint": "design-systems",
+    "availability": "platform-reliability",
+    "coverage": "platform-reliability",
+    "quarantine": "platform-reliability",
+    "debt-ratchet": "platform-reliability"
+  },
+  "byCategory": {
+    "trust": "trust-intel",
+    "vitals": "performance-platform",
+    "cognitive": "content-design",
+    "visual": "design-systems"
+  },
+  "byRoutePrefix": {
+    "/dashboard": "dashboard-experience",
+    "/pricing": "growth-web",
+    "/demo": "growth-web",
+    "/blog": "content-marketing"
+  }
+}
