@@ -131,6 +131,11 @@ function monthlyPortfolioTrend(history) {
 
 function ownerFromSignature(signature) {
   if (!signature || typeof signature !== 'string') return 'platform-experience'
+  if (signature.includes('|journey-source-stale|') || signature.includes('|journey-source-missing|') || signature.includes('|journey-source-invalid-timestamp|')) return 'synthetic-ops'
+  if (signature.includes('|trust-source-stale|') || signature.includes('|trust-source-missing|') || signature.includes('|trust-source-invalid-timestamp|')) return 'trust-intel'
+  if (signature.includes('|vitals-source-stale|') || signature.includes('|vitals-source-missing|') || signature.includes('|vitals-source-invalid-timestamp|')) return 'performance-platform'
+  if (signature.includes('|cognitive-source-stale|') || signature.includes('|cognitive-source-missing|') || signature.includes('|cognitive-source-invalid-timestamp|')) return 'content-design'
+  if (signature.includes('|sentinel-source-stale|') || signature.includes('|sentinel-source-missing|') || signature.includes('|sentinel-source-invalid-timestamp|')) return 'design-systems'
   if (signature.includes('|signal-parity|') || signature.includes('|relative-time|') || signature.includes('|title|') || signature.includes('|landmark|')) return 'trust-intel'
   if (signature.includes('|vitals-budget|')) return 'performance-platform'
   if (signature.includes('|cognitive-load|') || signature.includes('|cognitive-fluency|') || signature.includes('|cognitive-load-threshold|')) return 'content-design'
@@ -138,6 +143,74 @@ function ownerFromSignature(signature) {
   if (signature.includes('|availability|') || signature.includes('|coverage|') || signature.includes('|debt-ratchet|') || signature.includes('|quarantine|')) return 'platform-reliability'
   if (signature.startsWith('/dashboard')) return 'dashboard-experience'
   return 'platform-experience'
+}
+
+function isSourceStalenessSignature(signature) {
+  if (typeof signature !== 'string') return false
+  return (
+    signature.includes('-source-stale|') ||
+    signature.includes('-source-missing|') ||
+    signature.includes('-source-invalid-timestamp|')
+  )
+}
+
+function classifyDirectionality(delta) {
+  if (delta >= 1) return 'worse'
+  if (delta <= -1) return 'improving'
+  return 'flat'
+}
+
+function sourceStalenessDirectionality(history) {
+  if (!history.available || history.runs.length < 2) {
+    return {
+      available: false,
+      currentCount: 0,
+      previousCount: 0,
+      delta: 0,
+      label: 'flat',
+      ownerChanges: [],
+    }
+  }
+
+  const latest = history.runs[history.runs.length - 1]
+  const previous = history.runs[Math.max(0, history.runs.length - 8)]
+
+  const currentSignatures = (latest?.topSignatures ?? []).filter(isSourceStalenessSignature)
+  const previousSignatures = (previous?.topSignatures ?? []).filter(isSourceStalenessSignature)
+
+  const currentOwnerCounts = new Map()
+  for (const signature of currentSignatures) {
+    const owner = ownerFromSignature(signature)
+    currentOwnerCounts.set(owner, (currentOwnerCounts.get(owner) ?? 0) + 1)
+  }
+
+  const previousOwnerCounts = new Map()
+  for (const signature of previousSignatures) {
+    const owner = ownerFromSignature(signature)
+    previousOwnerCounts.set(owner, (previousOwnerCounts.get(owner) ?? 0) + 1)
+  }
+
+  const allOwners = new Set([...currentOwnerCounts.keys(), ...previousOwnerCounts.keys()])
+  const ownerChanges = [...allOwners]
+    .map((owner) => {
+      const current = currentOwnerCounts.get(owner) ?? 0
+      const prev = previousOwnerCounts.get(owner) ?? 0
+      return { owner, current, previous: prev, delta: current - prev }
+    })
+    .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || a.owner.localeCompare(b.owner))
+
+  const currentCount = currentSignatures.length
+  const previousCount = previousSignatures.length
+  const delta = currentCount - previousCount
+
+  return {
+    available: true,
+    currentCount,
+    previousCount,
+    delta,
+    label: classifyDirectionality(delta),
+    ownerChanges,
+  }
 }
 
 function ownerLeaderboard(history) {
@@ -179,7 +252,23 @@ function buildMarkdown(report) {
   lines.push(`- Route-cluster signature opened delta: ${report.portfolioTrend.openedDelta}`)
   lines.push(`- Route-cluster signature resolved delta: ${report.portfolioTrend.resolvedDelta}`)
   lines.push(`- Latest route cluster count: ${report.portfolioTrend.latestClusterCount}`)
+  if (report.sourceStaleness.available) {
+    lines.push(`- Source staleness directionality: ${report.sourceStaleness.label} (current=${report.sourceStaleness.currentCount}, previous=${report.sourceStaleness.previousCount}, delta=${report.sourceStaleness.delta})`)
+  } else {
+    lines.push('- Source staleness directionality: unavailable (insufficient history).')
+  }
   lines.push(`- Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`)
+  lines.push('')
+
+  lines.push('## Source Staleness Owner Changes')
+  lines.push('')
+  if (!report.sourceStaleness.available || report.sourceStaleness.ownerChanges.length === 0) {
+    lines.push('- No source-staleness owner change data available.')
+  } else {
+    for (const row of report.sourceStaleness.ownerChanges.slice(0, 6)) {
+      lines.push(`- ${row.owner}: current=${row.current}, previous=${row.previous}, delta=${row.delta}`)
+    }
+  }
   lines.push('')
 
   lines.push('## Owner Leaderboard')
@@ -211,6 +300,9 @@ function buildSlackText(report) {
     `Channel: ${report.channel}`,
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
     `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
+    report.sourceStaleness.available
+      ? `Source staleness directionality: ${report.sourceStaleness.label} (current=${report.sourceStaleness.currentCount}, previous=${report.sourceStaleness.previousCount}, delta=${report.sourceStaleness.delta})`
+      : 'Source staleness directionality: unavailable',
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
     '',
     '*Trends*',
@@ -266,6 +358,7 @@ async function main() {
 
   const portfolioHistory = readPortfolioHistory()
   const portfolioTrend = monthlyPortfolioTrend(portfolioHistory)
+  const sourceStaleness = sourceStalenessDirectionality(portfolioHistory)
   const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
 
   const report = {
@@ -276,6 +369,7 @@ async function main() {
     trends,
     summary,
     portfolioTrend,
+    sourceStaleness,
     ownerLeaderboard: ownerLeaderboardRows,
   }
 
