@@ -27,6 +27,7 @@
  */
 
 import { test, expect, type Page } from '@playwright/test'
+import fs from 'node:fs'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -60,6 +61,29 @@ async function requireAuthSessionOrSkip(page: Page) {
     !authenticated,
     'Skipping synthetic: auth session unavailable (dashboard redirected to login). Check PLAYWRIGHT_TEST_EMAIL / PLAYWRIGHT_TEST_PASSWORD.'
   )
+}
+
+function percentile(values: number[], q: number): number {
+  if (values.length === 0) return 0
+  const sorted = [...values].sort((a, b) => a - b)
+  const idx = Math.max(0, Math.min(sorted.length - 1, Math.ceil((q / 100) * sorted.length) - 1))
+  return sorted[idx]
+}
+
+async function measureBriefingSettleMs(page: Page, sampleIndex: number): Promise<number> {
+  const t0 = Date.now()
+  await page.goto(`/dashboard/briefing?mode=focused&synthetic_sample=${Date.now()}-${sampleIndex}`, {
+    waitUntil: 'domcontentloaded',
+    timeout: 30_000,
+  })
+
+  await Promise.race([
+    page.locator('#tenet-find-roles').first().waitFor({ state: 'visible', timeout: 30_000 }),
+    page.locator('text=Fallback briefing from live data').first().waitFor({ state: 'visible', timeout: 30_000 }),
+    page.locator('text=Nothing urgent is pulling at the search today').first().waitFor({ state: 'visible', timeout: 30_000 }),
+  ])
+
+  return Date.now() - t0
 }
 
 // ---------------------------------------------------------------------------
@@ -629,6 +653,48 @@ test('Synthetic-09: critical dashboard route sweep has no 404/error-boundary fai
   expect(sweepFailures, `Route sweep failures: ${sweepFailures.join(' | ')}`).toHaveLength(0)
   expect(pageErrors, `Page JS errors: ${pageErrors.join(' | ')}`).toHaveLength(0)
   expect(consoleErrors, `Console errors: ${consoleErrors.join(' | ')}`).toHaveLength(0)
+})
+
+// ---------------------------------------------------------------------------
+// Synthetic-11: Briefing settle-time percentile SLO
+// Budgets: P50 <= 7000ms, P95 <= 14000ms (configurable via env)
+// Writes: synthetic-briefing-settle-metrics.json for workflow summary parsing.
+// ---------------------------------------------------------------------------
+
+test('Synthetic-11: briefing settle-time percentile SLO stays within budget', async ({ page }) => {
+  await requireAuthSessionOrSkip(page)
+  test.setTimeout(120_000)
+
+  const sampleCount = Number(process.env.SYNTH_BRIEFING_SAMPLE_COUNT ?? 5)
+  const p50BudgetMs = Number(process.env.SYNTH_BRIEFING_SETTLE_P50_MS ?? 7_000)
+  const p95BudgetMs = Number(process.env.SYNTH_BRIEFING_SETTLE_P95_MS ?? 14_000)
+
+  const measurements: number[] = []
+  for (let sample = 0; sample < sampleCount; sample += 1) {
+    const settleMs = await measureBriefingSettleMs(page, sample)
+    measurements.push(settleMs)
+    console.log(`Synthetic-11: briefing settle sample ${sample + 1}/${sampleCount} = ${settleMs}ms`)
+  }
+
+  const p50 = percentile(measurements, 50)
+  const p95 = percentile(measurements, 95)
+  const metrics = {
+    generatedAt: new Date().toISOString(),
+    sampleCount,
+    samplesMs: measurements,
+    p50Ms: p50,
+    p95Ms: p95,
+    budgets: {
+      p50Ms: p50BudgetMs,
+      p95Ms: p95BudgetMs,
+    },
+  }
+
+  fs.writeFileSync('synthetic-briefing-settle-metrics.json', `${JSON.stringify(metrics, null, 2)}\n`, 'utf8')
+  console.log(`Synthetic-11: briefing settle percentiles p50=${p50}ms p95=${p95}ms`)
+
+  expect(p50, `Synthetic-11 P50 ${p50}ms exceeded budget ${p50BudgetMs}ms`).toBeLessThanOrEqual(p50BudgetMs)
+  expect(p95, `Synthetic-11 P95 ${p95}ms exceeded budget ${p95BudgetMs}ms`).toBeLessThanOrEqual(p95BudgetMs)
 })
 
 // ---------------------------------------------------------------------------
