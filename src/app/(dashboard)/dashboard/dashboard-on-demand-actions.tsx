@@ -86,7 +86,7 @@ function OnDemandActionButton({ label, runningLabel, doneLabel, triggerUrl, poll
   }
 
   if (state === 'done') {
-    return <p className="mt-2 text-[12px] text-emerald-300">{doneLabel}{detail ? ` — ${detail}` : ''}</p>
+    return <p className="mt-2 text-[12px] text-emerald-300">{doneLabel}{detail ? ` - ${detail}` : ''}</p>
   }
 
   return (
