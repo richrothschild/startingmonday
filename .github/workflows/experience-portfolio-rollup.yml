@@ -18,6 +18,15 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Restore portfolio history cache
+        id: restore-portfolio-history
+        uses: actions/cache/restore@v4
+        with:
+          path: docs/status/experience-portfolio-rollup.history.json
+          key: portfolio-history-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            portfolio-history-${{ github.ref_name }}-
+
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
@@ -107,6 +116,13 @@ jobs:
             docs/status/experience-portfolio-rollup.latest.md
             docs/status/experience-portfolio-rollup.history.json
           retention-days: 30
+
+      - name: Save portfolio history cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: docs/status/experience-portfolio-rollup.history.json
+          key: portfolio-history-${{ github.ref_name }}-${{ github.run_id }}
 
       - name: Alert when portfolio rollup fails
         if: failure()
