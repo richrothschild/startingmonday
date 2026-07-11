@@ -11,7 +11,7 @@
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <section aria-busy="true" aria-live="polite" className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Header skeleton */}
         <div className="rounded-t-2xl border border-white/15 bg-white/5 px-5 sm:px-8 py-7 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
@@ -71,7 +71,7 @@
           Starting Monday &middot; Daily Intelligence Briefing
         </p>
 
-      </main>
+      </section>
     </div>
   )
 }

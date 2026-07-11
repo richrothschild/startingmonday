@@ -1,0 +1,49 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "UTC",
+  "labels": [
+    "dependencies"
+  ],
+  "dependencyDashboard": true,
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 2,
+  "schedule": [
+    "after 1am and before 6am on monday"
+  ],
+  "packageRules": [
+    {
+      "description": "Auto-merge low-risk patch/minor updates when CI is green",
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": null
+    },
+    {
+      "description": "Batch major updates weekly with a changelog-focused review",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "weekly major dependency updates",
+      "schedule": [
+        "after 2am and before 5am on monday"
+      ],
+      "automerge": false
+    },
+    {
+      "description": "Group core AI/infra SDKs to reduce PR churn",
+      "matchPackageNames": [
+        "@anthropic-ai/sdk",
+        "@supabase/ssr",
+        "@supabase/supabase-js",
+        "@sentry/nextjs"
+      ],
+      "groupName": "anthropic-supabase-sentry"
+    }
+  ]
+}

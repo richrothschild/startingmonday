@@ -211,7 +211,7 @@ Lead with environment, not title. The Revvity chapter is not about being VP of E
 3. Draft your two-paragraph cold outreach note -- test it on three people who know your work well.
 4. Get a brief with one executive search partner at a healthcare IT firm.
 5. Add 10 more companies to your target list -- you have five; you need 20.
-6. Follow up with David Park at Kyruus Health -- it has been eight days.
+6. Follow up with David Park at Kyruus Health.
 7. Refresh your LinkedIn summary to match your new positioning statement.
 8. Identify three conferences or events in the next 60 days where health tech CTOs gather.
 9. Ask Jennifer Walsh at Cotiviti for one referral, regardless of how that process goes.

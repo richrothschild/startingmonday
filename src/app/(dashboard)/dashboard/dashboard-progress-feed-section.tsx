@@ -95,7 +95,7 @@ function buildFeedItems(props: Props): FeedItem[] {
       body: patternBody,
       meta: formatDateLabel(signal.signal_date),
       href: '/dashboard/signals',
-      cta: 'Review signal',
+      cta: 'Signals',
     }
   })
 
@@ -107,7 +107,7 @@ function buildFeedItems(props: Props): FeedItem[] {
     body: signal.signal_summary,
     meta: formatDateLabel(signal.signal_date),
     href: '/dashboard/signals',
-    cta: 'Open signals',
+    cta: 'Signals',
   }))
 
   return [...dueItems, ...warmPathItems, ...patternItems, ...signalItems].slice(0, props.isExecutiveMode ? 3 : 6)

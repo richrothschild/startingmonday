@@ -47,57 +47,30 @@ function normalizeCompanyName(raw: string | null | undefined): string | null {
 }
 
 function parseLinkedInConnectionsCsv(text: string): ParsedConnection[] {
-  const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
-  if (lines.length < 2) return []
-
-  // LinkedIn export header: First Name,Last Name,URL,Email Address,Company,Position,Connected On
-  const headerLine = lines[0]
-  const headers = headerLine.split(',').map(h => h.replace(/"/g, '').trim().toLowerCase())
-
-  const idx = {
-    firstName: headers.indexOf('first name'),
-    lastName: headers.indexOf('last name'),
-    url: headers.indexOf('url'),
-    email: headers.indexOf('email address'),
-    company: headers.indexOf('company'),
-    position: headers.indexOf('position'),
-    connectedOn: headers.indexOf('connected on'),
-  }
-
-  const results: ParsedConnection[] = []
-
-  for (let i = 1; i < lines.length; i++) {
-    // Basic CSV parse: split on commas not inside quotes
-    const cols = lines[i].match(/("(?:[^"]|"")*"|[^,]*)/g)?.map(c =>
-      c.replace(/^"|"$/g, '').replace(/""/g, '"').trim()
-    ) ?? []
-
-    const firstName = idx.firstName >= 0 ? (cols[idx.firstName] ?? '') : ''
-    const lastName = idx.lastName >= 0 ? (cols[idx.lastName] ?? '') : ''
-    const full_name = [firstName, lastName].filter(Boolean).join(' ')
-
-    if (!full_name) continue
-
-    const company_name = idx.company >= 0 ? (cols[idx.company] || null) : null
-    const source_row: Record<string, string> = {}
-    headers.forEach((h, j) => { if (cols[j]) source_row[h] = cols[j] })
-
-    results.push({
-      full_name,
-      headline: idx.position >= 0 ? (cols[idx.position] || null) : null,
-      company_name,
-      company_name_normalized: normalizeCompanyName(company_name),
-      email: idx.email >= 0 ? (cols[idx.email] || null) : null,
-      connected_on: idx.connectedOn >= 0 ? (cols[idx.connectedOn] || null) : null,
-      linkedin_url: idx.url >= 0 ? (cols[idx.url] || null) : null,
-      source_row,
-    })
-  }
-
-  return results
+  return parseLinkedInExportCsv(text).map((row) => ({
+    full_name: row.fullName,
+    headline: row.position,
+    company_name: row.company,
+    company_name_normalized: normalizeCompanyName(row.company),
+    email: row.email,
+    connected_on: row.connectedOn,
+    linkedin_url: row.profileUrl,
+    source_row: {
+      full_name: row.fullName,
+      email: row.email ?? '',
+      company: row.company ?? '',
+      position: row.position ?? '',
+      connected_on: row.connectedOn ?? '',
+      profile_url: row.profileUrl ?? '',
+    },
+  }))
 }
 
 type HybridUploadRecord = {
+  id: string
+}
+
+type ConsentRecord = {
   id: string
 }
 
@@ -153,27 +126,7 @@ export async function POST(request: NextRequest) {
 
   const supabase = await createClient()
 
-  let hybridUploadId: string | null = null
-  if (hybridRows.length > 0) {
-    const { data: upload, error: uploadError } = await supabase
-      .from('linkedin_connection_uploads' as never)
-      .insert({
-        user_id: userId,
-        source: 'linkedin_export_csv',
-        source_file_name: file.name,
-        source_file_sha256: fileSha256,
-        row_count: hybridRows.length,
-        status: 'processing',
-      } as never)
-      .select('id')
-      .single()
-
-    if (!uploadError && upload) {
-      hybridUploadId = (upload as unknown as HybridUploadRecord).id
-    }
-  }
-
-  // Record consent
+  // Record consent first so the upload session can be managed and revoked as one unit.
   const { data: consent, error: consentError } = await supabase
     .from('linkedin_import_consents')
     .insert({
@@ -192,10 +145,33 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Failed to record consent.' }, { status: 500 })
   }
 
+  const consentId = (consent as ConsentRecord).id
+
+  let hybridUploadId: string | null = null
+  if (hybridRows.length > 0) {
+    const { data: upload, error: uploadError } = await supabase
+      .from('linkedin_connection_uploads' as never)
+      .insert({
+        user_id: userId,
+        consent_id: consentId,
+        source: 'linkedin_export_csv',
+        source_file_name: file.name,
+        source_file_sha256: fileSha256,
+        row_count: hybridRows.length,
+        status: 'processing',
+      } as never)
+      .select('id')
+      .single()
+
+    if (!uploadError && upload) {
+      hybridUploadId = (upload as unknown as HybridUploadRecord).id
+    }
+  }
+
   // Audit: consent given
   await supabase.from('linkedin_import_audit_events').insert({
     user_id: userId,
-    consent_id: consent.id,
+    consent_id: consentId,
     event_type: 'consent_given',
     event_data: { method, purpose, connection_count: connections.length },
   })
@@ -206,7 +182,7 @@ export async function POST(request: NextRequest) {
 
   await supabase.from('linkedin_import_audit_events').insert({
     user_id: userId,
-    consent_id: consent.id,
+    consent_id: consentId,
     event_type: 'import_started',
     event_data: { connection_count: connections.length },
   })
@@ -215,7 +191,7 @@ export async function POST(request: NextRequest) {
     for (let i = 0; i < connections.length; i += batchSize) {
       const batch = connections.slice(i, i + batchSize).map(c => ({
         user_id: userId,
-        consent_id: consent.id,
+        consent_id: consentId,
         ...c,
       }))
       const { error: insertError } = await supabase
@@ -245,7 +221,7 @@ export async function POST(request: NextRequest) {
 
         const { error: hybridInsertError } = await supabase
           .from('linkedin_export_connections' as never)
-          .insert(batch as never)
+          .upsert(batch as never, { onConflict: 'user_id,profile_url' })
 
         if (hybridInsertError) throw hybridInsertError
       }
@@ -275,7 +251,7 @@ export async function POST(request: NextRequest) {
 
     await supabase.from('linkedin_import_audit_events').insert({
       user_id: userId,
-      consent_id: consent.id,
+      consent_id: consentId,
       event_type: 'import_failed',
       event_data: { inserted_so_far: insertedCount },
     })
@@ -284,7 +260,7 @@ export async function POST(request: NextRequest) {
 
   await supabase.from('linkedin_import_audit_events').insert({
     user_id: userId,
-    consent_id: consent.id,
+    consent_id: consentId,
     event_type: 'import_completed',
     event_data: { connection_count: insertedCount },
   })
@@ -297,7 +273,7 @@ export async function POST(request: NextRequest) {
   }))
 
   return Response.json({
-    consent_id: consent.id,
+    consent_id: consentId,
     upload_id: hybridUploadId,
     connection_count: insertedCount,
     preview,
@@ -311,12 +287,31 @@ export async function DELETE(request: NextRequest) {
 
   const { searchParams } = new URL(request.url)
   const consentId = searchParams.get('consent_id')
+  const uploadId = searchParams.get('upload_id')
 
-  if (!consentId) {
-    return Response.json({ error: 'consent_id is required.' }, { status: 400 })
+  if (!consentId && !uploadId) {
+    return Response.json({ error: 'consent_id or upload_id is required.' }, { status: 400 })
   }
 
   const supabase = await createClient()
+
+  if (uploadId && !consentId) {
+    const { error: uploadDeleteError } = await supabase
+      .from('linkedin_connection_uploads' as never)
+      .delete()
+      .eq('id', uploadId)
+      .eq('user_id', userId)
+
+    if (uploadDeleteError) {
+      return Response.json({ error: 'Upload record not found.' }, { status: 404 })
+    }
+
+    return Response.json({ ok: true, deleted: 'upload_only' })
+  }
+
+  if (!consentId) {
+    return Response.json({ error: 'consent_id is required for this operation.' }, { status: 400 })
+  }
 
   // Verify ownership before deletion
   const { data: consent, error: fetchError } = await supabase
@@ -333,6 +328,12 @@ export async function DELETE(request: NextRequest) {
   // Delete staged data (cascades via FK on consent_id)
   await supabase
     .from('linkedin_imported_connections')
+    .delete()
+    .eq('consent_id', consentId)
+    .eq('user_id', userId)
+
+  await supabase
+    .from('linkedin_connection_uploads' as never)
     .delete()
     .eq('consent_id', consentId)
     .eq('user_id', userId)

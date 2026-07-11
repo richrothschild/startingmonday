@@ -11,7 +11,7 @@
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <section aria-busy="true" aria-live="polite" className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         <div className="mb-8">
           <div className="h-7 w-28 bg-white/10 rounded animate-pulse mb-2" />
@@ -55,7 +55,7 @@
           </div>
 
         </div>
-      </main>
+      </section>
     </div>
   )
 }

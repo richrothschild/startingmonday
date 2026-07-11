@@ -10,7 +10,7 @@
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <section aria-busy="true" aria-live="polite" className="max-w-4xl mx-auto px-6 py-10">
         <div className="h-7 w-48 bg-slate-200 rounded mb-8" />
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {[1, 2, 3, 4].map(i => (
@@ -26,7 +26,7 @@
             <div key={i} className="h-4 w-full bg-slate-50 rounded mb-3" />
           ))}
         </div>
-      </main>
+      </section>
     </div>
   )
 }

@@ -200,7 +200,7 @@ export function DashboardWeeklyPerformanceSection({
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-                <Link href="/dashboard/offers" className="inline-flex min-h-[44px] items-center justify-center bg-white text-slate-900 text-[13px] font-semibold px-4 py-2 rounded hover:bg-slate-100">
+                <Link href="/dashboard/offers" className="inline-flex min-h-[44px] items-center justify-center border border-white/15 bg-white/5 text-slate-100 text-[13px] font-semibold px-4 py-2 rounded hover:border-white/30 hover:bg-white/10">
                 Offers
               </Link>
               <Link href="/dashboard/strategy" className="inline-flex min-h-[44px] items-center justify-center border border-slate-500 text-slate-200 text-[13px] font-semibold px-4 py-2 rounded hover:border-slate-300">

@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { logEvent } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { blocksSyntheticCompanyName } from '@/lib/company-name-guard'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -21,6 +22,9 @@ export async function POST(request: NextRequest) {
 
   if (!name) {
     return NextResponse.json({ error: 'name is required' }, { status: 400 })
+  }
+  if (blocksSyntheticCompanyName(name)) {
+    return NextResponse.json({ error: 'invalid_name' }, { status: 400 })
   }
   if (name.length > 200) {
     return NextResponse.json({ error: 'name too long' }, { status: 400 })

@@ -1,0 +1,4 @@
+title = "startingmonday-gitleaks-config"
+
+[extend]
+useDefault = true

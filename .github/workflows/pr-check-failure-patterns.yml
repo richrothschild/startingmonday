@@ -1,0 +1,52 @@
+name: PR Check Failure Patterns
+
+# Weekly analysis of CI check failures: repeat offenders, flaky checks,
+# consecutive-failure streaks, and day-of-week concentration.
+# Posts findings to Slack for review.
+
+on:
+  schedule:
+    - cron: '30 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  analyze:
+    name: Detect PR check failure patterns
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Analyze failure patterns
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/analyze-pr-check-failure-patterns.mjs --days 30
+
+      - name: Publish step summary
+        if: always()
+        run: |
+          if [ -f docs/status/pr-check-failure-patterns.latest.md ]; then
+            cat docs/status/pr-check-failure-patterns.latest.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: pr-check-failure-patterns
+          path: |
+            docs/status/pr-check-failure-patterns.latest.json
+            docs/status/pr-check-failure-patterns.latest.md
+          retention-days: 30

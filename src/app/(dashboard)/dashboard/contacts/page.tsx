@@ -6,6 +6,44 @@ import { ContactsList, type ContactListItem } from '@/components/ContactsList'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
 import { summarizeRelationshipNetwork, CONTACT_TYPE_LABELS } from '@/lib/relationship-infrastructure'
 import { RelationshipMatchPanel } from './relationship-match-panel'
+import { LinkedInImportManager } from './linkedin-import-manager'
+import { LogoutButton } from '../logout-button'
+
+export const metadata = { title: 'Contacts' }
+
+type UploadRow = {
+  id: string
+  consent_id: string | null
+  source_file_name: string | null
+  row_count: number | null
+  processed_count: number | null
+  status: 'uploaded' | 'processing' | 'processed' | 'failed'
+  failure_reason: string | null
+  uploaded_at: string
+}
+
+type ConsentRow = {
+  id: string
+  method: 'data_export' | 'portability_api'
+  raw_file_name: string | null
+  connection_count: number | null
+  consented_at: string
+  revoked_at: string | null
+  data_deleted_at: string | null
+}
+
+type ImportSession = {
+  consentId: string | null
+  uploadId: string | null
+  fileName: string | null
+  method: 'data_export' | 'portability_api'
+  rowCount: number
+  processedCount: number
+  status: 'uploaded' | 'processing' | 'processed' | 'failed' | 'revoked' | 'deleted'
+  failureReason: string | null
+  uploadedAt: string | null
+  consentedAt: string | null
+}
 
 export default async function ContactsPage({
   searchParams,
@@ -18,7 +56,7 @@ export default async function ContactsPage({
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: rawContacts }, { data: companies }, sub] = await Promise.all([
+  const [{ data: rawContacts }, { data: companies }, { data: rawUploads }, { data: rawConsents }, sub] = await Promise.all([
     supabase
       .from('contacts')
       .select('id, name, title, firm, channel, contact_type, last_role_discussed, notes, outreach_status, is_priority, companies(id, name)')
@@ -32,13 +70,80 @@ export default async function ContactsPage({
       .eq('user_id', user.id)
       .is('archived_at', null)
       .order('name', { ascending: true }),
+    supabase
+      .from('linkedin_connection_uploads' as never)
+      .select('id, consent_id, source_file_name, row_count, processed_count, status, failure_reason, uploaded_at')
+      .eq('user_id', user.id)
+      .order('uploaded_at', { ascending: false })
+      .limit(10),
+    supabase
+      .from('linkedin_import_consents')
+      .select('id, method, raw_file_name, connection_count, consented_at, revoked_at, data_deleted_at')
+      .eq('user_id', user.id)
+      .order('consented_at', { ascending: false })
+      .limit(10),
     getUserSubscription(user.id),
   ])
 
   const contacts = (rawContacts ?? []) as unknown as ContactListItem[]
   const companyList = companies ?? []
+  const uploads = (rawUploads ?? []) as unknown as UploadRow[]
+  const consents = (rawConsents ?? []) as unknown as ConsentRow[]
   const isExecutive = canAccessFeature(sub, 'recruiter_enhancements')
   const relationshipSummary = summarizeRelationshipNetwork(contacts)
+
+  const consentsById = new Map(consents.map((consent) => [consent.id, consent]))
+  const seenConsentIds = new Set<string>()
+  const importSessions: ImportSession[] = uploads.map((upload) => {
+    const consent = upload.consent_id ? consentsById.get(upload.consent_id) ?? null : null
+    if (consent?.id) seenConsentIds.add(consent.id)
+
+    let status: 'uploaded' | 'processing' | 'processed' | 'failed' | 'revoked' | 'deleted' = upload.status
+    if (consent?.data_deleted_at) status = 'deleted'
+    else if (consent?.revoked_at) status = 'revoked'
+
+    return {
+      consentId: consent?.id ?? upload.consent_id,
+      uploadId: upload.id,
+      fileName: upload.source_file_name ?? consent?.raw_file_name ?? null,
+      method: consent?.method ?? 'data_export',
+      rowCount: upload.row_count ?? consent?.connection_count ?? 0,
+      processedCount: upload.processed_count ?? 0,
+      status,
+      failureReason: upload.failure_reason,
+      uploadedAt: upload.uploaded_at,
+      consentedAt: consent?.consented_at ?? null,
+    }
+  })
+
+  for (const consent of consents) {
+    if (seenConsentIds.has(consent.id)) continue
+    importSessions.push({
+      consentId: consent.id,
+      uploadId: null,
+      fileName: consent.raw_file_name,
+      method: consent.method,
+      rowCount: consent.connection_count ?? 0,
+      processedCount: consent.connection_count ?? 0,
+      status: consent.data_deleted_at ? 'deleted' : consent.revoked_at ? 'revoked' : 'processed',
+      failureReason: null,
+      uploadedAt: null,
+      consentedAt: consent.consented_at,
+    })
+  }
+
+  importSessions.sort((a, b) => {
+    const aDate = new Date(a.uploadedAt ?? a.consentedAt ?? 0).getTime()
+    const bDate = new Date(b.uploadedAt ?? b.consentedAt ?? 0).getTime()
+    return bDate - aDate
+  })
+
+  const processedUploads = uploads
+    .filter((upload) => upload.status === 'processed')
+    .map((upload) => ({
+      id: upload.id,
+      label: `${upload.source_file_name ?? 'LinkedIn export'} · ${(upload.processed_count ?? upload.row_count ?? 0)} connections`,
+    }))
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.12),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.08),_transparent_26%),linear-gradient(180deg,_#0b1220_0%,_#0a1020_46%,_#0b1324_100%)] font-sans text-slate-100">
@@ -48,12 +153,15 @@ export default async function ContactsPage({
           <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link
-            href="/dashboard"
-            className="inline-flex min-h-[44px] items-center rounded-md border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-white/30 transition-colors"
-          >
-            &larr; Dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
+          </div>
         </div>
       </header>
 
@@ -81,8 +189,10 @@ export default async function ContactsPage({
           </div>
         </div>
 
+        <LinkedInImportManager sessions={importSessions} />
+
         {companyList.length > 0 && (
-          <RelationshipMatchPanel companies={companyList} />
+          <RelationshipMatchPanel companies={companyList} uploads={processedUploads} />
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">

@@ -15,6 +15,13 @@ export type LinkedInExportRow = {
 
 type CsvRecord = Record<string, string>
 
+function isLikelyLinkedInHeader(row: string[]): boolean {
+  const lowered = row.map((cell) => cell.trim().toLowerCase())
+  const hasName = lowered.includes('first name') || lowered.includes('full name') || lowered.includes('firstname')
+  const hasCompany = lowered.includes('company') || lowered.includes('company name') || lowered.includes('current company')
+  return hasName && hasCompany
+}
+
 function parseCsv(text: string): string[][] {
   const rows: string[][] = []
   let row: string[] = []
@@ -99,9 +106,12 @@ export function parseLinkedInExportCsv(text: string): LinkedInExportRow[] {
   const rows = parseCsv(text)
   if (rows.length < 2) return []
 
-  const headers = rows[0]
+  const headerIndex = rows.findIndex(isLikelyLinkedInHeader)
+  if (headerIndex < 0 || headerIndex >= rows.length - 1) return []
 
-  return rows.slice(1)
+  const headers = rows[headerIndex]
+
+  return rows.slice(headerIndex + 1)
     .map((values) => {
       const record: CsvRecord = {}
       headers.forEach((header, index) => {
@@ -121,7 +131,7 @@ export function parseLinkedInExportCsv(text: string): LinkedInExportRow[] {
         company: toNull(company),
         position: toNull(getValue(record, 'position', 'title', 'job title')),
         connectedOn: toNull(getValue(record, 'connected on', 'connectedon', 'connected at')),
-        profileUrl: toNull(getValue(record, 'profile url', 'public profile url', 'linkedin profile')),
+        profileUrl: toNull(getValue(record, 'profile url', 'public profile url', 'linkedin profile', 'url')),
         normalizedFullName: normalizePersonName(fullName),
         normalizedCompany: normalizeCompanyName(company),
       } satisfies LinkedInExportRow

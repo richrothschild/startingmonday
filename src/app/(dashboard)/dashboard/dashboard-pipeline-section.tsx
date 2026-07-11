@@ -169,7 +169,7 @@ export function DashboardPipelineSection(props: Props) {
                       )}
                     </td>
                     <td className="py-3.5 px-4 text-[13px] text-slate-500 hidden sm:table-cell">
-                      {co.sector ?? '-'}
+                      {co.sector?.trim() ? co.sector : '—'}
                     </td>
                     <td className="py-3.5 px-4">
                       <span className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-[0.04em] ${s.cls}`}>

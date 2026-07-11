@@ -15,5 +15,26 @@ export async function GET(request: NextRequest) {
     .order('generated_at', { ascending: false })
     .limit(3)
 
-  return NextResponse.json({ hits: data ?? [] })
+  const radarRows = (data ?? []) as Array<{
+    company_name: string | null
+    reason: string | null
+    signal_type: string | null
+    confidence: number | null
+    generated_at: string | null
+  }>
+
+  const hits = radarRows.map((row) => {
+    const reason = (row.reason ?? '')
+      .replace(/\bthe VP's\b/gi, 'your')
+      .replace(/\bthe executive's\b/gi, 'your')
+      .replace(/\bthe VP\b/gi, 'you')
+      .replace(/\bthe executive\b/gi, 'you')
+
+    return {
+      ...row,
+      reason,
+    }
+  })
+
+  return NextResponse.json({ hits })
 }
