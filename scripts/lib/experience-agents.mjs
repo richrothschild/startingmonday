@@ -61,4 +61,20 @@ export const experienceAgents = [
     sesWired: true,
     recommendation: 'Detect and respond to critical journey step latency immediately; prioritize abandonment-risk mitigation before conversion impact.',
   },
+  {
+    id: 'accessibility-sweep-agent.yml',
+    name: 'Accessibility Sweep Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24 * 7, // 1 week - Color contrast, landmarks, ARIA labels
+    sesWired: true,
+    recommendation: 'Fix P0 landmark violations immediately; address WCAG AA contrast on public/funnel routes; improve heading hierarchy.',
+  },
+  {
+    id: 'mobile-responsive-validator.yml',
+    name: 'Mobile Responsive Validator',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24, // 1 day - Touch targets, font sizes, overflow on mobile
+    sesWired: true,
+    recommendation: 'Address P1 touch target violations and horizontal overflow on phones; improve font sizes for readability.',
+  },
 ]
