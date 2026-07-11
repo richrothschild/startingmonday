@@ -2,6 +2,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { markFollowUpDone } from '@/app/(dashboard)/dashboard/actions'
+import { stripStaleRelativeTime } from '@/lib/follow-up-copy'
 
 type Props = {
   id: string
@@ -21,6 +22,7 @@ export function CalendarItemClient({ id, action, dueDate, googleEventUrl, today,
   if (hidden) return null
 
   const isToday = dueDate === today
+  const cleanAction = stripStaleRelativeTime(action)
   const dateLabel = isToday
     ? 'Today'
     : new Date(dueDate + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
@@ -38,7 +40,7 @@ export function CalendarItemClient({ id, action, dueDate, googleEventUrl, today,
   return (
     <div className="px-5 py-3.5 flex items-start gap-3">
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-semibold text-white leading-tight">{action}</p>
+        <p className="text-[14px] font-semibold text-white leading-tight">{cleanAction || action}</p>
         {label && <p className="text-[12px] text-slate-400 mt-0.5">{label}</p>}
         {googleEventUrl && (
           <a

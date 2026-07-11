@@ -1,0 +1,52 @@
+name: Unshipped Code Audit
+
+# Daily audit of code not yet in production (main):
+# staging drift, branches ahead of main, stale branches, and open/stale PRs.
+# Posts findings to Slack for review and potential promotion.
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  audit:
+    name: Surface unshipped code
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Run unshipped code audit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/check-unshipped-code.mjs
+
+      - name: Publish step summary
+        if: always()
+        run: |
+          if [ -f docs/status/unshipped-code.latest.md ]; then
+            cat docs/status/unshipped-code.latest.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: unshipped-code-audit
+          path: |
+            docs/status/unshipped-code.latest.json
+            docs/status/unshipped-code.latest.md
+          retention-days: 14

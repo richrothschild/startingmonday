@@ -7,7 +7,6 @@ import { getActivationStatus } from '@/lib/activation'
 import { resolveCareerMode } from '@/lib/career-mode'
 import { LogoutButton } from './logout-button'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
-import { CmdKButton } from '@/components/CmdKButton'
 import { saveQuickProfile, saveWeeklyGoal, dismissStallNudge } from './profile/actions'
 import { markPlaced } from './placed/actions'
 import { OpportunityRadar } from './opportunity-radar'
@@ -22,7 +21,6 @@ import { DashboardProfileIntelligenceSection } from './dashboard-profile-intelli
 import { DashboardWelcomeNudgeSection } from './dashboard-welcome-nudge-section'
 import { DashboardAdvancedModulesSection } from './dashboard-advanced-modules-section'
 import { DashboardTopShellSection } from './dashboard-top-shell-section'
-import { DashboardQuickAccessSection } from './dashboard-quick-access-section'
 import { WarmPathsSection, PatternAlertsSection, CompanySignalsSection } from './dashboard-signal-sections'
 import { DashboardPostPlacementView } from './dashboard-post-placement-view'
 import { DashboardDecisionTimelineSection } from './dashboard-decision-timeline-section'
@@ -33,6 +31,8 @@ import { bumpWeek, getWeekMonday, weekLabel } from './dashboard-week-utils'
 import { canAccessFeature, getUserSubscription } from '@/lib/subscription'
 import { greetingInTz, fullDateInTz } from '@/lib/date'
 import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
+import { applyDashboardSignalContract } from '@/lib/dashboard-signal-contract'
+import { stripStaleRelativeTime } from '@/lib/follow-up-copy'
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
 const STAGE: Record<string, { label: string; cls: string }> = {
@@ -88,6 +88,8 @@ type SignalRow = {
   signal_date: string
   company_id: string
   companies: { id: string; name: string } | null
+  confidence?: number | null
+  source_kind?: string | null
 }
 
 type CompanyRow = {
@@ -206,7 +208,7 @@ export default async function DashboardPage({
       .single(),
     supabase
       .from('company_signals')
-      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, companies(id, name)')
+      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, confidence, source_kind, companies(id, name)')
       .eq('user_id', user.id)
       .neq('signal_type', 'pattern_alert')
       .gte('signal_date', since7d)
@@ -214,7 +216,7 @@ export default async function DashboardPage({
       .limit(5),
     supabase
       .from('company_signals')
-      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, companies(id, name)')
+      .select('id, signal_type, signal_summary, outreach_angle, signal_date, company_id, confidence, source_kind, companies(id, name)')
       .eq('user_id', user.id)
       .eq('signal_type', 'pattern_alert')
       .gte('signal_date', since14d)
@@ -260,8 +262,9 @@ export default async function DashboardPage({
 
   const companies = rawCompanies as CompanyRow[] | null
   const userRow   = rawUserRow as UserRow | null
-  const signals   = (rawSignals ?? []) as unknown as SignalRow[]
-  const patternAlerts = (rawPatternAlerts ?? []) as unknown as SignalRow[]
+  const { companySignals: signalsDeduped, patternAlerts } = applyDashboardSignalContract(
+    [...((rawSignals ?? []) as unknown as SignalRow[]), ...((rawPatternAlerts ?? []) as unknown as SignalRow[])],
+  )
   const contactStatRows = (contactRows ?? []) as unknown as ContactStatRow[]
   const enrichmentStatRows = (enrichmentRows ?? []) as unknown as ContactStatRow[]
 
@@ -367,7 +370,7 @@ export default async function DashboardPage({
     ['interviewing', 'applied', 'offer'].includes(c.stage)
   ).length
   const overdueCount   = (followUps ?? []).length
-  const signalCount    = signals.length + patternAlerts.length
+  const signalCount    = signalsDeduped.length + patternAlerts.length
 
   const stalledCampaignRows = velocityRows
     .map((row) => {
@@ -431,7 +434,7 @@ export default async function DashboardPage({
   }
 
   // Warm paths: contacts at companies with recent signals
-  const signalCompanyIds = [...new Set([...signals, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
+  const signalCompanyIds = [...new Set([...signalsDeduped, ...patternAlerts].map(s => s.company_id).filter(Boolean))]
   type WarmPath = { contactId: string; contactName: string; contactTitle: string | null; companyId: string; companyName: string; signal: SignalRow }
   let warmPaths: WarmPath[] = []
   if (signalCompanyIds.length > 0) {
@@ -446,7 +449,7 @@ export default async function DashboardPage({
       const seen = new Set<string>()
       for (const ct of warmContacts) {
         if (!ct.company_id) continue
-        const sig = [...signals, ...patternAlerts].find(s => s.company_id === ct.company_id)
+        const sig = [...signalsDeduped, ...patternAlerts].find(s => s.company_id === ct.company_id)
         if (!sig || !sig.companies) continue
         const key = `${ct.id}-${sig.id}`
         if (seen.has(key)) continue
@@ -516,9 +519,9 @@ export default async function DashboardPage({
 
   const stats = [
     { value: totalCount,   label: 'Companies',   alert: false,            amber: false,              href: '#pipeline' },
-    { value: activeCount,  label: 'Active',       alert: false,            amber: activeCount > 0,    href: '#pipeline' },
-    { value: signalCount,  label: 'Signals',      alert: false,            amber: signalCount > 0,    href: '/dashboard/signals' },
-    { value: overdueCount, label: 'Due Now',      alert: overdueCount > 0, amber: false,             href: '/dashboard/calendar' },
+    { value: activeCount,  label: 'Active pipeline', alert: false,          amber: activeCount > 0,    href: '#pipeline' },
+    { value: signalCount,  label: 'Signals',      alert: false,            amber: signalCount > 0,    href: '#briefs' },
+    { value: overdueCount, label: 'Due Now',      alert: overdueCount > 0, amber: false,             href: '#plan-panel' },
   ]
 
   const offerCompany = !profile?.placed_at
@@ -541,12 +544,17 @@ export default async function DashboardPage({
   const momentumStatus: 'low' | 'medium' | 'strong' = momentumScore !== null
     ? (momentumScore >= 70 ? 'strong' : momentumScore >= 40 ? 'medium' : 'low')
     : ((signalCount + overdueCount + activeCount) >= 3 ? 'strong' : (signalCount + overdueCount + activeCount) > 0 ? 'medium' : 'low')
+  const operatingStateLabel = momentumStatus === 'strong'
+    ? 'Operating state: stable'
+    : momentumStatus === 'medium'
+      ? 'Operating state: watch'
+      : 'Operating state: reset'
 
   const relationshipAction: DailyMomentumAction = warmPaths[0]
     ? {
         id: 'relationship-action',
         track: 'relationship',
-        title: `Work ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
+        title: `Re-engage ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
         body: `Use this while it is fresh: a concrete reason to re-engage. ${warmPaths[0].signal.signal_summary}`,
         effortMinutes: 15,
         href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
@@ -654,7 +662,7 @@ export default async function DashboardPage({
           body: 'If the pipeline already exists, pick the next visible move instead of expanding scope.',
           effortMinutes: 10,
           href: overdueCount > 0 ? '/dashboard/calendar' : '/dashboard/briefing',
-          cta: overdueCount > 0 ? 'Due today' : 'Briefing',
+          cta: overdueCount > 0 ? 'Calendar' : 'Briefing',
         }
 
   const dailyMomentumActions: DailyMomentumAction[] = [relationshipAction, readinessAction, focusAction]
@@ -734,7 +742,7 @@ export default async function DashboardPage({
     if (isolationRiskHigh) return { label: 'Sponsor depth gap', level: 'high' as const, href: '/dashboard/contacts', cta: 'Sponsors' }
     if (threatRiskHigh) return { label: 'Momentum decay', level: 'high' as const, href: '/dashboard/briefing', cta: 'Briefing' }
     if (perfectionRiskHigh) return { label: 'Perfection loop', level: 'medium' as const, href: '/dashboard/profile', cta: 'Profile' }
-    return { label: 'Managed', level: 'low' as const, href: '/dashboard/briefing', cta: 'Cadence' }
+    return { label: 'Managed', level: 'low' as const, href: '/dashboard/briefing', cta: 'Briefing' }
   })()
 
   const executiveDecisionBrief = (() => {
@@ -756,7 +764,7 @@ export default async function DashboardPage({
         recommendedMove: 'Convert one high-relevance signal into a warm outreach draft today.',
         downsideIfDelayed: 'You lose timing edge and return to generic outreach.',
         href: '/dashboard/signals',
-        cta: 'Convert strongest signal',
+        cta: 'Signals',
       }
     }
 
@@ -767,7 +775,7 @@ export default async function DashboardPage({
         recommendedMove: 'Clear the next due relationship action before adding new scope.',
         downsideIfDelayed: 'Pipeline credibility drops and conversation velocity slows.',
         href: '/dashboard/calendar',
-        cta: 'Clear overdue now',
+        cta: 'Calendar',
       }
     }
 
@@ -845,43 +853,19 @@ export default async function DashboardPage({
           <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-white/90 shrink-0">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          {/* Desktop nav */}
-          <div className="hidden sm:flex items-center gap-4 flex-1">
-            <CmdKButton />
-            <Link href="/dashboard/chat" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Contacts</Link>
-            <Link href="/dashboard/briefing" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Briefing</Link>
-            <Link href="/dashboard/calendar" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Calendar</Link>
-            {canUseOutreachHub && (
-              <Link href="/dashboard/outreach" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Outreach</Link>
-            )}
-            <Link href="/dashboard/help" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors whitespace-nowrap">Help</Link>
-            {isRothschildAdmin && (
-              <Link href="/dashboard/admin" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Admin</Link>
-            )}
-            {isPartner && (
-              <Link href="/dashboard/partner" className="text-[13px] font-semibold text-orange-400 hover:text-orange-300 transition-colors whitespace-nowrap">Partner</Link>
-            )}
-            <div className="ml-auto flex items-center gap-4 shrink-0">
-              <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">{profile?.full_name ?? user.email}</Link>
-              <Link href="/settings" className="text-[13px] text-slate-300 hover:text-white transition-colors whitespace-nowrap">Settings</Link>
-              <LogoutButton label="Sign out" />
-            </div>
-          </div>
-          {/* Mobile nav */}
-          <div className="flex sm:hidden items-center gap-2 ml-auto">
+          <div className="ml-auto flex items-center gap-2">
             <Link
-              href="/dashboard/briefing"
+              href="/dashboard"
               className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
             >
-              Briefing
+              Dashboard
             </Link>
             <LogoutButton label="Sign out" />
           </div>
         </div>
       </header>
 
-      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+      <main className="dashboard-landing-theme max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
       <h1 className="sr-only">Dashboard</h1>
         <DashboardTopShellSection
           firstName={firstName}
@@ -907,8 +891,8 @@ export default async function DashboardPage({
           executiveDecisionBrief={executiveDecisionBrief}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-6 items-start mb-6">
-          <aside className="hidden lg:block rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md lg:sticky lg:top-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-8 items-start mb-8">
+          <aside className="hidden lg:block rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md lg:sticky lg:top-24">
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-3">On this page</p>
             <nav className="flex flex-col gap-2.5 text-[13px]">
               <a href="#to-do-now" className="text-slate-200 hover:text-white">To do now</a>
@@ -919,26 +903,28 @@ export default async function DashboardPage({
             </nav>
           </aside>
 
-          <div className="space-y-4">
-            <section id="to-do-now" className="scroll-mt-24 rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+          <div className="space-y-5">
+            <section id="to-do-now" className="scroll-mt-24 rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
               <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-1">To do now</p>
-              <h2 className="text-[24px] sm:text-[28px] font-serif font-bold text-white leading-tight">Today at a glance</h2>
-              <p className="text-[13px] text-slate-300 mt-1.5">{today}</p>
+              <h2 className="text-[22px] sm:text-[26px] font-serif font-bold text-white leading-tight">Today at a glance</h2>
+              <p className="text-[13px] text-slate-300 mt-2">{today}</p>
+              <p className="text-[12px] text-slate-400 mt-1">{operatingStateLabel}</p>
             </section>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <section id="companies-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <section id="companies-panel" className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Companies</p>
                 <p className="text-[20px] font-bold text-white">{totalCount}</p>
                 <p className="text-[12px] text-slate-300 mt-2">
-                  Scanner status: {scannableCount > 0 ? `${scannerCompletedCount}/${scannableCount} scanned` : 'Waiting for career-page URLs'}
+                  Scanner status: {totalCount > 0 ? `${scannerCompletedCount} of ${totalCount} scanned` : 'Waiting for companies'}
                 </p>
+                {scannableCount === 0 && totalCount > 0 && <p className="text-[11px] text-slate-400 mt-1">No career-page URLs yet.</p>}
                 <p className="text-[12px] text-slate-400 mt-1">Signals this week: {signalCount}</p>
                 <OnDemandScanButton companyNames={allList.slice(0, 8).map((c) => c.name)} />
-                <Link href="/dashboard/signals" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open signals →</Link>
+                <Link href="/dashboard/signals" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Signals</Link>
               </section>
 
-              <section id="relationships-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+              <section id="relationships-panel" className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
                 <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Relationships</p>
                 <p className="text-[20px] font-bold text-white">{contactCount}</p>
                 <p className="text-[12px] text-slate-300 mt-2">{enrichmentQueueCount} compan{enrichmentQueueCount === 1 ? 'y' : 'ies'} not yet enriched</p>
@@ -951,22 +937,23 @@ export default async function DashboardPage({
                 </p>
                 {totalCount > 0 && enrichedContactRows.length === 0 && <OnDemandEnrichButton />}
                 <Link href="/dashboard/contacts" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">
-                  {contactCount === 0 ? 'Add a contact →' : 'Open contacts →'}
+                  Contacts
                 </Link>
               </section>
 
-              <section id="week-tasks-panel" className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Follow-ups due</p>
+              <section id="week-tasks-panel" className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+                <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-300 mb-1">Follow-ups overdue</p>
                 {(followUps ?? []).length > 0 ? (
                   <ul className="space-y-2 mt-2">
                     {((followUps ?? []) as Array<{ id: string; due_date: string; action: string; companies: { name: string } | null }>).slice(0, 3).map((item) => {
                       const dueLabel = new Date(`${item.due_date}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
                       const daysOverdue = Math.max(0, Math.floor((new Date(`${todayISO}T12:00:00Z`).getTime() - new Date(`${item.due_date}T12:00:00Z`).getTime()) / 86400000))
+                      const cleanAction = stripStaleRelativeTime(item.action)
                       return (
                         <li key={item.id} className="rounded border border-white/10 bg-white/5 px-3 py-2">
-                          <p className="text-[12px] font-semibold text-white">{item.action}</p>
+                          <p className="text-[12px] font-semibold text-white">{cleanAction || item.action}</p>
                           <p className="text-[11px] text-slate-400 mt-0.5">
-                            {item.companies?.name ?? 'General'} · {daysOverdue > 0 ? `${dueLabel} · ${daysOverdue} day${daysOverdue === 1 ? '' : 's'} overdue` : 'due today'}
+                            {item.companies?.name ?? 'General'} · {daysOverdue > 0 ? `Due ${dueLabel}` : 'Due today'}
                           </p>
                         </li>
                       )
@@ -975,23 +962,19 @@ export default async function DashboardPage({
                 ) : (
                   <p className="text-[12px] text-slate-300 mt-2">Nothing due today. Your follow-through is clean.</p>
                 )}
-                <Link href="/dashboard/calendar" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open calendar →</Link>
+                <Link href="/dashboard/calendar" className="inline-block mt-3 text-[12px] font-semibold text-orange-300 hover:text-orange-200">Calendar</Link>
               </section>
             </div>
 
             <DailyMomentumPlan actions={dailyMomentumActions} dateKey={todayISO} status={momentumStatus} />
 
-            <DashboardQuickAccessSection
-              isExecutiveMode={isExecutiveMode}
-              executiveStageLabel={executiveStageLabel}
-              isCoach={isCoach}
-            />
+            
           </div>
         </div>
 
         {/* Tenet: Companies */}
-        <section id="companies" className="scroll-mt-24 mb-6">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Companies</h2>
+        <section id="companies" className="scroll-mt-24 mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-4">Companies</h2>
 
           <DashboardPipelineSection
             q={q ?? ''}
@@ -1012,13 +995,13 @@ export default async function DashboardPage({
           />
 
           {rolesFormingCard && (
-            <div className="mt-4 rounded border border-white/10 bg-white/5 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+            <div className="mt-5 rounded border border-white/10 bg-white/5 px-4 py-3 flex flex-wrap items-center justify-between gap-2">
               <p className="text-[13px] text-slate-200 min-w-0">
                 <span className="font-semibold text-orange-200/90">Roles forming:</span>{' '}
-                {rolesFormingHeadline ?? 'A role window may be forming.'}
+                {rolesFormingHeadline ?? 'New leverage may be opening in your tracked pipeline.'}
               </p>
               <Link href={rolesFormingCard.href} className="text-[12px] font-semibold text-orange-300 hover:text-orange-200 shrink-0">
-                Review signals →
+                Signals
               </Link>
             </div>
           )}
@@ -1061,7 +1044,10 @@ export default async function DashboardPage({
               <ul className="space-y-1.5">
                 {topStalledCampaigns.map((item) => (
                   <li key={item.id} className="text-[13px] text-amber-100">
-                    <span className="font-semibold">{item.name}</span> has been idle for {item.daysStalled} days.
+                    <span className="font-semibold">{item.name}</span>{' '}
+                    {item.updated_at
+                      ? `has had no stage updates since ${new Date(item.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}.`
+                      : 'has had no recent stage updates.'}
                   </li>
                 ))}
               </ul>
@@ -1080,27 +1066,27 @@ export default async function DashboardPage({
         />
         </DashboardDisclosureSection>
 
-            {signals.length > 0 && (
+            {signalsDeduped.length > 0 && (
               <DashboardDisclosureSection
                 id="company-signals-modules"
-                title={`Company signals (${signals.length})`}
+                title={`Company signals (${signalsDeduped.length})`}
                 defaultOpen={focus === 'signals'}
               >
-                <CompanySignalsSection signals={signals} />
+                <CompanySignalsSection signals={signalsDeduped} />
               </DashboardDisclosureSection>
             )}
           </div>
         </section>
 
         {/* Tenet: Relationships */}
-        <section id="relationships" className="scroll-mt-24 mb-6">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Relationships</h2>
-          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+        <section id="relationships" className="scroll-mt-24 mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-4">Relationships</h2>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-[13px] text-slate-200">
                 {contactCount} active contact{contactCount === 1 ? '' : 's'} across {contactCountMap.size} compan{contactCountMap.size === 1 ? 'y' : 'ies'}
               </p>
-              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200">Open contacts →</Link>
+              <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-orange-300 hover:text-orange-200">Contacts</Link>
             </div>
             {warmPaths.length === 0 && (
               <p className="text-[13px] text-slate-300 mt-3">
@@ -1109,7 +1095,7 @@ export default async function DashboardPage({
             )}
           </div>
           {warmPaths.length > 0 && (
-            <div className="mt-4">
+            <div className="mt-5">
               <DashboardDisclosureSection
                 id="warm-paths-modules"
                 title={`Warm paths (${warmPaths.length})`}
@@ -1158,9 +1144,9 @@ export default async function DashboardPage({
         />
 
         {/* Tenet: Plan */}
-        <section id="plan-panel" className="scroll-mt-24 mb-6">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Plan</h2>
-          <div className="mb-4 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 sm:px-5 flex flex-wrap items-center justify-between gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+        <section id="plan-panel" className="scroll-mt-24 mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-4">Plan</h2>
+          <div className="mb-5 rounded-2xl border border-white/15 bg-white/5 px-5 py-4 sm:px-6 flex flex-wrap items-center justify-between gap-2 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <p className="text-[13px] text-slate-200">
               <span className="font-semibold text-white">Weekly plan.</span> Choose one relationships move, one opportunities move, and one prep move for the week.
             </p>
@@ -1203,14 +1189,14 @@ export default async function DashboardPage({
         </section>
 
         {/* Tenet: Briefs */}
-        <section id="briefs" className="scroll-mt-24 mb-6">
-          <h2 className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-3">Briefs</h2>
-          <div className="rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+        <section id="briefs" className="scroll-mt-24 mb-8">
+          <h2 className="text-[10px] font-bold tracking-[0.14em] uppercase text-orange-200/90 mb-4">Briefs</h2>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
               <div className="flex flex-wrap gap-2">
-                <Link href="/dashboard/briefing" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Daily briefing</Link>
+                <Link href="/dashboard/briefing" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Briefing</Link>
                 <Link href="/dashboard/strategy" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Strategy brief</Link>
-                <Link href="/dashboard/signals" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">All signals</Link>
+                <Link href="/dashboard/signals" className="inline-flex min-h-[36px] items-center rounded border border-white/15 bg-white/5 px-3 text-[13px] font-semibold text-slate-100 transition-colors hover:border-white/30 hover:bg-white/10">Signals</Link>
               </div>
               <p className="text-[12px] text-slate-400">
                 {signalCount > 0 ? `${signalCount} fresh signal${signalCount === 1 ? '' : 's'} this week` : 'No fresh signals this week'}

@@ -9,6 +9,8 @@ import {
 } from '@/lib/intelligence-quality'
 
 const VACANCY_WINDOW_DAYS = 365
+const MIN_CONFIDENCE = 55
+const EXEC_TITLE_REGEX = /\b(chief|ceo|cio|cto|ciso|cdo|coo|cpo|president|evp|svp|vp)\b/i
 
 const TITLE_LABEL: Record<string, string> = {
   CIO: 'CIO', CTO: 'CTO', CISO: 'CISO',
@@ -81,9 +83,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: compErr.message }, { status: 500 })
   }
   const companies = (rawCompanies ?? []) as unknown as PipelineCompany[]
-  if (!companies.length) return NextResponse.json({ checked: 0, inserted: 0 })
+  const companiesWithValidCik = companies.filter((company) => /^\d{10}$/.test(company.sec_cik))
+  if (!companiesWithValidCik.length) return NextResponse.json({ checked: 0, inserted: 0 })
 
-  const ciks = [...new Set(companies.map(c => c.sec_cik))]
+  const ciks = [...new Set(companiesWithValidCik.map(c => c.sec_cik))]
 
   // Departures in the window for those CIKs.
   // executive_positions is an admin-only table not included in database.types.ts.
@@ -115,9 +118,14 @@ export async function GET(request: NextRequest) {
       .map(e => `${e.company_cik}:${e.title_normalized}`)
   )
 
-  const vacancies = departures.filter(
-    d => d.end_date && !filledRoles.has(`${d.company_cik}:${d.title_normalized}`)
-  )
+  const vacancies = departures.filter((d) => {
+    if (!d.end_date) return false
+    if (filledRoles.has(`${d.company_cik}:${d.title_normalized}`)) return false
+    const titleToCheck = d.title_normalized ?? d.title ?? ''
+    if (!EXEC_TITLE_REGEX.test(titleToCheck)) return false
+    if (/\bgeneral\s+manager\b/i.test(titleToCheck)) return false
+    return true
+  })
 
   if (!vacancies.length) return NextResponse.json({ checked: companies.length, inserted: 0 })
 
@@ -125,7 +133,7 @@ export async function GET(request: NextRequest) {
   const { data: rawExisting } = await admin
     .from('company_signals')
     .select('company_id, source_url')
-    .in('company_id', companies.map(c => c.id))
+    .in('company_id', companiesWithValidCik.map(c => c.id))
     .eq('signal_type', 'exec_departure')
 
   const alreadySignaled = new Set(
@@ -136,7 +144,7 @@ export async function GET(request: NextRequest) {
 
   // Index pipeline companies by CIK - one CIK can appear in multiple users' pipelines
   const companiesByCik: Record<string, PipelineCompany[]> = {}
-  for (const c of companies) {
+  for (const c of companiesWithValidCik) {
     if (!companiesByCik[c.sec_cik]) companiesByCik[c.sec_cik] = []
     companiesByCik[c.sec_cik].push(c)
   }
@@ -188,6 +196,10 @@ export async function GET(request: NextRequest) {
         evidenceCount: 2,
         signalDate: vacancy.end_date as string,
       })
+      if (confidence < MIN_CONFIDENCE) {
+        skipped++
+        continue
+      }
 
       const { error: insErr } = await admin.from('company_signals').insert({
         company_id:     company.id,
@@ -216,6 +228,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     checked: companies.length,
+    validCiks: companiesWithValidCik.length,
     ciks: ciks.length,
     vacancies: vacancies.length,
     inserted,

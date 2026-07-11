@@ -18,8 +18,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 2. Claim labeling
 - Prefix factual statements with one of:
-	- Verified: backed by command/tool output.
-	- Unverified: hypothesis pending checks.
+  - Verified: backed by command/tool output.
+  - Unverified: hypothesis pending checks.
 
 3. No placeholder hosts as real targets
 - Never present placeholder domains as actionable URLs.
@@ -37,3 +37,37 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 7. If blocked, say blocked
 - State exactly what is blocked (permissions, missing env vars, provider config, network), with one concrete next action.
+
+## Page Experience Auditor Addendum (Dashboard A-grade)
+
+- Apply this addendum when auditing:
+  - /dashboard
+  - /dashboard/briefing
+  - /dashboard/signals
+  - /dashboard/calendar
+  - /dashboard/contacts
+
+- Required A-grade contracts:
+  1. Signal parity contract:
+  - Dashboard summary count, briefing header count, and signals index count must agree for the same session and same filters.
+  - Any cross-route mismatch is a P0 trust failure.
+  2. Relative-time trust contract:
+  - Do not allow stale free-text duration phrases (for example, "has been X days") in follow-up or alert copy.
+  - Prefer deterministic date anchors and single-source recency labels.
+  3. Chrome and metadata contract:
+  - Top chrome must remain structurally consistent across all five routes.
+  - Browser titles must follow route label + " - Starting Monday" pattern.
+  4. Landmark contract:
+  - Exactly one main landmark per route in desktop and mobile hidden/loading states.
+  - Duplicate main landmarks are at least P1.
+
+- World-class UX scoring gates for A:
+  - Cognitive fluency: A-
+  - Cognitive load: A-
+  - Trust integrity: A
+  - Hidden-tier consistency: A-
+
+- Audit evidence requirements:
+  - Include explicit route-by-route evidence lines with selector/text snippets.
+  - Include severity-ranked blockers (P0/P1/P2).
+  - Do not return an A overall grade if any P0 is open.

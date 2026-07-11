@@ -107,7 +107,7 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
       />
 
       {props.profileSaved && (
-        <div className="mb-6 px-5 py-3 rounded bg-green-50 border border-green-200 text-[13px] text-green-800 flex items-center justify-between gap-4">
+        <div className="mb-6 px-5 py-3 rounded bg-emerald-500/10 border border-emerald-300/40 text-[13px] text-emerald-100 flex items-center justify-between gap-4">
           <span>Profile updated. Your briefs and coaching will reflect this now.</span>
           <Link href="/dashboard/profile" className="font-semibold underline shrink-0">
             Finish profile

@@ -74,7 +74,7 @@ export function DashboardStatusBanners({
             <input type="hidden" name="company" value={offerCompanyName} />
             <button
               type="submit"
-              className="bg-white text-slate-900 text-[13px] font-bold px-5 py-2 rounded cursor-pointer border-0 hover:bg-slate-100 transition-colors whitespace-nowrap"
+              className="bg-white/10 text-slate-100 text-[13px] font-bold px-5 py-2 rounded cursor-pointer border border-white/15 hover:border-white/30 hover:bg-white/15 transition-colors whitespace-nowrap"
             >
               Yes, I accepted
             </button>

@@ -1,0 +1,55 @@
+name: Debt Ratchet
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '15 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ratchet:
+    name: Enforce debt no-increase ratchet
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run debt ratchet
+        env:
+          DEBT_RATCHET_OVERRIDE: >-
+            ${{ (contains(github.event.pull_request.labels.*.name, 'allow-debt-ratchet-override') || vars.DEBT_RATCHET_OVERRIDE == 'true') && 'true' || 'false' }}
+          SLACK_WEBHOOK_URL: ${{ github.event_name == 'schedule' && secrets.SLACK_WEBHOOK_URL || '' }}
+        run: node scripts/debt-ratchet-check.mjs
+
+      - name: Publish step summary
+        if: always()
+        run: |
+          if [ -f docs/status/debt-ratchet.latest.md ]; then
+            cat docs/status/debt-ratchet.latest.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload debt ratchet artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: debt-ratchet
+          path: |
+            docs/status/debt-ratchet.baseline.json
+            docs/status/debt-ratchet.latest.json
+            docs/status/debt-ratchet.latest.md
+          retention-days: 30

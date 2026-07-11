@@ -1,0 +1,82 @@
+SKETCH ART DIRECTION — HANDOFF FOR CHRIS
+Prepared 2026-07-08
+
+STATUS NOTE (honest sourcing)
+The original text-to-image generation prompts were not saved in the repository — verified by full-repo search, git history, and session index. What follows is (1) the shipped assets, (2) the canonical standards that governed them, and (3) a reconstructed prompt template that matches the shipped style, clearly labeled as reconstructed.
+
+--------------------------------------------------
+1. SHIPPED SKETCH ASSETS AND WHERE THEY APPEAR
+--------------------------------------------------
+- public/hero-previews/hero-final-locked.png
+  Homepage hero (src/components/LandingPage.tsx). Alt: "Stylized leadership sketch visual."
+- public/woman-at-two-doors.png
+  /for-individuals hero figure.
+- public/young-male-at-laptop.png
+  /for-leaders hero figure.
+- public/executive-reference.webp (+ .png)
+  /for-executives hero figure. Alt: "Executive seated at a desk reviewing documents in a refined home office."
+
+Framing treatment in code (all persona pages):
+- Image sits in a rounded figure card: rounded-[18px], border-white/12, bg-slate-900/55, soft deep shadow, max-width ~340-380px, right-aligned on desktop.
+
+--------------------------------------------------
+2. VISUAL STYLE OF THE SHIPPED SKETCHES (observed)
+--------------------------------------------------
+- Medium: loose fashion-editorial illustration — confident ink/marker linework over watercolor washes.
+- Palette: black/charcoal figure with warm champagne, gold, and stone washes; generous white negative space; soft bokeh light dots.
+- Subject: a single poised executive figure, tailored clothing, calm confident expression; environment only gestured (desk edges, skyline strokes), never rendered fully.
+- Composition: one focal figure, asymmetric balance, background dissolves into sketch marks and washes at the edges.
+- Register: luxury magazine editorial (think fashion-house campaign sketch), NOT corporate stock, NOT SaaS illustration, NOT cartoon.
+
+--------------------------------------------------
+3. CANONICAL STANDARDS THAT GOVERN THE IMAGERY
+--------------------------------------------------
+A. docs/landing-page-standard.md (sitewide source of truth)
+- "Brand integrity: every route must look intentionally part of one product."
+- Visual regression gating with screenshot diffs at route-level breakpoints.
+
+B. docs/strategy/archetypes/luxury-brand-archetype.md (luxury visual rules)
+- Restraint over density; one focal visual at a time.
+- Editorial image framing, never edge-to-edge clutter.
+- Strong negative space around hero and media.
+- Accent: muted gold/champagne only for emphasis; avoid neon or saturated marketing hues.
+- Pass threshold: 23/25 on visual restraint, editorial composition, material quality feel, color discipline, premium coherence.
+
+C. docs/first-visit-experience-review-2026-07-04.md, Section 5 (art direction spec)
+- Small image system: 4-6 images maximum sitewide.
+- "Dark, architectural, human-but-anonymous... No stock-photo executives shaking hands."
+- Shot or graded to sit on slate-950 (the site's dark canvas).
+- One image per scroll band, not galleries; each image earns a full- or half-bleed moment.
+
+D. docs/first-mile-wbs-2026-07-04.md, Sprint 6 "Visual System and Proof"
+- Goal: "Add luxury-grade art direction and optional proof media."
+- Exit criteria: "Public pages feel editorial, images are intentional, and proof is easy to discover."
+
+E. Editorial standards (working notes)
+- Positioning: luxury magazine editorial, not SaaS.
+- Site canvas: slate-950; headings serif; accents orange/champagne; containers use subtle white/10 borders.
+- Feelings-first, relationship-centric; avoid corporate jargon and feature-list aesthetics.
+
+--------------------------------------------------
+4. RECONSTRUCTED PROMPT TEMPLATE (not the original — rebuilt from standards + shipped style)
+--------------------------------------------------
+Use as a starting point to produce new images consistent with the set:
+
+"Luxury fashion-editorial illustration of [SUBJECT: e.g., a poised executive woman standing at a boardroom table / an executive reviewing documents in a refined home office]. Loose confident ink and marker sketch linework over soft watercolor washes. Palette: black and charcoal figure, warm champagne and gold washes, stone neutrals, generous white negative space, subtle golden bokeh light. Environment only gestured with sketch strokes — desk edges, window light, skyline hints — never fully rendered. Single focal figure, asymmetric editorial composition, calm and self-assured expression, tailored clothing. Style register: high-fashion campaign sketch for a premium magazine. Not corporate stock photography, not flat SaaS vector illustration, not cartoon. Wide aspect ratio for hero placement; must sit gracefully next to a very dark (slate-950) page canvas."
+
+Per-subject variants already in the set:
+- Leadership presence at a table (homepage hero)
+- Woman deciding between two doors (choice/threshold metaphor, /for-individuals)
+- Young leader at a laptop (/for-leaders)
+- Executive at desk with documents, refined home office (/for-executives)
+
+--------------------------------------------------
+5. ACCEPTANCE CHECKLIST FOR ANY NEW SKETCH
+--------------------------------------------------
+1. Reads as editorial illustration, not stock or SaaS art.
+2. One focal human figure, anonymous enough to be aspirational.
+3. Champagne/gold/stone washes only; no saturated marketing colors.
+4. Generous negative space; background dissolves to sketch marks.
+5. Composition works inside a rounded, bordered figure card on a slate-950 page.
+6. Scores 23/25+ on the luxury archetype rubric (restraint, composition, material feel, color discipline, coherence).
+7. Sitewide image count stays within the 4-6 image budget.

@@ -7,6 +7,11 @@ type CompanyOption = {
   name: string
 }
 
+type UploadOption = {
+  id: string
+  label: string
+}
+
 type MatchItem = {
   match_id: string
   candidate_name: string
@@ -27,9 +32,9 @@ type MatchResponse = {
   confirmed_relationships: MatchItem[]
 }
 
-export function RelationshipMatchPanel({ companies }: { companies: CompanyOption[] }) {
+export function RelationshipMatchPanel({ companies, uploads }: { companies: CompanyOption[]; uploads: UploadOption[] }) {
   const [companyId, setCompanyId] = useState(companies[0]?.id ?? '')
-  const [uploadId, setUploadId] = useState('')
+  const [uploadId, setUploadId] = useState(uploads[0]?.id ?? '')
   const [loading, setLoading] = useState(false)
   const [actingMatchId, setActingMatchId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -39,6 +44,7 @@ export function RelationshipMatchPanel({ companies }: { companies: CompanyOption
   const [profileCorrections, setProfileCorrections] = useState<Record<string, string>>({})
 
   const hasCompany = useMemo(() => companyId.length > 0, [companyId])
+  const hasUploads = uploads.length > 0
 
   async function runMatch() {
     if (!hasCompany) return
@@ -199,6 +205,12 @@ export function RelationshipMatchPanel({ companies }: { companies: CompanyOption
         </div>
       </div>
 
+      {!hasUploads && (
+        <p className="mb-4 rounded border border-amber-300/30 bg-amber-500/10 px-3 py-2 text-[12px] text-amber-200">
+          Upload a LinkedIn connections CSV above before running company matching.
+        </p>
+      )}
+
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
         <label className="text-[12px] text-slate-200">
           Company
@@ -214,20 +226,27 @@ export function RelationshipMatchPanel({ companies }: { companies: CompanyOption
         </label>
 
         <label className="text-[12px] text-slate-200">
-          Upload ID (optional)
-          <input
-            type="text"
+          LinkedIn upload
+          <select
             value={uploadId}
             onChange={(event) => setUploadId(event.target.value)}
-            placeholder="Uses latest upload if blank"
-            className="mt-1 block min-h-[44px] w-full rounded border border-white/15 bg-slate-950/70 px-3 text-[13px] text-slate-100 placeholder:text-slate-500"
-          />
+            className="mt-1 block min-h-[44px] w-full rounded border border-white/15 bg-slate-950/70 px-3 text-[13px] text-slate-100"
+            disabled={!hasUploads}
+          >
+            {hasUploads ? (
+              uploads.map((upload) => (
+                <option key={upload.id} value={upload.id}>{upload.label}</option>
+              ))
+            ) : (
+              <option value="">No processed uploads yet</option>
+            )}
+          </select>
         </label>
 
         <button
           type="button"
           onClick={runMatch}
-          disabled={!hasCompany || loading}
+          disabled={!hasCompany || !hasUploads || loading}
           className="inline-flex min-h-[44px] items-center justify-center rounded bg-orange-500 px-4 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-400 disabled:opacity-50"
         >
           {loading ? 'Matching…' : 'Run match'}

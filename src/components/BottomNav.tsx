@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 const NAV_ITEMS = [
   {
@@ -19,9 +19,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/dashboard?focus=pipeline',
-    matchPath: '/dashboard',
-    matchFocus: 'pipeline',
+    href: '/dashboard#pipeline',
     label: 'Companies',
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
@@ -95,12 +93,9 @@ const NAV_ITEMS = [
 
 export function BottomNav() {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
-  function isActive(item: { href: string; matchPath?: string; matchFocus?: string }) {
-    if (item.matchPath && item.matchFocus) {
-      return pathname === item.matchPath && searchParams.get('focus') === item.matchFocus
-    }
+  function isActive(item: { href: string }) {
+    if (item.href === '/dashboard#pipeline') return pathname === '/dashboard'
     if (item.href === '/dashboard') return pathname === '/dashboard'
     return pathname.startsWith(item.href)
   }

@@ -87,17 +87,17 @@ export function DashboardProfileIntelligenceSection({
       {profileScore < 100 && (
         <Link
           href={profileHref}
-          className="mb-6 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
+          className="mb-6 rounded border border-white/15 bg-white/5 p-5 flex items-center gap-5 hover:border-white/35 transition-colors block"
         >
           <div
             className={`text-[40px] font-bold leading-none tabular-nums shrink-0 ${
-              profileScore >= 80 ? 'text-emerald-600' : profileScore >= 40 ? 'text-amber-500' : 'text-slate-400'
+              profileScore >= 80 ? 'text-emerald-300' : profileScore >= 40 ? 'text-amber-300' : 'text-slate-300'
             }`}
           >
             {profileScore}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-slate-900">
+            <div className="text-[13px] font-semibold text-slate-100">
               {profileScore >= 80
                 ? 'Profile nearly complete'
                 : profileScore >= 40
@@ -108,7 +108,7 @@ export function DashboardProfileIntelligenceSection({
               Profile score &middot; {nextProfileSection ? `${nextProfileSection.label} is next` : 'All sections done'}
             </div>
           </div>
-          <span className="text-[12px] font-semibold text-slate-500 shrink-0">
+          <span className="text-[12px] font-semibold text-slate-300 shrink-0">
             {nextProfileSection ? nextProfileSection.label : 'Profile'}
           </span>
         </Link>
@@ -151,7 +151,7 @@ export function DashboardProfileIntelligenceSection({
                 Save and continue
               </button>
               <Link href="/dashboard/profile" className="text-[12px] text-slate-400 hover:text-slate-200">
-                Full profile ?
+                Full profile →
               </Link>
             </div>
           </form>
@@ -162,7 +162,7 @@ export function DashboardProfileIntelligenceSection({
         {stats.map(({ value, label, alert, amber, href }) => {
           const inner = (
             <>
-              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-red-700' : amber ? 'text-amber-600' : 'text-slate-900'}`}>
+              <div className={`text-[22px] sm:text-[28px] font-bold leading-none ${alert ? 'text-rose-300' : amber ? 'text-amber-300' : 'text-slate-100'}`}>
                 {value}
               </div>
               <div className="text-[10px] text-slate-400 mt-1.5 tracking-[0.07em] uppercase">{label}</div>
@@ -170,11 +170,11 @@ export function DashboardProfileIntelligenceSection({
           )
 
           return href ? (
-            <Link key={label} href={href} className="bg-white border border-slate-200 rounded p-3 sm:p-5 hover:border-slate-400 transition-colors">
+            <Link key={label} href={href} className="bg-white/5 border border-white/15 rounded p-3 sm:p-5 hover:border-white/35 transition-colors">
               {inner}
             </Link>
           ) : (
-            <div key={label} className="bg-white border border-slate-200 rounded p-3 sm:p-5">
+            <div key={label} className="bg-white/5 border border-white/15 rounded p-3 sm:p-5">
               {inner}
             </div>
           )
@@ -182,33 +182,32 @@ export function DashboardProfileIntelligenceSection({
       </div>
 
       {showNetworkHealth && (
-        <Link
-          href="/dashboard/contacts"
-          className="mb-6 sm:mb-8 bg-white border border-slate-200 rounded p-5 flex items-center gap-5 hover:border-slate-400 transition-colors block"
-        >
+        <section className="mb-6 sm:mb-8 bg-white/5 border border-white/15 rounded p-5">
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-semibold text-slate-900">
+            <p className="text-[13px] font-semibold text-slate-100">
               {contactCoverageCount} of {totalCount} companies have a contact
             </p>
             <p className="text-[12px] text-slate-400 mt-0.5">
               Roles at this level fill through relationships. Add contacts at your top targets.
             </p>
           </div>
-          <span className="text-[12px] font-semibold text-slate-500 shrink-0">Add contacts →</span>
-        </Link>
+          <div className="mt-3">
+            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+          </div>
+        </section>
       )}
 
       {totalCount >= 3 && numIntelGaps > 0 && isExecutiveMode && rankedAttentionCard && (
         <section id="attention-gaps" className="mb-6 sm:mb-8">
           <h2 className="text-[13px] font-semibold text-slate-400 mb-3">Top attention gap</h2>
-          <Link href={rankedAttentionCard.href} className="bg-white border border-slate-200 rounded p-5 hover:border-slate-400 transition-colors block">
+          <Link href={rankedAttentionCard.href} className="bg-white/5 border border-white/15 rounded p-5 hover:border-white/35 transition-colors block">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-[30px] font-bold text-slate-900 leading-none mb-1">{rankedAttentionCard.count}</div>
-                <div className="text-[14px] font-semibold text-slate-900 mb-1.5">{rankedAttentionCard.title}</div>
-                <div className="text-[12px] text-slate-500 leading-relaxed">{rankedAttentionCard.body}</div>
+                <div className="text-[30px] font-bold text-slate-100 leading-none mb-1">{rankedAttentionCard.count}</div>
+                <div className="text-[14px] font-semibold text-slate-100 mb-1.5">{rankedAttentionCard.title}</div>
+                <div className="text-[12px] text-slate-400 leading-relaxed">{rankedAttentionCard.body}</div>
               </div>
-              <span className="text-[12px] font-semibold text-slate-500 shrink-0">{rankedAttentionCard.cta}</span>
+              <span className="text-[12px] font-semibold text-slate-300 shrink-0">{rankedAttentionCard.cta}</span>
             </div>
           </Link>
         </section>
@@ -219,43 +218,43 @@ export function DashboardProfileIntelligenceSection({
           <h2 className="text-[13px] font-semibold text-slate-400 mb-3">What needs attention</h2>
           <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
             {companiesWithoutContact.length > 0 && (
-              <Link href="/dashboard/contacts/new" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutContact.length}</div>
-                <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+              <Link href="/dashboard/contacts/new" className="bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 transition-colors block">
+                <div className="text-[26px] font-bold text-slate-100 leading-none mb-1">{companiesWithoutContact.length}</div>
+                <div className="text-[13px] font-semibold text-slate-200 mb-1.5">
                   {companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact
                 </div>
                 <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
                   {companiesWithoutContact.slice(0, 2).map(c => c.name).join(', ')}
                   {companiesWithoutContact.length > 2 ? ` +${companiesWithoutContact.length - 2} more` : ''}
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Contacts</span>
+                <span className="text-[11px] font-semibold text-slate-300">Contacts</span>
               </Link>
             )}
 
             {prospectContactCount > 0 && (
-              <Link href="/dashboard/contacts" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{prospectContactCount}</div>
-                <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+              <section className="bg-white/5 border border-white/15 rounded p-4">
+                <div className="text-[26px] font-bold text-slate-100 leading-none mb-1">{prospectContactCount}</div>
+                <div className="text-[13px] font-semibold text-slate-200 mb-1.5">
                   {prospectContactCount === 1 ? 'contact' : 'contacts'} not yet reached
                 </div>
                 <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
                   People you know but have not yet connected with in this search.
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Outreach</span>
-              </Link>
+                <Link href="/dashboard/contacts" className="text-[11px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
+              </section>
             )}
 
             {companiesWithoutBrief.length > 0 && (
-              <Link href="/dashboard" className="bg-white border border-slate-200 rounded p-4 hover:border-slate-400 transition-colors block">
-                <div className="text-[26px] font-bold text-slate-900 leading-none mb-1">{companiesWithoutBrief.length}</div>
-                <div className="text-[13px] font-semibold text-slate-700 mb-1.5">
+              <Link href="/dashboard#pipeline" className="bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 transition-colors block">
+                <div className="text-[26px] font-bold text-slate-100 leading-none mb-1">{companiesWithoutBrief.length}</div>
+                <div className="text-[13px] font-semibold text-slate-200 mb-1.5">
                   {companiesWithoutBrief.length === 1 ? 'company' : 'companies'} with no prep brief
                 </div>
                 <div className="text-[11px] text-slate-400 leading-relaxed mb-3">
                   {companiesWithoutBrief.slice(0, 2).map(c => c.name).join(', ')}
                   {companiesWithoutBrief.length > 2 ? ` +${companiesWithoutBrief.length - 2} more` : ''}
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Prep brief</span>
+                <span className="text-[11px] font-semibold text-slate-300">Prep brief</span>
               </Link>
             )}
           </div>

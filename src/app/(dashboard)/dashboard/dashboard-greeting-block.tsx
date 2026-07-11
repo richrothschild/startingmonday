@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { fullDateInTz, greetingInTz } from '@/lib/date'
 
 type DashboardGreetingBlockProps = {
@@ -9,13 +6,7 @@ type DashboardGreetingBlockProps = {
 }
 
 export function DashboardGreetingBlock({ firstName, briefingTimezone }: DashboardGreetingBlockProps) {
-  const [effectiveTimeZone, setEffectiveTimeZone] = useState(() => briefingTimezone ?? 'UTC')
-
-  useEffect(() => {
-    if (!briefingTimezone) {
-      setEffectiveTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone)
-    }
-  }, [briefingTimezone])
+  const effectiveTimeZone = briefingTimezone ?? 'UTC'
 
   const greeting = greetingInTz(effectiveTimeZone)
   const today = fullDateInTz(effectiveTimeZone)

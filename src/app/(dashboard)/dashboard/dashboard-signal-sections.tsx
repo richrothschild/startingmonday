@@ -72,7 +72,7 @@ export function WarmPathsSection({ warmPaths }: { warmPaths: WarmPath[] }) {
                   </span>
                   <span className="text-[11px] text-slate-400">{dateLabel}</span>
                 </div>
-                <p className="text-[13px] text-slate-400 leading-relaxed truncate">{wp.signal.signal_summary}</p>
+                <p className="text-[13px] text-slate-400 leading-relaxed">{wp.signal.signal_summary}</p>
               </Link>
               <Link
                 href={`/dashboard/contacts/${wp.contactId}/outreach`}
@@ -97,7 +97,7 @@ export function PatternAlertsSection({ patternAlerts }: { patternAlerts: SignalR
           Pattern Alerts
         </h2>
         <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-200">
-          See all &rarr;
+          Signals
         </Link>
       </div>
       <div className="divide-y divide-white/10">
@@ -153,14 +153,14 @@ export function CompanySignalsSection({ signals }: { signals: SignalRow[] }) {
           Company Signals
         </h2>
         <Link href="/dashboard/signals" className="text-[12px] text-slate-400 hover:text-slate-200">
-          See all &rarr;
+          Signals
         </Link>
       </div>
       <div className="divide-y divide-white/10">
         {signals.map((sig) => {
           const co = sig.companies
           const dateLabel = new Date(sig.signal_date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-          const typeLabel = sig.signal_type.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+          const typeLabel = signalLabel(sig.signal_type)
           const detailsHref = co ? `/dashboard/companies/${co.id}` : '/dashboard/signals'
           return (
             <div key={sig.id} className="px-6 py-4">

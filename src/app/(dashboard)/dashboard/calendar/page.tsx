@@ -2,6 +2,9 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { CalendarItemClient } from './calendar-item'
+import { LogoutButton } from '../logout-button'
+
+export const metadata = { title: 'Calendar' }
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -103,14 +106,20 @@ export default async function CalendarPage({
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top_left,_rgba(193,127,59,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.16),_transparent_34%),linear-gradient(180deg,_rgba(9,14,26,0.98)_0%,_rgba(11,17,30,0.95)_54%,_rgba(10,15,28,0.98)_100%)]" />
 
-      <header className="border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-12 sm:h-14 flex items-center justify-between">
           <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <Link href="/dashboard" className="text-[13px] text-slate-300 hover:text-white transition-colors">
-            &larr; Dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
+            >
+              Dashboard
+            </Link>
+            <LogoutButton label="Sign out" />
+          </div>
         </div>
       </header>
 

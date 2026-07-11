@@ -30,9 +30,8 @@ export function BriefingHeader({
         <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.22em] text-slate-300/90 mb-3">
           This week&apos;s operating rhythm
         </p>
-        <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-2">
-          Good morning, {firstName}.
-        </h1>
+        <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-orange-200 mb-2">Daily briefing</p>
+        <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-2">Good morning, {firstName}.</h1>
         <p className="text-[13px] sm:text-[14px] font-medium text-slate-400">{todayLabel}</p>
       </div>
 

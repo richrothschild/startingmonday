@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
+import { blocksSyntheticCompanyName } from '@/lib/company-name-guard'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAuth(request)
@@ -28,6 +29,9 @@ export async function POST(request: NextRequest) {
   }
 
   if (!name) return NextResponse.json({ error: 'name required' }, { status: 400 })
+  if (blocksSyntheticCompanyName(name)) {
+    return NextResponse.json({ error: 'invalid_name' }, { status: 400 })
+  }
 
   const { data: inserted, error } = await supabase
     .from('companies')

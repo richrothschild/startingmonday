@@ -7,6 +7,7 @@ import { logEvent, logCompanyWatch } from '@/lib/events'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { PMF_EVENTS } from '@/lib/pmf-event-taxonomy'
 import { str, numOrNull } from '@/lib/form-utils'
+import { blocksSyntheticCompanyName } from '@/lib/company-name-guard'
 
 function normalizeUrl(raw: string | null): string | null {
   if (!raw) return null
@@ -32,6 +33,7 @@ export async function addCompany(formData: FormData) {
   const companySize   = validSizes.find(v => v === str(formData, 'company_size')) ?? null
 
   if (!name) redirect('/dashboard/companies/new?error=required')
+  if (blocksSyntheticCompanyName(name)) redirect('/dashboard/companies/new?error=invalid_name')
 
   const { data: userRow } = await supabase
     .from('users')

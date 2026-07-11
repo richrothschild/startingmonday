@@ -137,6 +137,7 @@ const SIGNAL_LABELS: Record<string, string> = {
   ipo:            'IPO',
   new_product:    'New Product',
   award:          'Award',
+  pattern_alert:  'Pattern Alert',
   filing_trend:   'Filing Trend',
   partnership:    'Partnership',
   board_change:   'Board Change',

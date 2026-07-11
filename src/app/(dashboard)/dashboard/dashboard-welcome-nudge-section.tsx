@@ -84,7 +84,7 @@ export function DashboardWelcomeNudgeSection({
         </div>
       ) : (
         <NextBestActionPrompt
-          action="Open your daily briefing"
+          action="Briefing"
           href="/dashboard/briefing"
           description="Start with your daily briefing to see signals, due actions, and your top priorities."
           source="dashboard_default"

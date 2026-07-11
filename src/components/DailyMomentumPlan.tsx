@@ -33,7 +33,7 @@ const STATUS_COPY: Record<DailyMomentumPlanProps['status'], { chip: string; acce
     body: 'Keep today narrow. Finish two actions and leave the rest for tomorrow.',
   },
   medium: {
-    chip: 'Medium momentum',
+    chip: 'Momentum building',
     accent: 'border-amber-300/40 bg-amber-500/10 text-amber-100',
     body: 'You have enough signal to move. Protect the top three actions before opening more tabs.',
   },
@@ -56,6 +56,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
   const ph = usePostHog()
   const storageKey = `sm_daily_momentum_plan:${dateKey}`
   const [state, setState] = useState<DailyMomentumState>(() => buildInitialState(actions))
+  const [openNoteId, setOpenNoteId] = useState<string | null>(null)
   const [hydrated, setHydrated] = useState(false)
   const loadedEventSent = useRef(false)
   const submittedReflections = useRef<Set<string>>(new Set())
@@ -119,6 +120,7 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
   const completedCount = actions.filter((action) => state.completed[action.id]).length
   const isDayComplete = completedCount >= 2
   const statusCopy = STATUS_COPY[status]
+  const statusChip = completedCount === 0 ? 'Day not started' : statusCopy.chip
 
   function emitActionCompleted(action: DailyMomentumAction, nextCompletedCount: number) {
     const properties = {
@@ -182,27 +184,27 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
   }
 
   return (
-    <section id="daily-momentum-plan" className="mb-6 rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-      <div className="px-5 py-4 sm:px-6 border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.2),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)]">
+    <section id="daily-momentum-plan" className="mb-8 rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
+      <div className="px-6 py-4 sm:px-7 border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.2),_transparent_34%),linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.94)_100%)]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h2 className="text-[15px] font-bold text-white leading-tight">Today&apos;s three actions</h2>
+            <h2 className="text-[16px] font-bold text-white leading-tight">Today&apos;s three actions</h2>
             <span className="text-[12px] text-slate-300">{completedCount} of 3 complete · day complete at two</span>
           </div>
           <div className={`inline-flex items-center self-start rounded-full border px-3 py-1 text-[12px] font-semibold ${statusCopy.accent}`}>
-            {statusCopy.chip}
+            {statusChip}
           </div>
         </div>
       </div>
 
-      <div className="px-5 py-5 sm:px-6 sm:py-6">
+      <div className="px-6 py-6 sm:px-7 sm:py-7">
         <div className="grid grid-cols-1 gap-4">
           {actions.map((action, index) => {
             const done = Boolean(state.completed[action.id])
             return (
               <article
                 key={action.id}
-                className={`rounded-2xl border p-4 sm:p-5 transition-colors ${done ? 'border-emerald-300/40 bg-emerald-500/10' : 'border-white/15 bg-white/5'}`}
+                className={`rounded-2xl border p-5 sm:p-6 transition-colors ${done ? 'border-emerald-300/40 bg-emerald-500/10' : 'border-white/15 bg-white/5'}`}
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0 flex-1">
@@ -215,8 +217,8 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                         {action.effortMinutes} min
                       </span>
                     </div>
-                    <h3 className="text-[15px] font-semibold text-white mb-1">{action.title}</h3>
-                    <p className="text-[13px] leading-snug text-slate-200 line-clamp-2">{action.body}</p>
+                    <h3 className="text-[15px] font-semibold text-white mb-1.5">{action.title}</h3>
+                    <p className="text-[13px] leading-relaxed text-slate-200">{action.body}</p>
                   </div>
 
                   <div className="flex flex-col gap-3 lg:w-[15rem] lg:items-end">
@@ -255,20 +257,30 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                 </div>
 
                 <div className="mt-3">
-                  <input
-                    id={`daily-note-${action.id}`}
-                    aria-label="Optional note"
-                    value={state.notes[action.id] ?? ''}
-                    onChange={(event) => setState((current) => ({
-                      ...current,
-                      notes: {
-                        ...current.notes,
-                        [action.id]: event.target.value,
-                      },
-                    }))}
-                    placeholder="What will make this easier to finish?"
-                    className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-[13px] text-slate-100 outline-none transition-colors placeholder:text-slate-400 focus:border-orange-300/60"
-                  />
+                  {openNoteId === action.id ? (
+                    <input
+                      id={`daily-note-${action.id}`}
+                      aria-label="Optional note"
+                      value={state.notes[action.id] ?? ''}
+                      onChange={(event) => setState((current) => ({
+                        ...current,
+                        notes: {
+                          ...current.notes,
+                          [action.id]: event.target.value,
+                        },
+                      }))}
+                      placeholder="What will make this easier to finish?"
+                      className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-[13px] text-slate-100 outline-none transition-colors placeholder:text-slate-400 focus:border-orange-300/60"
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setOpenNoteId(action.id)}
+                      className="text-[12px] font-semibold text-slate-300 hover:text-slate-100"
+                    >
+                      Add note
+                    </button>
+                  )}
                 </div>
               </article>
             )

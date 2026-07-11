@@ -1,0 +1,699 @@
+{
+  "generatedAt": "2026-07-07T13:16:45.099Z",
+  "repository": "richrothschild/startingmonday",
+  "branchDrift": [
+    {
+      "branch": "SMK-12/admin-dashboard-metrics",
+      "aheadBy": 4,
+      "behindBy": 1380,
+      "lastCommitAt": "2026-05-22T21:31:24Z",
+      "ageDays": 45,
+      "headSha": "0d557086"
+    },
+    {
+      "branch": "SMK-13/prep-brief-section-ratings",
+      "aheadBy": 5,
+      "behindBy": 1504,
+      "lastCommitAt": "2026-05-20T21:23:11Z",
+      "ageDays": 47,
+      "headSha": "7e45c0d0"
+    },
+    {
+      "branch": "SMK-24/posthog-activation-events",
+      "aheadBy": 2,
+      "behindBy": 1276,
+      "lastCommitAt": "2026-05-26T22:42:37Z",
+      "ageDays": 41,
+      "headSha": "9a107580"
+    },
+    {
+      "branch": "SMK-25/rename-monitor-to-intelligence",
+      "aheadBy": 1,
+      "behindBy": 1475,
+      "lastCommitAt": "2026-05-20T23:55:56Z",
+      "ageDays": 47,
+      "headSha": "715cf854"
+    },
+    {
+      "branch": "SMK-27/reengagement-email-sequence",
+      "aheadBy": 2,
+      "behindBy": 142,
+      "lastCommitAt": "2026-07-01T07:18:52Z",
+      "ageDays": 6,
+      "headSha": "1a1bdb26"
+    },
+    {
+      "branch": "SMK-30/salary-intelligence-breakdown",
+      "aheadBy": 2,
+      "behindBy": 1270,
+      "lastCommitAt": "2026-05-26T23:27:54Z",
+      "ageDays": 41,
+      "headSha": "48509d39"
+    },
+    {
+      "branch": "SMK-47/public-ideas-board",
+      "aheadBy": 1,
+      "behindBy": 1270,
+      "lastCommitAt": "2026-05-26T23:15:09Z",
+      "ageDays": 41,
+      "headSha": "e3b7c00d"
+    },
+    {
+      "branch": "SMK-47/public-ideas-gift-card",
+      "aheadBy": 6,
+      "behindBy": 1238,
+      "lastCommitAt": "2026-05-27T23:18:01Z",
+      "ageDays": 40,
+      "headSha": "19c48428"
+    },
+    {
+      "branch": "SMK-162/staging-workflow",
+      "aheadBy": 4,
+      "behindBy": 632,
+      "lastCommitAt": "2026-06-15T03:01:09Z",
+      "ageDays": 22,
+      "headSha": "044e4fb1"
+    },
+    {
+      "branch": "SMK-266/fix-pipeline-search-startTransition",
+      "aheadBy": 1,
+      "behindBy": 457,
+      "lastCommitAt": "2026-06-19T01:56:40Z",
+      "ageDays": 18,
+      "headSha": "2f4010b6"
+    },
+    {
+      "branch": "SMK-310/rename-stripe-price-passive-to-monitor",
+      "aheadBy": 1,
+      "behindBy": 340,
+      "lastCommitAt": "2026-06-23T00:14:11Z",
+      "ageDays": 14,
+      "headSha": "ff08a7ed"
+    },
+    {
+      "branch": "SMK-315/ci-pr-unblock",
+      "aheadBy": 3,
+      "behindBy": 417,
+      "lastCommitAt": "2026-06-19T22:17:53Z",
+      "ageDays": 17,
+      "headSha": "5c7ed2aa"
+    },
+    {
+      "branch": "SMK-316-SMK-313/ci-fixes-and-smoke-test",
+      "aheadBy": 5,
+      "behindBy": 411,
+      "lastCommitAt": "2026-06-20T20:19:24Z",
+      "ageDays": 16,
+      "headSha": "73e5ff33"
+    },
+    {
+      "branch": "SMK-318/gitignore-guide-artifacts",
+      "aheadBy": 1,
+      "behindBy": 342,
+      "lastCommitAt": "2026-06-22T21:44:56Z",
+      "ageDays": 14,
+      "headSha": "d63fb40f"
+    },
+    {
+      "branch": "SMK-319/untrack-ci-generated-files",
+      "aheadBy": 4,
+      "behindBy": 341,
+      "lastCommitAt": "2026-06-22T23:16:58Z",
+      "ageDays": 14,
+      "headSha": "e53e5f4e"
+    },
+    {
+      "branch": "SMK-349/pre-pr-check-suite",
+      "aheadBy": 5,
+      "behindBy": 270,
+      "lastCommitAt": "2026-06-26T00:38:37Z",
+      "ageDays": 11,
+      "headSha": "da3f0380"
+    },
+    {
+      "branch": "SMK-fix-guide-artifact-typecheck",
+      "aheadBy": 1,
+      "behindBy": 331,
+      "lastCommitAt": "2026-06-23T04:22:44Z",
+      "ageDays": 14,
+      "headSha": "c9a15983"
+    },
+    {
+      "branch": "SMK-prod-monitoring-fixes",
+      "aheadBy": 1,
+      "behindBy": 332,
+      "lastCommitAt": "2026-06-23T02:41:36Z",
+      "ageDays": 14,
+      "headSha": "f4bb2f0d"
+    },
+    {
+      "branch": "archive/sprint-6-rebased-2026-05-31",
+      "aheadBy": 20,
+      "behindBy": 1146,
+      "lastCommitAt": "2026-05-31T19:40:24Z",
+      "ageDays": 36,
+      "headSha": "dee976aa"
+    },
+    {
+      "branch": "chore/fix-lint-errors",
+      "aheadBy": 3,
+      "behindBy": 1480,
+      "lastCommitAt": "2026-05-21T00:02:24Z",
+      "ageDays": 47,
+      "headSha": "5602bd16"
+    },
+    {
+      "branch": "chore/node24-checkout-ci",
+      "aheadBy": 6,
+      "behindBy": 1084,
+      "lastCommitAt": "2026-06-01T00:07:29Z",
+      "ageDays": 36,
+      "headSha": "b5c2d0d5"
+    },
+    {
+      "branch": "copilot/startingmonday-job-finder-repo",
+      "aheadBy": 2,
+      "behindBy": 2406,
+      "lastCommitAt": "2026-04-29T23:25:20Z",
+      "ageDays": 68,
+      "headSha": "5bfaa8c8"
+    },
+    {
+      "branch": "dev/2026-05-22",
+      "aheadBy": 14,
+      "behindBy": 1374,
+      "lastCommitAt": "2026-05-27T15:55:39Z",
+      "ageDays": 40,
+      "headSha": "88a2e4fe"
+    },
+    {
+      "branch": "docs/architecture-diagrams-quicklink",
+      "aheadBy": 6,
+      "behindBy": 977,
+      "lastCommitAt": "2026-06-04T04:33:11Z",
+      "ageDays": 33,
+      "headSha": "8d0ad494"
+    },
+    {
+      "branch": "fix/coach-outreach-e2e-markers",
+      "aheadBy": 1,
+      "behindBy": 1227,
+      "lastCommitAt": "2026-05-28T23:50:30Z",
+      "ageDays": 39,
+      "headSha": "3698dfd9"
+    },
+    {
+      "branch": "fix/diagrams-bundle-static-data",
+      "aheadBy": 2,
+      "behindBy": 973,
+      "lastCommitAt": "2026-06-04T14:52:47Z",
+      "ageDays": 32,
+      "headSha": "db6e6f9b"
+    },
+    {
+      "branch": "fix/em-dash-violations",
+      "aheadBy": 4,
+      "behindBy": 241,
+      "lastCommitAt": "2026-06-27T14:51:25Z",
+      "ageDays": 9,
+      "headSha": "88708b7a"
+    },
+    {
+      "branch": "fix/ideas-page-auth-nav",
+      "aheadBy": 3,
+      "behindBy": 1073,
+      "lastCommitAt": "2026-06-03T21:47:43Z",
+      "ageDays": 33,
+      "headSha": "e7d5eab3"
+    },
+    {
+      "branch": "fix/post-deploy-staging-misfires",
+      "aheadBy": 1,
+      "behindBy": 271,
+      "lastCommitAt": "2026-06-24T17:54:54Z",
+      "ageDays": 12,
+      "headSha": "9d98097b"
+    },
+    {
+      "branch": "fix/remove-turnstile-prebuild-guard",
+      "aheadBy": 1,
+      "behindBy": 1227,
+      "lastCommitAt": "2026-05-28T23:14:58Z",
+      "ageDays": 39,
+      "headSha": "7a0e4abc"
+    },
+    {
+      "branch": "fix/smk-125-rls-pipeline-nav",
+      "aheadBy": 1,
+      "behindBy": 909,
+      "lastCommitAt": "2026-06-08T20:28:53Z",
+      "ageDays": 28,
+      "headSha": "ac2bdf8c"
+    },
+    {
+      "branch": "hotfix/prod-remediation-2026-05-31",
+      "aheadBy": 1,
+      "behindBy": 1083,
+      "lastCommitAt": "2026-06-01T02:37:33Z",
+      "ageDays": 36,
+      "headSha": "b9663fc0"
+    },
+    {
+      "branch": "railway/fix-deploy-9621c3",
+      "aheadBy": 3,
+      "behindBy": 399,
+      "lastCommitAt": "2026-06-21T17:15:10Z",
+      "ageDays": 15,
+      "headSha": "aee599d8"
+    },
+    {
+      "branch": "smk-fix-autofix-smoke-guard",
+      "aheadBy": 8,
+      "behindBy": 317,
+      "lastCommitAt": "2026-06-23T18:45:09Z",
+      "ageDays": 13,
+      "headSha": "ac85fc36"
+    },
+    {
+      "branch": "smk-fix-lcp-webp-hero",
+      "aheadBy": 1,
+      "behindBy": 308,
+      "lastCommitAt": "2026-06-23T19:17:43Z",
+      "ageDays": 13,
+      "headSha": "9ec0c605"
+    },
+    {
+      "branch": "smk-fix-playwright-luxury-ci-failures",
+      "aheadBy": 6,
+      "behindBy": 303,
+      "lastCommitAt": "2026-06-24T01:50:02Z",
+      "ageDays": 13,
+      "headSha": "0ee47bb3"
+    },
+    {
+      "branch": "smk-migration-rollback-playbooks",
+      "aheadBy": 8,
+      "behindBy": 317,
+      "lastCommitAt": "2026-06-23T18:55:17Z",
+      "ageDays": 13,
+      "headSha": "834212af"
+    },
+    {
+      "branch": "sprint-6-rollout-packet",
+      "aheadBy": 21,
+      "behindBy": 1059,
+      "lastCommitAt": "2026-06-03T03:19:20Z",
+      "ageDays": 34,
+      "headSha": "e0c996de"
+    },
+    {
+      "branch": "sprint-7-proof-architecture",
+      "aheadBy": 7,
+      "behindBy": 1091,
+      "lastCommitAt": "2026-05-31T21:16:29Z",
+      "ageDays": 36,
+      "headSha": "d07ec672"
+    },
+    {
+      "branch": "sprint-8-narrative-engine",
+      "aheadBy": 2,
+      "behindBy": 1090,
+      "lastCommitAt": "2026-05-31T21:25:15Z",
+      "ageDays": 36,
+      "headSha": "f5e5883d"
+    },
+    {
+      "branch": "sprint-9-always-on-intel",
+      "aheadBy": 2,
+      "behindBy": 1089,
+      "lastCommitAt": "2026-05-31T21:33:47Z",
+      "ageDays": 36,
+      "headSha": "d24305ec"
+    },
+    {
+      "branch": "sprint-10-homepage-repositioning",
+      "aheadBy": 2,
+      "behindBy": 1088,
+      "lastCommitAt": "2026-05-31T21:38:43Z",
+      "ageDays": 36,
+      "headSha": "f977fc15"
+    },
+    {
+      "branch": "sprint-11-concierge-layer",
+      "aheadBy": 1,
+      "behindBy": 1087,
+      "lastCommitAt": "2026-05-31T21:39:06Z",
+      "ageDays": 36,
+      "headSha": "6cef216b"
+    },
+    {
+      "branch": "sprint-12-pricing-performance-fix",
+      "aheadBy": 16,
+      "behindBy": 1086,
+      "lastCommitAt": "2026-05-31T23:31:47Z",
+      "ageDays": 36,
+      "headSha": "b6e2e5bc"
+    },
+    {
+      "branch": "sprint-next-2026-06-03",
+      "aheadBy": 9,
+      "behindBy": 999,
+      "lastCommitAt": "2026-06-03T22:11:34Z",
+      "ageDays": 33,
+      "headSha": "ed2e96b3"
+    },
+    {
+      "branch": "ux-r1-advanced-modules-slice",
+      "aheadBy": 1,
+      "behindBy": 994,
+      "lastCommitAt": "2026-06-03T22:50:01Z",
+      "ageDays": 33,
+      "headSha": "0095bd04"
+    },
+    {
+      "branch": "ux-r1-dashboard-top-shell-slice-v2",
+      "aheadBy": 3,
+      "behindBy": 992,
+      "lastCommitAt": "2026-06-03T23:10:59Z",
+      "ageDays": 33,
+      "headSha": "9d0eec0e"
+    },
+    {
+      "branch": "ux-r1-profile-intel-slice",
+      "aheadBy": 2,
+      "behindBy": 996,
+      "lastCommitAt": "2026-06-03T22:24:04Z",
+      "ageDays": 33,
+      "headSha": "a1760f91"
+    },
+    {
+      "branch": "ux-r1-weekly-pipeline-slice",
+      "aheadBy": 5,
+      "behindBy": 998,
+      "lastCommitAt": "2026-06-03T22:19:28Z",
+      "ageDays": 33,
+      "headSha": "476aa1f4"
+    },
+    {
+      "branch": "ux-r1-welcome-nudge-slice",
+      "aheadBy": 2,
+      "behindBy": 995,
+      "lastCommitAt": "2026-06-03T22:37:14Z",
+      "ageDays": 33,
+      "headSha": "bc0aef0d"
+    },
+    {
+      "branch": "ux-r1-worker-health-harden-slice",
+      "aheadBy": 1,
+      "behindBy": 993,
+      "lastCommitAt": "2026-06-03T22:56:04Z",
+      "ageDays": 33,
+      "headSha": "ba84a279"
+    }
+  ],
+  "openPrs": [],
+  "localState": {
+    "dirtyFiles": 11,
+    "unpushedCommits": 0,
+    "sample": [
+      "M .github/workflows/monitoring-watchdog.yml",
+      " M docs/security-deep-dive-audit.latest.json",
+      " M docs/security-deep-dive-audit.latest.md",
+      " M docs/technical-debt-audit.latest.json",
+      " M docs/technical-debt-audit.latest.md",
+      " M package.json",
+      "?? .github/workflows/pr-check-failure-patterns.yml",
+      "?? .github/workflows/unshipped-code-audit.yml",
+      "?? docs/codebase-health-report.latest.md",
+      "?? scripts/analyze-pr-check-failure-patterns.mjs"
+    ]
+  },
+  "findings": [
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-12/admin-dashboard-metrics: 4 unmerged commit(s), last activity 45d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-13/prep-brief-section-ratings: 5 unmerged commit(s), last activity 47d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-24/posthog-activation-events: 2 unmerged commit(s), last activity 41d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-25/rename-monitor-to-intelligence: 1 unmerged commit(s), last activity 47d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "SMK-27/reengagement-email-sequence: 2 commit(s) not in main"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-30/salary-intelligence-breakdown: 2 unmerged commit(s), last activity 41d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-47/public-ideas-board: 1 unmerged commit(s), last activity 41d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-47/public-ideas-gift-card: 6 unmerged commit(s), last activity 40d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-162/staging-workflow: 4 unmerged commit(s), last activity 22d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-266/fix-pipeline-search-startTransition: 1 unmerged commit(s), last activity 18d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-310/rename-stripe-price-passive-to-monitor: 1 unmerged commit(s), last activity 14d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-315/ci-pr-unblock: 3 unmerged commit(s), last activity 17d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-316-SMK-313/ci-fixes-and-smoke-test: 5 unmerged commit(s), last activity 16d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-318/gitignore-guide-artifacts: 1 unmerged commit(s), last activity 14d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-319/untrack-ci-generated-files: 4 unmerged commit(s), last activity 14d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "SMK-349/pre-pr-check-suite: 5 commit(s) not in main"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-fix-guide-artifact-typecheck: 1 unmerged commit(s), last activity 14d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "SMK-prod-monitoring-fixes: 1 unmerged commit(s), last activity 14d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "archive/sprint-6-rebased-2026-05-31: 20 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "chore/fix-lint-errors: 3 unmerged commit(s), last activity 47d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "chore/node24-checkout-ci: 6 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "copilot/startingmonday-job-finder-repo: 2 unmerged commit(s), last activity 68d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "dev/2026-05-22: 14 unmerged commit(s), last activity 40d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "docs/architecture-diagrams-quicklink: 6 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "fix/coach-outreach-e2e-markers: 1 unmerged commit(s), last activity 39d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "fix/diagrams-bundle-static-data: 2 unmerged commit(s), last activity 32d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "fix/em-dash-violations: 4 commit(s) not in main"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "fix/ideas-page-auth-nav: 3 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "fix/post-deploy-staging-misfires: 1 commit(s) not in main"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "fix/remove-turnstile-prebuild-guard: 1 unmerged commit(s), last activity 39d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "fix/smk-125-rls-pipeline-nav: 1 unmerged commit(s), last activity 28d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "hotfix/prod-remediation-2026-05-31: 1 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "railway/fix-deploy-9621c3: 3 unmerged commit(s), last activity 15d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "smk-fix-autofix-smoke-guard: 8 commit(s) not in main"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "smk-fix-lcp-webp-hero: 1 commit(s) not in main"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "smk-fix-playwright-luxury-ci-failures: 6 commit(s) not in main"
+    },
+    {
+      "kind": "branch-ahead",
+      "severity": "info",
+      "detail": "smk-migration-rollback-playbooks: 8 commit(s) not in main"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-6-rollout-packet: 21 unmerged commit(s), last activity 34d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-7-proof-architecture: 7 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-8-narrative-engine: 2 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-9-always-on-intel: 2 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-10-homepage-repositioning: 2 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-11-concierge-layer: 1 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-12-pricing-performance-fix: 16 unmerged commit(s), last activity 36d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "sprint-next-2026-06-03: 9 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-advanced-modules-slice: 1 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-dashboard-top-shell-slice-v2: 3 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-profile-intel-slice: 2 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-weekly-pipeline-slice: 5 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-welcome-nudge-slice: 2 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "stale-branch",
+      "severity": "review",
+      "detail": "ux-r1-worker-health-harden-slice: 1 unmerged commit(s), last activity 33d ago — merge, promote, or delete"
+    },
+    {
+      "kind": "uncommitted",
+      "severity": "review",
+      "detail": "11 uncommitted/untracked file(s) in local worktree"
+    }
+  ],
+  "counts": {
+    "branchesAheadOfMain": 51,
+    "openPrs": 0,
+    "findings": 52,
+    "reviewNeeded": 44
+  }
+}

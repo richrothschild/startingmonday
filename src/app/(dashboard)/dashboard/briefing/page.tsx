@@ -9,6 +9,11 @@ import { logEvent } from '@/lib/events'
 import { isEnabledFlag } from '@/lib/feature-flags'
 import { shouldShowFirstSessionGuidedBriefing } from '@/lib/briefing-first-session'
 import { logBriefingAction, saveBriefingDailyNote } from './actions'
+import {
+  applyDashboardSignalContract,
+  DASHBOARD_COMPANY_SIGNAL_LIMIT,
+  DASHBOARD_PATTERN_ALERT_LIMIT,
+} from '@/lib/dashboard-signal-contract'
 import { LogoutButton } from '../logout-button'
 import { HelpQuickButton } from '@/components/HelpQuickButton'
 import { BriefingPulseSupport } from './BriefingPulseSupport'
@@ -64,7 +69,6 @@ type WeeklyPulse = {
   mailtoHref: string
 }
 
-const BRIEFING_SIGNAL_LIMIT = 5
 const BRIEFING_MATCH_LIMIT = 3
 const BRIEFING_FOLLOW_UP_LIMIT = 3
 const BRIEFING_SUMMARY_CHAR_LIMIT = 280
@@ -74,6 +78,16 @@ function trimBriefingText(value: string | null | undefined, maxLength = BRIEFING
   if (!text) return ''
   if (text.length <= maxLength) return text
   return `${text.slice(0, maxLength - 1).trimEnd()}...`
+}
+
+function normalizeLaneReason(reason: string) {
+  return reason
+    .replace(/\bstalled\b/gi, 'watch')
+    .replace(/\bno pipeline movement\b/gi, 'pipeline movement slowed')
+}
+
+function normalizeLaneState(state: 'healthy' | 'watch' | 'stalled'): 'healthy' | 'watch' {
+  return state === 'stalled' ? 'watch' : state
 }
 
 function buildWeeklyPulse(
@@ -144,7 +158,7 @@ function buildWeeklyPulse(
 
   if (state === 'watch') {
     headline = 'This week needs one corrective move, not a bigger push.'
-    support = stalledLane?.reason ?? watchLane?.reason ?? 'A small, well-chosen action today is enough to settle the search back into rhythm.'
+    support = normalizeLaneReason(stalledLane?.reason ?? watchLane?.reason ?? 'A small, well-chosen action today is enough to settle the search back into rhythm.')
     whyNow = 'Watch states should narrow the field, not create pressure. One corrective move is usually more effective than trying to catch up everywhere at once.'
 
     if (hasFollowUps) {
@@ -183,10 +197,11 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   const now = new Date()
   const since24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
   const since7d   = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const since14d  = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000)
   const since30d  = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
   const todayStr  = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
 
-  const [profileResult, companiesResult, recentScansResult, followUpsResult, signalsResult, signalHealthResult, briefsResult, pipelineEventsResult] = await Promise.all([
+  const [profileResult, companiesResult, recentScansResult, followUpsResult, companySignalsResult, patternSignalsResult, signalHealthResult, briefsResult, pipelineEventsResult] = await Promise.all([
     supabase
       .from('user_profiles')
       .select('full_name, target_titles')
@@ -215,12 +230,20 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
       .order('due_date', { ascending: true }),
     supabase
       .from('company_signals')
-      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date')
+      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date, confidence, source_kind, companies(id, name)')
       .eq('user_id', userId)
-      .is('notified_at', null)
       .gte('signal_date', since7d.toISOString().split('T')[0])
+      .neq('signal_type', 'pattern_alert')
       .order('signal_date', { ascending: false })
-      .limit(BRIEFING_SIGNAL_LIMIT),
+      .limit(DASHBOARD_COMPANY_SIGNAL_LIMIT),
+    supabase
+      .from('company_signals')
+      .select('id, company_id, signal_type, signal_summary, outreach_angle, signal_date, confidence, source_kind, companies(id, name)')
+      .eq('user_id', userId)
+      .eq('signal_type', 'pattern_alert')
+      .gte('signal_date', since14d.toISOString().split('T')[0])
+      .order('signal_date', { ascending: false })
+      .limit(DASHBOARD_PATTERN_ALERT_LIMIT),
     supabase
       .from('company_signals')
       .select('signal_date')
@@ -248,7 +271,8 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
   const companies   = companiesResult.data ?? []
   const recentScans = recentScansResult.data ?? []
   const rawFollowUps = followUpsResult.data ?? []
-  const rawSignals  = signalsResult.data ?? []
+  const rawCompanySignals = companySignalsResult.data ?? []
+  const rawPatternSignals = patternSignalsResult.data ?? []
   const signalHealthRows = (signalHealthResult.data ?? []) as Array<{ signal_date: string }>
   const briefs = (briefsResult.data ?? []) as Array<{ created_at: string; reviewed_at: string | null; used_at: string | null; lifecycle_state: string | null }>
   const pipelineEvents = (pipelineEventsResult.data ?? []) as Array<{ event_name: string; created_at: string }>
@@ -275,7 +299,35 @@ async function assembleBriefing(supabase: Awaited<ReturnType<typeof createClient
     contact: (f.contacts as unknown as { id: string; name: string; title: string | null } | null) ?? null,
   })).slice(0, BRIEFING_FOLLOW_UP_LIMIT)
 
-  const signals = rawSignals.map(s => ({
+  type BriefingSignalRow = {
+    id: string
+    company_id: string
+    signal_type: string
+    signal_summary: string
+    outreach_angle: string | null
+    signal_date: string
+    confidence?: number | null
+    source_kind?: string | null
+    companies: { id: string; name: string } | { id: string; name: string }[] | null
+  }
+
+  const briefingSignalRows: BriefingSignalRow[] = [...rawCompanySignals, ...rawPatternSignals].map((row) => {
+    const signalRow = row as BriefingSignalRow
+    return {
+      ...signalRow,
+      companies: signalRow.companies ?? null,
+    }
+  })
+
+  const { mergedSignals } = applyDashboardSignalContract(
+    briefingSignalRows,
+    {
+      companySince: since7d.toISOString().split('T')[0],
+      patternSince: since14d.toISOString().split('T')[0],
+    },
+  )
+
+  const signals = mergedSignals.map(s => ({
     id: s.id,
     companyName: companyById[s.company_id]?.name ?? 'Unknown Company',
     signalType: s.signal_type,
@@ -361,7 +413,7 @@ ${followUpsText}
 Write a morning briefing as JSON with exactly these keys:
 - "subject": email subject line (max 75 chars). Specific and factual - name the company or action. No generic phrases. If there are signals, lead with that.
 - "intro": 1-2 sentences. State what changed overnight and what matters today. No preamble.
-- "signalAlerts": array of at most ${BRIEFING_SIGNAL_LIMIT} items, each { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) }.
+- "signalAlerts": array of at most ${DASHBOARD_COMPANY_SIGNAL_LIMIT + DASHBOARD_PATTERN_ALERT_LIMIT} items, each { company, signalType, summary, angle (one sentence on why this matters for the candidate's search) }.
 - "matchInsights": array of at most ${BRIEFING_MATCH_LIMIT} items, each { company, roles (string[] up to 3), insight (1-2 sentences, specific to this role and this person's background) }.
 - "followUpSuggestions": array of at most ${BRIEFING_FOLLOW_UP_LIMIT} items, each { person, action, suggestion (one concrete sentence - what to do and how) }.
 - "closing": 1 sentence. Calm, confident observation about pipeline state. No motivational clichés.
@@ -571,7 +623,7 @@ async function BriefingBody({
                           type="submit"
                           className="inline-block text-[12px] font-semibold text-slate-950 border border-orange-300/30 rounded-lg px-5 py-2.5 hover:bg-orange-300 hover:border-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-300/50 focus:ring-offset-2 focus:ring-offset-slate-950 active:scale-95 transition-all duration-200 cursor-pointer bg-orange-400"
                         >
-                          Review signal and choose the next move &rarr;
+                          Signals &rarr;
                         </button>
                       </form>
                     </div>
@@ -658,10 +710,10 @@ async function BriefingBody({
                         <div className="flex items-center gap-2 flex-wrap mb-2">
                           <span className="font-bold text-[16px] sm:text-[17px] text-white capitalize">{lane.lane}</span>
                           <span className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-2.5 py-0.5 rounded-md border ${lane.state === 'stalled' ? 'bg-amber-500/15 text-amber-100 border-amber-300/20' : 'bg-amber-500/10 text-amber-100 border-amber-300/15'}`}>
-                            {lane.state}
+                            {normalizeLaneState(lane.state)}
                           </span>
                         </div>
-                        <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">{lane.reason}</p>
+                        <p className="text-[15px] sm:text-[16px] text-slate-200 leading-relaxed">{normalizeLaneReason(lane.reason)}</p>
                       </div>
                     ))}
                   </div>
@@ -885,14 +937,7 @@ export default async function BriefingPage({
           <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </span>
-          <div className="hidden sm:flex items-center gap-5">
-            <Link href="/dashboard" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Dashboard</Link>
-            <Link href="/dashboard/chat" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[12px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
-            <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
-            <LogoutButton label="Sign out" />
-          </div>
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex items-center gap-2">
             <Link
               href="/dashboard"
               className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[12px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"

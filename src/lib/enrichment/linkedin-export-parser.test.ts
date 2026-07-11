@@ -39,4 +39,20 @@ describe('parseLinkedInExportCsv', () => {
     expect(rows).toHaveLength(1)
     expect(rows[0].fullName).toBe('Sara Ng')
   })
+
+  it('parses exports that include a Notes preamble and URL header', () => {
+    const csv = [
+      'Notes:',
+      '"Some LinkedIn export files include informational notes before headers"',
+      '',
+      'First Name,Last Name,URL,Email Address,Company,Position,Connected On',
+      'Allan,"Wojahn, MHS, CPRW, CPBS",https://www.linkedin.com/in/allanwojahn,,D&S Executive Career Management,Lead Executive Resume Writer & Career Coach,10 Jul 2026',
+    ].join('\n')
+
+    const rows = parseLinkedInExportCsv(csv)
+    expect(rows).toHaveLength(1)
+    expect(rows[0].fullName).toBe('Allan Wojahn, MHS, CPRW, CPBS')
+    expect(rows[0].profileUrl).toBe('https://www.linkedin.com/in/allanwojahn')
+    expect(rows[0].normalizedCompany).toBe('d s executive career management')
+  })
 })

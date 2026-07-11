@@ -8,6 +8,11 @@ import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
 import { rankSignals } from '@/lib/intelligence-quality'
+import {
+  applyDashboardSignalContract,
+  DASHBOARD_COMPANY_SIGNAL_LIMIT,
+  DASHBOARD_PATTERN_ALERT_LIMIT,
+} from '@/lib/dashboard-signal-contract'
 
 const PAGE_SIZE = 25
 
@@ -32,6 +37,8 @@ export default async function SignalsPage({
 }) {
   const { company: companyFilter, type: typeFilter, page: pageParam } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
+  const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -50,27 +57,51 @@ export default async function SignalsPage({
     .is('archived_at', null)
     .order('name', { ascending: true })
 
-  let query = supabase
-    .from('company_signals')
-    .select('id, signal_type, signal_summary, outreach_angle, outreach_draft, signal_date, source_url, source_kind, confidence, focus_tags, profile_channel, profile_persona, relevance_score, company_id, companies(id, name)', { count: 'planned' })
-    .eq('user_id', user.id)
-    .order('signal_date', { ascending: false })
+  const [{ data: rawCompanySignals }, { data: rawPatternSignals }] = await Promise.all([
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, signal_date, source_kind, confidence, company_id, companies(id, name)')
+      .eq('user_id', user.id)
+      .neq('signal_type', 'pattern_alert')
+      .gte('signal_date', since7d)
+      .order('signal_date', { ascending: false })
+      .limit(DASHBOARD_COMPANY_SIGNAL_LIMIT),
+    supabase
+      .from('company_signals')
+      .select('id, signal_type, signal_summary, signal_date, source_kind, confidence, company_id, companies(id, name)')
+      .eq('user_id', user.id)
+      .eq('signal_type', 'pattern_alert')
+      .gte('signal_date', since14d)
+      .order('signal_date', { ascending: false })
+      .limit(DASHBOARD_PATTERN_ALERT_LIMIT),
+  ])
 
-  if (companyFilter) query = query.eq('company_id', companyFilter)
-  if (typeFilter) query = query.eq('signal_type', typeFilter)
-
-  const start = page * PAGE_SIZE
-  query = query.range(start, start + PAGE_SIZE - 1)
-
-  const { data: signals, count } = await query
-
-  if ((count ?? 0) > 0) {
-    captureServerEvent(user.id, 'signals_page_viewed', { signal_count: count ?? 0, page })
-    await logEvent(user.id, 'signals_page_viewed', { signal_count: count ?? 0, page })
+  type Signal = {
+    id: string
+    signal_type: string
+    signal_summary: string
+    outreach_angle?: string | null
+    outreach_draft?: { subject: string; body: string } | null
+    signal_date: string
+    source_url?: string | null
+    source_kind: string | null
+    confidence: number | null
+    relevance_score?: number | null
+    company_id: string
+    companies: { id: string; name: string } | Array<{ id: string; name: string }> | null
   }
 
+  const contractSignals = ([...(rawCompanySignals ?? []), ...(rawPatternSignals ?? [])] as unknown as Signal[])
+  const { mergedSignals } = applyDashboardSignalContract(contractSignals, {
+    companySince: since7d,
+    patternSince: since14d,
+  })
+  const contractFilteredSignals = mergedSignals
+    .filter((signal) => !companyFilter || signal.company_id === companyFilter)
+    .filter((signal) => !typeFilter || signal.signal_type === typeFilter)
+
   // Fetch first active contact per company for "Draft outreach" links
-  const signalCompanyIds = [...new Set((signals ?? []).map(s => s.company_id).filter(Boolean))]
+  const signalCompanyIds = [...new Set(contractFilteredSignals.map(s => s.company_id).filter(Boolean))]
   const contactByCompany = new Map<string, { id: string; name: string }>()
   if (signalCompanyIds.length > 0) {
     const { data: contactRows } = await supabase
@@ -87,36 +118,17 @@ export default async function SignalsPage({
     }
   }
 
-  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE)
-  const hasFilters = !!(companyFilter || typeFilter)
-
-  type Signal = {
-    id: string
-    signal_type: string
-    signal_summary: string
-    outreach_angle: string | null
-    outreach_draft: { subject: string; body: string } | null
-    signal_date: string
-    source_url: string | null
-    source_kind: string | null
-    confidence: number | null
-    focus_tags: string[] | null
-    profile_channel: string | null
-    profile_persona: string | null
-    relevance_score: number | null
-    company_id: string
-    companies: { id: string; name: string } | Array<{ id: string; name: string }> | null
-  }
-
-  const rawSignalList = (signals ?? []) as unknown as Signal[]
-
-  const rankedSignals = rankSignals(rawSignalList, {
+  const rankedSignals = rankSignals(contractFilteredSignals, {
     roleType: profile?.role_type,
     searchPersona: profile?.search_persona,
   })
 
+  const rankedOrFallback = rankedSignals.length > 0
+    ? rankedSignals
+    : contractFilteredSignals.map((signal) => ({ signal, score: 0, confidence: signal.confidence ?? 0, relevance: signal.relevance_score ?? 0 }))
+
   // Warm signals (companies with a known contact) float to the top after ranking.
-  const signalList = rankedSignals
+  const sortedSignals = rankedOrFallback
     .map((entry) => ({ ...entry.signal, _score: entry.score, _confidence: entry.confidence, _relevance: entry.relevance }))
     .sort((a, b) => {
       const warmDelta = (contactByCompany.has(a.company_id) ? 0 : 1) - (contactByCompany.has(b.company_id) ? 0 : 1)
@@ -124,9 +136,19 @@ export default async function SignalsPage({
       return b._score - a._score
     })
 
+  const totalPages = Math.max(1, Math.ceil(sortedSignals.length / PAGE_SIZE))
+  const safePage = Math.min(page, totalPages - 1)
+  const signalList = sortedSignals.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE)
+  const hasFilters = !!(companyFilter || typeFilter)
+
   const rolesFormingSignal = signalList[0] ?? null
 
-  const suppressedCount = Math.max(0, rawSignalList.length - rankedSignals.length)
+  const suppressedCount = Math.max(0, contractSignals.length - mergedSignals.length)
+
+  if (sortedSignals.length > 0) {
+    captureServerEvent(user.id, 'signals_page_viewed', { signal_count: sortedSignals.length, page: safePage })
+    await logEvent(user.id, 'signals_page_viewed', { signal_count: sortedSignals.length, page: safePage })
+  }
 
   function buildUrl(params: Record<string, string | undefined>) {
     const sp = new URLSearchParams()
@@ -143,17 +165,7 @@ export default async function SignalsPage({
       <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <span className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase text-slate-400"><span className="text-white">Starting </span><span className="text-orange-500">Monday</span></span>
-          <div className="hidden sm:flex items-center gap-5">
-            <Link href="/dashboard/chat" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Chat</Link>
-            <Link href="/dashboard/contacts" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Contacts</Link>
-            <Link href="/dashboard/briefing" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Briefing</Link>
-            <Link href="/dashboard/calendar" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Calendar</Link>
-            <Link href="/dashboard/help" className="text-[13px] font-semibold text-slate-300 hover:text-white transition-colors">Help</Link>
-            <Link href="/dashboard/profile" className="text-[13px] text-slate-300 hover:text-white transition-colors">{profile?.full_name ?? user.email}</Link>
-            <Link href="/settings/billing" className="text-[13px] text-slate-300 hover:text-white transition-colors">Billing</Link>
-            <LogoutButton label="Sign out" />
-          </div>
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex items-center gap-2">
             <Link
               href="/dashboard"
               className="inline-flex min-h-[44px] items-center rounded-md border border-slate-700 px-3 text-[13px] font-semibold text-slate-200 hover:text-white hover:border-slate-500"
@@ -170,7 +182,7 @@ export default async function SignalsPage({
           <div>
             <h1 className="text-[30px] font-bold text-white">Company Signals</h1>
             <p className="text-[13px] text-slate-300 mt-0.5">
-              {count ?? 0} signal{(count ?? 0) !== 1 ? 's' : ''} detected
+              {sortedSignals.length} signal{sortedSignals.length !== 1 ? 's' : ''} detected
             </p>
           </div>
           <Link href="/dashboard" className="ml-auto text-[13px] font-semibold text-slate-300 hover:text-orange-200 transition-colors">
@@ -220,6 +232,7 @@ export default async function SignalsPage({
             {Object.entries(SIGNAL_TYPE_LABELS).map(([val, label]) => (
               <option key={val} value={val}>{label}</option>
             ))}
+            <option value="pattern_alert">Pattern Alert</option>
           </select>
 
           <button
@@ -386,17 +399,17 @@ export default async function SignalsPage({
         {totalPages > 1 && (
           <div className="flex items-center justify-between">
             <Link
-              href={page > 0 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page - 1) }) : '#'}
-              className={`text-[13px] font-semibold px-4 py-2 rounded border border-white/20 bg-white/5 hover:bg-white/10 ${page === 0 ? 'opacity-40 pointer-events-none' : ''}`}
+              href={safePage > 0 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(safePage - 1) }) : '#'}
+              className={`text-[13px] font-semibold px-4 py-2 rounded border border-white/20 bg-white/5 hover:bg-white/10 ${safePage === 0 ? 'opacity-40 pointer-events-none' : ''}`}
             >
               Previous
             </Link>
             <span className="text-[13px] text-slate-300">
-              Page {page + 1} of {totalPages}
+              Page {safePage + 1} of {totalPages}
             </span>
             <Link
-              href={page < totalPages - 1 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(page + 1) }) : '#'}
-              className={`text-[13px] font-semibold px-4 py-2 rounded border border-white/20 bg-white/5 hover:bg-white/10 ${page >= totalPages - 1 ? 'opacity-40 pointer-events-none' : ''}`}
+              href={safePage < totalPages - 1 ? buildUrl({ company: companyFilter, type: typeFilter, page: String(safePage + 1) }) : '#'}
+              className={`text-[13px] font-semibold px-4 py-2 rounded border border-white/20 bg-white/5 hover:bg-white/10 ${safePage >= totalPages - 1 ? 'opacity-40 pointer-events-none' : ''}`}
             >
               Next
             </Link>
