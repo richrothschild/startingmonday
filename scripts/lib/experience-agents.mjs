@@ -10,7 +10,7 @@ export const experienceAgents = [
     id: 'experience-vitals-agent.yml',
     name: 'Experience Vitals Agent',
     status: 'In Progress',
-    maxAgeMinutes: 60 * 8,
+    maxAgeMinutes: 60 * 4, // Tightened from 8h to 4h after weekly verify
     sesWired: true,
     recommendation: 'Triage tier-level vitals budget breaches (now sourced from SES) and reconcile baseline drift before regressions harden.',
   },
@@ -18,7 +18,7 @@ export const experienceAgents = [
     id: 'cognitive-load-agent.yml',
     name: 'Cognitive Load Agent',
     status: 'In Progress',
-    maxAgeMinutes: 60 * 24 * 8,
+    maxAgeMinutes: 60 * 24 * 4, // Tightened from 8d to 4d after weekly verify
     sesWired: true,
     recommendation: 'Review high-density public routes and reduce CTA competition or paragraph density before fluency regresses further.',
   },
@@ -26,30 +26,31 @@ export const experienceAgents = [
     id: 'cognitive-fluency-calibration-dispatch.yml',
     name: 'Cognitive Fluency Calibration Dispatch',
     status: 'In Progress',
-    maxAgeMinutes: 60 * 24 * 40,
+    maxAgeMinutes: 60 * 24 * 20, // Tightened from 40d to 20d based on monthly cycle
     recommendation: 'Run Page Experience Auditor on the monthly worst routes packet and feed the resulting corrections back into deterministic scoring.',
   },
   {
     id: 'trust-integrity-agent.yml',
     name: 'Trust Integrity Agent',
     status: 'Done',
-    maxAgeMinutes: 60 * 24,
+    maxAgeMinutes: 60 * 12, // Tightened from 24h to 12h after weekly verify
+    sesWired: true,
     recommendation: 'Monitor dashboard signal parity contracts and relative-time staleness violations; escalate P0 count mismatches immediately.',
   },
   {
     id: 'visual-sentinel-agent.yml',
     name: 'Visual Sentinel Agent',
     status: 'In Progress',
-    maxAgeMinutes: 60 * 12,
+    maxAgeMinutes: 60 * 6, // Tightened from 12h to 6h with screenshot diffing
     sesWired: true,
-    recommendation: 'Add rendered screenshot/diff checks; typography and accent telemetry are now tracked source-side via SES visualDiscipline thresholds.',
+    recommendation: 'Monitor screenshot diffs and validate visual regressions; address font-family and accent-color drift immediately.',
   },
   {
     id: 'journey-synthetic-agent.yml',
     name: 'Journey Synthetic Agent',
     status: 'In Progress',
-    maxAgeMinutes: 60 * 6,
+    maxAgeMinutes: 60 * 3, // Tightened from 6h to 3h with journey-step critical detection
     sesWired: true,
-    recommendation: 'Normalize journey step percentiles and abandonment-risk scoring into portfolio rollup issue clustering; verify SES journeySynthetic thresholds update regularly.',
+    recommendation: 'Detect and respond to critical journey step latency immediately; prioritize abandonment-risk mitigation before conversion impact.',
   },
 ]
