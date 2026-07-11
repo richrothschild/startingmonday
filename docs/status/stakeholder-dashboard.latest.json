@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-11T23:42:53.435Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "vitalsMetrics": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "total": 0,
+    "status": "unknown"
+  },
+  "vitalsStatus": "unknown",
+  "trustMetrics": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "total": 0,
+    "status": "healthy"
+  },
+  "trustStatus": "healthy",
+  "a11yMetrics": {
+    "p0": 0,
+    "p1": 3,
+    "p2": 0,
+    "total": 3,
+    "status": "degraded"
+  },
+  "a11yStatus": "degraded",
+  "mobileMetrics": {
+    "p0": 0,
+    "p1": 4,
+    "p2": 8,
+    "total": 12,
+    "status": "degraded"
+  },
+  "mobileStatus": "degraded",
+  "totalP0": 0,
+  "totalP1": 7,
+  "totalP2": 8,
+  "overdueCount": 0,
+  "topOverdueIssues": []
+}

@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-07-11T23:40:40.227Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "categoryAnalysis": {
+    "cognitive-load": {
+      "currentCount": 60,
+      "previousCount": null,
+      "trend": "baseline",
+      "daysToFailure": 999
+    },
+    "accessibility-sweep": {
+      "currentCount": 3,
+      "previousCount": null,
+      "trend": "baseline",
+      "daysToFailure": 999
+    },
+    "mobile-responsive": {
+      "currentCount": 12,
+      "previousCount": null,
+      "trend": "baseline",
+      "daysToFailure": 999
+    }
+  },
+  "routeAnalysis": [
+    {
+      "route": "/",
+      "total": 9,
+      "p0": 0,
+      "p1": 5,
+      "p2": 4
+    },
+    {
+      "route": "/pricing",
+      "total": 6,
+      "p0": 0,
+      "p1": 2,
+      "p2": 4
+    }
+  ]
+}
