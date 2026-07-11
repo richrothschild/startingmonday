@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "description": "Temporary suppressions for known sentinel findings. Expired entries are treated as blocking violations.",
+  "entries": [
+    {
+      "ticket": "SXO-203",
+      "owner": "platform-reliability",
+      "reason": "Known dashboard shell debt under active remediation",
+      "route": "/dashboard",
+      "dimension": "palette-conformance",
+      "signatureIncludes": "bg-slate-100",
+      "expiresAt": "2026-08-15T00:00:00Z"
+    },
+    {
+      "ticket": "SXO-203",
+      "owner": "platform-reliability",
+      "reason": "Known admin shell debt under active remediation",
+      "route": "/dashboard/admin/b2b",
+      "dimension": "palette-conformance",
+      "signatureIncludes": "bg-slate-100",
+      "expiresAt": "2026-08-15T00:00:00Z"
+    },
+    {
+      "ticket": "SXO-203",
+      "owner": "platform-reliability",
+      "reason": "Known public shell debt under active remediation",
+      "route": "/guide",
+      "dimension": "palette-conformance",
+      "signatureIncludes": "bg-slate-100",
+      "expiresAt": "2026-08-15T00:00:00Z"
+    }
+  ]
+}

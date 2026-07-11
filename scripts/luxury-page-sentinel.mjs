@@ -25,8 +25,16 @@ const baseUrlArg = argv.find((a) => a.startsWith('--base-url='))
 const outputJsonArg = argv.find((a) => a.startsWith('--output-json='))
 const BASE_URL = (baseUrlArg?.split('=')[1] || process.env.SENTINEL_BASE_URL || 'https://startingmonday.app').replace(/\/$/, '')
 const OUTPUT_JSON = outputJsonArg?.split('=')[1] || 'tmp/luxury-page-sentinel.json'
+const QUARANTINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-quarantine.json')
+const DEBT_BASELINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-debt-baseline.json')
 
 const rubric = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'luxury-page-sentinel-rubric.json'), 'utf8'))
+const quarantine = fs.existsSync(QUARANTINE_JSON)
+  ? JSON.parse(fs.readFileSync(QUARANTINE_JSON, 'utf8'))
+  : { version: 1, entries: [] }
+const debtBaseline = fs.existsSync(DEBT_BASELINE_JSON)
+  ? JSON.parse(fs.readFileSync(DEBT_BASELINE_JSON, 'utf8'))
+  : { version: 1, maxByDimension: {} }
 
 // ── Route inventory ──────────────────────────────────────────────────────────
 function collectPageFiles(dir, acc = []) {
@@ -208,6 +216,158 @@ const coveragePct = verdictTotals.total === 0
   ? 0
   : Number((((verdictTotals.passed + verdictTotals.failed) / verdictTotals.total) * 100).toFixed(1))
 
+function routeScope(route) {
+  if (route.startsWith('/dashboard')) return 'dashboard'
+  if (route === '/' || route.startsWith('/pricing') || route.startsWith('/demo') || route.startsWith('/blog') || route.startsWith('/method-and-evidence') || route.startsWith('/signup')) {
+    return 'funnel'
+  }
+  return 'public'
+}
+
+function evidenceSignature(violation) {
+  if (violation.dimension === 'palette-conformance') {
+    const classHit = violation.evidence.match(/className=\"[^\"]+\"/)
+    return classHit ? classHit[0].slice(0, 120) : violation.evidence.slice(0, 120)
+  }
+
+  if (violation.dimension === 'availability') {
+    const statusHit = violation.evidence.match(/HTTP\s+(\d{3})/)
+    if (statusHit) return `http-${statusHit[1]}`
+    if (violation.evidence.includes('404 marker')) return 'rendered-404-marker'
+    if (violation.evidence.includes('fetch failed')) return 'fetch-failed'
+  }
+
+  if (violation.dimension === 'coverage') {
+    return violation.evidence.includes('allowlisted') ? 'skip-reason-not-allowlisted' : 'unexplained-coverage-gap'
+  }
+
+  return violation.evidence.slice(0, 120)
+}
+
+function buildIncidents(violations) {
+  const buckets = new Map()
+
+  for (const violation of violations) {
+    const scope = routeScope(violation.route)
+    const signature = evidenceSignature(violation)
+    const key = `${violation.dimension}|${scope}|${signature}`
+
+    if (!buckets.has(key)) {
+      buckets.set(key, {
+        key,
+        dimension: violation.dimension,
+        scope,
+        signature,
+        evidence: violation.evidence,
+        routes: new Set(),
+      })
+    }
+
+    buckets.get(key).routes.add(violation.route)
+  }
+
+  const severityWeight = { availability: 4, coverage: 3, 'palette-conformance': 2 }
+  return [...buckets.values()]
+    .map((incident) => {
+      const routes = [...incident.routes].sort()
+      const routeCount = routes.length
+      const weight = severityWeight[incident.dimension] ?? 1
+      return {
+        key: incident.key,
+        dimension: incident.dimension,
+        scope: incident.scope,
+        signature: incident.signature,
+        evidence: incident.evidence,
+        routeCount,
+        routes,
+        sampleRoutes: routes.slice(0, 5),
+        score: routeCount * weight,
+      }
+    })
+    .sort((a, b) => b.score - a.score || b.routeCount - a.routeCount || a.dimension.localeCompare(b.dimension))
+}
+
+function applyQuarantine(violations) {
+  const now = Date.now()
+  const entries = Array.isArray(quarantine.entries) ? quarantine.entries : []
+  const active = entries.filter((entry) => !entry.expiresAt || new Date(entry.expiresAt).getTime() > now)
+  const expired = entries.filter((entry) => entry.expiresAt && new Date(entry.expiresAt).getTime() <= now)
+
+  const isMatch = (entry, violation) => {
+    if (entry.route !== violation.route) return false
+    if (entry.dimension !== violation.dimension) return false
+    if (entry.signatureIncludes && !violation.evidence.includes(entry.signatureIncludes)) return false
+    return true
+  }
+
+  const suppressed = []
+  const unsuppressed = []
+  for (const violation of violations) {
+    const matched = active.find((entry) => isMatch(entry, violation))
+    if (matched) {
+      suppressed.push({
+        route: violation.route,
+        dimension: violation.dimension,
+        evidence: violation.evidence,
+        quarantine: {
+          ticket: matched.ticket ?? null,
+          owner: matched.owner ?? null,
+          expiresAt: matched.expiresAt ?? null,
+          reason: matched.reason ?? null,
+        },
+      })
+      continue
+    }
+    unsuppressed.push(violation)
+  }
+
+  const expiredViolations = expired.map((entry) => ({
+    route: entry.route ?? '(quarantine-entry)',
+    dimension: 'quarantine',
+    evidence: `expired quarantine entry (ticket=${entry.ticket ?? 'n/a'}, owner=${entry.owner ?? 'n/a'}, expired=${entry.expiresAt})`,
+  }))
+
+  return {
+    unsuppressed,
+    suppressed,
+    expiredViolations,
+    stats: {
+      activeEntries: active.length,
+      expiredEntries: expired.length,
+      suppressedFindings: suppressed.length,
+    },
+  }
+}
+
+function applyDebtRatchet(violations) {
+  const byDimension = violations.reduce((acc, violation) => {
+    acc[violation.dimension] = (acc[violation.dimension] ?? 0) + 1
+    return acc
+  }, {})
+
+  const checks = []
+  const violationsOut = []
+  const maxByDimension = debtBaseline.maxByDimension ?? {}
+
+  for (const [dimension, max] of Object.entries(maxByDimension)) {
+    const current = byDimension[dimension] ?? 0
+    const pass = current <= max
+    checks.push({ dimension, max, current, pass })
+    if (!pass) {
+      violationsOut.push({
+        route: '(portfolio)',
+        dimension: 'debt-ratchet',
+        evidence: `${dimension} debt increased (${current} > ${max})`,
+      })
+    }
+  }
+
+  return {
+    checks,
+    violations: violationsOut,
+  }
+}
+
 // ── Report ───────────────────────────────────────────────────────────────────
 const blockingViolations = [
   ...paletteViolations,
@@ -215,6 +375,14 @@ const blockingViolations = [
   ...coverageViolations,
 ]
 const advisoryViolations = runtimeViolations.filter((v) => v.blocking === false)
+const quarantineResult = applyQuarantine(blockingViolations)
+const debtRatchetResult = applyDebtRatchet(blockingViolations)
+const effectiveBlockingViolations = [
+  ...quarantineResult.unsuppressed,
+  ...quarantineResult.expiredViolations,
+  ...debtRatchetResult.violations,
+]
+const incidents = buildIncidents(effectiveBlockingViolations)
 
 const summary = {
   generatedAt: new Date().toISOString(),
@@ -231,7 +399,24 @@ const summary = {
     unexplainedGaps: coverageViolations.length,
     verdicts,
   },
-  blockingViolations: blockingViolations.length,
+  incidents: {
+    total: incidents.length,
+    byDimension: incidents.reduce((acc, incident) => {
+      acc[incident.dimension] = (acc[incident.dimension] ?? 0) + 1
+      return acc
+    }, {}),
+    top: incidents,
+  },
+  quarantine: {
+    ...quarantineResult.stats,
+    suppressed: quarantineResult.suppressed,
+  },
+  debtRatchet: {
+    checks: debtRatchetResult.checks,
+    violations: debtRatchetResult.violations,
+    pass: debtRatchetResult.violations.length === 0,
+  },
+  blockingViolations: effectiveBlockingViolations.length,
   violations: [...blockingViolations, ...advisoryViolations],
 }
 
@@ -245,24 +430,38 @@ console.log(`- coverage: ${coveragePct}% (${verdictTotals.passed} pass, ${verdic
 for (const [reason, count] of Object.entries(skipCounts)) {
   console.log(`  skip[${reason}]: ${count}`)
 }
+console.log(`- incidents: ${incidents.length}`)
+console.log(`- quarantine: active=${quarantineResult.stats.activeEntries}, expired=${quarantineResult.stats.expiredEntries}, suppressed=${quarantineResult.stats.suppressedFindings}`)
+console.log(`- debt-ratchet pass: ${summary.debtRatchet.pass}`)
+for (const check of summary.debtRatchet.checks) {
+  console.log(`  debt[${check.dimension}]: current=${check.current}, max=${check.max}, pass=${check.pass}`)
+}
 console.log(`- palette violations: ${summary.paletteViolations}`)
 console.log(`- availability violations: ${summary.availabilityViolations}`)
 console.log(`- latency warnings: ${summary.latencyWarnings}`)
-for (const v of blockingViolations.slice(0, 50)) {
-  console.log(`  [${v.dimension}] ${v.route} :: ${v.evidence}`)
+for (const incident of incidents.slice(0, 15)) {
+  const sample = incident.sampleRoutes.join(', ')
+  console.log(`  [incident] ${incident.dimension}/${incident.scope} :: routes=${incident.routeCount} :: ${incident.signature}`)
+  if (sample) console.log(`    sample: ${sample}`)
 }
 
 // ── Slack alert ──────────────────────────────────────────────────────────────
 const webhook = process.env.SLACK_WEBHOOK_URL
-if (webhook && blockingViolations.length > 0) {
-  const lines = blockingViolations.slice(0, 25).map((v) => `• [${v.dimension}] ${v.route} - ${v.evidence}`)
-  const extra = blockingViolations.length > 25 ? `\n…and ${blockingViolations.length - 25} more` : ''
+if (webhook && effectiveBlockingViolations.length > 0) {
+  const lines = incidents.slice(0, 12).map((incident) => {
+    const sampleRoutes = incident.sampleRoutes.join(', ')
+    const extraRoutes = incident.routeCount > incident.sampleRoutes.length ? ` +${incident.routeCount - incident.sampleRoutes.length} more` : ''
+    return `• [${incident.dimension}/${incident.scope}] ${incident.routeCount} route(s) :: ${incident.signature} :: ${sampleRoutes}${extraRoutes}`
+  })
+  const extra = incidents.length > 12 ? `\n…and ${incidents.length - 12} more incident pattern(s)` : ''
   const skipSummary = Object.entries(skipCounts).map(([reason, count]) => `${reason}=${count}`).join(', ') || 'none'
   const text = [
-    `:rotating_light: Luxury page sentinel found ${blockingViolations.length} non-conforming page(s)`,
+    `:rotating_light: Luxury page sentinel found ${incidents.length} incident pattern(s) across ${effectiveBlockingViolations.length} blocking route findings`,
     `Base URL: ${BASE_URL}`,
     `Coverage: ${coveragePct}% of ${verdictTotals.total} routes (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip [${skipSummary}], ${verdictTotals.gaps} unexplained gap)`,
-    `Routes discovered: ${summary.routesDiscovered} | Palette: ${summary.paletteViolations} | Availability: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
+    `Routes discovered: ${summary.routesDiscovered} | Incidents: ${incidents.length} | Palette findings: ${summary.paletteViolations} | Availability findings: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
+    `Quarantine: active=${quarantineResult.stats.activeEntries}, expired=${quarantineResult.stats.expiredEntries}, suppressed=${quarantineResult.stats.suppressedFindings}`,
+    `Debt ratchet: ${summary.debtRatchet.pass ? 'pass' : 'fail'} (${summary.debtRatchet.checks.map((c) => `${c.dimension}=${c.current}/${c.max}`).join(', ')})`,
     '',
     ...lines,
   ].join('\n') + extra
@@ -278,6 +477,6 @@ if (webhook && blockingViolations.length > 0) {
   }
 }
 
-if (blockingViolations.length > 0 && !reportOnly) {
+if (effectiveBlockingViolations.length > 0 && !reportOnly) {
   process.exitCode = 1
 }
