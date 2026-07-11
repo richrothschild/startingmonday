@@ -155,7 +155,7 @@ async function run() {
   const email = process.env.PLAYWRIGHT_TEST_EMAIL
   const password = process.env.PLAYWRIGHT_TEST_PASSWORD
   const slackWebhook = process.env.SLACK_UI_DELIVERY_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
-  const slackChannelLabel = process.env.SLACK_UI_DELIVERY_CHANNEL || 'UI-Delivery'
+  const slackChannelLabel = process.env.SLACK_UI_DELIVERY_CHANNEL || 'reliability---service'
 
   if (!email || !password) {
     throw new Error('Missing PLAYWRIGHT_TEST_EMAIL or PLAYWRIGHT_TEST_PASSWORD')
