@@ -72,6 +72,8 @@ jobs:
           SYNTH_BRIEFING_SAMPLE_COUNT: 5
           SYNTH_BRIEFING_SETTLE_P50_MS: 7000
           SYNTH_BRIEFING_SETTLE_P95_MS: 14000
+          SYNTH_JOURNEY_STEP_P95_WARN_MS: 6000
+          SYNTH_JOURNEY_STEP_P95_CRITICAL_MS: 12000
         run: |
           npx playwright test --project=synthetics --project=onboarding-live \
             --reporter=json 2>/dev/null > synthetic-results.json || true
@@ -83,6 +85,14 @@ jobs:
           const suites = results.suites ?? []
           let passed = 0, failed = 0, skipped = 0
           const failedTests = []
+          const stepDurations = new Map()
+
+          function percentile(values, p) {
+            if (!Array.isArray(values) || values.length === 0) return null
+            const sorted = [...values].sort((a, b) => a - b)
+            const idx = Math.min(sorted.length - 1, Math.max(0, Math.ceil((p / 100) * sorted.length) - 1))
+            return sorted[idx]
+          }
 
           function walk(suite) {
             for (const s of suite.suites ?? []) walk(s)
@@ -91,17 +101,100 @@ jobs:
                 if (test.status === 'passed') passed++
                 else if (test.status === 'skipped') skipped++
                 else { failed++; failedTests.push(spec.title) }
+
+                const durations = (test.results ?? [])
+                  .map((result) => Number(result.duration))
+                  .filter((duration) => Number.isFinite(duration) && duration >= 0)
+                if (durations.length > 0) {
+                  const lastDuration = durations[durations.length - 1]
+                  const existing = stepDurations.get(spec.title) ?? []
+                  existing.push(lastDuration)
+                  stepDurations.set(spec.title, existing)
+                }
               }
             }
           }
           suites.forEach(walk)
 
           const total = passed + failed
+          const warnP95Ms = Number(process.env.SYNTH_JOURNEY_STEP_P95_WARN_MS || 6000)
+          const criticalP95Ms = Number(process.env.SYNTH_JOURNEY_STEP_P95_CRITICAL_MS || 12000)
+
+          const perStepMetrics = Array.from(stepDurations.entries())
+            .map(([stepName, values]) => {
+              const p50 = percentile(values, 50)
+              const p95 = percentile(values, 95)
+              return {
+                stepName,
+                sampleCount: values.length,
+                p50Ms: p50 === null ? null : Math.round(p50),
+                p95Ms: p95 === null ? null : Math.round(p95),
+              }
+            })
+            .filter((step) => typeof step.p95Ms === 'number')
+            .sort((a, b) => b.p95Ms - a.p95Ms)
+
+          const journeyStepP95 =
+            perStepMetrics.length > 0
+              ? Math.round(percentile(perStepMetrics.map((step) => step.p95Ms), 95))
+              : null
+          const slowStepCount = perStepMetrics.filter((step) => step.p95Ms >= warnP95Ms).length
+          const criticalSlowStepCount = perStepMetrics.filter((step) => step.p95Ms >= criticalP95Ms).length
+
+          const failureRatio = total > 0 ? failed / total : 0
+          const slowStepRatio = perStepMetrics.length > 0 ? slowStepCount / perStepMetrics.length : 0
+          const criticalSlowStepRatio =
+            perStepMetrics.length > 0 ? criticalSlowStepCount / perStepMetrics.length : 0
+          const abandonmentRiskScore = Math.max(
+            0,
+            Math.min(
+              100,
+              Math.round(failureRatio * 70 + slowStepRatio * 20 + criticalSlowStepRatio * 10)
+            )
+          )
+          const abandonmentRiskBand =
+            abandonmentRiskScore >= 40 ? 'high' : abandonmentRiskScore >= 20 ? 'medium' : 'low'
+
+          fs.writeFileSync(
+            'synthetic-journey-metrics.json',
+            JSON.stringify(
+              {
+                generatedAt: new Date().toISOString(),
+                totalChecks: total,
+                failedChecks: failed,
+                journeyStepP95Ms: journeyStepP95,
+                abandonmentRisk: {
+                  score: abandonmentRiskScore,
+                  band: abandonmentRiskBand,
+                  weights: {
+                    failureRatio: 70,
+                    slowStepRatio: 20,
+                    criticalSlowStepRatio: 10,
+                  },
+                },
+                thresholds: {
+                  warnStepP95Ms: warnP95Ms,
+                  criticalStepP95Ms: criticalP95Ms,
+                },
+                slowStepCount,
+                criticalSlowStepCount,
+                perStepTop: perStepMetrics.slice(0, 12),
+              },
+              null,
+              2
+            )
+          )
+
           console.log('passed=' + passed)
           console.log('failed=' + failed)
           console.log('skipped=' + skipped)
           console.log('total=' + total)
           console.log('failed_tests=' + failedTests.join('|'))
+          console.log('journey_step_p95=' + (journeyStepP95 ?? ''))
+          console.log('journey_risk_score=' + abandonmentRiskScore)
+          console.log('journey_risk_band=' + abandonmentRiskBand)
+          console.log('journey_slow_steps=' + slowStepCount)
+          console.log('journey_critical_slow_steps=' + criticalSlowStepCount)
 
           const outputs = [
             'passed=' + passed,
@@ -109,6 +202,11 @@ jobs:
             'skipped=' + skipped,
             'total=' + total,
             'failed_tests=' + failedTests.join('|'),
+            'journey_step_p95=' + String(journeyStepP95 ?? ''),
+            'journey_risk_score=' + String(abandonmentRiskScore),
+            'journey_risk_band=' + abandonmentRiskBand,
+            'journey_slow_steps=' + String(slowStepCount),
+            'journey_critical_slow_steps=' + String(criticalSlowStepCount),
           ]
 
           const briefingMetricsPath = 'synthetic-briefing-settle-metrics.json'
@@ -142,6 +240,11 @@ jobs:
           BRIEFING_P50="${{ steps.synthetics.outputs.briefing_settle_p50 || 'N/A' }}"
           BRIEFING_P95="${{ steps.synthetics.outputs.briefing_settle_p95 || 'N/A' }}"
           BRIEFING_SAMPLES="${{ steps.synthetics.outputs.briefing_settle_samples || 'N/A' }}"
+          JOURNEY_STEP_P95="${{ steps.synthetics.outputs.journey_step_p95 || 'N/A' }}"
+          JOURNEY_RISK_SCORE="${{ steps.synthetics.outputs.journey_risk_score || 'N/A' }}"
+          JOURNEY_RISK_BAND="${{ steps.synthetics.outputs.journey_risk_band || 'N/A' }}"
+          JOURNEY_SLOW_STEPS="${{ steps.synthetics.outputs.journey_slow_steps || 'N/A' }}"
+          JOURNEY_CRITICAL_SLOW_STEPS="${{ steps.synthetics.outputs.journey_critical_slow_steps || 'N/A' }}"
           SHA="${{ github.sha }}"
 
           cat >> "$GITHUB_STEP_SUMMARY" <<EOF
@@ -155,6 +258,10 @@ jobs:
           | Briefing settle P50 (ms) | ${BRIEFING_P50} |
           | Briefing settle P95 (ms) | ${BRIEFING_P95} |
           | Briefing settle samples | ${BRIEFING_SAMPLES} |
+          | Journey step P95 (ms) | ${JOURNEY_STEP_P95} |
+          | Journey abandonment risk | ${JOURNEY_RISK_SCORE}/100 (${JOURNEY_RISK_BAND}) |
+          | Slow journey steps | ${JOURNEY_SLOW_STEPS} |
+          | Critical-slow steps | ${JOURNEY_CRITICAL_SLOW_STEPS} |
           | Deploy SHA | ${SHA:0:8} |
 
           EOF
@@ -172,6 +279,7 @@ jobs:
           path: |
             synthetic-results.json
             synthetic-briefing-settle-metrics.json
+            synthetic-journey-metrics.json
           retention-days: 14
 
       - name: Upload Playwright report
@@ -192,38 +300,47 @@ jobs:
           FAILED_TESTS="${{ steps.synthetics.outputs.failed_tests }}"
           BRIEFING_P50="${{ steps.synthetics.outputs.briefing_settle_p50 || 'n/a' }}"
           BRIEFING_P95="${{ steps.synthetics.outputs.briefing_settle_p95 || 'n/a' }}"
+          JOURNEY_RISK_SCORE="${{ steps.synthetics.outputs.journey_risk_score || 'n/a' }}"
+          JOURNEY_RISK_BAND="${{ steps.synthetics.outputs.journey_risk_band || 'n/a' }}"
           SHA="${{ github.sha }}"
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           # Format failed test list for Slack
           TESTS_FMT=$(echo "$FAILED_TESTS" | tr '|' '\n' | head -5 | sed 's/^/- /' | tr '\n' ' ')
+          TESTS_FMT=${TESTS_FMT//\\/\\\\}
+          TESTS_FMT=${TESTS_FMT//\"/\\\"}
 
-          curl -X POST -H 'Content-type: application/json' --data "{
-            \"text\": \"P0 Synthetic failure — ${FAILED}/${TOTAL} checks failed\",
-            \"blocks\": [
+          cat > slack-payload.json <<EOF
+          {
+            "text": "P0 Synthetic failure - ${FAILED}/${TOTAL} checks failed",
+            "blocks": [
               {
-                \"type\": \"header\",
-                \"text\": {
-                  \"type\": \"plain_text\",
-                  \"text\": \"🚨 P0 Synthetic Failure — Sev-1\"
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "P0 Synthetic Failure - Sev-1"
                 }
               },
               {
-                \"type\": \"section\",
-                \"fields\": [
-                  {\"type\": \"mrkdwn\", \"text\": \"*Failed checks:* ${FAILED}/${TOTAL}\"},
-                  {\"type\": \"mrkdwn\", \"text\": \"*Deploy SHA:* ${SHA:0:8}\"},
-                  {"type": "mrkdwn", "text": "*Briefing settle:* P50 ${BRIEFING_P50}ms · P95 ${BRIEFING_P95}ms"},
-                  {\"type\": \"mrkdwn\", \"text\": \"*Tests:* ${TESTS_FMT}\"},
-                  {\"type\": \"mrkdwn\", \"text\": \"*Runbooks:* docs/sre/runbooks/\"}
+                "type": "section",
+                "fields": [
+                  {"type": "mrkdwn", "text": "*Failed checks:* ${FAILED}/${TOTAL}"},
+                  {"type": "mrkdwn", "text": "*Deploy SHA:* ${SHA:0:8}"},
+                  {"type": "mrkdwn", "text": "*Briefing settle:* P50 ${BRIEFING_P50}ms | P95 ${BRIEFING_P95}ms"},
+                  {"type": "mrkdwn", "text": "*Journey risk:* ${JOURNEY_RISK_SCORE}/100 (${JOURNEY_RISK_BAND})"},
+                  {"type": "mrkdwn", "text": "*Tests:* ${TESTS_FMT}"},
+                  {"type": "mrkdwn", "text": "*Runbooks:* docs/sre/runbooks/"}
                 ]
               },
               {
-                \"type\": \"section\",
-                \"text\": {
-                  \"type\": \"mrkdwn\",
-                  \"text\": \"<${RUN_URL}|View synthetic run logs>\"
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "<${RUN_URL}|View synthetic run logs>"
                 }
               }
             ]
-          }" "$SLACK_WEBHOOK_URL"
+          }
+          EOF
+
+          curl -X POST -H 'Content-type: application/json' --data @slack-payload.json "$SLACK_WEBHOOK_URL"
