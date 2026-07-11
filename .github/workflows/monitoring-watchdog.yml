@@ -49,6 +49,7 @@ jobs:
               // Use a wider threshold to prevent false watchdog pages while still detecting real monitoring stalls.
               { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 120, requireSuccess: true },
               { id: 'dashboard-behavior-baseline.yml', name: 'Dashboard Behavior Baseline Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },
+              { id: 'reliability-daily-report.yml', name: 'Reliability Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'luxury-page-sentinel.yml', name: 'Luxury Page Sentinel', maxAgeMinutes: 120, requireSuccess: false, consecutiveFailureThreshold: 3 },
               { id: 'security-weekly.yml', name: 'Weekly security audit', maxAgeMinutes: 60 * 24 * 10, requireSuccess: false },
               { id: 'watermark-audit.yml', name: 'Monthly Watermark Documentation Audit', maxAgeMinutes: 60 * 24 * 40, requireSuccess: false },

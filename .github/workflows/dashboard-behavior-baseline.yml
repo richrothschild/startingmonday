@@ -36,7 +36,7 @@ jobs:
           PLAYWRIGHT_TEST_PASSWORD: ${{ secrets.PLAYWRIGHT_TEST_PASSWORD }}
           SLACK_UI_DELIVERY_WEBHOOK_URL: ${{ secrets.SLACK_UI_DELIVERY_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_UI_DELIVERY_CHANNEL: UI-Delivery
+          SLACK_UI_DELIVERY_CHANNEL: reliability---service
         run: |
           node scripts/dashboard-behavior-baseline.mjs \
             --base-url "$PLAYWRIGHT_BASE_URL" \
@@ -67,7 +67,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Dashboard behavior baseline agent failed*\nChannel: UI-Delivery\n<'"$RUN_URL"'|View workflow run>"
+                  "text": "*Dashboard behavior baseline agent failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
                 }
               }
             ]
