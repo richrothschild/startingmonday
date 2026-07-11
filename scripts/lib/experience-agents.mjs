@@ -77,4 +77,20 @@ export const experienceAgents = [
     sesWired: true,
     recommendation: 'Address P1 touch target violations and horizontal overflow on phones; improve font sizes for readability.',
   },
+  {
+    id: 'trends-forecasting-agent.yml',
+    name: 'Trends Forecasting Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24 * 7, // 1 week - Weekly velocity + risk scoring
+    sesWired: true,
+    recommendation: 'Track weekly issue velocity across all agents; forecast risk level based on open P0/P1 count and trend direction.',
+  },
+  {
+    id: 'sla-attainment-agent.yml',
+    name: 'SLA Attainment Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 24, // 1 day - Team SLA performance tracking
+    sesWired: true,
+    recommendation: 'Monitor team SLA compliance (P0=60m, P1=4h, P2=24h); escalate if attainment falls below 80%.',
+  },
 ]

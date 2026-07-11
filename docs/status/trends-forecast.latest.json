@@ -1,0 +1,176 @@
+{
+  "generatedAt": "2026-07-11T23:28:48.355Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "riskScore": 149,
+  "riskLevel": "medium",
+  "velocity": {
+    "vitals": {
+      "total": 0,
+      "p0": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "cognitive": {
+      "total": 0,
+      "p0": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "trust": {
+      "total": 0,
+      "p0": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "accessibility": {
+      "total": 3,
+      "p0": 0,
+      "p1": 3,
+      "p2": 0
+    },
+    "mobile": {
+      "total": 12,
+      "p0": 0,
+      "p1": 4,
+      "p2": 8
+    }
+  },
+  "criticalFindings": [
+    {
+      "route": "/",
+      "type": "color-contrast",
+      "element": "A",
+      "severity": "P1",
+      "contrastRatio": "1.00",
+      "required": 4.5,
+      "text": "Get access",
+      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Get access\"",
+      "category": "accessibility"
+    },
+    {
+      "route": "/",
+      "type": "color-contrast",
+      "element": "A",
+      "severity": "P1",
+      "contrastRatio": "1.00",
+      "required": 4.5,
+      "text": "Explore the evidence →",
+      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Explore the evidence →\"",
+      "category": "accessibility"
+    },
+    {
+      "route": "/",
+      "type": "color-contrast",
+      "element": "A",
+      "severity": "P1",
+      "contrastRatio": "1.00",
+      "required": 4.5,
+      "text": "Open full example brief",
+      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Open full example brief\"",
+      "category": "accessibility"
+    },
+    {
+      "route": "/",
+      "viewport": "mobile-xs",
+      "type": "touch-target-size",
+      "severity": "P1",
+      "count": 8,
+      "examples": [
+        {
+          "element": "A",
+          "text": "Open full example brief",
+          "width": 185,
+          "height": 40,
+          "size": "185x40"
+        },
+        {
+          "element": "A",
+          "text": "Evidence hub",
+          "width": 73,
+          "height": 38,
+          "size": "73x38"
+        }
+      ],
+      "message": "8 touch targets below 44px on mobile-xs (320px)",
+      "category": "mobile"
+    },
+    {
+      "route": "/",
+      "viewport": "mobile-sm",
+      "type": "touch-target-size",
+      "severity": "P1",
+      "count": 8,
+      "examples": [
+        {
+          "element": "A",
+          "text": "Open full example brief",
+          "width": 185,
+          "height": 40,
+          "size": "185x40"
+        },
+        {
+          "element": "A",
+          "text": "Evidence hub",
+          "width": 73,
+          "height": 38,
+          "size": "73x38"
+        }
+      ],
+      "message": "8 touch targets below 44px on mobile-sm (375px)",
+      "category": "mobile"
+    },
+    {
+      "route": "/pricing",
+      "viewport": "mobile-xs",
+      "type": "touch-target-size",
+      "severity": "P1",
+      "count": 6,
+      "examples": [
+        {
+          "element": "A",
+          "text": "Starting Monday",
+          "width": 142,
+          "height": 39,
+          "size": "142x39"
+        },
+        {
+          "element": "A",
+          "text": "Log in",
+          "width": 33,
+          "height": 39,
+          "size": "33x39"
+        }
+      ],
+      "message": "6 touch targets below 44px on mobile-xs (320px)",
+      "category": "mobile"
+    },
+    {
+      "route": "/pricing",
+      "viewport": "mobile-sm",
+      "type": "touch-target-size",
+      "severity": "P1",
+      "count": 7,
+      "examples": [
+        {
+          "element": "A",
+          "text": "Starting Monday",
+          "width": 150,
+          "height": 20,
+          "size": "150x20"
+        },
+        {
+          "element": "A",
+          "text": "Log in",
+          "width": 36,
+          "height": 20,
+          "size": "36x20"
+        }
+      ],
+      "message": "7 touch targets below 44px on mobile-sm (375px)",
+      "category": "mobile"
+    }
+  ],
+  "totalFindings": 15
+}

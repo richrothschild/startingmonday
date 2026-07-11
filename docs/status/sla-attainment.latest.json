@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-07-11T23:29:09.574Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "channel": "metrics---intelligence",
+  "totalEscalations": 0,
+  "slaMetrics": {
+    "p0": {
+      "total": 0,
+      "onTime": 0,
+      "overdue": 0,
+      "attainment": 0
+    },
+    "p1": {
+      "total": 0,
+      "onTime": 0,
+      "overdue": 0,
+      "attainment": 0
+    },
+    "p2": {
+      "total": 0,
+      "onTime": 0,
+      "overdue": 0,
+      "attainment": 0
+    },
+    "overall": {
+      "total": 0,
+      "onTime": 0,
+      "overdue": 0,
+      "attainment": 0
+    }
+  },
+  "teamMetrics": []
+}
