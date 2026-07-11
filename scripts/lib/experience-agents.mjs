@@ -38,6 +38,14 @@ export const experienceAgents = [
     recommendation: 'Monitor dashboard signal parity contracts and relative-time staleness violations; escalate P0 count mismatches immediately.',
   },
   {
+    id: 'trust-escalation-agent.yml',
+    name: 'Trust Escalation Agent',
+    status: 'In Progress',
+    maxAgeMinutes: 60 * 2, // 2h - Route P0 findings to teams immediately
+    sesWired: true,
+    recommendation: 'Classify trust contract violations and route to owning teams; escalate P0 findings with 1h SLA.',
+  },
+  {
     id: 'visual-sentinel-agent.yml',
     name: 'Visual Sentinel Agent',
     status: 'In Progress',
