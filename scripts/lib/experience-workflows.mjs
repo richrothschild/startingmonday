@@ -24,6 +24,12 @@ export const experienceWorkflows = [
     recommendation: 'Resolve parity/title/landmark contract failures before certifying dashboard trust posture.',
   },
   {
+    id: 'trust-daily-report.yml',
+    name: 'Trust Daily Report',
+    maxAgeMinutes: 60 * 30,
+    recommendation: 'Use daily trust telemetry to surface contract drift quickly and keep remediation ownership explicit.',
+  },
+  {
     id: 'trust-weekly-issues-report.yml',
     name: 'Trust Weekly Issues Report',
     maxAgeMinutes: 60 * 24 * 8,
