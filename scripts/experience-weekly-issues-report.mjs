@@ -13,6 +13,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-weekly.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-weekly.latest.md')
 const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
+const seedingChecklistPath = path.join(process.cwd(), 'docs', 'status', 'experience-seeding-checklist.latest.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -175,6 +176,38 @@ function ownerLeaderboard(history) {
     .sort((a, b) => b.openSignatures - a.openSignatures || a.owner.localeCompare(b.owner))
 }
 
+function readSeedingChecklist() {
+  if (!fs.existsSync(seedingChecklistPath)) {
+    return {
+      available: false,
+      generatedAt: null,
+      ref: null,
+      dryRun: null,
+      total: 0,
+      dispatched: 0,
+      failures: 0,
+      failedWorkflows: [],
+    }
+  }
+
+  const parsed = JSON.parse(fs.readFileSync(seedingChecklistPath, 'utf8'))
+  const results = Array.isArray(parsed.results) ? parsed.results : []
+  const failedWorkflows = results
+    .filter((row) => row.status === 'failed')
+    .map((row) => row.workflow)
+
+  return {
+    available: true,
+    generatedAt: parsed.generatedAt ?? null,
+    ref: parsed.ref ?? null,
+    dryRun: parsed.dryRun ?? null,
+    total: parsed.summary?.total ?? results.length,
+    dispatched: parsed.summary?.dispatched ?? results.filter((row) => row.status === 'dispatched').length,
+    failures: parsed.summary?.failures ?? failedWorkflows.length,
+    failedWorkflows,
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Weekly Issues Report')
@@ -221,6 +254,23 @@ function buildMarkdown(report) {
   for (const action of report.recommendedActions) {
     lines.push(`- ${action.workflow}: ${action.action}`)
   }
+
+  lines.push('')
+  lines.push('## Seeding Checklist')
+  lines.push('')
+  if (!report.seedingChecklist.available) {
+    lines.push('- Seeding checklist artifact unavailable.')
+  } else {
+    lines.push(`- Generated: ${report.seedingChecklist.generatedAt ?? 'n/a'}`)
+    lines.push(`- Ref: ${report.seedingChecklist.ref ?? 'n/a'} (dryRun=${report.seedingChecklist.dryRun})`)
+    lines.push(`- Dispatches: ${report.seedingChecklist.dispatched}/${report.seedingChecklist.total}`)
+    lines.push(`- Failures: ${report.seedingChecklist.failures}`)
+    if (report.seedingChecklist.failedWorkflows.length > 0) {
+      for (const workflow of report.seedingChecklist.failedWorkflows) {
+        lines.push(`  Failed workflow: ${workflow}`)
+      }
+    }
+  }
   lines.push('')
 
   return `${lines.join('\n')}\n`
@@ -244,6 +294,9 @@ function buildSlackText(report) {
     `Window: ${report.window.start} to ${report.window.end}`,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
+    report.seedingChecklist.available
+      ? `Seeding checklist: ${report.seedingChecklist.dispatched}/${report.seedingChecklist.total} dispatched, failures=${report.seedingChecklist.failures}`
+      : 'Seeding checklist: unavailable',
     '',
     '*Issues*',
     ...issueLines,
@@ -280,6 +333,7 @@ async function main() {
   const portfolioHistory = readPortfolioHistory()
   const portfolioDelta = portfolioWeeklyDelta(portfolioHistory)
   const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
+  const seedingChecklist = readSeedingChecklist()
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -289,6 +343,7 @@ async function main() {
     recommendedActions,
     portfolioDelta,
     ownerLeaderboard: ownerLeaderboardRows,
+    seedingChecklist,
   }
 
   fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })

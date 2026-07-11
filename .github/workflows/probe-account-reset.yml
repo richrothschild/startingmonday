@@ -1,0 +1,82 @@
+name: Probe Account Reset
+
+on:
+  schedule:
+    - cron: '25 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      probe_email:
+        description: Optional override for probe account email
+        required: false
+        default: ''
+      dry_run:
+        description: Report only, do not mutate account state
+        required: false
+        default: 'false'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  reset-probe-account:
+    name: Reset probe account capacity
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Reset probe account
+        env:
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PLAYWRIGHT_SYNTH_SIGNUP_EMAIL: ${{ secrets.PLAYWRIGHT_SYNTH_SIGNUP_EMAIL }}
+          PLAYWRIGHT_TEST_EMAIL: ${{ secrets.PLAYWRIGHT_TEST_EMAIL }}
+          PROBE_ACCOUNT_EMAIL: ${{ github.event.inputs.probe_email }}
+          PROBE_RESET_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: node scripts/reset-probe-account.mjs
+
+      - name: Upload probe reset artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: probe-account-reset-latest
+          path: |
+            docs/status/probe-account-reset.latest.json
+            docs/status/probe-account-reset.latest.md
+          retention-days: 30
+
+      - name: Alert on probe reset failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Probe account reset workflow failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Probe account reset workflow failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"
