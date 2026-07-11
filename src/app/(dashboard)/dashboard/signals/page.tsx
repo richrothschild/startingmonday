@@ -33,9 +33,9 @@ export const metadata = { title: 'Signals' }
 export default async function SignalsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ company?: string; type?: string; page?: string }>
+  searchParams: Promise<{ company?: string; type?: string; page?: string; scan?: string }>
 }) {
-  const { company: companyFilter, type: typeFilter, page: pageParam } = await searchParams
+  const { company: companyFilter, type: typeFilter, page: pageParam, scan: scanStatus } = await searchParams
   const page = Math.max(0, parseInt(pageParam ?? '0', 10) || 0)
   const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const since14d = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
@@ -253,6 +253,11 @@ export default async function SignalsPage({
         </form>
 
           <form action={requestSignalRefresh}>
+          <input
+            type="hidden"
+            name="return_to"
+            value={buildUrl({ company: companyFilter, type: typeFilter, page: String(safePage) })}
+          />
           <button
             type="submit"
             className="text-[13px] font-semibold text-orange-100 border border-orange-300/40 bg-orange-500/20 rounded px-3 py-1.5 hover:bg-orange-500/30 cursor-pointer transition-colors"
@@ -261,6 +266,22 @@ export default async function SignalsPage({
           </button>
           </form>
         </div>
+
+        {scanStatus === 'started' && (
+          <p className="mb-5 rounded-md border border-emerald-300/35 bg-emerald-500/12 px-3 py-2 text-[13px] text-emerald-100">
+            Signal scan started. This can take a couple of minutes; refresh this page to see the newest results.
+          </p>
+        )}
+        {scanStatus === 'unavailable' && (
+          <p className="mb-5 rounded-md border border-amber-300/35 bg-amber-500/12 px-3 py-2 text-[13px] text-amber-100">
+            On-demand scans are not configured in this environment yet. Set WORKER_URL and WORKER_SECRET to enable this button.
+          </p>
+        )}
+        {scanStatus === 'failed' && (
+          <p className="mb-5 rounded-md border border-rose-300/35 bg-rose-500/12 px-3 py-2 text-[13px] text-rose-100">
+            Could not start a scan right now. Please try again in a moment.
+          </p>
+        )}
 
         {/* Signal list */}
         {signalList.length > 0 && (

@@ -28,6 +28,7 @@ export type UserEventName =
   | 'onboarding_completed'
   | 'positioning_saved'
   | 'signal_outreach_generated'
+  | 'signals_scan_requested_on_demand'
   | 'signals_page_viewed'
   | 'briefing_viewed'
   | 'briefing_first_session_guided_viewed'
