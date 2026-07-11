@@ -41,7 +41,6 @@ function gradeForFluencyScore(score) {
   if (score >= 60) return 'C+'
   return 'C'
 }
-
 function classifyTier(route) {
   if (route.startsWith('/dashboard')) return 'dashboard'
   if (route === '/' || route.startsWith('/pricing') || route.startsWith('/demo') || route.startsWith('/blog') || route.startsWith('/method-and-evidence') || route.startsWith('/signup')) {
