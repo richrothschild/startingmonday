@@ -2,12 +2,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
-import { loadSES, getTierThresholds, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
+import { loadSES, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.md')
+const historyJsonPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.history.json')
 const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
 const ses = loadSES(sesPath)
 const gradeOrder = ['A-', 'B+', 'B', 'C+', 'C']
@@ -64,6 +65,15 @@ function requiredThresholdsForTier(tier) {
   return {
     cognitiveLoad: tierConfig?.gradeThresholds?.cognitiveLoad ?? null,
     cognitiveFluency: tierConfig?.gradeThresholds?.cognitiveFluency ?? null,
+  }
+}
+
+function loadHistory() {
+  if (!fs.existsSync(historyJsonPath)) return { entries: [] }
+  try {
+    return JSON.parse(fs.readFileSync(historyJsonPath, 'utf8'))
+  } catch {
+    return { entries: [] }
   }
 }
 
@@ -138,7 +148,22 @@ async function main() {
       score: fluencyScoreForMetrics(row.metrics ?? {}),
       grade: gradeForFluencyScore(fluencyScoreForMetrics(row.metrics ?? {})),
     },
-  }))
+  })).map((row) => {
+    const required = requiredThresholdsForTier(row.tier)
+    return {
+      ...row,
+      thresholds: {
+        load: {
+          required: required.cognitiveLoad,
+          pass: required.cognitiveLoad ? compareGrades(row.grade, required.cognitiveLoad) : null,
+        },
+        fluency: {
+          required: required.cognitiveFluency,
+          pass: required.cognitiveFluency ? compareGrades(row.fluency.grade, required.cognitiveFluency) : null,
+        },
+      },
+    }
+  })
 
   const byTier = {}
   for (const row of pages) {
@@ -191,6 +216,22 @@ async function main() {
       .slice(0, 20),
     pages,
   }
+
+  const history = loadHistory()
+  const entries = Array.isArray(history.entries) ? history.entries : []
+  entries.push({
+    generatedAt: report.generatedAt,
+    totalPages: report.totalPages,
+    pages: pages.map((page) => ({
+      route: page.route,
+      tier: page.tier,
+      loadGrade: page.grade,
+      fluencyGrade: page.fluency.grade,
+    })),
+  })
+  const trimmedEntries = entries.slice(-20)
+  fs.mkdirSync(path.dirname(historyJsonPath), { recursive: true })
+  fs.writeFileSync(historyJsonPath, `${JSON.stringify({ version: 1, entries: trimmedEntries }, null, 2)}\n`, 'utf8')
 
   writeLatestReportFiles({
     jsonPath: reportJsonPath,

@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-12T15:42:37.207Z",
+  "channel": "reliability---service",
+  "source": {
+    "generatedAt": "2026-07-12T15:42:36.931Z",
+    "totalPages": 285,
+    "totalIssues": 60,
+    "sesVersion": 1
+  },
+  "gradeMovers": [],
+  "candidates": [
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/coach",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/placed",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/plan",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/post-search",
+      "tier": "dashboard",
+      "severityScore": 25,
+      "reason": "load gate failed (B+ vs required A-); 2 deterministic issue(s)",
+      "loadGrade": "B+",
+      "fluencyGrade": "A-",
+      "fluencyScore": 100
+    },
+    {
+      "route": "/dashboard/signals",
+      "tier": "dashboard",
+      "severityScore": 28,
+      "reason": "fluency gate failed (B+ vs required A-); 1 deterministic issue(s)",
+      "loadGrade": "A-",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    },
+    {
+      "route": "/dashboard/start",
+      "tier": "dashboard",
+      "severityScore": 40,
+      "reason": "load gate failed (B+ vs required A-); fluency gate failed (B+ vs required A-); 2 deterministic issue(s)",
+      "loadGrade": "B+",
+      "fluencyGrade": "B+",
+      "fluencyScore": 88
+    }
+  ],
+  "auditorPrompt": "Run the Page Experience Auditor on the following routes with three-pass analysis and prioritized fixes:\n/dashboard/admin/coach-outreach, /dashboard/admin/linkedin-company-launch, /dashboard/coach, /dashboard/placed, /dashboard/plan, /dashboard/post-search, /dashboard/signals, /dashboard/start\n\nDeterministic evidence:\n- /dashboard/admin/coach-outreach: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/admin/linkedin-company-launch: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/coach: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/placed: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/plan: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/post-search: load gate failed (B+ vs required A-); 2 deterministic issue(s)\n- /dashboard/signals: fluency gate failed (B+ vs required A-); 1 deterministic issue(s)\n- /dashboard/start: load gate failed (B+ vs required A-); fluency gate failed (B+ vs required A-); 2 deterministic issue(s)\n\nFocus on cognitive fluency, cognitive load, trust integrity spillover, and route-specific remediation actions."
+}

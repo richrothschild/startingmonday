@@ -6,8 +6,59 @@ import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mj
 const slackWebhook = process.env.SLACK_RELIABILITY_SERVICE_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL || ''
 const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---service'
 const cognitiveReportPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.latest.json')
+const cognitiveHistoryPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-load.history.json')
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-fluency-calibration.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'cognitive-fluency-calibration.latest.md')
+
+const gradeOrder = ['A-', 'B+', 'B', 'C+', 'C']
+
+function gradeRank(grade) {
+  const index = gradeOrder.indexOf(grade)
+  return index === -1 ? null : index
+}
+
+function loadGradeMovers() {
+  if (!fs.existsSync(cognitiveHistoryPath)) return []
+
+  let history
+  try {
+    history = JSON.parse(fs.readFileSync(cognitiveHistoryPath, 'utf8'))
+  } catch {
+    return []
+  }
+
+  const entries = Array.isArray(history.entries) ? history.entries : []
+  if (entries.length < 2) return []
+
+  const previous = entries[entries.length - 2]
+  const current = entries[entries.length - 1]
+  const previousByRoute = new Map((previous.pages ?? []).map((page) => [page.route, page]))
+  const movers = []
+
+  for (const page of current.pages ?? []) {
+    const prior = previousByRoute.get(page.route)
+    if (!prior) continue
+
+    const priorLoad = gradeRank(prior.loadGrade)
+    const currentLoad = gradeRank(page.loadGrade)
+    const priorFluency = gradeRank(prior.fluencyGrade)
+    const currentFluency = gradeRank(page.fluencyGrade)
+
+    const loadDelta = priorLoad !== null && currentLoad !== null ? currentLoad - priorLoad : 0
+    const fluencyDelta = priorFluency !== null && currentFluency !== null ? currentFluency - priorFluency : 0
+
+    if (Math.abs(loadDelta) >= 1 || Math.abs(fluencyDelta) >= 1) {
+      movers.push({
+        route: page.route,
+        tier: page.tier,
+        loadDelta,
+        fluencyDelta,
+      })
+    }
+  }
+
+  return movers
+}
 
 function combinedSeverityScore(page) {
   const loadPenalty = page.issueCount * 10
@@ -88,6 +139,7 @@ async function main() {
   }
 
   const cognitive = JSON.parse(fs.readFileSync(cognitiveReportPath, 'utf8'))
+  const gradeMovers = loadGradeMovers()
   const pages = (cognitive.pages ?? []).map((page) => ({
     ...page,
     severityScore: combinedSeverityScore(page),
@@ -98,10 +150,20 @@ async function main() {
   const worstOverall = [...pages]
     .sort((a, b) => b.severityScore - a.severityScore || a.route.localeCompare(b.route))
     .slice(0, 5)
+  const moverPages = gradeMovers
+    .map((mover) => {
+      const page = pages.find((candidate) => candidate.route === mover.route)
+      if (!page) return null
+      return {
+        ...page,
+        reason: `${page.reason}; grade-band movement detected (loadΔ=${mover.loadDelta}, fluencyΔ=${mover.fluencyDelta})`,
+      }
+    })
+    .filter(Boolean)
 
   const selected = []
   const seen = new Set()
-  for (const page of [...thresholdFailing, ...worstOverall]) {
+  for (const page of [...thresholdFailing, ...moverPages, ...worstOverall]) {
     if (seen.has(page.route)) continue
     seen.add(page.route)
     selected.push(page)
@@ -126,6 +188,7 @@ async function main() {
       totalIssues: cognitive.totalIssues ?? null,
       sesVersion: cognitive.sesVersion ?? null,
     },
+    gradeMovers: gradeMovers.slice(0, 20),
     candidates,
     auditorPrompt: buildAuditorPrompt({ candidates }),
   }
