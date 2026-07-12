@@ -73,6 +73,70 @@ const workDocs = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Agent Reliability Report Generator
+// ─────────────────────────────────────────────────────────────────────────────
+
+function loadLatestAgentReport(agentName) {
+  const __dirname = fileURLToPath(new URL('.', import.meta.url))
+  const reportPath = resolve(__dirname, `../docs/status/${agentName}.latest.json`)
+  try {
+    const content = readFileSync(reportPath, 'utf-8')
+    return JSON.parse(content)
+  } catch {
+    return null
+  }
+}
+
+function generateAgentReliabilitySection() {
+  // Load reports from key orchestration agents
+  const agents = [
+    'experience-vitals',
+    'trust-integrity',
+    'cognitive-load',
+    'accessibility-sweep',
+    'mobile-responsive',
+    'journey-synthetic',
+  ]
+
+  let totalP0 = 0
+  let totalP1 = 0
+  let totalP2 = 0
+  const agentStatus = []
+
+  for (const agent of agents) {
+    const report = loadLatestAgentReport(agent)
+    if (!report) continue
+
+    // Extract issue counts based on report structure
+    let p0Count = report.p0Count || 0
+    let p1Count = report.p1Count || 0
+    let p2Count = report.p2Count || 0
+
+    // Handle trust reports with escalations
+    if (agent === 'trust-integrity' && report.findings) {
+      const p0Findings = report.findings.filter((f) => f.severity === 'P0')
+      p0Count = p0Findings.length
+    }
+
+    totalP0 += p0Count
+    totalP1 += p1Count
+    totalP2 += p2Count
+
+    const status = p0Count > 0 ? '🔴 critical' : p1Count > 0 ? '🟡 warning' : p2Count > 0 ? '🟠 caution' : '🟢 healthy'
+    agentStatus.push(`  • ${agent}: ${status} (P0=${p0Count}, P1=${p1Count}, P2=${p2Count})`)
+  }
+
+  return {
+    agentStatus,
+    totalP0,
+    totalP1,
+    totalP2,
+    healthStatus:
+      totalP0 > 0 ? '🔴 CRITICAL' : totalP1 > 0 ? '🟡 DEGRADED' : totalP2 > 0 ? '🟠 CAUTION' : '🟢 HEALTHY',
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Report Generators
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -122,6 +186,9 @@ function generateWeeklyReview() {
   const mondayStr = monday.toISOString().split('T')[0]
   const fridayStr = friday.toISOString().split('T')[0]
 
+  // Load agent reliability metrics
+  const { agentStatus, totalP0, totalP1, totalP2, healthStatus } = generateAgentReliabilitySection()
+
   return [
     `:bar_chart: *Weekly Review — Week of ${mondayStr} to ${fridayStr}*`,
     '',
@@ -147,23 +214,33 @@ function generateWeeklyReview() {
     '    ✓ 5 page redesign mocks 50% draft (by Thu)',
     '  Owner: Product + Design + Engineering + Growth',
     '',
+    '*🤖 Service Reliability Status (Orchestration Layer)*',
+    `  Overall health: ${healthStatus}`,
+    `  P0 issues: ${totalP0}  |  P1 issues: ${totalP1}  |  P2 issues: ${totalP2}`,
+    '',
+    '  Agent status:',
+    ...agentStatus,
+    '',
     '*:warning: Blockers This Week*',
     '  If any blocker prevents progress by stated date, escalate to Rich immediately:',
     '    • Metrics access delayed → Engineering Lead → Rich',
     '    • Design resources unavailable → Design Lead → Rich',
     '    • GA4 setup blocked → Analytics Lead → Rich',
+    '    • Agent P0 issues detected → Engineering Lead → Rich',
     '',
     '*:memo: Next Week Focus*',
     '  Week of 2026-07-15 (Monday standup):',
     '    • First drafts reviewed (objections, tokens, headlines)',
     '    • Final week to complete all Phase 0 work',
     '    • Prepare for Phase 1 engineering kickoff (Mon 2026-07-26)',
+    '    • Verify all agent health metrics remain below P0 threshold',
     '',
     ':link: *Key Documents*',
     '  • EMI Sprint 6: `/docs/emi-sprint-6-wrap-up-2026-07-11.md`',
     '  • Luxury-Modern: `/docs/luxury-modern-phase-0-kickoff-2026-07-11.md`',
     '  • Daily checklist: `/docs/action-checklist-this-week-2026-07-11.md`',
     '  • Executive summary: `/docs/dual-workstream-executive-summary-2026-07-11.md`',
+    '  • Agent reports: `/docs/status/` (*.latest.json files)',
     '',
     ':question: Questions? Post in #product or escalate to @rich',
   ].join('\n')
