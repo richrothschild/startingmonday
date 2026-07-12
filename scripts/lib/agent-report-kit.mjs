@@ -2,6 +2,34 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 /**
+ * Classify a route into a tier based on its path.
+ * @param {string} routePath - Route path (e.g., '/dashboard', '/signup', '/')
+ * @returns {string} Tier: 'dashboard', 'funnel', 'public', or 'admin'
+ */
+export function routeToTier(routePath) {
+  if (!routePath || routePath === '/') return 'public'
+  
+  const lower = routePath.toLowerCase()
+  
+  // Dashboard tier: authenticated routes
+  if (lower.startsWith('/dashboard')) return 'dashboard'
+  if (lower.startsWith('/(dashboard)')) return 'dashboard'
+  
+  // Funnel tier: signup, login, onboarding
+  if (lower.includes('signup')) return 'funnel'
+  if (lower.includes('login')) return 'funnel'
+  if (lower.includes('auth')) return 'funnel'
+  if (lower.includes('onboarding')) return 'funnel'
+  
+  // Admin tier
+  if (lower.startsWith('/admin')) return 'admin'
+  if (lower.includes('admin')) return 'admin'
+  
+  // Default: public
+  return 'public'
+}
+
+/**
  * Load the Site Experience Standard (SES) config.
  * @param {string} sesPath - Path to SES config file
  * @returns {Object} Parsed SES config
