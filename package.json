@@ -32,6 +32,8 @@
         "emi:smoke:postdeploy:json": "node scripts/emi-postdeploy-smoke.mjs --json",
         "slo:report": "node scripts/slo-report.mjs",
         "slo:report:json": "node scripts/slo-report.mjs --json",
+        "workstream:report:daily": "node scripts/workstream-reporter.mjs --type daily",
+        "workstream:report:weekly": "node scripts/workstream-reporter.mjs --type weekly",
         "integrity:check": "node scripts/check-data-integrity.mjs",
         "integrity:check:json": "node scripts/check-data-integrity.mjs --json",
         "billing:readiness": "node scripts/check-billing-readiness.mjs",

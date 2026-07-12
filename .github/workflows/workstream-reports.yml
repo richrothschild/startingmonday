@@ -1,0 +1,57 @@
+name: Workstream Status Reports
+
+on:
+  schedule:
+    # Daily standup: Mon-Fri at 10am UTC
+    - cron: '0 10 * * 1-5'
+    # Weekly review: Monday at 9am UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm ci --omit=dev
+      
+      - name: Determine report type
+        id: report_type
+        run: |
+          DAY_OF_WEEK=$(date -u +%u)  # 1=Monday, 5=Friday, 6=Saturday, 0=Sunday
+          HOUR=$(date -u +%H)
+          
+          if [ "$HOUR" = "09" ]; then
+            echo "type=weekly" >> $GITHUB_OUTPUT
+          else
+            echo "type=daily" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate and post daily report
+        if: steps.report_type.outputs.type == 'daily'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: npm run workstream:report:daily
+      
+      - name: Generate and post weekly report
+        if: steps.report_type.outputs.type == 'weekly'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: npm run workstream:report:weekly
+      
+      - name: Report status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ Report posted successfully"
+          else
+            echo "❌ Report posting failed"
+            exit 1
+          fi
