@@ -15,7 +15,7 @@ export function HomepageBriefTeaser() {
 
           <Link
             href="/demo"
-            className="inline-flex items-center rounded-full bg-orange-500 px-5 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
+            className="inline-flex items-center min-h-[44px] rounded-full bg-orange-500 px-5 py-2.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-orange-600"
           >
             Open full example brief
           </Link>

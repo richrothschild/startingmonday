@@ -1,38 +1,14 @@
 {
-  "generatedAt": "2026-07-11T23:25:52.646Z",
+  "generatedAt": "2026-07-12T00:23:54.438Z",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
   "channel": "ui---delivery",
   "routesTested": 2,
   "viewportsTested": 4,
-  "totalIssues": 12,
-  "p1Count": 4,
-  "p2Count": 8,
+  "totalIssues": 6,
+  "p1Count": 0,
+  "p2Count": 6,
   "issues": [
-    {
-      "route": "/",
-      "viewport": "mobile-xs",
-      "type": "touch-target-size",
-      "severity": "P1",
-      "count": 8,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Open full example brief",
-          "width": 185,
-          "height": 40,
-          "size": "185x40"
-        },
-        {
-          "element": "A",
-          "text": "Evidence hub",
-          "width": 73,
-          "height": 38,
-          "size": "73x38"
-        }
-      ],
-      "message": "8 touch targets below 44px on mobile-xs (320px)"
-    },
     {
       "route": "/",
       "viewport": "mobile-xs",
@@ -53,30 +29,6 @@
         }
       ],
       "message": "21 elements below 16px on mobile-xs"
-    },
-    {
-      "route": "/",
-      "viewport": "mobile-sm",
-      "type": "touch-target-size",
-      "severity": "P1",
-      "count": 8,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Open full example brief",
-          "width": 185,
-          "height": 40,
-          "size": "185x40"
-        },
-        {
-          "element": "A",
-          "text": "Evidence hub",
-          "width": 73,
-          "height": 38,
-          "size": "73x38"
-        }
-      ],
-      "message": "8 touch targets below 44px on mobile-sm (375px)"
     },
     {
       "route": "/",
@@ -102,30 +54,6 @@
     {
       "route": "/",
       "viewport": "tablet",
-      "type": "touch-target-size",
-      "severity": "P2",
-      "count": 8,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Open full example brief",
-          "width": 185,
-          "height": 40,
-          "size": "185x40"
-        },
-        {
-          "element": "A",
-          "text": "Evidence hub",
-          "width": 73,
-          "height": 38,
-          "size": "73x38"
-        }
-      ],
-      "message": "8 touch targets below 44px on tablet (768px)"
-    },
-    {
-      "route": "/",
-      "viewport": "tablet",
       "type": "font-size-too-small",
       "severity": "P2",
       "count": 21,
@@ -143,30 +71,6 @@
         }
       ],
       "message": "21 elements below 16px on tablet"
-    },
-    {
-      "route": "/pricing",
-      "viewport": "mobile-xs",
-      "type": "touch-target-size",
-      "severity": "P1",
-      "count": 6,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Starting Monday",
-          "width": 142,
-          "height": 39,
-          "size": "142x39"
-        },
-        {
-          "element": "A",
-          "text": "Log in",
-          "width": 33,
-          "height": 39,
-          "size": "33x39"
-        }
-      ],
-      "message": "6 touch targets below 44px on mobile-xs (320px)"
     },
     {
       "route": "/pricing",
@@ -192,30 +96,6 @@
     {
       "route": "/pricing",
       "viewport": "mobile-sm",
-      "type": "touch-target-size",
-      "severity": "P1",
-      "count": 7,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Starting Monday",
-          "width": 150,
-          "height": 20,
-          "size": "150x20"
-        },
-        {
-          "element": "A",
-          "text": "Log in",
-          "width": 36,
-          "height": 20,
-          "size": "36x20"
-        }
-      ],
-      "message": "7 touch targets below 44px on mobile-sm (375px)"
-    },
-    {
-      "route": "/pricing",
-      "viewport": "mobile-sm",
       "type": "font-size-too-small",
       "severity": "P2",
       "count": 43,
@@ -233,30 +113,6 @@
         }
       ],
       "message": "43 elements below 16px on mobile-sm"
-    },
-    {
-      "route": "/pricing",
-      "viewport": "tablet",
-      "type": "touch-target-size",
-      "severity": "P2",
-      "count": 7,
-      "examples": [
-        {
-          "element": "A",
-          "text": "Starting Monday",
-          "width": 162,
-          "height": 21,
-          "size": "162x21"
-        },
-        {
-          "element": "A",
-          "text": "Log in",
-          "width": 36,
-          "height": 20,
-          "size": "36x20"
-        }
-      ],
-      "message": "7 touch targets below 44px on tablet (768px)"
     },
     {
       "route": "/pricing",

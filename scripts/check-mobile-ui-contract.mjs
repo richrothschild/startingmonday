@@ -33,7 +33,12 @@ assertContains(
 // Outreach gating contract: only owner/admin can see outreach hub entry points.
 assertContains(
   dashboard,
-  "const canUseOutreachHub = staffMember?.role === 'owner' || staffMember?.role === 'admin'",
+  'canUseOutreachHub',
+  'Outreach visibility contract missing: expected canUseOutreachHub definition',
+)
+assertContains(
+  dashboard,
+  "staffMember?.role === \"owner\" || staffMember?.role === \"admin\"",
   'Outreach visibility contract missing: expected owner/admin role gate',
 )
 

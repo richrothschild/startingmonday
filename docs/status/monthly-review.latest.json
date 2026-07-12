@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-11T23:59:23.148Z",
+  "generatedAt": "2026-07-12T00:23:59.524Z",
   "month": "2026-07",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
   "channel": "metrics---intelligence",
   "kpis": {
-    "totalIssues": 15,
+    "totalIssues": 9,
     "p0Count": 0,
-    "p1Count": 7,
-    "p2Count": 8,
+    "p1Count": 3,
+    "p2Count": 6,
     "averageResolutionTime": 0,
     "teamCompliance": 100,
-    "customerImpact": "high"
+    "customerImpact": "medium"
   },
   "reportsSummary": {
     "vitals": null,
@@ -29,9 +29,9 @@
     },
     "mobile": {
       "p0": 0,
-      "p1": 4,
-      "p2": 8,
-      "total": 12
+      "p1": 0,
+      "p2": 6,
+      "total": 6
     }
   }
 }

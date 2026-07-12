@@ -34,18 +34,18 @@ export default function PricingPage() {
       <EmiMarketingTelemetry pageSlug="/pricing" personaSegment="executives" />
       <nav className={premiumEnabled ? 'sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl' : 'bg-slate-950 sticky top-0 z-10'}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
+          <Link href="/" className="inline-flex items-center min-h-[44px] text-[13px] sm:text-[14px] font-bold tracking-[0.14em] uppercase">
             <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
           </Link>
           <div className="flex items-center gap-4 sm:gap-5">
-            <Link href="/login" className="text-[13px] text-slate-200 hover:text-white transition-colors">
+            <Link href="/login" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-2 text-[13px] text-slate-200 hover:text-white transition-colors">
               Log in
             </Link>
             <Link
               href="/signup?from=pricing"
               data-emi-cta="pricing_nav_get_started"
               data-emi-to="/signup?from=pricing"
-              className="text-[13px] font-semibold bg-white text-slate-900 px-4 py-1.5 rounded hover:bg-slate-100 transition-colors"
+              className="inline-flex items-center min-h-[44px] text-[13px] font-semibold bg-white text-slate-900 px-4 py-2.5 rounded hover:bg-slate-100 transition-colors"
             >
               Get started
             </Link>
@@ -142,7 +142,7 @@ export default function PricingPage() {
 
         <p className={`mt-10 text-center text-[13px] ${premiumEnabled ? 'text-slate-200' : 'text-slate-200'}`}>
           All plans include a 30-day free trial. Cancel any time.{' '}
-          Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className={premiumEnabled ? 'text-slate-100 underline underline-offset-2' : 'text-slate-600 underline underline-offset-2'}>support@startingmonday.app</a>
+          Questions? <a data-emi-cta="pricing_support_email" data-emi-to="mailto:support@startingmonday.app" href="mailto:support@startingmonday.app" className={`inline-flex items-center min-h-[44px] underline underline-offset-2 ${premiumEnabled ? 'text-slate-100' : 'text-slate-600'}`}>support@startingmonday.app</a>
         </p>
       
         <p className="sr-only">Private by default. We do not share your data with recruiters, employers, or third parties.</p>

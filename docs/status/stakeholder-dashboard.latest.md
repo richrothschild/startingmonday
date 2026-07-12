@@ -1,6 +1,6 @@
 # Stakeholder Dashboard
 
-Generated: 2026-07-11T23:42:53.435Z
+Generated: 2026-07-12T00:23:59.380Z
 SES Version: 1
 
 ## Executive Summary
@@ -8,8 +8,8 @@ SES Version: 1
 **Overall Health**: 🟠 DEGRADED
 
 - P0 Violations: 0 (✅ none)
-- P1 Violations: 7 (🟠 HIGH)
-- P2 Violations: 8
+- P1 Violations: 3 (🟡 MEDIUM)
+- P2 Violations: 6
 - Overdue Issues: 0 (✅ on track)
 
 ## Category Breakdown
@@ -19,7 +19,7 @@ SES Version: 1
 | Core Web Vitals | undefined | 0 | 0 | 0 | 0 |
 | Trust & Integrity | ✅ | 0 | 0 | 0 | 0 |
 | Accessibility | 🟠 | 0 | 3 | 0 | 3 |
-| Mobile Experience | 🟠 | 0 | 4 | 8 | 12 |
+| Mobile Experience | 🟡 | 0 | 0 | 6 | 6 |
 
 ## Top 10 Overdue Issues
 
@@ -27,6 +27,5 @@ SES Version: 1
 
 ## Recommended Actions
 
-🟠 **HIGH PRIORITY**: Review P1 backlog and prioritize high-impact fixes
 ✅ **STATUS**: All categories healthy — continue current pace
 

@@ -761,13 +761,13 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                 <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
               </span>
               <div className={useCenteredFooter ? 'grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-3 text-[12px] text-slate-400 justify-items-center text-center' : 'flex items-center gap-4 sm:gap-5 flex-wrap text-[12px] text-slate-400'}>
-                <Link href="/evidence-hub" className="hover:text-slate-300 transition-colors py-2.5">Evidence hub</Link>
-                <Link href="/blog" className="hover:text-slate-300 transition-colors py-2.5">Blog</Link>
-                <Link href="/about" className="hover:text-slate-300 transition-colors py-2.5">About</Link>
-                <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors py-2.5">LinkedIn</a>
-                <Link href="/security" className="hover:text-slate-300 transition-colors py-2.5">Security</Link>
-                <Link href="/privacy" className="hover:text-slate-300 transition-colors py-2.5">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-slate-300 transition-colors py-2.5">Terms</Link>
+                <Link href="/evidence-hub" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">Evidence hub</Link>
+                <Link href="/blog" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">Blog</Link>
+                <Link href="/about" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">About</Link>
+                <a href="https://www.linkedin.com/company/starting-monday" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">LinkedIn</a>
+                <Link href="/security" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">Security</Link>
+                <Link href="/privacy" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">Privacy Policy</Link>
+                <Link href="/terms" className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:text-slate-300 transition-colors px-1">Terms</Link>
               </div>
             </div>
 

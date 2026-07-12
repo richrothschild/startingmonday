@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T23:42:53.435Z",
+  "generatedAt": "2026-07-12T00:23:59.380Z",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
   "channel": "metrics---intelligence",
@@ -29,15 +29,15 @@
   "a11yStatus": "degraded",
   "mobileMetrics": {
     "p0": 0,
-    "p1": 4,
-    "p2": 8,
-    "total": 12,
-    "status": "degraded"
+    "p1": 0,
+    "p2": 6,
+    "total": 6,
+    "status": "caution"
   },
-  "mobileStatus": "degraded",
+  "mobileStatus": "caution",
   "totalP0": 0,
-  "totalP1": 7,
-  "totalP2": 8,
+  "totalP1": 3,
+  "totalP2": 6,
   "overdueCount": 0,
   "topOverdueIssues": []
 }

@@ -77,14 +77,14 @@ export function PricingCards() {
           <button
             type="button"
             onClick={() => setAnnual(false)}
-            className={`px-5 py-2 transition-colors ${!annual ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+            className={`px-5 py-3 min-h-[44px] transition-colors ${!annual ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
           >
             Monthly
           </button>
           <button
             type="button"
             onClick={() => setAnnual(true)}
-            className={`px-5 py-2 transition-colors ${annual ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+            className={`px-5 py-3 min-h-[44px] transition-colors ${annual ? 'bg-slate-900 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
           >
             Annual
           </button>
@@ -101,7 +101,7 @@ export function PricingCards() {
         <span className="text-green-600 font-bold text-[13px]">&#10003;</span>
         <p className="text-[13px] text-slate-500">
           Your employer cannot see your account or your search activity.{' '}
-          <Link href="/privacy#employer" data-emi-cta="pricing_privacy_explainer" data-emi-to="/privacy#employer" className="underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
+          <Link href="/privacy#employer" data-emi-cta="pricing_privacy_explainer" data-emi-to="/privacy#employer" className="inline-flex items-center min-h-[44px] underline hover:text-slate-700">How we protect your privacy &rarr;</Link>
         </p>
       </div>
 
