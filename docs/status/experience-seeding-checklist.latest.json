@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-12T15:56:47.493Z",
+  "channel": "reliability---service",
+  "ref": "staging",
+  "dryRun": true,
+  "summary": {
+    "total": 10,
+    "dispatched": 0,
+    "failures": 0
+  },
+  "results": [
+    {
+      "workflow": "route-inventory-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "trust-integrity-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "trust-escalation-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "experience-vitals-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "journey-synthetic-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "cognitive-load-agent.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "experience-portfolio-rollup.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "experience-weekly-issues-report.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "experience-monthly-trends-report.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    },
+    {
+      "workflow": "cognitive-calibration-loop.yml",
+      "ref": "staging",
+      "dispatched": false,
+      "runUrl": null,
+      "runId": null,
+      "status": "dry-run",
+      "error": null
+    }
+  ]
+}
