@@ -48,11 +48,17 @@ function buildAnswer(intent: GuideIntent, question: string, top: Array<{ title: 
   } else if (intent === 'api_docs') {
     lines.push('Tip: open the guide hub for documentation context, then use API endpoints for implementation details.')
   } else if (intent === 'billing') {
-    lines.push('Tip: use Billing settings first, then related automation endpoints if needed.')
+    lines.push('Tip: manage your plan and payment from Billing settings. If something looks wrong, send the question below for a personal reply.')
   }
 
   lines.push('Open the sources below for exact steps and page links.')
   return lines.join('\n')
+}
+
+// Customer-facing chat must never surface internal admin routes or raw API
+// endpoints as sources. The full index remains available to the internal guide.
+function isCustomerVisibleEntry(entry: GuideEntry): boolean {
+  return !entry.url.startsWith('/dashboard/admin') && !entry.url.startsWith('/api/')
 }
 
 async function loadGuideIndex(): Promise<GuideIndex | null> {
@@ -89,7 +95,16 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const retrieval = retrieveGuide(index.entries, parsed.data.question, 5)
+  const visibleEntries = index.entries.filter(isCustomerVisibleEntry)
+  if (visibleEntries.length === 0) {
+    captureServerEvent(auth.userId, 'guide_chat_index_unavailable')
+    return NextResponse.json(
+      { error: 'Guide data is temporarily unavailable. Please retry in a moment.' },
+      { status: 503 },
+    )
+  }
+
+  const retrieval = retrieveGuide(visibleEntries, parsed.data.question, 5)
   const ranked = retrieval.ranked
 
   if (ranked.length === 0) {

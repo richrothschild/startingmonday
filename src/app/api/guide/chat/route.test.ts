@@ -111,4 +111,43 @@ describe('guide chat route', () => {
     expect(body.answer).toContain('Start here:')
     expect(body.queryId).toBe('query-1')
   })
+
+  it('excludes admin routes and raw API endpoints from customer-facing retrieval', async () => {
+    state.readFile.mockResolvedValue(JSON.stringify({
+      generatedAt: '2026-01-01T00:00:00.000Z',
+      entries: [
+        { id: '1', title: 'Getting Started', body: 'Setup your account', url: '/guide/getting-started', type: 'article' },
+        { id: '2', title: 'Admin Revenue', body: 'Internal revenue ops', url: '/dashboard/admin/revenue', type: 'page' },
+        { id: '3', title: 'Billing retries API', body: 'Automation endpoint', url: '/api/admin/automation/billing/failed-payment-retries', type: 'api' },
+      ],
+    }))
+
+    const response = await POST(new NextRequest('https://startingmonday.app/api/guide/chat', {
+      method: 'POST',
+      body: JSON.stringify({ question: 'How does billing work?' }),
+    }))
+
+    expect(response.status).toBe(200)
+    expect(state.retrieveGuide).toHaveBeenCalledTimes(1)
+    const entriesPassed = state.retrieveGuide.mock.calls[0][0]
+    expect(entriesPassed).toHaveLength(1)
+    expect(entriesPassed[0].url).toBe('/guide/getting-started')
+  })
+
+  it('returns 503 when only internal entries exist in the index', async () => {
+    state.readFile.mockResolvedValue(JSON.stringify({
+      generatedAt: '2026-01-01T00:00:00.000Z',
+      entries: [
+        { id: '2', title: 'Admin Revenue', body: 'Internal revenue ops', url: '/dashboard/admin/revenue', type: 'page' },
+      ],
+    }))
+
+    const response = await POST(new NextRequest('https://startingmonday.app/api/guide/chat', {
+      method: 'POST',
+      body: JSON.stringify({ question: 'How does billing work?' }),
+    }))
+
+    expect(response.status).toBe(503)
+    expect(state.retrieveGuide).not.toHaveBeenCalled()
+  })
 })

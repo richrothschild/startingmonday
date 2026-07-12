@@ -48,7 +48,7 @@ export function AssistWidget() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-[70] font-sans">
+    <div className="fixed bottom-20 md:bottom-5 right-5 z-[70] font-sans">
       {open && (
         <div className="mb-3 w-[min(92vw,22rem)] rounded-2xl border border-white/15 bg-slate-950/95 p-5 shadow-[0_22px_66px_rgba(2,6,23,0.6)] backdrop-blur-xl">
           {status === 'done' ? (
