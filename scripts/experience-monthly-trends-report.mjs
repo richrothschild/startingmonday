@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { experienceWorkflows } from './lib/experience-workflows.mjs'
-import { ghJson, daysAgoIso, getRunsSince, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
+import { ghJson, daysAgoIso, getRunsSince, postSlackText, writeLatestReportFiles, loadSES } from './lib/agent-report-kit.mjs'
 
 const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
@@ -15,6 +15,7 @@ const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-mo
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-monthly.latest.md')
 const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 const vitalsReportPath = path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json')
+const ses = loadSES(path.join(process.cwd(), 'config', 'site-experience-standard.json'))
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -247,6 +248,27 @@ function ownerLeaderboard(history) {
     .sort((a, b) => b.openSignatures - a.openSignatures || a.owner.localeCompare(b.owner))
 }
 
+function baselineLifecycleReview() {
+  const capturedAt = ses.capturedAt ? Date.parse(ses.capturedAt) : NaN
+  const ageDays = Number.isFinite(capturedAt)
+    ? Math.floor((Date.now() - capturedAt) / (24 * 60 * 60 * 1000))
+    : null
+  const maxAgeDays = ses.baselineLifecycle?.maxBaselineAgeDays ?? 90
+  const stale = ageDays === null ? true : ageDays > maxAgeDays
+  return {
+    capturedAt: ses.capturedAt ?? null,
+    reviewBy: ses.reviewBy ?? null,
+    ageDays,
+    maxAgeDays,
+    stale,
+    ratchetOnly: ses.baselineLifecycle?.ratchetOnly ?? true,
+    requiresPullRequest: ses.baselineLifecycle?.requiresPullRequest ?? true,
+    recommendation: stale
+      ? 'Baseline lifecycle stale: run baseline review and submit a PR before allowing threshold drift.'
+      : 'Baseline lifecycle healthy: continue ratchet-only threshold reviews on monthly cadence.',
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Monthly Trends Report')
@@ -320,6 +342,18 @@ function buildMarkdown(report) {
   }
   lines.push('')
 
+  lines.push('## Baseline Lifecycle Review')
+  lines.push('')
+  lines.push(`- Captured at: ${report.baselineReview.capturedAt ?? 'n/a'}`)
+  lines.push(`- Review by: ${report.baselineReview.reviewBy ?? 'n/a'}`)
+  lines.push(`- Baseline age: ${report.baselineReview.ageDays ?? 'n/a'} day(s)`)
+  lines.push(`- Max baseline age: ${report.baselineReview.maxAgeDays} day(s)`)
+  lines.push(`- Ratchet only: ${report.baselineReview.ratchetOnly}`)
+  lines.push(`- Requires PR: ${report.baselineReview.requiresPullRequest}`)
+  lines.push(`- Status: ${report.baselineReview.stale ? 'stale' : 'healthy'}`)
+  lines.push(`- Recommendation: ${report.baselineReview.recommendation}`)
+  lines.push('')
+
   return `${lines.join('\n')}\n`
 }
 
@@ -336,6 +370,9 @@ function buildSlackText(report) {
   const cwvLine = report.cwvBreaches.available
     ? `Core Web Vitals breaches: ${report.cwvBreaches.totalBreaches} route(s) across tiers`
     : 'Core Web Vitals: no recent data'
+  const baselineLine = report.baselineReview.stale
+    ? `Baseline lifecycle: stale (${report.baselineReview.ageDays ?? 'n/a'}d > ${report.baselineReview.maxAgeDays}d)`
+    : `Baseline lifecycle: healthy (${report.baselineReview.ageDays ?? 'n/a'}d <= ${report.baselineReview.maxAgeDays}d)`
 
   return [
     headline,
@@ -343,6 +380,7 @@ function buildSlackText(report) {
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
     `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
     cwvLine,
+    baselineLine,
     report.sourceStaleness.available
       ? `Source staleness directionality: ${report.sourceStaleness.label} (current=${report.sourceStaleness.currentCount}, previous=${report.sourceStaleness.previousCount}, delta=${report.sourceStaleness.delta})`
       : 'Source staleness directionality: unavailable',
@@ -397,6 +435,7 @@ async function main() {
 
   const vitalsReport = readVitalsReport()
   const cwvBreaches = analyzeCWVBreaches(vitalsReport)
+  const baselineReview = baselineLifecycleReview()
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -409,6 +448,7 @@ async function main() {
     sourceStaleness,
     ownerLeaderboard: ownerLeaderboardRows,
     cwvBreaches,
+    baselineReview,
   }
 
   writeLatestReportFiles({
