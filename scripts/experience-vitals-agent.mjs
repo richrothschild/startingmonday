@@ -253,6 +253,7 @@ async function run() {
 
   const inventoryPath = path.join(root, args.inventory)
   const baselinePath = path.join(root, args.baseline)
+  const sesPath = path.join(root, args.ses)
   const reportJsonPath = path.join(root, args.report)
   const reportMdPath = reportJsonPath.replace(/\.json$/i, '.md')
 
