@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-07-12T16:34:38.374Z",
+  "generatedAt": "2026-07-12T20:54:56.343Z",
   "channel": "reliability---service",
   "window": {
-    "start": "2026-07-05T16:34:37.562Z",
-    "end": "2026-07-12T16:34:37.561Z"
+    "start": "2026-07-05T20:54:55.560Z",
+    "end": "2026-07-12T20:54:55.560Z"
   },
   "summary": {
     "totalRuns": 2,
     "issueRuns": 1,
     "issueRate": 0.5,
     "latestConclusion": "failure",
-    "latestAgeMinutes": 151,
+    "latestAgeMinutes": 411,
     "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195522014"
   },
   "recommendedActions": [

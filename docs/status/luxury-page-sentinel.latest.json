@@ -1,0 +1,3140 @@
+{
+  "generatedAt": "2026-07-12T20:52:15.909Z",
+  "baseUrl": "https://startingmonday.app",
+  "routesDiscovered": 296,
+  "staticRoutesChecked": 274,
+  "paletteViolations": 79,
+  "typographyWarnings": 0,
+  "accentWarnings": 57,
+  "availabilityViolations": 0,
+  "latencyWarnings": 0,
+  "renderedViolations": 5,
+  "renderedCaptureFailures": 0,
+  "renderedDarknessWarnings": 5,
+  "screenshotsCaptured": 5,
+  "advisoryWarnings": 62,
+  "visualDiscipline": {
+    "routesTracked": 297,
+    "typographyViolations": [],
+    "accentViolations": [
+      {
+        "route": "/",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (blue, green, orange, red, yellow) > 2 for funnel"
+      },
+      {
+        "route": "/login",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/coach/clients",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (amber, blue, orange) > 2 for public"
+      },
+      {
+        "route": "/dashboard/admin",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "6 accent families (amber, blue, emerald, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/b2b",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "6 accent families (amber, blue, emerald, orange, purple, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/crm",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/customers",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/feedback",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/feedback/[id]",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/metrics",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/onboarding/video",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, blue, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/outreach-analytics",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, indigo, orange) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/outreach-reliability",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/social",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "7 accent families (amber, blue, emerald, green, indigo, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/speakers",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, blue, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/traces",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/admin/wedge-funnels",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/briefing",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, blue, emerald, orange) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/coach",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, emerald, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "9 accent families (amber, blue, cyan, emerald, green, indigo, orange, red, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/companies/[id]",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "7 accent families (amber, blue, emerald, green, orange, red, teal) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/companies/[id]/prep",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "6 accent families (amber, blue, emerald, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/contacts",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, emerald, orange, red, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/contacts/[id]/outreach",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/contacts/[id]",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "6 accent families (amber, blue, emerald, indigo, orange, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/discover",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, emerald, green, orange, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/executive-brief",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, emerald, orange, red, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/feedback",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/kanban",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, blue, green, indigo) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/outplacement/firm-admin",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/outplacement/operator",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/outplacement/sponsor-report",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/outreach",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "8 accent families (amber, blue, emerald, green, orange, red, rose, yellow) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/profile",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+      },
+      {
+        "route": "/dashboard/signals",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, blue, emerald, orange, rose) > 3 for dashboard"
+      },
+      {
+        "route": "/prep/relationships",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (blue, orange, purple, teal) > 2 for public"
+      },
+      {
+        "route": "/settings/billing",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, green, orange, red) > 2 for public"
+      },
+      {
+        "route": "/settings/security",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/settings/team",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/channels/feature-map",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, violet) > 2 for public"
+      },
+      {
+        "route": "/coaches/mock-dashboard",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+      },
+      {
+        "route": "/coaches/mock-dashboard/[clientId]",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+      },
+      {
+        "route": "/demo/cio",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, red) > 2 for funnel"
+      },
+      {
+        "route": "/demo/executive-brief",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, red) > 2 for funnel"
+      },
+      {
+        "route": "/demo/executive-dashboard",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, blue, green, indigo, orange) > 2 for funnel"
+      },
+      {
+        "route": "/feedback",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/for-coaches/faq",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (amber, emerald, orange) > 2 for public"
+      },
+      {
+        "route": "/guide",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+      },
+      {
+        "route": "/intelligence/[slug]",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (amber, green, orange) > 2 for public"
+      },
+      {
+        "route": "/mauricio-kickoff",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, indigo, orange) > 2 for public"
+      },
+      {
+        "route": "/mauricio-kickoff-execution/apollo-read-access",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (emerald, orange, rose) > 2 for public"
+      },
+      {
+        "route": "/mauricio-kickoff-execution",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (amber, emerald, orange) > 2 for public"
+      },
+      {
+        "route": "/onboarding",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/optimize",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "5 accent families (amber, blue, green, orange, red) > 2 for public"
+      },
+      {
+        "route": "/partners",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+      },
+      {
+        "route": "/sales-marketing-plan",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "3 accent families (blue, emerald, orange) > 2 for public"
+      },
+      {
+        "route": "(shared-component)",
+        "dimension": "accent-restraint",
+        "blocking": false,
+        "evidence": "10 accent families (amber, blue, cyan, emerald, green, indigo, orange, purple, red, rose) > 2 for public"
+      }
+    ]
+  },
+  "rendered": {
+    "screenshotsCaptured": 5,
+    "screenshotDir": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots",
+    "metrics": [
+      {
+        "route": "/blog/c-suite-search-90-day-plan",
+        "screenshotPath": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots\\_blog_c-suite-search-90-day-plan.png",
+        "estimatedDarkShare": 0.2,
+        "timestamp": "2026-07-12T20:52:12.529Z"
+      },
+      {
+        "route": "/blog/c-suite-search-weekly-metrics",
+        "screenshotPath": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots\\_blog_c-suite-search-weekly-metrics.png",
+        "estimatedDarkShare": 0.2,
+        "timestamp": "2026-07-12T20:52:12.770Z"
+      },
+      {
+        "route": "/blog/cio-board-presentation",
+        "screenshotPath": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots\\_blog_cio-board-presentation.png",
+        "estimatedDarkShare": 0.25,
+        "timestamp": "2026-07-12T20:52:14.312Z"
+      },
+      {
+        "route": "/blog/cio-compensation-negotiation",
+        "screenshotPath": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots\\_blog_cio-compensation-negotiation.png",
+        "estimatedDarkShare": 0.25,
+        "timestamp": "2026-07-12T20:52:14.556Z"
+      },
+      {
+        "route": "/blog/cio-job-market-2026",
+        "screenshotPath": "C:\\Users\\roths\\startingmonday\\tmp\\sentinel-screenshots\\_blog_cio-job-market-2026.png",
+        "estimatedDarkShare": 0.18181818181818182,
+        "timestamp": "2026-07-12T20:52:15.901Z"
+      }
+    ]
+  },
+  "coverage": {
+    "total": 296,
+    "passed": 210,
+    "failed": 70,
+    "skipped": 16,
+    "gaps": 0,
+    "coveragePct": 94.6,
+    "skippedByReason": {
+      "dynamic-route-not-sampled": 16
+    },
+    "unexplainedGaps": 0,
+    "verdicts": [
+      {
+        "route": "/login",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/signup",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coach/clients",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coach/[clientId]/interview",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/admin/b2b/new",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/b2b",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/b2b/[id]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/dashboard/admin/channel-benchmarks",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/coach-outreach",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/crm",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/customers",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/diagrams",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/feedback",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/feedback/[id]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/dashboard/admin/guide",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/intelligence",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/intelligence/qa",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/internal-guide",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/linkedin-company-launch",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/metrics",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/onboarding/qa",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/onboarding/video",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/operations",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/operations/wedge-cron",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/operations/wedge-economics",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/outplacement-cohorts",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/outplacement-outreach",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/outreach-analytics",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/outreach-reliability",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/prep-efficacy",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/product/catalog",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/product",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/revenue",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/sales-enablement",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/social",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/speakers",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/team",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/traces",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/traces/rubric",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/admin/wedge-funnels",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/board-track",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/briefing",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/calendar",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/chat",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/coach",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/coach/[clientId]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/dashboard/companies/new",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/companies/[id]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/companies/[id]/prep",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/concierge",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/contacts",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/contacts/[id]/edit",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/contacts/[id]/outreach",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/contacts/[id]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/dashboard/discover",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/discover/recommendation/[id]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/dashboard/executive-brief",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/feedback",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/help",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/invite",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/kanban",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/offers",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/optionality/branding",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/optionality/decision-cockpit",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/optionality",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement/counselor",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement/enterprise",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement/firm-admin",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement/operator",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outplacement/sponsor-report",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/outreach",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/partner",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/pilot-outreach",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/placed",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/plan",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/positioning",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/post-landing",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/post-search",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/profile",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/profile/tailor",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/salary",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/signals",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/start",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/strategy",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard/wrap-up",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/prep/communications",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/prep/companies",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/prep/interview",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/prep/meetings",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/prep/relationships",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/settings/billing",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/settings",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/settings/security",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/settings/team",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/about",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/alumni-networks-review",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/annual-report-2026/executive-search-ai-confidentiality",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/annual-report-2026",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/c-suite-search-90-day-plan",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/c-suite-search-weekly-metrics",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-board-presentation",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-compensation-negotiation",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-job-market-2026",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-job-search-timeline",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-search-signal-story-sequence",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cio-vs-cto-which-role",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/ciso-interview-preparation",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/confidential-executive-search-pipeline",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cto-job-search-timeline",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/cto-vs-vp-engineering-career-path",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/evaluate-executive-coach-evidence",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/evidence-based-executive-networking",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/evidence-hub-coaching-session-framework",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-coaching-candidate-infrastructure",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-coaching-job-search",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-coaching-search-outcomes",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-hiring-committee-psychology",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-hiring-patterns-2026",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-interview-prep-7-day-system",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-job-search-daily-routine",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-organizational-visibility",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-outreach-response-rate",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-resume-gaps",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-consistency-model",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-firms-cio",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-operating-system",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-pilot-data-observations",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-readiness-audit",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-risk-register",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-search-timing-signals",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/executive-transition-success-factors",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/how-cios-find-jobs",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/how-we-estimate-early-role-signals",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/linkedin-executive-search-strategy",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/pe-backed-cio",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/retained-search-candidate-preparation",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/retained-search-firms",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/source-backed-executive-career-narrative",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/target-company-list",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/target-company-list-cto",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/technology-executive-transition-chro",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/vp-job-search-different-rules",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/vp-to-c-suite-positioning",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/vp-to-cio-transition",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/what-companies-want-chief-data-officer",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/why-executive-recruiters-go-quiet",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/blog/why-starting-monday-exists",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/career-tools",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/case-studies",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/channels/feature-map",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/executive-transition-coach-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/mock-dashboard",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/mock-dashboard/[clientId]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/coaches/objections",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/personas",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/personas/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/coaches/sample-transition-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/workflow/opportunity-access-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/workflow/set-transition-thesis-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches/workflow/weekly-momentum-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coaches-guide",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/coachos",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/concierge",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/contributor",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/dashboard-theme-preview",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/cio/notes",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/cio",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/demo/coach-dashboard",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/executive-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/executive-dashboard",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/leader-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/manager-tools",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/michael-dashboard",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/michael-strategy-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/prep-communications",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/prep-companies",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/prep-interview",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/prep-meetings",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/presenter",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/demo/sandbox/alto-shaam",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/sandbox/healthcare",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/demo/wedge-30s",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/evaluate",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/evidence-hub",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/evidence-room",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executive-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executives/active",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executives",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executives/passive",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executives/personas",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/executives/personas/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/features",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/features/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/feedback",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-cdo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-chro",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/for-cio",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-cio-associations",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-ciso",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/coach-prep-worksheet",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/economics",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/faq",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/micro-products",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/micro-products/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/for-coaches",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/search-affiliate",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coaches/trust-pack",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-coo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-cpo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-data-officer",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-executives",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-executives/[lane]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/for-financial-advisors",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-fractional-executives",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-individuals",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-leaders",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-media-partners",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/economics",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/executive-summary",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/faq",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/metric-dictionary",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/operating-scorecard",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/runbook",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/security-overview",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-outplacement/trust-pack",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-pe-partners",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-pe-teams",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-relocation",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-search-firms",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-vp",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/for-vp-technology",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/founder-note",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/guide",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/handshake-review",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/ideas",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/individuals",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/intelligence/[slug]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/invite/[code]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/learn-more/common-questions",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/learn-more/inside-the-system",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/learn-more/objections",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/learn-more",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/managertools",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mark-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mark-review/appendix",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mark-review/business-plan",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mark-review",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mark-review/summary",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mauricio-kickoff",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/mauricio-kickoff-execution/apollo-read-access",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/mauricio-kickoff-execution/customer-email-by-channel",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/mauricio-kickoff-execution",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/method-and-evidence",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/methodology",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/onboarding",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/optimize",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/outplacement",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/outplacement/personas",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/outplacement/personas/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/partner-firm",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/partners/mauricio-kickoff",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/partners",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/partners/pilot-admin",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/partners/reporting",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/pilot-findings",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/pricing",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/privacy",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/proof/roi-calculator",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/references",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/research-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/sales-marketing-plan",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/executive-recruiter-demo",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/objections",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/personas",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/personas/[slug]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      },
+      {
+        "route": "/search-firms/procurement",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/sample-cfo-brief",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/trial-charter",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/search-firms/trust",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/security",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/shortlist-sprint",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/stuart-meyer-review",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/team/join/[token]",
+        "verdict": "fail",
+        "reason": "palette-conformance"
+      },
+      {
+        "route": "/terms",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/terry-anderson-review",
+        "verdict": "pass",
+        "reason": null
+      },
+      {
+        "route": "/unsubscribe/confirmed",
+        "verdict": "fail",
+        "reason": null
+      },
+      {
+        "route": "/unsubscribe/[code]",
+        "verdict": "skip",
+        "reason": "dynamic-route-not-sampled"
+      }
+    ]
+  },
+  "incidents": {
+    "total": 15,
+    "byDimension": {
+      "palette-conformance": 15
+    },
+    "top": [
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-100 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "routeCount": 33,
+        "routes": [
+          "/dashboard/admin/b2b/[id]",
+          "/dashboard/admin/b2b/new",
+          "/dashboard/admin/guide",
+          "/dashboard/admin/intelligence",
+          "/dashboard/admin/intelligence/qa",
+          "/dashboard/admin/internal-guide",
+          "/dashboard/admin/linkedin-company-launch",
+          "/dashboard/admin/metrics",
+          "/dashboard/admin/onboarding/qa",
+          "/dashboard/admin/onboarding/video",
+          "/dashboard/admin/outreach-analytics",
+          "/dashboard/admin/outreach-reliability",
+          "/dashboard/admin/prep-efficacy",
+          "/dashboard/admin/product/catalog",
+          "/dashboard/admin/social",
+          "/dashboard/admin/speakers",
+          "/dashboard/coach/[clientId]",
+          "/dashboard/companies/new",
+          "/dashboard/discover",
+          "/dashboard/discover/recommendation/[id]",
+          "/dashboard/executive-brief",
+          "/dashboard/help",
+          "/dashboard/invite",
+          "/dashboard/offers",
+          "/dashboard/outreach",
+          "/dashboard/partner",
+          "/dashboard/positioning",
+          "/dashboard/profile",
+          "/dashboard/profile/tailor",
+          "/dashboard/salary",
+          "/dashboard/signals",
+          "/dashboard/start",
+          "/dashboard/strategy"
+        ],
+        "sampleRoutes": [
+          "/dashboard/admin/b2b/[id]",
+          "/dashboard/admin/b2b/new",
+          "/dashboard/admin/guide",
+          "/dashboard/admin/intelligence",
+          "/dashboard/admin/intelligence/qa"
+        ],
+        "score": 66
+      },
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-50 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-50 font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 font-sans\"",
+        "routeCount": 12,
+        "routes": [
+          "/dashboard/admin/coach-outreach",
+          "/dashboard/admin/outplacement-cohorts",
+          "/dashboard/admin/outplacement-outreach",
+          "/dashboard/optionality",
+          "/dashboard/optionality/branding",
+          "/dashboard/optionality/decision-cockpit",
+          "/dashboard/outplacement/counselor",
+          "/dashboard/outplacement/enterprise",
+          "/dashboard/outplacement/firm-admin",
+          "/dashboard/outplacement/operator",
+          "/dashboard/outplacement/sponsor-report",
+          "/dashboard/post-landing"
+        ],
+        "sampleRoutes": [
+          "/dashboard/admin/coach-outreach",
+          "/dashboard/admin/outplacement-cohorts",
+          "/dashboard/admin/outplacement-outreach",
+          "/dashboard/optionality",
+          "/dashboard/optionality/branding"
+        ],
+        "score": 24
+      },
+      {
+        "key": "palette-conformance|public|className=\"min-h-screen bg-slate-100 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "routeCount": 9,
+        "routes": [
+          "/contributor",
+          "/mauricio-kickoff-execution",
+          "/mauricio-kickoff-execution/apollo-read-access",
+          "/mauricio-kickoff-execution/customer-email-by-channel",
+          "/optimize",
+          "/proof/roi-calculator",
+          "/settings/billing",
+          "/settings/security",
+          "/settings/team"
+        ],
+        "sampleRoutes": [
+          "/contributor",
+          "/mauricio-kickoff-execution",
+          "/mauricio-kickoff-execution/apollo-read-access",
+          "/mauricio-kickoff-execution/customer-email-by-channel",
+          "/optimize"
+        ],
+        "score": 18
+      },
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-50 flex items-center justify-center\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-50 flex items-center justify-center\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 flex items-center justify-center\"",
+        "routeCount": 2,
+        "routes": [
+          "/dashboard/admin/feedback",
+          "/dashboard/admin/feedback/[id]"
+        ],
+        "sampleRoutes": [
+          "/dashboard/admin/feedback",
+          "/dashboard/admin/feedback/[id]"
+        ],
+        "score": 4
+      },
+      {
+        "key": "palette-conformance|funnel|className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "funnel",
+        "signature": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\"",
+        "routeCount": 2,
+        "routes": [
+          "/demo/cio",
+          "/demo/presenter"
+        ],
+        "sampleRoutes": [
+          "/demo/cio",
+          "/demo/presenter"
+        ],
+        "score": 4
+      },
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-50\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-50\"",
+        "evidence": "className=\"min-h-screen bg-slate-50\"",
+        "routeCount": 1,
+        "routes": [
+          "/dashboard/feedback"
+        ],
+        "sampleRoutes": [
+          "/dashboard/feedback"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-50 px-4 py-12 sm:px-6\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-50 px-4 py-12 sm:px-6\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 px-4 py-12 sm:px-6\"",
+        "routeCount": 1,
+        "routes": [
+          "/dashboard/kanban"
+        ],
+        "sampleRoutes": [
+          "/dashboard/kanban"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|dashboard|className=\"min-h-screen bg-slate-50 flex flex-col items-center justify-center font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "dashboard",
+        "signature": "className=\"min-h-screen bg-slate-50 flex flex-col items-center justify-center font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 flex flex-col items-center justify-center font-sans\"",
+        "routeCount": 1,
+        "routes": [
+          "/dashboard/outplacement"
+        ],
+        "sampleRoutes": [
+          "/dashboard/outplacement"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|funnel|className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-6\"",
+        "dimension": "palette-conformance",
+        "scope": "funnel",
+        "signature": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-6\"",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-6\"",
+        "routeCount": 1,
+        "routes": [
+          "/"
+        ],
+        "sampleRoutes": [
+          "/"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|funnel|className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center\"",
+        "dimension": "palette-conformance",
+        "scope": "funnel",
+        "signature": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center\"",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center\"",
+        "routeCount": 1,
+        "routes": [
+          "/"
+        ],
+        "sampleRoutes": [
+          "/"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|public|className=\"sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur\"",
+        "evidence": "className=\"sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur\"",
+        "routeCount": 1,
+        "routes": [
+          "/for-chro"
+        ],
+        "sampleRoutes": [
+          "/for-chro"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|public|className=\"min-h-screen bg-slate-50\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"min-h-screen bg-slate-50\"",
+        "evidence": "className=\"min-h-screen bg-slate-50\"",
+        "routeCount": 1,
+        "routes": [
+          "/ideas"
+        ],
+        "sampleRoutes": [
+          "/ideas"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|public|className=\"min-h-screen bg-slate-50 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"min-h-screen bg-slate-50 font-sans\"",
+        "evidence": "className=\"min-h-screen bg-slate-50 font-sans\"",
+        "routeCount": 1,
+        "routes": [
+          "/intelligence/[slug]"
+        ],
+        "sampleRoutes": [
+          "/intelligence/[slug]"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|public|className=\"min-h-screen flex items-center justify-center bg-slate-100 font-sans\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"min-h-screen flex items-center justify-center bg-slate-100 font-sans\"",
+        "evidence": "className=\"min-h-screen flex items-center justify-center bg-slate-100 font-sans\"",
+        "routeCount": 1,
+        "routes": [
+          "/team/join/[token]"
+        ],
+        "sampleRoutes": [
+          "/team/join/[token]"
+        ],
+        "score": 2
+      },
+      {
+        "key": "palette-conformance|public|className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-4\"",
+        "dimension": "palette-conformance",
+        "scope": "public",
+        "signature": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-4\"",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-4\"",
+        "routeCount": 1,
+        "routes": [
+          "/unsubscribe/confirmed"
+        ],
+        "sampleRoutes": [
+          "/unsubscribe/confirmed"
+        ],
+        "score": 2
+      }
+    ]
+  },
+  "quarantine": {
+    "activeEntries": 3,
+    "expiredEntries": 0,
+    "suppressedFindings": 6,
+    "suppressed": [
+      {
+        "route": "/dashboard/admin/b2b",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known admin shell debt under active remediation"
+        }
+      },
+      {
+        "route": "/dashboard",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known dashboard shell debt under active remediation"
+        }
+      },
+      {
+        "route": "/dashboard",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known dashboard shell debt under active remediation"
+        }
+      },
+      {
+        "route": "/dashboard",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known dashboard shell debt under active remediation"
+        }
+      },
+      {
+        "route": "/dashboard",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known dashboard shell debt under active remediation"
+        }
+      },
+      {
+        "route": "/guide",
+        "dimension": "palette-conformance",
+        "evidence": "className=\"min-h-screen bg-slate-100 font-sans\"",
+        "quarantine": {
+          "ticket": "SXO-203",
+          "owner": "platform-reliability",
+          "expiresAt": "2026-08-15T00:00:00Z",
+          "reason": "Known public shell debt under active remediation"
+        }
+      }
+    ]
+  },
+  "debtRatchet": {
+    "checks": [
+      {
+        "dimension": "palette-conformance",
+        "max": 79,
+        "current": 79,
+        "pass": true
+      },
+      {
+        "dimension": "availability",
+        "max": 0,
+        "current": 0,
+        "pass": true
+      },
+      {
+        "dimension": "coverage",
+        "max": 0,
+        "current": 0,
+        "pass": true
+      }
+    ],
+    "violations": [],
+    "pass": true
+  },
+  "blockingViolations": 73,
+  "violations": [
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/new/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/b2b/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/b2b/[id]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/coach-outreach/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 flex items-center justify-center\""
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/feedback/[id]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 flex items-center justify-center\""
+    },
+    {
+      "route": "/dashboard/admin/guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/guide/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/intelligence",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/client.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/intelligence/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/intelligence/qa/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/internal-guide",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/internal-guide/internal-guide-client.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/linkedin-company-launch",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/linkedin-company-launch/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/metrics/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/onboarding/qa",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/qa/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/onboarding/video/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/outplacement-cohorts",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-cohorts/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/outplacement-outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outplacement-outreach/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-analytics/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/outreach-reliability/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/prep-efficacy",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/prep-efficacy/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/product/catalog",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/product/catalog/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/social/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "relativePath": "src/app/(dashboard)/dashboard/admin/speakers/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/coach/[clientId]",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/[clientId]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "relativePath": "src/app/(dashboard)/dashboard/companies/new/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/dashboard-post-placement-view.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/discover",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/discover/recommendation/[id]",
+      "relativePath": "src/app/(dashboard)/dashboard/discover/recommendation/[id]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/error.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "relativePath": "src/app/(dashboard)/dashboard/executive-brief/executive-brief-hub.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/feedback",
+      "relativePath": "src/app/(dashboard)/dashboard/feedback/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50\""
+    },
+    {
+      "route": "/dashboard/help",
+      "relativePath": "src/app/(dashboard)/dashboard/help/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/invite",
+      "relativePath": "src/app/(dashboard)/dashboard/invite/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/kanban",
+      "relativePath": "src/app/(dashboard)/dashboard/kanban/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 px-4 py-12 sm:px-6\""
+    },
+    {
+      "route": "/dashboard",
+      "relativePath": "src/app/(dashboard)/dashboard/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/offers",
+      "relativePath": "src/app/(dashboard)/dashboard/offers/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/optionality/branding",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/branding/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/optionality/decision-cockpit",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/decision-cockpit/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/optionality",
+      "relativePath": "src/app/(dashboard)/dashboard/optionality/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement/counselor",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/counselor/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement/enterprise",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/enterprise/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement/operator",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/operator/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 flex flex-col items-center justify-center font-sans\""
+    },
+    {
+      "route": "/dashboard/outplacement/sponsor-report",
+      "relativePath": "src/app/(dashboard)/dashboard/outplacement/sponsor-report/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/outreach",
+      "relativePath": "src/app/(dashboard)/dashboard/outreach/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/partner",
+      "relativePath": "src/app/(dashboard)/dashboard/partner/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/positioning",
+      "relativePath": "src/app/(dashboard)/dashboard/positioning/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/post-landing",
+      "relativePath": "src/app/(dashboard)/dashboard/post-landing/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/dashboard/profile",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/profile",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/profile/tailor",
+      "relativePath": "src/app/(dashboard)/dashboard/profile/tailor/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/salary",
+      "relativePath": "src/app/(dashboard)/dashboard/salary/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/signals",
+      "relativePath": "src/app/(dashboard)/dashboard/signals/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/start",
+      "relativePath": "src/app/(dashboard)/dashboard/start/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/strategy",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/loading.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/dashboard/strategy",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/strategy-client.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/",
+      "relativePath": "src/app/(dashboard)/error.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-6\""
+    },
+    {
+      "route": "/settings/billing",
+      "relativePath": "src/app/(dashboard)/settings/billing/billing-client.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/settings/security",
+      "relativePath": "src/app/(dashboard)/settings/security/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/settings/team",
+      "relativePath": "src/app/(dashboard)/settings/team/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/contributor",
+      "relativePath": "src/app/contributor/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/CioDemoClient.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\""
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/CioNotesClient.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\""
+    },
+    {
+      "route": "/demo/cio",
+      "relativePath": "src/app/demo/cio/CioPresentationClient.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\""
+    },
+    {
+      "route": "/demo/presenter",
+      "relativePath": "src/app/demo/presenter/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 text-slate-900 font-sans\""
+    },
+    {
+      "route": "/",
+      "relativePath": "src/app/error.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center\""
+    },
+    {
+      "route": "/for-chro",
+      "relativePath": "src/app/for-chro/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur\""
+    },
+    {
+      "route": "/guide",
+      "relativePath": "src/app/guide/guide-client.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/ideas",
+      "relativePath": "src/app/ideas/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50\""
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "relativePath": "src/app/intelligence/[slug]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-50 font-sans\""
+    },
+    {
+      "route": "/mauricio-kickoff-execution/apollo-read-access",
+      "relativePath": "src/app/mauricio-kickoff-execution/apollo-read-access/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/mauricio-kickoff-execution/customer-email-by-channel",
+      "relativePath": "src/app/mauricio-kickoff-execution/customer-email-by-channel/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/mauricio-kickoff-execution",
+      "relativePath": "src/app/mauricio-kickoff-execution/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/",
+      "relativePath": "src/app/not-found.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center\""
+    },
+    {
+      "route": "/optimize",
+      "relativePath": "src/app/optimize/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/proof/roi-calculator",
+      "relativePath": "src/app/proof/roi-calculator/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/team/join/[token]",
+      "relativePath": "src/app/team/join/[token]/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen flex items-center justify-center bg-slate-100 font-sans\""
+    },
+    {
+      "route": "/unsubscribe/confirmed",
+      "relativePath": "src/app/unsubscribe/confirmed/page.tsx",
+      "dimension": "palette-conformance",
+      "evidence": "className=\"min-h-screen bg-slate-100 font-sans flex items-center justify-center px-4\""
+    },
+    {
+      "route": "/blog/c-suite-search-90-day-plan",
+      "dimension": "rendered-darkness",
+      "blocking": false,
+      "evidence": "Estimated dark share 20.0% < 70.0% threshold"
+    },
+    {
+      "route": "/blog/c-suite-search-weekly-metrics",
+      "dimension": "rendered-darkness",
+      "blocking": false,
+      "evidence": "Estimated dark share 20.0% < 70.0% threshold"
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "dimension": "rendered-darkness",
+      "blocking": false,
+      "evidence": "Estimated dark share 25.0% < 70.0% threshold"
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "dimension": "rendered-darkness",
+      "blocking": false,
+      "evidence": "Estimated dark share 25.0% < 70.0% threshold"
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "dimension": "rendered-darkness",
+      "blocking": false,
+      "evidence": "Estimated dark share 18.2% < 70.0% threshold"
+    },
+    {
+      "route": "/",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (blue, green, orange, red, yellow) > 2 for funnel"
+    },
+    {
+      "route": "/login",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/coach/clients",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (amber, blue, orange) > 2 for public"
+    },
+    {
+      "route": "/dashboard/admin",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "6 accent families (amber, blue, emerald, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "6 accent families (amber, blue, emerald, orange, purple, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/crm",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/customers",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/feedback",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/feedback/[id]",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/metrics",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/onboarding/video",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, blue, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/outreach-analytics",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, indigo, orange) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/outreach-reliability",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/social",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "7 accent families (amber, blue, emerald, green, indigo, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/speakers",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, blue, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/traces",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/admin/wedge-funnels",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/briefing",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, blue, emerald, orange) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/coach",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, emerald, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "9 accent families (amber, blue, cyan, emerald, green, indigo, orange, red, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/companies/[id]",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "7 accent families (amber, blue, emerald, green, orange, red, teal) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/companies/[id]/prep",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "6 accent families (amber, blue, emerald, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/contacts",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, emerald, orange, red, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/contacts/[id]/outreach",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/contacts/[id]",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "6 accent families (amber, blue, emerald, indigo, orange, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/discover",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, emerald, green, orange, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/executive-brief",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, emerald, orange, red, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/feedback",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (blue, green, orange, purple, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/kanban",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, blue, green, indigo) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/outplacement/firm-admin",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/outplacement/operator",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/outplacement/sponsor-report",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/outreach",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "8 accent families (amber, blue, emerald, green, orange, red, rose, yellow) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/profile",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, green, orange, red) > 3 for dashboard"
+    },
+    {
+      "route": "/dashboard/signals",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, blue, emerald, orange, rose) > 3 for dashboard"
+    },
+    {
+      "route": "/prep/relationships",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (blue, orange, purple, teal) > 2 for public"
+    },
+    {
+      "route": "/settings/billing",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, green, orange, red) > 2 for public"
+    },
+    {
+      "route": "/settings/security",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/settings/team",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/channels/feature-map",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, violet) > 2 for public"
+    },
+    {
+      "route": "/coaches/mock-dashboard",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+    },
+    {
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+    },
+    {
+      "route": "/demo/cio",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, red) > 2 for funnel"
+    },
+    {
+      "route": "/demo/executive-brief",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, red) > 2 for funnel"
+    },
+    {
+      "route": "/demo/executive-dashboard",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, blue, green, indigo, orange) > 2 for funnel"
+    },
+    {
+      "route": "/feedback",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/for-coaches/faq",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (amber, emerald, orange) > 2 for public"
+    },
+    {
+      "route": "/guide",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, rose) > 2 for public"
+    },
+    {
+      "route": "/intelligence/[slug]",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (amber, green, orange) > 2 for public"
+    },
+    {
+      "route": "/mauricio-kickoff",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, indigo, orange) > 2 for public"
+    },
+    {
+      "route": "/mauricio-kickoff-execution/apollo-read-access",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (emerald, orange, rose) > 2 for public"
+    },
+    {
+      "route": "/mauricio-kickoff-execution",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (amber, emerald, orange) > 2 for public"
+    },
+    {
+      "route": "/onboarding",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/optimize",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "5 accent families (amber, blue, green, orange, red) > 2 for public"
+    },
+    {
+      "route": "/partners",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "4 accent families (amber, emerald, orange, red) > 2 for public"
+    },
+    {
+      "route": "/sales-marketing-plan",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "3 accent families (blue, emerald, orange) > 2 for public"
+    },
+    {
+      "route": "(shared-component)",
+      "dimension": "accent-restraint",
+      "blocking": false,
+      "evidence": "10 accent families (amber, blue, cyan, emerald, green, indigo, orange, purple, red, rose) > 2 for public"
+    }
+  ]
+}

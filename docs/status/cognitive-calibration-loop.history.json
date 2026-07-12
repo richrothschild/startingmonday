@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-12T16:34:40.035Z",
+  "updatedAt": "2026-07-12T20:54:16.795Z",
   "runs": [
     {
       "generatedAt": "2026-07-12T15:51:24.653Z",
@@ -34,6 +34,16 @@
     },
     {
       "generatedAt": "2026-07-12T16:34:40.035Z",
+      "status": "ok",
+      "overlapRoutes": 2,
+      "exactAgreementRate": 0.5,
+      "withinOneGradeRate": 0.5,
+      "deterministicStricter": 0,
+      "auditorStricter": 1,
+      "majorDisagreements": 1
+    },
+    {
+      "generatedAt": "2026-07-12T20:54:16.795Z",
       "status": "ok",
       "overlapRoutes": 2,
       "exactAgreementRate": 0.5,

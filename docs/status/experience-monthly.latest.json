@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-12T16:34:35.120Z",
+  "generatedAt": "2026-07-12T20:54:53.067Z",
   "channel": "reliability---service",
   "currentWindow": {
-    "start": "2026-06-12T16:34:22.232Z",
-    "end": "2026-07-12T16:34:22.232Z"
+    "start": "2026-06-12T20:54:38.887Z",
+    "end": "2026-07-12T20:54:38.887Z"
   },
   "previousWindow": {
-    "start": "2026-05-13T16:34:22.232Z",
-    "end": "2026-06-12T16:34:22.232Z"
+    "start": "2026-05-13T20:54:38.887Z",
+    "end": "2026-06-12T20:54:38.887Z"
   },
   "trends": [
     {
@@ -33,9 +33,9 @@
       "id": "experience-vitals-agent.yml",
       "name": "Experience Vitals Agent",
       "current": {
-        "total": 5,
+        "total": 6,
         "issues": 3,
-        "issueRate": 0.6
+        "issueRate": 0.5
       },
       "previous": {
         "total": 0,
@@ -44,9 +44,9 @@
       },
       "trend": {
         "label": "worse",
-        "delta": 0.6
+        "delta": 0.5
       },
-      "recommendedAction": "Issue rate worsened by 60.0 points. Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals."
+      "recommendedAction": "Issue rate worsened by 50.0 points. Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals."
     },
     {
       "id": "cognitive-load-agent.yml",
@@ -128,8 +128,8 @@
       "id": "luxury-page-sentinel.yml",
       "name": "Luxury Page Sentinel",
       "current": {
-        "total": 116,
-        "issues": 116,
+        "total": 121,
+        "issues": 121,
         "issueRate": 1
       },
       "previous": {
@@ -185,7 +185,7 @@
       "id": "trust-escalation-agent.yml",
       "name": "Trust Escalation Agent",
       "current": {
-        "total": 0,
+        "total": 2,
         "issues": 0,
         "issueRate": 0
       },
@@ -204,7 +204,7 @@
       "id": "journey-synthetic-agent.yml",
       "name": "Journey Synthetic Agent",
       "current": {
-        "total": 0,
+        "total": 5,
         "issues": 0,
         "issueRate": 0
       },
@@ -299,9 +299,9 @@
       "id": "probe-account-reset.yml",
       "name": "Probe Account Reset",
       "current": {
-        "total": 8,
+        "total": 9,
         "issues": 2,
-        "issueRate": 0.25
+        "issueRate": 0.222
       },
       "previous": {
         "total": 0,
@@ -310,9 +310,9 @@
       },
       "trend": {
         "label": "worse",
-        "delta": 0.25
+        "delta": 0.222
       },
-      "recommendedAction": "Issue rate worsened by 25.0 points. Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips."
+      "recommendedAction": "Issue rate worsened by 22.2 points. Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips."
     }
   ],
   "summary": {

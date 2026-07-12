@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T16:34:01.190Z",
+  "generatedAt": "2026-07-12T20:54:16.221Z",
   "baseUrl": "https://startingmonday.app",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
@@ -17,10 +17,10 @@
         {
           "stepLabel": "Page load",
           "runs": 3,
-          "p50Ms": 142,
-          "p75Ms": 142,
-          "p95Ms": 142,
-          "maxMs": 344
+          "p50Ms": 139,
+          "p75Ms": 139,
+          "p95Ms": 139,
+          "maxMs": 342
         }
       ],
       "sampleRuns": 3,
@@ -31,7 +31,7 @@
         "tmp/journey-synthetic/_-sample-3.png"
       ],
       "abandonmentRisk": "high",
-      "maxStepMs": 344,
+      "maxStepMs": 342,
       "evaluations": [
         {
           "severity": null,
@@ -48,25 +48,25 @@
         {
           "stepLabel": "Page load",
           "runs": 3,
-          "p50Ms": 104,
-          "p75Ms": 104,
-          "p95Ms": 104,
-          "maxMs": 160
+          "p50Ms": 102,
+          "p75Ms": 102,
+          "p95Ms": 102,
+          "maxMs": 135
         },
         {
           "stepLabel": "Select plan",
           "runs": 3,
-          "p50Ms": 46,
-          "p75Ms": 46,
-          "p95Ms": 46,
-          "maxMs": 61
+          "p50Ms": 55,
+          "p75Ms": 55,
+          "p95Ms": 55,
+          "maxMs": 60
         }
       ],
       "sampleRuns": 3,
       "sampleFailures": 0,
       "failureScreenshots": [],
       "abandonmentRisk": "low",
-      "maxStepMs": 160,
+      "maxStepMs": 135,
       "evaluations": [
         {
           "severity": null,
@@ -88,10 +88,10 @@
         {
           "stepLabel": "Page load",
           "runs": 3,
-          "p50Ms": 98,
-          "p75Ms": 98,
-          "p95Ms": 98,
-          "maxMs": 131
+          "p50Ms": 95,
+          "p75Ms": 95,
+          "p95Ms": 95,
+          "maxMs": 114
         }
       ],
       "sampleRuns": 3,
@@ -102,7 +102,7 @@
         "tmp/journey-synthetic/_demo-sample-3.png"
       ],
       "abandonmentRisk": "high",
-      "maxStepMs": 131,
+      "maxStepMs": 114,
       "evaluations": [
         {
           "severity": null,
@@ -125,7 +125,7 @@
       "count": 3,
       "criticalCount": 0,
       "warnCount": 0,
-      "maxDurationMs": 344,
+      "maxDurationMs": 342,
       "riskScore": 0
     }
   },

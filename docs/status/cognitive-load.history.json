@@ -8580,6 +8580,1722 @@
           "fluencyGrade": "A-"
         }
       ]
+    },
+    {
+      "generatedAt": "2026-07-12T20:52:16.565Z",
+      "totalPages": 285,
+      "pages": [
+        {
+          "route": "/coach/clients",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coach/[clientId]/interview",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/b2b/new",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/b2b",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/b2b/[id]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/channel-benchmarks",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/coach-outreach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/admin/crm",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/customers",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/diagrams",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/feedback",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/feedback/[id]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/guide",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/intelligence",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/intelligence/qa",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/internal-guide",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/linkedin-company-launch",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/admin/metrics",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/onboarding/qa",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/onboarding/video",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/operations",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/operations/wedge-cron",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/operations/wedge-economics",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/outplacement-cohorts",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/outplacement-outreach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/outreach-analytics",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/outreach-reliability",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/prep-efficacy",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/product/catalog",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/product",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/revenue",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/sales-enablement",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/social",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/speakers",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/team",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/traces",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/traces/rubric",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/admin/wedge-funnels",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/board-track",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/briefing",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/calendar",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/chat",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/coach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/coach/[clientId]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/companies/new",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/companies/[id]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/companies/[id]/prep",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/concierge",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/contacts",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/contacts/[id]/edit",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/contacts/[id]/outreach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/contacts/[id]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/discover",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/discover/recommendation/[id]",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/executive-brief",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/feedback",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/help",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/invite",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/kanban",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/offers",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/optionality/branding",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/optionality/decision-cockpit",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/optionality",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement/counselor",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement/enterprise",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement/firm-admin",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement/operator",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outplacement/sponsor-report",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/outreach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/partner",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/pilot-outreach",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/placed",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/plan",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/positioning",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/post-landing",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/post-search",
+          "tier": "dashboard",
+          "loadGrade": "B+",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/profile",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/profile/tailor",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/salary",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/signals",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/start",
+          "tier": "dashboard",
+          "loadGrade": "B+",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/dashboard/strategy",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard/wrap-up",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/prep/communications",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/prep/companies",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/prep/interview",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/prep/meetings",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/prep/relationships",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/settings/billing",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/settings",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/settings/security",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/settings/team",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/about",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/alumni-networks-review",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/annual-report-2026/executive-search-ai-confidentiality",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/annual-report-2026",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/c-suite-search-90-day-plan",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/c-suite-search-weekly-metrics",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-board-presentation",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-compensation-negotiation",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-job-market-2026",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-job-search-timeline",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-search-signal-story-sequence",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cio-vs-cto-which-role",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/ciso-interview-preparation",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/confidential-executive-search-pipeline",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cto-job-search-timeline",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/cto-vs-vp-engineering-career-path",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/evaluate-executive-coach-evidence",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/evidence-based-executive-networking",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/evidence-hub-coaching-session-framework",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-coaching-candidate-infrastructure",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-coaching-job-search",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-coaching-search-outcomes",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-hiring-committee-psychology",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-hiring-patterns-2026",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-interview-prep-7-day-system",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-job-search-daily-routine",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-organizational-visibility",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-outreach-response-rate",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-resume-gaps",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-consistency-model",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-firms-cio",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-operating-system",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-pilot-data-observations",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-readiness-audit",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-risk-register",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-search-timing-signals",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/executive-transition-success-factors",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/how-cios-find-jobs",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/how-we-estimate-early-role-signals",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/linkedin-executive-search-strategy",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/pe-backed-cio",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/retained-search-candidate-preparation",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/retained-search-firms",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/source-backed-executive-career-narrative",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/target-company-list",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/target-company-list-cto",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/technology-executive-transition-chro",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/vp-job-search-different-rules",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/vp-to-c-suite-positioning",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/vp-to-cio-transition",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/what-companies-want-chief-data-officer",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/why-executive-recruiters-go-quiet",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/blog/why-starting-monday-exists",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/career-tools",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/case-studies",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/channels/feature-map",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/executive-transition-coach-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/mock-dashboard",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/mock-dashboard/[clientId]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/objections",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/personas",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/personas/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/sample-transition-brief",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/coaches/workflow/opportunity-access-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/workflow/set-transition-thesis-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches/workflow/weekly-momentum-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coaches-guide",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/coachos",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/concierge",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/contributor",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/dashboard-theme-preview",
+          "tier": "dashboard",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/demo/cio/notes",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/cio",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/coach-dashboard",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/executive-brief",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/executive-dashboard",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/demo/leader-brief",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/manager-tools",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/michael-dashboard",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "C+"
+        },
+        {
+          "route": "/demo/michael-strategy-brief",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/prep-communications",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/demo/prep-companies",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/demo/prep-interview",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/demo/prep-meetings",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "C+"
+        },
+        {
+          "route": "/demo/presenter",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/sandbox/alto-shaam",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/sandbox/healthcare",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/demo/wedge-30s",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/evaluate",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/evidence-hub",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/evidence-room",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/executive-brief",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/executives/active",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/executives",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/executives/passive",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/executives/personas",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/executives/personas/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/features",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/features/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/feedback",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-cdo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-chro",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-cio",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-cio-associations",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-ciso",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-coaches/coach-prep-worksheet",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/for-coaches/economics",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches/faq",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches/micro-products",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches/micro-products/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches/search-affiliate",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-coaches/trust-pack",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/for-coo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-cpo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-data-officer",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-executives",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-executives/[lane]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-financial-advisors",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-fractional-executives",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-individuals",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-leaders",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/for-media-partners",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-outplacement/economics",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/for-outplacement/executive-summary",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/for-outplacement/faq",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-outplacement/metric-dictionary",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-outplacement/operating-scorecard",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-outplacement",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-outplacement/runbook",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "C+"
+        },
+        {
+          "route": "/for-outplacement/security-overview",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "C+"
+        },
+        {
+          "route": "/for-outplacement/trust-pack",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-pe-partners",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-pe-teams",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/for-relocation",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-search-firms",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-vp",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/for-vp-technology",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/founder-note",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/guide",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/handshake-review",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/ideas",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/individuals",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/intelligence/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/invite/[code]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/learn-more/common-questions",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/learn-more/inside-the-system",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/learn-more/objections",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/learn-more",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/managertools",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/mark-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/method-and-evidence",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/methodology",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/onboarding",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/optimize",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/outplacement",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B"
+        },
+        {
+          "route": "/outplacement/personas",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/outplacement/personas/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/partner-firm",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/partners",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/partners/pilot-admin",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/partners/reporting",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "C"
+        },
+        {
+          "route": "/pilot-findings",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/pricing",
+          "tier": "funnel",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/privacy",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/proof/roi-calculator",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/references",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/research-brief",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/sales-marketing-plan",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/executive-recruiter-demo",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/objections",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/personas",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/search-firms/personas/[slug]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/procurement",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/sample-cfo-brief",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/search-firms/trial-charter",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/search-firms/trust",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/security",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/shortlist-sprint",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/stuart-meyer-review",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/team/join/[token]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/terms",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/terry-anderson-review",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "B+"
+        },
+        {
+          "route": "/unsubscribe/confirmed",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        },
+        {
+          "route": "/unsubscribe/[code]",
+          "tier": "public",
+          "loadGrade": "A-",
+          "fluencyGrade": "A-"
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Journey Synthetic Agent Report
 
-Generated: 2026-07-12T16:34:01.190Z
+Generated: 2026-07-12T20:54:16.221Z
 SES Version: 1
 Base URL: https://startingmonday.app
 Pass: false
@@ -18,7 +18,7 @@ Pass: false
 - Journeys measured: 3
 - P0 critical steps: 0
 - P1 warn steps: 0
-- Max step duration: 344ms
+- Max step duration: 342ms
 - Weighted risk score: 0.00
 
 ## Top Findings

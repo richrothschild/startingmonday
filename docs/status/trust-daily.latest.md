@@ -1,14 +1,14 @@
 # Trust Daily Report
 
-Generated: 2026-07-12T16:35:06.798Z
+Generated: 2026-07-12T20:54:55.163Z
 Channel: reliability---service
 
 ## Workflow Health
 
-- Trust Integrity Agent: status=failed, conclusion=failure, age=152m, threshold=1800m
-- Trust Escalation Agent: status=missing, conclusion=n/a, age=n/a, threshold=n/a
-- Trust Weekly Issues Report: status=healthy, conclusion=success, age=1462m, threshold=11520m
-- Trust Monthly Trends Report: status=healthy, conclusion=success, age=1461m, threshold=57600m
+- Trust Integrity Agent: status=failed, conclusion=failure, age=411m, threshold=1800m
+- Trust Escalation Agent: status=healthy, conclusion=success, age=106m, threshold=120m
+- Trust Weekly Issues Report: status=healthy, conclusion=success, age=1721m, threshold=11520m
+- Trust Monthly Trends Report: status=healthy, conclusion=success, age=1721m, threshold=57600m
 
 ## Devil's Advocate Risks
 
@@ -21,7 +21,7 @@ Channel: reliability---service
 
 ## Route-Level Evidence Snippets
 
-- Source generated: 2026-07-12T16:32:07.146Z
+- Source generated: 2026-07-12T20:52:22.138Z
 - Snapshot pass: pass
 - Contract snippets:
   - signalParity=pass (dashboard=5, briefing=5, signals=5)

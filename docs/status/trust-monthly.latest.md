@@ -1,9 +1,9 @@
 # Trust Monthly Trends Report
 
-Generated: 2026-07-12T16:34:39.626Z
+Generated: 2026-07-12T20:54:57.590Z
 Channel: reliability---service
-Current window: 2026-06-12T16:34:38.841Z to 2026-07-12T16:34:38.840Z
-Previous window: 2026-05-13T16:34:38.841Z to 2026-06-12T16:34:38.841Z
+Current window: 2026-06-12T20:54:56.784Z to 2026-07-12T20:54:56.784Z
+Previous window: 2026-05-13T20:54:56.784Z to 2026-06-12T20:54:56.784Z
 
 ## Trend Summary
 

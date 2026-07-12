@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-12T16:35:06.798Z",
+  "generatedAt": "2026-07-12T20:54:55.163Z",
   "channel": "reliability---service",
   "workflowHealth": [
     {
       "id": "trust-integrity-agent.yml",
       "name": "Trust Integrity Agent",
       "status": "failed",
-      "ageMinutes": 152,
+      "ageMinutes": 411,
       "conclusion": "failure",
       "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195522014",
       "maxAgeMinutes": 1800,
@@ -15,17 +15,18 @@
     {
       "id": "trust-escalation-agent.yml",
       "name": "Trust Escalation Agent",
-      "status": "missing",
-      "ageMinutes": null,
-      "conclusion": null,
-      "url": null,
+      "status": "healthy",
+      "ageMinutes": 106,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29205223758",
+      "maxAgeMinutes": 120,
       "recommendation": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window."
     },
     {
       "id": "trust-weekly-issues-report.yml",
       "name": "Trust Weekly Issues Report",
       "status": "healthy",
-      "ageMinutes": 1462,
+      "ageMinutes": 1721,
       "conclusion": "success",
       "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159377927",
       "maxAgeMinutes": 11520,
@@ -35,7 +36,7 @@
       "id": "trust-monthly-trends-report.yml",
       "name": "Trust Monthly Trends Report",
       "status": "healthy",
-      "ageMinutes": 1461,
+      "ageMinutes": 1721,
       "conclusion": "success",
       "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159379334",
       "maxAgeMinutes": 57600,
@@ -65,7 +66,7 @@
   "trustIntegrityEvidence": {
     "available": true,
     "source": "C:\\Users\\roths\\startingmonday\\docs\\status\\trust-integrity.latest.json",
-    "generatedAt": "2026-07-12T16:32:07.146Z",
+    "generatedAt": "2026-07-12T20:52:22.138Z",
     "pass": true,
     "routeSnippets": [
       "/dashboard: status=200, title=ok, main=1, stalePhrases=0",

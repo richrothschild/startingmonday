@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-12T16:34:21.802Z",
+  "generatedAt": "2026-07-12T20:54:38.398Z",
   "channel": "reliability---service",
   "window": {
-    "start": "2026-07-05T16:34:08.492Z",
-    "end": "2026-07-12T16:34:08.491Z"
+    "start": "2026-07-05T20:54:24.096Z",
+    "end": "2026-07-12T20:54:24.095Z"
   },
   "workflowSummaries": [
     {
@@ -21,12 +21,12 @@
     {
       "id": "experience-vitals-agent.yml",
       "name": "Experience Vitals Agent",
-      "totalRuns": 5,
+      "totalRuns": 6,
       "issueRuns": 3,
-      "issueRate": 0.6,
+      "issueRate": 0.5,
       "stale": false,
-      "latestConclusion": "failure",
-      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29192345562",
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29203597914",
       "recommendation": "Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals.",
       "issues": [
         "3 non-success runs in the last 7 days"
@@ -85,15 +85,15 @@
     {
       "id": "luxury-page-sentinel.yml",
       "name": "Luxury Page Sentinel",
-      "totalRuns": 116,
-      "issueRuns": 116,
+      "totalRuns": 121,
+      "issueRuns": 121,
       "issueRate": 1,
       "stale": false,
       "latestConclusion": "failure",
-      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29198832180",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29208303103",
       "recommendation": "Triage blocking incidents by dimension and burn down quarantine debt before expiry.",
       "issues": [
-        "116 non-success runs in the last 7 days"
+        "121 non-success runs in the last 7 days"
       ]
     },
     {
@@ -127,28 +127,26 @@
     {
       "id": "trust-escalation-agent.yml",
       "name": "Trust Escalation Agent",
-      "totalRuns": 0,
+      "totalRuns": 2,
       "issueRuns": 0,
       "issueRate": 0,
-      "stale": true,
-      "latestConclusion": null,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29205223758",
       "recommendation": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window.",
-      "issues": [
-        "no completed runs in last 7 days"
-      ]
+      "issues": []
     },
     {
       "id": "journey-synthetic-agent.yml",
       "name": "Journey Synthetic Agent",
-      "totalRuns": 0,
+      "totalRuns": 5,
       "issueRuns": 0,
       "issueRate": 0,
-      "stale": true,
-      "latestConclusion": null,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29207806401",
       "recommendation": "Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact.",
-      "issues": [
-        "no completed runs in last 7 days"
-      ]
+      "issues": []
     },
     {
       "id": "trust-daily-report.yml",
@@ -203,12 +201,12 @@
     {
       "id": "probe-account-reset.yml",
       "name": "Probe Account Reset",
-      "totalRuns": 8,
+      "totalRuns": 9,
       "issueRuns": 2,
-      "issueRate": 0.25,
+      "issueRate": 0.222,
       "stale": false,
       "latestConclusion": "success",
-      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29193078732",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29204340204",
       "recommendation": "Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips.",
       "issues": [
         "2 non-success runs in the last 7 days"
@@ -235,14 +233,6 @@
     {
       "workflow": "Trust Integrity Agent",
       "action": "Resolve parity/title/landmark contract failures before certifying dashboard trust posture."
-    },
-    {
-      "workflow": "Trust Escalation Agent",
-      "action": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window."
-    },
-    {
-      "workflow": "Journey Synthetic Agent",
-      "action": "Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact."
     },
     {
       "workflow": "Trust Daily Report",
