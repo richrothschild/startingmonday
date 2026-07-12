@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-03T02:30:15.115Z",
-  "guideGeneratedAt": "2026-06-03T02:00:34.770Z",
+  "generatedAt": "2026-07-12T22:07:22.189Z",
+  "guideGeneratedAt": "2026-07-12T22:07:17.304Z",
   "thresholdRecallAt3": 0.82,
   "summary": {
     "total": 50,
-    "recallAt1": 0.76,
+    "recallAt1": 0.74,
     "recallAt3": 0.82,
     "recallAt5": 0.86,
     "misses": [
@@ -13,7 +13,7 @@
         "topUrls": [
           "/mark-review/summary",
           "/dashboard/positioning",
-          "/for-outplacement/executive-summary"
+          "/blog/vp-to-c-suite-positioning"
         ],
         "expectedAnyOfUrls": [
           "/dashboard/profile"
@@ -34,8 +34,8 @@
         "question": "How do I update payment details?",
         "topUrls": [
           "/guide",
-          "/for-cdo",
-          "/guide"
+          "/methodology",
+          "/for-cdo"
         ],
         "expectedAnyOfUrls": [
           "/settings/billing"
@@ -46,7 +46,7 @@
         "topUrls": [
           "/api/admin/automation/billing/invoices-receipts",
           "/api/admin/automation/outreach/reconcile-live-sends",
-          "/for-cdo"
+          "/methodology"
         ],
         "expectedAnyOfUrls": [
           "/settings/billing"
@@ -55,9 +55,9 @@
       {
         "question": "How can I find endpoint documentation?",
         "topUrls": [
+          "/api/onboarding/scan",
           "/api/cron/scan-alert",
-          "/pilot-findings",
-          "/blog/how-cios-find-jobs"
+          "/pilot-findings"
         ],
         "expectedAnyOfUrls": [
           "/guide"
@@ -89,9 +89,9 @@
       {
         "question": "How do I review strategy?",
         "topUrls": [
+          "/api/coach-handoff/preview",
           "/mark-review",
-          "/mark-review/summary",
-          "/mark-review/appendix"
+          "/handshake-review"
         ],
         "expectedAnyOfUrls": [
           "/dashboard/strategy"
