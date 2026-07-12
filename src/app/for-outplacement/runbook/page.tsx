@@ -149,7 +149,7 @@ export default function OutplacementRunbookPage() {
         <section className="border border-slate-200 rounded-2xl p-6 bg-white">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-500 mb-3">Next step</p>
           <p className="text-[14px] text-slate-600 leading-relaxed mb-4">
-            Use the runbook as your operating source of truth for one cohort pilot and carry the outputs into the day-30 decision review.
+            Use the runbook as your operating source of truth for one cohort pilot. Carry the outputs into the day-30 decision review.
           </p>
           <div className="flex flex-wrap gap-4 text-[13px]">
             <Link href="/for-outplacement/economics" className="text-slate-700 hover:text-slate-900 underline underline-offset-2 transition-colors">

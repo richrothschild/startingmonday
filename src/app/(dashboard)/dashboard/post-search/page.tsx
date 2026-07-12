@@ -117,7 +117,7 @@ export default async function PostSearchDashboardPage() {
         </div>
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
-          <p className="text-[13px] font-semibold text-slate-200 mb-3">Relationship network health</p>
+          <h2 className="text-[13px] font-semibold text-slate-200 mb-3">Relationship network health</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="rounded border border-slate-800 bg-slate-950/50 px-4 py-3">
               <p className="text-[13px] tracking-[0.12em] text-slate-500 mb-1">Coverage score</p>
@@ -136,7 +136,7 @@ export default async function PostSearchDashboardPage() {
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
           <div className="flex items-start justify-between gap-3 mb-3">
-            <p className="text-[13px] font-semibold text-slate-200">Narrative health</p>
+            <h2 className="text-[13px] font-semibold text-slate-200">Narrative health</h2>
             <p className="text-[13px] tracking-[0.12em] text-slate-400">OS Sprint 3</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
@@ -172,7 +172,7 @@ export default async function PostSearchDashboardPage() {
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-5 mb-8">
           <div className="flex items-start justify-between gap-3 mb-3">
-            <p className="text-[13px] font-semibold text-slate-200">Always-on intelligence pulse</p>
+            <h2 className="text-[13px] font-semibold text-slate-200">Always-on intelligence pulse</h2>
             <p className="text-[13px] tracking-[0.12em] text-slate-400">OS Sprint 4</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">

@@ -208,7 +208,7 @@ export default function CoachDashboard() {
 
         {!loading && commandCenter?.monitoring && (
           <div className="rounded-2xl border border-white/15 bg-white/5 p-4 mb-6 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-2">Route performance</p>
+            <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-2">Route performance</h2>
             <div className="grid sm:grid-cols-5 gap-3">
               <div>
                 <p className="text-[13px] uppercase tracking-[0.08em] text-slate-400">Route fetch</p>
@@ -236,7 +236,7 @@ export default function CoachDashboard() {
 
         {!loading && (atRisk.length > 0 || overdue.length > 0) && (
           <div className="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-4 mb-6 backdrop-blur-md">
-            <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-200 mb-2">Needs Attention</p>
+            <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-amber-200 mb-2">Needs Attention</h2>
             {atRisk.length > 0 && (
               <p className="text-[13px] text-slate-100 mb-1">
                 <span className="font-semibold">{atRisk.length}</span> client{atRisk.length !== 1 ? 's' : ''} in high-risk status.
@@ -253,7 +253,7 @@ export default function CoachDashboard() {
         {!loading && commandCenter && (
           <div className="grid lg:grid-cols-3 gap-4 mb-6">
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Upcoming sessions</p>
+              <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Upcoming sessions</h2>
               {commandCenter.upcoming_sessions.length === 0 ? (
                 <p className="text-[13px] text-slate-300">No upcoming sessions or due touchpoints in the current window.</p>
               ) : (
@@ -273,7 +273,7 @@ export default function CoachDashboard() {
             </div>
 
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Priority action queue</p>
+              <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Priority action queue</h2>
               {actionQueue.length === 0 ? (
                 <p className="text-[13px] text-slate-300">No open actions. Weekly review queue is clear.</p>
               ) : (
@@ -293,7 +293,7 @@ export default function CoachDashboard() {
             </div>
 
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-              <p className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Weekly review state</p>
+              <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Weekly review state</h2>
               {reviewsWithState.length === 0 ? (
                 <p className="text-[13px] text-slate-300">No saved weekly reviews with state signals yet.</p>
               ) : (
