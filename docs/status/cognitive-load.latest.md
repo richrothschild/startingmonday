@@ -1,21 +1,21 @@
 # Cognitive Load Agent Report
 
-Generated: 2026-07-11T22:59:50.858Z
+Generated: 2026-07-12T00:34:41.000Z
 Channel: reliability---service
 Pages scanned: 285
 Pages with issues: 54
-Total issues: 60
+Total issues: 57
 
 ## Tier Gates
 
 - public: loadRequired=B+, loadPass=true, fluencyRequired=B+, fluencyPass=false, sampledPages=129
-- dashboard: loadRequired=A-, loadPass=false, fluencyRequired=A-, fluencyPass=false, sampledPages=85
+- dashboard: loadRequired=A-, loadPass=true, fluencyRequired=A-, fluencyPass=false, sampledPages=85
 - funnel: loadRequired=B+, loadPass=true, fluencyRequired=B+, fluencyPass=false, sampledPages=71
 
 ## Tier Summary
 
-- public: pages=129, issues=34, avgIssueCount=0.26, worstLoadGrade=B+, avgFluencyScore=92.9, worstFluencyGrade=C, loadGate=true, fluencyGate=false
-- dashboard: pages=85, issues=19, avgIssueCount=0.22, worstLoadGrade=B+, avgFluencyScore=98.1, worstFluencyGrade=B, loadGate=false, fluencyGate=false
+- public: pages=129, issues=33, avgIssueCount=0.26, worstLoadGrade=B+, avgFluencyScore=92.9, worstFluencyGrade=C, loadGate=true, fluencyGate=false
+- dashboard: pages=85, issues=17, avgIssueCount=0.2, worstLoadGrade=A-, avgFluencyScore=98.4, worstFluencyGrade=B, loadGate=true, fluencyGate=false
 - funnel: pages=71, issues=7, avgIssueCount=0.1, worstLoadGrade=A-, avgFluencyScore=97.2, worstFluencyGrade=C+, loadGate=true, fluencyGate=false
 
 ## Top Findings
@@ -23,18 +23,9 @@ Total issues: 60
 - /coaches/mock-dashboard/[clientId]: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
   - weak-chunking-paragraph-to-heading-ratio: 34.0
   - high-density-without-progressive-disclosure
-- /dashboard/coach: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
-  - weak-chunking-paragraph-to-heading-ratio: 57.0
-  - high-density-without-progressive-disclosure
-- /dashboard/post-search: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
-  - weak-chunking-paragraph-to-heading-ratio: 37.0
-  - high-density-without-progressive-disclosure
 - /executives: loadGrade=B+, fluencyGrade=C, fluencyScore=58, issues=2
   - avg-sentence-too-dense: 32.0 words
   - weak-chunking-paragraph-to-heading-ratio: 13.0
-- /for-outplacement/runbook: loadGrade=B+, fluencyGrade=C, fluencyScore=58, issues=2
-  - avg-sentence-too-dense: 28.3 words
-  - weak-chunking-paragraph-to-heading-ratio: 17.0
 - /prep/relationships: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
   - weak-chunking-paragraph-to-heading-ratio: 29.0
   - high-density-without-progressive-disclosure
@@ -62,8 +53,14 @@ Total issues: 60
   - high-density-without-progressive-disclosure
 - /dashboard/briefing: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
+- /dashboard/coach: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
+  - high-density-without-progressive-disclosure
 - /dashboard/outplacement/firm-admin: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
 - /dashboard/outreach: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
+  - high-density-without-progressive-disclosure
+- /dashboard/placed: loadGrade=A-, fluencyGrade=B+, fluencyScore=88, issues=1
+  - weak-chunking-paragraph-to-heading-ratio: 13.0
+- /dashboard/post-search: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
 

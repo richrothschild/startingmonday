@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-11T22:59:50.858Z",
+  "generatedAt": "2026-07-12T00:34:41.000Z",
   "channel": "reliability---service",
   "sesVersion": 1,
   "totalPages": 285,
   "pagesWithIssues": 54,
-  "totalIssues": 60,
+  "totalIssues": 57,
   "byTier": {
     "public": {
       "pages": 129,
-      "issues": 34,
+      "issues": 33,
       "avgIssueCount": 0.26,
       "avgFluencyScore": 92.9,
       "worstGrade": "B+",
@@ -18,12 +18,12 @@
     },
     "dashboard": {
       "pages": 85,
-      "issues": 19,
-      "avgIssueCount": 0.22,
-      "avgFluencyScore": 98.1,
-      "worstGrade": "B+",
+      "issues": 17,
+      "avgIssueCount": 0.2,
+      "avgFluencyScore": 98.4,
+      "worstGrade": "A-",
       "worstFluencyGrade": "B",
-      "loadGatePass": false,
+      "loadGatePass": true,
       "fluencyGatePass": false
     },
     "funnel": {
@@ -61,13 +61,13 @@
       },
       "sampledPages": 85,
       "load": {
-        "pass": false,
-        "worstGrade": "B+"
+        "pass": true,
+        "worstGrade": "A-"
       },
       "fluency": {
         "pass": false,
         "worstGrade": "B",
-        "avgScore": 98.1
+        "avgScore": 98.4
       }
     },
     "funnel": {
@@ -114,56 +114,6 @@
       }
     },
     {
-      "route": "/dashboard/coach",
-      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
-      "metrics": {
-        "totalWords": 421,
-        "sentenceCount": 61,
-        "avgSentenceWords": 6.9,
-        "paragraphCount": 57,
-        "headingCount": 1,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 1
-      },
-      "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 57.0",
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 2,
-      "tier": "dashboard",
-      "grade": "B+",
-      "fluency": {
-        "score": 88,
-        "grade": "B+"
-      }
-    },
-    {
-      "route": "/dashboard/post-search",
-      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
-      "metrics": {
-        "totalWords": 374,
-        "sentenceCount": 53,
-        "avgSentenceWords": 7.1,
-        "paragraphCount": 37,
-        "headingCount": 1,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 3
-      },
-      "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 37.0",
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 2,
-      "tier": "dashboard",
-      "grade": "B+",
-      "fluency": {
-        "score": 88,
-        "grade": "B+"
-      }
-    },
-    {
       "route": "/executives",
       "relativePath": "src/app/executives/page.tsx",
       "metrics": {
@@ -179,31 +129,6 @@
       "issues": [
         "avg-sentence-too-dense: 32.0 words",
         "weak-chunking-paragraph-to-heading-ratio: 13.0"
-      ],
-      "issueCount": 2,
-      "tier": "public",
-      "grade": "B+",
-      "fluency": {
-        "score": 58,
-        "grade": "C"
-      }
-    },
-    {
-      "route": "/for-outplacement/runbook",
-      "relativePath": "src/app/for-outplacement/runbook/page.tsx",
-      "metrics": {
-        "totalWords": 198,
-        "sentenceCount": 7,
-        "avgSentenceWords": 28.3,
-        "paragraphCount": 17,
-        "headingCount": 1,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 1
-      },
-      "issues": [
-        "avg-sentence-too-dense: 28.3 words",
-        "weak-chunking-paragraph-to-heading-ratio: 17.0"
       ],
       "issueCount": 2,
       "tier": "public",
@@ -527,6 +452,30 @@
       }
     },
     {
+      "route": "/dashboard/coach",
+      "relativePath": "src/app/(dashboard)/dashboard/coach/page.tsx",
+      "metrics": {
+        "totalWords": 421,
+        "sentenceCount": 61,
+        "avgSentenceWords": 6.9,
+        "paragraphCount": 52,
+        "headingCount": 6,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
       "route": "/dashboard/outplacement/firm-admin",
       "relativePath": "src/app/(dashboard)/dashboard/outplacement/firm-admin/page.tsx",
       "metrics": {
@@ -562,6 +511,54 @@
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 7
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 100,
+        "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/placed",
+      "relativePath": "src/app/(dashboard)/dashboard/placed/page.tsx",
+      "metrics": {
+        "totalWords": 198,
+        "sentenceCount": 36,
+        "avgSentenceWords": 5.5,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/post-search",
+      "relativePath": "src/app/(dashboard)/dashboard/post-search/page.tsx",
+      "metrics": {
+        "totalWords": 374,
+        "sentenceCount": 53,
+        "avgSentenceWords": 7.1,
+        "paragraphCount": 34,
+        "headingCount": 4,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 3
       },
       "issues": [
         "high-density-without-progressive-disclosure"
@@ -1545,22 +1542,21 @@
         "totalWords": 421,
         "sentenceCount": 61,
         "avgSentenceWords": 6.9,
-        "paragraphCount": 57,
-        "headingCount": 1,
+        "paragraphCount": 52,
+        "headingCount": 6,
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 1
       },
       "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 57.0",
         "high-density-without-progressive-disclosure"
       ],
-      "issueCount": 2,
+      "issueCount": 1,
       "tier": "dashboard",
-      "grade": "B+",
+      "grade": "A-",
       "fluency": {
-        "score": 88,
-        "grade": "B+"
+        "score": 100,
+        "grade": "A-"
       }
     },
     {
@@ -2326,22 +2322,21 @@
         "totalWords": 374,
         "sentenceCount": 53,
         "avgSentenceWords": 7.1,
-        "paragraphCount": 37,
-        "headingCount": 1,
+        "paragraphCount": 34,
+        "headingCount": 4,
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 3
       },
       "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 37.0",
         "high-density-without-progressive-disclosure"
       ],
-      "issueCount": 2,
+      "issueCount": 1,
       "tier": "dashboard",
-      "grade": "B+",
+      "grade": "A-",
       "fluency": {
-        "score": 88,
-        "grade": "B+"
+        "score": 100,
+        "grade": "A-"
       }
     },
     {
@@ -5665,9 +5660,9 @@
       "route": "/for-outplacement/runbook",
       "relativePath": "src/app/for-outplacement/runbook/page.tsx",
       "metrics": {
-        "totalWords": 198,
-        "sentenceCount": 7,
-        "avgSentenceWords": 28.3,
+        "totalWords": 197,
+        "sentenceCount": 8,
+        "avgSentenceWords": 24.6,
         "paragraphCount": 17,
         "headingCount": 1,
         "detailsCount": 0,
@@ -5675,15 +5670,14 @@
         "ctaCount": 1
       },
       "issues": [
-        "avg-sentence-too-dense: 28.3 words",
         "weak-chunking-paragraph-to-heading-ratio: 17.0"
       ],
-      "issueCount": 2,
+      "issueCount": 1,
       "tier": "public",
-      "grade": "B+",
+      "grade": "A-",
       "fluency": {
-        "score": 58,
-        "grade": "C"
+        "score": 62,
+        "grade": "C+"
       }
     },
     {
