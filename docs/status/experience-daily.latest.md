@@ -1,26 +1,26 @@
 # Experience Daily Report
 
-Generated: 2026-07-12T16:40:07.919Z
+Generated: 2026-07-12T16:44:42.291Z
 Channel: reliability---service
 
 ## Workflow Health
 
-- Route Inventory Agent: status=healthy, conclusion=success, age=160m, threshold=1800m
-- Experience Vitals Agent: status=failed, conclusion=failure, age=263m, threshold=480m
-- Cognitive Load Agent: status=healthy, conclusion=success, age=1416m, threshold=11520m
-- Cognitive Fluency Calibration Dispatch: status=healthy, conclusion=success, age=1412m, threshold=57600m
-- Cognitive Calibration Loop: status=healthy, conclusion=success, age=1340m, threshold=158400m
-- Experience Portfolio Rollup: status=failed, conclusion=failure, age=152m, threshold=1800m
-- Luxury Page Sentinel: status=failed, conclusion=failure, age=53m, threshold=120m
-- Dashboard Behavior Baseline Agent: status=failed, conclusion=failure, age=166m, threshold=1800m
-- Trust Integrity Agent: status=failed, conclusion=failure, age=157m, threshold=1800m
+- Route Inventory Agent: status=healthy, conclusion=success, age=165m, threshold=1800m
+- Experience Vitals Agent: status=failed, conclusion=failure, age=267m, threshold=480m
+- Cognitive Load Agent: status=healthy, conclusion=success, age=1421m, threshold=11520m
+- Cognitive Fluency Calibration Dispatch: status=healthy, conclusion=success, age=1417m, threshold=57600m
+- Cognitive Calibration Loop: status=healthy, conclusion=success, age=1344m, threshold=158400m
+- Experience Portfolio Rollup: status=failed, conclusion=failure, age=157m, threshold=1800m
+- Luxury Page Sentinel: status=failed, conclusion=failure, age=58m, threshold=120m
+- Dashboard Behavior Baseline Agent: status=failed, conclusion=failure, age=170m, threshold=1800m
+- Trust Integrity Agent: status=failed, conclusion=failure, age=161m, threshold=1800m
 - Trust Escalation Agent: status=missing, conclusion=n/a, age=n/a, threshold=n/a
-- Journey Synthetic Agent: status=healthy, conclusion=success, age=7m, threshold=180m
-- Trust Daily Report: status=failed, conclusion=failure, age=149m, threshold=1800m
-- Trust Weekly Issues Report: status=healthy, conclusion=success, age=1467m, threshold=11520m
-- Trust Monthly Trends Report: status=healthy, conclusion=success, age=1466m, threshold=57600m
-- Experience Seeding Checklist: status=healthy, conclusion=success, age=1161m, threshold=14400m
-- Probe Account Reset: status=healthy, conclusion=success, age=238m, threshold=1440m
+- Journey Synthetic Agent: status=healthy, conclusion=success, age=11m, threshold=180m
+- Trust Daily Report: status=failed, conclusion=failure, age=154m, threshold=1800m
+- Trust Weekly Issues Report: status=healthy, conclusion=success, age=1471m, threshold=11520m
+- Trust Monthly Trends Report: status=healthy, conclusion=success, age=1471m, threshold=57600m
+- Experience Seeding Checklist: status=healthy, conclusion=success, age=1166m, threshold=14400m
+- Probe Account Reset: status=healthy, conclusion=success, age=242m, threshold=1440m
 
 ## Dedupe-Capped Findings (Top 10)
 

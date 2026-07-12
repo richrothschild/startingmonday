@@ -298,10 +298,10 @@ async function postSlack(text) {
   await postSlackText({ webhookUrl: slackWebhook, text })
 }
 
-function findExecutiveSummaryFile() {
+function findLatestFileByPattern(pattern) {
   if (!fs.existsSync(executiveSummaryDir)) return null
   const candidates = fs.readdirSync(executiveSummaryDir)
-    .filter((name) => /^experience-report-executive-summary-and-wbs-\d{4}-\d{2}-\d{2}\.md$/i.test(name))
+    .filter((name) => pattern.test(name))
     .sort((a, b) => b.localeCompare(a))
   if (candidates.length === 0) return null
   return path.join(executiveSummaryDir, candidates[0])
@@ -320,32 +320,36 @@ function extractSectionLines(markdown, heading) {
   return section
 }
 
-function buildExecutiveSummarySlackText({ filePath, markdown }) {
-  const rolledUp = extractSectionLines(markdown, '## Rolled-Up Executive Summary')
+function buildExecutiveSummarySlackText({ summaryFilePath, summaryMarkdown, wbsFilePath, wbsMarkdown }) {
+  const rolledUp = extractSectionLines(summaryMarkdown, '## Rolled-Up Executive Summary')
     .filter((line) => /^\d+\.\s/.test(line.trim()) || /^-\s/.test(line.trim()))
     .slice(0, 8)
-  const wbsHeadings = markdown
+  const wbsHeadings = wbsMarkdown
     .split(/\r?\n/)
-    .filter((line) => line.startsWith('### WBS-'))
+    .filter((line) => line.startsWith('## WBS-') || line.startsWith('### WBS-'))
     .slice(0, 12)
 
   return [
     '*Experience Executive Summary + Work Breakdown Structure*',
-    `Source file: ${path.relative(process.cwd(), filePath).replace(/\\/g, '/')}`,
+    `Executive summary file: ${path.relative(process.cwd(), summaryFilePath).replace(/\\/g, '/')}`,
+    `WBS file: ${path.relative(process.cwd(), wbsFilePath).replace(/\\/g, '/')}`,
     '',
     '*Overall executive summary*',
     ...(rolledUp.length > 0 ? rolledUp.map((line) => line.trim()) : ['- Missing section: Rolled-Up Executive Summary']),
     '',
     '*Work breakdown structure*',
-    ...(wbsHeadings.length > 0 ? wbsHeadings.map((line) => `- ${line.replace(/^###\s*/, '')}`) : ['- Missing section: Work Breakdown Structure']),
+    ...(wbsHeadings.length > 0 ? wbsHeadings.map((line) => `- ${line.replace(/^###+?\s*/, '')}`) : ['- Missing section: Work Breakdown Structure']),
   ].join('\n')
 }
 
 async function postExecutiveSummaryAndWbs() {
-  const filePath = findExecutiveSummaryFile()
-  if (!filePath) return
-  const markdown = fs.readFileSync(filePath, 'utf8')
-  const text = buildExecutiveSummarySlackText({ filePath, markdown })
+  const summaryFilePath = findLatestFileByPattern(/^experience-report-executive-summary-and-wbs-\d{4}-\d{2}-\d{2}\.md$/i)
+  const wbsFilePath = findLatestFileByPattern(/^experience-remediation-wbs-\d{4}-\d{2}-\d{2}\.md$/i)
+  if (!summaryFilePath || !wbsFilePath) return
+
+  const summaryMarkdown = fs.readFileSync(summaryFilePath, 'utf8')
+  const wbsMarkdown = fs.readFileSync(wbsFilePath, 'utf8')
+  const text = buildExecutiveSummarySlackText({ summaryFilePath, summaryMarkdown, wbsFilePath, wbsMarkdown })
   await postSlackText({ webhookUrl: slackWebhook, text })
 }
 
