@@ -333,8 +333,8 @@ export default function LoginPage() {
 
           <div className="flex flex-col items-center mt-5">
             <span className="text-[13px] text-slate-400">No account?</span>
-            <Link href="/signup" className="flex items-center justify-center min-h-[44px] text-[13px] text-slate-200 font-semibold hover:text-white">
-              Create an account
+            <Link href="/signup" className="flex items-center justify-center min-h-[44px] text-[13px] text-orange-200 font-semibold hover:text-orange-100">
+              Start your free trial - 30 days free, no credit card
             </Link>
           </div>
 

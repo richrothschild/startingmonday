@@ -39,13 +39,15 @@ export function DashboardStatusBanners({
         >
           <span>
             {trialDaysLeft <= 0
-              ? 'Your trial has ended. The signal history on your companies is paused.'
-              : totalCount > 0
-                ? `You have built a pipeline of ${totalCount} ${totalCount === 1 ? 'company' : 'companies'}. That signal history disappears in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`
-                : `Trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}.`}
+              ? 'Your free trial has ended. The signal history on your companies is paused.'
+              : trialDaysLeft <= 7
+                ? totalCount > 0
+                  ? `Free trial - ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left. Your pipeline of ${totalCount} ${totalCount === 1 ? 'company' : 'companies'} and its signal history pause when the trial ends.`
+                  : `Free trial - ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'} left.`
+                : `Free trial active - ${trialDaysLeft} days left. Full access, no credit card on file.`}
           </span>
           <Link href="/settings/billing" className="font-semibold underline shrink-0">
-            Billing
+            {trialDaysLeft <= 7 ? 'Choose your plan' : 'View plans'}
           </Link>
         </div>
       )}

@@ -463,8 +463,9 @@ export default function SignupPage() {
                   </>
                 ) : (
                   <>
+                    <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-2">Start your free trial</p>
                     <h1 className="text-[24px] font-bold text-white leading-tight">Create your account</h1>
-                    <p className="text-[13px] text-slate-100 mt-1.5">{managerToolsOffer ? '60 days free' : '30 days free'}. No credit card.</p>
+                    <p className="text-[14px] text-slate-100 mt-1.5 font-semibold">{managerToolsOffer ? '60 days free' : '30 days free'}. No credit card. Cancel anytime.</p>
                   </>
                 )}
                 {entrySource && ENTRY_HANDOFF[entrySource] && (
@@ -636,7 +637,7 @@ export default function SignupPage() {
                     disabled={loading}
                     className="w-full flex items-center justify-center bg-orange-500 hover:bg-orange-400 text-slate-950 text-[14px] font-semibold min-h-[44px] rounded cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Get started')}
+                    {loading ? 'Creating account…' : (situation && SITUATION_COPY[situation] ? `Create account and ${SITUATION_COPY[situation].cta}` : 'Start free trial')}
                   </button>
                   <p className="text-[12px] text-slate-200 leading-relaxed text-center">
                     By creating an account, you agree to our <Link href="/terms" className="underline hover:text-slate-200">Terms and Conditions</Link> and <Link href="/privacy" className="underline hover:text-slate-200">Privacy Policy</Link>.

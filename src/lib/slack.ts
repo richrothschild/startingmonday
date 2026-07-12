@@ -2,6 +2,35 @@ type SendSlackMessageInput = {
   text: string
 }
 
+// Sends a direct message to the owner when SLACK_BOT_TOKEN + SLACK_DM_USER_ID are set.
+// Falls back to the standard channel/webhook path so the notification is never dropped.
+export async function sendSlackDM(input: SendSlackMessageInput): Promise<{ ok: true } | { ok: false; error: string }> {
+  const token = process.env.SLACK_BOT_TOKEN ?? process.env.SLACK_USER_TOKEN ?? process.env.SLACK_TOKEN
+  const dmUserId = process.env.SLACK_DM_USER_ID ?? process.env.SLACK_OWNER_USER_ID
+
+  if (token && dmUserId) {
+    try {
+      const response = await fetch('https://slack.com/api/chat.postMessage', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ channel: dmUserId, text: input.text }),
+      })
+      const payload = (await response.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+      if (response.ok && payload.ok) {
+        return { ok: true }
+      }
+    } catch {
+      // fall through to channel/webhook fallback
+    }
+  }
+
+  return sendSlackMessage(input)
+}
+
+
 export async function sendSlackMessage(input: SendSlackMessageInput): Promise<{ ok: true } | { ok: false; error: string }> {
   const webhook = process.env.SLACK_WEBHOOK_URL
   if (webhook) {
