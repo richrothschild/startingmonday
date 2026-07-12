@@ -21,21 +21,24 @@ function nowIso() {
 }
 
 function generateLuminance(color) {
-  // Parse hex or rgb color
+  // Parse hex or rgb/rgba color
   let r, g, b
   if (color.startsWith('#')) {
     const hex = color.slice(1)
+    if (hex.length < 6) return null
     r = Number.parseInt(hex.slice(0, 2), 16) / 255
     g = Number.parseInt(hex.slice(2, 4), 16) / 255
     b = Number.parseInt(hex.slice(4, 6), 16) / 255
   } else if (color.startsWith('rgb')) {
-    const match = color.match(/\d+/g)
-    if (!match || match.length < 3) return 0
+    const match = color.match(/[\d.]+/g)
+    if (!match || match.length < 3) return null
     r = Number.parseInt(match[0], 10) / 255
     g = Number.parseInt(match[1], 10) / 255
     b = Number.parseInt(match[2], 10) / 255
+    // For rgba, if alpha is 0 (fully transparent), treat as unresolvable
+    if (match.length >= 4 && Number.parseFloat(match[3]) === 0) return null
   } else {
-    return 0
+    return null
   }
 
   // Apply gamma correction
@@ -51,6 +54,9 @@ function generateLuminance(color) {
 function calculateContrastRatio(fgColor, bgColor) {
   const fgLum = generateLuminance(fgColor)
   const bgLum = generateLuminance(bgColor)
+
+  // Return null if either color couldn't be parsed (avoid false positives)
+  if (fgLum === null || bgLum === null) return null
 
   const lighter = Math.max(fgLum, bgLum)
   const darker = Math.min(fgLum, bgLum)
@@ -104,6 +110,10 @@ async function scanAccessibilityIssues(page, routePath = '/') {
 
     for (const result of contrastResults) {
       const ratio = calculateContrastRatio(result.fgColor, result.bgColor)
+
+      // Skip if colors couldn't be parsed (prevents false positives from transparent/unresolved styles)
+      if (ratio === null) continue
+
       const isCompliant = checkContrastCompliance(ratio, 'AA', result.fontSize)
 
       if (!isCompliant) {

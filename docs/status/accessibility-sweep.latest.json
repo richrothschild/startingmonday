@@ -1,43 +1,12 @@
 {
-  "generatedAt": "2026-07-11T23:25:16.150Z",
+  "generatedAt": "2026-07-12T00:29:58.091Z",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
   "channel": "a11y---platform",
   "routesScanned": 2,
-  "totalIssues": 3,
+  "totalIssues": 0,
   "p0Count": 0,
-  "p1Count": 3,
+  "p1Count": 0,
   "p2Count": 0,
-  "issues": [
-    {
-      "route": "/",
-      "type": "color-contrast",
-      "element": "A",
-      "severity": "P1",
-      "contrastRatio": "1.00",
-      "required": 4.5,
-      "text": "Get access",
-      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Get access\""
-    },
-    {
-      "route": "/",
-      "type": "color-contrast",
-      "element": "A",
-      "severity": "P1",
-      "contrastRatio": "1.00",
-      "required": 4.5,
-      "text": "Explore the evidence →",
-      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Explore the evidence →\""
-    },
-    {
-      "route": "/",
-      "type": "color-contrast",
-      "element": "A",
-      "severity": "P1",
-      "contrastRatio": "1.00",
-      "required": 4.5,
-      "text": "Open full example brief",
-      "message": "Color contrast 1.00:1 below WCAG AA (4.5:1) for A with text \"Open full example brief\""
-    }
-  ]
+  "issues": []
 }
