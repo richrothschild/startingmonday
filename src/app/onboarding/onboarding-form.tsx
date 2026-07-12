@@ -108,6 +108,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
   const [companyNames, setCompanyNames] = useState<string[]>(['', '', ''])
   const [briefingTime, setBriefingTime] = useState('07:00')
   const [briefingFrequency, setBriefingFrequency] = useState<'daily' | 'weekly'>('daily')
+  const [emailNudgesOptIn, setEmailNudgesOptIn] = useState(false)
 
   const [intelContent, setIntelContent] = useState('')
   const [intelLoading, setIntelLoading] = useState(false)
@@ -628,6 +629,7 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
         <input type="hidden" name="company_names"        value={JSON.stringify(companyNames.filter(n => n.trim()))} />
         <input type="hidden" name="briefing_time"        value={briefingTime} />
         <input type="hidden" name="briefing_frequency"   value={briefingFrequency} />
+        <input type="hidden" name="email_nudges_opt_in"  value={emailNudgesOptIn ? 'true' : 'false'} />
         <input type="hidden" name="target_locations"     value={targetLocations.join(',')} />
         <input type="hidden" name="target_sectors"       value={targetSectors.join(',')} />
         <input type="hidden" name="target_comp"          value={compPreference.join(',')} />
@@ -713,6 +715,8 @@ export function OnboardingForm({ profile }: { profile: { full_name?: string | nu
             <StepBriefingTime
               value={briefingTime}
               onChange={setBriefingTime}
+              emailNudgesOptIn={emailNudgesOptIn}
+              onEmailNudgesOptIn={setEmailNudgesOptIn}
             />
           )}
 
@@ -1164,9 +1168,13 @@ function StepCompanies({
 function StepBriefingTime({
   value,
   onChange,
+  emailNudgesOptIn,
+  onEmailNudgesOptIn,
 }: {
   value: string
   onChange: (v: string) => void
+  emailNudgesOptIn: boolean
+  onEmailNudgesOptIn: (v: boolean) => void
 }) {
   const TIMES = [
     { label: '6:00 AM', value: '06:00' },
@@ -1217,6 +1225,44 @@ function StepBriefingTime({
       <p className="text-[12px] text-slate-400">
         Delivered in {tz}. You can change this anytime from your profile.
       </p>
+
+      <div className="rounded-lg border border-white/15 bg-white/5 p-4">
+        <p className="text-[13px] font-semibold text-white mb-1">Trial tips by email - your choice</p>
+        <p className="text-[12px] text-slate-400 leading-relaxed mb-3">
+          Your search is private. Beyond your daily briefing, we only send occasional trial tips if you say yes here.
+          You can change this anytime in Settings.
+        </p>
+        <div className="flex gap-2" role="radiogroup" aria-label="Trial tip emails">
+          <button
+            type="button"
+            role="radio"
+            aria-checked={!emailNudgesOptIn}
+            onClick={() => onEmailNudgesOptIn(false)}
+            className={[
+              'flex-1 border rounded-lg px-4 py-3 min-h-[44px] text-[13px] font-semibold transition-all cursor-pointer',
+              !emailNudgesOptIn
+                ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35',
+            ].join(' ')}
+          >
+            No thanks - briefing only
+          </button>
+          <button
+            type="button"
+            role="radio"
+            aria-checked={emailNudgesOptIn}
+            onClick={() => onEmailNudgesOptIn(true)}
+            className={[
+              'flex-1 border rounded-lg px-4 py-3 min-h-[44px] text-[13px] font-semibold transition-all cursor-pointer',
+              emailNudgesOptIn
+                ? 'border-orange-400/70 bg-orange-500/20 text-white'
+                : 'border-white/15 bg-white/5 text-slate-200 hover:border-white/35',
+            ].join(' ')}
+          >
+            Yes, send trial tips
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
+import { SupportChat } from './support-chat'
 
 type SupportItem = {
   id: string
@@ -27,6 +28,13 @@ export default function SupportPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [items, setItems] = useState<SupportItem[]>([])
   const [loading, setLoading] = useState(true)
+  const founderFormRef = useRef<HTMLDivElement>(null)
+
+  function handleEscalate(question: string) {
+    setMessage(question)
+    setStatus('idle')
+    founderFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
@@ -91,12 +99,16 @@ export default function SupportPage() {
           <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-orange-300 mb-2">Customer support</p>
           <h1 className="text-[26px] font-bold text-white leading-tight">How can we help?</h1>
           <p className="text-[13px] text-slate-300 mt-1.5 max-w-[58ch]">
-            Ask a question or report an issue. Every message goes straight to the founder and gets a personal reply.
+            Get an instant answer from the support assistant, or send a question straight to the founder for a personal reply.
             You can also share product feedback on the <Link href="/dashboard/feedback" className="text-orange-200 underline hover:text-orange-100">feedback board</Link>.
           </p>
         </div>
 
-        <div className="bg-white/5 border border-white/15 rounded-xl p-5 sm:p-8 max-w-xl shadow-[0_18px_40px_rgba(15,23,42,0.18)] backdrop-blur-md mb-10">
+        <div className="mb-10">
+          <SupportChat onEscalate={handleEscalate} />
+        </div>
+
+        <div ref={founderFormRef} className="bg-white/5 border border-white/15 rounded-xl p-5 sm:p-8 max-w-xl shadow-[0_18px_40px_rgba(15,23,42,0.18)] backdrop-blur-md mb-10">
           {status === 'done' ? (
             <div>
               <h2 className="text-[18px] font-bold text-white mb-2">Thank you.</h2>
@@ -113,6 +125,10 @@ export default function SupportPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              <h2 className="text-[18px] font-bold text-white leading-tight mb-1.5">Ask the founder</h2>
+              <p className="text-[13px] text-slate-300 leading-relaxed mb-4">
+                Every message here gets a personal reply from a person, not a bot.
+              </p>
               <label htmlFor="support-message" className="block text-[11px] font-bold tracking-[0.08em] uppercase text-slate-300 mb-1.5">
                 Your question
               </label>

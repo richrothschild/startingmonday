@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { SearchControlsPanel } from '@/components/SearchControlsPanel'
+import { EmailPreferencesPanel } from '@/components/EmailPreferencesPanel'
 import { DashboardActivitySnooze } from '../dashboard/dashboard-activity-snooze'
 
 export const metadata = { title: 'Settings' }
@@ -19,7 +20,7 @@ export default async function SettingsPage() {
       .single(),
     supabase
       .from('users')
-      .select('subscription_status')
+      .select('subscription_status, drip_unsubscribed_at')
       .eq('id', user.id)
       .single(),
   ])
@@ -71,6 +72,8 @@ export default async function SettingsPage() {
           initialBriefingTime={profile?.briefing_time ?? null}
           isPaused={userRow?.subscription_status === 'paused'}
         />
+
+        <EmailPreferencesPanel initialEnabled={!userRow?.drip_unsubscribed_at} />
 
         <DashboardActivitySnooze />
       </main>

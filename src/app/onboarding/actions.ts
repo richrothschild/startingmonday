@@ -54,6 +54,7 @@ export async function completeOnboarding(formData: FormData) {
 
   const briefingTime        = (formData.get('briefing_time') as string ?? '').trim() || null
   const briefingFrequency   = (formData.get('briefing_frequency') as string ?? '').trim() || 'daily'
+  const emailNudgesOptIn    = (formData.get('email_nudges_opt_in') as string) === 'true'
   const roleTracksRaw       = (formData.get('target_role_tracks') as string ?? '').trim()
   let targetRoleTracks: string[] = []
   if (roleTracksRaw) {
@@ -157,6 +158,13 @@ export async function completeOnboarding(formData: FormData) {
     .update({ search_started_at: now })
     .eq('user_id', user.id)
     .is('search_started_at', null)
+
+  // Email nudges are opt-in (privacy-first): without explicit consent, trial drip emails stay off.
+  // Daily briefings are unaffected - this only governs marketing-style nudge emails.
+  await supabase
+    .from('users')
+    .update({ drip_unsubscribed_at: emailNudgesOptIn ? null : now })
+    .eq('id', user.id)
 
   captureServerEvent(user.id, 'onboarding_completed', {
     search_path: searchPath,

@@ -4,7 +4,6 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { checkBurstLimit } from '@/lib/burst-limit'
 import { sendEmail } from '@/lib/email'
 import { getNotifyEmails } from '@/lib/owner-email'
-import { sendSlackDM } from '@/lib/slack'
 import { enforcePublicEndpointGuard } from '@/lib/public-endpoint-guard'
 
 const OWNER_EMAIL = 'richard@startingmonday.app'
@@ -134,20 +133,5 @@ async function notifyOwner({
     console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'assist_email_error', error: String(err) }))
   }
 
-  try {
-    const slackResult = await sendSlackDM({
-      text: [
-        `New ${kind.toLowerCase()} on Starting Monday`,
-        `From: ${from}`,
-        `Page: ${page}`,
-        '',
-        message,
-      ].join('\n'),
-    })
-    if (!slackResult.ok) {
-      console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'assist_slack_error', error: slackResult.error }))
-    }
-  } catch (err) {
-    console.error(JSON.stringify({ ts: new Date().toISOString(), event: 'assist_slack_error', error: String(err) }))
-  }
+  // Slack notification intentionally skipped for now (owner request, 2026-07-12).
 }
