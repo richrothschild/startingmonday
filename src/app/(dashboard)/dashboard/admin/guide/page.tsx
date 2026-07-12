@@ -126,7 +126,7 @@ export default async function AdminGuidePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
           <section className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Freshness and quality status</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Freshness and quality status</h2>
             <div className="space-y-2 text-[13px] text-slate-700">
               <p>Manifest generated: {manifest?.generatedAt ?? 'N/A'}</p>
               <p>Source file count: {manifest?.sourceFileCount ?? 'N/A'}</p>
@@ -138,7 +138,7 @@ export default async function AdminGuidePage() {
           </section>
 
           <section className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Query risk signals (7d)</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Query risk signals (7d)</h2>
             <div className="space-y-2 text-[13px] text-slate-700">
               <p>No match: {noMatch7d}</p>
               <p>Low confidence: {lowConfidence7d}</p>
@@ -150,7 +150,7 @@ export default async function AdminGuidePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <section className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Top repeated queries (7d)</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Top repeated queries (7d)</h2>
             {topQuestionRows.length === 0 ? (
               <p className="text-[13px] text-slate-500">No guide queries captured yet.</p>
             ) : (
@@ -163,7 +163,7 @@ export default async function AdminGuidePage() {
           </section>
 
           <section className="bg-white border border-slate-200 rounded p-5">
-            <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Recent low-confidence queries</p>
+            <h2 className="text-[10px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-3">Recent low-confidence queries</h2>
             {((lowConfidenceQueries.data ?? []) as Array<{ question: string; confidence: number | null; top_source_url: string | null }>).length === 0 ? (
               <p className="text-[13px] text-slate-500">No low-confidence queries in the last 7 days.</p>
             ) : (

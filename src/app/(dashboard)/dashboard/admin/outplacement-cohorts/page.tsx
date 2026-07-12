@@ -160,7 +160,7 @@ export default function OutplacementCohortsAdminPage() {
         </section>
 
         <section className="bg-white border border-slate-200 rounded p-4">
-          <p className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Create cohort</p>
+          <h2 className="text-[13px] font-bold tracking-[0.08em] uppercase text-slate-500 mb-3">Create cohort</h2>
           <form className="grid sm:grid-cols-4 gap-3" onSubmit={createCohort}>
             <input
               value={cohortForm.partnerId}
