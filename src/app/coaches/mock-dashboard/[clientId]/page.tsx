@@ -87,7 +87,7 @@ export default async function MockCoachClientDashboardPage({ params }: ClientPag
           </div>
 
           <aside className={`rounded-xl border p-4 shadow-[0_6px_22px_rgba(15,23,42,0.06)] ${DASHBOARD_THEME.panelBorder} ${DASHBOARD_THEME.paperSoft}`}>
-            <p className={`text-[11px] font-semibold tracking-[0.12em] ${DASHBOARD_THEME.metalStrong}`}>Coach Action Priority</p>
+          <h2 className={`text-[11px] font-semibold tracking-[0.12em] ${DASHBOARD_THEME.metalStrong}`}>Coach Action Priority</h2>
             <div className="mt-3 space-y-3">
               <div>
                 <p className="text-[10px] font-semibold tracking-[0.1em] text-rose-700">Now</p>
@@ -186,7 +186,7 @@ export default async function MockCoachClientDashboardPage({ params }: ClientPag
         </section>
 
         <section className={`rounded-2xl border p-5 shadow-[0_10px_28px_rgba(15,23,42,0.08)] ${DASHBOARD_THEME.panelBorder} ${DASHBOARD_THEME.paper}`}>
-          <p className={`mb-3 text-[11px] font-semibold tracking-[0.1em] ${DASHBOARD_THEME.metalStrong}`}>Recent signal activity</p>
+          <h2 className={`mb-3 text-[11px] font-semibold tracking-[0.1em] ${DASHBOARD_THEME.metalStrong}`}>Recent signal activity</h2>
           <div className="space-y-3">
             {client.recentSignals.map((signal) => (
               <div key={`${signal.label}-${signal.at}`} className={`border-l-2 pl-4 ${statusTone.border.replace('border-l-4 ', '')}`}>
@@ -199,7 +199,7 @@ export default async function MockCoachClientDashboardPage({ params }: ClientPag
         </section>
 
         <section className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
-          <p className="mb-2 text-[11px] font-bold tracking-[0.12em] text-emerald-800">Trust and next action</p>
+          <h2 className="mb-2 text-[11px] font-bold tracking-[0.12em] text-emerald-800">Trust and next action</h2>
           <p className="text-[13px] leading-relaxed text-slate-700">
             This coach workspace is confidential and intended for private session preparation only. Teams using this workflow report clearer weekly decisions and faster follow-through on overdue commitments.
           </p>

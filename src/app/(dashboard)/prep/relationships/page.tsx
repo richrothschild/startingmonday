@@ -107,9 +107,9 @@ export default function RelationshipsPage() {
 
       {/* Research insight card */}
       <div className="rounded-2xl border border-orange-400/30 bg-orange-500/5 p-6 sm:p-8">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-orange-300 mb-3">
+          <h2 className="text-[12px] font-semibold uppercase tracking-[0.1em] text-orange-300 mb-3">
           From coaching research
-        </p>
+        </h2>
         <p className="text-[15px] leading-relaxed text-slate-100">
           "The fastest path to an offer is usually through someone already inside. Relationships matter more than cold outreach. Build a list of 8-12 people at each target company - people who can advocate for you, introduce you to hiring managers, or move you through their process faster."
         </p>
@@ -118,9 +118,9 @@ export default function RelationshipsPage() {
       {/* Suggested people from Apollo */}
       {apolloSuggestions.length > 0 && (
         <div className="rounded-2xl border border-purple-400/30 bg-purple-500/5 p-6 sm:p-8">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-purple-300 mb-4">
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-purple-300 mb-4">
             Suggested from Apollo ({apolloSuggestions.length})
-          </p>
+          </h2>
           <p className="text-[13px] text-slate-300 mb-4">
             Decision-makers and executives discovered at your featured companies.
           </p>
@@ -160,9 +160,9 @@ export default function RelationshipsPage() {
       {/* Suggested people from scanner */}
       {scannerSuggestions.length > 0 && (
         <div className="rounded-2xl border border-teal-400/30 bg-teal-500/5 p-6 sm:p-8">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-teal-300 mb-4">
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-teal-300 mb-4">
             Suggested from company signals ({scannerSuggestions.length})
-          </p>
+          </h2>
           <p className="text-[13px] text-slate-300 mb-4">
             These people appeared in your company signals. Consider researching them next.
           </p>

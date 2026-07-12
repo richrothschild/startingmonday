@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-07-12T00:34:41.000Z",
+  "generatedAt": "2026-07-12T00:57:49.488Z",
   "channel": "reliability---service",
   "sesVersion": 1,
   "totalPages": 285,
-  "pagesWithIssues": 54,
-  "totalIssues": 57,
+  "pagesWithIssues": 52,
+  "totalIssues": 53,
   "byTier": {
     "public": {
       "pages": 129,
-      "issues": 33,
-      "avgIssueCount": 0.26,
-      "avgFluencyScore": 92.9,
+      "issues": 30,
+      "avgIssueCount": 0.23,
+      "avgFluencyScore": 93.1,
       "worstGrade": "B+",
       "worstFluencyGrade": "C",
       "loadGatePass": true,
@@ -28,8 +28,8 @@
     },
     "funnel": {
       "pages": 71,
-      "issues": 7,
-      "avgIssueCount": 0.1,
+      "issues": 6,
+      "avgIssueCount": 0.08,
       "avgFluencyScore": 97.2,
       "worstGrade": "A-",
       "worstFluencyGrade": "C+",
@@ -51,7 +51,7 @@
       "fluency": {
         "pass": false,
         "worstGrade": "C",
-        "avgScore": 92.9
+        "avgScore": 93.1
       }
     },
     "dashboard": {
@@ -89,31 +89,6 @@
   },
   "topFindings": [
     {
-      "route": "/coaches/mock-dashboard/[clientId]",
-      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
-      "metrics": {
-        "totalWords": 195,
-        "sentenceCount": 13,
-        "avgSentenceWords": 15,
-        "paragraphCount": 34,
-        "headingCount": 1,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 3
-      },
-      "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 34.0",
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 2,
-      "tier": "public",
-      "grade": "B+",
-      "fluency": {
-        "score": 88,
-        "grade": "B+"
-      }
-    },
-    {
       "route": "/executives",
       "relativePath": "src/app/executives/page.tsx",
       "metrics": {
@@ -139,75 +114,26 @@
       }
     },
     {
-      "route": "/prep/relationships",
-      "relativePath": "src/app/(dashboard)/prep/relationships/page.tsx",
+      "route": "/coaches/mock-dashboard/[clientId]",
+      "relativePath": "src/app/coaches/mock-dashboard/[clientId]/page.tsx",
       "metrics": {
-        "totalWords": 537,
-        "sentenceCount": 39,
-        "avgSentenceWords": 13.8,
-        "paragraphCount": 29,
-        "headingCount": 1,
+        "totalWords": 195,
+        "sentenceCount": 13,
+        "avgSentenceWords": 15,
+        "paragraphCount": 31,
+        "headingCount": 4,
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 3
       },
       "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 29.0",
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 2,
-      "tier": "public",
-      "grade": "B+",
-      "fluency": {
-        "score": 88,
-        "grade": "B+"
-      }
-    },
-    {
-      "route": "/blog/cio-job-market-2026",
-      "relativePath": "src/app/blog/cio-job-market-2026/page.tsx",
-      "metrics": {
-        "totalWords": 46,
-        "sentenceCount": 4,
-        "avgSentenceWords": 11.5,
-        "paragraphCount": 36,
-        "headingCount": 14,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 1
-      },
-      "issues": [
         "high-density-without-progressive-disclosure"
       ],
       "issueCount": 1,
-      "tier": "funnel",
+      "tier": "public",
       "grade": "A-",
       "fluency": {
         "score": 100,
-        "grade": "A-"
-      }
-    },
-    {
-      "route": "/coachos",
-      "relativePath": "src/app/coachos/page.tsx",
-      "metrics": {
-        "totalWords": 222,
-        "sentenceCount": 13,
-        "avgSentenceWords": 17.1,
-        "paragraphCount": 28,
-        "headingCount": 9,
-        "detailsCount": 0,
-        "longParagraphCount": 0,
-        "ctaCount": 7
-      },
-      "issues": [
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 1,
-      "tier": "public",
-      "grade": "A-",
-      "fluency": {
-        "score": 97,
         "grade": "A-"
       }
     },
@@ -569,6 +495,78 @@
       "fluency": {
         "score": 100,
         "grade": "A-"
+      }
+    },
+    {
+      "route": "/dashboard/signals",
+      "relativePath": "src/app/(dashboard)/dashboard/signals/page.tsx",
+      "metrics": {
+        "totalWords": 658,
+        "sentenceCount": 118,
+        "avgSentenceWords": 5.6,
+        "paragraphCount": 13,
+        "headingCount": 1,
+        "detailsCount": 1,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "weak-chunking-paragraph-to-heading-ratio: 13.0"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/dashboard/start",
+      "relativePath": "src/app/(dashboard)/dashboard/start/page.tsx",
+      "metrics": {
+        "totalWords": 513,
+        "sentenceCount": 100,
+        "avgSentenceWords": 5.1,
+        "paragraphCount": 34,
+        "headingCount": 3,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 0
+      },
+      "issues": [
+        "high-density-without-progressive-disclosure"
+      ],
+      "issueCount": 1,
+      "tier": "dashboard",
+      "grade": "A-",
+      "fluency": {
+        "score": 88,
+        "grade": "B+"
+      }
+    },
+    {
+      "route": "/demo/executive-dashboard",
+      "relativePath": "src/app/demo/executive-dashboard/page.tsx",
+      "metrics": {
+        "totalWords": 143,
+        "sentenceCount": 3,
+        "avgSentenceWords": 47.7,
+        "paragraphCount": 5,
+        "headingCount": 2,
+        "detailsCount": 0,
+        "longParagraphCount": 0,
+        "ctaCount": 1
+      },
+      "issues": [
+        "avg-sentence-too-dense: 47.7 words"
+      ],
+      "issueCount": 1,
+      "tier": "funnel",
+      "grade": "A-",
+      "fluency": {
+        "score": 70,
+        "grade": "B"
       }
     }
   ],
@@ -2598,22 +2596,21 @@
         "totalWords": 537,
         "sentenceCount": 39,
         "avgSentenceWords": 13.8,
-        "paragraphCount": 29,
-        "headingCount": 1,
+        "paragraphCount": 26,
+        "headingCount": 4,
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 3
       },
       "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 29.0",
         "high-density-without-progressive-disclosure"
       ],
-      "issueCount": 2,
+      "issueCount": 1,
       "tier": "public",
-      "grade": "B+",
+      "grade": "A-",
       "fluency": {
-        "score": 88,
-        "grade": "B+"
+        "score": 100,
+        "grade": "A-"
       }
     },
     {
@@ -2889,14 +2886,12 @@
         "avgSentenceWords": 11.5,
         "paragraphCount": 36,
         "headingCount": 14,
-        "detailsCount": 0,
+        "detailsCount": 1,
         "longParagraphCount": 0,
         "ctaCount": 1
       },
-      "issues": [
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 1,
+      "issues": [],
+      "issueCount": 0,
       "tier": "funnel",
       "grade": "A-",
       "fluency": {
@@ -4011,22 +4006,21 @@
         "totalWords": 195,
         "sentenceCount": 13,
         "avgSentenceWords": 15,
-        "paragraphCount": 34,
-        "headingCount": 1,
+        "paragraphCount": 31,
+        "headingCount": 4,
         "detailsCount": 0,
         "longParagraphCount": 0,
         "ctaCount": 3
       },
       "issues": [
-        "weak-chunking-paragraph-to-heading-ratio: 34.0",
         "high-density-without-progressive-disclosure"
       ],
-      "issueCount": 2,
+      "issueCount": 1,
       "tier": "public",
-      "grade": "B+",
+      "grade": "A-",
       "fluency": {
-        "score": 88,
-        "grade": "B+"
+        "score": 100,
+        "grade": "A-"
       }
     },
     {
@@ -4236,14 +4230,12 @@
         "avgSentenceWords": 17.1,
         "paragraphCount": 28,
         "headingCount": 9,
-        "detailsCount": 0,
+        "detailsCount": 1,
         "longParagraphCount": 0,
         "ctaCount": 7
       },
-      "issues": [
-        "high-density-without-progressive-disclosure"
-      ],
-      "issueCount": 1,
+      "issues": [],
+      "issueCount": 0,
       "tier": "public",
       "grade": "A-",
       "fluency": {

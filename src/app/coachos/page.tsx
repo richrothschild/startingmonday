@@ -156,6 +156,16 @@ export default function CoachOSPage() {
         <div className="mx-auto max-w-6xl space-y-12">
 
           <section className="rounded-[2rem] border border-orange-300/20 bg-orange-400/5 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.18)] backdrop-blur-sm sm:p-7">
+            <details className="mb-5">
+              <summary className="cursor-pointer text-[13px] font-semibold text-orange-200 select-none">What&rsquo;s included in CoachOS</summary>
+              <ul className="mt-3 space-y-1 text-[13px] text-slate-300 list-disc pl-5">
+                <li>Daily execution rhythm for every client</li>
+                <li>Session prep snapshot before every call</li>
+                <li>Company and role signal monitoring</li>
+                <li>White-label branding for your practice</li>
+                <li>Cohort dashboard and sponsor reporting</li>
+              </ul>
+            </details>
             <p className="mb-2 text-[12px] font-semibold tracking-[0.02em] text-orange-200">Why coaches act on this now</p>
             <h2 className="mb-5 text-[24px] font-bold leading-snug text-white">The problems that get worse while you wait</h2>
             <div className="grid gap-4 md:grid-cols-2">

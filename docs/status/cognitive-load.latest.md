@@ -1,10 +1,10 @@
 # Cognitive Load Agent Report
 
-Generated: 2026-07-12T00:34:41.000Z
+Generated: 2026-07-12T00:57:49.488Z
 Channel: reliability---service
 Pages scanned: 285
-Pages with issues: 54
-Total issues: 57
+Pages with issues: 52
+Total issues: 53
 
 ## Tier Gates
 
@@ -14,24 +14,16 @@ Total issues: 57
 
 ## Tier Summary
 
-- public: pages=129, issues=33, avgIssueCount=0.26, worstLoadGrade=B+, avgFluencyScore=92.9, worstFluencyGrade=C, loadGate=true, fluencyGate=false
+- public: pages=129, issues=30, avgIssueCount=0.23, worstLoadGrade=B+, avgFluencyScore=93.1, worstFluencyGrade=C, loadGate=true, fluencyGate=false
 - dashboard: pages=85, issues=17, avgIssueCount=0.2, worstLoadGrade=A-, avgFluencyScore=98.4, worstFluencyGrade=B, loadGate=true, fluencyGate=false
-- funnel: pages=71, issues=7, avgIssueCount=0.1, worstLoadGrade=A-, avgFluencyScore=97.2, worstFluencyGrade=C+, loadGate=true, fluencyGate=false
+- funnel: pages=71, issues=6, avgIssueCount=0.08, worstLoadGrade=A-, avgFluencyScore=97.2, worstFluencyGrade=C+, loadGate=true, fluencyGate=false
 
 ## Top Findings
 
-- /coaches/mock-dashboard/[clientId]: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
-  - weak-chunking-paragraph-to-heading-ratio: 34.0
-  - high-density-without-progressive-disclosure
 - /executives: loadGrade=B+, fluencyGrade=C, fluencyScore=58, issues=2
   - avg-sentence-too-dense: 32.0 words
   - weak-chunking-paragraph-to-heading-ratio: 13.0
-- /prep/relationships: loadGrade=B+, fluencyGrade=B+, fluencyScore=88, issues=2
-  - weak-chunking-paragraph-to-heading-ratio: 29.0
-  - high-density-without-progressive-disclosure
-- /blog/cio-job-market-2026: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
-  - high-density-without-progressive-disclosure
-- /coachos: loadGrade=A-, fluencyGrade=A-, fluencyScore=97, issues=1
+- /coaches/mock-dashboard/[clientId]: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
 - /dashboard: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
@@ -63,4 +55,10 @@ Total issues: 57
   - weak-chunking-paragraph-to-heading-ratio: 13.0
 - /dashboard/post-search: loadGrade=A-, fluencyGrade=A-, fluencyScore=100, issues=1
   - high-density-without-progressive-disclosure
+- /dashboard/signals: loadGrade=A-, fluencyGrade=B+, fluencyScore=88, issues=1
+  - weak-chunking-paragraph-to-heading-ratio: 13.0
+- /dashboard/start: loadGrade=A-, fluencyGrade=B+, fluencyScore=88, issues=1
+  - high-density-without-progressive-disclosure
+- /demo/executive-dashboard: loadGrade=A-, fluencyGrade=B, fluencyScore=70, issues=1
+  - avg-sentence-too-dense: 47.7 words
 

@@ -38,6 +38,17 @@ export default function CioJobMarket2026Page() {
       <div className="space-y-6 text-[15px] text-slate-700 leading-relaxed">
         <h1 className="sr-only">CIO Job Market 2026 report</h1>
 
+        <details className="rounded-lg border border-slate-200 bg-slate-50 px-5 py-4 text-[14px]">
+          <summary className="cursor-pointer font-semibold text-slate-800 select-none">Key findings from Q2 2026 CIO hiring scans</summary>
+          <ul className="mt-3 space-y-1 text-slate-700 list-disc pl-5">
+            <li>Healthcare (38%) and financial services (29%) had the most active CIO postings</li>
+            <li>Roles appear on career pages a median of 17 days before LinkedIn</li>
+            <li>3 pre-posting signals: adjacent executive departure, PE transaction, transformation launch</li>
+            <li>AI implementation experience now explicitly required in 50%+ of postings at large companies</li>
+            <li>Wednesday sees 34% of new career page postings — best day for monitoring</li>
+          </ul>
+        </details>
+
         <p>
           Standard advice still says: update your resume, tell your network, wait for recruiter calls.
           That playbook is outdated.
