@@ -36,6 +36,28 @@ jobs:
           SENTINEL_BASE_URL: https://startingmonday.app
         run: node scripts/luxury-page-sentinel.mjs --output-json=tmp/luxury-page-sentinel.json
 
+      - name: Notify Slack on sentinel workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+        run: |
+          WEBHOOK_URL="$SLACK_WEBHOOK_URL"
+
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured for failure notification"
+            exit 0
+          fi
+
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          TEXT="⚠️ Sentinel workflow failed at workflow level. Repo: $GITHUB_REPOSITORY. Run: $RUN_URL"
+
+          curl -sS -X POST "$WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            --data "{\"text\":\"$TEXT\"}"
+
       - name: Upload sentinel report
         if: always()
         uses: actions/upload-artifact@v4

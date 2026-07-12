@@ -20,6 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { chromium } from '@playwright/test'
+import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const ROOT = process.cwd()
 const argv = process.argv.slice(2)
@@ -31,6 +32,8 @@ const baseUrlArg = argv.find((a) => a.startsWith('--base-url='))
 const outputJsonArg = argv.find((a) => a.startsWith('--output-json='))
 const BASE_URL = (baseUrlArg?.split('=')[1] || process.env.SENTINEL_BASE_URL || 'https://startingmonday.app').replace(/\/$/, '')
 const OUTPUT_JSON = outputJsonArg?.split('=')[1] || 'tmp/luxury-page-sentinel.json'
+const STATUS_JSON = path.join(ROOT, 'docs', 'status', 'luxury-page-sentinel.latest.json')
+const STATUS_MD = path.join(ROOT, 'docs', 'status', 'luxury-page-sentinel.latest.md')
 const QUARANTINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-quarantine.json')
 const DEBT_BASELINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-debt-baseline.json')
 const SCREENSHOTS_DIR = path.join(ROOT, 'tmp', 'sentinel-screenshots')
@@ -245,6 +248,38 @@ function estimateDarknessMetrics(pixels) {
   const totalPixels = pixels.length / 4
   const darkShareProxy = totalPixels > 0 ? darkPixels / totalPixels : 0
   return { darkPixels, totalPixels, darkShareProxy }
+}
+
+function buildMarkdown(summary) {
+  const lines = []
+  lines.push('# Luxury Page Sentinel Report')
+  lines.push('')
+  lines.push(`Generated: ${summary.generatedAt}`)
+  lines.push(`Base URL: ${summary.baseUrl}`)
+  lines.push(`Routes discovered: ${summary.routesDiscovered}`)
+  lines.push(`Coverage: ${summary.coverage.coveragePct}%`)
+  lines.push(`Blocking violations: ${summary.blockingViolations}`)
+  lines.push('')
+  lines.push('## Summary')
+  lines.push('')
+  lines.push(`- Palette violations: ${summary.paletteViolations}`)
+  lines.push(`- Typography warnings: ${summary.typographyWarnings}`)
+  lines.push(`- Accent warnings: ${summary.accentWarnings}`)
+  lines.push(`- Availability violations: ${summary.availabilityViolations}`)
+  lines.push(`- Rendered violations: ${summary.renderedViolations}`)
+  lines.push(`- Debt ratchet pass: ${summary.debtRatchet.pass}`)
+  lines.push('')
+  lines.push('## Top Incident Patterns')
+  lines.push('')
+  if (!summary.incidents?.top?.length) {
+    lines.push('- None')
+  } else {
+    for (const incident of summary.incidents.top.slice(0, 20)) {
+      lines.push(`- [${incident.dimension}/${incident.scope}] routes=${incident.routeCount} :: ${incident.signature}`)
+    }
+  }
+  lines.push('')
+  return `${lines.join('\n')}\n`
 }
 
 async function captureScreenshot(url, route) {
@@ -617,6 +652,12 @@ const summary = {
 
 fs.mkdirSync(path.dirname(path.join(ROOT, OUTPUT_JSON)), { recursive: true })
 fs.writeFileSync(path.join(ROOT, OUTPUT_JSON), JSON.stringify(summary, null, 2))
+writeLatestReportFiles({
+  jsonPath: STATUS_JSON,
+  markdownPath: STATUS_MD,
+  report: summary,
+  markdown: buildMarkdown(summary),
+})
 
 console.log('Luxury page sentinel')
 console.log(`- routes discovered: ${summary.routesDiscovered}`)
@@ -671,12 +712,8 @@ if (webhook && effectiveBlockingViolations.length > 0) {
     ...lines,
   ].join('\n') + extra
   try {
-    const res = await fetch(webhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    })
-    console.log(`slack alert: ${res.status}`)
+    const posted = await postSlackText({ webhookUrl: webhook, text })
+    console.log(`slack alert sent: ${posted ? 'yes' : 'no'}`)
   } catch (err) {
     console.error(`slack alert failed: ${err.message}`)
   }

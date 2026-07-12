@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const ROOT = process.cwd()
 const APP_DIR = path.join(ROOT, 'src', 'app')
@@ -117,11 +118,7 @@ async function postSlack(text) {
     console.log('No Slack webhook configured; skipping Slack post.')
     return
   }
-  await fetch(slackWebhook, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
+  await postSlackText({ webhookUrl: slackWebhook, text })
 }
 
 async function main() {
@@ -180,9 +177,12 @@ async function main() {
     routes,
   }
 
-  fs.mkdirSync(path.dirname(OUTPUT_JSON), { recursive: true })
-  fs.writeFileSync(OUTPUT_JSON, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
-  fs.writeFileSync(OUTPUT_MD, buildMarkdown(report), 'utf8')
+  writeLatestReportFiles({
+    jsonPath: OUTPUT_JSON,
+    markdownPath: OUTPUT_MD,
+    report,
+    markdown: buildMarkdown(report),
+  })
 
   console.log('Route inventory agent')
   console.log(`- routes discovered: ${totals.routes}`)
