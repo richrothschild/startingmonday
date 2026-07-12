@@ -27,9 +27,10 @@ export default function ExecutivesChannelPage() {
           Run a private, signal-first campaign.
         </h1>
         <p className="text-[16px] text-slate-200 leading-relaxed max-w-3xl mb-6">
-          Starting Monday gives senior executives early market signals and relationship operating cadence. Move before the role is posted and show up at peer depth.
+          Starting Monday gives senior executives early market signals and relationship operating cadence. Move before the role is posted. Show up at peer depth.
         </p>
 
+        <h2 className="sr-only">Executive search modes and features</h2>
         <div className="rounded-lg border border-emerald-500/50 bg-emerald-950/20 p-4 mb-8">
           <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-1">Trust and confidentiality</p>
           <p className="text-[13px] text-emerald-100 leading-relaxed">

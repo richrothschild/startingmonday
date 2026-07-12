@@ -252,25 +252,30 @@ export default function CoachDashboard() {
 
         {!loading && commandCenter && (
           <div className="grid lg:grid-cols-3 gap-4 mb-6">
-            <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
-              <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Upcoming sessions</h2>
-              {commandCenter.upcoming_sessions.length === 0 ? (
-                <p className="text-[13px] text-slate-300">No upcoming sessions or due touchpoints in the current window.</p>
-              ) : (
-                <div className="space-y-3">
-                  {commandCenter.upcoming_sessions.slice(0, 6).map(session => (
-                    <div key={`${session.user_id}-${session.scheduled_for}`} className="border border-white/10 rounded-lg bg-slate-950/30 p-3">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="text-[13px] font-semibold text-white truncate">{session.name ?? session.email ?? 'Client'}</p>
-                        <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
+            <details className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md group">
+              <summary className="cursor-pointer text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3 list-none">
+                <span className="group-open:hidden">▶ Upcoming sessions</span>
+                <span className="hidden group-open:inline">▼ Upcoming sessions</span>
+              </summary>
+              <div className="mt-3">
+                {commandCenter.upcoming_sessions.length === 0 ? (
+                  <p className="text-[13px] text-slate-300">No upcoming sessions or due touchpoints in the current window.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {commandCenter.upcoming_sessions.slice(0, 6).map(session => (
+                      <div key={`${session.user_id}-${session.scheduled_for}`} className="border border-white/10 rounded-lg bg-slate-950/30 p-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-[13px] font-semibold text-white truncate">{session.name ?? session.email ?? 'Client'}</p>
+                          <span className={`text-[13px] font-bold uppercase tracking-[0.08em] border rounded px-2 py-0.5 ${urgencyClass(session.urgency)}`}>{session.urgency}</span>
+                        </div>
+                        <p className="text-[13px] text-slate-300 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
+                        {session.action && <p className="text-[13px] text-slate-100 mt-1">{session.action}</p>}
                       </div>
-                      <p className="text-[13px] text-slate-300 mt-0.5">Due {session.scheduled_for ?? 'TBD'}{session.owner ? ` · Owner: ${session.owner}` : ''}</p>
-                      {session.action && <p className="text-[13px] text-slate-100 mt-1">{session.action}</p>}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </details>
 
             <div className="rounded-2xl border border-white/15 bg-white/5 p-4 shadow-[0_22px_66px_rgba(15,23,42,0.18)] backdrop-blur-md">
               <h2 className="text-[13px] font-bold tracking-[0.1em] uppercase text-slate-300 mb-3">Priority action queue</h2>

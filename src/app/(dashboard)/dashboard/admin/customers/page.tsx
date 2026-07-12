@@ -209,7 +209,7 @@ export default async function CustomersPage({
 
         {/* Conversion stats */}
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-6 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-md">
-          <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion</p>
+          <h2 className="text-[13px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-5">Conversion overview</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
             <div>
               <p className="text-[28px] font-bold text-white leading-none">{trialing}</p>
