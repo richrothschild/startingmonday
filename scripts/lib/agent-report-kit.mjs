@@ -105,3 +105,48 @@ export async function postSlackText({ webhookUrl, text }) {
 
   return true
 }
+
+/**
+ * Get an ISO date string for N days ago.
+ * @param {number} days - Number of days in the past
+ * @returns {string} ISO date string
+ */
+export function daysAgoIso(days) {
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
+}
+
+/**
+ * Fetch all workflow runs since a given ISO date.
+ * Uses pagination to handle large result sets.
+ * @param {Function} ghJsonFn - ghJson function (bound to owner/repo/token/userAgent)
+ * @param {string} workflowId - Workflow ID or filename
+ * @param {string} sinceIso - ISO date string to filter from
+ * @returns {Array} Array of workflow runs
+ */
+export async function getRunsSince(ghJsonFn, workflowId, sinceIso) {
+  const runs = []
+  const maxPages = 120
+  const perPage = 100
+
+  for (let page = 1; page <= maxPages; page += 1) {
+    const data = await ghJsonFn(
+      `/actions/workflows/${workflowId}/runs?branch=main&status=completed&per_page=${perPage}&page=${page}`
+    )
+    const pageRuns = data.workflow_runs ?? []
+
+    if (pageRuns.length === 0) break
+
+    let shouldStop = false
+    for (const run of pageRuns) {
+      if (run.created_at < sinceIso) {
+        shouldStop = true
+        continue
+      }
+      runs.push(run)
+    }
+
+    if (shouldStop) break
+  }
+
+  return runs
+}

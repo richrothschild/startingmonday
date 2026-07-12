@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { ageMinutes, ghJson, daysAgoIso, getRunsSince, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
@@ -15,56 +16,14 @@ const WORKFLOW_ID = 'trust-integrity-agent.yml'
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
-function daysAgoIso(days) {
-  return new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
-}
-
-function ageMinutes(isoTime) {
-  return Math.floor((Date.now() - new Date(isoTime).getTime()) / 60000)
-}
-
 async function gh(pathname) {
-  if (!owner || !repo || !token) throw new Error('Missing GITHUB_REPOSITORY or GITHUB_TOKEN')
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}${pathname}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/vnd.github+json',
-      'User-Agent': 'startingmonday-trust-weekly-report',
-    },
+  return ghJson({
+    owner,
+    repo,
+    token,
+    pathname,
+    userAgent: 'startingmonday-trust-weekly-report',
   })
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`GitHub API ${res.status} for ${pathname}: ${text.slice(0, 300)}`)
-  }
-
-  return res.json()
-}
-
-async function getRunsSince(sinceIso) {
-  const runs = []
-  const maxPages = 120
-  const perPage = 100
-
-  for (let page = 1; page <= maxPages; page += 1) {
-    const data = await gh(`/actions/workflows/${WORKFLOW_ID}/runs?branch=main&status=completed&per_page=${perPage}&page=${page}`)
-    const pageRuns = data.workflow_runs ?? []
-
-    if (pageRuns.length === 0) break
-
-    let shouldStop = false
-    for (const run of pageRuns) {
-      if (run.created_at < sinceIso) {
-        shouldStop = true
-        continue
-      }
-      runs.push(run)
-    }
-
-    if (shouldStop) break
-  }
-
-  return runs
 }
 
 function buildMarkdown(report) {
@@ -112,23 +71,14 @@ function buildSlackText(report) {
 }
 
 async function postSlack(text) {
-  if (!slackWebhook) {
-    console.log('No Slack webhook configured; skipping Slack post.')
-    return
-  }
-
-  await fetch(slackWebhook, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
+  await postSlackText({ webhookUrl: slackWebhook, text })
 }
 
 async function main() {
   const end = new Date().toISOString()
   const start = daysAgoIso(7)
 
-  const runs = await getRunsSince(start)
+  const runs = await getRunsSince(gh, WORKFLOW_ID, start)
   const issueRuns = runs.filter((run) => issueConclusions.has(run.conclusion ?? '')).length
   const latest = runs.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0] ?? null
 
@@ -160,9 +110,12 @@ async function main() {
     recommendedActions,
   }
 
-  fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
-  fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
-  fs.writeFileSync(reportMdPath, buildMarkdown(report), 'utf8')
+  writeLatestReportFiles({
+    jsonPath: reportJsonPath,
+    markdownPath: reportMdPath,
+    report,
+    markdown: buildMarkdown(report),
+  })
 
   await postSlack(buildSlackText(report))
   console.log('Trust weekly issues report completed.')

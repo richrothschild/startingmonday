@@ -1,0 +1,578 @@
+{
+  "generatedAt": "2026-07-12T15:09:43.248Z",
+  "baseUrl": "https://startingmonday.app",
+  "inventoryGeneratedAt": "2026-07-11T15:36:59.911Z",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "budgetsSource": "Site Experience Standard (SES)",
+  "baselineCapturedAt": "2026-07-11T00:00:00.000Z",
+  "summary": {
+    "routesMeasured": 30,
+    "totalBreaches": 3,
+    "byTier": {
+      "funnel": {
+        "measured": 8,
+        "breaches": 3
+      },
+      "public": {
+        "measured": 10,
+        "breaches": 0
+      },
+      "dashboard": {
+        "measured": 8,
+        "breaches": 0
+      },
+      "admin": {
+        "measured": 4,
+        "breaches": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "route": "/signup",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 4326,
+      "metrics": {
+        "ttfbMs": 3016,
+        "fcpMs": 3132,
+        "lcpMs": 3132,
+        "cls": 0.003,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": false,
+        "breaches": [
+          "lcpMs 3132 > 2000",
+          "ttfbMs 3016 > 500",
+          "fcpMs 3132 > 1200"
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/c-suite-search-90-day-plan",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 1045,
+      "metrics": {
+        "ttfbMs": 78,
+        "fcpMs": 128,
+        "lcpMs": 128,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/c-suite-search-weekly-metrics",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 954,
+      "metrics": {
+        "ttfbMs": 62,
+        "fcpMs": 104,
+        "lcpMs": 104,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/cio-board-presentation",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 979,
+      "metrics": {
+        "ttfbMs": 80,
+        "fcpMs": 120,
+        "lcpMs": 120,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/cio-compensation-negotiation",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 954,
+      "metrics": {
+        "ttfbMs": 65,
+        "fcpMs": 104,
+        "lcpMs": 104,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/cio-job-market-2026",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 970,
+      "metrics": {
+        "ttfbMs": 77,
+        "fcpMs": 120,
+        "lcpMs": 120,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/cio-job-search-timeline",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 1086,
+      "metrics": {
+        "ttfbMs": 115,
+        "fcpMs": 164,
+        "lcpMs": 164,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/blog/cio-search-signal-story-sequence",
+      "tier": "funnel",
+      "status": 200,
+      "loadMs": 934,
+      "metrics": {
+        "ttfbMs": 66,
+        "fcpMs": 104,
+        "lcpMs": 104,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/login",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 781,
+      "metrics": {
+        "ttfbMs": 66,
+        "fcpMs": 104,
+        "lcpMs": 104,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/coach/clients",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 835,
+      "metrics": {
+        "ttfbMs": 138,
+        "fcpMs": 176,
+        "lcpMs": 176,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/prep/communications",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 862,
+      "metrics": {
+        "ttfbMs": 157,
+        "fcpMs": 204,
+        "lcpMs": 204,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/prep/companies",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 806,
+      "metrics": {
+        "ttfbMs": 86,
+        "fcpMs": 136,
+        "lcpMs": 136,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/prep/interview",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 843,
+      "metrics": {
+        "ttfbMs": 144,
+        "fcpMs": 184,
+        "lcpMs": 184,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/prep/meetings",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 861,
+      "metrics": {
+        "ttfbMs": 135,
+        "fcpMs": 176,
+        "lcpMs": 176,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/prep/relationships",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 826,
+      "metrics": {
+        "ttfbMs": 85,
+        "fcpMs": 144,
+        "lcpMs": 144,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/settings/billing",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 853,
+      "metrics": {
+        "ttfbMs": 131,
+        "fcpMs": 168,
+        "lcpMs": 168,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/settings",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 836,
+      "metrics": {
+        "ttfbMs": 127,
+        "fcpMs": 168,
+        "lcpMs": 168,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/settings/security",
+      "tier": "public",
+      "status": 200,
+      "loadMs": 856,
+      "metrics": {
+        "ttfbMs": 150,
+        "fcpMs": 192,
+        "lcpMs": 192,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/board-track",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 832,
+      "metrics": {
+        "ttfbMs": 113,
+        "fcpMs": 156,
+        "lcpMs": 156,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/briefing",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 827,
+      "metrics": {
+        "ttfbMs": 119,
+        "fcpMs": 160,
+        "lcpMs": 160,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/calendar",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 825,
+      "metrics": {
+        "ttfbMs": 104,
+        "fcpMs": 144,
+        "lcpMs": 144,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/chat",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 827,
+      "metrics": {
+        "ttfbMs": 124,
+        "fcpMs": 168,
+        "lcpMs": 168,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/coach",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 829,
+      "metrics": {
+        "ttfbMs": 127,
+        "fcpMs": 172,
+        "lcpMs": 172,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/companies/new",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 861,
+      "metrics": {
+        "ttfbMs": 117,
+        "fcpMs": 160,
+        "lcpMs": 160,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/concierge",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 819,
+      "metrics": {
+        "ttfbMs": 105,
+        "fcpMs": 152,
+        "lcpMs": 152,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/contacts",
+      "tier": "dashboard",
+      "status": 200,
+      "loadMs": 852,
+      "metrics": {
+        "ttfbMs": 120,
+        "fcpMs": 164,
+        "lcpMs": 164,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/admin/b2b/new",
+      "tier": "admin",
+      "status": 200,
+      "loadMs": 826,
+      "metrics": {
+        "ttfbMs": 115,
+        "fcpMs": 160,
+        "lcpMs": 160,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/admin/b2b",
+      "tier": "admin",
+      "status": 200,
+      "loadMs": 826,
+      "metrics": {
+        "ttfbMs": 119,
+        "fcpMs": 160,
+        "lcpMs": 160,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/admin/channel-benchmarks",
+      "tier": "admin",
+      "status": 200,
+      "loadMs": 791,
+      "metrics": {
+        "ttfbMs": 110,
+        "fcpMs": 156,
+        "lcpMs": 156,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    },
+    {
+      "route": "/dashboard/admin/coach-outreach",
+      "tier": "admin",
+      "status": 200,
+      "loadMs": 822,
+      "metrics": {
+        "ttfbMs": 120,
+        "fcpMs": 164,
+        "lcpMs": 164,
+        "cls": 0,
+        "inpProxyMs": 0
+      },
+      "budget": {
+        "pass": true,
+        "breaches": [],
+        "warnings": []
+      }
+    }
+  ],
+  "enforceFailOnBreach": false
+}
