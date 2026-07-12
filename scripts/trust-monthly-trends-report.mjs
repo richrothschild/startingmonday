@@ -76,10 +76,18 @@ function buildSlackText(report) {
     : report.trend.label === 'improving'
       ? '*Trust monthly trends: improving*'
       : '*Trust monthly trends: flat*'
+  const executiveSummary = report.trend.label === 'worse'
+    ? `Trust issue rate worsened by ${report.trend.delta}; prioritize root-cause remediation for recurring integrity failures.`
+    : report.trend.label === 'improving'
+      ? `Trust issue rate improved by ${Math.abs(report.trend.delta)}; preserve the controls that reduced failures.`
+      : 'Trust issue rate is flat; continue monitoring and tighten controls only after sustained stability.'
 
   return [
     headline,
     `Channel: ${report.channel}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     `Current issue rate: ${report.current.issueRate}`,
     `Previous issue rate: ${report.previous.issueRate}`,
     `Delta: ${report.trend.delta}`,

@@ -229,9 +229,16 @@ async function postSlack({ webhookUrl, report }) {
     .slice(0, 10)
     .map((row) => `- ${row.route}: ${row.budget.breaches.join('; ')}`)
 
+  const executiveSummary = report.summary.totalBreaches === 0
+    ? `Vitals are healthy for ${report.summary.routesMeasured} measured routes with no tier budget breaches.`
+    : `Vitals risk is concentrated in ${report.summary.totalBreaches} budget breach(es); prioritize funnel route remediation.`
+
   const text = [
     headline,
     `Base URL: ${report.baseUrl}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Tier summary*',
     ...tierLines,

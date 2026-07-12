@@ -369,12 +369,18 @@ function buildSlackText(report) {
   const vitalsLine = report.vitalsAlerts.available && report.vitalsAlerts.total > 0
     ? `CWV breaches: ${report.vitalsAlerts.total} route(s)`
     : 'CWV: no breaches'
+  const executiveSummary = issueWorkflows.length === 0
+    ? 'Weekly experience operations are stable with no workflow-level incidents.'
+    : `${issueWorkflows.length} workflow(s) are unstable this week; prioritize incident-heavy pipelines and close recurring failure patterns.`
 
   return [
     top,
     `Channel: ${report.channel}`,
     `Window: ${report.window.start} to ${report.window.end}`,
     vitalsLine,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
     report.probeReset.available

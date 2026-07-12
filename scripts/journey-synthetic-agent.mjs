@@ -286,6 +286,11 @@ async function main() {
         `Channel: ${slackChannel}`,
         `Journeys measured: ${journeys.length} (samples per journey: ${samplesPerJourney})`,
         '',
+        '*Executive summary*',
+        report.pass
+          ? `- Tier-1 journey execution is stable with no threshold or interaction failures across ${journeys.length} journey definition(s).`
+          : `- Journey reliability is degraded with ${findings.length} finding(s); prioritize fixing broken interaction targets on critical conversion flows.`,
+        '',
         '*Findings*',
         ...(findings.length === 0 ? ['- None'] : findings.slice(0, 8).map((f) => `- [${f.severity}] ${f.message}`)),
       ].join('\n'),

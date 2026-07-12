@@ -113,6 +113,12 @@ function buildSlackText(report) {
   const headline = report.pagesWithIssues === 0
     ? '*Cognitive load agent: no issues detected*'
     : `*Cognitive load agent: ${report.pagesWithIssues} page(s) with issues*`
+  const failingTierGates = Object.values(report.tierGates)
+    .filter((gate) => gate.load.pass === false || gate.fluency.pass === false)
+    .length
+  const executiveSummary = report.pagesWithIssues === 0
+    ? `Cognitive posture is stable across ${report.totalPages} scanned pages with no deterministic friction findings.`
+    : `${report.pagesWithIssues} of ${report.totalPages} pages carry friction findings, with ${failingTierGates} tier gate(s) currently failing.`
 
   const tierLines = Object.entries(report.byTier).map(([tier, summary]) => {
     return `- ${tier}: pages=${summary.pages}, issues=${summary.issues}, worstLoadGrade=${summary.worstGrade}, worstFluencyGrade=${summary.worstFluencyGrade}, loadGate=${summary.loadGatePass}, fluencyGate=${summary.fluencyGatePass}`
@@ -124,6 +130,9 @@ function buildSlackText(report) {
     headline,
     `Channel: ${report.channel}`,
     `Pages scanned: ${report.totalPages}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Tier summary*',
     ...tierLines,

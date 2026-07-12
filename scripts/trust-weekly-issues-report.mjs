@@ -53,11 +53,17 @@ function buildSlackText(report) {
   const headline = report.summary.issueRuns === 0
     ? '*Trust weekly report: no workflow issues*'
     : `*Trust weekly report: ${report.summary.issueRuns} issue run(s) detected*`
+  const executiveSummary = report.summary.issueRuns === 0
+    ? 'Trust weekly pipeline is stable with no detected workflow incidents.'
+    : `Trust weekly issue rate is ${report.summary.issueRate}; recurring integrity failures should be remediated before threshold tightening.`
 
   return [
     headline,
     `Channel: ${report.channel}`,
     `Window: ${report.window.start} to ${report.window.end}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Summary*',
     `- Total runs: ${report.summary.totalRuns}`,

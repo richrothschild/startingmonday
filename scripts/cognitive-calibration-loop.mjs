@@ -513,9 +513,16 @@ function buildSlackText(report) {
     ].join("\n");
   }
 
+  const executiveSummary = report.majorDisagreements.length === 0
+    ? `Deterministic and auditor signals are aligned within one grade across ${report.summary.overlapRoutes} overlap route(s).`
+    : `Calibration drift persists with ${report.majorDisagreements.length} major disagreement(s); prioritize review before threshold tightening.`
+
   return [
     "*Quarterly cognitive calibration loop complete*",
     `Channel: ${report.channel}`,
+    "",
+    "*Executive summary*",
+    `- ${executiveSummary}`,
     `Overlap routes: ${report.summary.overlapRoutes}`,
     `Exact agreement: ${report.summary.exactAgreement} (${report.summary.exactAgreementRate ?? "n/a"})`,
     `Within one grade: ${report.summary.withinOneGrade} (${report.summary.withinOneGradeRate ?? "n/a"})`,

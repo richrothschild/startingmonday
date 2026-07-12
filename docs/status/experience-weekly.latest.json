@@ -1,0 +1,300 @@
+{
+  "generatedAt": "2026-07-12T16:34:21.802Z",
+  "channel": "reliability---service",
+  "window": {
+    "start": "2026-07-05T16:34:08.492Z",
+    "end": "2026-07-12T16:34:08.491Z"
+  },
+  "workflowSummaries": [
+    {
+      "id": "route-inventory-agent.yml",
+      "name": "Route Inventory Agent",
+      "totalRuns": 2,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195398181",
+      "recommendation": "Regenerate route inventory and reconcile unexpected route additions/removals before compliance claims.",
+      "issues": []
+    },
+    {
+      "id": "experience-vitals-agent.yml",
+      "name": "Experience Vitals Agent",
+      "totalRuns": 5,
+      "issueRuns": 3,
+      "issueRate": 0.6,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29192345562",
+      "recommendation": "Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals.",
+      "issues": [
+        "3 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "cognitive-load-agent.yml",
+      "name": "Cognitive Load Agent",
+      "totalRuns": 3,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29160901694",
+      "recommendation": "Reduce public-route cognitive density and CTA competition before weak chunking becomes chronic.",
+      "issues": []
+    },
+    {
+      "id": "cognitive-fluency-calibration-dispatch.yml",
+      "name": "Cognitive Fluency Calibration Dispatch",
+      "totalRuns": 1,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29161029985",
+      "recommendation": "Use the monthly calibration packet to drive human-depth Page Experience Auditor review on the worst-scoring routes.",
+      "issues": []
+    },
+    {
+      "id": "cognitive-calibration-loop.yml",
+      "name": "Cognitive Calibration Loop",
+      "totalRuns": 1,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29163244147",
+      "recommendation": "Use quarterly deterministic-vs-auditor deltas to tune scoring weights and keep calibration drift controlled.",
+      "issues": []
+    },
+    {
+      "id": "experience-portfolio-rollup.yml",
+      "name": "Experience Portfolio Rollup",
+      "totalRuns": 12,
+      "issueRuns": 3,
+      "issueRate": 0.25,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195647533",
+      "recommendation": "Use the portfolio rollup as the single triage board for cross-agent issues and route the suggested mitigation to an owner immediately.",
+      "issues": [
+        "3 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "luxury-page-sentinel.yml",
+      "name": "Luxury Page Sentinel",
+      "totalRuns": 116,
+      "issueRuns": 116,
+      "issueRate": 1,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29198832180",
+      "recommendation": "Triage blocking incidents by dimension and burn down quarantine debt before expiry.",
+      "issues": [
+        "116 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "dashboard-behavior-baseline.yml",
+      "name": "Dashboard Behavior Baseline Agent",
+      "totalRuns": 1,
+      "issueRuns": 1,
+      "issueRate": 1,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195243462",
+      "recommendation": "Validate dashboard contracts and probe credentials, then address route-specific regressions.",
+      "issues": [
+        "1 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "trust-integrity-agent.yml",
+      "name": "Trust Integrity Agent",
+      "totalRuns": 2,
+      "issueRuns": 1,
+      "issueRate": 0.5,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195522014",
+      "recommendation": "Resolve parity/title/landmark contract failures before certifying dashboard trust posture.",
+      "issues": [
+        "1 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "trust-escalation-agent.yml",
+      "name": "Trust Escalation Agent",
+      "totalRuns": 0,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": true,
+      "latestConclusion": null,
+      "recommendation": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window.",
+      "issues": [
+        "no completed runs in last 7 days"
+      ]
+    },
+    {
+      "id": "journey-synthetic-agent.yml",
+      "name": "Journey Synthetic Agent",
+      "totalRuns": 0,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": true,
+      "latestConclusion": null,
+      "recommendation": "Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact.",
+      "issues": [
+        "no completed runs in last 7 days"
+      ]
+    },
+    {
+      "id": "trust-daily-report.yml",
+      "name": "Trust Daily Report",
+      "totalRuns": 4,
+      "issueRuns": 2,
+      "issueRate": 0.5,
+      "stale": false,
+      "latestConclusion": "failure",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29195747635",
+      "recommendation": "Use daily trust telemetry to surface contract drift quickly and keep remediation ownership explicit.",
+      "issues": [
+        "2 non-success runs in the last 7 days"
+      ]
+    },
+    {
+      "id": "trust-weekly-issues-report.yml",
+      "name": "Trust Weekly Issues Report",
+      "totalRuns": 1,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29159377927",
+      "recommendation": "Review trust issue clusters and convert repeated failures into backlog remediation with owners.",
+      "issues": []
+    },
+    {
+      "id": "trust-monthly-trends-report.yml",
+      "name": "Trust Monthly Trends Report",
+      "totalRuns": 1,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29159379334",
+      "recommendation": "Use monthly trust trend deltas to ratchet contracts and prevent drift from becoming normalized.",
+      "issues": []
+    },
+    {
+      "id": "experience-seeding-checklist.yml",
+      "name": "Experience Seeding Checklist",
+      "totalRuns": 2,
+      "issueRuns": 0,
+      "issueRate": 0,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29168565437",
+      "recommendation": "Resolve failed dispatches and keep weekly seeding evidence fresh so monitoring remains auditable.",
+      "issues": []
+    },
+    {
+      "id": "probe-account-reset.yml",
+      "name": "Probe Account Reset",
+      "totalRuns": 8,
+      "issueRuns": 2,
+      "issueRate": 0.25,
+      "stale": false,
+      "latestConclusion": "success",
+      "latestRunUrl": "https://github.com/richrothschild/startingmonday/actions/runs/29193078732",
+      "recommendation": "Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips.",
+      "issues": [
+        "2 non-success runs in the last 7 days"
+      ]
+    }
+  ],
+  "recommendedActions": [
+    {
+      "workflow": "Experience Vitals Agent",
+      "action": "Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals."
+    },
+    {
+      "workflow": "Experience Portfolio Rollup",
+      "action": "Use the portfolio rollup as the single triage board for cross-agent issues and route the suggested mitigation to an owner immediately."
+    },
+    {
+      "workflow": "Luxury Page Sentinel",
+      "action": "Triage blocking incidents by dimension and burn down quarantine debt before expiry."
+    },
+    {
+      "workflow": "Dashboard Behavior Baseline Agent",
+      "action": "Validate dashboard contracts and probe credentials, then address route-specific regressions."
+    },
+    {
+      "workflow": "Trust Integrity Agent",
+      "action": "Resolve parity/title/landmark contract failures before certifying dashboard trust posture."
+    },
+    {
+      "workflow": "Trust Escalation Agent",
+      "action": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window."
+    },
+    {
+      "workflow": "Journey Synthetic Agent",
+      "action": "Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact."
+    },
+    {
+      "workflow": "Trust Daily Report",
+      "action": "Use daily trust telemetry to surface contract drift quickly and keep remediation ownership explicit."
+    },
+    {
+      "workflow": "Probe Account Reset",
+      "action": "Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips."
+    }
+  ],
+  "portfolioDelta": {
+    "available": false,
+    "newlyOpened": 0,
+    "stillOpen": 0,
+    "resolved": 0
+  },
+  "ownerLeaderboard": [],
+  "sourceStaleness": {
+    "signatures": [],
+    "ownerCounts": []
+  },
+  "seedingChecklist": {
+    "available": true,
+    "generatedAt": "2026-07-12T15:56:47.493Z",
+    "ref": "staging",
+    "dryRun": true,
+    "total": 10,
+    "dispatched": 0,
+    "failures": 0,
+    "failedWorkflows": []
+  },
+  "probeReset": {
+    "available": false,
+    "generatedAt": null,
+    "email": null,
+    "dryRun": null,
+    "status": "missing",
+    "activeCompaniesBefore": null,
+    "archivedCompanies": null,
+    "firstCompanyMilestoneReset": null
+  },
+  "vitalsAlerts": {
+    "available": true,
+    "total": 1,
+    "breaches": [
+      {
+        "route": "/prep/relationships",
+        "tier": "public",
+        "breaches": [
+          "cls 1.176 > 0.08"
+        ]
+      }
+    ]
+  }
+}

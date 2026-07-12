@@ -1,0 +1,407 @@
+{
+  "generatedAt": "2026-07-12T16:34:35.120Z",
+  "channel": "reliability---service",
+  "currentWindow": {
+    "start": "2026-06-12T16:34:22.232Z",
+    "end": "2026-07-12T16:34:22.232Z"
+  },
+  "previousWindow": {
+    "start": "2026-05-13T16:34:22.232Z",
+    "end": "2026-06-12T16:34:22.232Z"
+  },
+  "trends": [
+    {
+      "id": "route-inventory-agent.yml",
+      "name": "Route Inventory Agent",
+      "current": {
+        "total": 2,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "experience-vitals-agent.yml",
+      "name": "Experience Vitals Agent",
+      "current": {
+        "total": 5,
+        "issues": 3,
+        "issueRate": 0.6
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 0.6
+      },
+      "recommendedAction": "Issue rate worsened by 60.0 points. Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals."
+    },
+    {
+      "id": "cognitive-load-agent.yml",
+      "name": "Cognitive Load Agent",
+      "current": {
+        "total": 3,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "cognitive-fluency-calibration-dispatch.yml",
+      "name": "Cognitive Fluency Calibration Dispatch",
+      "current": {
+        "total": 1,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "cognitive-calibration-loop.yml",
+      "name": "Cognitive Calibration Loop",
+      "current": {
+        "total": 1,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "experience-portfolio-rollup.yml",
+      "name": "Experience Portfolio Rollup",
+      "current": {
+        "total": 12,
+        "issues": 3,
+        "issueRate": 0.25
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 0.25
+      },
+      "recommendedAction": "Issue rate worsened by 25.0 points. Use the portfolio rollup as the single triage board for cross-agent issues and route the suggested mitigation to an owner immediately."
+    },
+    {
+      "id": "luxury-page-sentinel.yml",
+      "name": "Luxury Page Sentinel",
+      "current": {
+        "total": 116,
+        "issues": 116,
+        "issueRate": 1
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 1
+      },
+      "recommendedAction": "Issue rate worsened by 100.0 points. Triage blocking incidents by dimension and burn down quarantine debt before expiry."
+    },
+    {
+      "id": "dashboard-behavior-baseline.yml",
+      "name": "Dashboard Behavior Baseline Agent",
+      "current": {
+        "total": 1,
+        "issues": 1,
+        "issueRate": 1
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 1
+      },
+      "recommendedAction": "Issue rate worsened by 100.0 points. Validate dashboard contracts and probe credentials, then address route-specific regressions."
+    },
+    {
+      "id": "trust-integrity-agent.yml",
+      "name": "Trust Integrity Agent",
+      "current": {
+        "total": 2,
+        "issues": 1,
+        "issueRate": 0.5
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 0.5
+      },
+      "recommendedAction": "Issue rate worsened by 50.0 points. Resolve parity/title/landmark contract failures before certifying dashboard trust posture."
+    },
+    {
+      "id": "trust-escalation-agent.yml",
+      "name": "Trust Escalation Agent",
+      "current": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "journey-synthetic-agent.yml",
+      "name": "Journey Synthetic Agent",
+      "current": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "trust-daily-report.yml",
+      "name": "Trust Daily Report",
+      "current": {
+        "total": 4,
+        "issues": 2,
+        "issueRate": 0.5
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 0.5
+      },
+      "recommendedAction": "Issue rate worsened by 50.0 points. Use daily trust telemetry to surface contract drift quickly and keep remediation ownership explicit."
+    },
+    {
+      "id": "trust-weekly-issues-report.yml",
+      "name": "Trust Weekly Issues Report",
+      "current": {
+        "total": 1,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "trust-monthly-trends-report.yml",
+      "name": "Trust Monthly Trends Report",
+      "current": {
+        "total": 1,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "experience-seeding-checklist.yml",
+      "name": "Experience Seeding Checklist",
+      "current": {
+        "total": 2,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "flat",
+        "delta": 0
+      },
+      "recommendedAction": "Trend is stable. Keep cadence, tighten thresholds incrementally, and monitor for drift."
+    },
+    {
+      "id": "probe-account-reset.yml",
+      "name": "Probe Account Reset",
+      "current": {
+        "total": 8,
+        "issues": 2,
+        "issueRate": 0.25
+      },
+      "previous": {
+        "total": 0,
+        "issues": 0,
+        "issueRate": 0
+      },
+      "trend": {
+        "label": "worse",
+        "delta": 0.25
+      },
+      "recommendedAction": "Issue rate worsened by 25.0 points. Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips."
+    }
+  ],
+  "summary": {
+    "improving": 0,
+    "flat": 9,
+    "worse": 7
+  },
+  "portfolioTrend": {
+    "available": false,
+    "openedDelta": 0,
+    "resolvedDelta": 0,
+    "latestClusterCount": 0
+  },
+  "sourceStaleness": {
+    "available": false,
+    "currentCount": 0,
+    "previousCount": 0,
+    "delta": 0,
+    "label": "flat",
+    "ownerChanges": []
+  },
+  "ownerLeaderboard": [],
+  "cwvBreaches": {
+    "available": true,
+    "totalBreaches": 1,
+    "byMetric": {
+      "cls": 1
+    },
+    "byTier": {
+      "funnel": {
+        "count": 8,
+        "routes": [
+          "/signup",
+          "/blog/c-suite-search-90-day-plan",
+          "/blog/c-suite-search-weekly-metrics",
+          "/blog/cio-board-presentation",
+          "/blog/cio-compensation-negotiation",
+          "/blog/cio-job-market-2026",
+          "/blog/cio-job-search-timeline",
+          "/blog/cio-search-signal-story-sequence"
+        ]
+      },
+      "public": {
+        "count": 10,
+        "routes": [
+          "/login",
+          "/coach/clients",
+          "/prep/communications",
+          "/prep/companies",
+          "/prep/interview",
+          "/prep/meetings",
+          "/prep/relationships",
+          "/settings/billing",
+          "/settings",
+          "/settings/security"
+        ]
+      },
+      "dashboard": {
+        "count": 8,
+        "routes": [
+          "/dashboard/board-track",
+          "/dashboard/briefing",
+          "/dashboard/calendar",
+          "/dashboard/chat",
+          "/dashboard/coach",
+          "/dashboard/companies/new",
+          "/dashboard/concierge",
+          "/dashboard/contacts"
+        ]
+      },
+      "admin": {
+        "count": 4,
+        "routes": [
+          "/dashboard/admin/b2b/new",
+          "/dashboard/admin/b2b",
+          "/dashboard/admin/channel-benchmarks",
+          "/dashboard/admin/coach-outreach"
+        ]
+      }
+    }
+  },
+  "baselineReview": {
+    "capturedAt": "2026-07-11T00:00:00.000Z",
+    "reviewBy": "2026-10-09T00:00:00.000Z",
+    "ageDays": 1,
+    "maxAgeDays": 90,
+    "stale": false,
+    "ratchetOnly": true,
+    "requiresPullRequest": true,
+    "recommendation": "Baseline lifecycle healthy: continue ratchet-only threshold reviews on monthly cadence."
+  }
+}

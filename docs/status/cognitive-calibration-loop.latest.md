@@ -1,8 +1,8 @@
 # Cognitive Calibration Loop Report
 
-Generated: 2026-07-12T15:51:24.653Z
+Generated: 2026-07-12T16:34:40.035Z
 Channel: reliability---service
-Deterministic snapshot: 2026-07-12T15:42:36.931Z
+Deterministic snapshot: 2026-07-12T16:32:01.684Z
 Auditor snapshot: 2026-07-11T22:19:23.753Z
 Status: ok
 
@@ -19,7 +19,10 @@ Status: ok
 
 ## Quarter-over-Quarter Trend
 
-- No previous quarterly run in history.
+- Previous run: 2026-07-12T16:15:58.882Z
+- Exact agreement rate delta: 0
+- Within-one-grade rate delta: 0
+- Major disagreements delta: 0
 
 ## Deterministic-only routes
 

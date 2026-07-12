@@ -120,10 +120,17 @@ function buildMarkdown(report) {
 
 function buildSlackText(report) {
   const candidateLines = report.candidates.map((candidate) => `- ${candidate.route}: ${candidate.reason}`)
+  const topCandidate = report.candidates[0]
+  const executiveSummary = report.candidates.length === 0
+    ? 'No calibration candidates were selected from the latest deterministic run.'
+    : `${report.candidates.length} calibration candidate route(s) were selected; highest-priority route is ${topCandidate.route}.`
   return [
     '*Cognitive fluency calibration dispatch ready*',
     `Channel: ${report.channel}`,
     `Source report: ${report.source.generatedAt ?? 'n/a'}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Audit candidates*',
     ...candidateLines,

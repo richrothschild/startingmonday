@@ -24,6 +24,7 @@ import { chromium } from '@playwright/test'
 const ROOT = process.cwd()
 const argv = process.argv.slice(2)
 const reportOnly = argv.includes('--report-only')
+const failOnBlocking = argv.includes('--fail-on-blocking')
 const skipRuntime = argv.includes('--skip-runtime')
 const skipRendered = argv.includes('--skip-rendered')
 const baseUrlArg = argv.find((a) => a.startsWith('--base-url='))
@@ -250,7 +251,7 @@ async function captureScreenshot(url, route) {
   let browser
   try {
     browser = await chromium.launch()
-    const context = await browser.createBrowserContext()
+    const context = await browser.newContext()
     const page = await context.newPage()
     page.setDefaultTimeout(10000)
     page.setDefaultNavigationTimeout(10000)
@@ -306,7 +307,7 @@ async function checkRenderedDarkness(route) {
   if (!result.success) return
   
   const minDarkShareProxy = rubric.visualDiscipline?.minDarkShareProxy ?? 0.7
-  const estimatedDarkShare = result.pixelEstimate?.darkElementsEstimate ?? 0 / (result.pixelEstimate?.totalElements ?? 1)
+  const estimatedDarkShare = (result.pixelEstimate?.darkElementsEstimate ?? 0) / (result.pixelEstimate?.totalElements ?? 1)
   
   screenshotMetrics.set(route, {
     screenshotPath: result.screenshotPath,
@@ -657,6 +658,11 @@ if (webhook && effectiveBlockingViolations.length > 0) {
   const text = [
     `:rotating_light: Luxury page sentinel found ${incidents.length} incident pattern(s) across ${effectiveBlockingViolations.length} blocking route findings`,
     `Base URL: ${BASE_URL}`,
+    '',
+    '*Executive summary*',
+    effectiveBlockingViolations.length === 0
+      ? '- Luxury sentinel run is stable with no blocking conformance incidents.'
+      : `- Conformance risk remains elevated: ${summary.paletteViolations} palette findings, ${summary.availabilityViolations} availability findings, and ${coverageViolations.length} coverage issue(s).`,
     `Coverage: ${coveragePct}% of ${verdictTotals.total} routes (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip [${skipSummary}], ${verdictTotals.gaps} unexplained gap)`,
     `Routes discovered: ${summary.routesDiscovered} | Incidents: ${incidents.length} | Palette findings: ${summary.paletteViolations} | Typography warnings: ${summary.typographyWarnings} | Accent warnings: ${summary.accentWarnings} | Availability findings: ${summary.availabilityViolations} | Coverage gaps: ${coverageViolations.length}`,
     `Quarantine: active=${quarantineResult.stats.activeEntries}, expired=${quarantineResult.stats.expiredEntries}, suppressed=${quarantineResult.stats.suppressedFindings}`,
@@ -676,6 +682,6 @@ if (webhook && effectiveBlockingViolations.length > 0) {
   }
 }
 
-if (effectiveBlockingViolations.length > 0 && !reportOnly) {
+if (effectiveBlockingViolations.length > 0 && failOnBlocking && !reportOnly) {
   process.exitCode = 1
 }

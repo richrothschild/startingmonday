@@ -361,6 +361,9 @@ function buildSlackText(report) {
   const headline = report.summary.worse > 0
     ? `*Monthly experience trends: ${report.summary.worse} workflow(s) worsened*`
     : '*Monthly experience trends: no worsening workflows*'
+  const executiveSummary = report.summary.worse === 0
+    ? 'Monthly trend posture is stable with no worsening workflow issue rates.'
+    : `${report.summary.worse} workflow(s) worsened month-over-month; corrective actions should focus on highest-delta pipelines first.`
 
   const trendLines = report.trends.map((row) => `- ${row.name}: ${row.trend.label} (current ${row.current.issueRate}, previous ${row.previous.issueRate})`)
   const actionLines = report.trends
@@ -377,6 +380,9 @@ function buildSlackText(report) {
   return [
     headline,
     `Channel: ${report.channel}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
     `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
     cwvLine,

@@ -1,6 +1,6 @@
 # Trust Escalation Report
 
-Generated: 2026-07-12T15:46:17.006Z
+Generated: 2026-07-12T16:32:07.719Z
 SES Version: 1
 
 ## Summary

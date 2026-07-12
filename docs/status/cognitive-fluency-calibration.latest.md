@@ -1,8 +1,8 @@
 # Cognitive Fluency Calibration Dispatch
 
-Generated: 2026-07-12T15:42:37.207Z
+Generated: 2026-07-12T16:32:01.844Z
 Channel: reliability---service
-Source cognitive report: 2026-07-12T15:42:36.931Z
+Source cognitive report: 2026-07-12T16:32:01.684Z
 Candidates selected: 8
 
 ## Selected Routes

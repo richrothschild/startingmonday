@@ -92,6 +92,9 @@ function buildSlackText(report) {
   const changedLine = report.delta.previousGeneratedAt
     ? `Previous snapshot: ${report.delta.previousGeneratedAt} | added=${report.delta.added.length}, removed=${report.delta.removed.length}`
     : 'No previous snapshot found (first seed run).'
+  const executiveSummary = report.delta.previousGeneratedAt
+    ? `Inventory is fresh with ${report.totals.routes} total routes; delta is +${report.delta.added.length}/-${report.delta.removed.length} since the last snapshot.`
+    : `Inventory baseline established with ${report.totals.routes} total routes and full tier breakdown available for downstream agents.`
 
   const added = report.delta.added.slice(0, 10).join(', ') || 'none'
   const removed = report.delta.removed.slice(0, 10).join(', ') || 'none'
@@ -99,6 +102,9 @@ function buildSlackText(report) {
   return [
     '*Route inventory agent report*',
     `Channel: ${report.channel}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     `Routes discovered: ${report.totals.routes} (static ${report.totals.staticRoutes}, dynamic ${report.totals.dynamicRoutes}, auth-gated ${report.totals.authGatedRoutes})`,
     changedLine,
     `Added routes: ${added}`,

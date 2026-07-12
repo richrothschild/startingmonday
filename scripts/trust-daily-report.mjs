@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs'
 import path from 'node:path'
 import { trustWorkflows } from './lib/trust-workflows.mjs'
 import { ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
@@ -213,10 +214,16 @@ function buildSlackText(report) {
     ? report.trustIntegrityEvidence.routeSnippets.slice(0, 3).map((snippet) => `- ${snippet}`)
     : [`- Trust integrity snapshot unavailable at ${report.trustIntegrityEvidence.source}`]
   const missingLines = report.missing.map((item) => `- ${item}`)
+  const executiveSummary = unhealthy.length === 0
+    ? 'Trust operations and contract evidence are currently stable.'
+    : `${unhealthy.length} trust workflow issue(s) are open; maintain contract checks while restoring reporting reliability.`
 
   return [
     top,
     `Channel: ${report.channel}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Workflow health*',
     ...workflowLines,

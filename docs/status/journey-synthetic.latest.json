@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T15:47:02.690Z",
+  "generatedAt": "2026-07-12T16:34:01.190Z",
   "baseUrl": "https://startingmonday.app",
   "sesVersion": 1,
   "sesReviewBy": "2026-10-09T00:00:00.000Z",
@@ -16,20 +16,22 @@
       "steps": [
         {
           "stepLabel": "Page load",
-          "runs": 1,
-          "p50Ms": 3209,
-          "p75Ms": 3209,
-          "p95Ms": 3209,
-          "maxMs": 3209
+          "runs": 3,
+          "p50Ms": 142,
+          "p75Ms": 142,
+          "p95Ms": 142,
+          "maxMs": 344
         }
       ],
-      "sampleRuns": 1,
-      "sampleFailures": 1,
+      "sampleRuns": 3,
+      "sampleFailures": 3,
       "failureScreenshots": [
-        "tmp/journey-synthetic/_-sample-1.png"
+        "tmp/journey-synthetic/_-sample-1.png",
+        "tmp/journey-synthetic/_-sample-2.png",
+        "tmp/journey-synthetic/_-sample-3.png"
       ],
       "abandonmentRisk": "high",
-      "maxStepMs": 3209,
+      "maxStepMs": 344,
       "evaluations": [
         {
           "severity": null,
@@ -45,26 +47,26 @@
       "steps": [
         {
           "stepLabel": "Page load",
-          "runs": 1,
-          "p50Ms": 134,
-          "p75Ms": 134,
-          "p95Ms": 134,
-          "maxMs": 134
+          "runs": 3,
+          "p50Ms": 104,
+          "p75Ms": 104,
+          "p95Ms": 104,
+          "maxMs": 160
         },
         {
           "stepLabel": "Select plan",
-          "runs": 1,
-          "p50Ms": 58,
-          "p75Ms": 58,
-          "p95Ms": 58,
-          "maxMs": 58
+          "runs": 3,
+          "p50Ms": 46,
+          "p75Ms": 46,
+          "p95Ms": 46,
+          "maxMs": 61
         }
       ],
-      "sampleRuns": 1,
+      "sampleRuns": 3,
       "sampleFailures": 0,
       "failureScreenshots": [],
       "abandonmentRisk": "low",
-      "maxStepMs": 134,
+      "maxStepMs": 160,
       "evaluations": [
         {
           "severity": null,
@@ -85,20 +87,22 @@
       "steps": [
         {
           "stepLabel": "Page load",
-          "runs": 1,
-          "p50Ms": 125,
-          "p75Ms": 125,
-          "p95Ms": 125,
-          "maxMs": 125
+          "runs": 3,
+          "p50Ms": 98,
+          "p75Ms": 98,
+          "p95Ms": 98,
+          "maxMs": 131
         }
       ],
-      "sampleRuns": 1,
-      "sampleFailures": 1,
+      "sampleRuns": 3,
+      "sampleFailures": 3,
       "failureScreenshots": [
-        "tmp/journey-synthetic/_demo-sample-1.png"
+        "tmp/journey-synthetic/_demo-sample-1.png",
+        "tmp/journey-synthetic/_demo-sample-2.png",
+        "tmp/journey-synthetic/_demo-sample-3.png"
       ],
       "abandonmentRisk": "high",
-      "maxStepMs": 125,
+      "maxStepMs": 131,
       "evaluations": [
         {
           "severity": null,
@@ -108,7 +112,7 @@
       ]
     }
   ],
-  "samplesPerJourney": 1,
+  "samplesPerJourney": 3,
   "thresholdsByTier": {
     "funnel": {
       "warnStepP95Ms": 5500,
@@ -121,7 +125,7 @@
       "count": 3,
       "criticalCount": 0,
       "warnCount": 0,
-      "maxDurationMs": 3209,
+      "maxDurationMs": 344,
       "riskScore": 0
     }
   },
@@ -133,8 +137,28 @@
     },
     {
       "severity": "P1",
+      "route": "/",
+      "message": "Homepage → Signup sample 2 failed: locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: /Get started/i }).first()\u001b[22m\n"
+    },
+    {
+      "severity": "P1",
+      "route": "/",
+      "message": "Homepage → Signup sample 3 failed: locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: /Get started/i }).first()\u001b[22m\n"
+    },
+    {
+      "severity": "P1",
       "route": "/demo",
       "message": "Demo → Run sample 1 failed: locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /run demo|run search|run/i }).first()\u001b[22m\n"
+    },
+    {
+      "severity": "P1",
+      "route": "/demo",
+      "message": "Demo → Run sample 2 failed: locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /run demo|run search|run/i }).first()\u001b[22m\n"
+    },
+    {
+      "severity": "P1",
+      "route": "/demo",
+      "message": "Demo → Run sample 3 failed: locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /run demo|run search|run/i }).first()\u001b[22m\n"
     }
   ],
   "pass": false

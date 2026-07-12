@@ -13,6 +13,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-daily.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-daily.latest.md')
+const executiveSummaryDir = path.join(process.cwd(), 'docs', 'status')
 const vitalsReportPath = path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json')
 const portfolioRollupPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.latest.json')
 const ledgerPath = path.join(process.cwd(), 'docs', 'status', 'experience', 'ledger.jsonl')
@@ -267,11 +268,17 @@ function buildSlackText(report) {
 
   const riskLines = report.riskRows.map((row) => `- [${row.status}] ${row.risk}`)
   const missingLines = report.missing.map((item) => `- ${item}`)
+  const executiveSummary = unhealthy.length === 0
+    ? 'Experience workflow health is stable and no operational exceptions are currently open.'
+    : `${unhealthy.length} workflow issue(s) and ${report.vitalsSummary.available ? report.vitalsSummary.breaches : 'no recent'} CWV breach signal(s) require active triage.`
 
   return [
     top,
     `Channel: ${report.channel}`,
     vitalsLine,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Workflow health*',
     ...workflowLines,
@@ -288,6 +295,57 @@ function buildSlackText(report) {
 }
 
 async function postSlack(text) {
+  await postSlackText({ webhookUrl: slackWebhook, text })
+}
+
+function findExecutiveSummaryFile() {
+  if (!fs.existsSync(executiveSummaryDir)) return null
+  const candidates = fs.readdirSync(executiveSummaryDir)
+    .filter((name) => /^experience-report-executive-summary-and-wbs-\d{4}-\d{2}-\d{2}\.md$/i.test(name))
+    .sort((a, b) => b.localeCompare(a))
+  if (candidates.length === 0) return null
+  return path.join(executiveSummaryDir, candidates[0])
+}
+
+function extractSectionLines(markdown, heading) {
+  const lines = markdown.split(/\r?\n/)
+  const start = lines.findIndex((line) => line.trim() === heading)
+  if (start === -1) return []
+  const section = []
+  for (let i = start + 1; i < lines.length; i += 1) {
+    const line = lines[i]
+    if (line.startsWith('## ')) break
+    section.push(line)
+  }
+  return section
+}
+
+function buildExecutiveSummarySlackText({ filePath, markdown }) {
+  const rolledUp = extractSectionLines(markdown, '## Rolled-Up Executive Summary')
+    .filter((line) => /^\d+\.\s/.test(line.trim()) || /^-\s/.test(line.trim()))
+    .slice(0, 8)
+  const wbsHeadings = markdown
+    .split(/\r?\n/)
+    .filter((line) => line.startsWith('### WBS-'))
+    .slice(0, 12)
+
+  return [
+    '*Experience Executive Summary + Work Breakdown Structure*',
+    `Source file: ${path.relative(process.cwd(), filePath).replace(/\\/g, '/')}`,
+    '',
+    '*Overall executive summary*',
+    ...(rolledUp.length > 0 ? rolledUp.map((line) => line.trim()) : ['- Missing section: Rolled-Up Executive Summary']),
+    '',
+    '*Work breakdown structure*',
+    ...(wbsHeadings.length > 0 ? wbsHeadings.map((line) => `- ${line.replace(/^###\s*/, '')}`) : ['- Missing section: Work Breakdown Structure']),
+  ].join('\n')
+}
+
+async function postExecutiveSummaryAndWbs() {
+  const filePath = findExecutiveSummaryFile()
+  if (!filePath) return
+  const markdown = fs.readFileSync(filePath, 'utf8')
+  const text = buildExecutiveSummarySlackText({ filePath, markdown })
   await postSlackText({ webhookUrl: slackWebhook, text })
 }
 
@@ -323,6 +381,7 @@ async function main() {
   })
 
   await postSlack(buildSlackText(report))
+  await postExecutiveSummaryAndWbs()
 
   console.log('Experience daily report completed.')
 }

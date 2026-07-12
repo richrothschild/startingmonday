@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-07-12T16:35:06.798Z",
+  "channel": "reliability---service",
+  "workflowHealth": [
+    {
+      "id": "trust-integrity-agent.yml",
+      "name": "Trust Integrity Agent",
+      "status": "failed",
+      "ageMinutes": 152,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195522014",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Resolve parity/title/landmark contract failures before certifying dashboard trust posture."
+    },
+    {
+      "id": "trust-escalation-agent.yml",
+      "name": "Trust Escalation Agent",
+      "status": "missing",
+      "ageMinutes": null,
+      "conclusion": null,
+      "url": null,
+      "recommendation": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window."
+    },
+    {
+      "id": "trust-weekly-issues-report.yml",
+      "name": "Trust Weekly Issues Report",
+      "status": "healthy",
+      "ageMinutes": 1462,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159377927",
+      "maxAgeMinutes": 11520,
+      "recommendation": "Review trust issue clusters and convert repeated failures into owned remediation actions."
+    },
+    {
+      "id": "trust-monthly-trends-report.yml",
+      "name": "Trust Monthly Trends Report",
+      "status": "healthy",
+      "ageMinutes": 1461,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159379334",
+      "maxAgeMinutes": 57600,
+      "recommendation": "Use monthly trust trend deltas to tighten contracts and prevent trust drift normalization."
+    }
+  ],
+  "riskRows": [
+    {
+      "key": "signal-parity-drift",
+      "risk": "Signal count parity drifts across dashboard, briefing, and signals surfaces without immediate detection.",
+      "mitigation": "Trust Integrity Agent enforces parity as a P0 contract with daily cadence.",
+      "status": "elevated"
+    },
+    {
+      "key": "trust-copy-regression",
+      "risk": "Stale relative-time language reappears and undermines trust in recency-sensitive guidance.",
+      "mitigation": "Relative-time phrase checks run in trust integrity contracts and report findings via Slack and artifacts.",
+      "status": "elevated"
+    },
+    {
+      "key": "contract-observability-gap",
+      "risk": "Trust issues are found but trend direction is unclear, delaying corrective prioritization.",
+      "mitigation": "Weekly issue and monthly trend agents translate failures into directional operating signals.",
+      "status": "elevated"
+    }
+  ],
+  "trustIntegrityEvidence": {
+    "available": true,
+    "source": "C:\\Users\\roths\\startingmonday\\docs\\status\\trust-integrity.latest.json",
+    "generatedAt": "2026-07-12T16:32:07.146Z",
+    "pass": true,
+    "routeSnippets": [
+      "/dashboard: status=200, title=ok, main=1, stalePhrases=0",
+      "/dashboard/briefing: status=200, title=ok, main=1, stalePhrases=0",
+      "/dashboard/signals: status=200, title=ok, main=1, stalePhrases=0",
+      "/dashboard/calendar: status=200, title=ok, main=1, stalePhrases=0",
+      "/dashboard/contacts: status=200, title=ok, main=1, stalePhrases=0"
+    ],
+    "findingSnippets": [],
+    "contractSnippets": [
+      "signalParity=pass (dashboard=5, briefing=5, signals=5)",
+      "title=pass",
+      "landmark=pass",
+      "relativeTime=pass"
+    ]
+  },
+  "missing": [
+    "Automated owner mapping for repeated trust contract failures to reduce triage latency.",
+    "Trust contract threshold ratchet that tightens after 30 consecutive healthy days.",
+    "Cross-surface parity preflight in staging before production promotion runs.",
+    "Contract-specific SLO targets (for example, parity extraction reliability) with rolling error budgets."
+  ]
+}

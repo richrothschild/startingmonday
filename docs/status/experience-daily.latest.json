@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-07-12T16:40:07.919Z",
+  "channel": "reliability---service",
+  "workflowHealth": [
+    {
+      "id": "route-inventory-agent.yml",
+      "name": "Route Inventory Agent",
+      "status": "healthy",
+      "ageMinutes": 160,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195398181",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Regenerate route inventory and reconcile unexpected route additions/removals before compliance claims."
+    },
+    {
+      "id": "experience-vitals-agent.yml",
+      "name": "Experience Vitals Agent",
+      "status": "failed",
+      "ageMinutes": 263,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29192345562",
+      "maxAgeMinutes": 480,
+      "recommendation": "Address route-tier vitals budget breaches and adjust baseline drift with explicit approvals."
+    },
+    {
+      "id": "cognitive-load-agent.yml",
+      "name": "Cognitive Load Agent",
+      "status": "healthy",
+      "ageMinutes": 1416,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29160901694",
+      "maxAgeMinutes": 11520,
+      "recommendation": "Reduce public-route cognitive density and CTA competition before weak chunking becomes chronic."
+    },
+    {
+      "id": "cognitive-fluency-calibration-dispatch.yml",
+      "name": "Cognitive Fluency Calibration Dispatch",
+      "status": "healthy",
+      "ageMinutes": 1412,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29161029985",
+      "maxAgeMinutes": 57600,
+      "recommendation": "Use the monthly calibration packet to drive human-depth Page Experience Auditor review on the worst-scoring routes."
+    },
+    {
+      "id": "cognitive-calibration-loop.yml",
+      "name": "Cognitive Calibration Loop",
+      "status": "healthy",
+      "ageMinutes": 1340,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29163244147",
+      "maxAgeMinutes": 158400,
+      "recommendation": "Use quarterly deterministic-vs-auditor deltas to tune scoring weights and keep calibration drift controlled."
+    },
+    {
+      "id": "experience-portfolio-rollup.yml",
+      "name": "Experience Portfolio Rollup",
+      "status": "failed",
+      "ageMinutes": 152,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195647533",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Use the portfolio rollup as the single triage board for cross-agent issues and route the suggested mitigation to an owner immediately."
+    },
+    {
+      "id": "luxury-page-sentinel.yml",
+      "name": "Luxury Page Sentinel",
+      "status": "failed",
+      "ageMinutes": 53,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29198832180",
+      "maxAgeMinutes": 120,
+      "recommendation": "Triage blocking incidents by dimension and burn down quarantine debt before expiry."
+    },
+    {
+      "id": "dashboard-behavior-baseline.yml",
+      "name": "Dashboard Behavior Baseline Agent",
+      "status": "failed",
+      "ageMinutes": 166,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195243462",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Validate dashboard contracts and probe credentials, then address route-specific regressions."
+    },
+    {
+      "id": "trust-integrity-agent.yml",
+      "name": "Trust Integrity Agent",
+      "status": "failed",
+      "ageMinutes": 157,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195522014",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Resolve parity/title/landmark contract failures before certifying dashboard trust posture."
+    },
+    {
+      "id": "trust-escalation-agent.yml",
+      "name": "Trust Escalation Agent",
+      "status": "missing",
+      "ageMinutes": null,
+      "conclusion": null,
+      "url": null,
+      "recommendation": "Route trust violations to owning teams quickly and escalate P0 findings within the SLA window."
+    },
+    {
+      "id": "journey-synthetic-agent.yml",
+      "name": "Journey Synthetic Agent",
+      "status": "healthy",
+      "ageMinutes": 7,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29200323588",
+      "maxAgeMinutes": 180,
+      "recommendation": "Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact."
+    },
+    {
+      "id": "trust-daily-report.yml",
+      "name": "Trust Daily Report",
+      "status": "failed",
+      "ageMinutes": 149,
+      "conclusion": "failure",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29195747635",
+      "maxAgeMinutes": 1800,
+      "recommendation": "Use daily trust telemetry to surface contract drift quickly and keep remediation ownership explicit."
+    },
+    {
+      "id": "trust-weekly-issues-report.yml",
+      "name": "Trust Weekly Issues Report",
+      "status": "healthy",
+      "ageMinutes": 1467,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159377927",
+      "maxAgeMinutes": 11520,
+      "recommendation": "Review trust issue clusters and convert repeated failures into backlog remediation with owners."
+    },
+    {
+      "id": "trust-monthly-trends-report.yml",
+      "name": "Trust Monthly Trends Report",
+      "status": "healthy",
+      "ageMinutes": 1466,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29159379334",
+      "maxAgeMinutes": 57600,
+      "recommendation": "Use monthly trust trend deltas to ratchet contracts and prevent drift from becoming normalized."
+    },
+    {
+      "id": "experience-seeding-checklist.yml",
+      "name": "Experience Seeding Checklist",
+      "status": "healthy",
+      "ageMinutes": 1161,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29168565437",
+      "maxAgeMinutes": 14400,
+      "recommendation": "Resolve failed dispatches and keep weekly seeding evidence fresh so monitoring remains auditable."
+    },
+    {
+      "id": "probe-account-reset.yml",
+      "name": "Probe Account Reset",
+      "status": "healthy",
+      "ageMinutes": 238,
+      "conclusion": "success",
+      "url": "https://github.com/richrothschild/startingmonday/actions/runs/29193078732",
+      "maxAgeMinutes": 1440,
+      "recommendation": "Reset synthetic probe account capacity before route coverage degrades from limit-triggered skips."
+    }
+  ],
+  "digestFindings": {
+    "available": false,
+    "findings": []
+  },
+  "riskRows": [
+    {
+      "key": "partial-scan-claims",
+      "risk": "Route compliance claims drift from full-site reality when inventory cadence slips.",
+      "mitigation": "Route Inventory Agent runs daily and is freshness-monitored by watchdog.",
+      "status": "elevated"
+    },
+    {
+      "key": "incident-signal-loss",
+      "risk": "High-volume style/availability findings become noise and true regressions are missed.",
+      "mitigation": "Incident correlation and quarantine/debt ratchet keep findings actionable.",
+      "status": "elevated"
+    },
+    {
+      "key": "post-deploy-blind-spot",
+      "risk": "Experience regressions ship after green CI if live-route checks are stale.",
+      "mitigation": "Sentinel and dashboard baseline cadence with explicit freshness thresholds.",
+      "status": "elevated"
+    }
+  ],
+  "vitalsSummary": {
+    "available": true,
+    "breaches": 1,
+    "byTier": {
+      "funnel": 0,
+      "public": 1,
+      "dashboard": 0,
+      "admin": 0
+    }
+  },
+  "missing": [
+    "Cross-route trust integrity trend history with 7-day and 30-day drift deltas on parity/title/landmark contracts.",
+    "Deterministic cognitive fluency/load score persisted per route tier with grade-band trending.",
+    "Experience baseline review bot that proposes ratcheted stricter thresholds after 30 stable days.",
+    "Field-vs-lab experience delta tracker for route-level LCP/INP confidence checks."
+  ]
+}

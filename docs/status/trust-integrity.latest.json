@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-12T16:32:07.146Z",
+  "baseUrl": "https://startingmonday.app",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "trustContracts": {
+    "signalParityRequired": true,
+    "singleMainLandmarkRequired": true,
+    "titlePattern": "<Route Label> - Starting Monday",
+    "staleRelativeTimePhrasesAllowed": false
+  },
+  "contracts": {
+    "signalParity": {
+      "pass": true,
+      "counts": {
+        "dashboard": 5,
+        "briefing": 5,
+        "signals": 5
+      }
+    },
+    "title": {
+      "pass": true
+    },
+    "landmark": {
+      "pass": true
+    },
+    "relativeTime": {
+      "pass": true
+    }
+  },
+  "routes": [
+    {
+      "route": "/dashboard",
+      "label": "Dashboard",
+      "status": 200,
+      "loadMs": 654,
+      "title": "Dashboard - Starting Monday",
+      "expectedTitle": "Dashboard - Starting Monday",
+      "titlePass": true,
+      "mainCount": 1,
+      "mainPass": true,
+      "staleRelativePhrases": []
+    },
+    {
+      "route": "/dashboard/briefing",
+      "label": "Daily Briefing",
+      "status": 200,
+      "loadMs": 587,
+      "title": "Daily Briefing - Starting Monday",
+      "expectedTitle": "Daily Briefing - Starting Monday",
+      "titlePass": true,
+      "mainCount": 1,
+      "mainPass": true,
+      "staleRelativePhrases": []
+    },
+    {
+      "route": "/dashboard/signals",
+      "label": "Signals",
+      "status": 200,
+      "loadMs": 556,
+      "title": "Signals - Starting Monday",
+      "expectedTitle": "Signals - Starting Monday",
+      "titlePass": true,
+      "mainCount": 1,
+      "mainPass": true,
+      "staleRelativePhrases": []
+    },
+    {
+      "route": "/dashboard/calendar",
+      "label": "Calendar",
+      "status": 200,
+      "loadMs": 525,
+      "title": "Calendar - Starting Monday",
+      "expectedTitle": "Calendar - Starting Monday",
+      "titlePass": true,
+      "mainCount": 1,
+      "mainPass": true,
+      "staleRelativePhrases": []
+    },
+    {
+      "route": "/dashboard/contacts",
+      "label": "Contacts",
+      "status": 200,
+      "loadMs": 533,
+      "title": "Contacts - Starting Monday",
+      "expectedTitle": "Contacts - Starting Monday",
+      "titlePass": true,
+      "mainCount": 1,
+      "mainPass": true,
+      "staleRelativePhrases": []
+    }
+  ],
+  "findings": [],
+  "pass": true
+}

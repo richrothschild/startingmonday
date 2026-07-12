@@ -232,6 +232,9 @@ function buildSlackText(report) {
   const headline = p0Count > 0
     ? `*Trust escalation: ${p0Count} P0 finding(s) require immediate action*`
     : `*Trust escalation: ${report.summary.total} finding(s) across team(s)*`
+  const executiveSummary = report.summary.total === 0
+    ? 'No trust findings require escalation in this run.'
+    : `${report.summary.total} trust finding(s) were triaged with ${report.summary.requiresEscalation.length} escalation route(s) opened to owning teams.`
 
   const escalationLines = report.summary.requiresEscalation
     .map((e) => `- [${e.severity}] @${e.team} (#${e.channel}): ${e.count} issue(s)`)
@@ -240,6 +243,9 @@ function buildSlackText(report) {
     headline,
     `Channel: ${report.channel}`,
     `SES Version: ${report.sesVersion}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     `Total findings: ${report.summary.total}`,
     `Severity: P0=${p0Count} P1=${p1Count} P2=${report.summary.bySeverity.P2}`,
     '',

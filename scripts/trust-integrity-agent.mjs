@@ -157,11 +157,17 @@ async function postSlackReport({ webhookUrl, channelLabel, report }) {
   const findingLines = report.findings.length === 0
     ? ['- None']
     : report.findings.slice(0, 12).map((finding) => `- [${finding.severity}] ${finding.contract}: ${finding.message}`)
+  const executiveSummary = report.pass
+    ? 'All trust contracts passed for dashboard parity, titles, landmarks, and relative-time checks.'
+    : `Trust contract violations detected (${report.findings.length} finding(s)); remediate before certifying dashboard trust posture.`
 
   const text = [
     headline,
     `Channel: ${channelLabel}`,
     `Base URL: ${report.baseUrl}`,
+    '',
+    '*Executive summary*',
+    `- ${executiveSummary}`,
     '',
     '*Contract status*',
     ...contractLines,
