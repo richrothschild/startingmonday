@@ -84,17 +84,17 @@ export function CompanySearchInput({ defaultValue }: { defaultValue?: string }) 
         onChange={e => { setQuery(e.target.value); search(e.target.value) }}
         onKeyDown={handleKeyDown}
         placeholder="Search or type a company name"
-        className="w-full border border-slate-200 rounded px-3 py-2.5 text-[14px] text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-slate-400"
+        className="w-full border border-white/15 rounded px-3 py-2.5 text-[14px] text-slate-100 bg-slate-900/70 placeholder:text-slate-500 focus:outline-none focus:border-orange-300"
       />
       {open && (
-        <ul className="absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded shadow-lg max-h-60 overflow-auto">
+        <ul className="absolute z-50 left-0 right-0 mt-1 bg-slate-950 border border-white/15 rounded shadow-lg max-h-60 overflow-auto">
           {results.map((c, i) => (
             <li
               key={c.id}
               onMouseDown={() => selectCompany(c)}
-              className={`px-3 py-2.5 cursor-pointer ${i === activeIdx ? 'bg-slate-100' : 'hover:bg-slate-50'}`}
+              className={`px-3 py-2.5 cursor-pointer ${i === activeIdx ? 'bg-white/10' : 'hover:bg-white/5'}`}
             >
-              <div className="text-[13px] font-semibold text-slate-900">{c.name}</div>
+              <div className="text-[13px] font-semibold text-slate-100">{c.name}</div>
               {c.hq_location && (
                 <div className="text-[11px] text-slate-400 mt-0.5">{c.hq_location}</div>
               )}
