@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { chromium } from 'playwright'
+import { postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
   const args = { report: 'docs/status/dashboard-behavior.latest.json' }
@@ -107,6 +108,38 @@ function evaluateAgainstBaseline(results, baseline) {
   return deviations
 }
 
+function buildMarkdown(report) {
+  const lines = []
+  lines.push('# Dashboard Behavior Baseline Report')
+  lines.push('')
+  lines.push(`Generated: ${report.generatedAt}`)
+  lines.push(`Base URL: ${report.baseUrl}`)
+  lines.push(`Pass: ${report.pass}`)
+  lines.push(`Duration (ms): ${report.durationMs}`)
+  lines.push('')
+  lines.push('## Measurements')
+  lines.push('')
+  for (const result of report.results) {
+    const settled = typeof result.settledMs === 'number' ? `, settle=${result.settledMs}ms` : ''
+    const options = result.route === '/dashboard/signals'
+      ? `, companyOptions=${result.signalsCompanyOptions}, typeOptions=${result.signalsTypeOptions}`
+      : ''
+    lines.push(`- ${result.route}: status=${result.status}, load=${result.loadMs}ms${settled}${options}`)
+  }
+  lines.push('')
+  lines.push('## Variations')
+  lines.push('')
+  if (report.deviations.length === 0) {
+    lines.push('- None')
+  } else {
+    for (const deviation of report.deviations) {
+      lines.push(`- ${deviation}`)
+    }
+  }
+  lines.push('')
+  return `${lines.join('\n')}\n`
+}
+
 async function postSlackReport({ webhookUrl, channelLabel, baseUrl, report, deviations }) {
   if (!webhookUrl) return
 
@@ -138,11 +171,7 @@ async function postSlackReport({ webhookUrl, channelLabel, baseUrl, report, devi
     deviationLines,
   ].join('\n')
 
-  await fetch(webhookUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
+  await postSlackText({ webhookUrl, text })
 }
 
 async function run() {
@@ -150,6 +179,7 @@ async function run() {
   const root = process.cwd()
   const baselinePath = path.join(root, 'config', 'dashboard-behavior-baseline.json')
   const reportPath = path.join(root, args.report)
+  const reportMdPath = reportPath.replace(/\.json$/i, '.md')
 
   const baseUrl = (args.baseUrl || process.env.PLAYWRIGHT_BASE_URL || 'https://startingmonday.app').replace(/\/$/, '')
   const email = process.env.PLAYWRIGHT_TEST_EMAIL
@@ -203,8 +233,12 @@ async function run() {
       pass: deviations.length === 0,
     }
 
-    fs.mkdirSync(path.dirname(reportPath), { recursive: true })
-    fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
+    writeLatestReportFiles({
+      jsonPath: reportPath,
+      markdownPath: reportMdPath,
+      report,
+      markdown: buildMarkdown(report),
+    })
 
     await postSlackReport({
       webhookUrl: slackWebhook,

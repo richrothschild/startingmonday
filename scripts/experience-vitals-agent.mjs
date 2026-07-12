@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { chromium } from 'playwright'
-import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
+import { loadSES, writeLatestReportFiles, postSlackText } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
   const args = {
@@ -247,11 +247,7 @@ async function postSlack({ webhookUrl, report }) {
     ...(breachLines.length > 0 ? breachLines : ['- None']),
   ].join('\n')
 
-  await fetch(webhookUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
+  await postSlackText({ webhookUrl, text })
 }
 
 async function run() {
@@ -325,9 +321,12 @@ async function run() {
     enforceFailOnBreach: Boolean(baseline.enforcement?.failOnBreach),
   }
 
-  fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
-  fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
-  fs.writeFileSync(reportMdPath, buildMarkdown(report), 'utf8')
+  writeLatestReportFiles({
+    jsonPath: reportJsonPath,
+    markdownPath: reportMdPath,
+    report,
+    markdown: buildMarkdown(report),
+  })
 
   await postSlack({ webhookUrl: slackWebhook, report })
 

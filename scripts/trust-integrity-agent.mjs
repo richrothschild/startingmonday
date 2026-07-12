@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { chromium } from '@playwright/test'
-import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
+import { loadSES, getTierThresholds, writeLatestReportFiles, postSlackText } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
   const args = {
@@ -179,11 +179,7 @@ async function postSlackReport({ webhookUrl, channelLabel, report }) {
     ...findingLines,
   ].join('\n')
 
-  await fetch(webhookUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
+  await postSlackText({ webhookUrl, text })
 }
 
 async function run() {
@@ -342,9 +338,12 @@ async function run() {
       pass: findings.length === 0,
     }
 
-    fs.mkdirSync(path.dirname(reportJsonPath), { recursive: true })
-    fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
-    fs.writeFileSync(reportMdPath, buildMarkdown(report), 'utf8')
+    writeLatestReportFiles({
+      jsonPath: reportJsonPath,
+      markdownPath: reportMdPath,
+      report,
+      markdown: buildMarkdown(report),
+    })
 
     await postSlackReport({
       webhookUrl: slackWebhook,
