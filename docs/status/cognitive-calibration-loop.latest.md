@@ -1,8 +1,8 @@
 # Cognitive Calibration Loop Report
 
-Generated: 2026-07-11T22:19:27.501Z
+Generated: 2026-07-12T15:51:24.653Z
 Channel: reliability---service
-Deterministic snapshot: 2026-07-11T22:16:45.988Z
+Deterministic snapshot: 2026-07-12T15:42:36.931Z
 Auditor snapshot: 2026-07-11T22:19:23.753Z
 Status: ok
 
@@ -15,6 +15,11 @@ Status: ok
 - Auditor stricter: 1
 - Exact agreement rate: 0.5
 - Within one grade rate: 0.5
+- Major disagreements (distance >= 2): 1
+
+## Quarter-over-Quarter Trend
+
+- No previous quarterly run in history.
 
 ## Deterministic-only routes
 
@@ -43,4 +48,10 @@ Status: ok
 
 - /dashboard: deterministic=A-, auditor=B, relation=auditor-stricter, distance=2
 - /dashboard/contacts: deterministic=A-, auditor=A-, relation=exact, distance=0
+
+## Calibration Recommendations
+
+- No route-multiplier changes suggested this quarter.
+
+Adjustments applied: false
 

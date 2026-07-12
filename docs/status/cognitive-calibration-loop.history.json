@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-12T15:51:24.653Z",
+  "runs": [
+    {
+      "generatedAt": "2026-07-12T15:51:24.653Z",
+      "status": "ok",
+      "overlapRoutes": 2,
+      "exactAgreementRate": 0.5,
+      "withinOneGradeRate": 0.5,
+      "deterministicStricter": 0,
+      "auditorStricter": 1,
+      "majorDisagreements": 1
+    }
+  ]
+}

@@ -90,6 +90,7 @@ jobs:
             docs/status/cognitive-load.latest.md
             docs/status/cognitive-calibration-loop.latest.json
             docs/status/cognitive-calibration-loop.latest.md
+            docs/status/cognitive-calibration-loop.history.json
             docs/status/cognitive-fluency-auditor.latest.json
           retention-days: 90
           if-no-files-found: warn

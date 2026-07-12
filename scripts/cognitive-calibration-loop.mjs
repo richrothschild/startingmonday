@@ -38,6 +38,20 @@ const reportMdPath = path.join(
   "status",
   "cognitive-calibration-loop.latest.md",
 );
+const historyJsonPath = path.join(
+  process.cwd(),
+  "docs",
+  "status",
+  "cognitive-calibration-loop.history.json",
+);
+const scoreAdjustmentsPath = path.join(
+  process.cwd(),
+  "config",
+  "cognitive-fluency-score-adjustments.json",
+);
+
+const args = new Set(process.argv.slice(2));
+const applyAdjustments = args.has("--apply-adjustments");
 
 const gradeOrder = ["A-", "B+", "B", "C+", "C"];
 
@@ -63,6 +77,67 @@ function normalizeGrade(value) {
     F: "C",
   };
   return map[clean] ?? null;
+}
+
+function loadScoreAdjustments() {
+  if (!fs.existsSync(scoreAdjustmentsPath)) {
+    return {
+      version: 1,
+      createdAt: new Date().toISOString(),
+      adjustments: {},
+      issueTypeWeights: {
+        "cognitive-load-density": 1.5,
+        "choice-overload": 2,
+        "trust-spillover": 2.5,
+        "typography-inconsistency": 0.8,
+        "layout-regression": 1.2,
+      },
+      routeMultipliers: {
+        dashboard: 1.25,
+        funnel: 1.5,
+        public: 1,
+        admin: 0.8,
+      },
+    };
+  }
+  return JSON.parse(fs.readFileSync(scoreAdjustmentsPath, "utf8"));
+}
+
+function loadCalibrationHistory() {
+  if (!fs.existsSync(historyJsonPath)) {
+    return { version: 1, runs: [] };
+  }
+  const parsed = JSON.parse(fs.readFileSync(historyJsonPath, "utf8"));
+  return {
+    version: parsed.version ?? 1,
+    runs: Array.isArray(parsed.runs) ? parsed.runs : [],
+  };
+}
+
+function writeCalibrationHistory(history, report) {
+  const nextRuns = [
+    ...history.runs,
+    {
+      generatedAt: report.generatedAt,
+      status: report.status,
+      overlapRoutes: report.summary.overlapRoutes,
+      exactAgreementRate: report.summary.exactAgreementRate,
+      withinOneGradeRate: report.summary.withinOneGradeRate,
+      deterministicStricter: report.summary.deterministicStricter,
+      auditorStricter: report.summary.auditorStricter,
+      majorDisagreements: report.majorDisagreements.length,
+    },
+  ].slice(-16);
+
+  const nextHistory = {
+    version: history.version,
+    updatedAt: report.generatedAt,
+    runs: nextRuns,
+  };
+
+  fs.mkdirSync(path.dirname(historyJsonPath), { recursive: true });
+  fs.writeFileSync(historyJsonPath, `${JSON.stringify(nextHistory, null, 2)}\n`, "utf8");
+  return nextHistory;
 }
 
 function loadDeterministicSnapshot() {
@@ -228,6 +303,109 @@ function compareSnapshots(deterministic, auditor) {
   };
 }
 
+function computeQuarterTrend(history, summary) {
+  const previous = history.runs.length > 0 ? history.runs[history.runs.length - 1] : null;
+  if (!previous) {
+    return {
+      available: false,
+      note: "No previous quarterly run in history.",
+      exactAgreementRateDelta: null,
+      withinOneGradeRateDelta: null,
+      majorDisagreementsDelta: null,
+    };
+  }
+
+  const exactAgreementRateDelta =
+    summary.exactAgreementRate === null || previous.exactAgreementRate === null
+      ? null
+      : Number((summary.exactAgreementRate - previous.exactAgreementRate).toFixed(3));
+  const withinOneGradeRateDelta =
+    summary.withinOneGradeRate === null || previous.withinOneGradeRate === null
+      ? null
+      : Number((summary.withinOneGradeRate - previous.withinOneGradeRate).toFixed(3));
+  const majorDisagreementsDelta =
+    typeof previous.majorDisagreements !== "number"
+      ? null
+      : Number(((summary.overlapRoutes - summary.withinOneGrade) - previous.majorDisagreements).toFixed(0));
+
+  return {
+    available: true,
+    previousGeneratedAt: previous.generatedAt,
+    exactAgreementRateDelta,
+    withinOneGradeRateDelta,
+    majorDisagreementsDelta,
+  };
+}
+
+function buildMajorDisagreements(overlap) {
+  return overlap
+    .filter((row) => (row.distance ?? 0) >= 2)
+    .sort((a, b) => (b.distance ?? -1) - (a.distance ?? -1) || a.route.localeCompare(b.route));
+}
+
+function buildRecommendations(majorDisagreements, scoreAdjustments) {
+  const byTier = new Map();
+  for (const row of majorDisagreements) {
+    const tier = row.deterministicTier ?? "public";
+    const bucket = byTier.get(tier) ?? { count: 0, auditorStricter: 0, deterministicStricter: 0 };
+    bucket.count += 1;
+    if (row.relation === "auditor-stricter") bucket.auditorStricter += 1;
+    if (row.relation === "deterministic-stricter") bucket.deterministicStricter += 1;
+    byTier.set(tier, bucket);
+  }
+
+  const routeMultiplierSuggestions = [];
+  for (const [tier, stats] of byTier.entries()) {
+    const current = Number(scoreAdjustments.routeMultipliers?.[tier] ?? 1);
+    if (stats.auditorStricter >= 2) {
+      routeMultiplierSuggestions.push({
+        tier,
+        current,
+        suggested: Number((current + 0.05).toFixed(2)),
+        rationale: `Auditor is stricter on ${stats.auditorStricter}/${stats.count} major disagreements for ${tier}.`,
+      });
+    } else if (stats.deterministicStricter >= 2) {
+      routeMultiplierSuggestions.push({
+        tier,
+        current,
+        suggested: Number(Math.max(0.5, current - 0.05).toFixed(2)),
+        rationale: `Deterministic is stricter on ${stats.deterministicStricter}/${stats.count} major disagreements for ${tier}.`,
+      });
+    }
+  }
+
+  const routeAdjustmentSuggestions = majorDisagreements.slice(0, 10).map((row) => ({
+    route: row.route,
+    deterministicGrade: row.deterministicGrade,
+    auditorGrade: row.auditorGrade,
+    relation: row.relation,
+    suggestion:
+      row.relation === "auditor-stricter"
+        ? "Increase deterministic penalty for this route pattern until next calibration."
+        : "Review deterministic threshold severity on this route pattern for potential easing.",
+  }));
+
+  return {
+    routeMultiplierSuggestions,
+    routeAdjustmentSuggestions,
+  };
+}
+
+function applyCalibrationRecommendations(scoreAdjustments, recommendations) {
+  const next = {
+    ...scoreAdjustments,
+    routeMultipliers: { ...(scoreAdjustments.routeMultipliers ?? {}) },
+    lastUpdatedAt: new Date().toISOString(),
+  };
+
+  for (const suggestion of recommendations.routeMultiplierSuggestions) {
+    next.routeMultipliers[suggestion.tier] = suggestion.suggested;
+  }
+
+  fs.writeFileSync(scoreAdjustmentsPath, `${JSON.stringify(next, null, 2)}\n`, "utf8");
+  return next;
+}
+
 function buildMarkdown(report) {
   const lines = [];
   lines.push("# Cognitive Calibration Loop Report");
@@ -255,6 +433,19 @@ function buildMarkdown(report) {
   lines.push(
     `- Within one grade rate: ${report.summary.withinOneGradeRate ?? "n/a"}`,
   );
+  lines.push(`- Major disagreements (distance >= 2): ${report.majorDisagreements.length}`);
+  lines.push("");
+
+  lines.push("## Quarter-over-Quarter Trend");
+  lines.push("");
+  if (!report.quarterTrend.available) {
+    lines.push(`- ${report.quarterTrend.note}`);
+  } else {
+    lines.push(`- Previous run: ${report.quarterTrend.previousGeneratedAt}`);
+    lines.push(`- Exact agreement rate delta: ${report.quarterTrend.exactAgreementRateDelta ?? "n/a"}`);
+    lines.push(`- Within-one-grade rate delta: ${report.quarterTrend.withinOneGradeRateDelta ?? "n/a"}`);
+    lines.push(`- Major disagreements delta: ${report.quarterTrend.majorDisagreementsDelta ?? "n/a"}`);
+  }
   lines.push("");
 
   if (report.deterministicOnly.length > 0) {
@@ -293,6 +484,20 @@ function buildMarkdown(report) {
     }
   }
   lines.push("");
+
+  lines.push("## Calibration Recommendations");
+  lines.push("");
+  if (report.recommendations.routeMultiplierSuggestions.length === 0) {
+    lines.push("- No route-multiplier changes suggested this quarter.");
+  } else {
+    for (const suggestion of report.recommendations.routeMultiplierSuggestions) {
+      lines.push(`- ${suggestion.tier}: ${suggestion.current} -> ${suggestion.suggested} (${suggestion.rationale})`);
+    }
+  }
+  lines.push("");
+
+  lines.push(`Adjustments applied: ${report.adjustmentsApplied}`);
+  lines.push("");
   return `${lines.join("\n")}\n`;
 }
 
@@ -314,8 +519,10 @@ function buildSlackText(report) {
     `Overlap routes: ${report.summary.overlapRoutes}`,
     `Exact agreement: ${report.summary.exactAgreement} (${report.summary.exactAgreementRate ?? "n/a"})`,
     `Within one grade: ${report.summary.withinOneGrade} (${report.summary.withinOneGradeRate ?? "n/a"})`,
+    `Major disagreements: ${report.majorDisagreements.length}`,
     `Deterministic stricter: ${report.summary.deterministicStricter}`,
     `Auditor stricter: ${report.summary.auditorStricter}`,
+    `Adjustments applied: ${report.adjustmentsApplied}`,
   ].join("\n");
 }
 
@@ -323,6 +530,15 @@ async function main() {
   const deterministic = loadDeterministicSnapshot();
   const auditor = loadAuditorSnapshot();
   const compared = compareSnapshots(deterministic, auditor);
+  const scoreAdjustments = loadScoreAdjustments();
+  const history = loadCalibrationHistory();
+  const majorDisagreements = buildMajorDisagreements(compared.overlap);
+  const recommendations = buildRecommendations(majorDisagreements, scoreAdjustments);
+  const quarterTrend = computeQuarterTrend(history, compared.summary);
+
+  if (applyAdjustments && recommendations.routeMultiplierSuggestions.length > 0) {
+    applyCalibrationRecommendations(scoreAdjustments, recommendations);
+  }
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -339,6 +555,12 @@ async function main() {
     },
     summary: compared.summary,
     overlap: compared.overlap,
+    majorDisagreements,
+    quarterTrend,
+    recommendations,
+    adjustmentsApplied:
+      applyAdjustments && recommendations.routeMultiplierSuggestions.length > 0,
+    scoreAdjustmentVersion: scoreAdjustments.version ?? 1,
     deterministicOnly: compared.deterministicOnly,
     auditorOnly: compared.auditorOnly,
   };
@@ -355,6 +577,8 @@ async function main() {
     text: buildSlackText(report),
   });
   if (!posted) console.log("No Slack webhook configured; skipping Slack post.");
+
+  writeCalibrationHistory(history, report);
 
   console.log(
     `Cognitive calibration loop completed with status=${report.status}.`,

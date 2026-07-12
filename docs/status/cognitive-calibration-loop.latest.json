@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-11T22:19:27.501Z",
+  "generatedAt": "2026-07-12T15:51:24.653Z",
   "channel": "reliability---service",
   "status": "ok",
   "deterministic": {
-    "generatedAt": "2026-07-11T22:16:45.988Z",
+    "generatedAt": "2026-07-12T15:42:36.931Z",
     "sesVersion": 1,
     "totalPages": 285
   },
@@ -44,6 +44,40 @@
       "auditorNotes": "Contacts shell is coherent but console preload warnings remain."
     }
   ],
+  "majorDisagreements": [
+    {
+      "route": "/dashboard",
+      "deterministicGrade": "A-",
+      "auditorGrade": "B",
+      "relation": "auditor-stricter",
+      "distance": 2,
+      "deterministicTier": "dashboard",
+      "deterministicFluencyScore": 100,
+      "issueCount": 1,
+      "auditorNotes": "Mobile reorder now places the first action card within the initial viewport; profile fetch failure remains."
+    }
+  ],
+  "quarterTrend": {
+    "available": false,
+    "note": "No previous quarterly run in history.",
+    "exactAgreementRateDelta": null,
+    "withinOneGradeRateDelta": null,
+    "majorDisagreementsDelta": null
+  },
+  "recommendations": {
+    "routeMultiplierSuggestions": [],
+    "routeAdjustmentSuggestions": [
+      {
+        "route": "/dashboard",
+        "deterministicGrade": "A-",
+        "auditorGrade": "B",
+        "relation": "auditor-stricter",
+        "suggestion": "Increase deterministic penalty for this route pattern until next calibration."
+      }
+    ]
+  },
+  "adjustmentsApplied": false,
+  "scoreAdjustmentVersion": 1,
   "deterministicOnly": [
     "/",
     "/about",

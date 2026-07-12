@@ -24,6 +24,12 @@ export const experienceWorkflows = [
     recommendation: 'Use the monthly calibration packet to drive human-depth Page Experience Auditor review on the worst-scoring routes.',
   },
   {
+    id: 'cognitive-calibration-loop.yml',
+    name: 'Cognitive Calibration Loop',
+    maxAgeMinutes: 60 * 24 * 110,
+    recommendation: 'Use quarterly deterministic-vs-auditor deltas to tune scoring weights and keep calibration drift controlled.',
+  },
+  {
     id: 'experience-portfolio-rollup.yml',
     name: 'Experience Portfolio Rollup',
     maxAgeMinutes: 60 * 30,
