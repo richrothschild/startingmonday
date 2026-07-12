@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Dual Workstream Status Reporter (EMI Sprint 6 + Luxury-Modern Phase 0)
+ * Site Experience Orchestration (SXO) Status Reporter
  * 
- * Posts daily standup updates and weekly summaries to Slack for both initiatives.
+ * Posts daily standup updates and weekly progress reviews to Slack for the SXO initiative.
+ * Tracks A1-A7 agent implementations and J1-J12 implementation jobs.
  * 
  * Environment variables required:
  * - SLACK_WEBHOOK_URL: Incoming webhook URL from Slack (easiest setup)
@@ -40,7 +41,7 @@ function loadEnv() {
       }
     })
   } catch {
-    // .env.local not found or not readable — that's okay, use process.env as-is
+    // .env.local not found or not readable — that is okay, use process.env as-is
   }
 }
 
@@ -67,73 +68,7 @@ const slackBotToken = process.env.SLACK_BOT_TOKEN || process.env.SLACK_USER_TOKE
 const slackChannelId = process.env.SLACK_CHANNEL_ID || process.env.SLACK_ALERT_CHANNEL_ID
 
 const workDocs = {
-  emiWrapup: resolve(import.meta.dirname, '../docs/emi-sprint-6-wrap-up-2026-07-11.md'),
-  luxuryModern: resolve(import.meta.dirname, '../docs/luxury-modern-phase-0-kickoff-2026-07-11.md'),
-  actionChecklist: resolve(import.meta.dirname, '../docs/action-checklist-this-week-2026-07-11.md'),
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Agent Reliability Report Generator
-// ─────────────────────────────────────────────────────────────────────────────
-
-function loadLatestAgentReport(agentName) {
-  const __dirname = fileURLToPath(new URL('.', import.meta.url))
-  const reportPath = resolve(__dirname, `../docs/status/${agentName}.latest.json`)
-  try {
-    const content = readFileSync(reportPath, 'utf-8')
-    return JSON.parse(content)
-  } catch {
-    return null
-  }
-}
-
-function generateAgentReliabilitySection() {
-  // Load reports from key orchestration agents
-  const agents = [
-    'experience-vitals',
-    'trust-integrity',
-    'cognitive-load',
-    'accessibility-sweep',
-    'mobile-responsive',
-    'journey-synthetic',
-  ]
-
-  let totalP0 = 0
-  let totalP1 = 0
-  let totalP2 = 0
-  const agentStatus = []
-
-  for (const agent of agents) {
-    const report = loadLatestAgentReport(agent)
-    if (!report) continue
-
-    // Extract issue counts based on report structure
-    let p0Count = report.p0Count || 0
-    let p1Count = report.p1Count || 0
-    let p2Count = report.p2Count || 0
-
-    // Handle trust reports with escalations
-    if (agent === 'trust-integrity' && report.findings) {
-      const p0Findings = report.findings.filter((f) => f.severity === 'P0')
-      p0Count = p0Findings.length
-    }
-
-    totalP0 += p0Count
-    totalP1 += p1Count
-    totalP2 += p2Count
-
-    const status = p0Count > 0 ? '🔴 critical' : p1Count > 0 ? '🟡 warning' : p2Count > 0 ? '🟠 caution' : '🟢 healthy'
-    agentStatus.push(`  • ${agent}: ${status} (P0=${p0Count}, P1=${p1Count}, P2=${p2Count})`)
-  }
-
-  return {
-    agentStatus,
-    totalP0,
-    totalP1,
-    totalP2,
-    healthStatus:
-      totalP0 > 0 ? '🔴 CRITICAL' : totalP1 > 0 ? '🟡 DEGRADED' : totalP2 > 0 ? '🟠 CAUTION' : '🟢 HEALTHY',
-  }
+  sxoPlan: resolve(import.meta.dirname, '../docs/site-experience-orchestration-plan.md'),
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -144,36 +79,51 @@ function generateDailyStandup() {
   const today = new Date().toISOString().split('T')[0]
   const dayName = new Date().toLocaleDateString('en-US', { weekday: 'long' })
 
+  const jobs = [
+    { id: 'J1', title: 'Site Experience Standard config', status: 'In Progress' },
+    { id: 'J2', title: 'Agent registry + shared lib', status: 'In Progress' },
+    { id: 'J3', title: 'Route Inventory Agent', status: 'Done' },
+    { id: 'J4', title: 'Experience Vitals Agent', status: 'In Progress' },
+    { id: 'J5', title: 'Visual Sentinel extension', status: 'In Progress' },
+    { id: 'J6', title: 'Cognitive Load & Fluency Agent', status: 'In Progress' },
+    { id: 'J7', title: 'Trust Integrity Agent', status: 'Done' },
+    { id: 'J8', title: 'Journey Synthetic Agent', status: 'In Progress' },
+    { id: 'J9', title: 'Daily Experience Report', status: 'In Progress' },
+    { id: 'J10', title: 'Weekly Issues + Monthly Trends', status: 'In Progress' },
+    { id: 'J11', title: 'Watchdog + seeding', status: 'In Progress' },
+    { id: 'J12', title: 'Calibration loop', status: 'Done' },
+  ]
+
+  const inProgress = jobs.filter(j => j.status === 'In Progress').length
+  const done = jobs.filter(j => j.status === 'Done').length
+
   return [
-    `:timer_clock: *Daily Standup — ${dayName} ${today}*`,
-    `:rocket: *Dual Workstream Status*`,
+    ':timer_clock: *Daily Standup — ' + dayName + ' ' + today + '*',
+    ':rocket: *Site Experience Orchestration (SXO) Agent Fleet*',
     '',
-    '📋 *EMI Sprint 6 (Completion by 2026-07-18)*',
-    '  • EMI-501: Tune objections & create scripts',
-    '  • EMI-502: Finalize SLOs for critical flows',
-    '  • EMI-503: Lock Q4 operating cadence',
-    '  • EMI-504: Publish capstone & remediation plan',
-    '  Details: <https://github.com/richrothschild/startingmonday/blob/main/docs/emi-sprint-6-wrap-up-2026-07-11.md|EMI Sprint 6 plan>',
+    '*Foundation: 7 Agents + 12 Implementation Jobs*',
+    'Progress: ' + done + '/' + jobs.length + ' jobs complete, ' + inProgress + ' in progress',
     '',
-    '🎨 *Luxury-Modern Phase 0 (Completion by 2026-07-25)*',
-    '  • Design system: Premium tokens + 5 components',
-    '  • Messaging: Hero headlines for 5 pages',
-    '  • Metrics: Baseline capture + GA4 setup',
-    '  • Page briefs: Figma redesigns + copy specs',
-    '  Details: <https://github.com/richrothschild/startingmonday/blob/main/docs/luxury-modern-phase-0-kickoff-2026-07-11.md|Luxury-Modern plan>',
+    '*Core Sprint Focus:*',
+    '  1. Harden trust telemetry artifacts and route-evidence clarity',
+    '  2. Finish J1/J2 foundation maturity (shared config + reporting kit)',
+    '  3. Deepen portfolio rollup from workflow-health into artifact normalization',
     '',
-    ':clipboard: *Critical Dependencies This Week*',
-    '  ⚠️  Metrics access (Engineering) — needed by Mon 2026-07-15',
-    '  ⚠️  Rich + Chris EMI-503 sync — needed by Fri 2026-07-12',
-    '  ⚠️  Design token approval — needed by Thu 2026-07-18',
-    '  ⚠️  GA4 instrumentation live — needed by Thu 2026-07-18',
+    '*Job Status Summary:*',
+    ...jobs.map(j => {
+      const icon = j.status === 'Done' ? '✅' : j.status === 'In Progress' ? '🟡' : '⬜'
+      return '  ' + icon + ' ' + j.id + ': ' + j.title
+    }),
     '',
-    ':memo: *Action Items Due Today*',
-    '  If you own a workstream, complete items in <https://github.com/richrothschild/startingmonday/blob/main/docs/action-checklist-this-week-2026-07-11.md|action checklist>',
+    '*Critical Dependencies This Week:*',
+    '  ⚠️  J1 SES thresholds wired into agent gates (blocker for J4/J5/J6)',
+    '  ⚠️  J2 shared reporting kit completion (unblocks J9/J10 consolidation)',
+    '  ⚠️  J4/J8 baseline data collection (needed for weekly report)',
     '',
     ':link: *Docs*',
-    '  • <#product> channel for questions',
-    '  • Escalate blockers to @rich immediately',
+    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/site-experience-orchestration-plan.md|SXO Full Plan>',
+    '  • Post questions in #product',
+    '  • Escalate blockers to @rich',
   ].join('\n')
 }
 
@@ -186,63 +136,97 @@ function generateWeeklyReview() {
   const mondayStr = monday.toISOString().split('T')[0]
   const fridayStr = friday.toISOString().split('T')[0]
 
-  // Load agent reliability metrics
-  const { agentStatus, totalP0, totalP1, totalP2, healthStatus } = generateAgentReliabilitySection()
-
   return [
-    `:bar_chart: *Weekly Review — Week of ${mondayStr} to ${fridayStr}*`,
+    ':bar_chart: *Weekly Review — Site Experience Orchestration (SXO)*',
+    'Week of ' + mondayStr + ' to ' + fridayStr,
     '',
-    '*🎯 EMI Sprint 6 Status*',
-    '  Sprint goal: Lock EMI system for Q4 execution',
-    '  Timeline: Complete by 2026-07-18, go/no-go decision 2026-07-19',
-    '  Success criteria: All 4 tickets (EMI-501/502/503/504) complete & approved',
-    '  This week:',
-    '    ✓ EMI-501 objections draft (by Mon)',
-    '    ✓ EMI-502 SLOs finalized (by Wed)',
-    '    ✓ EMI-503 cadence locked (by Thu)',
-    '    ✓ EMI-504 capstone drafted (by Fri)',
-    '  Owner: Rich (Founder Office) + Chris (GTM)',
+    '*📊 Initiative Overview*',
+    '  Goal: Build observable, world-class site experience monitoring (7 agents, 12 jobs)',
+    '  Vision: Continuous experience verification matching luxury benchmark standards',
+    '  Status: Foundation phase (J1-J3, J12) + agent build-out (J4-J11)',
+    '  Reporting parity: Daily → Weekly → Monthly trends + Slack watchdog',
     '',
-    '*🎨 Luxury-Modern Phase 0 Status*',
-    '  Phase goal: Establish design system & approve page redesigns',
-    '  Timeline: Complete by 2026-07-25, Phase 1 engineering start 2026-07-26',
-    '  Success criteria: All workstreams at 80% complete',
-    '  This week:',
-    '    ✓ Design tokens v1 (by Wed)',
-    '    ✓ 5 hero headlines approved (by Thu)',
-    '    ✓ GA4 instrumentation live (by Thu)',
-    '    ✓ 5 page redesign mocks 50% draft (by Thu)',
-    '  Owner: Product + Design + Engineering + Growth',
+    '*🤖 Agent Implementation Status*',
     '',
-    '*🤖 Service Reliability Status (Orchestration Layer)*',
-    `  Overall health: ${healthStatus}`,
-    `  P0 issues: ${totalP0}  |  P1 issues: ${totalP1}  |  P2 issues: ${totalP2}`,
+    '  ✅ A1: Route Inventory Agent (DONE)',
+    '     • Canonical route crawl with metadata (tier, template, audit timestamp)',
+    '     • Kills partial-scan compliance claims permanently',
+    '     • Foundation for all downstream agents',
     '',
-    '  Agent status:',
-    ...agentStatus,
+    '  ✅ A7: Trust Integrity Agent (DONE)',
+    '     • Parity contracts: signal counts, date staleness, placeholder detection',
+    '     • P0 escalation on any mismatch (per AGENTS.md addendum)',
+    '     • Ready for weekly issues aggregation',
+    '',
+    '  ✅ A12: Calibration Loop (DONE)',
+    '     • Page Experience Auditor artifact ingestion + workflow-native publication',
+    '     • Quarterly calibration for deterministic vs human auditor deltas',
+    '',
+    '  🟡 A2: Experience Vitals Agent (IN PROGRESS)',
+    '     • Core Web Vitals baseline (LCP, CLS, INP, TTFB, FCP)',
+    '     • Lab metrics desktop + mobile via Playwright/Lighthouse',
+    '     • P50/P75 luxury budgets per route',
+    '     • Next: Tighten enforcement, expand route sampling',
+    '',
+    '  🟡 A3: Visual & Palette Sentinel (IN PROGRESS)',
+    '     • Rendered verification: screenshot-based darkness/contrast',
+    '     • Typography discipline, accent-count ceiling',
+    '     • CSS bleed detection via layout-shift diffing',
+    '     • Next: Add rendered screenshot diffs, font telemetry',
+    '',
+    '  🟡 A4: Cognitive Load & Fluency Agent (IN PROGRESS)',
+    '     • Deterministic scoring: choice count, CTA density, competing emphasis',
+    '     • Fluency scoring: reading grade, headline scannability, info scent',
+    '     • Monthly: Full LLM auditor on worst-5 routes + score movers',
+    '     • Next: Fold auditor outcomes back into deterministic model',
+    '',
+    '  🟡 A5: Journey Synthetic Agent (IN PROGRESS)',
+    '     • Full-journey experience: signup → onboarding → first briefing',
+    '     • Duration percentiles + abandonment risk per step',
+    '     • Hourly (tier-1) + daily (tier-2) cadence',
+    '     • Next: Add journey metric normalization into portfolio rollup',
+    '',
+    '  🟡 A6: Experience Daily Report (IN PROGRESS)',
+    '     • Consolidation: one ledger-backed aggregator',
+    '     • All-agent health roll-up + per-route issue summary',
+    '     • Next: Merge experience daily + trust daily reporting',
+    '',
+    '  🟡 A7: Experience Trends & Governance (IN PROGRESS)',
+    '     • Weekly: per-route issues + recommended actions, worst-5/best-5 movers',
+    '     • Monthly: trend classification (improving/flat/worsening) per dimension',
+    "     • Devil's advocate: unmonitored risks + fired mitigations",
+    '     • Next: Feed directionality into action prioritization + escalation copy',
+    '',
+    '*🏗️ Foundation Jobs Status*',
+    '',
+    '  🟡 J1: Site Experience Standard config',
+    '     • Initial scaffold: config/site-experience-standard.json',
+    '     • Next: Wire SES thresholds into active agent gates (single source of truth)',
+    '',
+    '  🟡 J2: Agent registry + shared lib',
+    '     • Shared kit partially implemented (experience-agents.mjs, experience-workflows.mjs)',
+    '     • Next: Finish migrating all daily/weekly/monthly scripts to helper kit',
+    '',
+    '  🟡 J11: Watchdog + seeding',
+    '     • Freshness signal tracking + weekly report links',
+    '     • Next: Tighten freshness windows after one more weekly cycle',
     '',
     '*:warning: Blockers This Week*',
-    '  If any blocker prevents progress by stated date, escalate to Rich immediately:',
-    '    • Metrics access delayed → Engineering Lead → Rich',
-    '    • Design resources unavailable → Design Lead → Rich',
-    '    • GA4 setup blocked → Analytics Lead → Rich',
-    '    • Agent P0 issues detected → Engineering Lead → Rich',
+    '  • J1 SES threshold wiring needed before A2/A3/A4 enforcement tightens',
+    '  • J2 shared kit completion needed to unblock consolidated reporting',
+    '  • A4 deterministic model requires auditor calibration data (in flight)',
     '',
-    '*:memo: Next Week Focus*',
-    '  Week of 2026-07-15 (Monday standup):',
-    '    • First drafts reviewed (objections, tokens, headlines)',
-    '    • Final week to complete all Phase 0 work',
-    '    • Prepare for Phase 1 engineering kickoff (Mon 2026-07-26)',
-    '    • Verify all agent health metrics remain below P0 threshold',
+    '*:memo: Next Week Focus (Week of 2026-07-15)*',
+    '  J1: Complete SES threshold config wiring',
+    '  J2: Finish experience-agents shared kit migration',
+    '  A2: First main seed of Experience Vitals Agent',
+    '  A4: Begin A4 calibration dispatch with monthly LLM auditor',
+    '  J10: Expand portfolio rollup artifact normalization',
     '',
     ':link: *Key Documents*',
-    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/emi-sprint-6-wrap-up-2026-07-11.md|EMI Sprint 6>',
-    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/luxury-modern-phase-0-kickoff-2026-07-11.md|Luxury-Modern>',
-    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/action-checklist-this-week-2026-07-11.md|Daily checklist>',
-    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/dual-workstream-executive-summary-2026-07-11.md|Executive summary>',
-    '  • <https://github.com/richrothschild/startingmonday/tree/main/docs/status|Agent reports> (*.latest.json files)',
-    '',
-    ':question: Questions? Post in #product or escalate to @rich',
+    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/site-experience-orchestration-plan.md|SXO Full Plan>',
+    '  • <https://github.com/richrothschild/startingmonday/blob/main/docs/site-experience-orchestration-plan.md#3-the-agent-fleet-what-is-needed|Agent Fleet Specs>',
+    '  • Questions? Post in #product or escalate to @rich',
   ].join('\n')
 }
 
