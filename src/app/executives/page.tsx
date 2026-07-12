@@ -30,37 +30,40 @@ export default function ExecutivesChannelPage() {
           Starting Monday gives senior executives early market signals and relationship operating cadence. Move before the role is posted. Show up at peer depth.
         </p>
 
-        <h2 className="sr-only">Executive search modes and features</h2>
+        <h2 className="text-[16px] font-bold text-white mb-6">Search modes</h2>
+        <details className="group cursor-pointer mb-4">
+          <summary className="flex items-center gap-2 text-[14px] font-semibold text-white hover:text-slate-200 transition-colors">
+            <span className="inline-block w-4 text-center group-open:hidden">▶</span>
+            <span className="hidden group-open:inline-block w-4 text-center">▼</span>
+            Active search mode
+          </summary>
+          <div className="mt-3 ml-4 pl-3 border-l border-slate-700">
+            <p className="text-[13px] text-slate-200 leading-relaxed">
+              For executives in immediate transition who need daily execution cadence.
+            </p>
+          </div>
+        </details>
+        <details className="group cursor-pointer mb-4">
+          <summary className="flex items-center gap-2 text-[14px] font-semibold text-white hover:text-slate-200 transition-colors">
+            <span className="inline-block w-4 text-center group-open:hidden">▶</span>
+            <span className="hidden group-open:inline-block w-4 text-center">▼</span>
+            Optionality mode
+          </summary>
+          <div className="mt-3 ml-4 pl-3 border-l border-slate-700">
+            <p className="text-[13px] text-slate-200 leading-relaxed">
+              For executives not actively searching yet who want strategic readiness.
+            </p>
+          </div>
+        </details>
+
         <div className="rounded-lg border border-emerald-500/50 bg-emerald-950/20 p-4 mb-8">
-          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-1">Trust and confidentiality</p>
+          <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-emerald-300 mb-2">Trust and confidentiality</h3>
           <p className="text-[13px] text-emerald-100 leading-relaxed">
-            Confidential by default. We do not sell leads, we do not share your activity with employers, and you can permanently delete your data.
+            Confidential by default. We do not sell leads or share your activity with employers. You can permanently delete your data.
           </p>
         </div>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <TrackLink
-            href="/executives/active"
-            event={EVENT_NAMES.personaRouteSelected}
-            logToUserEvents
-            properties={{ channel: 'executives', persona: 'active_mode', source_route: '/executives', target_route: '/executives/active' }}
-            className="block rounded border border-slate-800 bg-slate-950 p-4 hover:border-orange-500 transition-colors"
-          >
-            <p className="text-[13px] font-semibold text-white mb-2">Active search mode</p>
-            <p className="text-[13px] text-slate-200 leading-relaxed">For executives in immediate transition who need daily execution cadence.</p>
-          </TrackLink>
-          <TrackLink
-            href="/executives/passive"
-            event={EVENT_NAMES.personaRouteSelected}
-            logToUserEvents
-            properties={{ channel: 'executives', persona: 'passive_mode', source_route: '/executives', target_route: '/executives/passive' }}
-            className="block rounded border border-slate-800 bg-slate-950 p-4 hover:border-orange-500 transition-colors"
-          >
-            <p className="text-[13px] font-semibold text-white mb-2">Optionality mode</p>
-            <p className="text-[13px] text-slate-200 leading-relaxed">For executives not actively searching yet who want strategic readiness.</p>
-          </TrackLink>
-        </section>
-
+        <h2 className="text-[16px] font-bold text-white mb-4">Get started</h2>
         <div className="flex flex-wrap gap-3 mb-8">
           <TrackLink
             href="/executives/personas"
@@ -93,6 +96,7 @@ export default function ExecutivesChannelPage() {
 
         <ChannelMicroProductRail channel="executives" sourceRoute="/executives" />
 
+        <h2 className="text-[16px] font-bold text-white mb-4">Built for your transition</h2>
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="rounded border border-slate-800 bg-slate-950 p-4">
             <p className="text-[12px] font-semibold text-white mb-2">Built for active transitions</p>
