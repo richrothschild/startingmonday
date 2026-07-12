@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { chromium } from 'playwright'
+import { chromium } from '@playwright/test'
 import { loadSES, getTierThresholds } from './lib/agent-report-kit.mjs'
 
 function parseArgs(argv) {
@@ -34,7 +34,9 @@ function pushFinding(findings, finding) {
 }
 
 function titleExpected(routeLabel, titlePatternTemplate = '{label} - Starting Monday') {
-  return titlePatternTemplate.replace('{label}', routeLabel)
+  return titlePatternTemplate
+    .replace('{label}', routeLabel)
+    .replace('<Route Label>', routeLabel)
 }
 
 function extractDashboardSignalCount(text) {

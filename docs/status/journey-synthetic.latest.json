@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-07-12T15:47:02.690Z",
+  "baseUrl": "https://startingmonday.app",
+  "sesVersion": 1,
+  "sesReviewBy": "2026-10-09T00:00:00.000Z",
+  "journeyDefinitions": [
+    "Homepage → Signup",
+    "Pricing → Checkout",
+    "Demo → Run"
+  ],
+  "journeys": [
+    {
+      "route": "/",
+      "label": "Homepage → Signup",
+      "tier": "funnel",
+      "steps": [
+        {
+          "stepLabel": "Page load",
+          "runs": 1,
+          "p50Ms": 3209,
+          "p75Ms": 3209,
+          "p95Ms": 3209,
+          "maxMs": 3209
+        }
+      ],
+      "sampleRuns": 1,
+      "sampleFailures": 1,
+      "failureScreenshots": [
+        "tmp/journey-synthetic/_-sample-1.png"
+      ],
+      "abandonmentRisk": "high",
+      "maxStepMs": 3209,
+      "evaluations": [
+        {
+          "severity": null,
+          "status": "pass",
+          "margin": 0
+        }
+      ]
+    },
+    {
+      "route": "/pricing",
+      "label": "Pricing → Checkout",
+      "tier": "funnel",
+      "steps": [
+        {
+          "stepLabel": "Page load",
+          "runs": 1,
+          "p50Ms": 134,
+          "p75Ms": 134,
+          "p95Ms": 134,
+          "maxMs": 134
+        },
+        {
+          "stepLabel": "Select plan",
+          "runs": 1,
+          "p50Ms": 58,
+          "p75Ms": 58,
+          "p95Ms": 58,
+          "maxMs": 58
+        }
+      ],
+      "sampleRuns": 1,
+      "sampleFailures": 0,
+      "failureScreenshots": [],
+      "abandonmentRisk": "low",
+      "maxStepMs": 134,
+      "evaluations": [
+        {
+          "severity": null,
+          "status": "pass",
+          "margin": 0
+        },
+        {
+          "severity": null,
+          "status": "pass",
+          "margin": 0
+        }
+      ]
+    },
+    {
+      "route": "/demo",
+      "label": "Demo → Run",
+      "tier": "funnel",
+      "steps": [
+        {
+          "stepLabel": "Page load",
+          "runs": 1,
+          "p50Ms": 125,
+          "p75Ms": 125,
+          "p95Ms": 125,
+          "maxMs": 125
+        }
+      ],
+      "sampleRuns": 1,
+      "sampleFailures": 1,
+      "failureScreenshots": [
+        "tmp/journey-synthetic/_demo-sample-1.png"
+      ],
+      "abandonmentRisk": "high",
+      "maxStepMs": 125,
+      "evaluations": [
+        {
+          "severity": null,
+          "status": "pass",
+          "margin": 0
+        }
+      ]
+    }
+  ],
+  "samplesPerJourney": 1,
+  "thresholdsByTier": {
+    "funnel": {
+      "warnStepP95Ms": 5500,
+      "criticalStepP95Ms": 10000,
+      "riskWeight": 1.15
+    }
+  },
+  "byTier": {
+    "funnel": {
+      "count": 3,
+      "criticalCount": 0,
+      "warnCount": 0,
+      "maxDurationMs": 3209,
+      "riskScore": 0
+    }
+  },
+  "findings": [
+    {
+      "severity": "P1",
+      "route": "/",
+      "message": "Homepage → Signup sample 1 failed: locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: /Get started/i }).first()\u001b[22m\n"
+    },
+    {
+      "severity": "P1",
+      "route": "/demo",
+      "message": "Demo → Run sample 1 failed: locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /run demo|run search|run/i }).first()\u001b[22m\n"
+    }
+  ],
+  "pass": false
+}

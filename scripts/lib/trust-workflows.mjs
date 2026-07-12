@@ -6,6 +6,12 @@ export const trustWorkflows = [
     recommendation: 'Resolve parity/title/landmark contract failures before certifying dashboard trust posture.',
   },
   {
+    id: 'trust-escalation-agent.yml',
+    name: 'Trust Escalation Agent',
+    maxAgeMinutes: 60 * 2,
+    recommendation: 'Route trust violations to owning teams quickly and escalate P0 findings within the SLA window.',
+  },
+  {
     id: 'trust-weekly-issues-report.yml',
     name: 'Trust Weekly Issues Report',
     maxAgeMinutes: 60 * 24 * 8,

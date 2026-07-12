@@ -1,0 +1,74 @@
+name: Journey Synthetic Agent
+
+on:
+  schedule:
+    - cron: '15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  journey-synthetic-agent:
+    name: Measure tier-1 journey step percentiles
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run journey synthetic agent
+        env:
+          PLAYWRIGHT_BASE_URL: https://startingmonday.app
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          RELIABILITY_SLACK_CHANNEL: reliability---service
+          JOURNEY_SAMPLES: '3'
+        run: node scripts/journey-synthetic-agent.mjs
+
+      - name: Upload journey synthetic artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: journey-synthetic-latest
+          path: |
+            docs/status/journey-synthetic.latest.json
+            docs/status/journey-synthetic.latest.md
+            tmp/journey-synthetic
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Alert when journey synthetic workflow fails
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Journey synthetic agent failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Journey synthetic agent failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

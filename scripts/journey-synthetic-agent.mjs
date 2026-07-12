@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
-import { chromium } from 'playwright'
+import { chromium } from '@playwright/test'
 import { loadSES, getTierThresholds, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
 
 const sesPath = path.join(process.cwd(), 'config', 'site-experience-standard.json')
@@ -14,6 +14,13 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 function nowIso() {
   return new Date().toISOString()
+}
+
+function percentile(values, p) {
+  if (values.length === 0) return 0
+  const sorted = [...values].sort((a, b) => a - b)
+  const index = Math.max(0, Math.min(sorted.length - 1, Math.floor((p / 100) * (sorted.length - 1))))
+  return sorted[index]
 }
 
 function classifyRouteTier(route) {
@@ -37,6 +44,16 @@ async function measureJourneyStep(page, stepLabel, action) {
   await action()
   const durationMs = Date.now() - startMs
   return { stepLabel, durationMs, metrics: {} }
+}
+
+function evaluateStepPercentiles(stepSummary, thresholds) {
+  if (stepSummary.p95Ms > thresholds.criticalStepP95Ms) {
+    return { severity: 'P0', status: 'critical', margin: stepSummary.p95Ms - thresholds.criticalStepP95Ms }
+  }
+  if (stepSummary.p95Ms > thresholds.warnStepP95Ms) {
+    return { severity: 'P1', status: 'warn', margin: stepSummary.p95Ms - thresholds.warnStepP95Ms }
+  }
+  return { severity: null, status: 'pass', margin: 0 }
 }
 
 function evaluateStep(step, thresholds) {
@@ -97,29 +114,35 @@ function buildMarkdown(report) {
 
 async function main() {
   const baseUrl = (process.env.PLAYWRIGHT_BASE_URL || 'https://startingmonday.app').replace(/\/$/, '')
-  const email = process.env.PLAYWRIGHT_TEST_EMAIL
-  const password = process.env.PLAYWRIGHT_TEST_PASSWORD
-
-  if (!email || !password) {
-    console.log('Journey synthetic agent: PLAYWRIGHT_TEST_EMAIL/PASSWORD not set; using public routes only')
-  }
+  const samplesPerJourney = Math.max(1, Number.parseInt(process.env.JOURNEY_SAMPLES ?? '3', 10))
 
   const journeyDefinitions = [
     {
       route: '/',
       label: 'Homepage → Signup',
+      tier: 'funnel',
       steps: [
         { label: 'Page load', action: async (page) => page.goto('/') },
-        { label: 'Scroll to signup CTA', action: async (page) => page.locator('text=Get started').first().scrollIntoViewIfNeeded() },
-        { label: 'Click signup', action: async (page) => page.locator('text=Get started').first().click() },
+        { label: 'Scroll to signup CTA', action: async (page) => page.getByRole('link', { name: /Get started/i }).first().scrollIntoViewIfNeeded() },
+        { label: 'Click signup', action: async (page) => page.getByRole('link', { name: /Get started/i }).first().click() },
       ],
     },
     {
       route: '/pricing',
       label: 'Pricing → Checkout',
+      tier: 'funnel',
       steps: [
         { label: 'Page load', action: async (page) => page.goto('/pricing') },
-        { label: 'Select plan', action: async (page) => page.locator('button:has-text("Get started")').first().click() },
+        { label: 'Select plan', action: async (page) => page.getByRole('link', { name: /Get started/i }).first().click() },
+      ],
+    },
+    {
+      route: '/demo',
+      label: 'Demo → Run',
+      tier: 'funnel',
+      steps: [
+        { label: 'Page load', action: async (page) => page.goto('/demo') },
+        { label: 'Run demo', action: async (page) => page.getByRole('button', { name: /run demo|run search|run/i }).first().click({ timeout: 7000 }) },
       ],
     },
   ]
@@ -132,11 +155,14 @@ async function main() {
   const journeys = []
   const byTier = {}
   const thresholdsByTier = {}
+  const screenshotsDir = path.join(process.cwd(), 'tmp', 'journey-synthetic')
+  fs.mkdirSync(screenshotsDir, { recursive: true })
 
   try {
-    for (const [tier, journeyDef] of Object.entries(
+    for (const [tier] of Object.entries(
       journeyDefinitions.reduce((acc, j) => {
-        const tier = classifyRouteTier(j.route)
+        const journeyTier = j.tier ?? classifyRouteTier(j.route)
+        const tier = journeyTier
         if (!acc[tier]) acc[tier] = []
         acc[tier].push(j)
         return acc
@@ -148,33 +174,75 @@ async function main() {
     }
 
     for (const journeyDef of journeyDefinitions) {
-      const tier = classifyRouteTier(journeyDef.route)
+      const tier = journeyDef.tier ?? classifyRouteTier(journeyDef.route)
       const thresholds = getThresholdsForTier(tier)
-      const steps = []
+      const stepDurationsByLabel = new Map()
+      let sampleFailures = 0
+      const failureScreenshots = []
 
-      for (const stepDef of journeyDef.steps) {
-        const step = await measureJourneyStep(page, stepDef.label, async () => {
-          await stepDef.action(page)
-        })
-        steps.push(step)
+      for (let sample = 0; sample < samplesPerJourney; sample += 1) {
+        try {
+          for (const stepDef of journeyDef.steps) {
+            const step = await measureJourneyStep(page, stepDef.label, async () => {
+              await stepDef.action(page)
+            })
+            if (!stepDurationsByLabel.has(step.stepLabel)) stepDurationsByLabel.set(step.stepLabel, [])
+            stepDurationsByLabel.get(step.stepLabel).push(step.durationMs)
+          }
+        } catch (error) {
+          sampleFailures += 1
+          const screenshotPath = path.join(screenshotsDir, `${journeyDef.route.replace(/[^a-zA-Z0-9_-]/g, '_')}-sample-${sample + 1}.png`)
+          try {
+            await page.screenshot({ path: screenshotPath, fullPage: false })
+            failureScreenshots.push(path.relative(process.cwd(), screenshotPath).replace(/\\/g, '/'))
+          } catch {}
+          findings.push({
+            severity: 'P1',
+            route: journeyDef.route,
+            message: `${journeyDef.label} sample ${sample + 1} failed: ${error instanceof Error ? error.message : String(error)}`,
+          })
+        }
+      }
 
-        const evaluation = evaluateStep(step, thresholds)
+      const steps = [...stepDurationsByLabel.entries()].map(([stepLabel, durations]) => ({
+        stepLabel,
+        runs: durations.length,
+        p50Ms: percentile(durations, 50),
+        p75Ms: percentile(durations, 75),
+        p95Ms: percentile(durations, 95),
+        maxMs: Math.max(...durations),
+      }))
+
+      const evaluations = steps.map((step) => evaluateStepPercentiles(step, thresholds))
+      for (let index = 0; index < steps.length; index += 1) {
+        const step = steps[index]
+        const evaluation = evaluations[index]
         if (evaluation.severity) {
           findings.push({
             severity: evaluation.severity,
             route: journeyDef.route,
-            message: `${journeyDef.label} → ${step.stepLabel}: ${step.durationMs}ms (${evaluation.status}, margin: ${evaluation.margin.toFixed(0)}ms)`,
+            message: `${journeyDef.label} → ${step.stepLabel}: p95=${step.p95Ms}ms (${evaluation.status}, margin: ${evaluation.margin.toFixed(0)}ms)`,
           })
         }
       }
+
+      const abandonmentRisk = evaluations.some((e) => e.severity === 'P0') || sampleFailures > 0
+        ? 'high'
+        : evaluations.some((e) => e.severity === 'P1')
+          ? 'medium'
+          : 'low'
 
       const journeyResult = {
         route: journeyDef.route,
         label: journeyDef.label,
         tier,
         steps,
-        maxStepMs: Math.max(...steps.map((s) => s.durationMs)),
-        evaluations: steps.map((s) => evaluateStep(s, thresholds)),
+        sampleRuns: samplesPerJourney,
+        sampleFailures,
+        failureScreenshots,
+        abandonmentRisk,
+        maxStepMs: steps.length > 0 ? Math.max(...steps.map((s) => s.maxMs)) : 0,
+        evaluations,
       }
       journeys.push(journeyResult)
 
@@ -197,6 +265,7 @@ async function main() {
       sesReviewBy: ses.reviewBy,
       journeyDefinitions: journeyDefinitions.map((j) => j.label),
       journeys,
+      samplesPerJourney,
       thresholdsByTier,
       byTier,
       findings,
@@ -215,7 +284,7 @@ async function main() {
       text: [
         report.pass ? '*Journey synthetic: all thresholds met*' : `*Journey synthetic: ${findings.length} finding(s)*`,
         `Channel: ${slackChannel}`,
-        `Journeys measured: ${journeys.length}`,
+        `Journeys measured: ${journeys.length} (samples per journey: ${samplesPerJourney})`,
         '',
         '*Findings*',
         ...(findings.length === 0 ? ['- None'] : findings.slice(0, 8).map((f) => `- [${f.severity}] ${f.message}`)),

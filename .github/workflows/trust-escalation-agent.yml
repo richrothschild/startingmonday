@@ -1,0 +1,76 @@
+name: Trust Escalation Agent
+
+on:
+  schedule:
+    - cron: '45 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  trust-escalation-agent:
+    name: Route trust violations to owner teams
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download latest trust integrity artifact
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          workflow: trust-integrity-agent.yml
+          workflow_conclusion: success
+          name: trust-integrity-latest
+          path: docs/status
+          if_no_artifact_found: warn
+
+      - name: Run trust escalation agent
+        env:
+          SLACK_RELIABILITY_SERVICE_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_ESCALATION_CHANNEL: reliability---service
+        run: node scripts/trust-escalation-agent.mjs
+
+      - name: Upload trust escalation artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: trust-escalation-latest
+          path: |
+            docs/status/trust-escalation.latest.json
+            docs/status/trust-escalation.latest.md
+          retention-days: 14
+
+      - name: Alert when trust escalation workflow fails
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured; skipping failure alert."
+            exit 0
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 Trust escalation agent failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Trust escalation agent failed*\nChannel: reliability---service\n<'"$RUN_URL"'|View workflow run>"
+                }
+              }
+            ]
+          }' "$SLACK_WEBHOOK_URL"

@@ -48,6 +48,18 @@ export const experienceWorkflows = [
     recommendation: 'Resolve parity/title/landmark contract failures before certifying dashboard trust posture.',
   },
   {
+    id: 'trust-escalation-agent.yml',
+    name: 'Trust Escalation Agent',
+    maxAgeMinutes: 60 * 2,
+    recommendation: 'Route trust violations to owning teams quickly and escalate P0 findings within the SLA window.',
+  },
+  {
+    id: 'journey-synthetic-agent.yml',
+    name: 'Journey Synthetic Agent',
+    maxAgeMinutes: 60 * 3,
+    recommendation: 'Monitor tier-1 journey step percentiles and resolve high abandonment-risk steps before conversion impact.',
+  },
+  {
     id: 'trust-daily-report.yml',
     name: 'Trust Daily Report',
     maxAgeMinutes: 60 * 30,

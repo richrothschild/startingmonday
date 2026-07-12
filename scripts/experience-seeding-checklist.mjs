@@ -10,7 +10,9 @@ const dryRun = process.env.SEEDING_DRY_RUN === 'true'
 const workflows = [
   'route-inventory-agent.yml',
   'trust-integrity-agent.yml',
+  'trust-escalation-agent.yml',
   'experience-vitals-agent.yml',
+  'journey-synthetic-agent.yml',
   'cognitive-load-agent.yml',
   'experience-portfolio-rollup.yml',
   'experience-weekly-issues-report.yml',
