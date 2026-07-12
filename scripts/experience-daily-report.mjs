@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs'
 import path from 'node:path'
 import { experienceWorkflows } from './lib/experience-workflows.mjs'
 import { ageMinutes, ghJson, postSlackText, writeLatestReportFiles } from './lib/agent-report-kit.mjs'
@@ -12,6 +13,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-daily.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-daily.latest.md')
+const vitalsReportPath = path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json')
 
 async function gh(pathname) {
   return ghJson({
@@ -85,6 +87,26 @@ function buildRiskRows(healthRows) {
   ]
 }
 
+function readVitalsSummary() {
+  if (!fs.existsSync(vitalsReportPath)) {
+    return { available: false, breaches: 0, byTier: {} }
+  }
+  try {
+    const vitals = JSON.parse(fs.readFileSync(vitalsReportPath, 'utf8'))
+    const byTier = {}
+    for (const [tier, stats] of Object.entries(vitals.summary?.byTier ?? {})) {
+      byTier[tier] = stats.breaches ?? 0
+    }
+    return {
+      available: true,
+      breaches: vitals.summary?.totalBreaches ?? 0,
+      byTier,
+    }
+  } catch {
+    return { available: false, breaches: 0, byTier: {} }
+  }
+}
+
 function buildMarkdown(report) {
   const lines = []
   lines.push('# Experience Daily Report')
@@ -99,6 +121,16 @@ function buildMarkdown(report) {
     const age = row.ageMinutes === null ? 'n/a' : `${row.ageMinutes}m`
     const threshold = row.maxAgeMinutes ? `${row.maxAgeMinutes}m` : 'n/a'
     lines.push(`- ${row.name}: status=${row.status}, conclusion=${row.conclusion ?? 'n/a'}, age=${age}, threshold=${threshold}`)
+  }
+
+  if (report.vitalsSummary.available) {
+    lines.push('')
+    lines.push('## Core Web Vitals (CWV) Status')
+    lines.push('')
+    lines.push(`- Total breaches: ${report.vitalsSummary.breaches}`)
+    for (const [tier, count] of Object.entries(report.vitalsSummary.byTier)) {
+      lines.push(`  - ${tier}: ${count} breach(es)`)
+    }
   }
 
   lines.push('')
@@ -131,12 +163,17 @@ function buildSlackText(report) {
     return `- ${row.name}: ${row.status} (${row.conclusion ?? 'n/a'}, age ${age})`
   })
 
+  const vitalsLine = report.vitalsSummary.available
+    ? `CWV breaches: ${report.vitalsSummary.breaches} route(s)`
+    : 'CWV: no recent data'
+
   const riskLines = report.riskRows.map((row) => `- [${row.status}] ${row.risk}`)
   const missingLines = report.missing.map((item) => `- ${item}`)
 
   return [
     top,
     `Channel: ${report.channel}`,
+    vitalsLine,
     '',
     '*Workflow health*',
     ...workflowLines,
@@ -156,6 +193,7 @@ async function postSlack(text) {
 async function main() {
   const workflowHealth = await getWorkflowHealth()
   const riskRows = buildRiskRows(workflowHealth)
+  const vitalsSummary = readVitalsSummary()
   const missing = [
     'Cross-route trust integrity trend history with 7-day and 30-day drift deltas on parity/title/landmark contracts.',
     'Deterministic cognitive fluency/load score persisted per route tier with grade-band trending.',
@@ -168,6 +206,7 @@ async function main() {
     channel: slackChannel,
     workflowHealth,
     riskRows,
+    vitalsSummary,
     missing,
   }
 

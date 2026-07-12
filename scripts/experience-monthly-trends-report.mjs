@@ -14,6 +14,7 @@ const slackChannel = process.env.RELIABILITY_SLACK_CHANNEL || 'reliability---ser
 const reportJsonPath = path.join(process.cwd(), 'docs', 'status', 'experience-monthly.latest.json')
 const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-monthly.latest.md')
 const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
+const vitalsReportPath = path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -67,6 +68,63 @@ function readPortfolioHistory() {
     available: true,
     runs: Array.isArray(parsed.runs) ? parsed.runs : [],
     updatedAt: parsed.updatedAt ?? null,
+  }
+}
+
+function readVitalsReport() {
+  if (!fs.existsSync(vitalsReportPath)) {
+    return { available: false, byTier: {} }
+  }
+  try {
+    const vitals = JSON.parse(fs.readFileSync(vitalsReportPath, 'utf8'))
+    const byTier = {}
+    for (const [tier, stats] of Object.entries(vitals.summary?.byTier ?? {})) {
+      byTier[tier] = stats
+    }
+    return {
+      available: true,
+      generatedAt: vitals.generatedAt,
+      totalBreaches: vitals.summary?.totalBreaches ?? 0,
+      byTier,
+      results: vitals.results ?? [],
+    }
+  } catch {
+    return { available: false, byTier: {} }
+  }
+}
+
+function analyzeCWVBreaches(vitalsReport) {
+  if (!vitalsReport.available) {
+    return {
+      available: false,
+      totalBreaches: 0,
+      byMetric: {},
+      byTier: {},
+    }
+  }
+
+  const byMetric = {}
+  const byTier = {}
+
+  for (const result of vitalsReport.results) {
+    if (!result.budget?.breaches) continue
+    if (!byTier[result.tier]) {
+      byTier[result.tier] = { count: 0, routes: [] }
+    }
+    byTier[result.tier].count += 1
+    byTier[result.tier].routes.push(result.route)
+
+    for (const breach of result.budget.breaches) {
+      const metric = breach.split(' ')[0]
+      byMetric[metric] = (byMetric[metric] ?? 0) + 1
+    }
+  }
+
+  return {
+    available: true,
+    totalBreaches: vitalsReport.totalBreaches,
+    byMetric,
+    byTier,
   }
 }
 
@@ -223,6 +281,23 @@ function buildMarkdown(report) {
   lines.push(`- Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`)
   lines.push('')
 
+  if (report.cwvBreaches.available) {
+    lines.push('## Core Web Vitals (CWV) Breaches')
+    lines.push('')
+    lines.push(`- Total breaches: ${report.cwvBreaches.totalBreaches}`)
+    lines.push('')
+    lines.push('### By Tier')
+    for (const [tier, data] of Object.entries(report.cwvBreaches.byTier)) {
+      lines.push(`- ${tier}: ${data.count} route(s) with breaches`)
+    }
+    lines.push('')
+    lines.push('### By Metric')
+    for (const [metric, count] of Object.entries(report.cwvBreaches.byMetric)) {
+      lines.push(`- ${metric}: ${count} breaches`)
+    }
+    lines.push('')
+  }
+
   lines.push('## Source Staleness Owner Changes')
   lines.push('')
   if (!report.sourceStaleness.available || report.sourceStaleness.ownerChanges.length === 0) {
@@ -258,11 +333,16 @@ function buildSlackText(report) {
     .filter((row) => row.trend.label !== 'flat')
     .map((row) => `- ${row.name}: ${row.recommendedAction}`)
 
+  const cwvLine = report.cwvBreaches.available
+    ? `Core Web Vitals breaches: ${report.cwvBreaches.totalBreaches} route(s) across tiers`
+    : 'Core Web Vitals: no recent data'
+
   return [
     headline,
     `Channel: ${report.channel}`,
     `Current window: ${report.currentWindow.start} to ${report.currentWindow.end}`,
     `Cluster signature trend: opened=${report.portfolioTrend.openedDelta}, resolved=${report.portfolioTrend.resolvedDelta}, latestClusters=${report.portfolioTrend.latestClusterCount}`,
+    cwvLine,
     report.sourceStaleness.available
       ? `Source staleness directionality: ${report.sourceStaleness.label} (current=${report.sourceStaleness.currentCount}, previous=${report.sourceStaleness.previousCount}, delta=${report.sourceStaleness.delta})`
       : 'Source staleness directionality: unavailable',
@@ -315,6 +395,9 @@ async function main() {
   const sourceStaleness = sourceStalenessDirectionality(portfolioHistory)
   const ownerLeaderboardRows = ownerLeaderboard(portfolioHistory)
 
+  const vitalsReport = readVitalsReport()
+  const cwvBreaches = analyzeCWVBreaches(vitalsReport)
+
   const report = {
     generatedAt: new Date().toISOString(),
     channel: slackChannel,
@@ -325,6 +408,7 @@ async function main() {
     portfolioTrend,
     sourceStaleness,
     ownerLeaderboard: ownerLeaderboardRows,
+    cwvBreaches,
   }
 
   writeLatestReportFiles({

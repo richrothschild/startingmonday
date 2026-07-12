@@ -16,6 +16,7 @@ const reportMdPath = path.join(process.cwd(), 'docs', 'status', 'experience-week
 const portfolioHistoryPath = path.join(process.cwd(), 'docs', 'status', 'experience-portfolio-rollup.history.json')
 const seedingChecklistPath = path.join(process.cwd(), 'docs', 'status', 'experience-seeding-checklist.latest.json')
 const probeResetPath = path.join(process.cwd(), 'docs', 'status', 'probe-account-reset.latest.json')
+const vitalsReportPath = path.join(process.cwd(), 'docs', 'status', 'experience-vitals.latest.json')
 
 const issueConclusions = new Set(['failure', 'timed_out', 'cancelled', 'action_required'])
 
@@ -95,6 +96,25 @@ function readPortfolioHistory() {
     runs: Array.isArray(parsed.runs) ? parsed.runs : [],
     lastOpenSignatures: Array.isArray(parsed.lastOpenSignatures) ? parsed.lastOpenSignatures : [],
     updatedAt: parsed.updatedAt ?? null,
+  }
+}
+
+function readVitalsAlerts() {
+  if (!fs.existsSync(vitalsReportPath)) {
+    return { available: false, breaches: [] }
+  }
+  try {
+    const vitals = JSON.parse(fs.readFileSync(vitalsReportPath, 'utf8'))
+    const breaches = (vitals.results ?? [])
+      .filter((r) => r.budget?.pass === false)
+      .map((r) => ({ route: r.route, tier: r.tier, breaches: r.budget.breaches ?? [] }))
+    return {
+      available: true,
+      total: vitals.summary?.totalBreaches ?? 0,
+      breaches: breaches.slice(0, 10),
+    }
+  } catch {
+    return { available: false, breaches: [] }
   }
 }
 
@@ -319,6 +339,18 @@ function buildMarkdown(report) {
   }
   lines.push('')
 
+  if (report.vitalsAlerts.available && report.vitalsAlerts.total > 0) {
+    lines.push('## Core Web Vitals (CWV) Alerts')
+    lines.push('')
+    lines.push(`- Total CWV breaches: ${report.vitalsAlerts.total}`)
+    lines.push('')
+    lines.push('### Routes with Breaches (Top 10)')
+    for (const breach of report.vitalsAlerts.breaches) {
+      lines.push(`- ${breach.route} (${breach.tier}): ${breach.breaches.join(', ')}`)
+    }
+    lines.push('')
+  }
+
   return `${lines.join('\n')}\n`
 }
 
@@ -334,10 +366,15 @@ function buildSlackText(report) {
 
   const actionLines = report.recommendedActions.map((action) => `- ${action.workflow}: ${action.action}`)
 
+  const vitalsLine = report.vitalsAlerts.available && report.vitalsAlerts.total > 0
+    ? `CWV breaches: ${report.vitalsAlerts.total} route(s)`
+    : 'CWV: no breaches'
+
   return [
     top,
     `Channel: ${report.channel}`,
     `Window: ${report.window.start} to ${report.window.end}`,
+    vitalsLine,
     `Signature delta: new=${report.portfolioDelta.newlyOpened}, repeated=${report.portfolioDelta.stillOpen}, resolved=${report.portfolioDelta.resolved}`,
     `Top owner exposure: ${report.ownerLeaderboard[0]?.owner ?? 'n/a'} (${report.ownerLeaderboard[0]?.openSignatures ?? 0})`,
     report.probeReset.available
@@ -379,6 +416,7 @@ async function main() {
   const sourceStaleness = sourceStalenessHighlights(portfolioHistory)
   const seedingChecklist = readSeedingChecklist()
   const probeReset = readProbeResetReport()
+  const vitalsAlerts = readVitalsAlerts()
 
   const report = {
     generatedAt: new Date().toISOString(),
@@ -391,6 +429,7 @@ async function main() {
     sourceStaleness,
     seedingChecklist,
     probeReset,
+    vitalsAlerts,
   }
 
   writeLatestReportFiles({
