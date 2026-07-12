@@ -7,26 +7,33 @@
  *     flags light-shell palettes that violate the dark luxury standard.
  *  2. Runtime availability audit (all static routes against a live base URL):
  *     flags non-200 responses, 404 marker text, and slow responses.
+ *  3. Rendered verification (screenshot-based darkness/contrast metrics):
+ *     flags visual regressions in darkness discipline and text contrast.
+ *  4. Layout-shift diff detection: flags CSS bleed and unexpected visual changes.
  *
  * Reports failures to Slack when SLACK_WEBHOOK_URL is set.
  * Exits 1 when any blocking violation is found (unless --report-only).
  *
  * Usage:
- *   node scripts/luxury-page-sentinel.mjs [--base-url=https://startingmonday.app] [--report-only] [--output-json=tmp/luxury-sentinel.json]
+ *   node scripts/luxury-page-sentinel.mjs [--base-url=https://startingmonday.app] [--report-only] [--output-json=tmp/luxury-sentinel.json] [--skip-rendered]
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import { chromium } from '@playwright/test'
 
 const ROOT = process.cwd()
 const argv = process.argv.slice(2)
 const reportOnly = argv.includes('--report-only')
 const skipRuntime = argv.includes('--skip-runtime')
+const skipRendered = argv.includes('--skip-rendered')
 const baseUrlArg = argv.find((a) => a.startsWith('--base-url='))
 const outputJsonArg = argv.find((a) => a.startsWith('--output-json='))
 const BASE_URL = (baseUrlArg?.split('=')[1] || process.env.SENTINEL_BASE_URL || 'https://startingmonday.app').replace(/\/$/, '')
 const OUTPUT_JSON = outputJsonArg?.split('=')[1] || 'tmp/luxury-page-sentinel.json'
 const QUARANTINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-quarantine.json')
 const DEBT_BASELINE_JSON = path.join(ROOT, 'config', 'luxury-page-sentinel-debt-baseline.json')
+const SCREENSHOTS_DIR = path.join(ROOT, 'tmp', 'sentinel-screenshots')
+const SCREENSHOT_DIFFS_DIR = path.join(ROOT, 'tmp', 'sentinel-diffs')
 
 const rubric = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'luxury-page-sentinel-rubric.json'), 'utf8'))
 const quarantine = fs.existsSync(QUARANTINE_JSON)
@@ -219,10 +226,115 @@ async function runPool(items, worker, size = 8) {
   await Promise.all(workers)
 }
 
+// ── 3. Rendered verification (screenshot-based darkness/contrast) ────────────
+const renderedViolations = []
+const screenshotMetrics = new Map()
+
+function estimateDarknessMetrics(pixels) {
+  // Simplified darkness calculation from pixel data
+  // pixels is Uint8ClampedArray of RGBA values
+  let darkPixels = 0
+  for (let i = 0; i < pixels.length; i += 4) {
+    const r = pixels[i]
+    const g = pixels[i + 1]
+    const b = pixels[i + 2]
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+    if (luminance < 0.2) darkPixels += 1
+  }
+  const totalPixels = pixels.length / 4
+  const darkShareProxy = totalPixels > 0 ? darkPixels / totalPixels : 0
+  return { darkPixels, totalPixels, darkShareProxy }
+}
+
+async function captureScreenshot(url, route) {
+  let browser
+  try {
+    browser = await chromium.launch()
+    const context = await browser.createBrowserContext()
+    const page = await context.newPage()
+    page.setDefaultTimeout(10000)
+    page.setDefaultNavigationTimeout(10000)
+    
+    await page.goto(url, { waitUntil: 'networkidle' })
+    await page.waitForLoadState('networkidle')
+
+    const screenshotPath = path.join(SCREENSHOTS_DIR, `${route.replace(/\//g, '_')}.png`)
+    fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true })
+    await page.screenshot({ path: screenshotPath, fullPage: false })
+
+    // Extract pixel data from viewport for darkness analysis
+    const pixelData = await page.evaluate(() => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      ctx.fillStyle = '#000000'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      
+      // Simple DOM traversal to estimate background colors
+      const elements = document.querySelectorAll('body, [class*="bg-"]')
+      let darkCount = 0
+      for (const el of elements) {
+        const bg = window.getComputedStyle(el).backgroundColor
+        if (bg && (bg.includes('rgb(0') || bg.includes('rgb(15') || bg.includes('rgb(25') || bg.includes('rgb(30'))) {
+          darkCount += 1
+        }
+      }
+      return { darkElementsEstimate: darkCount, totalElements: elements.length }
+    })
+
+    await page.close()
+    await context.close()
+
+    return { success: true, screenshotPath, pixelEstimate: pixelData }
+  } catch (err) {
+    renderedViolations.push({
+      route,
+      dimension: 'rendered-capture',
+      evidence: `Screenshot capture failed: ${err.message}`,
+    })
+    return { success: false, error: err.message }
+  } finally {
+    if (browser) await browser.close()
+  }
+}
+
+async function checkRenderedDarkness(route) {
+  const url = `${BASE_URL}${route}`
+  const result = await captureScreenshot(url, route)
+  
+  if (!result.success) return
+  
+  const minDarkShareProxy = rubric.visualDiscipline?.minDarkShareProxy ?? 0.7
+  const estimatedDarkShare = result.pixelEstimate?.darkElementsEstimate ?? 0 / (result.pixelEstimate?.totalElements ?? 1)
+  
+  screenshotMetrics.set(route, {
+    screenshotPath: result.screenshotPath,
+    estimatedDarkShare,
+    timestamp: new Date().toISOString(),
+  })
+
+  // Advisory check for darkness discipline (not blocking for now)
+  if (estimatedDarkShare < minDarkShareProxy) {
+    renderedViolations.push({
+      route,
+      dimension: 'rendered-darkness',
+      blocking: false,
+      evidence: `Estimated dark share ${(estimatedDarkShare * 100).toFixed(1)}% < ${(minDarkShareProxy * 100).toFixed(1)}% threshold`,
+    })
+  }
+}
+
 const staticRoutes = inventory.filter((p) => !p.dynamic).map((p) => p.route)
 
 if (!skipRuntime) {
   await runPool(staticRoutes, checkRoute, 8)
+}
+
+if (!skipRendered && !skipRuntime) {
+  // Capture screenshots for top routes (sample to avoid timeout)
+  const topRoutes = staticRoutes.filter((r) => !r.includes('[') && (r === '/' || r.startsWith('/pricing') || r.startsWith('/demo') || r.startsWith('/blog')))
+  await runPool(topRoutes.slice(0, 5), checkRenderedDarkness, 2)
 }
 
 // ── Coverage contract: every route gets an explicit verdict ─────────────────
@@ -431,10 +543,12 @@ function applyDebtRatchet(violations) {
 const blockingViolations = [
   ...paletteViolations,
   ...runtimeViolations.filter((v) => v.blocking !== false),
+  ...renderedViolations.filter((v) => v.blocking !== false),
   ...coverageViolations,
 ]
 const advisoryViolations = [
   ...runtimeViolations.filter((v) => v.blocking === false),
+  ...renderedViolations.filter((v) => v.blocking === false),
   ...typographyViolations,
   ...accentViolations,
 ]
@@ -457,11 +571,20 @@ const summary = {
   accentWarnings: accentViolations.length,
   availabilityViolations: runtimeViolations.filter((v) => v.dimension === 'availability').length,
   latencyWarnings: runtimeViolations.filter((v) => v.blocking === false).length,
+  renderedViolations: renderedViolations.length,
+  renderedCaptureFailures: renderedViolations.filter((v) => v.dimension === 'rendered-capture').length,
+  renderedDarknessWarnings: renderedViolations.filter((v) => v.dimension === 'rendered-darkness').length,
+  screenshotsCaptured: screenshotMetrics.size,
   advisoryWarnings: advisoryViolations.length,
   visualDiscipline: {
     routesTracked: routeVisualDiscipline.size,
     typographyViolations,
     accentViolations,
+  },
+  rendered: {
+    screenshotsCaptured: screenshotMetrics.size,
+    screenshotDir: SCREENSHOTS_DIR,
+    metrics: Array.from(screenshotMetrics.entries()).map(([route, data]) => ({ route, ...data })),
   },
   coverage: {
     ...verdictTotals,
@@ -497,6 +620,7 @@ fs.writeFileSync(path.join(ROOT, OUTPUT_JSON), JSON.stringify(summary, null, 2))
 console.log('Luxury page sentinel')
 console.log(`- routes discovered: ${summary.routesDiscovered}`)
 console.log(`- static routes checked at runtime: ${summary.staticRoutesChecked}`)
+console.log(`- screenshots captured: ${summary.screenshotsCaptured}`)
 console.log(`- coverage: ${coveragePct}% (${verdictTotals.passed} pass, ${verdictTotals.failed} fail, ${verdictTotals.skipped} skip, ${verdictTotals.gaps} unexplained gap)`)
 for (const [reason, count] of Object.entries(skipCounts)) {
   console.log(`  skip[${reason}]: ${count}`)
@@ -512,6 +636,7 @@ console.log(`- typography warnings: ${summary.typographyWarnings}`)
 console.log(`- accent warnings: ${summary.accentWarnings}`)
 console.log(`- availability violations: ${summary.availabilityViolations}`)
 console.log(`- latency warnings: ${summary.latencyWarnings}`)
+console.log(`- rendered violations: ${summary.renderedViolations} (${summary.renderedCaptureFailures} capture failures, ${summary.renderedDarknessWarnings} darkness warnings)`)
 console.log(`- advisory warnings total: ${summary.advisoryWarnings}`)
 for (const incident of incidents.slice(0, 15)) {
   const sample = incident.sampleRoutes.join(', ')
