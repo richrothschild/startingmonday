@@ -34,33 +34,33 @@ const FEATURES = [
 
 const PROOF_METRICS = [
   {
-    value: '81%',
-    label: 'of Jan-May 2026 pilot executives reached a first interview within 30 days',
+    value: '1-3 wks',
+    label: 'typical lead time on role-shaping signals before broad-market posting (documented timing model)',
   },
   {
-    value: '9 days',
-    label: 'median time from setup to first qualified outreach in the same pilot window',
+    value: '60 sec',
+    label: 'to generate a role-specific prep brief before any interview or first call',
   },
   {
-    value: '27',
-    label: 'executives in current verified evidence snapshot (methodology disclosed)',
+    value: '3x/wk',
+    label: 'automated career-page scans on every tracked target company',
   },
   {
-    value: '43%',
-    label: 'of pilot coaches adopted daily briefing into active session workflow',
+    value: '24-48 hrs',
+    label: 'from setup to first signal delivery for an enrolled executive',
   },
 ]
 
 const SESSION_YIELD_METRICS = [
   {
     metric: 'Session strategy time',
-    before: '45-55% of session spent on strategic decisions',
-    after: '65-80% of session spent on strategic decisions after first two weeks',
+    before: 'Sessions dominated by recap and status reconstruction',
+    after: 'More session time on strategic decisions after the first two weeks (directional observation)',
   },
   {
     metric: 'Context rebuild time',
-    before: '20-30 minutes rebuilding activity context',
-    after: '5-12 minutes using what-changed prep snapshot',
+    before: 'Significant time rebuilding activity context each session',
+    after: 'Entry at decision quality using the what-changed prep snapshot (directional observation)',
   },
 ]
 
@@ -413,7 +413,7 @@ export default function ForOutplacementPage() {
                 ))}
               </div>
               <p className="text-[12px] text-slate-200 leading-relaxed">
-                Source window: Jan-May 2026 pilot evidence set. Use this as directional signal, then validate with your own cohort baseline.
+                Source: product mechanics and our documented signal timing model (method notes at /references). Validate against your own cohort baseline during a pilot.
               </p>
             </section>
 

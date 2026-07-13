@@ -24,7 +24,7 @@ Everything else (content, podcasts, PR, cold email) exists to feed these three m
 ## 2. Ground Truth (from internal plans, verified July 2026)
 
 - 0 paying customers as of early July; 2 weeks of founder DM activity produced interest but no conversions.
-- Pilot proof: n=27 activated coach-channel executives; 81% reached first interview within 30 days; 9-day median to first qualified outreach.
+- Pilot evidence status: early 2026 pilot observations are DIRECTIONAL AND UNVERIFIED (removed from all public site claims on 2026-07-13). No outcome statistic may be used in sales material until a verified cohort measurement exists with defined numerators, denominators, and dates.
 - Pricing: Monitor $49 / Active $199 / Executive $499 / Coach seat $30; blended ARPU ~$180; LTV ~$790 (7-9 month tenure); gross margin 85%+.
 - Constraint: founder sales hours (15-20/week) are the binding resource, not channels or product.
 - Trial: 30 days, no card. The hard wall is trial-to-paid, not visitor-to-trial.
@@ -64,7 +64,7 @@ Everything else (content, podcasts, PR, cold email) exists to feed these three m
 ### 4.3 Offer architecture (decision de-risking, per JOLT)
 - **Anchor:** Active $199/mo. Monitor de-emphasized on pricing page (retain as downgrade-save offer only).
 - **Founding Member close tool:** $99/mo or $990/yr, 50 named slots, personal onboarding, expires Dec 31 - used only on live calls to convert, never advertised as a discount banner.
-- **Decision de-risking stack:** 30-day trial (exists) + "first briefing in 24 hours" activation promise + private-by-default guarantee stated at every conversion point + easy cancel/pause (exists). Add: **"Interview-ready guarantee"** - if an Active subscriber lands zero first-round interviews in 90 days while meeting activity thresholds, next 90 days free. Costs little (COGS ~$6.50/mo), directly attacks indecision, and converts the pilot's 81%-to-first-interview stat from claim to warranty.
+- **Decision de-risking stack:** 30-day trial (exists) + "first briefing in 24 hours" activation promise + private-by-default guarantee stated at every conversion point + easy cancel/pause (exists). Add: **"Interview-ready guarantee"** - if an Active subscriber lands zero first-round interviews in 90 days while meeting activity thresholds, next 90 days free. Costs little (COGS ~$6.50/mo) and directly attacks indecision. It also creates the verified outcome dataset we currently lack: every guarantee cohort is a measured cohort.
 - **Annual push in Q4** (16% discount already exists) for cash flow and churn insulation.
 
 ### 4.4 Three core motions (80% of founder hours)
@@ -89,7 +89,7 @@ The product is the prospecting engine. Nobody else can send this email honestly.
 ### 4.5 Supporting layer (20%, VA-leveraged, kill-criteria governed)
 - Content: 3-4 founder LinkedIn posts/week; each post ends in the demo CTA; $500-1,000/mo Thought Leader Ads only behind proven posts.
 - Signal-triggered cold email (Apollo, 200-300/mo, Aug onward) reusing Motion 1 copy.
-- Credibility engine: 1 byline/mo, 6-8 podcasts over 6 months, September "2026 Executive Transition Report" (pilot data is the story: 81% first-interview-in-30-days).
+- Credibility engine: 1 byline/mo, 6-8 podcasts over 6 months, September "2026 Executive Transition Report" built ONLY from verifiable data (signal-timing analysis across tracked public events - SEC filings, funding, departures), not from unverified pilot outcome stats.
 - Referral loop redesigned for privacy (see mitigation M4): "give a month, get a month" with anonymous gift links - no public advocacy required.
 
 ### 4.6 Funnel math to 200 (sanity-checked)
@@ -153,10 +153,10 @@ The product is the prospecting engine. Nobody else can send this email honestly.
 | M1 | Zero conversions to date | Run 25 full-funnel founder-assisted trials through the new motion before judging price; if <5 convert, execute the pre-written rebuild (offer/price/onboarding freeze) rather than adding channels. The kill criteria exist - honor them. |
 | M2 | Success-is-churn treadmill | Monetize the win: placed-user flow moves to a $19/mo "Optionality" monitor tier (quiet monitoring for the next move, board-seat signals) instead of cancel; alumni get lifetime re-activation in one click. Target: 25% of placed users retained on Optionality. Success stories also feed the guarantee's credibility. |
 | M3 | Founder single-threading | Protect via calendar (already policy) + VA absorbs 100% of list-building/booking/HARO + every call recorded (Otter) so a future hire inherits a playbook, not folklore. Trigger: at 100 customers, hire first part-time closer from recorded-call corpus. |
-| M4 | Private buyers, weak social proof | Replace public advocacy with private proof: anonymized vignettes ("CIO, $2B healthcare"), the September data report (aggregate proof, no names), and a double-blind referral: "give a month" gift links where neither party's search status is revealed. Ask for private references usable on 1:1 calls, not public reviews. |
+| M4 | Private buyers, weak social proof | Replace public advocacy with private proof: anonymized vignettes ("CIO, $2B healthcare"), the September data report (aggregate signal-timing analysis from public sources, no outcome claims), and a double-blind referral: "give a month" gift links where neither party's search status is revealed. Ask for private references usable on 1:1 calls, not public reviews. Build a verified-outcomes pipeline: instrument first-interview events in-product so future claims are measured, not remembered. |
 | M5 | Muted email lever from opt-in | Shift lifecycle urgency in-product (dashboard trial banner already positive; add day-21 in-product tip moment per support plan) + make the opt-in ask value-forward at onboarding ("get the 3 highest-leverage plays for your trial") to raise opt-in rate; measure opt-in % weekly and A/B the copy - never the default. |
 | M6 | Coach channel conflict | Reposition the tool as the coach's leverage, not replacement: co-branded client reports make the *coach* look better; rev share (25-30%) beats the $30 seat framing; product council gives status. Kill criterion stands: <5 committed coaches after 50 conversations -> rebuild the coach offer. |
-| M7 | "Claude wrapper" objection | Sell the data, not the AI: signal pipeline (SEC/funding/departure ingestion), role-specific structures, and the 81%/9-day pilot outcomes are not promptable. Demo answers this in 60 seconds - lead every skeptic to /demo. Publish a "how we're different from ChatGPT" methods page (claim-integrity compliant). |
+| M7 | "Claude wrapper" objection | Sell the data, not the AI: signal pipeline (SEC/funding/departure ingestion) and role-specific structures are not promptable. Demo answers this in 60 seconds - lead every skeptic to /demo. Publish a "how we're different from ChatGPT" methods page (claim-integrity compliant). |
 | M8 | Hallucination trust-kill | Already-built trust contracts + provenance coverage stay release-gating; briefs display source confidence; "no public posting found - likely unlisted" style framing (from friction docs) replaces dead-end language. One-strike incident protocol: personal founder apology + correction within 24h. |
 | M9 | LinkedIn dependency | Hard caps (<=50 connect requests/wk, no automation) protect the account; build the owned list aggressively (1,500 subscribers today) - every LinkedIn touch pushes to email/demo; cold-email rail (Apollo) and podcast/communities diversify reach by Q4. |
 | M10 | Buying-cycle timing risk | Sell Monitor-as-nurture: quiet-phase executives take the $49 (or free Signal Check tool) now and upgrade at their critical event - the signal engine itself tells us when they go active. Report pipeline value alongside closed revenue so Q4 decisions aren't distorted by cycle lag. |

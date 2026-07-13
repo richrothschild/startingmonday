@@ -21,7 +21,7 @@ const FAQS = [
     id: 'proof',
     category: 'Evidence & Validation',
     question: 'How do you validate your claims? Are these real results?',
-    answer: 'All claims in our materials come from verified pilot evidence and disclosed methodology. We publish sample sizes, date windows, and methodological notes. The 81% first-interview rate and 9-day median outreach come from the Jan-May 2026 pilot cohort (n=27). We do not publish coach-claimed outcomes-we publish client-verified outcomes. This matters because coaches trust data over language.',
+    answer: 'We publish methods, not unverified outcome numbers. Our early-signal timing model is documented with sources and confidence notes, and the prep and pipeline workflow is verifiable in a free 30-day preview with your own clients. Pilot observations to date are directional and shared qualitatively. When verified cohort outcomes are available, we will publish them with sample sizes, date windows, and definitions - because coaches trust data over language.',
   },
   {
     id: 'integration',
@@ -123,7 +123,7 @@ const OBJECTIONS = [
   {
     id: 'adoption',
     objection: '"My clients will not adopt another platform. They have decision fatigue."',
-    response: 'A fair concern. Preview the workflow with 2-3 real clients-concrete proof in 30 minutes. In pilot data, 81% of clients who saw the tool during a preview decided to track one company. When it is positioned as "this reduces your work between sessions," adoption is consistently high. And this is not a standalone product-it is a layer for coaches. Clients access it through your recommendation, not a marketplace.',
+    response: 'A fair concern. Preview the workflow with 2-3 real clients-concrete proof in 30 minutes. When it is positioned as "this reduces your work between sessions," adoption is consistently high in our experience. And this is not a standalone product-it is a layer for coaches. Clients access it through your recommendation, not a marketplace.',
   },
   {
     id: 'cost',

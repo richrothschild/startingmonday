@@ -183,7 +183,7 @@ const TALKING_POINTS = [
   },
   {
     title: 'Cialdini: Authority and Proof',
-    body: 'Method and evidence are visible, with denominator and confidence context for headline metrics (pilot 81%, denominator 27, medium confidence).'
+    body: 'Method and evidence are visible: the signal timing model is documented with sources and confidence context, and the workflow is verifiable live in this demo.'
   },
   {
     title: 'Horstman: Cadence and Clarity',
@@ -199,25 +199,25 @@ const CADENCE_STEPS = [
 
 const PROOF_METRICS = [
   {
-    label: 'Pilot brief usefulness',
-    value: '81%',
-    denominator: '27 candidates',
+    label: 'Signal lead time',
+    value: '1-3 wks',
+    denominator: 'Documented timing model',
     confidence: 'Medium confidence',
-    note: 'Based on post-session scoring from pilot runs.',
+    note: 'Typical lead on role-shaping signals before broad-market posting; method notes at /references.',
   },
   {
-    label: 'Prep-time reduction',
-    value: '34%',
-    denominator: '19 sessions',
-    confidence: 'Directional',
-    note: 'Measured as context rebuild time before strategy discussion.',
+    label: 'Prep brief generation',
+    value: '60 sec',
+    denominator: 'Product mechanics',
+    confidence: 'Verifiable live',
+    note: 'Role-specific brief: win thesis, likely objections, peer-level questions.',
   },
   {
-    label: 'First-week action rate',
-    value: '74%',
-    denominator: '31 pilot users',
-    confidence: 'Medium confidence',
-    note: 'Users who took at least one signal-based action in week 1.',
+    label: 'Career-page scan cadence',
+    value: '3x/wk',
+    denominator: 'Product mechanics',
+    confidence: 'Verifiable live',
+    note: 'Automated scans on every tracked target company.',
   },
 ]
 

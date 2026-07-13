@@ -160,9 +160,9 @@ export default function ForCioPage() {
         </div>
       </section>
       <ProofStrip
-        metric="81%"
-        label="reached first interview inside 30 days"
-        source="27 executives in the Jan-May 2026 pilot cohort"
+        metric="1-3 wks"
+        label="typical lead time on role-shaping signals before broad-market posting"
+        source="Internal timing model with method notes at /references"
       />
       <h1 className="sr-only">Starting Monday for C-suite technology searches</h1>
       <section className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-8">
@@ -171,19 +171,19 @@ export default function ForCioPage() {
             <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-orange-300 mb-3">CIO proof snapshot</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
               <div className="border border-slate-700 rounded-lg p-3">
-                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">81%</p>
-                <p className="text-[13px] text-slate-200">Reached first interview inside 30 days</p>
+                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">1-3 wks</p>
+                <p className="text-[13px] text-slate-200">Typical signal lead time before broad-market posting</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
-                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">27</p>
-                <p className="text-[13px] text-slate-200">Pilot executives in Jan-May 2026 cohort</p>
+                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">60 sec</p>
+                <p className="text-[13px] text-slate-200">To generate a role-specific prep brief</p>
               </div>
               <div className="border border-slate-700 rounded-lg p-3">
-                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">9 days</p>
-                <p className="text-[13px] text-slate-200">Median time to first qualified outreach</p>
+                <p className="text-[22px] font-bold text-emerald-300 leading-none mb-1">3x/wk</p>
+                <p className="text-[13px] text-slate-200">Career-page scans on every tracked company</p>
               </div>
             </div>
-            <p className="text-[13px] text-slate-200">Based on 27 executives in the Jan-May 2026 pilot cohort. Results vary by market, role level, and campaign consistency.</p>
+            <p className="text-[13px] text-slate-200">Product mechanics you can verify in the live demo. Timing model and method notes are published at /references.</p>
           </div>
           <div className="border border-slate-700 rounded-xl p-5 bg-slate-950/40 flex flex-col justify-between">
             <div className="space-y-2 mb-4">

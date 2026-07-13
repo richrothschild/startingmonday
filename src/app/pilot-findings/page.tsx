@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   },
 }
 
-const SIGNALS = [
-  { label: 'First interview in 30 days', value: 81, widthClass: 'w-[81%]' },
-  { label: 'Median time to first outreach', value: 67, widthClass: 'w-[67%]' },
-  { label: 'Prep briefs used before real calls', value: 92, widthClass: 'w-[92%]' },
-  { label: 'Users who reported less context rebuild', value: 88, widthClass: 'w-[88%]' },
+const OBSERVATIONS = [
+  { label: 'First conversations', detail: 'Activated users tended to reach their first qualified conversation sooner than in unstructured searches.' },
+  { label: 'Prep discipline', detail: 'Prep briefs were commonly reviewed before real calls rather than generated and ignored.' },
+  { label: 'Context rebuild', detail: 'Users and coaches reported less time rebuilding context between sessions.' },
+  { label: 'Cadence', detail: 'A visible next action reduced drift between weekly check-ins.' },
 ]
 
 const LESSONS = [
@@ -30,18 +30,13 @@ const LESSONS = [
   'The coach value proposition improves when the platform absorbs the administrative layer.',
 ]
 
-function MiniBarChart() {
+function ObservationList() {
   return (
     <div className="space-y-4">
-      {SIGNALS.map(item => (
+      {OBSERVATIONS.map(item => (
         <div key={item.label}>
-          <div className="flex items-end justify-between gap-3 mb-2">
-            <p className="text-[13px] font-semibold text-slate-900">{item.label}</p>
-            <p className="text-[12px] text-slate-500 font-semibold">{item.value}%</p>
-          </div>
-          <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
-            <div className={`h-full rounded-full bg-green-500 ${item.widthClass}`} />
-          </div>
+          <p className="text-[13px] font-semibold text-slate-900 mb-1">{item.label}</p>
+          <p className="text-[13px] text-slate-600 leading-relaxed">{item.detail}</p>
         </div>
       ))}
     </div>
@@ -71,8 +66,8 @@ export default function PilotFindingsPage() {
         </p>
 
         <section id="pilot-signals" className="border border-slate-200 rounded-lg p-5 bg-slate-50">
-          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pilot signal chart</p>
-          <MiniBarChart />
+          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-3">Pilot observations (qualitative, directional)</p>
+          <ObservationList />
         </section>
 
         <h2 id="what-changed" className="text-[22px] font-bold text-slate-900 pt-4">What changed</h2>

@@ -530,7 +530,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                       </article>
                     </div>
                     <p className="mt-3 text-[12px] leading-relaxed text-slate-200">
-                      Source: Jan-May 2026 pilot cohorts with denominator and timeframe controls.{' '}
+                      Source: documented methods with source notes and confidence context.{' '}
                       <Link href="/method-and-evidence" className="underline underline-offset-2 hover:text-white">Method and evidence</Link>
                       {' · '}
                       <Link href="/evidence-room" className="underline underline-offset-2 hover:text-white">Evidence room</Link>

@@ -52,7 +52,7 @@ const SPONSOR_FAQ = [
   },
   {
     q: 'What evidence do you have that this works?',
-    a: 'Jan-May 2026 pilot cohort (n=27): 81% reached a first interview within 30 days, 9-day median to first qualified outreach. Session strategy time increased from an observed 45-55% to 65-80% of session time. All metrics disclosed with methodology notes.',
+    a: 'We publish our methods, not unverified outcome claims. Our timing model for early role signals is documented with sources, the prep and signal workflow is verifiable in a live demo, and pilot observations are shared qualitatively with methodology notes. As verified cohort outcomes become available, they will be published with sample sizes and definitions.',
   },
 ]
 
