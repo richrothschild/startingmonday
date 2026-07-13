@@ -270,7 +270,7 @@ const report = {
   plan: PLAN,
   interval: INTERVAL,
   price_env_key: planEnvKey,
-  price_id_present: Boolean(PLAN_PRICE_ID),
+  price_id_present: Boolean(process.env[planEnvKey]),
   checkout_session_created: false,
   checkout_session_id: null,
   checkout_session_url: null,
