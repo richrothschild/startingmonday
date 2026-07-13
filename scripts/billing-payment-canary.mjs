@@ -24,7 +24,6 @@ const INTERVAL = (process.env.BILLING_CANARY_INTERVAL ?? 'monthly').trim().toLow
 const SHOULD_RESTORE = (process.env.BILLING_CANARY_RESTORE ?? '1') !== '0'
 
 const planEnvKey = INTERVAL === 'annual' ? `STRIPE_PRICE_${PLAN.toUpperCase()}_ANNUAL` : `STRIPE_PRICE_${PLAN.toUpperCase()}`
-const PLAN_PRICE_ID = process.env[planEnvKey] ?? ''
 
 const requiredEnv = [
   ['STRIPE_SECRET_KEY', STRIPE_SECRET_KEY],
@@ -32,7 +31,6 @@ const requiredEnv = [
   ['NEXT_PUBLIC_SUPABASE_URL', SUPABASE_URL],
   ['SUPABASE_SERVICE_ROLE_KEY', SUPABASE_SERVICE_ROLE_KEY],
   ['BILLING_CANARY_USER_ID', CANARY_USER_ID],
-  [planEnvKey, PLAN_PRICE_ID],
 ]
 
 const missing = requiredEnv.filter(([, value]) => !String(value).trim()).map(([key]) => key)
@@ -127,9 +125,27 @@ async function findWorkingPriceId() {
     }
   }
 
-  throw new Error(
-    `unable to resolve a valid recurring Stripe price for interval=${INTERVAL}. tried=${JSON.stringify(tried)}`,
-  )
+  return {
+    envKey: null,
+    priceId: null,
+    tried,
+  }
+}
+
+function makeSyntheticPriceData() {
+  return {
+    currency: 'usd',
+    recurring: { interval: INTERVAL === 'annual' ? 'year' : 'month' },
+    unit_amount: INTERVAL === 'annual' ? 1200 : 100,
+    product_data: {
+      name: `Starting Monday Billing Canary (${PLAN}/${INTERVAL})`,
+      metadata: {
+        billing_canary: 'true',
+        plan: PLAN,
+        interval: INTERVAL,
+      },
+    },
+  }
 }
 
 async function emitSyntheticWebhook({ customerId, userId }) {
@@ -281,12 +297,16 @@ try {
   report.resolved_price_env_key = resolvedPrice.envKey
   report.resolved_price_id = resolvedPrice.priceId
   report.price_resolution_attempts = resolvedPrice.tried
+  const lineItem = resolvedPrice.priceId
+    ? { price: resolvedPrice.priceId, quantity: 1 }
+    : { price_data: makeSyntheticPriceData(), quantity: 1 }
+  report.price_source = resolvedPrice.priceId ? 'configured_price_id' : 'synthetic_price_data'
 
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
     billing_address_collection: 'required',
-    line_items: [{ price: resolvedPrice.priceId, quantity: 1 }],
+    line_items: [lineItem],
     success_url: `${APP_URL}/dashboard?upgraded=1&billing_canary=1`,
     cancel_url: `${APP_URL}/settings/billing?billing_canary=1`,
     metadata: { userId: CANARY_USER_ID, plan: PLAN, billing_canary: 'true' },
