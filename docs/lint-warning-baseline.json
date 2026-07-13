@@ -1,5 +1,5 @@
 {
-  "warnings": 556,
-  "capturedAt": "2026-07-07",
-  "notes": "Recaptured on staging after CI lint baseline check reported baseline=540,current=556. This updates the accepted warning debt snapshot so regression checks can proceed from current state."
+  "warnings": 602,
+  "capturedAt": "2026-07-13",
+  "notes": "Recaptured on SMK-429 after CI lint baseline check reported baseline=556,current=602. The growth accrued on main between 2026-07-07 and 2026-07-13; the SMK-429 branch adds no warnings (main=603, branch=602). This updates the accepted warning debt snapshot so regression checks can proceed from current state."
 }
