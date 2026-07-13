@@ -5,6 +5,7 @@ import { FirstMileTelemetry } from '@/components/FirstMileTelemetry'
 import { HomepageBriefTeaser } from '@/components/HomepageBriefTeaser'
 import { CHANNEL_ROUTE_SPECS } from '@/lib/channel-ia'
 import { EVENT_NAMES } from '@/lib/channel-metrics-events'
+import { OpportunityTimingGapChart, OpportunityTimingGapChartMobile } from '@/components/home/OpportunityCharts'
 
 export interface SituationCard {
   id: string
@@ -148,150 +149,6 @@ const EXECUTIVE_DIFFERENTIATORS = [
   },
 ]
 
-function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 560 280" className={className} role="img" aria-label="Opportunity timing gap: when you enter vs typical candidates">
-      {/* Subtle background gradient definition */}
-      <defs>
-        <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#1e293b" stopOpacity="0.3" />
-          <stop offset="50%" stopColor="#0f172a" stopOpacity="0.1" />
-          <stop offset="100%" stopColor="#1e293b" stopOpacity="0.3" />
-        </linearGradient>
-        <linearGradient id="startingMondayGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#86efac" stopOpacity="1" />
-          <stop offset="100%" stopColor="#4ade80" stopOpacity="0.8" />
-        </linearGradient>
-        <linearGradient id="typicalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#fb923c" stopOpacity="1" />
-          <stop offset="100%" stopColor="#f97316" stopOpacity="0.8" />
-        </linearGradient>
-      </defs>
-
-      {/* Main timeline with subtle background */}
-      <rect x="40" y="125" width="480" height="36" fill="url(#timelineGradient)" rx="4" />
-      <line x1="40" y1="143" x2="520" y2="143" stroke="#475569" strokeWidth="1.5" />
-
-      {/* Timeline dots - more refined */}
-      <circle cx="55" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="130" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="205" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="280" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="355" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="430" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-      <circle cx="505" cy="143" r="5.5" fill="#64748b" opacity="0.8" />
-
-      {/* Phase labels - refined typography */}
-      <text x="55" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Signal</text>
-      <text x="130" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Shape</text>
-      <text x="205" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Outreach</text>
-      <text x="280" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Open</text>
-      <text x="355" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Interviews</text>
-      <text x="430" y="190" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Selection</text>
-      <text x="505" y="175" fill="#cbd5e1" fontSize="12" fontWeight="500" textAnchor="middle" letterSpacing="0.3">Start</text>
-
-      {/* Starting Monday entry point - refined */}
-      <g>
-        <line x1="130" y1="110" x2="130" y2="127" stroke="url(#startingMondayGradient)" strokeWidth="3.5" strokeLinecap="round" />
-        <circle cx="130" cy="105" r="6.5" fill="#86efac" stroke="#4ade80" strokeWidth="1.5" />
-        <text x="130" y="32" fill="#86efac" fontSize="13" fontWeight="600" textAnchor="middle" letterSpacing="0.5">Starting Monday</text>
-        <text x="130" y="49" fill="#9ca3af" fontSize="11" textAnchor="middle">enters before</text>
-        <text x="130" y="62" fill="#9ca3af" fontSize="11" textAnchor="middle">decision-makers</text>
-        <text x="130" y="75" fill="#9ca3af" fontSize="11" textAnchor="middle">form shortlist</text>
-      </g>
-
-      {/* Typical candidates entry point - refined */}
-      <g>
-        <line x1="280" y1="110" x2="280" y2="127" stroke="url(#typicalGradient)" strokeWidth="3.5" strokeLinecap="round" />
-        <circle cx="280" cy="105" r="6.5" fill="#fb923c" stroke="#f97316" strokeWidth="1.5" />
-        <text x="280" y="32" fill="#fb923c" fontSize="13" fontWeight="600" textAnchor="middle" letterSpacing="0.5">Typical candidates</text>
-        <text x="280" y="49" fill="#9ca3af" fontSize="11" textAnchor="middle">enter when role</text>
-        <text x="280" y="62" fill="#9ca3af" fontSize="11" textAnchor="middle">is publicly posted</text>
-        <text x="280" y="75" fill="#9ca3af" fontSize="11" textAnchor="middle">& widely known</text>
-      </g>
-
-      {/* Advantage callout - refined */}
-      <rect x="40" y="225" width="480" height="1" fill="#475569" opacity="0.4" />
-      <text x="280" y="250" fill="#cbd5e1" fontSize="12" fontWeight="600" textAnchor="middle" letterSpacing="0.3">
-        Starting early: when role is still taking shape • Better odds: fewer qualified candidates
-      </text>
-      <text x="280" y="268" fill="#cbd5e1" fontSize="12" fontWeight="600" textAnchor="middle" letterSpacing="0.3">
-        Advantage: already known and trusted
-      </text>
-    </svg>
-  )
-}
-
-
-function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 600 292" className={className} role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
-      <line x1="56" y1="32" x2="56" y2="214" stroke="#334155" strokeWidth="2" />
-      <line x1="56" y1="214" x2="492" y2="214" stroke="#334155" strokeWidth="2" />
-
-      <rect x="56" y="138" width="436" height="76" fill="#2b1c2a" opacity="0.32" />
-      <rect x="248" y="32" width="244" height="106" fill="#0f3a2f" opacity="0.26" />
-      <line x1="56" y1="178" x2="492" y2="178" stroke="#1f2f4a" strokeWidth="1" />
-      <line x1="56" y1="142" x2="492" y2="142" stroke="#1f2f4a" strokeWidth="1" />
-      <line x1="56" y1="106" x2="492" y2="106" stroke="#1f2f4a" strokeWidth="1" />
-      <line x1="56" y1="70" x2="492" y2="70" stroke="#1f2f4a" strokeWidth="1" />
-
-      <text x="18" y="218" fill="#94a3b8" fontSize="12">0%</text>
-      <text x="14" y="182" fill="#94a3b8" fontSize="12">25%</text>
-      <text x="14" y="146" fill="#94a3b8" fontSize="12">50%</text>
-      <text x="14" y="110" fill="#94a3b8" fontSize="12">75%</text>
-      <text x="10" y="74" fill="#94a3b8" fontSize="12">100%</text>
-
-      <text x="20" y="24" fill="#cbd5e1" fontSize="12" fontWeight="700">Probability of landing role</text>
-
-      <line x1="84" y1="214" x2="84" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="138" y1="214" x2="138" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="194" y1="214" x2="194" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="248" y1="214" x2="248" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="302" y1="214" x2="302" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="356" y1="214" x2="356" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="410" y1="214" x2="410" y2="220" stroke="#475569" strokeWidth="1.5" />
-      <line x1="468" y1="214" x2="468" y2="220" stroke="#475569" strokeWidth="1.5" />
-
-      <text x="84" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Signal</text>
-      <text x="138" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Shape</text>
-      <text x="194" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Outreach</text>
-      <text x="248" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Open</text>
-      <text x="302" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Prep</text>
-      <text x="356" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Interviews</text>
-      <text x="410" y="234" fill="#cbd5e1" fontSize="12" textAnchor="middle">Selection</text>
-      <text x="468" y="248" fill="#cbd5e1" fontSize="12" textAnchor="middle">Start</text>
-
-      <circle cx="84" cy="198" r="5.6" fill="#64748b" />
-      <circle cx="138" cy="190" r="5.6" fill="#64748b" />
-      <circle cx="194" cy="178" r="5.6" fill="#64748b" />
-      <circle cx="248" cy="164" r="5.6" fill="#64748b" />
-      <circle cx="302" cy="154" r="5.6" fill="#64748b" />
-      <circle cx="356" cy="144" r="5.6" fill="#64748b" />
-
-      <circle cx="84" cy="188" r="6.5" fill="#38bdf8" />
-      <circle cx="138" cy="171" r="6.5" fill="#38bdf8" />
-      <circle cx="194" cy="154" r="6.5" fill="#38bdf8" />
-      <circle cx="248" cy="137" r="6.5" fill="#38bdf8" />
-      <circle cx="302" cy="120" r="6.5" fill="#38bdf8" />
-      <circle cx="356" cy="103" r="6.5" fill="#38bdf8" />
-      <circle cx="410" cy="86" r="6.5" fill="#38bdf8" />
-      <circle cx="468" cy="70" r="6.5" fill="#38bdf8" />
-
-      <polyline points="84,188 138,171 194,154 248,137 302,120 356,103 410,86 468,70" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 3" opacity="0.95" />
-      <polyline points="84,198 138,190 194,178 248,164 302,154 356,144" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="3 4" opacity="0.9" />
-
-      <text x="16" y="274" fill="#cbd5e1" fontSize="14" fontWeight="700">Without structure, momentum stalls at interviews. Starting Monday carries you through selection to day one.</text>
-
-      <rect x="504" y="36" width="86" height="52" rx="6" fill="#0f1a2e" stroke="#1e3a5f" strokeWidth="1" />
-      <circle cx="516" cy="52" r="5" fill="#38bdf8" />
-      <text x="526" y="56" fill="#cbd5e1" fontSize="11">With SM</text>
-      <circle cx="516" cy="74" r="5" fill="#64748b" />
-      <text x="526" y="78" fill="#94a3b8" fontSize="11">Typical</text>
-    </svg>
-  )
-}
-
 export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
   const isManagerToolsPage = sourcePage === '/managertools'
   const isHomePage = sourcePage === '/' || isManagerToolsPage
@@ -346,9 +203,14 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
         <section id="core-clarity" data-emi-section="clarity_block" data-first-mile-section="homepage_hero" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
             {isManagerToolsPage && (
-              <p className="mb-5 text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
-                Welcome, Manager Tools community
-              </p>
+              <div className="mb-6">
+                <p className="text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
+                  Welcome, Manager Tools community
+                </p>
+                <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-slate-300">
+                  You are here from &ldquo;Things We Think We Think.&rdquo; Starting Monday applies the discipline you already practice: relationships first, executed on a weekly cadence.
+                </p>
+              </div>
             )}
             {isHomePage ? (
               <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_390px] lg:items-start">
@@ -373,6 +235,26 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                     <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300/90 sm:text-[15px] [text-wrap:pretty]">
                       {hero.competitiveEdge}
                     </p>
+                  )}
+                  {isManagerToolsPage && (
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                      <TrackLink
+                        href={heroPrimaryHref}
+                        event={EVENT_NAMES.channelEntryClicked}
+                        logToUserEvents
+                        properties={{
+                          channel: 'executives',
+                          cta_label: 'hero_manager_tools_signup',
+                          source_page: sourcePage,
+                          variant_key: `landing_${experimentVariant}`,
+                          experiment_variant: experimentVariant,
+                        }}
+                        className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 shadow-[0_10px_30px_rgba(193,127,59,0.22)] transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                      >
+                        {heroPrimaryLabel}
+                      </TrackLink>
+                      <p className="max-w-md text-[12px] leading-relaxed text-slate-400">{hero.trialNote}</p>
+                    </div>
                   )}
                 </div>
                 <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
@@ -414,15 +296,15 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
               </div>
             )}
 
-            {(!isHomePage || isManagerToolsPage) && (
-              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            {!isHomePage && (
+              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row">
                 <TrackLink
                   href={heroPrimaryHref}
                   event={EVENT_NAMES.channelEntryClicked}
                   logToUserEvents
                   properties={{
                     channel: 'executives',
-                    cta_label: isManagerToolsPage ? 'hero_manager_tools_signup' : 'hero_apply_beta',
+                    cta_label: 'hero_apply_beta',
                     source_page: sourcePage,
                     variant_key: `landing_${experimentVariant}`,
                     experiment_variant: experimentVariant,
@@ -431,9 +313,6 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                 >
                   {heroPrimaryLabel}
                 </TrackLink>
-                {isManagerToolsPage && (
-                  <p className="max-w-md text-[12px] leading-relaxed text-slate-400">{hero.trialNote}</p>
-                )}
               </div>
             )}
 
@@ -574,7 +453,8 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                     Explore the evidence →
                   </TrackLink>
                   <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
-                    <OpportunityTimingGapChart />
+                    <OpportunityTimingGapChart className="hidden h-auto w-full sm:block" />
+                    <OpportunityTimingGapChartMobile className="h-auto w-full sm:hidden" />
                   </div>
                 </article>
 
@@ -601,7 +481,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
               </div>
             </section>
 
-            <HomepageBriefTeaser />
+            <HomepageBriefTeaser ctaAsTextLink={isManagerToolsPage} />
           </>
         )}
 
@@ -614,22 +494,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                   <h2 className="mb-6 text-[22px] font-bold leading-snug text-white">
                     For managers and leaders in transition.
                   </h2>
-                  <div className="mb-6 grid grid-cols-1 gap-3">
-                    <TrackLink
-                      href="/for-executives"
-                      event={EVENT_NAMES.channelEntryClicked}
-                      logToUserEvents
-                      properties={{
-                        channel: 'executives',
-                        cta_label: 'next_step_manager_tools_audience',
-                        source_page: sourcePage,
-                      }}
-                      className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
-                    >
-                      <p className="text-[13px] font-semibold text-white">Managers and Leaders</p>
-                      <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
-                    </TrackLink>
-                  </div>
+                  <p className="mb-6 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                    You would be joining the founding Manager Tools cohort. Early members get a direct feedback line to the team building Starting Monday and help shape where the product goes next.
+                  </p>
                   {faqs && faqs.length > 0 && (
                     <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {faqs.map((faq) => (

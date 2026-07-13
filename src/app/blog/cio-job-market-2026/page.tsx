@@ -45,7 +45,7 @@ export default function CioJobMarket2026Page() {
             <li>Roles appear on career pages a median of 17 days before LinkedIn</li>
             <li>3 pre-posting signals: adjacent executive departure, PE transaction, transformation launch</li>
             <li>AI implementation experience now explicitly required in 50%+ of postings at large companies</li>
-            <li>Wednesday sees 34% of new career page postings — best day for monitoring</li>
+            <li>Wednesday sees 34% of new career page postings, the best day for monitoring</li>
           </ul>
         </details>
 
