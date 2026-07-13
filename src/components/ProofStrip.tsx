@@ -8,11 +8,11 @@
  */
 
 interface ProofStripProps {
-  /** Primary stat shown in large numerals, e.g. "81%" */
+  /** Primary stat shown in large numerals, e.g. "1-3 wks" */
   metric: string
   /** One-line explanation of what the metric measures */
   label: string
-  /** Source window and denominator, e.g. "27 executives - Jan-May 2026" */
+  /** Source window and denominator, e.g. "Internal timing model - method notes at /references" */
   source: string
   /** Optional note about variability */
   caveat?: string

@@ -27,36 +27,6 @@ const CLAIM_ROWS = [
       { label: '17 CFR 240.13a-11', href: 'https://www.ecfr.gov/current/title-17/chapter-II/part-240/section-240.13a-11', external: true },
     ],
   },
-  {
-    claim: '81% reached first interview inside 30 days (pilot snapshot)',
-    basis: 'Pilot cohort metric for executives who completed onboarding and launched at least one tracked outreach in Jan-May 2026.',
-    sourceType: 'Internal pilot dataset',
-    confidence: 'Medium',
-    links: [
-      { label: 'Pricing evidence block', href: '/pricing', external: false },
-      { label: 'Demo evidence context', href: '/demo', external: false },
-    ],
-  },
-  {
-    claim: '27 pilot executives in Jan-May 2026 denominator',
-    basis: 'Cohort denominator used for published pilot snapshot.',
-    sourceType: 'Internal pilot dataset',
-    confidence: 'High',
-    links: [
-      { label: 'Homepage evidence module', href: '/', external: false },
-      { label: 'Pricing evidence block', href: '/pricing', external: false },
-    ],
-  },
-  {
-    claim: '9 days median time to first qualified outreach from setup',
-    basis: 'Median lag metric in same pilot cohort window.',
-    sourceType: 'Internal pilot dataset',
-    confidence: 'Medium',
-    links: [
-      { label: 'Homepage evidence module', href: '/', external: false },
-      { label: 'Pricing evidence block', href: '/pricing', external: false },
-    ],
-  },
 ]
 
 const SOURCE_TIERS = [

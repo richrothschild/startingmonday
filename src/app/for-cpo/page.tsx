@@ -110,9 +110,9 @@ export default function ForCpoPage() {
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for Chief Product Officer searches</h1>
       <ProofStrip
-        metric="9 days"
-        label="median time to first qualified outreach for CPO-track executives"
-        source="Jan–May 2026 pilot cohort, product executive segment"
+        metric="1-3 wks"
+        label="typical lead time on role-shaping signals before broad-market posting"
+        source="Internal timing model with method notes at /references"
       />
       <LandingPage
         sourcePage="/for-cpo"

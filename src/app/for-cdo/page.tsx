@@ -111,9 +111,9 @@ export default function ForCdoPage() {
       <JsonLd data={jsonLd} />
       <h1 className="sr-only">Starting Monday for C-suite digital leaders in CDO searches</h1>
       <ProofStrip
-        metric="81%"
-        label="of pilot executives reached first interview inside 30 days"
-        source="27 executives in the Jan–May 2026 cohort across all C-suite tracks"
+        metric="1-3 wks"
+        label="typical lead time on role-shaping signals before broad-market posting"
+        source="Internal timing model with method notes at /references"
       />
       <LandingPage
         sourcePage="/for-cdo"

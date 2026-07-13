@@ -11,16 +11,16 @@ export const WHAT_CHANGES = [
 
 export const COACH_PROOF_STRIPS = [
   {
-    value: '81%',
-    label: 'of the Jan.-May 2026 pilot cohort reached a first interview within 30 days',
+    value: '1-3 wks',
+    label: 'typical lead time on role-shaping signals before broad-market posting (documented timing model)',
   },
   {
-    value: '9 days',
-    label: 'median time from setup to first qualified outreach in the same cohort',
+    value: '60 sec',
+    label: 'to generate a role-specific prep brief your client can review before a session',
   },
   {
-    value: '27',
-    label: 'executives included in the current verified pilot evidence snapshot',
+    value: '5 min',
+    label: 'per client per week to review overnight signals and pipeline movement',
   },
 ]
 
@@ -48,7 +48,7 @@ export const NAMED_COACH_PROOF: Array<{
     descriptor: 'Independent executive transition coach, 12+ years',
     quote:
       'Session time allocation previously included 20 minutes of context reconstruction; now entry begins with current state awareness. My clients feel the difference immediately.',
-    outcome: 'Session prep time: from 25 min to under 8 min. Reported in Jan-May 2026 pilot.',
+    outcome: 'Directional self-report from an early 2026 pilot coach; named verification pending.',
     tier: 'pending-permission',
   },
   {

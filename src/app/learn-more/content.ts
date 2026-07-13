@@ -21,15 +21,15 @@ export type LearnMoreQuestion = {
 export const LEARN_MORE_CITATIONS: LearnMoreCitation[] = [
   {
     id: 1,
-    claim: '81% of pilot users reached a first interview within 30 days in the Jan-May 2026 cohort.',
-    source: 'Internal pilot dataset referenced in the public evidence map.',
-    href: '/references',
+    claim: 'Starting Monday often sees role-shaping signals 1-3 weeks before broad-market channels.',
+    source: 'Internal timing model with source notes and SEC timing context.',
+    href: '/blog/how-we-estimate-early-role-signals',
   },
   {
     id: 2,
-    claim: 'Median setup-to-first-qualified-outreach time was 9 days in the same cohort (n=27).',
-    source: 'Internal pilot dataset referenced in public pricing and references materials.',
-    href: '/references',
+    claim: 'Prep briefs generate in about a minute with role-specific structure: win thesis, likely objections, and peer-level questions.',
+    source: 'Product mechanics, verifiable in the live demo.',
+    href: '/demo',
   },
   {
     id: 3,
