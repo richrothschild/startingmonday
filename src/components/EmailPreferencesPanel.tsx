@@ -37,7 +37,7 @@ export function EmailPreferencesPanel({ initialEnabled }: { initialEnabled: bool
         <div className="max-w-[46ch]">
           <p className="text-[14px] font-semibold text-white">Trial tips and nudge emails</p>
           <p className="text-[13px] text-slate-300 mt-0.5 leading-relaxed">
-            Occasional emails with setup tips during your trial. Your search is private - these are off unless you turn them on.
+            Occasional emails with setup tips during your trial. Your search is private - turn these off anytime with one click.
             Daily briefings are separate and unaffected.
           </p>
         </div>

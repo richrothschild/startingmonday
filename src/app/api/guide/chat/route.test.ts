@@ -112,6 +112,34 @@ describe('guide chat route', () => {
     expect(body.queryId).toBe('query-1')
   })
 
+  it('states the trial terms in billing answers', async () => {
+    state.retrieveGuide.mockReturnValue({
+      intent: 'billing',
+      ranked: [
+        {
+          entry: { id: '1', title: 'Billing settings', body: 'Manage your plan', url: '/settings/billing', type: 'page' },
+          score: 10,
+          lexicalScore: 5,
+          bm25Score: 3,
+          semanticScore: 2,
+          snippet: 'Manage your plan',
+        },
+      ],
+      confidence: 0.9,
+      conservative: false,
+    })
+
+    const response = await POST(new NextRequest('https://startingmonday.app/api/guide/chat', {
+      method: 'POST',
+      body: JSON.stringify({ question: 'How does billing and the free trial work?' }),
+    }))
+
+    expect(response.status).toBe(200)
+    const body = await response.json()
+    expect(body.answer).toContain('30 days free, no credit card required, cancel anytime')
+    expect(body.answer).not.toContain('automation endpoints')
+  })
+
   it('excludes admin routes and raw API endpoints from customer-facing retrieval', async () => {
     state.readFile.mockResolvedValue(JSON.stringify({
       generatedAt: '2026-01-01T00:00:00.000Z',

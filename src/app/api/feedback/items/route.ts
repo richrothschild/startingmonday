@@ -37,10 +37,7 @@ async function getHandler(req: NextRequest) {
 
     let query = supabase
       .from('feedback_items')
-      .select(`
-        *,
-        user_profiles:user_id(full_name)
-      `, { count: 'exact' })
+      .select('*', { count: 'exact' })
 
     // Apply filters
     if (category) {
@@ -73,6 +70,31 @@ async function getHandler(req: NextRequest) {
     // Check user votes for each item
     const items = (data || []) as unknown as FeedbackListRow[]
     const itemIds = items.map((item) => item.id)
+
+    // Resolve author names separately: feedback_items has no FK relationship
+    // to user_profiles, so an embedded join fails in PostgREST. Names are
+    // cosmetic - failures here must not break the list.
+    const namesByUser: Record<string, string | null> = {}
+    try {
+      const authorIds = [...new Set(items.map((item) => item.user_id).filter(Boolean))] as string[]
+      if (authorIds.length > 0) {
+        const { data: profileRows } = await supabase
+          .from('user_profiles')
+          .select('user_id, full_name')
+          .in('user_id', authorIds)
+        for (const row of (profileRows ?? []) as Array<{ user_id: string; full_name: string | null }>) {
+          namesByUser[row.user_id] = row.full_name
+        }
+      }
+    } catch {
+      // ignore - list renders without author names
+    }
+
+    const withNames = items.map((item) => ({
+      ...item,
+      user_profiles: { full_name: namesByUser[String(item.user_id ?? '')] ?? null },
+    }))
+
     if (itemIds.length > 0) {
       const { data: userVotes } = await supabase
         .from('feedback_votes')
@@ -82,7 +104,7 @@ async function getHandler(req: NextRequest) {
 
       const votes = (userVotes || []) as unknown as FeedbackVoteRow[]
       const votedItemIds = new Set(votes.map((v) => v.item_id))
-      const enhancedData = items.map((item) => ({
+      const enhancedData = withNames.map((item) => ({
         ...item,
         user_voted: votedItemIds.has(item.id),
       }))
@@ -90,7 +112,7 @@ async function getHandler(req: NextRequest) {
       return NextResponse.json({ items: enhancedData, count: count || 0 })
     }
 
-    return NextResponse.json({ items: data || [], count: count || 0 })
+    return NextResponse.json({ items: withNames, count: count || 0 })
   } catch (err) {
     console.error('[feedback] list exception:', err)
     return NextResponse.json({ items: [], count: 0, degraded: true }, { status: 200 })

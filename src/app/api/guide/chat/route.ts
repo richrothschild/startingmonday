@@ -48,6 +48,7 @@ function buildAnswer(intent: GuideIntent, question: string, top: Array<{ title: 
   } else if (intent === 'api_docs') {
     lines.push('Tip: open the guide hub for documentation context, then use API endpoints for implementation details.')
   } else if (intent === 'billing') {
+    lines.push('Trial terms: 30 days free, no credit card required, cancel anytime. You only pick a paid plan if you choose to continue after the trial.')
     lines.push('Tip: manage your plan and payment from Billing settings. If something looks wrong, send the question below for a personal reply.')
   }
 

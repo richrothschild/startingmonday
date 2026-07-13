@@ -54,7 +54,12 @@ describe('feedback items route', () => {
           }
         }
         if (table === 'user_profiles') {
-          return { select: vi.fn(() => ({ eq: vi.fn().mockReturnValue({ maybeSingle: vi.fn().mockResolvedValue({ data: { full_name: 'Ada Lovelace' }, error: null }) }) })) }
+          return {
+            select: vi.fn(() => ({
+              eq: vi.fn().mockReturnValue({ maybeSingle: vi.fn().mockResolvedValue({ data: { full_name: 'Ada Lovelace' }, error: null }) }),
+              in: vi.fn().mockResolvedValue({ data: [{ user_id: 'user-1', full_name: 'Ada Lovelace' }], error: null }),
+            })),
+          }
         }
         return {}
       },
@@ -78,7 +83,15 @@ describe('feedback items route', () => {
 
     expect(response.status).toBe(200)
     expect(await response.json()).toEqual({
-      items: [{ id: 'item-1', title: 'Great', body: 'Great feature', category: 'feature_request', user_id: 'user-1', user_voted: true }],
+      items: [{
+        id: 'item-1',
+        title: 'Great',
+        body: 'Great feature',
+        category: 'feature_request',
+        user_id: 'user-1',
+        user_profiles: { full_name: 'Ada Lovelace' },
+        user_voted: true,
+      }],
       count: 1,
     })
   })
