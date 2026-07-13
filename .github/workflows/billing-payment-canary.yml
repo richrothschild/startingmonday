@@ -1,0 +1,87 @@
+name: Billing Payment Canary
+
+on:
+  schedule:
+    # Daily 12:20 UTC (early morning US)
+    - cron: '20 12 * * *'
+  workflow_dispatch:
+    inputs:
+      plan:
+        description: 'Plan to validate (passive|active|executive)'
+        required: false
+        default: 'active'
+      interval:
+        description: 'Billing interval (monthly|annual)'
+        required: false
+        default: 'monthly'
+
+permissions:
+  contents: read
+
+jobs:
+  billing-payment-canary:
+    name: Verify Stripe checkout + webhook side effects
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci --omit=optional
+
+      - name: Run billing payment canary
+        env:
+          BILLING_CANARY_APP_URL: ${{ secrets.BILLING_CANARY_APP_URL }}
+          BILLING_CANARY_USER_ID: ${{ secrets.BILLING_CANARY_USER_ID }}
+          BILLING_CANARY_PLAN: ${{ github.event.inputs.plan || 'active' }}
+          BILLING_CANARY_INTERVAL: ${{ github.event.inputs.interval || 'monthly' }}
+          BILLING_CANARY_RESTORE: '1'
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_PRICE_PASSIVE: ${{ secrets.STRIPE_PRICE_PASSIVE }}
+          STRIPE_PRICE_PASSIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_PASSIVE_ANNUAL }}
+          STRIPE_PRICE_ACTIVE: ${{ secrets.STRIPE_PRICE_ACTIVE }}
+          STRIPE_PRICE_ACTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_ACTIVE_ANNUAL }}
+          STRIPE_PRICE_EXECUTIVE: ${{ secrets.STRIPE_PRICE_EXECUTIVE }}
+          STRIPE_PRICE_EXECUTIVE_ANNUAL: ${{ secrets.STRIPE_PRICE_EXECUTIVE_ANNUAL }}
+          # Backward-compat env alias used by parts of the app.
+          STRIPE_PRICE_MONITOR: ${{ secrets.STRIPE_PRICE_MONITOR }}
+          STRIPE_PRICE_MONITOR_ANNUAL: ${{ secrets.STRIPE_PRICE_MONITOR_ANNUAL }}
+        run: npm run billing:payment:canary
+
+      - name: Upload billing canary artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: billing-payment-canary-${{ github.run_number }}
+          path: |
+            tmp/billing-payment-canary.latest.json
+            tmp/billing-payment-canary.latest.md
+            tmp/billing-payment-canary-*.json
+            tmp/billing-payment-canary-*.md
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Notify Slack on failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured for failure notification"
+            exit 0
+          fi
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          curl -sS -X POST "$SLACK_WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            --data "{\"text\":\"Billing payment canary failed. Run: $RUN_URL\"}"

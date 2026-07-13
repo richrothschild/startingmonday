@@ -51,7 +51,7 @@ A prioritized list of participants most at risk of going off-track: drifting pip
 A step-by-step guide for counselors covering the recommended daily, pre-session, and post-session workflow. Includes: how to read the session snapshot, how to log commitments, how to use the weekly activity digest, and how to escalate a participant to the program lead. At startingmonday.app/for-outplacement/runbook.
 
 ### Cohort Variance and Benchmark Metrics
-Compare cohorts against each other and against the Jan-May 2026 pilot benchmark (27 verified executives, 81% first-interview rate within 30 days). Identify which cohort configurations (track, counselor ratio, session cadence) produce the best outcomes.
+Compare cohorts against each other and against your own program baseline. Identify which cohort configurations (track, counselor ratio, session cadence) produce the best outcomes.
 
 ### 30-Day Pilot Scorecard
 Structured pilot framework with four weekly milestones and clear success thresholds. At week 4, the scorecard outputs a pass/fail result tied to: week-1 activation rate, week-2 signal-response rate, week-3 prep quality, and overall placement velocity vs. baseline. Designed to make the rollout decision straightforward, not negotiable.
@@ -68,14 +68,9 @@ Board-safe claims documentation for procurement and legal review: KPI definition
 
 ---
 
-## Pilot evidence (Jan-May 2026 cohort)
+## Pilot evidence (early 2026 observations)
 
-| Metric | Result | Notes |
-|--------|--------|-------|
-| First-interview rate within 30 days | 81% | 27-executive verified cohort |
-| Median time to first qualified outreach | 9 days | From account setup |
-| Coach adoption of daily briefing | 43% | Voluntary integration into session workflow |
-| Session context-rebuild time reduction | 15-25 min saved per session | Counselor self-report |
+Early pilot observations are qualitative and directional: activated participants tended to reach first qualified outreach sooner, prep briefs were reviewed before real conversations, and counselors reported less context rebuild between sessions. Verified cohort outcomes with sample sizes and definitions will be published in the trust pack as they become available.
 
 Full methodology available in the trust pack.
 

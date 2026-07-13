@@ -591,34 +591,6 @@ export const EVIDENCE_INTERNAL: EvidenceSection = {
   `,
   keyInsights: [
     {
-      claim: '81% of pilot users reached a first interview within 30 days',
-      sources: [
-        {
-          id: 'sm-pilot-1',
-          type: 'internal',
-          title: 'Starting Monday Jan-May 2026 pilot cohort results',
-          publication: 'Internal pilot dataset',
-          url: '/references',
-          keyFinding: '81% of pilot users (n=27) reached a first interview within 30 days; cohort selected based on mid-to-senior executive profile and active search stage'
-        },
-      ],
-      implication: 'The system moves executives from planning to active conversations faster than typical search processes.'
-    },
-    {
-      claim: 'Median setup-to-first-qualified-outreach time was 9 days',
-      sources: [
-        {
-          id: 'sm-pilot-2',
-          type: 'internal',
-          title: 'Starting Monday Jan-May 2026 pilot cohort: execution velocity',
-          publication: 'Internal pilot dataset',
-          url: '/references',
-          keyFinding: 'Median time from account setup to first qualified outreach was 9 days; this gap is traditionally 3-4 weeks in unstructured searches'
-        },
-      ],
-      implication: 'The system reduces planning overhead and converts intent to action faster than manually managed searches.'
-    },
-    {
       claim: 'Early-signal detection works; users detected transition movement weeks before public posting',
       sources: [
         {
@@ -627,10 +599,10 @@ export const EVIDENCE_INTERNAL: EvidenceSection = {
           title: 'Early-signal detection validation',
           publication: 'Starting Monday blog',
           url: '/blog/how-we-estimate-early-role-signals',
-          keyFinding: 'Pilot users detected role-shaping signals 1-3 weeks before posting in 70% of observed transitions; this window was where highest-quality conversations happened'
+          keyFinding: 'Role-shaping signals often surface 1-3 weeks before public posting based on our documented timing model; this window is where the highest-quality conversations happen'
         },
       ],
-      implication: 'The research on signal timing predicts pilot outcomes; users who moved during early-signal phase had better conversation quality and less competition.'
+      implication: 'The research on signal timing predicts user outcomes; executives who move during the early-signal phase face better conversation quality and less competition.'
     },
   ],
 }

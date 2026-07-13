@@ -128,15 +128,15 @@ function decisionLine(channel, focus) {
 
 function legalSafeProofLine(channel, focus) {
   if (channel === CHANNELS.COACHES) {
-    return `Across Jan-May 2026 coaching cases (n=27), median time to first qualified outreach was 9 days and coaching adoption was 43 percent; results vary by market conditions and execution quality.`
+    return `In early 2026 coaching cases, coaches reported faster between-session momentum when readiness and follow-up lived in one shared view. Directional evidence, not a guarantee.`
   }
   if (channel === CHANNELS.OUTPLACEMENT_FIRMS) {
     return `Across Jan-May 2026 outplacement cases, teams saw faster early outreach momentum when a shared readiness standard was in place. Directional evidence, not a guarantee.`
   }
   if (channel === CHANNELS.SEARCH_FIRMS) {
-    return `Across Jan-May 2026 search cases (n=27), median time to first qualified outreach was 9 days; results vary by mandate mix, market timing, and execution quality.`
+    return `In early 2026 search cases, teams reported stronger first-conversation readiness when prep quality was standardized. Directional evidence, not a guarantee.`
   }
-  return `Across Jan-May 2026 transition cases (n=27), activated users reached first qualified outreach in a 9-day median; results vary by market conditions and execution quality.`
+  return `In early 2026 transition cases, activated users reached first qualified outreach faster when signals and prep lived in one operating loop. Directional evidence, not a guarantee.`
 }
 
 function binaryCtaLine(asset, audience) {
@@ -405,7 +405,7 @@ function buildOutplacementFollowupDraft({ firstName, company, focus, roleLabel, 
             'If the concern is rollout overhead, that is the right concern.',
             'Outplacement teams do not need another tool that depends on custom templates, founder support, or unclear escalation rules.',
             'Starting Monday already has a pilot runbook, counselor enablement script, Friday MBR template, and trust-pack path so a team can test this without inventing a new process.',
-            'Directional evidence from Jan-May 2026 cases (n=27) points to faster early outreach momentum, not a guarantee.',
+            'Directional evidence from early 2026 cases points to faster early outreach momentum, not a guarantee.',
             '',
               'If helpful, I can send the pilot operator pack.',
             'Reply pass and I will close the loop.',

@@ -97,7 +97,7 @@ const COACH_QUICK_PROOF = {
   confidentiality:
     'Confidentiality is client-controlled: access can be granted or revoked at any time.',
   proof:
-    'Pilot reference: 81% of the Jan-May 2026 cohort reached a first interview within 30 days.',
+    'Proof by method: the signal timing model is documented with sources at /references, and the workflow is verifiable in a live demo.',
 }
 
 export default function TerryAndersonReviewPage() {

@@ -111,7 +111,7 @@ export default function PricingPage() {
         <section className={`mt-8 rounded-2xl p-5 ${premiumEnabled ? 'border border-white/12 bg-white/[0.07] shadow-[0_16px_52px_rgba(15,23,42,0.16)]' : 'border border-slate-200 bg-slate-50'}`}>
           <p className={`text-[11px] font-bold tracking-[0.12em] uppercase mb-2 ${premiumEnabled ? 'text-orange-200' : 'text-slate-500'}`}>Source note</p>
           <p className={`text-[13px] leading-relaxed ${premiumEnabled ? 'text-slate-200' : 'text-slate-600'}`}>
-            Pricing outcomes and buyer-mode examples are based on Jan-May 2026 pilot operating data and are directional. Privacy commitments and account confidentiality controls apply to all plans.
+            Buyer-mode examples are illustrative and directional, not audited outcome claims. Privacy commitments and account confidentiality controls apply to all plans.
           </p>
         </section>
 
