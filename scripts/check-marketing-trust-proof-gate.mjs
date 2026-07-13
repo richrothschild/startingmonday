@@ -7,7 +7,7 @@ const root = process.cwd()
 const checks = [
   {
     file: 'src/components/LandingPage.tsx',
-    allOf: ['Source:', 'pilot cohorts'],
+    allOf: ['Source:', 'documented methods'],
   },
   {
     file: 'src/app/pricing/page.tsx',
