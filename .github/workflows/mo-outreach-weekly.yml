@@ -1,0 +1,63 @@
+name: MO Weekly Outreach Export
+
+on:
+  schedule:
+    # Monday 6:00 AM Central (11:00 UTC during CDT)
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: Build signal-led outreach list and email it
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --omit=optional
+
+      - name: Run export with Apollo enrichment and email delivery
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          APOLLO_API_KEY: ${{ secrets.APOLLO_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MO_EMAIL: ${{ secrets.MO_EMAIL }}
+        run: node scripts/export-mo-outreach-list.mjs --days=14 --email
+
+      - name: Upload export artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mo-outreach-list-${{ github.run_number }}
+          path: |
+            tmp/mo-outreach-list-*.csv
+            tmp/mo-outreach-list-*.md
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Notify Slack on workflow failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "No Slack webhook configured for failure notification"
+            exit 0
+          fi
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          curl -sS -X POST "$SLACK_WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            --data "{\"text\":\"MO weekly outreach export failed. Run: $RUN_URL\"}"
