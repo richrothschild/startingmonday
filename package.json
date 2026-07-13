@@ -63,6 +63,7 @@
         "ops:dead-letter:check": "node scripts/check-dead-letter-coverage.mjs",
         "outreach:coaches:refresh-queue": "node scripts/refresh-coach-outreach-queue.mjs",
         "outreach:coaches:refresh-queue:apply": "node scripts/refresh-coach-outreach-queue.mjs --apply",
+        "outreach:mo:export": "node scripts/export-mo-outreach-list.mjs",
         "prepare": "node -e \"const {execSync}=require('child_process'); try {execSync('git rev-parse --git-dir',{stdio:'ignore'}); execSync('git config core.hooksPath .githooks',{stdio:'ignore'});} catch {}\"",
         "check:auth": "node scripts/check-auth.mjs",
         "security:api-guards": "node scripts/check-api-guards.mjs",
