@@ -630,7 +630,22 @@ if (sendEmailFlag) {
     console.error(`Email send failed: ${res.status} ${await res.text().catch(() => '')}`)
     process.exit(1)
   }
-  console.log(`- emailed to: ${recipients.join(', ')}`)
+  const sendResult = await res.json().catch(() => ({}))
+  console.log(`- emailed to: ${recipients.join(', ')} (resend id: ${sendResult.id ?? 'unknown'})`)
+
+  // Poll delivery status so silent drops are visible in logs.
+  if (sendResult.id) {
+    await sleep(6000)
+    try {
+      const statusRes = await fetch(`https://api.resend.com/emails/${sendResult.id}`, {
+        headers: { Authorization: `Bearer ${resendKey}` },
+      })
+      const detail = await statusRes.json().catch(() => ({}))
+      console.log(`- delivery status: ${detail.last_event ?? 'unknown'} (from: ${detail.from ?? 'n/a'})`)
+    } catch {
+      console.log('- delivery status: check failed (non-fatal)')
+    }
+  }
 }
 
 // ── Summary ──────────────────────────────────────────────────────────────────
