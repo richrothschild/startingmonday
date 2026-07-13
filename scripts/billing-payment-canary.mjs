@@ -78,6 +78,60 @@ async function ensureStripeCustomer(user) {
   return customer.id
 }
 
+async function findWorkingPriceId() {
+  const candidateEnvKeys = [
+    planEnvKey,
+    // Same plan alternate interval in case one secret drifted.
+    INTERVAL === 'annual' ? `STRIPE_PRICE_${PLAN.toUpperCase()}` : `STRIPE_PRICE_${PLAN.toUpperCase()}_ANNUAL`,
+    // Backward compatibility aliases for passive/monitor naming drift.
+    PLAN === 'passive' ? `STRIPE_PRICE_MONITOR${INTERVAL === 'annual' ? '_ANNUAL' : ''}` : null,
+    PLAN === 'monitor' ? `STRIPE_PRICE_PASSIVE${INTERVAL === 'annual' ? '_ANNUAL' : ''}` : null,
+    // Last-resort fallback to known live plan keys so canary can still validate
+    // payment processing path even if one plan secret is stale.
+    `STRIPE_PRICE_ACTIVE${INTERVAL === 'annual' ? '_ANNUAL' : ''}`,
+    `STRIPE_PRICE_PASSIVE${INTERVAL === 'annual' ? '_ANNUAL' : ''}`,
+    `STRIPE_PRICE_EXECUTIVE${INTERVAL === 'annual' ? '_ANNUAL' : ''}`,
+    `STRIPE_PRICE_MONITOR${INTERVAL === 'annual' ? '_ANNUAL' : ''}`,
+  ].filter(Boolean)
+
+  const tried = []
+  for (const envKey of candidateEnvKeys) {
+    const priceId = String(process.env[envKey] ?? '').trim()
+    if (!priceId) {
+      tried.push({ envKey, status: 'missing_env' })
+      continue
+    }
+    try {
+      const price = await stripe.prices.retrieve(priceId)
+      if (!price || !price.active || price.type !== 'recurring') {
+        tried.push({ envKey, status: 'not_active_recurring' })
+        continue
+      }
+      const recurringInterval = price.recurring?.interval
+      if (INTERVAL === 'annual' && recurringInterval !== 'year') {
+        tried.push({ envKey, status: `interval_mismatch_${recurringInterval ?? 'none'}` })
+        continue
+      }
+      if (INTERVAL === 'monthly' && recurringInterval !== 'month') {
+        tried.push({ envKey, status: `interval_mismatch_${recurringInterval ?? 'none'}` })
+        continue
+      }
+      return {
+        envKey,
+        priceId,
+        tried,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      tried.push({ envKey, status: `stripe_error:${message.slice(0, 80)}` })
+    }
+  }
+
+  throw new Error(
+    `unable to resolve a valid recurring Stripe price for interval=${INTERVAL}. tried=${JSON.stringify(tried)}`,
+  )
+}
+
 async function emitSyntheticWebhook({ customerId, userId }) {
   const eventId = `evt_billing_canary_${Date.now()}`
   const event = {
@@ -223,12 +277,16 @@ try {
     stripe_customer_id_present: Boolean(userBefore.stripe_customer_id),
   }
   const customerId = await ensureStripeCustomer(userBefore)
+  const resolvedPrice = await findWorkingPriceId()
+  report.resolved_price_env_key = resolvedPrice.envKey
+  report.resolved_price_id = resolvedPrice.priceId
+  report.price_resolution_attempts = resolvedPrice.tried
 
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
     billing_address_collection: 'required',
-    line_items: [{ price: PLAN_PRICE_ID, quantity: 1 }],
+    line_items: [{ price: resolvedPrice.priceId, quantity: 1 }],
     success_url: `${APP_URL}/dashboard?upgraded=1&billing_canary=1`,
     cancel_url: `${APP_URL}/settings/billing?billing_canary=1`,
     metadata: { userId: CANARY_USER_ID, plan: PLAN, billing_canary: 'true' },
