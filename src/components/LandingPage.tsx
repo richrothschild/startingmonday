@@ -223,6 +223,42 @@ function OpportunityTimingGapChart({ className = 'h-auto w-full' }: { className?
 }
 
 
+function OpportunityTimingGapChartMobile({ className = 'h-auto w-full' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 360 320" className={className} role="img" aria-label="Opportunity timing gap: Starting Monday enters while the role is taking shape; typical candidates enter at the public posting">
+      <circle cx="18" cy="26" r="7" fill="#86efac" stroke="#4ade80" strokeWidth="1.5" />
+      <text x="34" y="31" fill="#86efac" fontSize="16" fontWeight="600">Starting Monday</text>
+      <text x="34" y="53" fill="#cbd5e1" fontSize="13">enters while the role is still taking shape</text>
+
+      <circle cx="18" cy="88" r="7" fill="#fb923c" stroke="#f97316" strokeWidth="1.5" />
+      <text x="34" y="93" fill="#fb923c" fontSize="16" fontWeight="600">Typical candidates</text>
+      <text x="34" y="115" fill="#cbd5e1" fontSize="13">enter when the posting is public and crowded</text>
+
+      <line x1="30" y1="190" x2="330" y2="190" stroke="#475569" strokeWidth="1.5" />
+      <circle cx="45" cy="190" r="5" fill="#64748b" />
+      <circle cx="92" cy="190" r="5" fill="#64748b" />
+      <circle cx="139" cy="190" r="5" fill="#64748b" />
+      <circle cx="186" cy="190" r="5" fill="#64748b" />
+      <circle cx="233" cy="190" r="5" fill="#64748b" />
+      <circle cx="280" cy="190" r="5" fill="#64748b" />
+      <circle cx="327" cy="190" r="5" fill="#64748b" />
+
+      <line x1="92" y1="160" x2="92" y2="182" stroke="#4ade80" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="92" cy="155" r="6.5" fill="#86efac" stroke="#4ade80" strokeWidth="1.5" />
+      <line x1="186" y1="160" x2="186" y2="182" stroke="#f97316" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="186" cy="155" r="6.5" fill="#fb923c" stroke="#f97316" strokeWidth="1.5" />
+
+      <text x="45" y="215" fill="#cbd5e1" fontSize="13" fontWeight="500" textAnchor="middle">Signal</text>
+      <text x="186" y="215" fill="#cbd5e1" fontSize="13" fontWeight="500" textAnchor="middle">Open</text>
+      <text x="327" y="215" fill="#cbd5e1" fontSize="13" fontWeight="500" textAnchor="middle">Start</text>
+
+      <line x1="30" y1="248" x2="330" y2="248" stroke="#475569" strokeWidth="1" opacity="0.4" />
+      <text x="30" y="276" fill="#cbd5e1" fontSize="13.5" fontWeight="600">Enter early: fewer rivals, more shaping power.</text>
+      <text x="30" y="300" fill="#cbd5e1" fontSize="13.5" fontWeight="600">By posting day, you are already known and trusted.</text>
+    </svg>
+  )
+}
+
 function RoleLandingProbabilityChart({ className = 'h-auto w-full' }: { className?: string }) {
   return (
     <svg viewBox="0 0 600 292" className={className} role="img" aria-label="Role landing probability chart comparing Starting Monday and typical paths">
@@ -346,9 +382,14 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
         <section id="core-clarity" data-emi-section="clarity_block" data-first-mile-section="homepage_hero" className="px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
           <div className="mx-auto max-w-5xl">
             {isManagerToolsPage && (
-              <p className="mb-5 text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
-                Welcome, Manager Tools community
-              </p>
+              <div className="mb-6">
+                <p className="text-[1.4rem] font-semibold leading-tight tracking-tight text-orange-100 sm:text-[1.75rem]">
+                  Welcome, Manager Tools community
+                </p>
+                <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-slate-300">
+                  You are here from &ldquo;Things We Think We Think.&rdquo; Starting Monday applies the discipline you already practice: relationships first, executed on a weekly cadence.
+                </p>
+              </div>
             )}
             {isHomePage ? (
               <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_390px] lg:items-start">
@@ -373,6 +414,26 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                     <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-slate-300/90 sm:text-[15px] [text-wrap:pretty]">
                       {hero.competitiveEdge}
                     </p>
+                  )}
+                  {isManagerToolsPage && (
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                      <TrackLink
+                        href={heroPrimaryHref}
+                        event={EVENT_NAMES.channelEntryClicked}
+                        logToUserEvents
+                        properties={{
+                          channel: 'executives',
+                          cta_label: 'hero_manager_tools_signup',
+                          source_page: sourcePage,
+                          variant_key: `landing_${experimentVariant}`,
+                          experiment_variant: experimentVariant,
+                        }}
+                        className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-orange-300/70 bg-orange-400 px-6 py-3 text-[14px] font-bold text-slate-950 shadow-[0_10px_30px_rgba(193,127,59,0.22)] transition-transform hover:-translate-y-0.5 hover:bg-orange-300"
+                      >
+                        {heroPrimaryLabel}
+                      </TrackLink>
+                      <p className="max-w-md text-[12px] leading-relaxed text-slate-400">{hero.trialNote}</p>
+                    </div>
                   )}
                 </div>
                 <div className="relative mx-auto h-[480px] w-full max-w-[390px] overflow-hidden rounded-[1.6rem] border border-white/12 shadow-[0_30px_72px_rgba(2,6,23,0.42)] lg:mx-0 lg:justify-self-end">
@@ -414,15 +475,15 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
               </div>
             )}
 
-            {(!isHomePage || isManagerToolsPage) && (
-              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            {!isHomePage && (
+              <div className="mt-8 mb-8 flex flex-col gap-3 sm:flex-row">
                 <TrackLink
                   href={heroPrimaryHref}
                   event={EVENT_NAMES.channelEntryClicked}
                   logToUserEvents
                   properties={{
                     channel: 'executives',
-                    cta_label: isManagerToolsPage ? 'hero_manager_tools_signup' : 'hero_apply_beta',
+                    cta_label: 'hero_apply_beta',
                     source_page: sourcePage,
                     variant_key: `landing_${experimentVariant}`,
                     experiment_variant: experimentVariant,
@@ -431,9 +492,6 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                 >
                   {heroPrimaryLabel}
                 </TrackLink>
-                {isManagerToolsPage && (
-                  <p className="max-w-md text-[12px] leading-relaxed text-slate-400">{hero.trialNote}</p>
-                )}
               </div>
             )}
 
@@ -574,7 +632,8 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                     Explore the evidence →
                   </TrackLink>
                   <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
-                    <OpportunityTimingGapChart />
+                    <OpportunityTimingGapChart className="hidden h-auto w-full sm:block" />
+                    <OpportunityTimingGapChartMobile className="h-auto w-full sm:hidden" />
                   </div>
                 </article>
 
@@ -601,7 +660,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
               </div>
             </section>
 
-            <HomepageBriefTeaser />
+            <HomepageBriefTeaser ctaAsTextLink={isManagerToolsPage} />
           </>
         )}
 
@@ -614,22 +673,9 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
                   <h2 className="mb-6 text-[22px] font-bold leading-snug text-white">
                     For managers and leaders in transition.
                   </h2>
-                  <div className="mb-6 grid grid-cols-1 gap-3">
-                    <TrackLink
-                      href="/for-executives"
-                      event={EVENT_NAMES.channelEntryClicked}
-                      logToUserEvents
-                      properties={{
-                        channel: 'executives',
-                        cta_label: 'next_step_manager_tools_audience',
-                        source_page: sourcePage,
-                      }}
-                      className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition-colors hover:border-orange-300/60 hover:bg-white/10"
-                    >
-                      <p className="text-[13px] font-semibold text-white">Managers and Leaders</p>
-                      <p className="mt-1 text-[12px] leading-relaxed text-slate-300">Built for active or near-term leadership transitions in the Manager Tools community.</p>
-                    </TrackLink>
-                  </div>
+                  <p className="mb-6 max-w-3xl text-[15px] leading-relaxed text-slate-200/90">
+                    You would be joining the founding Manager Tools cohort. Early members get a direct feedback line to the team building Starting Monday and help shape where the product goes next.
+                  </p>
                   {faqs && faqs.length > 0 && (
                     <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {faqs.map((faq) => (
