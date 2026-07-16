@@ -48,9 +48,9 @@ type ImportSession = {
 export default async function ContactsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ saved?: string; error?: string }>
+  searchParams: Promise<{ saved?: string; error?: string; company_id?: string }>
 }) {
-  const { saved, error: saveError } = await searchParams
+  const { saved, error: saveError, company_id: preselectedCompanyId } = await searchParams
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -303,6 +303,7 @@ export default async function ContactsPage({
                   <select
                     id="contact-company"
                     name="company_id"
+                    defaultValue={companyList.some(co => co.id === preselectedCompanyId) ? preselectedCompanyId : ''}
                     className="w-full border border-white/15 rounded px-3 py-2 text-[13px] text-slate-100 focus:outline-none focus:border-white/30 bg-slate-950/70"
                   >
                     <option value="">- No company -</option>

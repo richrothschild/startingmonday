@@ -400,7 +400,7 @@ export default async function SignalsPage({
                         ) : co ? (
                           <>
                             <Link
-                              href={`/dashboard/contacts/new?company_id=${co.id}`}
+                              href={`/dashboard/contacts?company_id=${co.id}`}
                               className="text-[13px] font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors"
                             >
                               + Add contact at {co.name}
