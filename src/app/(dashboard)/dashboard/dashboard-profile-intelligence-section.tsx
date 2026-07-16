@@ -51,7 +51,7 @@ export function DashboardProfileIntelligenceSection({
   const rankedAttentionCard = (() => {
     if (companiesWithoutContact.length > 0) {
       return {
-        href: '/dashboard/contacts/new',
+        href: '/dashboard/contacts',
         count: companiesWithoutContact.length,
         title: `${companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact`,
         body: companiesWithoutContact.slice(0, 2).map((c) => c.name).join(', '),
@@ -218,7 +218,7 @@ export function DashboardProfileIntelligenceSection({
           <h2 className="text-[13px] font-semibold text-slate-400 mb-3">What needs attention</h2>
           <div className={`grid grid-cols-1 gap-3 ${numIntelGaps === 2 ? 'sm:grid-cols-2' : numIntelGaps >= 3 ? 'sm:grid-cols-3' : ''}`}>
             {companiesWithoutContact.length > 0 && (
-              <Link href="/dashboard/contacts/new" className="bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 transition-colors block">
+              <Link href="/dashboard/contacts" className="bg-white/5 border border-white/15 rounded p-4 hover:border-white/35 transition-colors block">
                 <div className="text-[26px] font-bold text-slate-100 leading-none mb-1">{companiesWithoutContact.length}</div>
                 <div className="text-[13px] font-semibold text-slate-200 mb-1.5">
                   {companiesWithoutContact.length === 1 ? 'company' : 'companies'} with no contact

@@ -212,13 +212,20 @@ async function run() {
     const targetRoutes = [...new Set([...(baseline.requiredRoutes ?? []), ...discoveredRoutes])]
 
     const results = []
+    const routeErrors = []
     for (const route of targetRoutes) {
-      const result = await measureRoute(page, route)
-      results.push(result)
+      try {
+        const result = await measureRoute(page, route)
+        results.push(result)
+      } catch (error) {
+        // A single broken route must not kill the run before the report is
+        // written - record it as a deviation and keep crawling.
+        routeErrors.push(`${route}: ${error instanceof Error ? error.message.split('\n')[0] : String(error)}`)
+      }
     }
 
     const missingRequiredRoutes = (baseline.requiredRoutes ?? []).filter((route) => !targetRoutes.includes(route))
-    const deviations = evaluateAgainstBaseline(results, baseline)
+    const deviations = [...routeErrors, ...evaluateAgainstBaseline(results, baseline)]
     for (const missingRoute of missingRequiredRoutes) {
       deviations.push(`required route missing from crawl: ${missingRoute}`)
     }
