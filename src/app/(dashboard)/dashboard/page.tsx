@@ -52,6 +52,7 @@ import { canAccessFeature, getUserSubscription } from "@/lib/subscription";
 import { greetingInTz, fullDateInTz } from "@/lib/date";
 import { FirstMileTelemetry } from "@/components/FirstMileTelemetry";
 import { applyDashboardSignalContract } from "@/lib/dashboard-signal-contract";
+import { rankSignals } from "@/lib/intelligence-quality";
 import { stripStaleRelativeTime } from "@/lib/follow-up-copy";
 
 // Full class strings - must not be constructed dynamically (Tailwind scanner needs to see them)
@@ -97,6 +98,8 @@ type ProfileRow = {
   weekly_goal: number | null;
   stall_nudge_dismissed_at: string | null;
   search_path: string | null;
+  role_type: string | null;
+  search_persona: string | null;
 };
 
 type UserRow = {
@@ -177,7 +180,7 @@ export default async function DashboardPage({
   const { data: profileRaw } = await supabase
     .from("user_profiles")
     .select(
-      "full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, briefing_frequency, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path",
+      "full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, briefing_frequency, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path, role_type, search_persona",
     )
     .eq("user_id", user.id)
     .single();
@@ -382,11 +385,29 @@ export default async function DashboardPage({
 
   const companies = rawCompanies as CompanyRow[] | null;
   const userRow = rawUserRow as UserRow | null;
-  const { companySignals: signalsDeduped, patternAlerts } =
+  const { companySignals: contractCompanySignals, patternAlerts: contractPatternAlerts } =
     applyDashboardSignalContract([
       ...((rawSignals ?? []) as unknown as SignalRow[]),
       ...((rawPatternAlerts ?? []) as unknown as SignalRow[]),
     ]);
+  // Signal parity contract: the signals index applies rankSignals suppression
+  // (low confidence, stale, duplicate) before display, so the dashboard must
+  // count and render the same visible set or the two routes disagree.
+  const suppressedSignalIds = new Set(
+    rankSignals(
+      [...contractCompanySignals, ...contractPatternAlerts],
+      { roleType: profile?.role_type, searchPersona: profile?.search_persona },
+      { includeSuppressed: true },
+    )
+      .filter((entry) => entry.suppressed)
+      .map((entry) => entry.signal.id),
+  );
+  const signalsDeduped = contractCompanySignals.filter(
+    (signal) => !suppressedSignalIds.has(signal.id),
+  );
+  const patternAlerts = contractPatternAlerts.filter(
+    (signal) => !suppressedSignalIds.has(signal.id),
+  );
   const contactStatRows = (contactRows ?? []) as unknown as ContactStatRow[];
   const enrichmentStatRows = (enrichmentRows ??
     []) as unknown as ContactStatRow[];
