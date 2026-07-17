@@ -48,11 +48,18 @@ jobs:
             case "$file" in
               *webhooks/stripe*|*health*|*demo-brief*|*demo-email*|*partners*|*optimize*|*admin/health*|*notify/new-user*|*auth/verify*) continue ;;
               *briefing/send*) continue ;;  # retired endpoint (returns 410)
+              *auth/login-submit*) continue ;;  # login form action: intentionally public, rate-limited via enforcePublicEndpointGuard
+              *internal/automation/emi-smoke*) continue ;;  # shared-secret token guard (x-emi-smoke-token)
+              *coach-handoff/preview*) continue ;;  # stateless size-capped JSON transform: no DB access, no side effects
             esac
             # Check if file has POST/PUT/DELETE but no auth guard
-            # Also accepts: createAdminClient or getStaffMember (admin/intelligence routes use staff session check)
+            # Accepted guards:
+            #   requireAuth / requireFeatureAccess / requirePrepAccess - user session guards
+            #   createAdminClient / getStaffMember - staff session check (admin/intelligence routes)
+            #   requireAutomationAccess - staff automation guard (admin/automation routes, wraps requireStaffAutomationAccess)
+            #   auth.getUser - direct Supabase session check with 401 handling (events/onboarding routes)
             if grep -qE 'export async function (POST|PUT|DELETE)' "$file"; then
-              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess|createAdminClient|getStaffMember' "$file"; then
+              if ! grep -qE 'requireAuth|requireFeatureAccess|requirePrepAccess|createAdminClient|getStaffMember|requireAutomationAccess|auth\.getUser' "$file"; then
                 echo "MISSING AUTH: $file"
                 failed=$((failed + 1))
               fi
@@ -74,20 +81,43 @@ jobs:
 
       - name: Verify migration files have no gaps or duplicates
         run: |
+          # Duplicate numbers that already shipped to production via parallel
+          # merges. They are grandfathered as-is: renumbering applied migrations
+          # would desync the files from Supabase's migration history.
+          GRANDFATHERED_DUPLICATES=" 107 109 120 129 130 131 132 158 "
+          # Legacy pre-numbering migrations, applied to production before the
+          # NNN_ convention existed.
+          GRANDFATHERED_UNNUMBERED=" create-notifications-table.sql create-warn-notification-rpc.sql "
           failed=0
-          prev=0
+          prev=-1
+          prev_name=""
           while IFS= read -r f; do
             name=$(basename "$f")
-            num=$(echo "$name" | grep -oE '^[0-9]+')
-            expected=$((prev + 1))
-            if [[ "$num" != "$(printf '%03d' $expected)" ]]; then
-              echo "GAP or DUPLICATE: expected $(printf '%03d' $expected), got $num ($name)"
-              failed=$((failed + 1))
+            raw_num=$(echo "$name" | grep -oE '^[0-9]+' || true)
+            if [[ -z "$raw_num" ]]; then
+              if [[ "$GRANDFATHERED_UNNUMBERED" != *" $name "* ]]; then
+                echo "UNNUMBERED: $name does not follow the NNN_description.sql convention"
+                failed=$((failed + 1))
+              fi
+              continue
             fi
-            prev=$expected
+            num=$((10#$raw_num))
+            if [[ $prev -ge 0 ]]; then
+              if [[ $num -eq $prev ]]; then
+                if [[ "$GRANDFATHERED_DUPLICATES" != *" $num "* ]]; then
+                  echo "DUPLICATE: $name shares number $num with $prev_name"
+                  failed=$((failed + 1))
+                fi
+              elif [[ $num -ne $((prev + 1)) ]]; then
+                echo "GAP: $prev_name -> $name (missing $((prev + 1))..$((num - 1)))"
+                failed=$((failed + 1))
+              fi
+            fi
+            prev=$num
+            prev_name=$name
           done < <(ls supabase/migrations/*.sql | sort)
           if [[ $failed -gt 0 ]]; then
             exit 1
           else
-            echo "PASS: Migration sequence is clean (001–$(printf '%03d' $prev))."
+            echo "PASS: Migration sequence is clean through $(printf '%03d' $prev) (grandfathered duplicates:$GRANDFATHERED_DUPLICATES)."
           fi
