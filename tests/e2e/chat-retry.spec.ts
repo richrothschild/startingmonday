@@ -67,8 +67,11 @@ test('chat retry banner dismisses on X click', async ({ page }) => {
   await page.getByPlaceholder(/Ask anything/).fill('test message')
   await page.getByRole('button', { name: 'Send' }).click()
 
-  await expect(page.getByText('Rate limit exceeded.')).toBeVisible({ timeout: 10_000 })
+  // Scope to the banner: other page furniture (e.g. PersonalEmailNudge) also
+  // renders a "Dismiss" button, so an unscoped .last() clicks the wrong one.
+  const banner = page.getByTestId('chat-retry-banner')
+  await expect(banner.getByText('Rate limit exceeded.')).toBeVisible({ timeout: 10_000 })
 
-  await page.getByRole('button', { name: 'Dismiss' }).last().click()
+  await banner.getByRole('button', { name: 'Dismiss' }).click()
   await expect(page.getByText('Rate limit exceeded.')).toHaveCount(0)
 })

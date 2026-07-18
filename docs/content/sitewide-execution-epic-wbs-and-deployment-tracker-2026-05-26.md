@@ -116,7 +116,7 @@ Latest consolidated run status:
 1. PASS - `npm run growth:council:strict`
 2. PASS - `npm run growth:metrics:strict`
 3. PASS - `npm run growth:weekly-outputs:strict`
-4. PASS - `npm run release:sitewide-note:strict` (after restoring explicit tracker reference to `docs/content/release-note-2026-07-03-sitewide-execution-epic.md`)
+4. PASS - `npm run release:sitewide-note:strict` (after restoring explicit tracker reference to `docs/content/release-note-2026-07-03-sitewide-execution-epic.md`; current note: `docs/content/release-note-2026-07-17-sitewide-execution-epic.md`)
 5. PASS - `npm run marketing:trust-proof:gate`
 6. PASS - `npm run ux:rubric:pages`
 7. PASS - `npm run ux:quality:all-pages`

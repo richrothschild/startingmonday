@@ -53,7 +53,7 @@ test('@rubric dashboard CTA taxonomy uses one canonical label per destination', 
   for (const route of ROUTES) {
     await page.goto(route, { waitUntil: 'domcontentloaded' })
 
-    const labels = await page.evaluate((destinations) => {
+    const labels = await page.evaluate(({ destinations, currentRoute }) => {
       const result: Record<string, string[]> = {}
       for (const d of destinations) result[d] = []
 
@@ -62,6 +62,10 @@ test('@rubric dashboard CTA taxonomy uses one canonical label per destination', 
         const href = link.getAttribute('href')
         if (!href) continue
         for (const d of destinations) {
+          // A page's links to itself (mode toggles, filters, pagination) are
+          // in-page controls, not cross-navigation CTAs - the taxonomy
+          // contract applies to how OTHER routes label the destination.
+          if (d === currentRoute) continue
           if (href === d || href.startsWith(`${d}?`) || href.startsWith(`${d}#`)) {
             const text = (link.textContent ?? '').replace(/\s+/g, ' ').trim()
             if (text) result[d].push(text)
@@ -70,7 +74,7 @@ test('@rubric dashboard CTA taxonomy uses one canonical label per destination', 
       }
 
       return result
-    }, DESTINATIONS as unknown as string[])
+    }, { destinations: DESTINATIONS as unknown as string[], currentRoute: route })
 
     for (const destination of DESTINATIONS) {
       for (const raw of labels[destination] ?? []) {
