@@ -41,7 +41,8 @@ jobs:
             const workflows = [
               { id: 'ci.yml', name: 'CI', maxAgeMinutes: null, requireSuccess: false },
               { id: 'monitoring.yml', name: 'Production Monitoring', maxAgeMinutes: 90, requireSuccess: true, consecutiveFailureThreshold: 2 },
-              { id: 'data-integrity-alerts.yml', name: 'Data Integrity Alerts', maxAgeMinutes: 45, requireSuccess: true },
+              // Runs every 15m; 90m window absorbs routine GitHub scheduler delays (observed 60m+) like the other frequent monitors.
+              { id: 'data-integrity-alerts.yml', name: 'Data Integrity Alerts', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'deployment-watchdog.yml', name: 'Deployment Watchdog', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'fast-burn-alert.yml', name: 'Fast-Burn Alert', maxAgeMinutes: 90, requireSuccess: true },
               { id: 'dependency-health.yml', name: 'Dependency Health', maxAgeMinutes: 90, requireSuccess: true },
@@ -50,7 +51,8 @@ jobs:
               { id: 'production-synthetics.yml', name: 'Production Synthetics', maxAgeMinutes: 120, requireSuccess: true },
               { id: 'dashboard-behavior-baseline.yml', name: 'Dashboard Behavior Baseline Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'trust-integrity-agent.yml', name: 'Trust Integrity Agent', maxAgeMinutes: 60 * 30, requireSuccess: true },
-              { id: 'trust-escalation-agent.yml', name: 'Trust Escalation Agent', maxAgeMinutes: 60 * 2, requireSuccess: true },
+              // Runs every 2h; a window equal to the cadence flags every scheduler delay as stale. 5h allows ~2 missed slots.
+              { id: 'trust-escalation-agent.yml', name: 'Trust Escalation Agent', maxAgeMinutes: 60 * 5, requireSuccess: true },
               { id: 'experience-vitals-agent.yml', name: 'Experience Vitals Agent', maxAgeMinutes: 60 * 8, requireSuccess: true },
               { id: 'journey-synthetic-agent.yml', name: 'Journey Synthetic Agent', maxAgeMinutes: 60 * 3, requireSuccess: true },
               { id: 'reliability-daily-report.yml', name: 'Reliability Daily Report', maxAgeMinutes: 60 * 30, requireSuccess: true },
@@ -59,7 +61,7 @@ jobs:
               { id: 'experience-portfolio-rollup.yml', name: 'Experience Portfolio Rollup', maxAgeMinutes: 60 * 30, requireSuccess: true },
               { id: 'cognitive-load-agent.yml', name: 'Cognitive Load Agent', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
               { id: 'cognitive-fluency-calibration-dispatch.yml', name: 'Cognitive Fluency Calibration Dispatch', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
-              { id: 'cognitive-calibration-loop.yml', name: 'Cognitive Calibration Loop', maxAgeMinutes: 60 * 24 * 110, requireSuccess: true },
+              { id: 'cognitive-calibration-loop.yml', name: 'Cognitive Calibration Loop', maxAgeMinutes: 60 * 24 * 110, requireSuccess: true, consecutiveFailureThreshold: 2 },
               { id: 'experience-weekly-issues-report.yml', name: 'Experience Weekly Issues Report', maxAgeMinutes: 60 * 24 * 8, requireSuccess: true },
               { id: 'experience-monthly-trends-report.yml', name: 'Experience Monthly Trends Report', maxAgeMinutes: 60 * 24 * 40, requireSuccess: true },
               { id: 'experience-seeding-checklist.yml', name: 'Experience Seeding Checklist', maxAgeMinutes: 60 * 24 * 10, requireSuccess: true },
