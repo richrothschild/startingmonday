@@ -258,7 +258,7 @@ AWARDS
       sector: 'Foodservice Distribution',
       fit_score: 6,
       stage: 'watching',
-      notes: 'Tier 2A - filter carefully. Only strategic roles (key account, healthcare/education account manager). Avoid commodity territory sales.',
+      notes: 'Tier 2A - filter carefully. Only strategic roles (key account, healthcare/education account manager). Avoid commodity territory sales.', // gitleaks:allow (persona copy, "key account" false positive)
     },
   ]).select('id, name')
 
