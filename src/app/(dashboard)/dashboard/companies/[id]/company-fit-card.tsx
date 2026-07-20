@@ -1,4 +1,4 @@
-import type { CompanyFitSummary } from '@/lib/signal-orientation'
+import type { CompanyFitSummary } from '../../signal-orientation'
 
 export function CompanyFitCard({ fitSummary }: { fitSummary: CompanyFitSummary }) {
   return (

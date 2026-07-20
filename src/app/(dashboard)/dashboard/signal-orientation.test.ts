@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCompanyFitSummary, buildSignalTranslation } from '@/lib/signal-orientation'
+import { buildCompanyFitSummary, buildSignalTranslation } from './signal-orientation'
 
 describe('buildSignalTranslation', () => {
   it('threads profile context into the why-it-matters line', () => {

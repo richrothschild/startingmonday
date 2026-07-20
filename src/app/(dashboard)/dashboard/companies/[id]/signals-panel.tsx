@@ -1,6 +1,6 @@
 ﻿import Link from 'next/link'
 import { DraftPanel } from '@/components/DraftPanel'
-import { buildSignalTranslation } from '@/lib/signal-orientation'
+import { buildSignalTranslation } from '../../signal-orientation'
 import { SIGNAL_LABELS, type SignalDetailRow } from './company-detail-constants'
 
 type Props = {

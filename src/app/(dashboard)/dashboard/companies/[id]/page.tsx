@@ -26,7 +26,7 @@ import { DocumentsPanel } from './documents-panel'
 import { CompanyCompetitiveField } from './company-competitive-field'
 import { CompanyFitCard } from './company-fit-card'
 import { CompanyOfferFields } from './company-offer-fields'
-import { buildCompanyFitSummary } from '@/lib/signal-orientation'
+import { buildCompanyFitSummary } from '../../signal-orientation'
 
 type CompanyDetailRow = {
   id: string

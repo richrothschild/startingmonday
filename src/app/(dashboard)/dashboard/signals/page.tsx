@@ -9,7 +9,7 @@ import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
 import { rankSignals } from '@/lib/intelligence-quality'
-import { buildSignalTranslation } from '@/lib/signal-orientation'
+import { buildSignalTranslation } from '../signal-orientation'
 import {
   applyDashboardSignalContract,
   DASHBOARD_COMPANY_SIGNAL_LIMIT,
