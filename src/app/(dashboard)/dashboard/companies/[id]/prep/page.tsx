@@ -68,6 +68,7 @@ export default async function PrepPage({
   if (!company) notFound()
 
   const hasCareerHistory = Array.isArray(profile?.career_history_json) && (profile.career_history_json as unknown[]).length > 0
+  const hasResume = (profile?.resume_text?.length ?? 0) >= 200
   const hasPositioning = !!(profile?.positioning_summary?.trim())
   const hasTargetTitles = (profile?.target_titles ?? []).length > 0
 
@@ -96,6 +97,7 @@ export default async function PrepPage({
         hasInterviewNotes={!!(company.interview_notes?.trim())}
         roleType={profile?.role_type ?? null}
         hasCareerHistory={hasCareerHistory}
+        hasResume={hasResume}
         hasPositioning={hasPositioning}
         hasTargetTitles={hasTargetTitles}
         profileScore={profileScore}

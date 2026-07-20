@@ -511,6 +511,7 @@ export function PrepClient({
   hasInterviewNotes,
   roleType,
   hasCareerHistory,
+  hasResume = false,
   hasPositioning,
   hasTargetTitles,
   profileScore,
@@ -526,6 +527,7 @@ export function PrepClient({
   hasInterviewNotes: boolean
   roleType: string | null
   hasCareerHistory: boolean
+  hasResume?: boolean
   hasPositioning: boolean
   hasTargetTitles: boolean
   profileScore: number
@@ -1164,49 +1166,82 @@ export function PrepClient({
         )}
 
         {!brief && !busy && (() => {
-          const warnings: { key: string; label: string; message: string; href: string; cta: string }[] = []
-          if (!hasCareerHistory) warnings.push({
-            key: 'career',
-            label: 'Career history missing',
-            message: 'The brief cannot personalize your background. Add verified career history on your profile.',
-            href: '/dashboard/profile',
-            cta: 'Add career history',
-          })
-          if (!hasPositioning) warnings.push({
-            key: 'positioning',
-            label: 'No positioning summary',
-            message: 'Win Thesis will be less differentiated without a positioning statement.',
-            href: '/dashboard/profile',
-            cta: 'Add positioning',
-          })
-          if (!hasTargetTitles) warnings.push({
-            key: 'targets',
-            label: 'No target roles set',
-            message: 'The brief cannot calibrate to your targets without at least one target title.',
-            href: '/dashboard/profile',
-            cta: 'Set targets',
-          })
-          if (!hasNotes) warnings.push({
-            key: 'notes',
-            label: 'No company notes',
-            message: (roleType && NO_NOTES_MESSAGES[roleType]) ?? 'Company notes are the single biggest lever for brief quality.',
-            href: `/dashboard/companies/${companyId}`,
-            cta: 'Add notes',
-          })
-          if (warnings.length === 0) return null
+          type ReadyState = 'ready' | 'partial' | 'missing'
+          const items: { key: string; label: string; state: ReadyState; message: string; href: string; cta: string }[] = [
+            {
+              key: 'career',
+              label: 'Career history',
+              state: hasCareerHistory ? 'ready' : hasResume ? 'partial' : 'missing',
+              message: hasCareerHistory
+                ? 'Verified career history on file.'
+                : hasResume
+                  ? 'Resume on file. The brief will use it. Add verified career history for stronger personalization.'
+                  : 'Add your career history so the brief can personalize your background. Import from your resume or add manually.',
+              href: '/dashboard/profile',
+              cta: hasCareerHistory ? 'Review' : hasResume ? 'Verify history' : 'Add career history',
+            },
+            {
+              key: 'positioning',
+              label: 'Positioning summary',
+              state: hasPositioning ? 'ready' : 'missing',
+              message: hasPositioning
+                ? 'Positioning statement on file.'
+                : 'Your Win Thesis will be more differentiated with a positioning statement.',
+              href: '/dashboard/profile',
+              cta: 'Add positioning',
+            },
+            {
+              key: 'targets',
+              label: 'Target roles',
+              state: hasTargetTitles ? 'ready' : 'missing',
+              message: hasTargetTitles
+                ? 'Target roles set.'
+                : 'Set at least one target title so the brief calibrates to the role you want.',
+              href: '/dashboard/profile',
+              cta: 'Set targets',
+            },
+            {
+              key: 'notes',
+              label: 'Company notes',
+              state: hasNotes ? 'ready' : 'missing',
+              message: hasNotes
+                ? 'Company notes on file.'
+                : (roleType && NO_NOTES_MESSAGES[roleType]) ?? 'Company notes are the single biggest lever for brief quality.',
+              href: `/dashboard/companies/${companyId}`,
+              cta: 'Add notes',
+            },
+          ]
+          const readyCount = items.filter(i => i.state !== 'missing').length
+          if (readyCount === items.length && items.every(i => i.state === 'ready')) return null
           return (
-            <div className="mb-4 flex flex-col gap-2">
-              {warnings.map(w => (
-                <div key={w.key} className="px-4 py-3 bg-amber-500/10 border border-amber-500/30 rounded flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[12px] font-semibold text-amber-300 mb-0.5">{w.label}</p>
-                    <p className="text-[12px] text-amber-600">{w.message}</p>
+            <div className="mb-4 bg-white/5 border border-white/10 rounded px-5 py-4">
+              <div className="flex items-baseline justify-between gap-4 mb-3">
+                <p className="text-[12px] font-bold tracking-[0.1em] uppercase text-slate-300">Brief readiness</p>
+                <p className="text-[12px] text-slate-400">{readyCount} of {items.length} inputs ready</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                {items.map(i => (
+                  <div key={i.key} className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-2.5 min-w-0">
+                      <span aria-hidden className={`mt-0.5 text-[13px] leading-none ${i.state === 'ready' ? 'text-emerald-400' : i.state === 'partial' ? 'text-amber-300' : 'text-slate-500'}`}>
+                        {i.state === 'ready' ? '\u2713' : i.state === 'partial' ? '\u25D0' : '\u25CB'}
+                      </span>
+                      <div className="min-w-0">
+                        <p className={`text-[12px] font-semibold ${i.state === 'missing' ? 'text-amber-300' : 'text-slate-200'}`}>{i.label}</p>
+                        <p className="text-[12px] text-slate-400 leading-snug">{i.message}</p>
+                      </div>
+                    </div>
+                    {i.state !== 'ready' && (
+                      <Link href={i.href} className="shrink-0 text-[11px] font-semibold text-slate-200 border border-white/15 rounded px-2.5 py-1 hover:border-white/40 transition-colors whitespace-nowrap">
+                        {i.cta}
+                      </Link>
+                    )}
                   </div>
-                  <Link href={w.href} className="shrink-0 text-[11px] font-semibold text-amber-300 border border-amber-500/40 rounded px-2.5 py-1 hover:bg-amber-500/20 transition-colors whitespace-nowrap">
-                    {w.cta}
-                  </Link>
-                </div>
-              ))}
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-slate-500">
+                You can generate the brief now. Each input you add makes it more specific to you.
+              </p>
             </div>
           )
         })()}
