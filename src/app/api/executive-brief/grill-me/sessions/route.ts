@@ -1,4 +1,5 @@
 ﻿import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -67,7 +68,8 @@ Question requirements:
 
     const text = (response.content[0] as { text?: string })?.text?.trim() ?? ''
     return text.length > 10 ? text : initialQuestionFallback(topic, goal)
-  } catch {
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'executive-brief/grill-me/sessions', op: 'generate-initial-question' } })
     return initialQuestionFallback(topic, goal)
   }
 }
@@ -85,6 +87,7 @@ export async function GET(request: NextRequest) {
     .limit(25)
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'executive-brief/grill-me/sessions', op: 'list', userId: auth.userId } })
     return NextResponse.json({ sessions: [], degraded: true }, { status: 200 })
   }
   return NextResponse.json({ sessions: ((data ?? []) as GrillSessionListRow[]) })
@@ -137,6 +140,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error || !data) {
+    Sentry.captureException(error ?? new Error('grill session insert returned no row'), { extra: { route: 'executive-brief/grill-me/sessions', op: 'create', userId: auth.userId } })
     return NextResponse.json({ error: 'Failed to create Grill Me session' }, { status: 500 })
   }
 

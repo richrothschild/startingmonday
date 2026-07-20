@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffMember } from '@/lib/staff'
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest) {
     .maybeSingle()
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'admin/sales-enablement/workspace', op: 'load' } })
     return withAuthCookies(NextResponse.json({ error: error.message }, { status: 500 }), gate.auth)
   }
 
@@ -83,6 +85,7 @@ export async function PUT(request: NextRequest) {
     .single()
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'admin/sales-enablement/workspace', op: 'save' } })
     return withAuthCookies(NextResponse.json({ error: error.message }, { status: 500 }), gate.auth)
   }
 

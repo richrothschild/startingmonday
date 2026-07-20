@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -149,6 +150,7 @@ export async function POST(request: NextRequest) {
       .eq('id', existing.id) as unknown as { error: unknown }
 
     if (error) {
+      Sentry.captureException(error, { extra: { route: 'partner/weekly-loop', op: 'update', userId: auth.userId } })
       return withAuthCookies(NextResponse.json({ error: 'Failed to update weekly loop.' }, { status: 500 }), auth)
     }
   } else {
@@ -165,6 +167,7 @@ export async function POST(request: NextRequest) {
       } as never) as unknown as { error: unknown }
 
     if (error) {
+      Sentry.captureException(error, { extra: { route: 'partner/weekly-loop', op: 'create', userId: auth.userId } })
       return withAuthCookies(NextResponse.json({ error: 'Failed to create weekly loop.' }, { status: 500 }), auth)
     }
   }

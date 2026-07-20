@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { requireAuth } from '@/lib/require-auth'
 
@@ -182,6 +183,7 @@ export async function PUT(request: NextRequest) {
     .single()
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'plan/weekly', op: 'save', userId: auth.userId } })
     return Response.json({ error: 'Failed to save weekly plan.' }, { status: 500 })
   }
 
@@ -222,6 +224,7 @@ export async function POST(request: NextRequest) {
     .maybeSingle()
 
   if (existingError) {
+    Sentry.captureException(existingError, { extra: { route: 'plan/weekly', op: 'regenerate-load', userId: auth.userId } })
     return Response.json({ error: 'Failed to load current plan.' }, { status: 500 })
   }
 
@@ -291,6 +294,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (saveError) {
+    Sentry.captureException(saveError, { extra: { route: 'plan/weekly', op: 'regenerate-save', userId: auth.userId } })
     return Response.json({ error: 'Failed to regenerate weekly plan.' }, { status: 500 })
   }
 

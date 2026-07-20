@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import * as Sentry from '@sentry/nextjs'
 import { asLooseSupabaseClient, parseAutomationBody, requireAutomationAccess } from '@/lib/admin-automation-route'
 
 const MARKETING_MOTIONS = ['direct_paid_sprint', 'partner_pilot', 'other'] as const
@@ -62,6 +63,7 @@ export async function GET(request: NextRequest) {
   )
 
   if (errors.length > 0) {
+    Sentry.captureException(new Error('wedge-economics-ledgers load failed'), { extra: { route: 'admin/wedge-economics-ledgers', op: 'load', details: errors } })
     return NextResponse.json({ error: 'Failed to load wedge economics ledgers.', details: errors }, { status: 500 })
   }
 
@@ -105,6 +107,7 @@ export async function POST(request: NextRequest) {
   if (marketingRows.length > 0) {
     const insertResult = await sb.from('marketing_spend_entries').insert(marketingRows)
     if (insertResult.error) {
+      Sentry.captureException(insertResult.error, { extra: { route: 'admin/wedge-economics-ledgers', op: 'insert-marketing' } })
       return NextResponse.json({ error: 'Failed to insert marketing spend entries.', details: [insertResult.error.message] }, { status: 500 })
     }
   }
@@ -112,6 +115,7 @@ export async function POST(request: NextRequest) {
   if (partnerCommercialRows.length > 0) {
     const insertResult = await sb.from('partner_commercial_events').insert(partnerCommercialRows)
     if (insertResult.error) {
+      Sentry.captureException(insertResult.error, { extra: { route: 'admin/wedge-economics-ledgers', op: 'insert-partner-commercial' } })
       return NextResponse.json({ error: 'Failed to insert partner commercial events.', details: [insertResult.error.message] }, { status: 500 })
     }
   }

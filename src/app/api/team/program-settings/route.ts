@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import {
@@ -170,6 +171,7 @@ export async function PATCH(request: NextRequest) {
     .upsert({ partner_id: partner.id, ...updates } as never, { onConflict: 'partner_id' })
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'team/program-settings', op: 'save', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to save program settings.' }, { status: 500 }), auth)
   }
 

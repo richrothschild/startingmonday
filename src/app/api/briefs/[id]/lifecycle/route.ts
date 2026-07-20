@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { apiError } from '@/lib/api-error'
@@ -45,6 +46,7 @@ export async function PATCH(
     .single()
 
   if (error || !data) {
+    Sentry.captureException(error ?? new Error('brief lifecycle update returned no row'), { extra: { route: 'briefs/[id]/lifecycle', briefId: id, userId: auth.userId } })
     return NextResponse.json({ error: 'Failed to update brief lifecycle' }, { status: 500 })
   }
 

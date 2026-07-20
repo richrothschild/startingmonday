@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { getUserSubscription, canAccessFeature } from '@/lib/subscription'
@@ -139,6 +140,7 @@ Use real market knowledge. Numbers should be specific, not rounded. Return only 
     }
     
     recordTraceError({ feature: 'salary_intelligence', userId, error: err instanceof Error ? err.message : String(err) })
+    Sentry.captureException(err, { extra: { route: 'salary-intelligence', userId } })
     return NextResponse.json({ error: 'Failed to generate salary analysis' }, { status: 500 })
   }
 }

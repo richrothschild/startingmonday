@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -95,6 +96,7 @@ export async function GET(request: NextRequest) {
     .order('granted_at', { ascending: true }) as unknown as { data: PartnerRoleRow[] | null; error: unknown }
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'team/roles', op: 'list', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to load roles.' }, { status: 500 }), auth)
   }
 
@@ -156,6 +158,7 @@ export async function POST(request: NextRequest) {
       .update({ revoked_at: null, granted_by: auth.userId, granted_at: new Date().toISOString() } as never)
       .eq('id', existing.id) as unknown as { error: unknown }
     if (error) {
+      Sentry.captureException(error, { extra: { route: 'team/roles', op: 'restore', userId: auth.userId } })
       return withAuthCookies(NextResponse.json({ error: 'Failed to restore role.' }, { status: 500 }), auth)
     }
   } else {
@@ -168,6 +171,7 @@ export async function POST(request: NextRequest) {
         granted_by: auth.userId,
       } as never) as unknown as { error: unknown }
     if (error) {
+      Sentry.captureException(error, { extra: { route: 'team/roles', op: 'assign', userId: auth.userId } })
       return withAuthCookies(NextResponse.json({ error: 'Failed to assign role.' }, { status: 500 }), auth)
     }
   }
