@@ -8,13 +8,14 @@ interface TagInputProps {
   defaultValue?: string
   value?: string
   onChange?: (val: string) => void
+  required?: boolean
 }
 
 function splitTags(s: string): string[] {
   return s.split(',').map(t => t.trim()).filter(Boolean)
 }
 
-export function TagInput({ name, id, placeholder, defaultValue, value, onChange }: TagInputProps) {
+export function TagInput({ name, id, placeholder, defaultValue, value, onChange, required = false }: TagInputProps) {
   const controlled = value !== undefined
   const [tags, setTags] = useState<string[]>(() => splitTags(controlled ? (value ?? '') : (defaultValue ?? '')))
   const [text, setText] = useState('')
@@ -67,6 +68,17 @@ export function TagInput({ name, id, placeholder, defaultValue, value, onChange 
       onClick={() => inputRef.current?.focus()}
     >
       {name && <input type="hidden" name={name} value={tags.join(', ')} readOnly />}
+      {required && (
+        <input
+          type="text"
+          value={tags.join(', ')}
+          readOnly
+          required
+          aria-hidden="true"
+          tabIndex={-1}
+          className="sr-only"
+        />
+      )}
       {tags.map((t, i) => (
         <span key={i} className="inline-flex items-center gap-1 bg-slate-100 text-slate-700 text-[12px] font-medium px-2.5 py-1 rounded-full">
           {t}
