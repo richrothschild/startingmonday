@@ -31,6 +31,9 @@ import { DashboardProfileIntelligenceSection } from "./dashboard-profile-intelli
 import { DashboardWelcomeNudgeSection } from "./dashboard-welcome-nudge-section";
 import { DashboardAdvancedModulesSection } from "./dashboard-advanced-modules-section";
 import { DashboardTopShellSection } from "./dashboard-top-shell-section";
+import { DashboardCampaignFoundationSection } from "./dashboard-campaign-foundation-section";
+import { buildExecutiveRiskModel } from "./dashboard-executive-risk-utils";
+import { buildDailyMomentumActions } from "./dashboard-momentum-actions";
 import {
   WarmPathsSection,
   PatternAlertsSection,
@@ -87,6 +90,8 @@ type ProfileRow = {
   briefing_timezone: string | null;
   onboarding_completed_at: string | null;
   target_titles: string[] | null;
+  target_sectors: string[] | null;
+  target_locations: string[] | null;
   resume_text: string | null;
   positioning_summary: string | null;
   briefing_time: string | null;
@@ -180,7 +185,7 @@ export default async function DashboardPage({
   const { data: profileRaw } = await supabase
     .from("user_profiles")
     .select(
-      "full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, resume_text, positioning_summary, briefing_time, briefing_frequency, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path, role_type, search_persona",
+      "full_name, search_started_at, briefing_timezone, onboarding_completed_at, target_titles, target_sectors, target_locations, resume_text, positioning_summary, briefing_time, briefing_frequency, current_title, placed_at, placement_company, search_status, weekly_goal, stall_nudge_dismissed_at, search_path, role_type, search_persona",
     )
     .eq("user_id", user.id)
     .single();
@@ -891,36 +896,6 @@ export default async function DashboardPage({
         ? "Operating state: watch"
         : "Operating state: reset";
 
-  const relationshipAction: DailyMomentumAction = warmPaths[0]
-    ? {
-        id: "relationship-action",
-        track: "relationship",
-        title: `Re-engage ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
-        body: `Use this while it is fresh: a concrete reason to re-engage. ${warmPaths[0].signal.signal_summary}`,
-        effortMinutes: 15,
-        href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
-        cta: "Outreach",
-      }
-    : overdueCount > 0
-      ? {
-          id: "relationship-action",
-          track: "relationship",
-          title: "Clear the next relationship follow-up",
-          body: "A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.",
-          effortMinutes: 15,
-          href: "/dashboard/calendar",
-          cta: "Calendar",
-        }
-      : {
-          id: "relationship-action",
-          track: "relationship",
-          title: "Pick one warm relationship to move",
-          body: "Open contacts, choose one person who can unblock a real conversation, and schedule the next step.",
-          effortMinutes: 15,
-          href: "/dashboard/contacts",
-          cta: "Contacts",
-        };
-
   const rolesFormingStageLabel = warmPaths[0]
     ? (STAGE[allList.find((c) => c.id === warmPaths[0].companyId)?.stage ?? ""]
         ?.label ?? null)
@@ -950,73 +925,19 @@ export default async function DashboardPage({
         }
       : null;
 
-  const readinessAction: DailyMomentumAction = interviewingCompany
-    ? {
-        id: "readiness-action",
-        track: "readiness",
-        title: `Generate prep for ${interviewingCompany.name}`,
-        body: "If you already have a live conversation, readiness work outranks almost everything else.",
-        effortMinutes: 25,
-        href: `/dashboard/companies/${interviewingCompany.id}/prep`,
-        cta: "Prep brief",
-      }
-    : profileScore < 100
-      ? {
-          id: "readiness-action",
-          track: "readiness",
-          title: "Tighten the profile inputs driving your search",
-          body: "Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.",
-          effortMinutes: 20,
-          href: profileHref,
-          cta: "Profile",
-        }
-      : {
-          id: "readiness-action",
-          track: "readiness",
-          title: "Run one readiness pass before more outreach",
-          body: "Use the strategy layer to sharpen what you will say before the next live conversation opens.",
-          effortMinutes: 20,
-          href: "/dashboard/strategy",
-          cta: "Strategy",
-        };
-
-  const focusAction: DailyMomentumAction =
-    signalCount > 0
-      ? {
-          id: "focus-action",
-          track: "focus",
-          title: "Review the freshest market signals",
-          body: "New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.",
-          effortMinutes: 15,
-          href: "/dashboard/signals",
-          cta: "Signals",
-        }
-      : totalCount < 12
-        ? {
-            id: "focus-action",
-            track: "focus",
-            title: "Add one more target company",
-            body: "A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.",
-            effortMinutes: 15,
-            href: "/dashboard/companies/new",
-            cta: "Company",
-          }
-        : {
-            id: "focus-action",
-            track: "focus",
-            title: "Convert today into a concrete next step",
-            body: "If the pipeline already exists, pick the next visible move instead of expanding scope.",
-            effortMinutes: 10,
-            href:
-              overdueCount > 0 ? "/dashboard/calendar" : "/dashboard/briefing",
-            cta: overdueCount > 0 ? "Calendar" : "Briefing",
-          };
-
-  const dailyMomentumActions: DailyMomentumAction[] = [
-    relationshipAction,
-    readinessAction,
-    focusAction,
-  ];
+  const dailyMomentumActions: DailyMomentumAction[] = buildDailyMomentumActions({
+    warmPath: warmPaths[0] ?? null,
+    overdueCount,
+    interviewingCompany: interviewingCompany
+      ? { id: interviewingCompany.id, name: interviewingCompany.name }
+      : null,
+    profileScore,
+    profileHref,
+    signalCount,
+    totalCount,
+    targetTitles: (profile?.target_titles as string[] | null) ?? [],
+    targetSectors: (profile?.target_sectors as string[] | null) ?? [],
+  });
 
   const sponsorCoveragePercent =
     totalCount > 0 ? Math.round((contactCountMap.size / totalCount) * 100) : 0;
@@ -1040,171 +961,17 @@ export default async function DashboardPage({
             ? "Target and Narrative Design"
             : "Trigger and Identity Reset";
 
-  const threatRiskHigh =
-    (daysSinceLastAction ?? 0) >= 14 ||
-    (totalCount === 0 && (daysSinceOnboard ?? 0) > 7);
-  const perfectionRiskHigh =
-    profileScore < 80 && totalCount === 0 && (daysSinceOnboard ?? 0) > 5;
-  const isolationRiskHigh = totalCount >= 3 && sponsorCoveragePercent < 50;
-  const decisionRiskHigh =
-    offerCompanies.length > 0 && (daysSinceLastAction ?? 0) >= 7;
-
-  const riskItems: Array<{
-    id: string;
-    label: string;
-    level: "low" | "medium" | "high";
-    detail: string;
-    href: string;
-    cta: string;
-  }> = [
-    {
-      id: "threat-state",
-      label: "Threat and uncertainty state",
-      level: threatRiskHigh ? "high" : signalCount > 0 ? "low" : "medium",
-      detail: threatRiskHigh
-        ? "Activity decay suggests rising uncertainty. Use one concrete move to restore control today."
-        : "Signal and action flow is stable enough to keep confidence anchored in execution.",
-      href: "/dashboard/briefing",
-      cta: "Briefing",
-    },
-    {
-      id: "perfection-loop",
-      label: "Perfection loop risk",
-      level: perfectionRiskHigh
-        ? "high"
-        : profileScore < 100
-          ? "medium"
-          : "low",
-      detail: perfectionRiskHigh
-        ? "You may be polishing inputs without enough market activation. Ship one outreach action."
-        : "Profile quality is improving. Keep edits tied to live outreach outcomes.",
-      href: profileScore < 100 ? "/dashboard/profile" : "/dashboard/strategy",
-      cta: profileScore < 100 ? "Profile" : "Strategy brief",
-    },
-    {
-      id: "isolation-risk",
-      label: "Sponsor map depth",
-      level: isolationRiskHigh
-        ? "high"
-        : sponsorCoveragePercent < 70
-          ? "medium"
-          : "low",
-      detail: isolationRiskHigh
-        ? "Coverage is low for an executive search. Relationship depth is likely the bottleneck now."
-        : "Sponsor coverage is trending in the right direction. Keep adding depth at top targets.",
-      href: "/dashboard/contacts",
-      cta: "Sponsors",
-    },
-    {
-      id: "decision-drag",
-      label: "Decision drag risk",
-      level: decisionRiskHigh
-        ? "high"
-        : offerCompanies.length > 0
-          ? "medium"
-          : "low",
-      detail:
-        offerCompanies.length > 0
-          ? "Offer context exists. Decision quality drops when timeline and no-go criteria stay implicit."
-          : "No active offer context. Keep criteria explicit before final-round intensity rises.",
-      href:
-        offerCompanies.length > 0 ? "/dashboard/offers" : "/dashboard/strategy",
-      cta: offerCompanies.length > 0 ? "Offer compare" : "Criteria",
-    },
-  ];
-
-  const executivePrimaryRisk = (() => {
-    if (decisionRiskHigh)
-      return {
-        label: "Decision drag",
-        level: "high" as const,
-        href: "/dashboard/offers",
-        cta: "Offer compare",
-      };
-    if (isolationRiskHigh)
-      return {
-        label: "Sponsor depth gap",
-        level: "high" as const,
-        href: "/dashboard/contacts",
-        cta: "Sponsors",
-      };
-    if (threatRiskHigh)
-      return {
-        label: "Momentum decay",
-        level: "high" as const,
-        href: "/dashboard/briefing",
-        cta: "Briefing",
-      };
-    if (perfectionRiskHigh)
-      return {
-        label: "Perfection loop",
-        level: "medium" as const,
-        href: "/dashboard/profile",
-        cta: "Profile",
-      };
-    return {
-      label: "Managed",
-      level: "low" as const,
-      href: "/dashboard/briefing",
-      cta: "Briefing",
-    };
-  })();
-
-  const executiveDecisionBrief = (() => {
-    if (offerCompanies.length > 0) {
-      return {
-        changed: `${offerCompanies.length} offer ${offerCompanies.length === 1 ? "is" : "are"} in play and decision pressure is rising.`,
-        whyNow:
-          "Late-stage ambiguity increases regret risk more than almost any other phase.",
-        recommendedMove:
-          "Run the offer comparison and lock explicit no-go criteria before new conversations start.",
-        downsideIfDelayed:
-          "Decision lag weakens negotiation leverage and increases reactive choices.",
-        href: "/dashboard/offers",
-        cta: "Run offer comparison",
-      };
-    }
-
-    if (signalCount > 0) {
-      return {
-        changed: `${signalCount} fresh market signal${signalCount === 1 ? "" : "s"} landed this week.`,
-        whyNow:
-          "Signal freshness decays quickly unless converted to relationship action.",
-        recommendedMove:
-          "Convert one high-relevance signal into a warm outreach draft today.",
-        downsideIfDelayed:
-          "You lose timing edge and return to generic outreach.",
-        href: "/dashboard/signals",
-        cta: "Signals",
-      };
-    }
-
-    if (overdueCount > 0) {
-      return {
-        changed: `${overdueCount} follow-up ${overdueCount === 1 ? "is" : "are"} overdue.`,
-        whyNow:
-          "At executive level, delay is often interpreted as loss of conviction.",
-        recommendedMove:
-          "Clear the next due relationship action before adding new scope.",
-        downsideIfDelayed:
-          "Pipeline credibility drops and conversation velocity slows.",
-        href: "/dashboard/calendar",
-        cta: "Calendar",
-      };
-    }
-
-    return {
-      changed:
-        "No urgent blockers, but sponsor depth and cadence still determine outcomes.",
-      whyNow: "Quiet weeks are where high-quality systems get built.",
-      recommendedMove:
-        "Add one sponsor at a priority company and schedule one next step.",
-      downsideIfDelayed:
-        "Momentum looks stable but conversion quality erodes over time.",
-      href: "/dashboard/contacts",
-      cta: "Strengthen sponsor map",
-    };
-  })();
+  const { riskItems, executivePrimaryRisk, executiveDecisionBrief } =
+    buildExecutiveRiskModel({
+      daysSinceLastAction,
+      daysSinceOnboard,
+      totalCount,
+      profileScore,
+      sponsorCoveragePercent,
+      offerCount: offerCompanies.length,
+      signalCount,
+      overdueCount,
+    });
 
   const offerCockpit = {
     show: offerCompanies.length > 0,
@@ -1349,6 +1116,14 @@ export default async function DashboardPage({
           executiveStageLabel={executiveStageLabel}
           executivePrimaryRisk={executivePrimaryRisk}
           executiveDecisionBrief={executiveDecisionBrief}
+        />
+
+        <DashboardCampaignFoundationSection
+          targetTitles={(profile?.target_titles as string[] | null) ?? []}
+          targetSectors={(profile?.target_sectors as string[] | null) ?? []}
+          targetLocations={(profile?.target_locations as string[] | null) ?? []}
+          positioningSummary={profile?.positioning_summary ?? null}
+          currentTitle={profile?.current_title ?? null}
         />
 
         <DailyMomentumPlan

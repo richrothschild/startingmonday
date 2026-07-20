@@ -12,6 +12,9 @@ export type DailyMomentumAction = {
   id: string
   title: string
   track: 'relationship' | 'readiness' | 'focus'
+  whyNow?: string
+  whyYou?: string
+  links?: { label: string; href: string }[]
 }
 
 type DailyMomentumPlanProps = {
@@ -219,6 +222,35 @@ export function DailyMomentumPlan({ actions, dateKey, status }: DailyMomentumPla
                     </div>
                     <h3 className="text-[15px] font-semibold text-white mb-1.5">{action.title}</h3>
                     <p className="text-[13px] leading-relaxed text-slate-200">{action.body}</p>
+                    {(action.whyNow || action.whyYou) && (
+                      <dl className="mt-3 space-y-1.5">
+                        {action.whyNow && (
+                          <div className="flex gap-2 text-[12px] leading-relaxed">
+                            <dt className="shrink-0 font-bold uppercase tracking-[0.08em] text-orange-200/90">Why now</dt>
+                            <dd className="text-slate-300">{action.whyNow}</dd>
+                          </div>
+                        )}
+                        {action.whyYou && (
+                          <div className="flex gap-2 text-[12px] leading-relaxed">
+                            <dt className="shrink-0 font-bold uppercase tracking-[0.08em] text-orange-200/90">Why you</dt>
+                            <dd className="text-slate-300">{action.whyYou}</dd>
+                          </div>
+                        )}
+                      </dl>
+                    )}
+                    {(action.links ?? []).length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {action.links!.map((link) => (
+                          <Link
+                            key={link.href + link.label}
+                            href={link.href}
+                            className="rounded border border-white/15 px-2.5 py-1 text-[12px] font-semibold text-slate-200 hover:border-white/40 transition-colors"
+                          >
+                            {link.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-3 lg:w-[15rem] lg:items-end">
