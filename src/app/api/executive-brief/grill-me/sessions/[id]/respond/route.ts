@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS } from '@/lib/anthropic'
@@ -146,8 +147,8 @@ Rules:
     const cleaned = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '').trim()
     const parsed = GrillMeTurnSynthesisSchema.safeParse(JSON.parse(cleaned))
     if (parsed.success) return parsed.data
-  } catch {
-    // fallback below
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'grill-me/sessions/[id]/respond', op: 'synthesize' } })
   }
 
   return fallbackSynthesis(input.question, input.answer)
@@ -205,6 +206,7 @@ export async function POST(
     })
 
   if (insertEntryError) {
+    Sentry.captureException(insertEntryError, { extra: { route: 'grill-me/sessions/[id]/respond', op: 'insert-entry', sessionId: id, userId: auth.userId } })
     return NextResponse.json({ error: 'Failed to persist checkpoint entry' }, { status: 500 })
   }
 
@@ -228,6 +230,7 @@ export async function POST(
       .insert(flagRows)
 
     if (flagInsertError) {
+      Sentry.captureException(flagInsertError, { extra: { route: 'grill-me/sessions/[id]/respond', op: 'insert-flags', sessionId: id, userId: auth.userId } })
       return NextResponse.json({ error: 'Failed to persist flags' }, { status: 500 })
     }
   }
@@ -317,6 +320,7 @@ export async function POST(
     .eq('user_id', auth.userId)
 
   if (updateError) {
+    Sentry.captureException(updateError, { extra: { route: 'grill-me/sessions/[id]/respond', op: 'update-session', sessionId: id, userId: auth.userId } })
     return NextResponse.json({ error: 'Failed to update session state' }, { status: 500 })
   }
 

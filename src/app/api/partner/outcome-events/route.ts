@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -100,6 +101,7 @@ export async function POST(request: NextRequest) {
     } as never) as unknown as { error: unknown }
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'partner/outcome-events', op: 'record', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to record outcome event.' }, { status: 500 }), auth)
   }
 
@@ -148,6 +150,7 @@ export async function GET(request: NextRequest) {
   const { data: events, error } = await (query as unknown as Promise<{ data: unknown[] | null; error: unknown }>)
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'partner/outcome-events', op: 'list', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to load outcome events.' }, { status: 500 }), auth)
   }
 

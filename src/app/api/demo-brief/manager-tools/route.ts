@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { POST as executiveBriefPost } from '../executive-brief/route'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
@@ -17,5 +18,10 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 	}
 
-	return executiveBriefPost(request)
+	try {
+		return await executiveBriefPost(request)
+	} catch (error) {
+		Sentry.captureException(error, { extra: { route: 'demo-brief/manager-tools' } })
+		return NextResponse.json({ error: 'Failed to generate manager-tools brief.' }, { status: 500 })
+	}
 }

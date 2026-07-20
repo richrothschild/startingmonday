@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { mapCoachHandoffToPreview, type CoachHandoffPayload } from '@/lib/coach-handoff-import'
 
 export const runtime = 'nodejs'
@@ -16,7 +17,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const preview = mapCoachHandoffToPreview(body)
+  let preview
+  try {
+    preview = mapCoachHandoffToPreview(body)
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'coach-handoff/preview', op: 'map' } })
+    return NextResponse.json({ ok: false, error: 'Failed to map handoff payload.' }, { status: 500 })
+  }
 
   if (!preview.positioningSummary && preview.targetSectors.length === 0 && preview.targetCompanies.length === 0) {
     return NextResponse.json(
