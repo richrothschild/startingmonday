@@ -113,6 +113,50 @@ Senior Engineering Manager | 2014 - 2017
 EDUCATION
 Wharton School, University of Pennsylvania - MBA, 2014
 Cornell University - BS Computer Science, 2010`,
+    career_history_json: [
+      {
+        company: 'Revvity',
+        title: 'VP of Engineering, SaaS Platform',
+        start_year: '2019',
+        end_year: '',
+        key_outcome: 'Built engineering org from 18 to 72 engineers; led platform migration from 500K to 4M active devices; delivered $4M IVDR compliance initiative with 0 audit findings.',
+        acquisition_note: 'Revvity was formerly PerkinElmer; role spans the rebrand.',
+      },
+      {
+        company: 'Revvity',
+        title: 'Director of Engineering',
+        start_year: '2017',
+        end_year: '2019',
+        key_outcome: 'Grew team from 8 to 18 engineers; established core engineering practices, CI/CD pipeline, and on-call structure.',
+      },
+      {
+        company: 'Veritas Technologies',
+        title: 'Senior Engineering Manager',
+        start_year: '2014',
+        end_year: '2017',
+        key_outcome: 'Led 12-person team building enterprise backup infrastructure; shipped 3 major product versions post-Symantec split.',
+      },
+    ],
+    star_stories: [
+      {
+        situation: 'Platform had to reach IVDR compliance under a fixed regulatory deadline while feature delivery continued.',
+        action: 'Led the $4M, 18-month compliance initiative across 4 teams, sequencing audit workstreams alongside the product roadmap.',
+        result: 'Passed with 0 audit findings, on schedule, without pausing delivery.',
+        tags: ['compliance', 'execution'],
+      },
+      {
+        situation: 'Platform serving 500K devices was hitting scaling limits with a 4M-device target on the roadmap.',
+        action: 'Led a phased platform migration while holding release cadence, managing the $23M engineering budget through the transition.',
+        result: 'Platform now serves 4M active devices; budget delivered within 3% annually.',
+        tags: ['scale', 'platform'],
+      },
+      {
+        situation: 'Two acquisitions closed in the middle of an aggressive delivery year.',
+        action: 'Ran both integrations directly: unified on-call, merged roadmaps, and retained key acquired engineers.',
+        result: 'Both integrations completed without slipping the delivery roadmap.',
+        tags: ['integration', 'leadership'],
+      },
+    ],
     search_status: 'active',
     briefing_timezone: 'America/New_York',
     briefing_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
@@ -128,10 +172,18 @@ Cornell University - BS Computer Science, 2010`,
 
   if (existingCompanies?.length) {
     const ids = existingCompanies.map(c => c.id)
-    await admin.from('scan_results').delete().in('company_id', ids)
-    await admin.from('contacts').delete().eq('user_id', userId)
-    await admin.from('follow_ups').delete().eq('user_id', userId)
-    await admin.from('companies').delete().eq('user_id', userId)
+    // Order matters: follow_ups references contacts; contacts reference companies.
+    const { error: followUpsErr } = await admin.from('follow_ups').delete().eq('user_id', userId)
+    if (followUpsErr) console.error('Cleanup failed (follow_ups):', followUpsErr.message)
+    const { error: contactsErr } = await admin.from('contacts').delete().eq('user_id', userId)
+    if (contactsErr) console.error('Cleanup failed (contacts):', contactsErr.message)
+    const { error: scansErr } = await admin.from('scan_results').delete().in('company_id', ids)
+    if (scansErr) console.error('Cleanup failed (scan_results):', scansErr.message)
+    const { error: companiesErr } = await admin.from('companies').delete().eq('user_id', userId)
+    if (companiesErr) {
+      console.error('Cleanup failed (companies):', companiesErr.message)
+      process.exit(1)
+    }
   }
 
   // Insert companies
@@ -318,11 +370,15 @@ Cornell University - BS Computer Science, 2010`,
 
   const fmt = (d: Date) => d.toISOString().split('T')[0]
 
+  const introCallDate = new Date(now)
+  introCallDate.setDate(introCallDate.getDate() - 8)
+  const introCallLabel = introCallDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+
   await admin.from('follow_ups').insert([
     {
       user_id: userId,
       company_id: byName['Kyruus Health'],
-      action: 'Follow up with David Park -- has been 8 days since intro call',
+      action: `Follow up with David Park -- intro call was ${introCallLabel}`,
       due_date: fmt(yesterday),
       status: 'pending',
     },

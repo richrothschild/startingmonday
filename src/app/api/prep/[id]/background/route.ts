@@ -4,7 +4,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
-import type { CareerEntry } from '@/components/CareerVerificationPanel'
+import { buildCareerHistorySection, buildStarStoriesSection } from '@/lib/prep-profile-context'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
@@ -51,7 +51,7 @@ export async function GET(
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const [{ data: company }, { data: profile }, { data: signals }] = await Promise.all([
     supabase.from('companies').select('name, sector, stage, notes, interview_notes').eq('id', companyId).eq('user_id', userId).single(),
-    supabase.from('user_profiles').select('full_name, current_title, current_company, positioning_summary, beyond_resume, resume_text, search_persona, role_type, career_history_json').eq('user_id', userId).single(),
+    supabase.from('user_profiles').select('full_name, current_title, current_company, positioning_summary, beyond_resume, resume_text, search_persona, role_type, career_history_json, star_stories').eq('user_id', userId).single(),
     supabase.from('company_signals').select('signal_type, signal_summary, signal_date').eq('company_id', companyId).eq('user_id', userId).gte('signal_date', since90d).order('signal_date', { ascending: false }).limit(5),
   ])
 
@@ -63,16 +63,7 @@ export async function GET(
     return new Response(stream, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
 
-  const careerHistory = Array.isArray(profile?.career_history_json)
-    ? (profile.career_history_json as CareerEntry[])
-        .slice(0, 5)
-        .map(e => `- ${e.title} at ${e.company}${e.start_year ? ` (${e.start_year}${e.end_year ? '–' + e.end_year : '–present'})` : ''}`)
-        .join('\n')
-    : null
-
-  const resumeSnippet = profile?.resume_text
-    ? profile.resume_text.slice(0, 1500)
-    : null
+  const careerSection = buildCareerHistorySection(profile, 1500)
 
   const signalSection = (signals ?? []).length > 0
     ? '\n\nRECENT SIGNALS\n' + signals!.map(s => {
@@ -84,7 +75,7 @@ export async function GET(
   const userPrompt = `Write a "Your Background Match" section for an executive preparing to interview at ${company.name}.
 
 CANDIDATE
-Name: ${profile?.full_name ?? 'the candidate'}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}${careerHistory ? `\n\nCareer history:\n${careerHistory}` : ''}${resumeSnippet && !careerHistory ? `\n\nResume excerpt:\n${resumeSnippet}` : ''}
+Name: ${profile?.full_name ?? 'the candidate'}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}${careerSection}${buildStarStoriesSection(profile, 'Use these stories as concrete evidence in "Where your background connects" where relevant. Reference actual situations and results from the stories, not generic claims.')}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}

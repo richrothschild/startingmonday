@@ -3,7 +3,8 @@ import * as Sentry from '@sentry/nextjs'
 import { requirePrepAccess } from '@/lib/require-prep-access'
 import { trackApiUsage } from '@/lib/api-usage'
 import { QUESTIONS_SYSTEM, roleTypeContext } from '@/lib/prompts'
-import { RESUME_CHARS, DOC_CHARS } from '@/lib/ai-limits'
+import { DOC_CHARS } from '@/lib/ai-limits'
+import { buildCareerHistorySection, buildStarStoriesSection } from '@/lib/prep-profile-context'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { apiError } from '@/lib/api-error'
@@ -42,7 +43,7 @@ export async function GET(
       .single(),
     supabase
       .from('user_profiles')
-      .select('full_name, current_title, current_company, target_titles, positioning_summary, resume_text, beyond_resume, role_type')
+      .select('full_name, current_title, current_company, target_titles, positioning_summary, resume_text, beyond_resume, role_type, career_history_json, star_stories')
       .eq('user_id', userId)
       .single(),
     supabase
@@ -95,7 +96,7 @@ export async function GET(
   const userPrompt = `Generate likely interview questions for ${name}'s interview at ${company.name}.
 
 CANDIDATE
-Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${roleTypeContext(profile?.role_type)}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.resume_text ? `\nResume / career history:\n${profile.resume_text.slice(0, RESUME_CHARS)}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Name: ${name}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${roleTypeContext(profile?.role_type)}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${buildCareerHistorySection(profile)}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}${buildStarStoriesSection(profile, 'For each question, identify which story below best answers it and reference it explicitly in the coaching note. Do not invent generic examples when a verified story fits.')}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}

@@ -4,6 +4,7 @@ import { trackApiUsage } from '@/lib/api-usage'
 import { isDemoUser } from '@/lib/demo'
 import { anthropic, getModelForTier } from '@/lib/anthropic'
 import { personaContext } from '@/lib/prompts'
+import { buildCareerHistorySection, buildStarStoriesSection } from '@/lib/prep-profile-context'
 import { apiError } from '@/lib/api-error'
 import { PrepRouteParamsSchema, firstZodError } from '@/lib/schemas'
 
@@ -31,7 +32,7 @@ export async function GET(
   const since90d = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   const [{ data: company }, { data: profile }, { data: signals }] = await Promise.all([
     supabase.from('companies').select('name, sector, stage, notes').eq('id', companyId).eq('user_id', userId).single(),
-    supabase.from('user_profiles').select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, beyond_resume, search_persona').eq('user_id', userId).single(),
+    supabase.from('user_profiles').select('full_name, current_title, current_company, target_titles, target_sectors, positioning_summary, beyond_resume, search_persona, resume_text, career_history_json, star_stories').eq('user_id', userId).single(),
     supabase.from('company_signals').select('signal_type, signal_summary, signal_date').eq('company_id', companyId).eq('user_id', userId).gte('signal_date', since90d).order('signal_date', { ascending: false }).limit(5),
   ])
 
@@ -59,7 +60,7 @@ export async function GET(
 CANDIDATE
 Name: ${profile?.full_name ?? 'the candidate'}${profile?.current_title ? `\nCurrent/recent title: ${profile.current_title}` : ''}${profile?.current_company ? `\nCurrent/recent company: ${profile.current_company}` : ''}${personaContext(profile?.search_persona)}
 Target roles: ${targetTitles || 'Not specified'}
-Target sectors: ${targetSectors || 'Not specified'}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}
+Target sectors: ${targetSectors || 'Not specified'}${profile?.positioning_summary ? `\nPositioning: ${profile.positioning_summary}` : ''}${buildCareerHistorySection(profile, 1500)}${profile?.beyond_resume ? `\nBeyond the resume: ${profile.beyond_resume}` : ''}${buildStarStoriesSection(profile, 'Choose the single strongest story as the personal thread for the statement. Weave it in as lived experience, not as a listed example.')}
 
 COMPANY
 Name: ${company.name}${company.sector ? `\nSector: ${company.sector}` : ''}
