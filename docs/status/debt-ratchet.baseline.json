@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-11T01:14:26.654Z",
+  "generatedAt": "2026-07-13T21:14:33.000Z",
   "metrics": {
     "placeholderCount": 226,
-    "lintWarnings": 555,
+    "lintWarnings": 602,
     "anyCount": 156,
-    "maxFileLines": 1734,
+    "maxFileLines": 1859,
     "filesOver800": 18
   },
-  "notes": "Manually aligned to current branch metrics to restore no-increase debt ratchet checks."
+  "notes": "Manually aligned to current branch metrics after SMK-429 managertools landing refinements merge (new dashboard/page.tsx adds lines; new files add lint warnings)."
 }

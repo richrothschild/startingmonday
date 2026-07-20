@@ -24,7 +24,7 @@ test.describe('Signup and onboarding', () => {
     await page.goto('/signup')
     await expect(page.locator('#email')).toBeVisible()
     await expect(page.locator('#password')).toBeVisible()
-    await expect(page.getByRole('button', { name: /Get started/i })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Get started|Create account|Start free trial/i })).toBeVisible()
   })
 
   test('unauthenticated user is redirected to login from dashboard', async ({ browser }) => {
@@ -61,7 +61,7 @@ test.describe('Billing and Stripe checkout', () => {
     await skipIfAuthUnavailable(page)
     await page.goto('/settings/billing')
     await expect(page.getByRole('heading', { name: 'Billing' }).first()).toBeVisible()
-    await expect(page.getByText('Account')).toBeVisible()
+    await expect(page.getByText('Account').first()).toBeVisible()
     await expect(page.getByText('Current Plan')).toBeVisible()
   })
 

@@ -25,11 +25,12 @@ const CSP = [
   "default-src 'self'",
   // Next.js App Router requires unsafe-inline for hydration scripts.
   // unsafe-eval is required by some Next.js internals and Sentry.
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com https://challenges.cloudflare.com https://us-assets.i.posthog.com",
-  "script-src-elem 'self' 'unsafe-inline' https://challenges.cloudflare.com https://us-assets.i.posthog.com",
+  // static.cloudflareinsights.com: Cloudflare Web Analytics beacon, injected at the edge by Cloudflare.
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com https://challenges.cloudflare.com https://us-assets.i.posthog.com https://static.cloudflareinsights.com",
+  "script-src-elem 'self' 'unsafe-inline' https://challenges.cloudflare.com https://us-assets.i.posthog.com https://static.cloudflareinsights.com",
   "style-src 'self' 'unsafe-inline'",
   // External services the browser connects to at runtime
-  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io https://challenges.cloudflare.com",
+  "connect-src 'self' *.supabase.co wss://*.supabase.co https://api.stripe.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.sentry.io https://*.ingest.sentry.io https://challenges.cloudflare.com https://cloudflareinsights.com",
   "img-src 'self' data: blob:",
   "font-src 'self'",
   "worker-src 'self' blob:",
