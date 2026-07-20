@@ -33,6 +33,7 @@ import { DashboardAdvancedModulesSection } from "./dashboard-advanced-modules-se
 import { DashboardTopShellSection } from "./dashboard-top-shell-section";
 import { DashboardCampaignFoundationSection } from "./dashboard-campaign-foundation-section";
 import { buildExecutiveRiskModel } from "./dashboard-executive-risk-utils";
+import { buildDailyMomentumActions } from "./dashboard-momentum-actions";
 import {
   WarmPathsSection,
   PatternAlertsSection,
@@ -895,36 +896,6 @@ export default async function DashboardPage({
         ? "Operating state: watch"
         : "Operating state: reset";
 
-  const relationshipAction: DailyMomentumAction = warmPaths[0]
-    ? {
-        id: "relationship-action",
-        track: "relationship",
-        title: `Re-engage ${warmPaths[0].contactName} at ${warmPaths[0].companyName}`,
-        body: `Use this while it is fresh: a concrete reason to re-engage. ${warmPaths[0].signal.signal_summary}`,
-        effortMinutes: 15,
-        href: `/dashboard/contacts/${warmPaths[0].contactId}/outreach`,
-        cta: "Outreach",
-      }
-    : overdueCount > 0
-      ? {
-          id: "relationship-action",
-          track: "relationship",
-          title: "Clear the next relationship follow-up",
-          body: "A due follow-up is the cleanest way to recover momentum. Close one loop before you add anything new.",
-          effortMinutes: 15,
-          href: "/dashboard/calendar",
-          cta: "Calendar",
-        }
-      : {
-          id: "relationship-action",
-          track: "relationship",
-          title: "Pick one warm relationship to move",
-          body: "Open contacts, choose one person who can unblock a real conversation, and schedule the next step.",
-          effortMinutes: 15,
-          href: "/dashboard/contacts",
-          cta: "Contacts",
-        };
-
   const rolesFormingStageLabel = warmPaths[0]
     ? (STAGE[allList.find((c) => c.id === warmPaths[0].companyId)?.stage ?? ""]
         ?.label ?? null)
@@ -954,73 +925,19 @@ export default async function DashboardPage({
         }
       : null;
 
-  const readinessAction: DailyMomentumAction = interviewingCompany
-    ? {
-        id: "readiness-action",
-        track: "readiness",
-        title: `Generate prep for ${interviewingCompany.name}`,
-        body: "If you already have a live conversation, readiness work outranks almost everything else.",
-        effortMinutes: 25,
-        href: `/dashboard/companies/${interviewingCompany.id}/prep`,
-        cta: "Prep brief",
-      }
-    : profileScore < 100
-      ? {
-          id: "readiness-action",
-          track: "readiness",
-          title: "Tighten the profile inputs driving your search",
-          body: "Briefing quality, prep quality, and positioning all degrade when the profile is incomplete.",
-          effortMinutes: 20,
-          href: profileHref,
-          cta: "Profile",
-        }
-      : {
-          id: "readiness-action",
-          track: "readiness",
-          title: "Run one readiness pass before more outreach",
-          body: "Use the strategy layer to sharpen what you will say before the next live conversation opens.",
-          effortMinutes: 20,
-          href: "/dashboard/strategy",
-          cta: "Strategy",
-        };
-
-  const focusAction: DailyMomentumAction =
-    signalCount > 0
-      ? {
-          id: "focus-action",
-          track: "focus",
-          title: "Review the freshest market signals",
-          body: "New signal density is highest-leverage when you turn it into a sharper outreach angle the same day.",
-          effortMinutes: 15,
-          href: "/dashboard/signals",
-          cta: "Signals",
-        }
-      : totalCount < 12
-        ? {
-            id: "focus-action",
-            track: "focus",
-            title: "Add one more target company",
-            body: "A thin pipeline creates pressure. Add one target with a real reason it belongs in the search.",
-            effortMinutes: 15,
-            href: "/dashboard/companies/new",
-            cta: "Company",
-          }
-        : {
-            id: "focus-action",
-            track: "focus",
-            title: "Convert today into a concrete next step",
-            body: "If the pipeline already exists, pick the next visible move instead of expanding scope.",
-            effortMinutes: 10,
-            href:
-              overdueCount > 0 ? "/dashboard/calendar" : "/dashboard/briefing",
-            cta: overdueCount > 0 ? "Calendar" : "Briefing",
-          };
-
-  const dailyMomentumActions: DailyMomentumAction[] = [
-    relationshipAction,
-    readinessAction,
-    focusAction,
-  ];
+  const dailyMomentumActions: DailyMomentumAction[] = buildDailyMomentumActions({
+    warmPath: warmPaths[0] ?? null,
+    overdueCount,
+    interviewingCompany: interviewingCompany
+      ? { id: interviewingCompany.id, name: interviewingCompany.name }
+      : null,
+    profileScore,
+    profileHref,
+    signalCount,
+    totalCount,
+    targetTitles: (profile?.target_titles as string[] | null) ?? [],
+    targetSectors: (profile?.target_sectors as string[] | null) ?? [],
+  });
 
   const sponsorCoveragePercent =
     totalCount > 0 ? Math.round((contactCountMap.size / totalCount) * 100) : 0;
