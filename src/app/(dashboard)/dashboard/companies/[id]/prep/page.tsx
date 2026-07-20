@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { PrepClient } from './prep-client'
 import type { InterviewStage } from '@/lib/prompts'
 
@@ -82,6 +83,14 @@ export default async function PrepPage({
 
   return (
     <div>
+      <Breadcrumbs
+        className="mb-4 px-4 sm:px-6 pt-6 max-w-6xl mx-auto"
+        items={[
+          { label: 'Dashboard', href: '/dashboard' },
+          { label: company.name, href: `/dashboard/companies/${id}` },
+          { label: 'Interview Prep' },
+        ]}
+      />
       <nav className="sr-only" aria-label="Prep quick actions">
         <Link href={`/dashboard/companies/${id}`}>Back to company page</Link>
         <Link href={`/dashboard/companies/${id}/prep?stage=first_interview`}>Start first interview prep</Link>

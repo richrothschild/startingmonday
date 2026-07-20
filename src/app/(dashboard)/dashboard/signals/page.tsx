@@ -2,12 +2,14 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { LogoutButton } from '../logout-button'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { addSignalFollowUp, generateSignalOutreach, requestSignalRefresh } from './actions'
 import { DraftPanel } from '@/components/DraftPanel'
 import { SignalOutreachGate } from '@/components/SignalOutreachGate'
 import { captureServerEvent } from '@/lib/posthog-server'
 import { logEvent } from '@/lib/events'
 import { rankSignals } from '@/lib/intelligence-quality'
+import { buildSignalTranslation } from '../signal-orientation'
 import {
   applyDashboardSignalContract,
   DASHBOARD_COMPANY_SIGNAL_LIMIT,
@@ -46,7 +48,7 @@ export default async function SignalsPage({
 
   const { data: profile } = await supabase
     .from('user_profiles')
-    .select('full_name, role_type, search_persona')
+    .select('full_name, role_type, search_persona, positioning_summary, target_titles, target_sectors')
     .eq('user_id', user.id)
     .single()
 
@@ -202,6 +204,13 @@ export default async function SignalsPage({
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-10">
+        <Breadcrumbs
+          className="mb-4"
+          items={[
+            { label: 'Dashboard', href: '/dashboard' },
+            { label: 'Signals' },
+          ]}
+        />
         <div className="flex items-center gap-4 mb-6">
           <div>
             <h1 className="text-[30px] font-bold text-white">Company Signals</h1>
@@ -336,6 +345,19 @@ export default async function SignalsPage({
                 const typeLabel = SIGNAL_TYPE_LABELS[sig.signal_type] ?? sig.signal_type.replace(/_/g, ' ')
 
                 const contact = contactByCompany.get(sig.company_id)
+                const companyContext = co
+                  ? { id: co.id, name: co.name }
+                  : { id: sig.company_id, name: 'the company' }
+                const translation = buildSignalTranslation(
+                  {
+                    signal_type: sig.signal_type,
+                    signal_summary: sig.signal_summary,
+                    outreach_angle: sig.outreach_angle ?? null,
+                  },
+                  profile,
+                  companyContext,
+                  contact?.id ?? null,
+                )
 
                 return (
                   <div key={sig.id} className="px-6 py-5">
@@ -353,7 +375,6 @@ export default async function SignalsPage({
                       </span>
                       <span className="text-[13px] text-slate-400 ml-auto">{dateLabel}</span>
                     </div>
-                    <p className="text-[13px] text-slate-200 leading-relaxed mb-2">{sig.signal_summary}</p>
                     <div className="flex items-center gap-2 flex-wrap mb-2">
                       <span className="inline-block px-2 py-0.5 rounded-full text-[13px] font-bold bg-white/10 text-slate-200 border border-white/15">
                         Confidence {sig._confidence}
@@ -367,71 +388,91 @@ export default async function SignalsPage({
                         </span>
                       )}
                     </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.5fr_0.8fr] gap-3 mt-4">
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                        <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">What happened</p>
+                        <p className="text-[13px] text-slate-200 leading-relaxed">{translation.whatHappened}</p>
+                      </div>
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                        <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">Why it may matter for your search</p>
+                        <p className="text-[13px] text-slate-200 leading-relaxed">{translation.whyItMatters}</p>
+                      </div>
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-4 flex flex-col gap-3">
+                        <div>
+                          <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-slate-400 mb-2">What to do next</p>
+                          <p className="text-[13px] text-slate-200 leading-relaxed">{translation.nextStepLabel}</p>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            href={translation.nextStepHref}
+                            className="text-[13px] font-semibold text-orange-100 hover:text-white bg-orange-500/20 hover:bg-orange-500/30 border border-orange-300/35 px-3 py-1.5 rounded transition-colors text-center"
+                          >
+                            Open {translation.nextStepVerb}
+                          </Link>
+                          <form action={addSignalFollowUp}>
+                            <input type="hidden" name="company_name" value={co?.name ?? ''} />
+                            <input type="hidden" name="signal_summary" value={sig.signal_summary} />
+                            <button
+                              type="submit"
+                              className="w-full text-[13px] font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors cursor-pointer"
+                            >
+                              + Follow up in 5 days
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                     {sig.outreach_angle && (
-                      <details className="group">
-                        <summary className="text-[13px] text-orange-300 font-semibold cursor-pointer list-none hover:text-orange-200 transition-colors">
-                          Outreach angle
-                        </summary>
-                        <p className="text-[13px] text-slate-300 italic mt-1.5 leading-relaxed">{sig.outreach_angle}</p>
-                      </details>
+                      <p className="text-[12px] text-slate-400 italic mt-3 leading-relaxed">Original angle: {sig.outreach_angle}</p>
                     )}
                     {sig.outreach_draft && (
-                      <DraftPanel draft={sig.outreach_draft} />
+                      <div className="mt-3"><DraftPanel draft={sig.outreach_draft} /></div>
                     )}
                     {sig.source_url && (
                       <a
                         href={sig.source_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block mt-2 text-[13px] text-slate-400 hover:text-slate-200 underline transition-colors"
+                        className="inline-block mt-3 text-[13px] text-slate-400 hover:text-slate-200 underline transition-colors"
                       >
                         Source link
                       </a>
                     )}
-                    <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-white/10">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        {contact ? (
-                          <Link
-                            href={`/dashboard/contacts/${contact.id}/outreach`}
-                            className="text-[13px] font-semibold text-emerald-100 hover:text-white bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-300/35 px-3 py-1.5 rounded transition-colors"
-                          >
-                              Draft outreach to {contact.name}
-                          </Link>
-                        ) : co ? (
-                          <>
-                            <Link
-                              href={`/dashboard/contacts?company_id=${co.id}`}
-                              className="text-[13px] font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors"
-                            >
-                              + Add contact at {co.name}
-                            </Link>
-                            <Link
-                              href={`/dashboard/companies/${co.id}/prep?stage=informal_meeting`}
-                              className="text-[13px] font-semibold text-slate-300 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors"
-                            >
-                              Prep a conversation
-                            </Link>
-                          </>
-                        ) : null}
-                        <form action={addSignalFollowUp}>
-                          <input type="hidden" name="company_name" value={co?.name ?? ''} />
-                          <input type="hidden" name="signal_summary" value={sig.signal_summary} />
-                          <button
-                            type="submit"
-                            className="text-[13px] font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors cursor-pointer"
-                          >
-                            + Follow up in 5 days
-                          </button>
-                        </form>
+                    {!sig.outreach_draft && !contact && co ? (
+                      <div className="mt-3 flex items-center gap-3 flex-wrap">
+                        <Link
+                          href={`/dashboard/contacts?company_id=${co.id}`}
+                          className="text-[13px] font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors"
+                        >
+                          + Add contact at {co.name}
+                        </Link>
+                        <Link
+                          href={`/dashboard/companies/${co.id}/prep?stage=informal_meeting`}
+                          className="text-[13px] font-semibold text-slate-300 hover:text-white border border-white/20 hover:border-white/35 bg-white/5 px-3 py-1.5 rounded transition-colors"
+                        >
+                          Prep a conversation
+                        </Link>
                       </div>
-                      {!sig.outreach_draft && (
+                    ) : null}
+                    {contact && !sig.outreach_draft && (
+                      <div className="mt-3 flex items-center gap-3 flex-wrap">
+                        <Link
+                          href={`/dashboard/contacts/${contact.id}/outreach`}
+                          className="text-[13px] font-semibold text-emerald-100 hover:text-white bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-300/35 px-3 py-1.5 rounded transition-colors"
+                        >
+                          Draft outreach to {contact.name}
+                        </Link>
+                      </div>
+                    )}
+                    {!sig.outreach_draft && (
+                      <div className="mt-3">
                         <SignalOutreachGate
                           signalId={sig.id}
                           companyName={co?.name ?? null}
                           action={generateSignalOutreach}
                         />
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )
               })}

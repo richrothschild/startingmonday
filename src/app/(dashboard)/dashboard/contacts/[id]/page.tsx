@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { signalLabel, SIGNAL_COLORS } from '@/lib/intelligence'
 import { FollowUpItem } from '@/components/FollowUpItem'
 import { ContactStatusStepper } from '@/components/ContactStatusStepper'
@@ -153,6 +154,14 @@ export default async function ContactDetailPage({
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <Breadcrumbs
+          className="mb-4"
+          items={[
+            { label: 'Dashboard', href: '/dashboard' },
+            { label: 'Contacts', href: '/dashboard/contacts' },
+            { label: contact.name },
+          ]}
+        />
         {/* Contact header */}
         <section className="bg-white/5 border border-white/15 rounded-lg p-6 mb-5">
           <div className="flex items-start gap-4 mb-4">

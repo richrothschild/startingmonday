@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { StrategyClient } from './strategy-client'
 
 export const metadata = {
@@ -30,6 +31,13 @@ export default async function StrategyPage() {
 
   return (
     <main>
+      <Breadcrumbs
+        className="mb-4 px-4 sm:px-6 pt-6 max-w-6xl mx-auto"
+        items={[
+          { label: 'Dashboard', href: '/dashboard' },
+          { label: 'Search Strategy' },
+        ]}
+      />
       <h1 className="sr-only">Search Strategy Brief</h1>
       <nav className="sr-only" aria-label="Strategy quick actions">
         <Link href="/dashboard">Back to dashboard</Link>
