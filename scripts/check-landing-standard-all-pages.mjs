@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs'
 import path from 'node:path'
+import { filterRoutesBySelection, parseRouteSelection, selectionToArray } from './lib/route-selection.mjs'
 
 const ROOT = process.cwd()
 const APP_DIR = path.join(ROOT, 'src', 'app')
@@ -12,6 +13,7 @@ const asJson = args.has('--json')
 const outputJsonArg = argv.find((arg) => arg.startsWith('--output-json='))
 const outputMdArg = argv.find((arg) => arg.startsWith('--output-md='))
 const outputInventoryArg = argv.find((arg) => arg.startsWith('--output-inventory='))
+const selectedRoutes = parseRouteSelection(argv)
 
 const PALETTE_TOKENS = [
   'bg-slate-950',
@@ -331,13 +333,20 @@ const pageFiles = walk(APP_DIR)
   .map((filePath) => path.relative(ROOT, filePath).replace(/\\/g, '/'))
   .sort((a, b) => a.localeCompare(b))
 
-const results = pageFiles.map(evaluate)
+const allResults = pageFiles.map(evaluate)
+const results = filterRoutesBySelection(allResults, selectedRoutes)
+
+if (selectedRoutes && results.length === 0) {
+  throw new Error(`No routes matched selection: ${selectionToArray(selectedRoutes).join(', ')}`)
+}
 const failing = results.filter((row) => row.issueCount > 0)
 const globalContracts = evaluateGlobalContracts()
-const routeSet = new Set(results.map((row) => row.route))
 const dynamicRoutePatterns = results.filter((row) => row.route.includes('[')).length
 const staticRoutePatterns = results.length - dynamicRoutePatterns
-const criticalRoutes = CRITICAL_ROUTES.map((route) => {
+const scopedCriticalRoutes = selectedRoutes
+  ? CRITICAL_ROUTES.filter((route) => selectedRoutes.has(route))
+  : CRITICAL_ROUTES
+const criticalRoutes = scopedCriticalRoutes.map((route) => {
   const page = results.find((row) => row.route === route)
   if (!page) return { route, present: false, status: 'missing' }
   return { route, present: true, status: page.issueCount === 0 ? 'pass' : 'failing', failedChecks: page.failedChecks }
@@ -347,9 +356,9 @@ const criticalRoutesPassing = criticalRoutes.filter((row) => row.status === 'pas
 const summary = {
   inventoryVersion: 'v1',
   totalPages: results.length,
-  discoveredRoutePatterns: results.length,
+  discoveredRoutePatterns: allResults.length,
   testedRoutePatterns: results.length,
-  untestedRoutePatterns: 0,
+  untestedRoutePatterns: selectedRoutes ? 0 : 0,
   staticRoutePatterns,
   dynamicRoutePatterns,
   failingPages: failing.length,
@@ -371,7 +380,7 @@ const summary = {
   displayHeadingContractPages: results.filter((row) => row.checks.display_heading_contract).length,
   lockupTrackingContractPages: results.filter((row) => row.checks.lockup_tracking_contract).length,
   criticalRoutesPassing,
-  criticalRoutesTotal: CRITICAL_ROUTES.length,
+  criticalRoutesTotal: scopedCriticalRoutes.length,
   cognitiveExcellentPages: results.filter((row) => row.metrics.cognitiveLoad === 'excellent').length,
   cognitiveGoodPages: results.filter((row) => row.metrics.cognitiveLoad === 'good').length,
   cognitiveHighPages: results.filter((row) => row.metrics.cognitiveLoad === 'high').length,
@@ -382,6 +391,7 @@ const payload = {
   strict,
   summary,
   globalContracts,
+  routeSelection: selectionToArray(selectedRoutes),
   routeInventory: results.map((row) => ({
     route: row.route,
     relativePath: row.relativePath,
@@ -462,9 +472,9 @@ if (asJson) {
 
 if (strict && (
   failing.length > 0 ||
-  criticalRoutesPassing !== CRITICAL_ROUTES.length ||
+  criticalRoutesPassing !== scopedCriticalRoutes.length ||
   !globalContracts.passed ||
-  summary.untestedRoutePatterns > 0
+  (!selectedRoutes && summary.untestedRoutePatterns > 0)
 )) {
   process.exit(1)
 }

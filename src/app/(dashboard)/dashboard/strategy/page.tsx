@@ -38,6 +38,22 @@ export default async function StrategyPage() {
           { label: 'Search Strategy' },
         ]}
       />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 mb-4">
+        <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-slate-400">Phase 4 workflow</p>
+            <p className="text-[14px] text-slate-700 mt-1">Open the real intake form for the authenticated dashboard flow, or view the separate preview version.</p>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            <Link href="/dashboard/strategy/intake" className="rounded-full bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white hover:bg-slate-800 transition-colors">
+              Open intake form
+            </Link>
+            <Link href="/demo/search-strategy-intake" className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13px] font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition-colors">
+              See preview
+            </Link>
+          </div>
+        </div>
+      </div>
       <h1 className="sr-only">Search Strategy Brief</h1>
       <nav className="sr-only" aria-label="Strategy quick actions">
         <Link href="/dashboard">Back to dashboard</Link>

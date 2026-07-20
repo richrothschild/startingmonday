@@ -4,6 +4,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { chromium } from '@playwright/test'
 import { loadSES, getTierThresholds, writeLatestReportFiles, postSlackText } from './lib/agent-report-kit.mjs'
+import { filterRoutesBySelection, parseRouteSelection, selectionToArray } from './lib/route-selection.mjs'
 
 function parseArgs(argv) {
   const args = {
@@ -16,6 +17,7 @@ function parseArgs(argv) {
     if (token === '--report') args.report = argv[i + 1]
     if (token === '--ses') args.ses = argv[i + 1]
   }
+  args.routeSelection = parseRouteSelection(argv)
   return args
 }
 
@@ -205,14 +207,19 @@ async function run() {
   const dashboardContracts = getTierThresholds(ses, 'dashboard', 'trustContracts') ?? {}
   const titlePattern = dashboardContracts.titlePattern ?? '{label} - Starting Monday'
   const stalePhrasesAllowed = dashboardContracts.staleRelativeTimePhrasesAllowed ?? false
+  const routeSelection = args.routeSelection
 
-  const routesToCheck = [
+  const routesToCheck = filterRoutesBySelection([
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/dashboard/briefing', label: 'Daily Briefing' },
     { path: '/dashboard/signals', label: 'Signals' },
     { path: '/dashboard/calendar', label: 'Calendar' },
     { path: '/dashboard/contacts', label: 'Contacts' },
-  ]
+  ], routeSelection)
+
+  if (routeSelection && routesToCheck.length === 0) {
+    throw new Error(`No dashboard routes matched selection: ${selectionToArray(routeSelection).join(', ')}`)
+  }
 
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage({ baseURL: baseUrl })
@@ -276,34 +283,40 @@ async function run() {
     const dashboardRoute = routes.find((route) => route.route === '/dashboard')
     const briefingRoute = routes.find((route) => route.route === '/dashboard/briefing')
     const signalsRoute = routes.find((route) => route.route === '/dashboard/signals')
+    const parityRoutesInScope = ['/dashboard', '/dashboard/briefing', '/dashboard/signals']
+      .filter((route) => routes.some((row) => row.route === route))
 
     const dashboardCount = dashboardRoute ? extractDashboardSignalCount(dashboardRoute.textProbe) : null
     const briefingCount = briefingRoute ? extractBriefingSignalCount(briefingRoute.textProbe) : null
     const signalsCount = signalsRoute ? extractSignalsIndexCount(signalsRoute.textProbe) : null
 
-    if (dashboardCount === null || briefingCount === null || signalsCount === null) {
-      pushFinding(findings, {
-        severity: 'P1',
-        contract: 'signal-parity',
-        route: '/dashboard + /dashboard/briefing + /dashboard/signals',
-        message: 'Could not extract one or more signal counts for parity comparison',
-        evidence: `dashboard=${dashboardCount ?? 'n/a'}, briefing=${briefingCount ?? 'n/a'}, signals=${signalsCount ?? 'n/a'}`,
-      })
-    } else if (dashboardCount !== briefingCount || briefingCount !== signalsCount) {
-      pushFinding(findings, {
-        severity: 'P0',
-        contract: 'signal-parity',
-        route: '/dashboard + /dashboard/briefing + /dashboard/signals',
-        message: 'Signal count mismatch across dashboard surfaces',
-        evidence: `dashboard=${dashboardCount}, briefing=${briefingCount}, signals=${signalsCount}`,
-      })
+    if (parityRoutesInScope.length === 3) {
+      if (dashboardCount === null || briefingCount === null || signalsCount === null) {
+        pushFinding(findings, {
+          severity: 'P1',
+          contract: 'signal-parity',
+          route: '/dashboard + /dashboard/briefing + /dashboard/signals',
+          message: 'Could not extract one or more signal counts for parity comparison',
+          evidence: `dashboard=${dashboardCount ?? 'n/a'}, briefing=${briefingCount ?? 'n/a'}, signals=${signalsCount ?? 'n/a'}`,
+        })
+      } else if (dashboardCount !== briefingCount || briefingCount !== signalsCount) {
+        pushFinding(findings, {
+          severity: 'P0',
+          contract: 'signal-parity',
+          route: '/dashboard + /dashboard/briefing + /dashboard/signals',
+          message: 'Signal count mismatch across dashboard surfaces',
+          evidence: `dashboard=${dashboardCount}, briefing=${briefingCount}, signals=${signalsCount}`,
+        })
+      }
     }
 
     findings.sort((a, b) => severityRank(a.severity) - severityRank(b.severity))
 
     const contracts = {
       signalParity: {
-        pass: !findings.some((finding) => finding.contract === 'signal-parity'),
+        pass: parityRoutesInScope.length === 3 ? !findings.some((finding) => finding.contract === 'signal-parity') : true,
+        skipped: parityRoutesInScope.length !== 3,
+        scope: parityRoutesInScope,
         counts: {
           dashboard: dashboardCount,
           briefing: briefingCount,
@@ -336,6 +349,7 @@ async function run() {
       })),
       findings,
       pass: findings.length === 0,
+      routeSelection: selectionToArray(routeSelection),
     }
 
     writeLatestReportFiles({

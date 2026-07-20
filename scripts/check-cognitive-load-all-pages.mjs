@@ -2,12 +2,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { loadSES, routeToTier, getTierThresholds } from "./lib/agent-report-kit.mjs";
+import { filterRoutesBySelection, parseRouteSelection, selectionToArray } from "./lib/route-selection.mjs";
 
 const ROOT = process.cwd();
 const APP_DIR = path.join(ROOT, "src", "app");
 const args = new Set(process.argv.slice(2));
 const asJson = args.has("--json");
 const strict = args.has("--strict");
+const selectedRoutes = parseRouteSelection(process.argv.slice(2));
 
 // Load Site Experience Standard for tier-based thresholds
 let ses = null;
@@ -179,13 +181,20 @@ const pageFiles = walk(APP_DIR)
   .map((filePath) => path.relative(ROOT, filePath).replace(/\\/g, "/"))
   .filter((relativePath) => isPublicRoute(relativePath));
 
-const results = pageFiles.map(evaluateFile);
+const allResults = pageFiles.map(evaluateFile);
+const results = filterRoutesBySelection(allResults, selectedRoutes);
+
+if (selectedRoutes && results.length === 0) {
+  throw new Error(`No routes matched selection: ${selectionToArray(selectedRoutes).join(", ")}`);
+}
 const failures = results.filter((r) => r.issueCount > 0);
 
 const output = {
   generatedAt: new Date().toISOString(),
   mode: strict ? "strict" : "report",
+  routeSelection: selectionToArray(selectedRoutes),
   totalPages: results.length,
+  scannedPages: allResults.length,
   pagesWithIssues: failures.length,
   totalIssues: results.reduce((sum, row) => sum + row.issueCount, 0),
   topFindings: failures
