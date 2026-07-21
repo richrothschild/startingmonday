@@ -1,4 +1,5 @@
 import { fullDateInTz, greetingInTz } from '@/lib/date'
+import { LocalGreeting } from './LocalGreeting'
 
 type DashboardGreetingBlockProps = {
   firstName: string
@@ -17,7 +18,7 @@ export function DashboardGreetingBlock({ firstName, briefingTimezone }: Dashboar
       {/* h2 keeps the greeting in the document outline; the page h1 is the
           sr-only "Dashboard" heading in page.tsx (single-h1 a11y rule). */}
       <h2 className="text-[26px] sm:text-[32px] font-serif font-bold text-white leading-tight">
-        {greeting}, {firstName}.
+        <LocalGreeting firstName={firstName} serverGreeting={greeting} />
       </h2>
       <p className="text-[13px] text-slate-300 mt-1.5">{today}</p>
     </>

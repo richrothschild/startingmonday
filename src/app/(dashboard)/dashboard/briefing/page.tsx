@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 import { anthropic, MODELS, TEMP } from '@/lib/anthropic'
 import { logEvent } from '@/lib/events'
 import { isEnabledFlag } from '@/lib/feature-flags'
+import { greetingInTz } from '@/lib/date'
 import { shouldShowFirstSessionGuidedBriefing } from '@/lib/briefing-first-session'
 import { logBriefingAction, saveBriefingDailyNote } from './actions'
 import {
@@ -1043,6 +1044,7 @@ export default async function BriefingPage({
         {/* Header - Phase 1a redesign with primary stat card */}
         <BriefingHeader
           firstName={firstName}
+          serverGreeting={greetingInTz(tz)}
           todayLabel={todayLabel}
           totalCompanies={context.totalCompanies}
           signalCount={context.signals.length}
