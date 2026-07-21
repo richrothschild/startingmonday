@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 
@@ -135,6 +136,7 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (error || !data) {
+      Sentry.captureException(error ?? new Error('consent insert returned no row'), { extra: { route: 'executive-brief/transcription', op: 'consent', userId: auth.userId } })
       return NextResponse.json({ error: 'Failed to persist transcription consent' }, { status: 500 })
     }
 
@@ -154,6 +156,7 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (error || !data) {
+      Sentry.captureException(error ?? new Error('connection insert returned no row'), { extra: { route: 'executive-brief/transcription', op: 'connect_provider', userId: auth.userId } })
       return NextResponse.json({ error: 'Failed to save transcription provider connection' }, { status: 500 })
     }
 
@@ -194,6 +197,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error || !data) {
+    Sentry.captureException(error ?? new Error('transcript insert returned no row'), { extra: { route: 'executive-brief/transcription', op: 'ingest_transcript', userId: auth.userId } })
     return NextResponse.json({ error: 'Failed to store transcript and analysis' }, { status: 500 })
   }
 

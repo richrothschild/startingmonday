@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 import { ApolloEnrichmentProvider } from '@/lib/enrichment/apollo-provider'
@@ -411,6 +412,7 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (contactError || !contact) {
+      Sentry.captureException(contactError ?? new Error('contact insert returned no row'), { extra: { route: 'linkedin-import/match', op: 'confirm-match', userId } })
       return Response.json({ error: 'Failed to create contact.' }, { status: 500 })
     }
 
@@ -463,6 +465,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (contactError || !contact) {
+    Sentry.captureException(contactError ?? new Error('contact insert returned no row'), { extra: { route: 'linkedin-import/match', op: 'confirm-legacy', userId } })
     return Response.json({ error: 'Failed to create contact.' }, { status: 500 })
   }
 

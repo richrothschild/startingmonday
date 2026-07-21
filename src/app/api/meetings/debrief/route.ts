@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createClient } from '@/lib/supabase/server'
 
@@ -202,6 +203,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'meetings/debrief', op: 'save', userId: auth.userId } })
     return withAuthCookies(
       NextResponse.json({ error: 'Failed to save debrief' }, { status: 500 }),
       auth,
@@ -243,6 +245,7 @@ export async function DELETE(request: NextRequest) {
     .select('id')
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'meetings/debrief', op: 'delete', userId: auth.userId } })
     return withAuthCookies(
       NextResponse.json({ error: 'Failed to delete debriefs' }, { status: 500 }),
       auth,

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import { anthropic, MODELS } from '@/lib/anthropic'
 import {
@@ -199,7 +200,8 @@ Also include at least one question for strengths and weaknesses framing and one 
       selectedModelIds: selectedModels.map(model => model.id),
       selectedPrincipleIds: selectedPrinciples.map(principle => principle.id),
     })
-  } catch {
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'executive-brief/grill-me', op: 'generate', userId: auth.userId } })
     const payload = buildFallbackResponse(topic, goal, selectedModels, selectedPrinciples)
     return NextResponse.json({
       data: payload,

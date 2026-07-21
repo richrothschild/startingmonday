@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import * as Sentry from '@sentry/nextjs'
 import { loadAllFeatureDocs, searchFeatureDocs } from '@/lib/feature-docs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 
@@ -42,29 +43,34 @@ export async function POST(request: NextRequest) {
     return jsonWithAuth({ error: 'Please ask a clear question with at least 3 characters.' }, { status: 400 })
   }
 
-  const docs = await loadAllFeatureDocs()
-  if (docs.length === 0) {
-    return jsonWithAuth({ error: 'Feature docs are temporarily unavailable.' }, { status: 503 })
-  }
+  try {
+    const docs = await loadAllFeatureDocs()
+    if (docs.length === 0) {
+      return jsonWithAuth({ error: 'Feature docs are temporarily unavailable.' }, { status: 503 })
+    }
 
-  const ranked = searchFeatureDocs(docs, parsed.data.question)
-  if (ranked.length === 0) {
+    const ranked = searchFeatureDocs(docs, parsed.data.question)
+    if (ranked.length === 0) {
+      return jsonWithAuth({
+        answer: 'No close matches were found yet. Try keywords like pricing, onboarding, white label, executive coaches, search firms, or outplacement.',
+        confidence: 0,
+        sources: [],
+      })
+    }
+
+    const top = ranked.slice(0, 5)
+    const answer = buildAnswer(
+      parsed.data.question,
+      top.slice(0, 3).map((entry) => ({ title: entry.title, summary: entry.summary, snippet: entry.snippet })),
+    )
+
     return jsonWithAuth({
-      answer: 'No close matches were found yet. Try keywords like pricing, onboarding, white label, executive coaches, search firms, or outplacement.',
-      confidence: 0,
-      sources: [],
+      answer,
+      confidence: Math.min(1, (top[0]?.score ?? 0) / 12),
+      sources: top,
     })
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'features/chat', userId: auth.userId } })
+    return jsonWithAuth({ error: 'Failed to answer feature question.' }, { status: 500 })
   }
-
-  const top = ranked.slice(0, 5)
-  const answer = buildAnswer(
-    parsed.data.question,
-    top.slice(0, 3).map((entry) => ({ title: entry.title, summary: entry.summary, snippet: entry.snippet })),
-  )
-
-  return jsonWithAuth({
-    answer,
-    confidence: Math.min(1, (top[0]?.score ?? 0) / 12),
-    sources: top,
-  })
 }

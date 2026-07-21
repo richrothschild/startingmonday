@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import {
@@ -210,6 +211,7 @@ export async function PATCH(request: NextRequest) {
 
   const { error } = await admin.from('partners').update(updates).eq('id', partner.id)
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'team/white-label', op: 'save', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to save white-label settings.' }, { status: 500 }), auth)
   }
 

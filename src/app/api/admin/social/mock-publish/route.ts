@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { createClient } from '@/lib/supabase/server'
 import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
@@ -25,24 +26,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const body = await request.json().catch(() => null)
+  try {
+    const body = await request.json().catch(() => null)
 
-  const postUrn = `urn:li:ugcPost:dryrun-${Date.now()}`
+    const postUrn = `urn:li:ugcPost:dryrun-${Date.now()}`
 
-  console.log(JSON.stringify({
-    ts: new Date().toISOString(),
-    event: 'social_mock_publish',
-    dryRunMode: true,
-    post_date: body?.post_date ?? null,
-    pillar: body?.pillar ?? null,
-    audience: body?.audience ?? null,
-    post_target: body?.post_target ?? null,
-    has_text: typeof body?.text === 'string' && body.text.length > 0,
-  }))
+    console.log(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'social_mock_publish',
+      dryRunMode: true,
+      post_date: body?.post_date ?? null,
+      pillar: body?.pillar ?? null,
+      audience: body?.audience ?? null,
+      post_target: body?.post_target ?? null,
+      has_text: typeof body?.text === 'string' && body.text.length > 0,
+    }))
 
-  return NextResponse.json({
-    ok: true,
-    dryRunMode: true,
-    linkedin_post_urn: postUrn,
-  })
+    return NextResponse.json({
+      ok: true,
+      dryRunMode: true,
+      linkedin_post_urn: postUrn,
+    })
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'admin/social/mock-publish' } })
+    return NextResponse.json({ error: 'Mock publish failed.' }, { status: 500 })
+  }
 }

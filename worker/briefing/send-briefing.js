@@ -1,7 +1,14 @@
 import { logger } from '../lib/logger.js'
 import { reviewEmail } from '../lib/email-quality.js'
+import { shouldSuppressAutomatedEmail } from '../lib/automated-email-policy.js'
 
 export async function sendBriefing({ to, subject, html }) {
+  const policy = shouldSuppressAutomatedEmail({ to, category: 'briefing' })
+  if (policy.suppress) {
+    logger.info('send-briefing: suppressed by automated email policy', { to, subject, reason: policy.reason })
+    return { suppressed: true, reason: policy.reason }
+  }
+
   const issues = reviewEmail(subject, html)
   if (issues.length) {
     logger.warn('send-briefing: quality warning', { event: 'email_quality_warning', to, subject, issues })

@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth } from '@/lib/require-auth'
 import {
   ExecutiveEmotionStateScoreRequestSchema,
@@ -20,6 +21,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden user scope.' }, { status: 403 })
   }
 
-  const score = scoreExecutiveEmotionState(parsed.data)
-  return NextResponse.json(score)
+  try {
+    const score = scoreExecutiveEmotionState(parsed.data)
+    return NextResponse.json(score)
+  } catch (error) {
+    Sentry.captureException(error, { extra: { route: 'executive-transition/emotion-state/score', userId: auth.userId } })
+    return NextResponse.json({ error: 'Failed to score emotion state.' }, { status: 500 })
+  }
 }

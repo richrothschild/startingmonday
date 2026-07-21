@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireAuth, withAuthCookies } from '@/lib/require-auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -103,6 +104,7 @@ export async function DELETE(
     .eq('id', id) as unknown as { error: unknown }
 
   if (error) {
+    Sentry.captureException(error, { extra: { route: 'team/roles/[id]', op: 'revoke', userId: auth.userId } })
     return withAuthCookies(NextResponse.json({ error: 'Failed to revoke role.' }, { status: 500 }), auth)
   }
 
