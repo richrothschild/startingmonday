@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { getStaffMember, getAllStaff } from '@/lib/staff'
+import { getStaffMember, getAllStaff, hasAdminHeaderAccess } from '@/lib/staff'
 import { getStripe } from '@/lib/stripe'
 import { getRolePathPriorityDebugRows } from '@/lib/role-path-priority'
 import { computeOutreachKPIChain } from '@/lib/outreach/kpi-chain'
@@ -34,7 +34,9 @@ export default async function AdminPage() {
   if (!user) redirect('/login')
 
   const staff = await getStaffMember(user.email ?? '')
-  if (!staff) notFound()
+  if (!hasAdminHeaderAccess(staff)) notFound()
+  const staffRole = staff?.role ?? 'viewer'
+  const isOwner = staffRole === 'owner'
 
   const rolePathPriorityDebugPromise = getRolePathPriorityDebugRows()
 
@@ -589,14 +591,14 @@ export default async function AdminPage() {
             <h1 className="text-[26px] font-bold text-white leading-tight">Admin</h1>
             <p className="text-[13px] text-slate-300 mt-1.5">
               Signed in as <span className="font-semibold">{user.email}</span>
-              <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staff.role)}`}>{staff.role}</span>
+              <span className={`ml-2 text-[13px] font-bold px-2 py-0.5 rounded ${roleBadge(staffRole)}`}>{staffRole}</span>
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Link href="/dashboard/admin/sales-enablement" className="text-[13px] font-semibold text-slate-950 bg-orange-400 border border-orange-300/40 hover:bg-orange-300 px-4 py-2 rounded transition-colors shrink-0">
               Open sales enablement
             </Link>
-            {staff.role === 'owner' && (
+            {isOwner && (
               <Link href="/dashboard/admin/team" className="text-[13px] font-semibold text-slate-200 bg-white/5 border border-white/15 hover:border-white/30 px-4 py-2 rounded transition-colors shrink-0">
                 Manage team
               </Link>

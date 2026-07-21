@@ -1,9 +1,16 @@
 import { logger } from './logger.js'
 import { reviewEmail } from './email-quality.js'
+import { shouldSuppressAutomatedEmail } from './automated-email-policy.js'
 
 // Generic single-email sender via Resend.
 // For the daily briefing HTML emails use worker/briefing/send-briefing.js instead.
-export async function sendEmail({ to, subject, html, text }) {
+export async function sendEmail({ to, subject, html, text, category = 'general' }) {
+  const policy = shouldSuppressAutomatedEmail({ to, category })
+  if (policy.suppress) {
+    logger.info('send-email: suppressed by automated email policy', { to, subject, category, reason: policy.reason })
+    return { suppressed: true, reason: policy.reason }
+  }
+
   const body = html ?? `<pre style="font-family:sans-serif;white-space:pre-wrap">${text ?? ''}</pre>`
 
   const issues = reviewEmail(subject, body)

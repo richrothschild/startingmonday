@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 import { reviewEmail } from './email-quality'
 import { autoRefineEmailDraft, logEmailCouncilScore, type EmailCouncilChannel } from './email-council'
+import { shouldSuppressAutomatedEmail } from './automated-email-policy'
 
 const FROM = process.env.RESEND_FROM_ADDRESS ?? 'briefing@startingmonday.app'
 
@@ -14,6 +15,7 @@ export async function sendEmail({
   bcc,
   headers,
   bypassCouncil,
+  category,
 }: {
   to: string | string[]
   subject: string
@@ -24,7 +26,25 @@ export async function sendEmail({
   bcc?: string
   headers?: Record<string, string>
   bypassCouncil?: boolean
+  category?: string
 }) {
+  const policy = shouldSuppressAutomatedEmail({ to, category: category ?? 'general' })
+  if (policy.suppress) {
+    console.warn(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'email_send_suppressed_by_policy',
+      to,
+      subject,
+      category: category ?? 'general',
+      reason: policy.reason,
+    }))
+    return {
+      data: null,
+      error: null,
+      suppressed: true,
+    }
+  }
+
   const toLog = Array.isArray(to) ? to.join(', ') : to
   const issues = reviewEmail(subject, html)
   if (issues.length) {

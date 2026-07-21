@@ -1,5 +1,6 @@
 import { getSupabase } from '../lib/supabase.js'
 import { logger } from '../lib/logger.js'
+import { sendEmail } from '../lib/send-email.js'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://startingmonday.app'
 const FROM = process.env.RESEND_FROM_ADDRESS ?? 'briefing@startingmonday.app'
@@ -96,22 +97,6 @@ function renderTrialEmail({ firstName, daysLeft, email }) {
 </html>`
 
   return { subject, html }
-}
-
-async function sendEmail({ to, subject, html }) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ from: FROM, to, subject, html }),
-  })
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    throw new Error(`Resend ${res.status}: ${body.slice(0, 200)}`)
-  }
-  return res.json()
 }
 
 export async function runTrialReminderJob() {

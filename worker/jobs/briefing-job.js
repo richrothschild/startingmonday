@@ -69,9 +69,22 @@ export async function runBriefingJob() {
     }
     const users = allUsers
 
+    const since36h = new Date(Date.now() - 36 * 60 * 60 * 1000).toISOString()
+
     const { data: profiles } = await supabase.from('user_profiles').select(
       'user_id, full_name, briefing_time, briefing_timezone, briefing_days, last_briefing_sent_at, briefing_frequency, search_status, placed_at'
     ).not('briefing_time', 'is', null)
+
+    const { data: recentBriefingEvents, error: recentEventsError } = await supabase
+      .from('user_events')
+      .select('user_id, created_at, properties')
+      .eq('event_name', 'briefing_email_sent')
+      .gte('created_at', since36h)
+
+    if (recentEventsError) {
+      logger.error('briefing-job: failed to fetch recent briefing send events', { error: recentEventsError.message })
+      return
+    }
 
     if (!users?.length) {
       logger.info('briefing-job: no users — done')
@@ -79,6 +92,23 @@ export async function runBriefingJob() {
     }
 
     const profileByUserId = Object.fromEntries((profiles ?? []).map(p => [p.user_id, p]))
+    const recentBriefingByUserId = new Map()
+    const recentBriefingByRecipientEmail = new Map()
+    for (const row of (recentBriefingEvents ?? [])) {
+      const existing = recentBriefingByUserId.get(row.user_id)
+      const createdAt = row.created_at
+      if (!existing || new Date(createdAt).getTime() > new Date(existing).getTime()) {
+        recentBriefingByUserId.set(row.user_id, createdAt)
+      }
+
+      const recipientEmail = String(row.properties?.to ?? '').trim().toLowerCase()
+      if (recipientEmail) {
+        const recipientExisting = recentBriefingByRecipientEmail.get(recipientEmail)
+        if (!recipientExisting || new Date(createdAt).getTime() > new Date(recipientExisting).getTime()) {
+          recentBriefingByRecipientEmail.set(recipientEmail, createdAt)
+        }
+      }
+    }
 
     let sent = 0
     let skipped = 0
@@ -119,6 +149,27 @@ export async function runBriefingJob() {
           .format(new Date(profile.last_briefing_sent_at))
         if (lastSentDate === todayStr) {
           logger.info(`briefing-job: skip ${user.email} — already sent today (${todayStr})`)
+          skipped++; continue
+        }
+      }
+
+      const recentBriefingEventAt = recentBriefingByUserId.get(user.id)
+      if (recentBriefingEventAt) {
+        const lastEventDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz })
+          .format(new Date(recentBriefingEventAt))
+        if (lastEventDate === todayStr) {
+          logger.info(`briefing-job: skip ${user.email} — briefing send event already recorded today (${todayStr})`)
+          skipped++; continue
+        }
+      }
+
+      const recipientEmail = String(user.email ?? '').trim().toLowerCase()
+      const recentRecipientBriefingAt = recentBriefingByRecipientEmail.get(recipientEmail)
+      if (recentRecipientBriefingAt) {
+        const lastRecipientEventDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz })
+          .format(new Date(recentRecipientBriefingAt))
+        if (lastRecipientEventDate === todayStr) {
+          logger.info(`briefing-job: skip ${user.email} — recipient inbox already received briefing today (${todayStr})`)
           skipped++; continue
         }
       }
@@ -169,16 +220,33 @@ export async function runBriefingJob() {
           ...(context.patternAlerts ?? []).filter(s => !s.notifiedAt).map(s => s.id),
         ]
         if (unnotifiedSignalIds.length) {
-          await supabase
+          const { error: signalUpdateError } = await supabase
             .from('company_signals')
             .update({ notified_at: now })
             .in('id', unnotifiedSignalIds)
+          if (signalUpdateError) {
+            throw new Error(`Failed to mark notified signals: ${signalUpdateError.message}`)
+          }
         }
 
-        await supabase
+        const { error: profileUpdateError } = await supabase
           .from('user_profiles')
           .update({ last_briefing_sent_at: now })
           .eq('user_id', user.id)
+        if (profileUpdateError) {
+          throw new Error(`Failed to update last_briefing_sent_at: ${profileUpdateError.message}`)
+        }
+
+        const { error: eventInsertError } = await supabase
+          .from('user_events')
+          .insert({
+            user_id: user.id,
+            event_name: 'briefing_email_sent',
+            properties: { source: 'briefing-job', sent_at: now, to: user.email },
+          })
+        if (eventInsertError) {
+          throw new Error(`Failed to insert briefing_email_sent event: ${eventInsertError.message}`)
+        }
 
         await Promise.all([
           trackUsage(supabase, { service: 'resend', requests: 1 }),
