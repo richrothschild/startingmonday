@@ -5,6 +5,9 @@ import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
 import { getBrandContextFromHosts } from '@/lib/brand'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers()
   const brand = getBrandContextFromHosts([
