@@ -1,16 +1,16 @@
 # Debt Ratchet Report
 
-Generated: 2026-07-07T19:55:46.186Z
+Generated: 2026-07-20T05:57:07.312Z
 Outcome: pass
 
 ## Metrics
 
 | Metric | Baseline | Current | Trend |
 | --- | ---: | ---: | --- |
-| placeholderCount | 147 | 147 | flat |
-| lintWarnings | 554 | 554 | flat |
-| anyCount | 154 | 154 | flat |
-| maxFileLines | 1723 | 1723 | flat |
+| placeholderCount | 226 | 226 | flat |
+| lintWarnings | 602 | 602 | flat |
+| anyCount | 156 | 156 | flat |
+| maxFileLines | 1769 | 1769 | flat |
 | filesOver800 | 18 | 18 | flat |
 
 Lint errors: 0

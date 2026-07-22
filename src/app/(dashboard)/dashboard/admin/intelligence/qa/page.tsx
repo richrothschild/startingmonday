@@ -2,7 +2,7 @@
 import { redirect, notFound } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
-import { getStaffMember } from '@/lib/staff'
+import { getStaffMember, hasAdminHeaderAccess } from '@/lib/staff'
 
 export const metadata = { title: 'Intelligence QA Scorecard - Admin' }
 
@@ -33,7 +33,7 @@ export default async function IntelligenceQaScorecardPage() {
   if (!user) redirect('/login')
 
   const staff = await getStaffMember(user.email ?? '')
-  if (!staff) notFound()
+  if (!hasAdminHeaderAccess(staff)) notFound()
 
   const admin = createAdminClient()
   const { data } = await admin

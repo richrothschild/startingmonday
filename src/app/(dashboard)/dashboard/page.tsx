@@ -32,6 +32,7 @@ import { DashboardWelcomeNudgeSection } from "./dashboard-welcome-nudge-section"
 import { DashboardAdvancedModulesSection } from "./dashboard-advanced-modules-section";
 import { DashboardTopShellSection } from "./dashboard-top-shell-section";
 import { DashboardCampaignFoundationSection } from "./dashboard-campaign-foundation-section";
+import { DashboardProgressFeedSection } from "./dashboard-progress-feed-section";
 import { buildExecutiveRiskModel } from "./dashboard-executive-risk-utils";
 import { buildDailyMomentumActions } from "./dashboard-momentum-actions";
 import {
@@ -1130,6 +1131,20 @@ export default async function DashboardPage({
           actions={dailyMomentumActions}
           dateKey={todayISO}
           status={momentumStatus}
+        />
+
+        <DashboardProgressFeedSection
+          todayISO={todayISO}
+          followUps={(followUps ?? []) as {
+            id: string;
+            due_date: string;
+            action: string;
+            companies: { name: string } | null;
+          }[]}
+          warmPaths={warmPaths}
+          patternAlerts={patternAlerts}
+          signals={signalsDeduped}
+          isExecutiveMode={isExecutiveMode}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-8 items-start mb-8">

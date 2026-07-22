@@ -51,6 +51,10 @@ export interface LandingPageProps {
   proofHighlights?: ProofHighlight[]
   sourcePage?: string
   experimentVariant?: 'control' | 'proof_first'
+  brandWordmark?: {
+    primary: string
+    accent: string
+  }
 }
 
 type ExecutiveLaneBrand = {
@@ -149,7 +153,14 @@ const EXECUTIVE_DIFFERENTIATORS = [
   },
 ]
 
-export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', experimentVariant = 'control' }: LandingPageProps) {
+export function LandingPage({
+  hero,
+  faqs,
+  proofHighlights,
+  sourcePage = '/',
+  experimentVariant = 'control',
+  brandWordmark,
+}: LandingPageProps) {
   const isManagerToolsPage = sourcePage === '/managertools'
   const isHomePage = sourcePage === '/' || isManagerToolsPage
   const isExecutivesPage = sourcePage === '/for-executives' || sourcePage.startsWith('/for-executives/')
@@ -167,6 +178,8 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
     : isExecutivesPage
       ? 'Begin 7-day shortlist sprint'
       : 'Begin now'
+  const wordmarkPrimary = brandWordmark?.primary ?? 'Starting'
+  const wordmarkAccent = brandWordmark?.accent ?? 'Monday'
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
@@ -175,7 +188,7 @@ export function LandingPage({ hero, faqs, proofHighlights, sourcePage = '/', exp
       <nav className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/72 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.14em] text-white/95 transition-opacity hover:opacity-80 inline-flex items-center min-h-[48px]" aria-label="Go to homepage">
-            <span className="text-white">Starting </span><span className="text-orange-500">Monday</span>
+            <span className="text-white">{wordmarkPrimary} </span><span className="text-orange-500">{wordmarkAccent}</span>
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
             <TrackLink

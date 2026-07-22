@@ -20,6 +20,7 @@ function sentryReportUri(): string | null {
 }
 
 const SENTRY_REPORT_URI = sentryReportUri()
+const RAILWAY_BUILD_CPUS = process.env.RAILWAY_ENVIRONMENT_NAME ? 4 : undefined
 
 const CSP = [
   "default-src 'self'",
@@ -60,6 +61,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   serverExternalPackages: ['pdf-parse', 'mammoth'],
   experimental: {
+    cpus: RAILWAY_BUILD_CPUS,
     inlineCss: true,
   },
   turbopack: {

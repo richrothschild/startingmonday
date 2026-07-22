@@ -1,21 +1,21 @@
 # Route Inventory Agent Report
 
-Generated: 2026-07-12T20:51:11.521Z
+Generated: 2026-07-20T15:03:21.039Z
 Channel: reliability---service
-Routes discovered: 296
+Routes discovered: 299
 
 ## Coverage Summary
 
-- Static routes: 274
+- Static routes: 277
 - Dynamic routes: 22
-- Auth-gated routes: 95
+- Auth-gated routes: 97
 
 ## Tier Breakdown
 
 - public: 139
-- funnel: 72
+- funnel: 73
 - admin: 37
-- dashboard: 48
+- dashboard: 50
 
 ## Route List
 
@@ -105,7 +105,9 @@ Routes discovered: 296
 - /dashboard/salary (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/salary/page.tsx
 - /dashboard/signals (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/signals/page.tsx
 - /dashboard/start (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/start/page.tsx
+- /dashboard/strategy/intake (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/strategy/intake/page.tsx
 - /dashboard/strategy (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/strategy/page.tsx
+- /dashboard/support (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/support/page.tsx
 - /dashboard/wrap-up (static, tier=dashboard, auth=yes) → src/app/(dashboard)/dashboard/wrap-up/page.tsx
 - /prep/communications (static, tier=public, auth=yes) → src/app/(dashboard)/prep/communications/page.tsx
 - /prep/companies (static, tier=public, auth=yes) → src/app/(dashboard)/prep/companies/page.tsx
@@ -206,6 +208,7 @@ Routes discovered: 296
 - /demo/presenter (static, tier=funnel, auth=no) → src/app/demo/presenter/page.tsx
 - /demo/sandbox/alto-shaam (static, tier=funnel, auth=no) → src/app/demo/sandbox/alto-shaam/page.tsx
 - /demo/sandbox/healthcare (static, tier=funnel, auth=no) → src/app/demo/sandbox/healthcare/page.tsx
+- /demo/search-strategy-intake (static, tier=funnel, auth=no) → src/app/demo/search-strategy-intake/page.tsx
 - /demo/wedge-30s (static, tier=funnel, auth=no) → src/app/demo/wedge-30s/page.tsx
 - /evaluate (static, tier=public, auth=no) → src/app/evaluate/page.tsx
 - /evidence-hub (static, tier=public, auth=no) → src/app/evidence-hub/page.tsx

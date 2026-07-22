@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-07-12T20:51:11.521Z",
+  "generatedAt": "2026-07-20T15:03:21.039Z",
   "channel": "reliability---service",
   "totals": {
-    "routes": 296,
-    "staticRoutes": 274,
+    "routes": 299,
+    "staticRoutes": 277,
     "dynamicRoutes": 22,
-    "authGatedRoutes": 95
+    "authGatedRoutes": 97
   },
   "byTier": {
     "public": 139,
-    "funnel": 72,
+    "funnel": 73,
     "admin": 37,
-    "dashboard": 48
+    "dashboard": 50
   },
   "delta": {
-    "previousGeneratedAt": "2026-07-12T16:30:43.476Z",
+    "previousGeneratedAt": "2026-07-20T14:56:20.836Z",
     "added": [],
     "removed": []
   },
@@ -708,8 +708,24 @@
       "template": "app-shell"
     },
     {
+      "route": "/dashboard/strategy/intake",
+      "relativePath": "src/app/(dashboard)/dashboard/strategy/intake/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
       "route": "/dashboard/strategy",
       "relativePath": "src/app/(dashboard)/dashboard/strategy/page.tsx",
+      "dynamic": false,
+      "authGated": true,
+      "tier": "dashboard",
+      "template": "app-shell"
+    },
+    {
+      "route": "/dashboard/support",
+      "relativePath": "src/app/(dashboard)/dashboard/support/page.tsx",
       "dynamic": false,
       "authGated": true,
       "tier": "dashboard",
@@ -1510,6 +1526,14 @@
     {
       "route": "/demo/sandbox/healthcare",
       "relativePath": "src/app/demo/sandbox/healthcare/page.tsx",
+      "dynamic": false,
+      "authGated": false,
+      "tier": "funnel",
+      "template": "marketing-core"
+    },
+    {
+      "route": "/demo/search-strategy-intake",
+      "relativePath": "src/app/demo/search-strategy-intake/page.tsx",
       "dynamic": false,
       "authGated": false,
       "tier": "funnel",

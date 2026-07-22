@@ -1,7 +1,3 @@
-[build]
-builder = "nixpacks"
-buildCommand = "npm run guide:user:sync && npm run guide:internal:sync && npm run build"
-
 [deploy]
 numReplicas = 1
 startCommand = "npm run start -- --port $PORT"

@@ -16,9 +16,8 @@
  *   5. Optional --email: send both files to the founder + MO via Resend.
  *
  * People search returns first name + obfuscated last initial only. Full name +
- * LinkedIn + email require a people/match reveal, which consumes Apollo
- * credits - so reveals are capped and opt-in via --reveal (default: top
- * departure prospects only, max 10 per run).
+ * LinkedIn + email are enriched via Apollo people/match lookups by person id,
+ * with calls capped by --reveal (default max 120 per run) to control cost.
  *
  * Usage:
  *   node scripts/export-mo-outreach-list.mjs [--days=14] [--min-confidence=0]
@@ -61,7 +60,7 @@ function argFlag(name) {
 const days = Number(argValue('days', '14'))
 const minConfidence = Number(argValue('min-confidence', '0'))
 const maxCompanies = Number(argValue('max-companies', '40'))
-const revealBudget = Number(argValue('reveal', '10'))
+const revealBudget = Number(argValue('reveal', '120'))
 const skipApollo = argFlag('skip-apollo') || !apolloKey
 const sendEmailFlag = argFlag('email')
 const today = new Date().toISOString().slice(0, 10)
@@ -185,6 +184,38 @@ async function apolloPeopleSearch({ companyName, orgId, titles, perPage = 3 }) {
     return Array.isArray(data.people) ? data.people : []
   } catch {
     return []
+  }
+}
+
+function normalizeApolloEmail(value) {
+  const email = String(value ?? '').trim()
+  if (!email) return null
+  if (email.includes('email_not_unlocked')) return null
+  return email
+}
+
+async function apolloGetPersonById(personId) {
+  if (!personId) return null
+  try {
+    const res = await fetch(`${APOLLO_BASE}/people/match?person_id=${encodeURIComponent(personId)}&reveal_personal_emails=true`, {
+      method: 'GET',
+      headers: { 'X-Api-Key': apolloKey },
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    const p = data.person
+    if (!p) return null
+    return {
+      name: p.name ?? ([p.first_name, p.last_name].filter(Boolean).join(' ') || null),
+      firstName: p.first_name ?? null,
+      lastName: p.last_name ?? null,
+      title: p.title ?? null,
+      linkedinUrl: p.linkedin_url ?? null,
+      email: normalizeApolloEmail(p.email),
+      emailStatus: p.email_status ?? null,
+    }
+  } catch {
+    return null
   }
 }
 
@@ -445,12 +476,32 @@ for (const entry of entries) {
     .slice(0, departure ? 2 : 3)
     .map((p) => ({
       kind: departure ? 'adjacent_decision_maker' : 'target_executive',
+      personId: p.id ?? null,
+      name: p.name ?? null,
       firstName: p.first_name,
       lastInitial: p.last_name_obfuscated ? `${p.last_name_obfuscated.charAt(0)}.` : '',
       title: p.title,
       linkedinUrl: p.linkedin_url ?? '',
       email: '',
     }))
+
+  // Resolve fuller person details (name/linkedin/email when available) using
+  // Apollo person id lookups, capped to avoid runaway credit usage.
+  for (const person of entry.people) {
+    if (revealsUsed >= revealBudget) break
+    if (!person.personId) continue
+    const detailed = await apolloGetPersonById(person.personId)
+    revealsUsed += 1
+    if (!detailed) continue
+    person.name = detailed.name ?? person.name
+    person.firstName = detailed.firstName ?? person.firstName
+    person.lastInitial = detailed.lastName ? `${detailed.lastName.charAt(0)}.` : person.lastInitial
+    person.title = detailed.title ?? person.title
+    person.linkedinUrl = detailed.linkedinUrl ?? person.linkedinUrl
+    person.email = detailed.email ?? person.email
+    person.emailStatus = detailed.emailStatus ?? ''
+    await sleep(120)
+  }
 
   // Departed person: extract name from signal text, then reveal via people/match
   // (their profile still lists LinkedIn even after leaving).
@@ -500,7 +551,7 @@ for (const entry of entries) {
       signal: entry.signalLabel,
       signalDate: entry.signalDate,
       kind: person.kind,
-      name: `${person.firstName} ${person.lastInitial}`.trim(),
+      name: person.name || `${person.firstName} ${person.lastInitial}`.trim(),
       title: person.title,
       linkedinUrl: person.linkedinUrl,
       email: person.email,

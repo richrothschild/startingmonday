@@ -169,6 +169,7 @@ Acceptance:
 - Coach-shareable: completable by client alone or with a coach — this is the
   Lead Forward referral wedge. Write a one-page spec first; review with Aleksei
   before building (it converts him from critic to design partner).
+- Spec draft: docs/search-strategy-intake-form-spec.md
 
 ### 4.2 Seniority calibration in prep outputs  [T2]
 - Derive target seniority from target_titles + attached job_description document;
