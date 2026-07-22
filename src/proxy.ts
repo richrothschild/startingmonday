@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { getDevAuthHeaders, isDevAuthBypassEnabled } from '@/lib/dev-auth'
-import { getBrandContextFromHost } from '@/lib/brand'
+import { getBrandContextFromHosts } from '@/lib/brand'
 
 // Obvious non-browser clients: blocked on /api/optimize and /intelligence/* routes
 const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scrapy|httpx|aiohttp|libwww-perl|okhttp|axios\/|node-fetch|python\/|go\/|ruby|perl|php\/|spider|crawler|bot\/|bot$|scraper|HeadlessChrome)/i
@@ -69,8 +69,10 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = request.headers.get('x-request-id') ?? generateRequestId()
   const devAuthEnabled = isDevAuthBypassEnabled()
-  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
-  const brand = getBrandContextFromHost(host)
+  const brand = getBrandContextFromHosts([
+    request.headers.get('host'),
+    request.headers.get('x-forwarded-host'),
+  ])
 
   // Enforce standalone host isolation for MandateSignal.
   if (brand.isMandateSignal && !isMandateSignalAllowedPath(pathname)) {

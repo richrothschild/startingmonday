@@ -3,12 +3,14 @@ import { headers } from 'next/headers'
 import { LandingPage } from '@/components/LandingPage'
 import type { SituationCard, FAQ } from '@/components/LandingPage'
 import { JsonLd } from '@/components/JsonLd'
-import { getBrandContextFromHost } from '@/lib/brand'
+import { getBrandContextFromHosts } from '@/lib/brand'
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers()
-  const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
-  const brand = getBrandContextFromHost(host)
+  const brand = getBrandContextFromHosts([
+    requestHeaders.get('host'),
+    requestHeaders.get('x-forwarded-host'),
+  ])
 
   if (brand.isMandateSignal) {
     return {
@@ -214,8 +216,10 @@ type HomePageProps = {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const requestHeaders = await headers()
-  const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
-  const brand = getBrandContextFromHost(host)
+  const brand = getBrandContextFromHosts([
+    requestHeaders.get('host'),
+    requestHeaders.get('x-forwarded-host'),
+  ])
 
   const resolvedSearchParams = searchParams ? await searchParams : {}
   const variantParam = Array.isArray(resolvedSearchParams?.lp_variant)
