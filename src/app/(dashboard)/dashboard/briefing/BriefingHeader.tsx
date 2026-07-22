@@ -6,8 +6,11 @@
  * headline number plus a compact context line.
  */
 
+import { LocalGreeting } from '../LocalGreeting'
+
 type BriefingHeaderProps = {
   firstName: string
+  serverGreeting: string
   todayLabel: string
   totalCompanies: number
   signalCount: number
@@ -17,6 +20,7 @@ type BriefingHeaderProps = {
 
 export function BriefingHeader({
   firstName,
+  serverGreeting,
   todayLabel,
   totalCompanies,
   signalCount,
@@ -31,7 +35,7 @@ export function BriefingHeader({
           This week&apos;s operating rhythm
         </p>
         <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-orange-200 mb-2">Daily briefing</p>
-        <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-2">Good morning, {firstName}.</h1>
+        <h1 className="text-[32px] sm:text-[42px] font-bold text-white leading-tight mb-2"><LocalGreeting firstName={firstName} serverGreeting={serverGreeting} /></h1>
         <p className="text-[13px] sm:text-[14px] font-medium text-slate-400">{todayLabel}</p>
       </div>
 
