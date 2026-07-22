@@ -13,6 +13,14 @@ function normalizeHost(host: string | null | undefined): string {
   return host.toLowerCase().split(':')[0]
 }
 
+function expandHostCandidates(host: string | null | undefined): string[] {
+  if (!host) return []
+  return host
+    .split(',')
+    .map((part) => normalizeHost(part.trim()))
+    .filter(Boolean)
+}
+
 export function getBrandContextFromHost(host: string | null | undefined): BrandContext {
   const normalizedHost = normalizeHost(host)
   const isMandateSignal = MANDATE_SIGNAL_HOSTS.has(normalizedHost)
@@ -34,4 +42,16 @@ export function getBrandContextFromHost(host: string | null | undefined): BrandC
     wordmarkAccent: 'Monday',
     origin: 'https://startingmonday.app',
   }
+}
+
+export function getBrandContextFromHosts(hosts: Array<string | null | undefined>): BrandContext {
+  const candidates = hosts.flatMap((host) => expandHostCandidates(host))
+
+  const mandateSignalHost = candidates.find((candidate) => MANDATE_SIGNAL_HOSTS.has(candidate))
+  if (mandateSignalHost) {
+    return getBrandContextFromHost(mandateSignalHost)
+  }
+
+  const fallbackHost = candidates[0] ?? null
+  return getBrandContextFromHost(fallbackHost)
 }

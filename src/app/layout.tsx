@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import { headers } from 'next/headers'
 import { AssistWidget } from "@/components/AssistWidget";
-import { getBrandContextFromHost } from '@/lib/brand'
+import { getBrandContextFromHosts } from '@/lib/brand'
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,8 +27,10 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers()
-  const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
-  const brand = getBrandContextFromHost(host)
+  const brand = getBrandContextFromHosts([
+    requestHeaders.get('host'),
+    requestHeaders.get('x-forwarded-host'),
+  ])
 
   const description = brand.isMandateSignal
     ? 'MandateSignal helps retained search and recruiting teams detect likely-to-open mandates early, prioritize target accounts, and act before broad posting.'
