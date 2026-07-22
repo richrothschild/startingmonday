@@ -12,6 +12,13 @@ type RequestBody = {
   password?: unknown
 }
 
+function getPublicOrigin(request: NextRequest): string {
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
+  if (forwardedHost) return `${forwardedProto}://${forwardedHost}`
+  return request.nextUrl.origin
+}
+
 function isSignupDisabledError(error: { message?: string } | null | undefined): boolean {
   const message = error?.message?.toLowerCase() ?? ''
   return (
@@ -46,7 +53,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 400 })
   }
 
-  const redirectTo = `${new URL(request.url).origin}/auth/callback?next=/dashboard/briefing`
+  const redirectTo = `${getPublicOrigin(request)}/auth/callback?next=/dashboard/briefing`
 
   const cookieStore = await cookies()
   const supabase = createServerClient(

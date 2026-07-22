@@ -1,0 +1,179 @@
+{
+  "generatedAt": "2026-07-20T15:03:21.601Z",
+  "baseUrl": "https://startingmonday.app",
+  "routeSelection": [
+    "/demo/search-strategy-intake"
+  ],
+  "inventory": {
+    "generatedAt": "2026-07-20T15:03:21.039Z",
+    "totalRoutes": 299
+  },
+  "summary": {
+    "routesScanned": 1,
+    "routesWithIssues": 0,
+    "totalIssues": 0,
+    "landingPass": true,
+    "cognitivePass": true,
+    "trustPass": true
+  },
+  "routes": [
+    {
+      "route": "/demo/search-strategy-intake",
+      "tier": "funnel",
+      "audits": [
+        {
+          "name": "landing",
+          "status": "pass",
+          "issueCount": 0
+        },
+        {
+          "name": "cognitive",
+          "status": "pass",
+          "issueCount": 0
+        }
+      ],
+      "issueCount": 0,
+      "landing": {
+        "generatedAt": "2026-07-20T15:03:21.435Z",
+        "strict": false,
+        "summary": {
+          "inventoryVersion": "v1",
+          "totalPages": 1,
+          "discoveredRoutePatterns": 299,
+          "testedRoutePatterns": 1,
+          "untestedRoutePatterns": 0,
+          "staticRoutePatterns": 1,
+          "dynamicRoutePatterns": 0,
+          "failingPages": 0,
+          "globalContractPass": true,
+          "globalContractFailures": 0,
+          "totalIssues": 0,
+          "shellStandardPages": 1,
+          "luxuryLookAndFeelPages": 1,
+          "thoughtProcessAlignmentPages": 1,
+          "paletteConsistencyPages": 1,
+          "shellPaletteAlignmentPages": 1,
+          "buttonWiringPages": 1,
+          "headerFooterConsistencyPages": 1,
+          "jumpNavigationRemovedPages": 1,
+          "glyphFallbackFreePages": 1,
+          "h1ContractPages": 1,
+          "ctaDensityContractPages": 1,
+          "trustAssuranceContractPages": 1,
+          "displayHeadingContractPages": 1,
+          "lockupTrackingContractPages": 1,
+          "criticalRoutesPassing": 0,
+          "criticalRoutesTotal": 0,
+          "cognitiveExcellentPages": 1,
+          "cognitiveGoodPages": 0,
+          "cognitiveHighPages": 0
+        },
+        "globalContracts": {
+          "checks": {
+            "playfair_imported": true,
+            "playfair_variable_registered": true,
+            "display_font_token_defined": true,
+            "display_font_utility_defined": true,
+            "body_uses_geist_sans": true,
+            "landing_headlines_use_display": true
+          },
+          "failedChecks": [],
+          "passed": true
+        },
+        "routeSelection": [
+          "/demo/search-strategy-intake"
+        ],
+        "routeInventory": [
+          {
+            "route": "/demo/search-strategy-intake",
+            "relativePath": "src/app/demo/search-strategy-intake/page.tsx",
+            "tier": "tier1",
+            "dynamic": false
+          }
+        ],
+        "failingRoutes": [],
+        "criticalRoutes": [],
+        "results": [
+          {
+            "route": "/demo/search-strategy-intake",
+            "relativePath": "src/app/demo/search-strategy-intake/page.tsx",
+            "shell": "custom-shell",
+            "checks": {
+              "shell_standard": true,
+              "luxury_look_and_feel": true,
+              "thought_process_alignment": true,
+              "cognitive_load": true,
+              "h1_contract": true,
+              "cta_density_contract": true,
+              "trust_assurance_contract": true,
+              "display_heading_contract": true,
+              "lockup_tracking_contract": true,
+              "palette_consistency": true,
+              "shell_palette_alignment": true,
+              "button_wiring": true,
+              "header_footer_consistency": true,
+              "jump_navigation_removed": true,
+              "glyph_fallback_free": true
+            },
+            "failedChecks": [],
+            "issueCount": 0,
+            "metrics": {
+              "paletteScore": 5,
+              "sectionCount": 2,
+              "paragraphCount": 15,
+              "h1Count": 1,
+              "h2Count": 2,
+              "detailsCount": 0,
+              "buttonCount": 0,
+              "linkCount": 3,
+              "formCount": 0,
+              "primaryCtaCount": 0,
+              "orphanButtonCount": 0,
+              "cognitiveLoad": "excellent"
+            },
+            "tier": "tier1",
+            "comparisonToLanding": "match"
+          }
+        ]
+      },
+      "cognitive": {
+        "generatedAt": "2026-07-20T15:03:21.590Z",
+        "mode": "report",
+        "routeSelection": [
+          "/demo/search-strategy-intake"
+        ],
+        "totalPages": 1,
+        "scannedPages": 288,
+        "pagesWithIssues": 0,
+        "totalIssues": 0,
+        "topFindings": [],
+        "tierSummary": {
+          "dashboard": 0,
+          "funnel": 0,
+          "public": 1,
+          "admin": 0
+        },
+        "pages": [
+          {
+            "route": "/demo/search-strategy-intake",
+            "tier": "public",
+            "relativePath": "src/app/demo/search-strategy-intake/page.tsx",
+            "metrics": {
+              "totalWords": 122,
+              "sentenceCount": 10,
+              "avgSentenceWords": 12.2,
+              "paragraphCount": 15,
+              "headingCount": 3,
+              "detailsCount": 0,
+              "longParagraphCount": 0,
+              "ctaCount": 2
+            },
+            "issues": [],
+            "issueCount": 0
+          }
+        ]
+      }
+    }
+  ],
+  "trustBundle": null
+}

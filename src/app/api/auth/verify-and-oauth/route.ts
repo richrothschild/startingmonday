@@ -12,6 +12,13 @@ type RequestBody = {
 
 const ALLOWED_PROVIDERS = new Set(['google', 'apple'])
 
+function getPublicOrigin(request: NextRequest): string {
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
+  if (forwardedHost) return `${forwardedProto}://${forwardedHost}`
+  return request.nextUrl.origin
+}
+
 export async function POST(request: NextRequest) {
   const guardResponse = await enforcePublicEndpointGuard({
     request,
@@ -29,7 +36,7 @@ export async function POST(request: NextRequest) {
   }
 
   const provider = typeof body.provider === 'string' ? body.provider : ''
-  const redirectTo = typeof body.redirectTo === 'string' && body.redirectTo ? body.redirectTo : `${new URL(request.url).origin}/auth/callback`
+  const redirectTo = typeof body.redirectTo === 'string' && body.redirectTo ? body.redirectTo : `${getPublicOrigin(request)}/auth/callback`
 
   if (!ALLOWED_PROVIDERS.has(provider)) {
     return NextResponse.json({ ok: false, error: 'Unsupported provider' }, { status: 400 })

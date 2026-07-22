@@ -1,11 +1,30 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { getDevAuthHeaders, isDevAuthBypassEnabled } from '@/lib/dev-auth'
+import { getBrandContextFromHost } from '@/lib/brand'
 
 // Obvious non-browser clients: blocked on /api/optimize and /intelligence/* routes
 const BOT_UA_RE = /^(curl|python-requests|python-urllib|go-http|java\/|wget|scrapy|httpx|aiohttp|libwww-perl|okhttp|axios\/|node-fetch|python\/|go\/|ruby|perl|php\/|spider|crawler|bot\/|bot$|scraper|HeadlessChrome)/i
 
 const NOINDEX = { 'X-Robots-Tag': 'noindex, nofollow' }
+
+const MANDATE_SIGNAL_ALLOWED_EXACT = new Set([
+  '/',
+  '/login',
+  '/signup',
+  '/auth/callback',
+  '/icon',
+  '/apple-icon',
+  '/opengraph-image',
+  '/robots.txt',
+  '/sitemap.xml',
+  '/favicon.ico',
+  '/api/health',
+])
+
+const MANDATE_SIGNAL_ALLOWED_PREFIXES = [
+  '/api/auth/',
+]
 
 const DEPLOY_SHA = process.env.RAILWAY_GIT_COMMIT_SHA
   ?? process.env.VERCEL_GIT_COMMIT_SHA
@@ -32,10 +51,34 @@ function logRequest(request: NextRequest, requestId: string) {
   }))
 }
 
+function isMandateSignalAllowedPath(pathname: string): boolean {
+  if (MANDATE_SIGNAL_ALLOWED_EXACT.has(pathname)) return true
+  return MANDATE_SIGNAL_ALLOWED_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+}
+
+function isProtectedRoute(pathname: string): boolean {
+  return (
+    pathname.startsWith('/dashboard/')
+    || pathname === '/dashboard'
+    || pathname.startsWith('/onboarding/')
+    || pathname === '/onboarding'
+  )
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = request.headers.get('x-request-id') ?? generateRequestId()
   const devAuthEnabled = isDevAuthBypassEnabled()
+  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
+  const brand = getBrandContextFromHost(host)
+
+  // Enforce standalone host isolation for MandateSignal.
+  if (brand.isMandateSignal && !isMandateSignalAllowedPath(pathname)) {
+    const homeUrl = request.nextUrl.clone()
+    homeUrl.pathname = '/'
+    homeUrl.search = ''
+    return NextResponse.redirect(homeUrl)
+  }
 
   if (devAuthEnabled && (pathname === '/login' || pathname === '/auth/login')) {
     const dashboardUrl = request.nextUrl.clone()
@@ -88,7 +131,13 @@ export async function proxy(request: NextRequest) {
     return response
   }
 
-  // --- Dashboard routes: session refresh + redirect guard ---
+  if (!isProtectedRoute(pathname)) {
+    const response = NextResponse.next(nextRequestHeaders ? { request: { headers: nextRequestHeaders } } : undefined)
+    response.headers.set('X-Request-Id', requestId)
+    return response
+  }
+
+  // --- Protected routes: session refresh + redirect guard ---
   // Item 4: Refresh Supabase session cookie on every dashboard request.
   // getUser() validates with the Supabase Auth server and rotates the
   // refresh token when needed. getSession() must not be used here.
@@ -127,10 +176,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/api/((?!health$).*)',
-    '/dashboard/:path*',
-    '/onboarding',
-    '/onboarding/:path*',
-    '/intelligence/:path*',
+    '/((?!_next/static|_next/image|.*\\..*).*)',
   ],
 }
