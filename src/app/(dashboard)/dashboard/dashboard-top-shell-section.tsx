@@ -31,6 +31,12 @@ type DashboardTopShellSectionProps = {
   onMarkPlaced: (formData: FormData) => void | Promise<void>
   activationComplete: boolean
   activationCompletedCount: number
+  setupSteps?: Array<{
+    done: boolean
+    label: string
+    href: string
+    cta: string
+  }>
   isExecutiveMode: boolean
   isExecutivePreview: boolean
   executiveStageLabel: string
@@ -125,6 +131,7 @@ export function DashboardTopShellSection(props: DashboardTopShellSectionProps) {
         onMarkPlaced={props.onMarkPlaced}
         activationComplete={props.activationComplete}
         activationCompletedCount={props.activationCompletedCount}
+        setupSteps={props.setupSteps ?? []}
         isExecutiveMode={props.isExecutiveMode}
       />
     </>

@@ -10,6 +10,12 @@ type DashboardStatusBannersProps = {
   onMarkPlaced: (formData: FormData) => void | Promise<void>
   activationComplete: boolean
   activationCompletedCount: number
+  setupSteps: Array<{
+    done: boolean
+    label: string
+    href: string
+    cta: string
+  }>
   isExecutiveMode: boolean
 }
 
@@ -23,10 +29,80 @@ export function DashboardStatusBanners({
   onMarkPlaced,
   activationComplete,
   activationCompletedCount,
+  setupSteps,
   isExecutiveMode,
 }: DashboardStatusBannersProps) {
+  const nextSetupStep = setupSteps.find((step) => !step.done) ?? null
+
   return (
     <>
+      {!activationComplete && (
+        <section className="mb-4 rounded-2xl border border-orange-300/35 bg-orange-500/10 px-5 py-4 shadow-[0_18px_44px_rgba(15,23,42,0.16)] backdrop-blur-md">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-orange-200/90">
+                Getting started
+              </p>
+              <p className="mt-1 text-[13px] text-slate-100">
+                {activationCompletedCount} of {setupSteps.length} steps complete.
+              </p>
+              <p className="mt-1 text-[12px] text-slate-300">
+                Keep this visible until the six actions are done so first-run users always see the next move.
+              </p>
+            </div>
+
+            {nextSetupStep && (
+              <Link
+                href={nextSetupStep.href}
+                className="inline-flex min-h-[40px] items-center justify-center rounded bg-orange-500 px-4 py-2 text-[12px] font-semibold text-slate-950 transition-colors hover:bg-orange-400 shrink-0"
+              >
+                {nextSetupStep.cta}
+              </Link>
+            )}
+          </div>
+
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {setupSteps.map((step, index) => (
+              <div
+                key={step.label}
+                className={`flex items-start gap-3 rounded-lg border px-3 py-2 ${
+                  step.done
+                    ? 'border-emerald-300/25 bg-emerald-500/10'
+                    : 'border-white/10 bg-white/5'
+                }`}
+              >
+                <span
+                  className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                    step.done ? 'bg-emerald-500 text-white' : 'bg-white/10 text-slate-200'
+                  }`}
+                >
+                  {step.done ? '✓' : index + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p
+                    className={`text-[13px] font-semibold ${
+                      step.done
+                        ? 'text-emerald-100 line-through decoration-emerald-200/50'
+                        : 'text-slate-100'
+                    }`}
+                  >
+                    {step.label}
+                  </p>
+                  {!step.done && (
+                    <Link
+                      href={step.href}
+                      className="mt-1 inline-flex text-[12px] font-semibold text-orange-200 hover:text-orange-100"
+                    >
+                      {step.cta} →
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {isTrialing && (
         <div
           className={`mb-4 px-5 py-3 rounded flex items-center justify-between gap-4 text-[13px] ${

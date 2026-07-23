@@ -55,7 +55,21 @@ test('onboarding live: name step, lane step, and dark shell are present', async 
 
     await page.getByPlaceholder('Your full name').fill('Live Onboarding Check')
     await page.getByRole('button', { name: /^Start setup$/i }).click()
-    await expect(page.getByRole('heading', { name: /Which role lane are you targeting\?/i })).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('heading', { name: /Build your profile\./i })).toBeVisible({ timeout: 15_000 })
+
+    await page.getByRole('button', { name: /^Skip setup$/i }).click()
+    await expect(page).toHaveURL(/\/dashboard\/start(?:$|[/?#])/, { timeout: 15_000 })
+    await expect(page.getByRole('heading', { name: /your search is live\./i })).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('heading', { name: /Today.s one action: Upload your resume or import LinkedIn/i })).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('link', { name: /Go to profile/i }).first()).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByText(/Add your first target company/i).first()).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByText(/Generate your first prep brief/i).first()).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByText(/Add your first contact/i).first()).toBeVisible({ timeout: 15_000 })
+
+    await page.getByRole('link', { name: /Skip to dashboard/i }).click()
+    await expect(page).toHaveURL(/\/dashboard(?:$|[/?#])/, { timeout: 15_000 })
+    await expect(page.getByText(/1 of 6 steps complete/i)).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('link', { name: /^Setup$/i })).toBeVisible({ timeout: 15_000 })
   } finally {
     if (userId) {
       await admin.auth.admin.deleteUser(userId)

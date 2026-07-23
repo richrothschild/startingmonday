@@ -75,6 +75,49 @@ export type UserEventName =
 
 type EventProperties = Record<string, string | number | boolean | null>
 
+type SourceContext = {
+  signup_source: string | null
+  referral_source: string | null
+  acquisition_channel: string | null
+}
+
+async function readSourceContext(admin: ReturnType<typeof createAdminClient>, userId: string): Promise<SourceContext> {
+  try {
+    const { data } = await admin
+      .from('users')
+      .select('signup_source, referral_source, acquisition_channel')
+      .eq('id', userId)
+      .maybeSingle()
+
+    return {
+      signup_source: data?.signup_source ?? null,
+      referral_source: data?.referral_source ?? null,
+      acquisition_channel: data?.acquisition_channel ?? null,
+    }
+  } catch {
+    return {
+      signup_source: null,
+      referral_source: null,
+      acquisition_channel: null,
+    }
+  }
+}
+
+function withSourceContext(properties: EventProperties, source: SourceContext): EventProperties {
+  return {
+    ...((source.signup_source !== null && !('signup_source' in properties))
+      ? { signup_source: source.signup_source }
+      : {}),
+    ...((source.referral_source !== null && !('referral_source' in properties))
+      ? { referral_source: source.referral_source }
+      : {}),
+    ...((source.acquisition_channel !== null && !('acquisition_channel' in properties))
+      ? { acquisition_channel: source.acquisition_channel }
+      : {}),
+    ...properties,
+  }
+}
+
 /**
  * Log a user behavior event to the user_events table.
  * Uses the admin client (bypasses RLS) - server-side only.
@@ -87,10 +130,11 @@ export async function logEvent(
 ): Promise<void> {
   try {
     const admin = createAdminClient()
+    const sourceContext = await readSourceContext(admin, userId)
     await admin.from('user_events').insert({
       user_id: userId,
       event_name: eventName,
-      properties,
+      properties: withSourceContext(properties, sourceContext),
     })
   } catch {
     // Intentionally silent - analytics must not interrupt product flows
