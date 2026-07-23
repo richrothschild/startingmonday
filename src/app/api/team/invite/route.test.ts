@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const state = vi.hoisted(() => ({
   requireAuth: vi.fn(),
+  sendEmail: vi.fn(async () => ({ data: { id: 'msg_1' }, error: null } as any)),
 }))
 
 vi.mock('@/lib/require-auth', () => ({ requireAuth: state.requireAuth }))
@@ -15,14 +16,33 @@ vi.mock('@/lib/supabase/server', () => ({
 }))
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
-    from: () => ({
-      select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null }) }) }) }),
-      insert: () => ({ select: () => ({ single: async () => ({ data: { token: 'tok_1' }, error: null }) }) }),
-      update: () => ({ eq: async () => ({ error: null }) }),
-    }),
+    from: (table: string) => {
+      if (table === 'users') {
+        return {
+          select: () => ({ eq: () => ({ single: async () => ({ data: { email: 'owner@example.com' }, error: null }) }) }),
+        }
+      }
+      if (table === 'partners') {
+        return {
+          select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }) }),
+        }
+      }
+      if (table === 'team_seats') {
+        return {
+          select: () => ({ eq: () => ({}), }),
+          insert: () => ({ select: () => ({ single: async () => ({ data: { token: 'tok_1' }, error: null }) }) }),
+          update: () => ({ eq: async () => ({ error: null }) }),
+        }
+      }
+      return {
+        select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }) }),
+        insert: () => ({ select: () => ({ single: async () => ({ data: { token: 'tok_1' }, error: null }) }) }),
+        update: () => ({ eq: async () => ({ error: null }) }),
+      }
+    },
   }),
 }))
-vi.mock('@/lib/email', () => ({ sendEmail: vi.fn(async () => ({ data: { id: 'msg_1' } })) }))
+vi.mock('@/lib/email', () => ({ sendEmail: state.sendEmail }))
 vi.mock('@/lib/config', () => ({ APP_URL: 'https://startingmonday.app' }))
 
 import { POST } from './route'
@@ -54,5 +74,21 @@ describe('team invite route', () => {
     const res = await POST(req)
     expect(res.status).toBe(400)
     await expect(res.json()).resolves.toMatchObject({ error: expect.stringContaining('Invalid email') })
+  })
+
+  it('surfaces email delivery failures', async () => {
+    state.sendEmail.mockResolvedValueOnce({ data: null, error: { message: 'smtp unavailable' } } as any)
+
+    const req = new NextRequest('https://startingmonday.app/api/team/invite', {
+      method: 'POST',
+      body: JSON.stringify({ email: 'client@example.com' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(502)
+    await expect(res.json()).resolves.toMatchObject({
+      error: expect.stringContaining('email delivery failed'),
+    })
+    expect(state.sendEmail).toHaveBeenCalledTimes(1)
   })
 })
