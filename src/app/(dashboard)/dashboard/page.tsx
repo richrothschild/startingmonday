@@ -1112,6 +1112,7 @@ export default async function DashboardPage({
           onMarkPlaced={markPlaced}
           activationComplete={activation.isComplete}
           activationCompletedCount={activation.completedCount}
+          setupSteps={setupSteps}
           isExecutiveMode={isExecutiveMode}
           isExecutivePreview={isExecutivePreview}
           executiveStageLabel={executiveStageLabel}

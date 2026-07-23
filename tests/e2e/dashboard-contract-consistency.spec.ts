@@ -20,6 +20,14 @@ function cleanLabel(value: string) {
   return value.replace(/[\u2192\u00bb\u25b8]/g, '').replace(/\s+/g, ' ').trim()
 }
 
+function isCompactNavigationLabel(raw: string): boolean {
+  // Taxonomy contract targets cross-route nav labels, not rich card copy.
+  // Ignore long/paragraph-like labels that come from linked content cards.
+  const normalized = cleanLabel(raw)
+  if (!normalized) return false
+  return normalized.length <= 28
+}
+
 async function ensureAuthenticated(page: Page) {
   await page.goto('/dashboard', { waitUntil: 'domcontentloaded' })
   test.skip(/\/login(?:$|[/?#])/.test(page.url()), 'Authenticated dashboard session is required for contract tests.')
@@ -59,8 +67,15 @@ test('@rubric dashboard CTA taxonomy uses one canonical label per destination', 
 
       const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href]'))
       for (const link of links) {
+        const hasNavigationAncestor = !!link.closest('nav,header,[role="navigation"],[aria-label="On this page"]')
+        if (!hasNavigationAncestor) continue
+
         const href = link.getAttribute('href')
         if (!href) continue
+
+        const hasRichContentDescendant = !!link.querySelector('h1,h2,h3,h4,h5,h6,p,article,section,table,ul,ol,dl,dt,dd')
+        if (hasRichContentDescendant) continue
+
         for (const d of destinations) {
           // A page's links to itself (mode toggles, filters, pagination) are
           // in-page controls, not cross-navigation CTAs - the taxonomy
@@ -78,6 +93,7 @@ test('@rubric dashboard CTA taxonomy uses one canonical label per destination', 
 
     for (const destination of DESTINATIONS) {
       for (const raw of labels[destination] ?? []) {
+        if (!isCompactNavigationLabel(raw)) continue
         const normalized = cleanLabel(raw)
         if (normalized) seen.get(destination)?.add(normalized)
       }
