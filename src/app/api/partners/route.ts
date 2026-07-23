@@ -72,7 +72,14 @@ export async function POST(request: NextRequest) {
       ${!partnerError ? `<p><strong>Referral code:</strong> ${escHtml(referralCode)}</p>
       <p><strong>Referral link:</strong> <a href="${escHtml(referralLink)}">${escHtml(referralLink)}</a></p>` : ''}
     `,
-  }).catch(() => {})
+  }).catch((error) => {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'partner_inquiry_notification_failed',
+      email,
+      message: error instanceof Error ? error.message : String(error),
+    }))
+  })
 
   // Send confirmation to partner with their referral link
   if (!partnerError) {
@@ -94,7 +101,14 @@ export async function POST(request: NextRequest) {
         <p>If you have questions before we connect, reply to this email.</p>
         <p>Rich Rothschild<br>Starting Monday</p>
       `,
-    }).catch(() => {})
+    }).catch((error) => {
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'partner_confirmation_email_failed',
+        email,
+        message: error instanceof Error ? error.message : String(error),
+      }))
+    })
   }
 
   return NextResponse.json({ ok: true })

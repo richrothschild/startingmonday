@@ -51,7 +51,14 @@ export async function POST(request: NextRequest) {
         ${source ? `<tr><td style="padding:4px 16px 4px 0;color:#64748b;">Source</td><td>${source}</td></tr>` : ''}
       </table>
     `,
-  }).catch(() => {})
+  }).catch((error) => {
+    console.error(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: 'notify_new_user_email_failed',
+      email,
+      message: error instanceof Error ? error.message : String(error),
+    }))
+  })
 
   return NextResponse.json({ ok: true })
 }
