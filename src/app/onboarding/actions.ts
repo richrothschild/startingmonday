@@ -243,7 +243,14 @@ export async function completeOnboarding(formData: FormData) {
           <tr><td style="padding:4px 16px 4px 0;color:#64748b;">Time</td><td>${notifyNow} CT</td></tr>
         </table>
       `,
-    }).catch(() => {})
+    }).catch((error) => {
+      console.error(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: 'onboarding_notify_new_user_failed',
+        email: user.email,
+        message: error instanceof Error ? error.message : String(error),
+      }))
+    })
   }
 
   redirect('/dashboard/start')

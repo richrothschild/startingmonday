@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     }
 
     const joinUrl = `${APP_URL}/team/join/${seat.token}`
-    sendEmail({
+    const sendResult = await sendEmail({
       to: email,
       subject: `${inviterName} gave you access to Starting Monday`,
       html: `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:560px;margin:40px auto;padding:0 16px;color:#334155;">
@@ -136,7 +136,14 @@ export async function POST(request: NextRequest) {
   Starting Monday -- startingmonday.app
 </p>
 </body></html>`,
-    }).catch(() => {})
+    })
+
+    if (sendResult?.error) {
+      return NextResponse.json(
+        { error: `Invite created, but email delivery failed: ${sendResult.error.message}` },
+        { status: 502 },
+      )
+    }
 
     invited.push(email)
   }
