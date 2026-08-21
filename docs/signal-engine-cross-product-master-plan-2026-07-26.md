@@ -1123,6 +1123,10 @@ measurement gate, or promote a model without the accountable human decision.
 | DG-11 | Shared package extraction | Defer until two stable compatible contract releases | AO + ENG leads | Post Wave 5 | Continue independent adapters |
 | DG-12 | Public calibration claims | Quarterly, supported cohorts only, approved clean-source inputs | AO + LEGAL + DATA | Before PUB-01 | No public accuracy claim |
 | DG-13 | Portfolio and engine stewardship | Seerique is a DBA/brand of Rothschild Investments, LLC and may steward the logical engine; no third runtime, database, or implied legal/data-controller boundary | AO | Accepted 2026-07-27; review before any entity, contract, IP, or shared-repository change | Rothschild Investments, LLC remains the legal owner/steward and product-local boundaries remain authoritative |
+| DG-PTK-01 | People to Know product boundary | Four product-local slices: link-only hand-off and cited-name evidence in each product; neutral fixtures only may converge after contract approval | AO | Accepted 2026-08-21 | Keep current title-only/product behavior; no cross-product runtime, table, row, or release dependency |
+| DG-PTK-02 | People to Know outbound and reveal boundary | LinkedIn keyword search and a plain Apollo account link only; no provider fetch or contact field. MandateSignal paid contact reveal remains separately labeled, metered, and unchanged | AO | Accepted 2026-08-21 | LinkedIn-only title fallback; no Apollo link and no reveal interaction |
+| DG-PTK-03 | People to Know telemetry | Product-local count rows keyed to the owning brief delivery or tenant lead plus allowlisted destination; count and first/last timestamps only; no raw click rows, search strings, names, contact fields, URLs, or free text | AO + privacy/data review | Owner position accepted 2026-08-21; legal/privacy review before production | No destination telemetry |
+| DG-PTK-04 | Named public evidence grain | A cited name may exist only as a minimal company/lead-role evidence claim with no person entity, profile, enrichment, relationship inference, movement history, or cross-claim identifier; source rights are approved independently per product | AO + LEGAL | Owner classification accepted 2026-08-21; source/legal decisions before display | Render role title only |
 
 Decision records must include date, participants, alternatives, rationale,
 affected controls, review date, and reversal trigger.
@@ -1192,6 +1196,7 @@ automation story blocked.
 | WS2-14 MandateSignal governed improvement and independent reconstruction | AO + ENG-MS + DATA + independent reviewer | WS2-12 minimal assurance measured; WS2-13 trigger or accepted critical defect | Two advisory agents initially, registered blinded quality sets, proposal/shadow/promotion workflow, control-correlation review, and quarterly clean-room reconstruction. Four additional agents and long soak remain trigger-deferred | No implementer self-approves evidence or promotion; independent reviewer reconstructs one signal; recommendations are bounded and reversible; long soak begins only with representative measured load and an accepted capacity question |
 | WS2-15 Scanner page-acquisition economics | ENG-SM | WS2-01, WS2-02 | Acquisition-path decision contract plus per-scan path telemetry: authoritative-zero versus lookup-failure distinction, ATS adapter coverage, and render budget per cycle | Per-scan acquisition path recorded in `scan_results`; an ATS returning HTTP 200 with an empty list produces a zero-hit result and zero render calls; render volume per cycle measurably below the recorded pre-change baseline |
 | WS2-16 Source URL integrity | ENG-SM | WS0-03 | Normalization and validation contract for `companies.career_page_url` on write, plus a corrected backfill of existing rows | No stored career URL fails validation; no two companies under one owner silently share a career URL; corrected rows recorded with prior values |
+| WS2-17 Scan outcome visibility | ENG-SM | WS2-16 | Per-company scan health projection derived from `scan_results`, a bounded set of user-facing outcome states, and a career-URL prompt at company-add | Every active company resolves to exactly one displayed state with no empty or ambiguous case; a company with no career URL shows a prompt rather than silence; "working, no roles yet" is visually distinct from every failure state; the count of companies with no career URL falls measurably after the prompt ships |
 
 WS2-10 through WS2-14 are implemented only in the MandateSignal repository.
 They do not create a Starting Monday runtime, data, deployment, or release
@@ -1257,6 +1262,62 @@ windows, 2026-08-20: scan-gap distribution by tier, successful scans per company
 per week against advertised cadence, scan failure causes, and 429 counts grouped
 by acquisition path. These are measured facts about the deployed system. No
 claim here establishes that a fix is deployed or that its effect is measured.
+
+#### 16.3.2 Re-plan addendum 2026-08-21 - scan outcome visibility
+
+Recorded by ENG-SM (Chris Goodwin) on 2026-08-21 under the AGENTS.md
+signal-engine preflight. Pending AO review. Adds WS2-17.
+
+**Why a further story is required.** WS2-16 governs whether a stored career URL
+is well-formed and points at the right company. Measurement taken on 2026-08-21
+shows that URL validity is a small part of the problem it was created to solve.
+
+Of 198 active companies, a validation sweep rejects **4** rows. In the same
+population, **113 companies deliver nothing**: 61 have no career URL at all and
+are silently never scanned, and 52 have a URL but produced no productive scan in
+their last three attempts, across 13 distinct users.
+
+The 52 divide five ways, and the product renders all five identically as
+silence:
+
+| Cause | Companies |
+| --- | --- |
+| Reads correctly, genuinely no matching leadership roles | 22 |
+| Fetch failure, predominantly browserless.io rate limiting | 13 |
+| ATS with no adapter | 7 |
+| Supported ATS, stale token or URL | 5 |
+| Target site blocks automated access | 5 |
+
+A user cannot distinguish "no roles exist" from "we cannot read this page". The
+scanner computes the distinction on every run and discards it at the UI
+boundary. No story in WS2-01 through WS2-16 covers user-visible scan outcome, so
+WS2-17 is added rather than stretching WS2-16 past its stated deliverable.
+
+**Relationship to the existing stories.** WS2-17 depends on WS2-16 for the
+career-URL prompt, and is otherwise independent. It does not require WS2-15
+telemetry, and it improves the user-visible picture regardless of the order in
+which WS2-15, WS2-16 and the browserless.io concurrency work land.
+
+**Effect on WS2-16 scope.** WS2-17 removes the recurring-cleanup justification
+for WS2-16. A user shown an honest failure state corrects their own career URL,
+so backfills against data owned by other people stop being the remedy. WS2-16
+retains validation on write, which prevents the malformed value being stored in
+the first place, and its one-off backfill, which was applied to seven rows on
+2026-08-21. Note four of the rejectable rows are owned by a team member and were
+deliberately left unmodified; WS2-16 reports rows it does not own rather than
+editing them, and WS2-17 is how their owner learns of them.
+
+**Rollback and kill behavior.**
+
+| Story | Rollback / kill behavior |
+| --- | --- |
+| WS2-17 | The scan health projection is derived and additive; it never gates a scan and can be recomputed from `scan_results` at any time. Outcome states degrade to the current silent behavior by configuration without redeploy. The career-URL prompt is dismissible and never blocks company creation. No user-owned data is modified by this story. |
+
+**Evidence produced.** Production read-only measurement, 35-day window,
+2026-08-21: company counts by scan outcome class, dark-company breakdown by
+cause, affected user counts, and a validation sweep of all active career URLs.
+These are measured facts about the deployed system. No claim here establishes
+that a fix is deployed or that its effect is measured.
 
 ### 16.4 WS3 stories - contracts and local ledgers
 
@@ -1330,6 +1391,8 @@ claim here establishes that a fix is deployed or that its effect is measured.
 | WS7-07 Outcome loop | ENG-SM | WS7-02 | Feedback controls and local recipe update | Feedback event and resulting config version are both auditable |
 | WS7-08 Product promotion gate | AO + OPS | WS6-08, WS7-03 through WS7-07 | Cohort rollout decision | Existing release, UX, a11y, performance, privacy and telemetry gates pass |
 | WS7-09 Outreach-assist lift study | AO + DATA | WS7-06, measured cohort | Action, conversion and retention comparison for assisted versus eligible unassisted leads | Rung 3 remains out of backlog until measured positive lift and at least 10 paying customers; confounding and support reported |
+| WS7-10 People to Know hand-off | ENG-SM | DG-PTK-01 through DG-PTK-03; approved UX contract; existing Live Brief delivery | Default-off title/why-them block with allowlisted LinkedIn search and optional plain Apollo account link; no provider fetch or contact data | URL/component/no-contact/no-fetch/no-send tests, count-only telemetry tests, private-brief desktop/mobile checks, and flag-off characterization pass |
+| WS7-11 People to Know cited names | ENG-SM + LEGAL | WS7-10; WS1-08 product-local display decisions; WS2-04/06; DG-PTK-04 | Request/company-role evidence claims with source/date, 90-day re-verification, conflict/retraction handling, title fallback, and human review | Rights, RLS/service-role, retention/deletion, stale/conflict/blocked/uncited fixtures, manual-source trial, collection kill, and Live Brief render evidence pass |
 
 ### 16.9 WS8 stories - MandateSignal projection
 
@@ -1343,6 +1406,8 @@ claim here establishes that a fix is deployed or that its effect is measured.
 | WS8-06 Operator QA and correction | ENG-MS | WS8-03, AUTHZ-04 | Suppress, correct, rescore and rerun with immutable audit | Admin authorization and recent-auth requirements pass |
 | WS8-07 Quality burn-in | AO + OPS | WS8-04 through WS8-06 | Niche-specific usefulness/evidence/freshness/duplicate scorecard | MandateSignal GA control ENG-04 thresholds approved and met before unreviewed delivery |
 | WS8-08 Limited-availability gate | AO | WS8-07 plus GA P0 controls | Launch disposition | This plan records GA register result; it does not override open controls |
+| WS8-09 People to Know hand-off | ENG-MS | DG-PTK-01 through DG-PTK-03; approved UX contract; pinned lead/detail route | Default-off lead-detail title/why-them block with allowlisted LinkedIn search and optional plain Apollo account link, visibly separate from paid contact reveal | URL/component/no-contact/no-fetch/no-send tests prove zero reveal-provider calls, credits, or reveal-ledger writes; tenant denial, mobile/desktop, and flag-off checks pass |
+| WS8-10 People to Know cited names | ENG-MS + LEGAL | WS8-09; D14/D15 classification; DG-PTK-04; source rights; ENG-03/04; AUTHZ-01/02/04; LEG-03/04/05; REL-04 | Tenant/lead-role evidence claims with source/date, 90-day re-verification, contradiction/retraction handling, title fallback, and founder QA | Product-local rights, RLS, retention/deletion, stale/conflict/blocked/uncited fixtures, manual-source trial, collection kill, no reveal coupling, and Limited Availability evidence pass |
 
 ### 16.10 WS9 stories - aggregate learning exchange
 

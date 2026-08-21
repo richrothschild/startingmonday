@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { parsePeopleToKnowHandoffs } from '@/lib/people-to-know-handoff'
+import PeopleToKnowSection from './people-to-know-section'
 
 type Artifact = { version: number; brief_payload: Record<string, unknown>; content_hash: string }
 
@@ -15,6 +17,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export default function LiveBriefPublicPage({ params }: { params: Promise<{ token: string }> }) {
   const [token, setToken] = useState('')
   const [artifact, setArtifact] = useState<Artifact | null>(null)
+  const [peopleHandoffEnabled, setPeopleHandoffEnabled] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -23,10 +26,11 @@ export default function LiveBriefPublicPage({ params }: { params: Promise<{ toke
       setToken(routeToken)
       return fetch(`/api/live-brief/${routeToken}`, { cache: 'no-store' })
     }).then(async (response) => {
-      const result = await response.json() as { artifact?: Artifact; error?: string }
+      const result = await response.json() as { artifact?: Artifact; capabilities?: { people_to_know_handoff?: boolean }; error?: string }
       if (!active) return
       if (!response.ok || !result.artifact) throw new Error(result.error ?? 'This brief is no longer available.')
       setArtifact(result.artifact)
+      setPeopleHandoffEnabled(result.capabilities?.people_to_know_handoff === true)
     }).catch((cause: unknown) => {
       if (active) setError(cause instanceof Error ? cause.message : 'This brief is no longer available.')
     })
